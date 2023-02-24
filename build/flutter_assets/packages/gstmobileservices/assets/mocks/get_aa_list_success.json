@@ -1,0 +1,21 @@
+{
+  "status": 1001,
+  "message": "Details found",
+  "referenceId": "d4da0ea9-722a-419b-ba6b-cdbdc4a8445f",
+  "data": [
+    {
+      "refirectUrlPrefix": "https://aa-sandbox.onemoney.in",
+      "code": "ONEMONEY",
+      "base64Image": "",
+      "aaId": "@onemoney",
+      "name": "One Money"
+    },
+    {
+      "refirectUrlPrefix": null,
+      "code": "FINVU",
+      "aaId": "@finvu",
+      "name": "FinVu",
+      "base64Image": ""
+    }
+  ]
+}

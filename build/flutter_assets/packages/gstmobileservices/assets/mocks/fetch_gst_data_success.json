@@ -1,0 +1,8 @@
+{
+  "status": 1001,
+  "message": "Details found",
+  "data": {
+    "status":"PROCEED",
+    "loanApplicationRefId": "bd141d73-194f-46cc-a24b-98cdcb2ac60d"
+  }
+}

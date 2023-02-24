@@ -1,0 +1,10 @@
+{
+  "data": {
+    "currentStage": "DISBURSEMENT_STATUS",
+    "stageStatus": "PROCEED",
+    "nextStage": "DISBURSED"
+  },
+  "message": "Success",
+  "serverRequestId": "1603c57b-798",
+  "status": 1000
+}

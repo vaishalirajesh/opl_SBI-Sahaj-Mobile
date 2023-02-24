@@ -1,0 +1,46 @@
+{
+  "str_appName":"PNB Sahay",
+
+  "apptitle.terms_conditions": "Terms & Conditions",
+  "title.terms_conditions":"Terms & Conditions",
+  "subtitle.terms_conditions": "Sint eum dolorem et et voluptas. Maiores quia non neque aliquid. Expedita illo tenetur voluptas quo quo dolore assumenda. Est optio quasi laborum vel enim est delectus praesentium doloribus. Repellendus consequatur eligendi necessitatibus. Aliquam consequatur ea beatae vel omnis saepe. Quisquam placeat culpa velit officia earum voluptatem. Aperiam nihil optio quae totam dolor dolorum nihil et non. Architecto sit eligendi placeat est est a quidem repellat ea. Temporibus ad natus repellendus voluptatem. Sed voluptas quo non amet dolorem quia fugiat provident dolores. Ex temporibus vel numquam amet perferendis quaerat. Odit accusantium consequatur possimus ratione quas et vero. Aut vel iure sapiente. Rerum id ut dolorum omnis omnis. Tenetur nobis nemo voluptatem atque et qui quas. Harum molestias repudiandae aut sit. Similique qui accusantium explicabo voluptatum. Deserunt quas est omnis ullam est. Quo a deleniti voluptas facere. Beatae dolores magnam quasi voluptas dolores assumenda. In ullam beatae nostrum ex minima possimus et unde doloribus. Et repellendus id molestias culpa eum dolorem. Aut qui odit voluptatem unde. Beatae ab doloribus itaque est ea. Veniam quo aut ducimus doloribus numquam est ut in quibusdam. Iste nihil repudiandae commodi et et necessitatibus autem minima rerum.Architecto consequuntur molestiae eveniet. Earum dolor ut iusto nostrum qui. Aspernatur maiores dolores. Ut mollitia blanditiis exercitationem ipsa similique. Cumque dicta voluptate tempora et ipsam ipsa eligendi id. Earum magnam assumenda quibusdam rem soluta rem voluptas. Dignissimos et non ipsum voluptatem velit laboriosam animi. In fugiat cumque et incidunt voluptatem. Sed possimus voluptatibus fugit quas vitae aperiam qui officia. Natus repudiandae et recusandae velit. Perferendis consequatur eos recusandae rem. Ea eius praesentium enim dolor ad fugiat. Assumenda velit aspernatur ipsam omnis unde autem magni minima. Provident labore quam nihil laborum ut dolores. Et est dignissimos perferendis necessitatibus et voluptatem. Optio et repellendus veniam libero autem qui. Ullam quo voluptatem beatae. Unde et soluta est et veniam. Eum repellendus ratione voluptate voluptatem officia ad. Corrupti corrupti et dolorum recusandae. Illum placeat quis culpa praesentium. Natus qui ut architecto quisquam saepe sed. Eaque eum alias et illo. Aut sequi mollitia perferendis illum quo eaque dolorem nihil iusto. Hic voluptatem quia asperiores perferendis. Reprehenderit velit fugiat vel nobis ut labore dignissimos fuga. Dolores nulla in similique temporibus. Sint in ab illo accusamus est quas a. Assumenda illo autem qui cumque ut. Recusandae earum sunt consectetur consequatur cumque voluptatum ipsam.",
+  "checkbox.text.terms_conditions": "I agree to the terms & condition's",
+  "button.text.terms_conditions": "Agree",
+
+  "title.thanks_for_confirming": "Thanks for confirming!!",
+  "subtile.thanks_for_confirming": "You can proceed for registration for GST-Sahay",
+  "button.thanks_for_confirming": "Start Registration",
+
+  "apptitle.give_consent_for_gst":"Registration",
+  "appsubtitle.give_consent_for_gst":"1",
+
+  "title.give_consent_for_gst":"Give Consent for GST",
+  "subtitle.give_consent_for_gst":"Allow Sahay to fetch your GST Data",
+  "containertitle.give_consent_for_gst":"GST Data Consent",
+  "containersubtitle.give_consent_for_gst":"You hereby undertake and confirm that you have permitted and allowed SAHAY GST application to pull your GST records -GSTR1, GSTR2A and GSTR3B - for the last 12 months from the date of providing consent. You acknowledge and confirm that you have consented to the sharing of your GST Data with lenders on the platform (and their service providers, if any) for the purpose of generating credit offers.",
+  "checkbox.text.give_consent_for_gst":"I understand and agree to Sahay’s Terms",
+  "button.give_consent_for_gst" :"Give Consent",
+
+  "apptitle.gst_details":"Registration",
+  "appsubtitle.gst_details":"1",
+  "title.gst_details":"Enter GST Details",
+  "subtitle.gst_details":"Kindly enter your GST Username & GSTIN to link with Sahay GST Account",
+  "textfield.username.hint.gst_details": "GST User Name",
+  "textfield.gstdigit.hint.gst_details": "15-Digit GSTIN",
+  "center.title.gst_details": "Sample: 20AAAAAA1234AA1Z5",
+  "button.gst_details.": "gst_details",
+
+
+  "title.verifygstin":"Verify GSTIN",
+  "subtitle.verifygstin":"OTP sent to Mobile number and Email linked to GSTIN: ",
+  "center.title.verifygstin":"Enter 6 Digit OTP received on",
+  "center.subtitle.1.verifygstin":"Didn't received OTP yet ?",
+  "center.subtitle.2.verifygstin":"Resend OTP",
+  "button.verifygstin.": "Verify",
+
+  "title.fetching_your_gst_business": "Fetching your GST business details...",
+  "subtitle.fetching_your_gst_business": "Kindly wait for 60s",
+
+  "apptitle.confirm_details":"Registration",
+  "appsubtitle.confirm_details":"1"
+}

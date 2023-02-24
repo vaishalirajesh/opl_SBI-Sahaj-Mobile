@@ -1,0 +1,473 @@
+{
+  "status": 1001,
+  "data": [
+    {
+      "invoiceData": {
+        "invNum": "2022-23/005",
+        "invDate": "02-09-2022",
+        "invValue": 35400
+      },
+      "ctin": "24AABFT1588R1ZK",
+      "buyerName": "TRIVENI SHIP BREAKERS LLP"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23008",
+        "invDate": "02-09-2022",
+        "invValue": 24190
+      },
+      "ctin": "24AABFV5678G1ZY",
+      "buyerName": "V.K.PARIKH MEDICALS AGENCY"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23/015",
+        "invDate": "19-09-2022",
+        "invValue": 75402
+      },
+      "ctin": "24AADFM2788G1Z8",
+      "buyerName": "MAHADEV  ROLLER  FLOOR  MILL"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23010",
+        "invDate": "02-09-2022",
+        "invValue": 14750
+      },
+      "ctin": "24AAEFT1727F1ZH",
+      "buyerName": "TANNA TRAVELS AGENCY"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23/007",
+        "invDate": "02-09-2022",
+        "invValue": 11800
+      },
+      "ctin": "24AAGFK3894G1Z6",
+      "buyerName": "KANADIYA   INDUSTRIAL GASES"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23012",
+        "invDate": "02-09-2022",
+        "invValue": 21476
+      },
+      "ctin": "24AAHFS3915R1ZO",
+      "buyerName": "SHRI SITARAM GAS AGENCY"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23/006",
+        "invDate": "02-09-2022",
+        "invValue": 11800
+      },
+      "ctin": "24AAJFA0575D1ZV",
+      "buyerName": "APPOLO GASSES"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23009",
+        "invDate": "02-09-2022",
+        "invValue": 34220
+      },
+      "ctin": "24AAYFS5867P1ZW",
+      "buyerName": "SHRI SAI TRAVELS"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23011",
+        "invDate": "02-09-2022",
+        "invValue": 12980
+      },
+      "ctin": "24ACAPV6969R1ZJ",
+      "buyerName": "Dharmnatheshwar Enterprise"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23/016",
+        "invDate": "19-09-2022",
+        "invValue": 23600
+      },
+      "ctin": "24ACYPP1662P1ZP",
+      "buyerName": "KANAIYALAL NANDLAL PAREKH"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23028",
+        "invDate": "04-10-2022",
+        "invValue": 44250
+      },
+      "ctin": "24AAACY4757B1ZI",
+      "buyerName": "YASH GASES PRIVATE LIMITED"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23040",
+        "invDate": "04-10-2022",
+        "invValue": 27730
+      },
+      "ctin": "24AAAFE5311J1ZV",
+      "buyerName": "ELECTROMECH ENGINEERING"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23060",
+        "invDate": "10-10-2022",
+        "invValue": 295000
+      },
+      "ctin": "24AABCM4381J1ZG",
+      "buyerName": "MADHU SILICA PVT LTD"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23/025",
+        "invDate": "04-10-2022",
+        "invValue": 35400
+      },
+      "ctin": "24AABCO2876J1ZA",
+      "buyerName": "OMKAR SYNTHETICS PRIVATE LIMITED"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23/061",
+        "invDate": "18-10-2022",
+        "invValue": 17700
+      },
+      "ctin": "24AABCP7438B2ZP",
+      "buyerName": "PURE ENTERPRISES PVT. LTD."
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23056",
+        "invDate": "10-10-2022",
+        "invValue": 23600
+      },
+      "ctin": "24AABFC4733B1Z5",
+      "buyerName": "C KIRITKUMAR & BROS"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23057",
+        "invDate": "10-10-2022",
+        "invValue": 33040
+      },
+      "ctin": "24AABFH2605P1ZG",
+      "buyerName": "HANSA CHEMICALS"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23/048",
+        "invDate": "04-10-2022",
+        "invValue": 18880
+      },
+      "ctin": "24AABFV6316M1Z0",
+      "buyerName": "V K PARIKH ENTERPRISE"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23/051",
+        "invDate": "04-10-2022",
+        "invValue": 147500
+      },
+      "ctin": "24AACFJ3659C1ZO",
+      "buyerName": "JANAM STEELS AND ALLOYS"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23020",
+        "invDate": "04-10-2022",
+        "invValue": 18290
+      },
+      "ctin": "24AADFK7958E1Z8",
+      "buyerName": "KALYAN INDUSTRIES"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23052",
+        "invDate": "04-10-2022",
+        "invValue": 11800
+      },
+      "ctin": "24AADFM3132E1ZW",
+      "buyerName": "MADHAV SAFE DEPOSIT VAULT"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23059",
+        "invDate": "10-10-2022",
+        "invValue": 16284
+      },
+      "ctin": "24AADFM3287E1ZG",
+      "buyerName": "SHAH MAHIPTRAI NANALAL"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23033",
+        "invDate": "04-10-2022",
+        "invValue": 38350
+      },
+      "ctin": "24AADFM3387M1ZY",
+      "buyerName": "MADHAV  STEEL"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23/043",
+        "invDate": "04-10-2022",
+        "invValue": 7080
+      },
+      "ctin": "24AAEFJ4956E1ZG",
+      "buyerName": "J KAMLESHKUMAR AND BROS"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23021",
+        "invDate": "04-10-2022",
+        "invValue": 38350
+      },
+      "ctin": "24AAEFM6059P1ZS",
+      "buyerName": "MADHAV INDUSTRIAL CORPORATION"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23/045",
+        "invDate": "04-10-2022",
+        "invValue": 47200
+      },
+      "ctin": "24AAEFP3353P1ZY",
+      "buyerName": "PANCHVATI SHIP BREAKERS"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23054",
+        "invDate": "04-10-2022",
+        "invValue": 11800
+      },
+      "ctin": "24AAEFT1727F1ZH",
+      "buyerName": "TANNA TRAVELS AGENCY"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23023",
+        "invDate": "04-10-2022",
+        "invValue": 21240
+      },
+      "ctin": "24AAGFN1402P1ZC",
+      "buyerName": "NEW KALYAN INDUSTRIES"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23/049",
+        "invDate": "04-10-2022",
+        "invValue": 34810
+      },
+      "ctin": "24AAHCM8863D1ZC",
+      "buyerName": "MADHAV METCAST PRIVATE LIMITED"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23/044",
+        "invDate": "04-10-2022",
+        "invValue": 9440
+      },
+      "ctin": "24AAHFP3294L1ZV",
+      "buyerName": "PATEL KANTILAL GORDHANDAS"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23/047",
+        "invDate": "04-10-2022",
+        "invValue": 29500
+      },
+      "ctin": "24AAHFS6244D1ZD",
+      "buyerName": "SAIBABA SHIP BREAKING CORPORATION"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23024",
+        "invDate": "04-10-2022",
+        "invValue": 13570
+      },
+      "ctin": "24AALPS9335F1ZE",
+      "buyerName": "NAVAKJAR TRADARS"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23018",
+        "invDate": "04-10-2022",
+        "invValue": 35400
+      },
+      "ctin": "24AANFA9268K1ZW",
+      "buyerName": "ANAND SYNTHETICS"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23/042",
+        "invDate": "04-10-2022",
+        "invValue": 5900
+      },
+      "ctin": "24AAPFG7339F1Z7",
+      "buyerName": "GHANSHYAM TRADERS"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23/041",
+        "invDate": "04-10-2022",
+        "invValue": 7080
+      },
+      "ctin": "24AAQFG7890Q1ZB",
+      "buyerName": "GAUTAM TRADE LINK"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23/046",
+        "invDate": "04-10-2022",
+        "invValue": 47200
+      },
+      "ctin": "24AATFS2950A1ZA",
+      "buyerName": "SAGAR LAXMI SHIP BREAKERS"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23055",
+        "invDate": "05-10-2022",
+        "invValue": 17700
+      },
+      "ctin": "24AAYFS5867P1ZW",
+      "buyerName": "SHRI SAI TRAVELS"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23034",
+        "invDate": "04-10-2022",
+        "invValue": 12980
+      },
+      "ctin": "24AAZPV4226G1Z7",
+      "buyerName": "NALINKUMAR RAMNIKLAL VORA"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23026",
+        "invDate": "04-10-2022",
+        "invValue": 64900
+      },
+      "ctin": "24ABVPM9411F1ZF",
+      "buyerName": "GUNJAN RAMESHCHANDRA MEHTA"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23029",
+        "invDate": "04-10-2022",
+        "invValue": 23600
+      },
+      "ctin": "24ACQPM8533Q1ZQ",
+      "buyerName": "P.G. SALES CORPORATION"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23027",
+        "invDate": "04-10-2022",
+        "invValue": 17700
+      },
+      "ctin": "24ADIFS2799H1ZM",
+      "buyerName": "SHIVAM FIBRES"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23019",
+        "invDate": "04-10-2022",
+        "invValue": 21240
+      },
+      "ctin": "24AENPB6393L1Z4",
+      "buyerName": "HITESHKUMAR BALWANTRAY BHAYANI"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23022",
+        "invDate": "04-10-2022",
+        "invValue": 21240
+      },
+      "ctin": "24AEWPB9638R1ZH",
+      "buyerName": "MANISHA RAJESHKUMAR BHAYANI"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23035",
+        "invDate": "04-10-2022",
+        "invValue": 29854
+      },
+      "ctin": "24AFUPS1760E2Z7",
+      "buyerName": "JAYESH JITENDRAKUMAR SHETH"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23030",
+        "invDate": "04-10-2022",
+        "invValue": 35400
+      },
+      "ctin": "24AGNPS9039G1ZX",
+      "buyerName": "HEMALI CHETANKUMAR SHAH"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23/053",
+        "invDate": "04-10-2022",
+        "invValue": 24780
+      },
+      "ctin": "24AHDPB5969K1Z6",
+      "buyerName": "ASHOKKUMAR NANAKRAM BALCHANDANI"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23032",
+        "invDate": "04-10-2022",
+        "invValue": 9440
+      },
+      "ctin": "24ANNPS4664A1ZX",
+      "buyerName": "AMISH ROHITKUMAR SHAH"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23039",
+        "invDate": "04-10-2022",
+        "invValue": 8850
+      },
+      "ctin": "24ANZPS7190R1ZJ",
+      "buyerName": "SIRISHKUMAR CHAMPAKLAL SHETH"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23038",
+        "invDate": "04-10-2022",
+        "invValue": 17700
+      },
+      "ctin": "24DPHPK1697N1ZA",
+      "buyerName": "MOHMAD ALTAF KALIWALA"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23036",
+        "invDate": "04-10-2022",
+        "invValue": 147500
+      },
+      "ctin": "27AAECK3353K1ZD",
+      "buyerName": "KARBONSTEEL ENGINEERING PRIVATE LIMITED"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23037",
+        "invDate": "04-10-2022",
+        "invValue": 41300
+      },
+      "ctin": "30AAACR9303A1Z6",
+      "buyerName": "RAJANI TRADING AND INVESTMENTS PRIVATE LIMITED"
+    },
+    {
+      "invoiceData": {
+        "invNum": "2022-23065",
+        "invDate": "30-12-2022",
+        "invValue": 5900
+      },
+      "ctin": "24ACAPV6969R1ZJ",
+      "buyerName": "Dharmnatheshwar Enterprise"
+    }
+  ]
+}

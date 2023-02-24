@@ -1,0 +1,10 @@
+{
+  "data": {
+    "currentStage": "CONSENT",
+    "stageStatus": "PROCEED",
+    "nextStage": "LOAN_OFFER"
+  },
+  "message": "Success",
+  "serverRequestId": "9d4c33a1-13",
+  "status": 1000
+}

@@ -1,0 +1,15 @@
+{
+  "status": 1000,
+  "message": "OTP Successfully sent successfully",
+  "serverRequestId": "495a6224-9e32-4a10-9ec5-9a380b0884b6",
+  "data": {
+    "credBlock": {
+      "appToken": "ABCD4515DDSS",
+      "otpSessionKey": "8e649a6c-791d-4d68-b405-34ade1155c72",
+      "status": "PENDING"
+    },
+    "userRefId": "6829139c-6daa-4ef5-8f17-6d11bec612a7",
+    "sessionKey": "ace4fac0-f5af-4bd5-81c5-cd2372d7e2f9",
+    "deviceId": "AIBIBUIBD3323435@#43$#Q#"
+  }
+}

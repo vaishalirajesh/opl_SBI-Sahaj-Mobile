@@ -1,0 +1,12 @@
+{
+  "status": 1000,
+  "message": "Success",
+  "referenceId": "ac698a21-a443-43f7-b2eb-c90da7100552",
+  "data": {
+    "ack": {
+      "error": "0",
+      "traceId": "3ba17c348c01-4427-8c82-0eb41064dcf9",
+      "timestamp": "2022-02-28T14:26:08.496Z"
+    }
+  }
+}

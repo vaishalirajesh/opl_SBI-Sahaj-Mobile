@@ -1,0 +1,10 @@
+{
+  "data": {
+    "currentStage": "CONSENT_MONITORING",
+    "stageStatus": "PROCEED",
+    "nextStage": "DISBURSEMENT"
+  },
+  "message": "Success",
+  "serverRequestId": "0fea92d0-772",
+  "status": 1000
+}

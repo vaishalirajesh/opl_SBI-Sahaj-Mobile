@@ -1,0 +1,43 @@
+{
+  "status": 1000,
+  "message": "Details found",
+  "referenceId": "b02f2465-bc69-4eec-856d-5d8b93072240",
+  "data": [
+    {
+      "loanApplicationId": "4661badf6b1a-44c8-98cb-c0e5eb07b8d3",
+      "offerId": "c9e20274e037-44b0-804d-17b1d405236b",
+      "loanAppRefNo": "e56919b9-fb5f-45bf-9618-32c6826ba3c5",
+      "repaymentPlanId": "3c1ab4db65e7-4270-8f84-e6863258859d",
+      "loanApplicationCode": "GST-SAHAY-0000686",
+      "currentApplicationStage": "DISBURSEMENT_STATUS",
+      "nextApplicationStage": "DISBURSEMENT",
+      "gstin": "24AAGFV5271N1ZP",
+      "createdDt": "2022-04-21T07:18:17.000+0000",
+      "tradeNam": "V M SHAH & CO",
+      "totalInvoice": 70,
+      "buyerName": "ASHOKKUMAR NANAKRAM BALCHANDANI",
+      "invoiceNumber": "2021-22/062",
+      "invoiceAmount": "23010.0",
+      "aaId": "@onemoney",
+      "aaCode": "ONEMONEY"
+    },
+    {
+      "loanApplicationId": "4661badf6b1a-44c8-98cb-c0e5eb07b8d3",
+      "offerId": "c9e20274e037-44b0-804d-17b1d405236b",
+      "loanAppRefNo": "e56919b9-fb5f-45bf-9618-32c6826ba3c5",
+      "repaymentPlanId": "3c1ab4db65e7-4270-8f84-e6863258859d",
+      "loanApplicationCode": "GST-SAHAY-0000686",
+      "currentApplicationStage": "GRANT_LOAN",
+      "nextApplicationStage": "E_MANDATE",
+      "gstin": "24AAGFV5271N1ZP",
+      "createdDt": "2022-04-21T07:18:17.000+0000",
+      "tradeNam": "V M SHAH & CO",
+      "totalInvoice": 70,
+      "buyerName": "ASHOKKUMAR NANAKRAM BALCHANDANI",
+      "invoiceNumber": "2021-22/062",
+      "invoiceAmount": "23010.0",
+      "aaId": "@onemoney",
+      "aaCode": "ONEMONEY"
+    }
+  ]
+}

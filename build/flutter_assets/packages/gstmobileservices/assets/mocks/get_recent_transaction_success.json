@@ -1,0 +1,33 @@
+{
+  "status": 1000,
+  "message": "Details found",
+  "referenceId": "8f69b037-4b4b-4194-82b6-fc22c7b4ecbd",
+  "data": {
+    "transactionList": [
+      {
+        "tradename": "TRIVENI SHIP BREAKERS LLP",
+        "createdDate": "2022-07-01T05:30:28.000+0000",
+        "invoiceAmount": "5900.0",
+        "status": "INPROGRESS"
+      },
+      {
+        "tradename": "MOHMAD ALTAF KALIWALA",
+        "createdDate": "2022-06-30T13:25:38.000+0000",
+        "invoiceAmount": "17700.0",
+        "status": "EXPIRED"
+      },
+      {
+        "tradename": "TRIVENI SHIP BREAKERS LLP",
+        "createdDate": "2022-06-30T13:25:38.000+0000",
+        "invoiceAmount": "17700.0",
+        "status": "REPAID"
+      },
+      {
+        "tradename": "MOHMAD ALTAF KALIWALA",
+        "createdDate": "2022-06-30T13:25:38.000+0000",
+        "invoiceAmount": "17700.0",
+        "status": "DISBURSED"
+      }
+    ]
+  }
+}
