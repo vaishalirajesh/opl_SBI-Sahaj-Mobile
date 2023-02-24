@@ -25,8 +25,7 @@ import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/utils/locale/localehelper.dart';
 import 'package:sbi_sahay_1_0/utils/locale/tg_locale.dart';
-import 'package:sbi_sahay_1_0/welcome/%20moblile/accverification/ui/accverificationscreen.dart';
-import 'package:sbi_sahay_1_0/welcome/%20moblile/splash/splashscreen.dart';
+
 import 'package:sbi_sahay_1_0/welcome/gstconsentconfirmthanks/mobile/gstconsentconfirmthanks.dart';
 import 'package:sbi_sahay_1_0/welcome/ntbwelcome/mobileui/enablegstapintb.dart';
 import 'package:sbi_sahay_1_0/welcome/ntbwelcome/mobileui/getstarted.dart';
@@ -119,7 +118,7 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
           theme: ThemeHelper.getInstance(),
           scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),
           routes: {
-            MyRoutes.splashRoutes: (context) => SplashMain(),
+           // MyRoutes.splashRoutes: (context) => SplashMain(),
             MyRoutes.welcomeRoutes: (context) => WelcomePage(),
             MyRoutes.tcRouted: (context) => TCview(),
             MyRoutes.GetStartedScrRoutes: (context) => const GetStartedScreen(),
@@ -144,7 +143,7 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
             MyRoutes.AAWebViewCallBack: (context) =>  AAAfterCallBack(),
             MyRoutes.infoShareRoutes: (context) => InfoShare(),
             MyRoutes.loanOfferListRoutes: (context) => LoanOfferList(),
-            MyRoutes.accVerificationRoutes: (context) => AccVerification(),
+          //  MyRoutes.accVerificationRoutes: (context) => AccVerification(),
             MyRoutes.DashboardWithGSTRoutes: (context) => DashboardWithGST(),
             MyRoutes.TransactionRoutes: (context) => TransactionsView(),
            // MyRoutes.loanOfferSelectedRoutes: (context) => CongratulationsMain(),
