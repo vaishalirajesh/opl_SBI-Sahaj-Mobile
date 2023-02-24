@@ -1,0 +1,10 @@
+{
+  "data": {
+    "currentStage": "SHARE_INVOICE",
+    "stageStatus": "HOLD",
+    "nextStage": "CONSENT"
+  },
+  "message": "Fail",
+  "serverRequestId": "d86edb9d-12",
+  "status": 1001
+}

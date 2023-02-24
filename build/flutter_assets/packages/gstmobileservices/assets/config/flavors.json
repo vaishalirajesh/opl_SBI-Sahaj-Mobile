@@ -1,0 +1,77 @@
+[
+  {
+    "name": "dev",
+    "baseUrl": "https://uat-gst-sahay.instantmseloans.in",
+    "logLevel": "DEBUG",
+    "applyMock": true,
+    "mockMappingsFile":"packages/gstmobileservices/assets/mocks/_mappings.json",
+    "params": {
+      "productListMaxCount": 10
+    }
+  },
+  {
+    "name": "dev_uat_pnb_debug",
+    "baseUrl": "https://pnbuat-gstsahay.instantmseloans.in",
+    "logLevel": "DEBUG",
+    "applyMock": false,
+    "params": {
+      "productListMaxCount": 10
+    }
+  },
+
+  {
+    "name": "dev_uat_opl_release",
+    "baseUrl": "https://pnbuat-gstsahay.instantmseloans.in",
+    "logLevel": "ERROR",
+    "applyMock": false,
+    "params": {
+      "productListMaxCount": 10
+    }
+  },
+  {
+    "name": "dev_uat_pnb_release",
+    "baseUrl": "https://uat.gstsahay.mypnb.in",
+    "logLevel": "ERROR",
+    "applyMock": false,
+    "params": {
+      "productListMaxCount": 10
+    }
+  },
+  {
+    "name": "dev_uat_sidbi",
+    "baseUrl": "https://uat-gst-sahay.instantmseloans.in",
+    "logLevel": "DEBUG",
+    "applyMock": false,
+    "params": {
+      "productListMaxCount": 10
+    }
+  },
+  {
+    "name": "dev_qa_sidbi",
+    "baseUrl": "https://qa-gst-sahay.instantmseloans.in",
+    "logLevel": "DEBUG",
+    "applyMock": false,
+    "params": {
+      "productListMaxCount": 10
+    }
+  },
+
+  {
+    "name": "stage",
+    "baseUrl": "https://stage.api.flutterbuy.com",
+    "logLevel": "INFO",
+    "applyMock": false,
+    "params": {
+      "productListMaxCount": 15
+    }
+  },
+  {
+    "name": "prod",
+    "baseUrl": "https://api.flutterbuy.com",
+    "logLevel": "ERROR",
+    "applyMock": false,
+    "params": {
+      "productListMaxCount": 20
+    }
+  }
+]

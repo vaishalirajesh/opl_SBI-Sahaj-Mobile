@@ -1,0 +1,10 @@
+{
+  "data": {
+    "currentStage": "LIST_OFFER",
+    "stageStatus": "PROCEED",
+    "nextStage": "SET_DISBURSEMENT_ACC"
+  },
+  "message": "Success",
+  "serverRequestId": "1612d687-685",
+  "status": 1000
+}

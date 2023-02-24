@@ -1,0 +1,15 @@
+{
+  "status": 1004,
+  "message": "Session Expired",
+  "referenceId": "8c4dc3ec-c2e9-4af3-876b-812a949e69dd",
+  "data": {
+    "mobile": "8460387748",
+    "credBlock": {
+      "appToken": "ABCD4515DDSS",
+      "otp": "123456",
+      "otpSessionKey": "dddc2ee4-19c5-4156-b3a4-5e46b2937cd7",
+      "status": "EXPIRED_SESSION"
+    },
+    "deviceId": "AIBIBUIBD3323435@#43$#Q#"
+  }
+}

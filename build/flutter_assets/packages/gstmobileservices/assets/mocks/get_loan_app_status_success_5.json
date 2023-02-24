@@ -1,0 +1,10 @@
+{
+  "data": {
+    "currentStage": "SIGN_AGGREEMENT",
+    "stageStatus": "PROCEED",
+    "nextStage": "SIGN_AGGREEMENT_STATUS"
+  },
+  "message": "Success",
+  "serverRequestId": "54d70749-693",
+  "status": 1000
+}

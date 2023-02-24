@@ -1,0 +1,11 @@
+{
+  "data": {
+    "currentStage": "E_MANDATE",
+    "stageStatus": "PROCEED",
+    "paymentUrl": "https://signdesk.in/emandate-uat/#/process-mandate/create/495ce5b8f6dfe9e3808ed0f149790971945faa44b135417f/invite",
+    "nextStage": "E_MANDATE_STATUS"
+  },
+  "message": "Success",
+  "serverRequestId": "20f4ea92-769",
+  "status": 1000
+}
