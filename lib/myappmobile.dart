@@ -113,7 +113,7 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: WelcomePage(),
+          home: EnableGstApi(),
           locale: LocaleHelper.currentLocale,
           theme: ThemeHelper.getInstance(),
           scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),

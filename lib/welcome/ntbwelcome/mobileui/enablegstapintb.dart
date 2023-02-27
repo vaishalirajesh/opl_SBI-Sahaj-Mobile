@@ -69,6 +69,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     buildSetupView(),
+
                     buildbottomView(),
                   ],
                 ),
@@ -90,7 +91,10 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Divider(),
+            SizedBox(height: 30.h,),
             buildConfirmViewBottomText(),
+            
             buildConfirmButton(context),
           ],
         ),
@@ -122,7 +126,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
               .textTheme
               .headline1!
               .copyWith(fontSize: 16),
-          textAlign: TextAlign.center,
+          textAlign: TextAlign.left,
         ),
       );
 
@@ -131,8 +135,8 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
         child: Align(
           alignment: Alignment.center,
           child: Container(
-            height: 190.h,
-            width: 190.w,
+            height: 225.h,
+            width: 245.w,
             decoration: BoxDecoration(
               color: ThemeHelper.getInstance()!.cardColor,
               shape: BoxShape.circle,
@@ -339,8 +343,8 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SvgPicture.asset(Utils.path(MOBILESAHAYLOGO),
-                        height: 20.h, width: 20.w)
+                    // SvgPicture.asset(Utils.path(MOBILESAHAYLOGO),
+                    //     height: 20.h, width: 20.w)
                   ],
                 )
               ],

@@ -50,12 +50,25 @@ class StartRegistrationNtbScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          buildImageWidget(MOBILESTEPDONE),
           buildThankForConfirmingText(str_Thanks_for_confirming),
           buildGSTConfirmNTBDiscText(str_gst_confirm_NTBdisc),
-          buildCenterCard(str_Verify_Mobile_Number),
-          buildCenterCard(str_Verify_gst_details),
-          buildCenterCard(str_accept_tc),
+          Padding(
+            padding:  EdgeInsets.only(left: 24.w,right: 24.w),
+            child: Container(
+              height: 445.h,
+              decoration: BoxDecoration(
+                  color: ThemeHelper.getInstance()!.cardColor,
+                  borderRadius: BorderRadius.circular(6.r)),
+              child: Column(children: [
+                SizedBox(height: 20.h,),
+              buildImageWidget(MOBILESTEPDONE),
+              SizedBox(height: 10.h,),
+              buildCenterCard(str_Verify_Mobile_Number),
+              buildCenterCard(str_Verify_gst_details),
+              buildCenterCard(str_accept_tc),
+
+            ],),),
+          ),
           buildBTNStartStartRegistration(context)
         ],
       ),
@@ -64,12 +77,12 @@ class StartRegistrationNtbScreen extends StatelessWidget {
 
   Widget buildImageWidget(String path) => SvgPicture.asset(
         Utils.path(path),
-        height: 78.h,
-        width: 78.w,
+        height: 200.h,
+        width: 200.w,
       );
 
   Widget buildThankForConfirmingText(String text) => Padding(
-        padding: EdgeInsets.only(top: 30.0.h, bottom: 20.h),
+        padding: EdgeInsets.only(top: 30.0.h, bottom: 20.h,left: 24.w),
         child:
             Text(text, style: ThemeHelper.getInstance()!.textTheme.headline1,),
       );
@@ -91,7 +104,7 @@ class StartRegistrationNtbScreen extends StatelessWidget {
       child: Container(
         height: 46.h,
         decoration: BoxDecoration(
-            color: ThemeHelper.getInstance()!.colorScheme.onSecondary,
+            color: ThemeHelper.getInstance()!.colorScheme.background,
             borderRadius: BorderRadius.circular(6.r)),
         child: Padding(
           padding: EdgeInsets.only(left: 20.w, top: 12.h),
@@ -102,7 +115,7 @@ class StartRegistrationNtbScreen extends StatelessWidget {
                 children: [
                   Container(
                     decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.yellow),
+                        shape: BoxShape.circle, color: Colors.purple),
                     height: 15.w,
                     width: 15.w,
                     child: Icon(

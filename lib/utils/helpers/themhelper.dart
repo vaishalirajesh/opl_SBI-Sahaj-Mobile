@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/themes/pnbthems.dart';
 
 import 'myfonts.dart';
@@ -67,10 +68,10 @@ static ButtonStyle setDisableButtonSmall(){
         .copyWith(
         foregroundColor:
         MaterialStateProperty.all(
-            ThemeHelper.getInstance()!.colorScheme.primary),
+            MyColors.white),
         backgroundColor:
         MaterialStateProperty.all(
-            ThemeHelper.getInstance()!.cardColor),
+            MyColorsSBI.sbicolorDisableColor),
         textStyle:
         MaterialStateProperty.all(
           TextStyle(fontSize: 16.sp,fontFamily: MyFont.Nunito_Sans_Bold),

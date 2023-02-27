@@ -1,6 +1,8 @@
 
 
-const IMAGEBASEPATH="assets/pnb/";
+//const IMAGEBASEPATH="assets/pnb/";
+
+const IMAGEBASEPATH="assets/sbi/";
 
 
 //for web APP
@@ -44,7 +46,7 @@ const MOBILERESENDOTP = 'images/ic_icon_resend_otp.svg';
 const MOBILESAHAYLOGO = 'images/sahay_logo.svg';
 const MOBILEBACKBTN = 'images/ic_icon_arrow_back.svg';
 const MOBILEBACKBTNWHITE = 'images/ic_icon_arrow_back_white.svg';
-const MOBILESTEPDONE = 'images/appbar_check_icon.svg';
+const MOBILESTEPDONE = 'images/thnksconfirm_img.svg';
 const MOBILEMAIL = 'images/mail_img.svg';
 const MOBILEResend = 'images/ic_icon_resend_otp.svg';
 const MOBILEBACKARROWBROWN = 'images/ic_icon_arrow_back.svg';
@@ -80,7 +82,7 @@ const SANCTIONLIMIT = 'images/ic_icon_sanction_limit.svg';
 const AVAILABLELIMIT = 'images/ic_icon_avail_limit.svg';
 const EXPANDVIEW = 'images/ic_icon_round_plus.svg';
 const HIDEVIEW = 'images/ic_icon_round_minus.svg';
-const BANKLOGOSQUARE = 'images/bank_logo_square.svg';
+const BANKLOGOSQUARE = 'images/state-bank-of-india-logo.svg';
 
 
 
@@ -178,11 +180,11 @@ const IMG_PENICL = "images/pencil_ic.svg";
 
 
 //ETB Get started
-const IMG_SAHAY_LOGO = "images/gst_sahay_logo.svg";
+const IMG_SAHAY_LOGO = "images/sahaj_withsbi_fullnam.svg";
 
 
 //NTB gst api enable
-const IMG_TWO_PERSON = "images/two_person_img.svg";
+const IMG_TWO_PERSON = "images/Confirmed-rafiki.svg";
 
 
 //aa details

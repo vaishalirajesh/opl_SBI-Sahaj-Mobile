@@ -59,12 +59,12 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      LoaderUtils.showLoaderwithmsg(context,
-          msg: str_Fetching_your_GST_business_details);
-// your code goes here
-    });
-    getGstDetailStatus();
+//     WidgetsBinding.instance.addPostFrameCallback((_) async {
+//       LoaderUtils.showLoaderwithmsg(context,
+//           msg: str_Fetching_your_GST_business_details);
+// // your code goes here
+//     });
+//     getGstDetailStatus();
 
     super.initState();
   }
@@ -322,8 +322,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
               onPressed: () {
                 if (confirmGstDetail) {
                   Navigator.pop(context);
-                  // Navigator.pushNamed(context, MyRoutes.registrationCompleted);
-                  //  Navigator.of(context).push(CustomRightToLeftPageRoute(child: RegistrationCompleted(), ));
+                
 
                   TGSharedPreferences.getInstance()
                       .set(PREF_ISGSTDETAILDONE, true);

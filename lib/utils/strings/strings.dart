@@ -522,10 +522,10 @@ const str_CIC_Terms = "I understand and agree to CIC's Terms";
 //NTB get started
 
 const str_disc =
-    " enables proprietors of small GST registered businesses to get 'on tap' offers for invoice based financing (short term loan) from the lender. The App also helps in full credit journey of sanction, documentation and disbursement.Watch  ";
+    "  enables proprietors of small GST registered businesses to get 'on tap' offers for invoice based financing (short term loan) from the lender. The App also helps in full credit journey of sanction, documentation and disbursement.Watch  ";
 const strVideo = "video";
 const strLast = "  to understand the process and requirements of the App.";
-const str_gst_sahay = "GST Sahay App ";
+const str_gst_sahay = "Sahaj App ";
 
 const str_get_started = "Get Started";
 const str_all_have_acc = "Already have an account? ";
@@ -534,7 +534,7 @@ const str_logintc = "Log in ";
 
 //NTB enable gst api screen
 const str_confirmView_title =
-    "Before starting the Registration process \non Sahay App you have to confirm \nthe following :";
+    "Please confirm the following:";
 const str_confirm_check1 =
     "Constitution of my business is Properitorship        ";
 const str_confirm_check2 = "I have enabled GST API access on GST website*  ";
@@ -549,7 +549,7 @@ const str_confirm_bottom7 = " and enable the same. ";
 //NTB Start registration
 
 const str_gst_confirm_NTBdisc =
-    "You can now Register on GST-Sahay in 3 simple steps";
+    "You can now Register on Sahaj in 3 simple steps​";
 const str_Verify_Mobile_Number = "Verify Mobile Number";
 const str_Verify_gst_details = "Verify GST Details";
 const str_accept_tc = "Accept Terms & Conditions";
