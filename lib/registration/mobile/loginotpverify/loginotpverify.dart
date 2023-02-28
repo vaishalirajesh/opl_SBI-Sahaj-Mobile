@@ -98,7 +98,7 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
   bool isGetOTPLoaderStart = false;
   bool isVerifyOTPLoaderStart = false;
   String gstin = '';
-  var strMobile = TGSession.getInstance().get(SESSION_MOBILENUMBER); //"";
+  var strMobile = "9601483912";//TGSession.getInstance().get(SESSION_MOBILENUMBER); //"";
   var otpSessionKey = TGSession.getInstance().get(SESSION_OTPSESSIONKEY); //"";
 
   void checkOtp() {
@@ -165,14 +165,17 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
                     SizedBox(
                       height: 31.h,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          str_enter_6_Digit_login,
-                          style: ThemeHelper.getInstance()!.textTheme.headline4,
-                        ),
-                      ],
+                    Padding(
+                      padding:  EdgeInsets.only(left: 20.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            str_enter_6_Digit_login,
+                            style: ThemeHelper.getInstance()!.textTheme.headline4,
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 16.h,
@@ -181,19 +184,19 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
                     SizedBox(
                       height: 16.h,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          str_Didnt_received_OTP_yet,
-                          style: ThemeHelper.getInstance()!
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(
-                                  fontSize: 14.sp, color: MyColors.pnbGreyColor),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     Text(
+                    //       str_Didnt_received_OTP_yet,
+                    //       style: ThemeHelper.getInstance()!
+                    //           .textTheme
+                    //           .bodyText1!
+                    //           .copyWith(
+                    //               fontSize: 14.sp, color: MyColors.pnbGreyColor),
+                    //     ),
+                    //   ],
+                    // ),
                     SizedBox(
                       height: 11.h,
                     ),
@@ -205,28 +208,31 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
                           isClearOtp = true;
                           isGetOTPLoaderStart = true;
                         });
-                        getLoginOtp();
+                       // getLoginOtp();
                       },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            Utils.path(MOBILEResend),
-                            height: 16.h,
-                            width: 16.w,
-                          ),
-                          SizedBox(
-                            width: 9.w,
-                          ),
-                          Text(str_Resend_OTP,
-                              style:
-                                  ThemeHelper.getInstance()!.textTheme.headline6)
-                        ],
+                      child: Padding(
+                        padding:  EdgeInsets.only(right: 20.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            SvgPicture.asset(
+                              Utils.path(MOBILEResend),
+                              height: 16.h,
+                              width: 16.w,
+                            ),
+                            SizedBox(
+                              width: 9.w,
+                            ),
+                            Text(str_Resend_OTP,
+                                style:
+                                    ThemeHelper.getInstance()!.textTheme.headline6)
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(
-                      height: 30.h,
+                      height: 300.h,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -243,14 +249,16 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
                                       .style
                                   : ThemeHelper.setPinkDisableButtonBig(),
                               onPressed: () {
-                                setState(() {
-                                  if (isValidOTP) {
-                                    isVerifyOTPLoaderStart = true;
-                                    verifyLoginOtp();
-                                  } else {
-                                    isVerifyOTPLoaderStart = false;
-                                  }
-                                });
+
+                                Navigator.pushNamed(context, MyRoutes.gstConsentGst);
+                                // setState(() {
+                                //   if (isValidOTP) {
+                                //     isVerifyOTPLoaderStart = true;
+                                //     verifyLoginOtp();
+                                //   } else {
+                                //     isVerifyOTPLoaderStart = false;
+                                //   }
+                                // });
                               },
                               child: Text(str_Verify),
                             ),

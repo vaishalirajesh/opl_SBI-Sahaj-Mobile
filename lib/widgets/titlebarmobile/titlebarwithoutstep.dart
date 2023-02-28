@@ -209,18 +209,18 @@ AppBar getAppBarWithStep(String step,String appBarTitle,double progress,{require
               SizedBox(width: 8.w,),
               Text(appBarTitle,style: ThemeHelper.getInstance()?.appBarTheme.titleTextStyle,),
              /* SizedBox(width: 3.w,),*/
-              Icon(Icons.arrow_drop_down_sharp,color: ThemeHelper.getInstance()?.primaryColor)
+             // Icon(Icons.arrow_drop_down_sharp,color: ThemeHelper.getInstance()?.primaryColor)
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SvgPicture.asset(Utils.path(SMALLBANKLOGO),height: 20.h,width: 20.w),
-              SizedBox(width: 5.w,),
-              SvgPicture.asset(Utils.path(MOBILESAHAYLOGO),height: 20.h,width: 20.w)
-            ],
-          )
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.start,
+          //   crossAxisAlignment: CrossAxisAlignment.center,
+          //   children: [
+          //     SvgPicture.asset(Utils.path(SMALLBANKLOGO),height: 20.h,width: 20.w),
+          //     SizedBox(width: 5.w,),
+          //     SvgPicture.asset(Utils.path(MOBILESAHAYLOGO),height: 20.h,width: 20.w)
+          //   ],
+          // )
 
         ],
       ),
@@ -240,7 +240,7 @@ AppBar getAppBarWithStep(String step,String appBarTitle,double progress,{require
           minHeight: 3.h,
           color: ThemeHelper.getInstance()
               ?.colorScheme
-              .secondaryContainer,
+              .primary,
           backgroundColor: Colors.transparent),
     ),
    );
@@ -311,6 +311,4 @@ AppBar getAppBarWithStepDone(String step,String appBarTitle,double progress,{req
           backgroundColor: Colors.transparent),
     ),
   );
-
-
 }

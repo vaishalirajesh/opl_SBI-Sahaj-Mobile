@@ -20,6 +20,7 @@ import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/gst_detail/gstotpverify.dart';
+import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusconstants.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
@@ -176,14 +177,14 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
               cursorColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
               decoration: InputDecoration(
                   hintText: str_GST_User_Name,
-                  enabledBorder: OutlineInputBorder(
+                  enabledBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(6.r)),
                     borderSide: BorderSide(
                         width: 1,
                         color:
                             ThemeHelper.getInstance()!.colorScheme.onSurface),
                   ),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
                         color: ThemeHelper.getInstance()!.colorScheme.onSurface,
                         width: 1.0),
@@ -191,7 +192,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
                   ),
                   // focusColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
                   // fillColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
-                  border: OutlineInputBorder(
+                  border: UnderlineInputBorder(
                       borderSide: BorderSide(
                           width: 1,
                           color:
@@ -230,19 +231,19 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
           cursorColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
           decoration: InputDecoration(
               hintText: str_15_Digit_GSTIN,
-              enabledBorder: OutlineInputBorder(
+              enabledBorder: UnderlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(6.r)),
                 borderSide: BorderSide(
                     width: 1,
                     color: ThemeHelper.getInstance()!.colorScheme.onSurface),
               ),
-              focusedBorder: OutlineInputBorder(
+              focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
                     color: ThemeHelper.getInstance()!.colorScheme.onSurface,
                     width: 1.0),
                 borderRadius: BorderRadius.circular(6.0.r),
               ),
-              border: OutlineInputBorder(
+              border: UnderlineInputBorder(
                   borderSide: BorderSide(
                       width: 1,
                       color: ThemeHelper.getInstance()!.colorScheme.onSurface),
@@ -283,22 +284,27 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
                 ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
                 : ThemeHelper.setPinkDisableButtonBig(),
             onPressed: () {
-              if (gstinNoController.text.isNotEmpty &&
-                  gstUsernameController.text.isNotEmpty &&
-                  isValidGSTINNumber) {
-                setState(() async {
-                  isSetLoader = true;
-                  TGSharedPreferences.getInstance()
-                      .set(PREF_GSTIN, gstinNoController.text);
-                  TGSharedPreferences.getInstance()
-                      .set(PREF_PANNO, gstinNoController.text.substring(2, 12));
-                  if (await TGNetUtil.isInternetAvailable()) {
-                    getGstOtp();
-                  } else {
-                    showSnackBarForintenetConnection(context, getGstOtp);
-                  }
-                });
-              }
+
+              Navigator.pushNamed(
+                  context,
+                  MyRoutes.OtpVerifyGSTRoutes);
+              // if (gstinNoController.text.isNotEmpty &&
+              //     gstUsernameController.text.isNotEmpty &&
+              //     isValidGSTINNumber) {
+
+                // setState(() async {
+                //   isSetLoader = true;
+                //   TGSharedPreferences.getInstance()
+                //       .set(PREF_GSTIN, gstinNoController.text);
+                //   TGSharedPreferences.getInstance()
+                //       .set(PREF_PANNO, gstinNoController.text.substring(2, 12));
+                //   if (await TGNetUtil.isInternetAvailable()) {
+                //     getGstOtp();
+                //   } else {
+                //     showSnackBarForintenetConnection(context, getGstOtp);
+                //   }
+                // });
+             // }
             },
             child: Text(str_next));
   }

@@ -1,7 +1,7 @@
 const str_login = "Testing Current AC";
 const str_give_constent_for_gst = 'Give Consent for GST';
 
-const str_gst_data_consent_gst = 'Give Consent for GST';
+const str_gst_data_consent_gst = 'Give Consent';
 const str_gst_data_consent = 'GST Data Consent';
 const str_Allow_Sahay_to_fetch_your_GST_Data =
     'Allow Sahay to fetch your GST Data';
@@ -176,7 +176,7 @@ const str_Kindly_enter_your_GST_Username_GSTIN_to_link_with_Sahay_GST_Account =
 const str_we_will_send_you_otp_for_confirmation =
     'We will send you OTP for confirmation';
 const str_GST_User_Name = 'GST User Name';
-const str_Mobile_number = 'Mobile number';
+const str_Mobile_number = 'Enter your mobile number';
 const str_15_Digit_GSTIN = '15-Digit GSTIN';
 const str_Sample_20AAAAAA1234AA1Z5 = 'Sample: 20AAAAAA1234AA1Z5';
 const str_next = 'Next';
@@ -187,7 +187,7 @@ const str_OTP_sent =
     'OTP sent to Mobile number and Email linked\nto GSTIN: ';
 const str_OTP_sent_number = 'OTP sent to +91 ';
 const str_enter_6_Digit = 'Enter 6 Digit OTP received on';
-const str_enter_6_Digit_login = 'Enter 6 Digit OTP received ';
+const str_enter_6_Digit_login = 'Enter OTP ';
 const str_Didnt_received_OTP_yet = 'Didn\'t receive OTP yet ?';
 const str_Resend_OTP = 'Resend OTP';
 const str_Verify = 'Verify';

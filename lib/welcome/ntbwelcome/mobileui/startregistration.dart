@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
+import '../../../registration/mobile/login/login.dart';
 import '../../../routes.dart';
 import '../../../utils/Utils.dart';
 import '../../../utils/constants/imageconstant.dart';
@@ -47,8 +48,8 @@ class StartRegistrationNtbScreen extends StatelessWidget {
     //appbar_check_icon.svg
     return SizedBox(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           buildThankForConfirmingText(str_Thanks_for_confirming),
           buildGSTConfirmNTBDiscText(str_gst_confirm_NTBdisc),
@@ -82,21 +83,19 @@ class StartRegistrationNtbScreen extends StatelessWidget {
       );
 
   Widget buildThankForConfirmingText(String text) => Padding(
-        padding: EdgeInsets.only(top: 30.0.h, bottom: 20.h,left: 24.w),
+        padding: EdgeInsets.only(top: 30.0.h, bottom: 5.h,left: 24.w),
         child:
-            Text(text, style: ThemeHelper.getInstance()!.textTheme.headline1,),
+            Text(text, style: ThemeHelper.getInstance()!.textTheme.headline2,),
       );
 
   Widget buildGSTConfirmNTBDiscText(String text) => Padding(
-        padding: EdgeInsets.only(left: 70.w, right: 70.w, bottom: 30.h),
-        child: Center(
-          child: Text(
-            text,
-            style: ThemeHelper.getInstance()!.textTheme.headline3,
-            textAlign: TextAlign.center,
-          ),
-        ),
-      );
+    padding:  EdgeInsets.only(left: 24.w,bottom: 30.h),
+    child: Text(
+      text,
+      style: ThemeHelper.getInstance()!.textTheme.headline3,
+      textAlign: TextAlign.center,
+    ),
+  );
 
   Widget buildCenterCard(String stepname) {
     return Padding(
@@ -147,7 +146,7 @@ class StartRegistrationNtbScreen extends StatelessWidget {
         onPressed: () {
          // Navigator.of(context).push(CustomRightToLeftPageRoute(child: GstConsentConform(), ));
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => GstConsentConform(),)
+              MaterialPageRoute(builder: (context) => LoginWithMobileNumber(),)
           );
 
           //        Navigator.pushNamed(context, MyRoutes.GstConfirmThanksRoutes);
