@@ -61,7 +61,7 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
         return true;
       },
       child: Scaffold(
-        appBar: getAppBarWithStep('1', str_registration, 0.25,
+        appBar: getAppBarWithStepDone('1', str_registration, 0.25,
             onClickAction: () =>
                 {Navigator.pop(context), SystemNavigator.pop(animated: true)}),
         body: AbsorbPointer(

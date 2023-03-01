@@ -44,7 +44,7 @@ const MOBILE_MOBILE_OTP = 'images/ic_icon_otp.svg';
 const MOBILE_KYC_UPDATE = 'images/ic_icon_kyc_update.svg';
 const MOBILERESENDOTP = 'images/ic_icon_resend_otp.svg';
 const MOBILESAHAYLOGO = 'images/sahay_logo.svg';
-const MOBILEBACKBTN = 'images/ic_icon_arrow_back.svg';
+const MOBILEBACKBTN = 'images/back_img.svg';
 const MOBILEBACKBTNWHITE = 'images/ic_icon_arrow_back_white.svg';
 const MOBILESTEPDONE = 'images/thnksconfirm_img.svg';
 const MOBILEMAIL = 'images/mail_img.svg';
@@ -68,6 +68,18 @@ const MOBILEPROFFILEBROWN= 'images/profile_brown_ic.svg';
 const MOBILEDISPUTEPROGRESS= 'images/ic_icon_progress.svg';
 const MOBILERAISEDISPUTE= 'images/ic_icon_raise_dispute.svg';
 const MOBILETRACKDISPUTE= 'images/ic_icon_dispute_tracker.svg';
+
+
+
+//dashboardwithout gst
+
+const MOBILEDASHWITOUTSTEP1= 'images/dashwithout_home_step1.svg';
+const MOBILEDASHWITOUTSTEP2= 'images/loanoffer_dashwithout_img.svg';
+const MOBILEDASHWITOUTSTEP3= 'images/signdoc_dashwithout_img.svg';
+const MOBILEDASHWITOUTSTEP4= 'images/funding.svg';
+const MOBILEMENUBAR= 'images/menu_img.svg';
+
+
 
 
 //..png
@@ -160,8 +172,8 @@ const PROFILE_IMG = 'images/ic_user.png';
 
 //invoice list
 const REFRESHGST = 'images/refreshGST_dialog.svg';
-const REFRESHIMG =  "images/refer_ic.svg";
-const IMG_FILTER_INVOICE    = "images/filter_invoice.svg";
+const REFRESHIMG =  "images/refresh.svg";
+const IMG_FILTER_INVOICE    = "images/sorting.svg";
 
 
 const IMG_CLOSE_X    = "images/x.svg";

@@ -326,7 +326,7 @@ const OK = "OK";
 //dashboard
 const str_Fetching_Eligible_Invoices = "Fetching Eligible Invoices";
 const str_Get_Invoice_based_financein = "Get Invoice based finance in";
-const str_3SIMPLESTEP = "3 SIMPLE STEPS";
+const str_3SIMPLESTEP = "4 SIMPLE STEPS";
 
 const str_step1_gstWithout = 'Share bank statement';
 const str_step1_gstWithout_disc =
@@ -352,7 +352,7 @@ const str_Start_Loan_Process = "Start Loan Process";
 const str_GST_Invoices_for_loan_offers = "GST Invoices for loan offers";
 const str_Search = "Search";
 const str_Sort = "  Sort by";
-const str_select_any_inovice = "Eligible Invoices";
+const str_select_any_inovice = "Invoices";
 const str_All_the_invoicesgenerated = "All the invoices generated";
 const str_invoice_disc =
     "during the last 2 months would be eligible for financing";

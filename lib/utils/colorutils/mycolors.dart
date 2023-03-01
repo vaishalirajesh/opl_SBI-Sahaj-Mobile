@@ -6,6 +6,7 @@ class MyColors
   static final pnbWelcomeDivider = HexColor("#B19AC7");
   static final white = HexColor("#FFFFFF");
   static final black = HexColor("#000000");
+  static final darkblack = HexColor("#545454");
   static final pnbSecondarycolor=HexColor("#FCF7FD");
   static final errorcolor=HexColor("#B00020");
   static final pnbdivdercolor=HexColor("#D4D4D4");
@@ -45,6 +46,8 @@ class MyColors
   static final ligtBlue = HexColor('#5190FF');
 
 
+  static final lightRedGradient = HexColor('#A5235A');
+  static final lightBlueGradient = HexColor('#33026F');
 
 
 }

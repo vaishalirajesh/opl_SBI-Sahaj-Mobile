@@ -135,7 +135,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
       child: Scaffold(
         key: scaffoldKey,
         resizeToAvoidBottomInset: false,
-        appBar: getAppBarWithStep('1', str_registration, 0.25,
+        appBar: getAppBarWithStepDone('1', str_registration, 0.25,
             onClickAction: () => {
                   Navigator.pop(context, false),
                   SystemNavigator.pop(animated: true)

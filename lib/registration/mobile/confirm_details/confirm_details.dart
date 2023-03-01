@@ -29,6 +29,7 @@ import '../../../utils/helpers/themhelper.dart';
 import '../../../utils/internetcheckdialog.dart';
 import '../../../utils/progressLoader.dart';
 import '../../../utils/strings/strings.dart';
+import '../dashboardwithoutgst/mobile/dashboardwithoutgst.dart';
 import '../registration_completed/registration_completed.dart';
 
 class GstBasicDetails extends StatelessWidget {
@@ -89,7 +90,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
         return true;
       },
       child: Scaffold(
-        appBar: getAppBarWithStep('1', str_registration, 0.25,
+        appBar: getAppBarWithStepDone('1', str_registration, 0.25,
             onClickAction: () => {
                   Navigator.pop(context, false),
                   SystemNavigator.pop(animated: true)
@@ -330,7 +331,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          RegistrationCompleted(),
+                          DashboardWithoutGST(),
                     ),
                     (route) =>
                         false, //if you want to disable back feature set to false

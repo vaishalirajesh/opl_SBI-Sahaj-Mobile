@@ -64,7 +64,7 @@ class OtpVerifyLogin extends StatelessWidget {
             },
             child: Scaffold(
                 resizeToAvoidBottomInset: false,
-                appBar: getAppBarWithStep('1', str_registration, 0.25,
+                appBar: getAppBarWithStepDone('1', str_registration, 0.25,
                     onClickAction: () => {Navigator.pop(context)}),
                 body: OtpVerifyLoginScreen()));
       },

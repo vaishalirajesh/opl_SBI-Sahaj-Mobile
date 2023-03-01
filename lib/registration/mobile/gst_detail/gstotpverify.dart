@@ -489,7 +489,7 @@ class OtpVerifyGST extends StatelessWidget {
             },
             child: Scaffold(
                 resizeToAvoidBottomInset: false,
-                appBar: getAppBarWithStep('', str_registration, 1,
+                appBar: getAppBarWithStepDone('', str_registration, 1,
                     onClickAction: () => {Navigator.pop(context)}),
                 body: OtpVerifyGSTScreen()));
       },
