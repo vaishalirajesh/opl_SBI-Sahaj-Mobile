@@ -171,9 +171,12 @@ const PROFILE_IMG = 'images/ic_user.png';
 
 
 //invoice list
-const REFRESHGST = 'images/refreshGST_dialog.svg';
+const REFRESHGST = 'images/rfreshinvoicepopup_img.svg';
 const REFRESHIMG =  "images/refresh.svg";
 const IMG_FILTER_INVOICE    = "images/sorting.svg";
+
+const IMG_GREENTICK_AA    = "images/greentic_aa_img.svg";
+
 
 
 const IMG_CLOSE_X    = "images/x.svg";
@@ -183,11 +186,15 @@ const IMG_bg_lottefechinvoices  = "images/img_bg_lottefechinvoices.svg";
 const IMG_PNB_BANK_NAME  = "images/pnb_loanAg_logo.svg";
 
 
+//Manish
+const IMG_NADL  = "images/lajvyrj9.png";
 
 //payment success
 
 const IMG_SIGNDESK_LOGO  = "images/signdesk_logo.png";
 const IMG_PENICL = "images/pencil_ic.svg";
+
+
 
 
 

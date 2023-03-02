@@ -34,7 +34,7 @@ static  ThemeData pnbThemeMobile = ThemeData(
         surface: MyColors.pnbMediumTextcolor,
         onSurface: MyColors.pnbCheckBoxcolor,
         surfaceTint: MyColors.pnbCardBg,
-        secondaryContainer: MyColors.pnbLogoColor,
+        secondaryContainer: MyColors.lightSKYColor,
         tertiary: MyColors.pnbCardSmallTextColor
         ),
 

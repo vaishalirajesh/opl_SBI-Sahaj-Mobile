@@ -21,9 +21,12 @@ import '../../../../utils/Utils.dart';
 import '../../../../utils/constants/imageconstant.dart';
 import '../../../../utils/constants/prefrenceconstants.dart';
 import '../../../../utils/constants/statusConstants.dart';
+import '../../../../utils/imagepathutils/myimagePath.dart';
 import '../../../../utils/internetcheckdialog.dart';
 import '../../../../utils/strings/strings.dart';
 import '../../../../widgets/animation_routes/page_animation.dart';
+import '../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
+import '../../accountaggregatorntb/ui/aadetails.dart';
 class AAList extends StatelessWidget {
   const AAList({super.key});
 
@@ -53,14 +56,14 @@ class _AAListViewState extends State<AAListView> {
   //List<int> isCheckedList = [];
   int selectedValue = -1;
 
-  bool isLoaderStart = true;
+  bool isLoaderStart = false;
 
 
 
   @override
   void initState() {
     typeListDetails=[];
-    getAAListApiCall();
+   // getAAListApiCall();
 
     super.initState();
 
@@ -83,6 +86,17 @@ class _AAListViewState extends State<AAListView> {
 
     },
     child:Scaffold(
+        appBar: getAppBarWithStepDone("2", str_loan_approve_process, 0.50,
+            onClickAction: () => {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => AccountAggregatorDetails(),
+                ),
+                    (route) =>
+                false, //if you want to disable back feature set to false
+              )
+            }),
         body: AbsorbPointer(
           absorbing: isLoaderStart,
           child: Stack(children: [
@@ -120,7 +134,7 @@ class _AAListViewState extends State<AAListView> {
 
   Widget buildBankName() {
     return Container(
-      color: ThemeHelper.getInstance()!.cardColor,
+      color: ThemeHelper.getInstance()!.colorScheme.secondaryContainer,
       height: 81.h,
       child: Padding(
         padding: EdgeInsets.only(left: 20.w),
@@ -177,35 +191,35 @@ class _AAListViewState extends State<AAListView> {
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(fontSize: 12.sp),
+                    .copyWith(fontSize: 14.sp),
                 textAlign: TextAlign.start),
             SizedBox(height: 3.h),
             Text(str_aa_step_two,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(fontSize: 12.sp),
+                    .copyWith(fontSize: 14.sp),
                 textAlign: TextAlign.start),
             SizedBox(height: 3.h),
             Text(str_aa_step_three,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(fontSize: 12.sp),
+                    .copyWith(fontSize: 14.sp),
                 textAlign: TextAlign.start),
             SizedBox(height: 3.h),
             Text(str_aa_step_four,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(fontSize: 12.sp),
+                    .copyWith(fontSize: 14.sp),
                 textAlign: TextAlign.start),
             SizedBox(height: 3.h),
             Text(str_aa_step_five,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(fontSize: 12.sp),
+                    .copyWith(fontSize: 14.sp),
                 textAlign: TextAlign.start),
             SizedBox(height: 30.h),
             Text(str_select_aa,
@@ -233,12 +247,12 @@ class _AAListViewState extends State<AAListView> {
   Widget buildSearchBar() {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(8.r)),
-        border: Border.all(
-          color: ThemeHelper.getInstance()!.colorScheme.shadow,
-          style: BorderStyle.solid,
-          width: 0.5,
-        ),
+        // borderRadius: BorderRadius.all(Radius.circular(8.r)),
+        // border: Border.all(
+        //   color: ThemeHelper.getInstance()!.colorScheme.shadow,
+        //   style: BorderStyle.solid,
+        //   width: 0.5,
+        // ),
       ),
       height: 35.h,
       child: TextField(
@@ -246,11 +260,18 @@ class _AAListViewState extends State<AAListView> {
         cursorColor: ThemeHelper.getInstance()!.backgroundColor,
         decoration: InputDecoration(
           fillColor: ThemeHelper.getInstance()!.backgroundColor,
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(7.r))),
-          enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.transparent),
-              borderRadius: BorderRadius.all(Radius.circular(7.r))),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+                color: ThemeHelper.getInstance()!.colorScheme.onSurface,
+                width: 1.0),
+             // borderRadius: BorderRadius.all(Radius.circular(7.r))
+    ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+                color: ThemeHelper.getInstance()!.colorScheme.onSurface,
+                width: 1.0),
+             // borderRadius: BorderRadius.all(Radius.circular(7.r))
+             ),
           contentPadding: EdgeInsets.symmetric(vertical: 10.h),
           prefixIcon: Icon(Icons.search,
               color: ThemeHelper.getInstance()!.primaryColor.withOpacity(0.3)),
@@ -264,12 +285,13 @@ class _AAListViewState extends State<AAListView> {
               .headline3!
               .copyWith(color: MyColors.pnbcolorPrimary.withOpacity(0.3)),
           //    fillColor: searchbarBGColor.withOpacity(0.37),
-          border: OutlineInputBorder(
+          border: UnderlineInputBorder(
             borderSide: BorderSide(
-                color: ThemeHelper.getInstance()!.primaryColor, width: 1),
-            borderRadius: BorderRadius.all(
-              Radius.circular(7.r),
-            ),
+                color: ThemeHelper.getInstance()!.colorScheme.onSurface,
+                width: 1.0),
+            // borderRadius: BorderRadius.all(
+            //   Radius.circular(7.r),
+            // ),
           ),
         ),
       ),
@@ -280,39 +302,41 @@ class _AAListViewState extends State<AAListView> {
     return ListView.builder(
       shrinkWrap: true,
       //scrollDirection: Axis.vertical,
-      itemCount: typeListlen,
+      itemCount: 1,
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
-            setState((){
-              selectedValue = index;
-            });
-
-            TGSharedPreferences.getInstance().set(PREF_AAID, typeListDetails[index].aaId);
-            TGSharedPreferences.getInstance().set(PREF_AACODE, typeListDetails[index].code);
+            // setState((){
+            //   selectedValue = index;
+            // });
+            //
+            // TGSharedPreferences.getInstance().set(PREF_AAID, typeListDetails[index].aaId);
+            // TGSharedPreferences.getInstance().set(PREF_AACODE, typeListDetails[index].code);
           },
           child: Column(
             children: [
               ListTile(
                 leading: Padding(
-                  padding: EdgeInsets.only(bottom: 10.h),
-                  child: CircleAvatar(
-                    backgroundColor: ThemeHelper.getInstance()!.cardColor,
-                    // foregroundImage: MemoryImage(viewModel.getAAImage(
-                    //     index) /*viewModel.getBankImg(index)*/)
-                  ),
-                ),
-                title: Padding(
-                  padding: EdgeInsets.only(bottom: 10.h),
-                  child: Text(typeListDetails?[index].name ?? 'Type Not Available',
-                      style: ThemeHelper.getInstance()!
-                          .textTheme
-                          .headline1!
-                          .copyWith(fontSize: 12.sp)),
-                ),
-                trailing: Padding(
                     padding: EdgeInsets.only(bottom: 10.h),
                     child: buildCheckboxWidgetCustom1(index)),
+                title: Padding(
+                  padding: EdgeInsets.only(bottom: 10.h),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Image.asset(Utils.path(IMG_NADL),
+                          height: 21.h, width: 60.w),
+                      Text("NESL Asset Data Limited",
+                          style: ThemeHelper.getInstance()!
+                              .textTheme
+                              .headline1!
+                              .copyWith(fontSize: 12.sp)),
+                    ],
+                  ),
+                ),
+                // trailing: Padding(
+                //     padding: EdgeInsets.only(bottom: 10.h),
+                //     child: buildCheckboxWidgetCustom1(index)),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),

@@ -422,7 +422,7 @@ const str_Stage = 'Stage';
 const str_Disbursement_in_Process = 'Disbursement in Process ';
 const str_Loan_amount = 'Loan amount';
 const str_32000 = '₹32,000';
-const strPnb = 'Punjab National Bank';
+const strPnb = 'State Bank of India';
 
 const str_Finance_other_Invoice = 'Finance other Invoice';
 const str_Status = 'Status';
@@ -556,8 +556,8 @@ const str_accept_tc = "Accept Terms & Conditions";
 
 //NTB AA detais
 
-const str_header_discr =
-    "Now, you need to Register / Log in with the Account Aggregator(s), with which your Current Account Bank is integrated with and provide consent to fetch your Bank account information to help us decide your loan eligibility";
+const str_header_discr ="You would now be required to share your bank statement digitally through Account Aggregator";
+    //"Now, you need to Register / Log in with the Account Aggregator(s), with which your Current Account Bank is integrated with and provide consent to fetch your Bank account information to help us decide your loan eligibility";
 const str_acount_aggregator = "Account Aggregator";
 const str_a_new_way_toshare_bank =
     "A new way to share bank account statements digitally";
@@ -568,7 +568,7 @@ const str_visit = "Visit ";
 const str_sahmati = "Sahamti ";
 const str_or = "or ";
 const str_rbi = "RBI ";
-const str_website_to_know_more = "website to know more";
+const str_website_to_know_more = "website to know more & Watch the Video to understand the Account Aggregator process";
 
 const str_share_bank_statement =
     "Share bank statements digitally, securely\n   and instantly";
@@ -581,11 +581,11 @@ const str_revoke_consent_at_anytime = "Revoke consent at anytime";
 
 //AA Steps
 const str_aa_steps_txt = "Steps involved after you select \nAccount Aggregator";
-const str_aa_step_one = "\u2022 Register/Login";
-const str_aa_step_two = "\u2022 Choose Current A/c Bank";
-const str_aa_step_three = "\u2022 Select account/s to be linked";
-const str_aa_step_four = "\u2022 Verify through OTP";
-const str_aa_step_five = "\u2022 Give consent to share linked bank account data";
+const str_aa_step_one = "1. Register/Login";
+const str_aa_step_two = "2. Choose Current A/c Bank";
+const str_aa_step_three = "3. Select account/s to be linked";
+const str_aa_step_four = "4. Verify through OTP";
+const str_aa_step_five = "5. Give consent to share linked bank account data";
 const str_select_aa = "Account Aggregator linked to your bank";
 const str_select_aa_txt = "Choose one of the RBI approved Account Aggregators to share your financial information";
 

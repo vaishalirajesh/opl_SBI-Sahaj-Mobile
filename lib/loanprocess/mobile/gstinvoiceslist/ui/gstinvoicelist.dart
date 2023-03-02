@@ -28,6 +28,7 @@ import 'package:gstmobileservices/util/tg_view.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/gstinvoiceslist/ui/gstinvoicelistrefresh.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/gstinvoiceslist/ui/searchinvoicelist.dart';
+import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusconstants.dart';
@@ -460,15 +461,17 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
             EdgeInsets.only(left: 20.w, right: 20.w, bottom: 25.h, top: 25.h),
         child: ElevatedButton(
             onPressed: () async {
-              WidgetsBinding.instance.addPostFrameCallback((_) async {
-                LoaderUtils.showLoaderwithmsg(context,
-                    msg: str_share_invoice + "\n" + str_Kindly_wait_for_60s);
-              });
-              if (await TGNetUtil.isInternetAvailable()) {
-                shareInvoicesListAPI();
-              } else {
-                showSnackBarForintenetConnection(context, shareInvoicesListAPI);
-              }
+
+              Navigator.pushNamed(context, MyRoutes.AccountAggregatorDetailsRoutes);
+              // WidgetsBinding.instance.addPostFrameCallback((_) async {
+              //   LoaderUtils.showLoaderwithmsg(context,
+              //       msg: str_share_invoice + "\n" + str_Kindly_wait_for_60s);
+              // });
+              // if (await TGNetUtil.isInternetAvailable()) {
+              //   shareInvoicesListAPI();
+              // } else {
+              //   showSnackBarForintenetConnection(context, shareInvoicesListAPI);
+              // }
             },
             child: Center(
               child: Text(
@@ -491,7 +494,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
           Padding(
             padding: EdgeInsets.only(left: 20.w, right: 20.w),
             child: Container(
-                height: 338.h,
+                height: 500.h,
                 width: 335.w,
                 decoration: BoxDecoration(
                   color: ThemeHelper.getInstance()!.cardColor,
@@ -512,20 +515,23 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
                           .headline1!
                           .copyWith(fontSize: 26),
                       textAlign: TextAlign.center,
-                    )
+                    ),
+                    SizedBox(height: 40.h),
+                    Padding(
+                        padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
+                        child: Row(
+                          children: [
+                            refreshLaterButton(),
+                            SizedBox(width: 10.w),
+                            refreshNowButton(),
+
+
+                          ],
+                        ))
                   ],
                 )),
           ),
-          SizedBox(height: 25.h),
-          Padding(
-              padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
-              child: Row(
-                children: [
-                  refreshNowButton(),
-                  SizedBox(width: 10.w),
-                  refreshLaterButton()
-                ],
-              ))
+
         ]));
   }
 
@@ -570,7 +576,9 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
 
   Widget refreshNowButton() {
     return Container(
-      width: 155.w,
+
+
+      width: 140.w,
       height: 56.h, //38,
       child: ElevatedButton(
           onPressed: () {},
@@ -579,18 +587,28 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
             style: ThemeHelper.getInstance()!.textTheme.button,
           ),
           style: ElevatedButton.styleFrom(
+
             shadowColor: Colors.transparent,
             foregroundColor: ThemeHelper.getInstance()!.primaryColor,
             backgroundColor: ThemeHelper.getInstance()!.primaryColor,
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(6))),
+
+
           )),
     );
   }
 
   Widget refreshLaterButton() {
     return Container(
-      width: 155.w,
+
+      decoration: BoxDecoration(
+        border: Border.all(color: ThemeHelper.getInstance()!.primaryColor),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(6),
+        ),
+      ),
+      width: 140.w,
       height: 56.h, //38,
       child: ElevatedButton(
           onPressed: () {},
@@ -614,13 +632,19 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
       height: 40.h, //38,
       child: ElevatedButton(
           onPressed: () {
-            // Navigator.pushNamed(context, MyRoutes.GSTInvoiceListRefreshRoutes);
-            // Navigator.of(context).push(CustomRightToLeftPageRoute(child: GSTInvoiceListRefresh(), ));
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => GSTInvoiceListRefresh(),
-                ));
+
+            showDialog(
+                context: context,
+                builder: (_) =>refreshGstBottomSheetDialog()
+
+
+            );
+
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //       builder: (context) => GSTInvoiceListRefresh(),
+            //     ));
 
             // showModalBottomSheet(
             //     backgroundColor: ThemeHelper.getInstance()!.backgroundColor,

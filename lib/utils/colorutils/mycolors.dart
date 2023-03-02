@@ -46,8 +46,14 @@ class MyColors
   static final ligtBlue = HexColor('#5190FF');
 
 
+
+
+  /////
   static final lightRedGradient = HexColor('#A5235A');
   static final lightBlueGradient = HexColor('#33026F');
+
+
+  static final lightSKYColor = HexColor('#EEF8FD');
 
 
 }
