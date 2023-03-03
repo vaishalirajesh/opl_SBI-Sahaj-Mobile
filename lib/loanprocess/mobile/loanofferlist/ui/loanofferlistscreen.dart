@@ -97,6 +97,25 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Row(
+              children: [
+                Text(
+                  "Valid for:" +
+                      "11h 48m",
+                  style: ThemeHelper.getInstance()
+                      ?.textTheme
+                      .headline4
+                      ?.copyWith(
+                      color:
+                      ThemeHelper.getInstance()?.colorScheme.tertiary,
+                      fontSize: 14.sp),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Divider(),
             SizedBox(
               height: 25.h,
             ),
@@ -130,7 +149,7 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
     // {
     return Scaffold(
       backgroundColor: ThemeHelper.getInstance()?.backgroundColor,
-      appBar: getAppBarWithStep('2', str_loan_approve_process, 0.50,
+      appBar: getAppBarWithStepDone('2', str_loan_approve_process, 0.50,
           onClickAction: () => {
                 Navigator.pushAndRemoveUntil(
                   context,
@@ -163,25 +182,25 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
-        itemCount: !isListLoaded ? 7 : _getLoanOfferRes?.data?.offers?.length,
+        itemCount: !isListLoaded ? 7 : 10,//_getLoanOfferRes?.data?.offers?.length,
         itemBuilder: (context, index) {
-          if (!isListLoaded) {
-            return Column(
-              children: [
-                ShimmerLoader(),
-                SizedBox(
-                  height: 10.h,
-                )
-              ],
-            );
-          } else {
+          // if (!isListLoaded) {
+          //   return Column(
+          //     children: [
+          //       ShimmerLoader(),
+          //       SizedBox(
+          //         height: 10.h,
+          //       )
+          //     ],
+          //   );
+          // } else {
             return Padding(
               key: ValueKey(
-                  _getLoanOfferRes?.data?.offers?[index].buyerName.toString()),
+                  "Amazon Pvt. Ltd"),
               padding: EdgeInsets.only(bottom: 20.h),
               child: loanofferItemContainer(context, index),
             );
-          }
+         // }
         },
       );
     }
@@ -193,20 +212,21 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.r),
-            color: ThemeHelper.getInstance()?.colorScheme.secondary),
+            color: ThemeHelper.getInstance()?.cardColor),
         child: Padding(
           padding: EdgeInsets.all(15.h),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
                     child: Text(
-                        _getLoanOfferRes?.data?.offers?[index].buyerName ?? "",
+                        "Amazon Pvt. Ltd",
                         style: ThemeHelper.getInstance()
                             ?.textTheme
                             .headline3
@@ -223,12 +243,61 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                 ],
               ),
               SizedBox(
-                height: 20.h,
+                height: 10.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    str_invoice +
+                        "230",
+                    style: ThemeHelper.getInstance()
+                        ?.textTheme
+                        .headline4
+                        ?.copyWith(
+                        color:
+                        ThemeHelper.getInstance()?.colorScheme.tertiary,
+                        fontSize: 14.sp),
+                  ),
+                  // Text(
+                  //   str_due_date +
+                  //      "22 Aug 2022",
+                  //   style: ThemeHelper.getInstance()
+                  //       ?.textTheme
+                  //       .headline4
+                  //       ?.copyWith(
+                  //           color:
+                  //               ThemeHelper.getInstance()?.colorScheme.tertiary,
+                  //           fontSize: 14.sp),
+                  // ),
+                ],
+              ),
+              SizedBox(
+                height: 10.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        str_loan_offer,
+                        style: ThemeHelper.getInstance()
+                            ?.textTheme
+                            .headline6
+                            ?.copyWith(fontSize: 16.sp),
+                      ),
+                      Text(
+                          Utils.convertIndianCurrency("25600"),
+                          style: ThemeHelper.getInstance()
+                              ?.textTheme
+                              .headline6
+                              ?.copyWith(fontSize: 16.sp))
+                    ],
+                  ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -245,11 +314,7 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                                 fontSize: 16.sp),
                       ),
                       Text(
-                          Utils.convertIndianCurrency(_getLoanOfferRes
-                              ?.data
-                              ?.offers?[index]
-                              .offerDetails?[0]
-                              .termsRequestedAmount),
+                          Utils.convertIndianCurrency("35000"),
                           style: ThemeHelper.getInstance()
                               ?.textTheme
                               .headline6
@@ -257,76 +322,39 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                     ],
                   ),
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        str_loan_offer,
+                        str_due_date,
                         style: ThemeHelper.getInstance()
                             ?.textTheme
-                            .headline6
-                            ?.copyWith(fontSize: 16.sp),
+                            .headline4
+                            ?.copyWith(
+                            color: ThemeHelper.getInstance()
+                                ?.colorScheme
+                                .tertiary,
+                            fontSize: 16.sp),
                       ),
                       Text(
-                          Utils.convertIndianCurrency(_getLoanOfferRes
-                              ?.data
-                              ?.offers?[index]
-                              .offerDetails?[0]
-                              .termsSanctionedAmount),
+                          "22 Aug 2022",
                           style: ThemeHelper.getInstance()
                               ?.textTheme
                               .headline6
                               ?.copyWith(fontSize: 16.sp))
                     ],
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    str_invoice +
-                        (_getLoanOfferRes?.data?.offers
-                                ?.elementAt(index)
-                                .invoiceNumber ??
-                            ""),
-                    style: ThemeHelper.getInstance()
-                        ?.textTheme
-                        .headline4
-                        ?.copyWith(
-                            color:
-                                ThemeHelper.getInstance()?.colorScheme.tertiary,
-                            fontSize: 14.sp),
-                  ),
-                  Text(
-                    str_due_date +
-                        (_getLoanOfferRes?.data?.offers
-                                ?.elementAt(index)
-                                .offerDetails
-                                ?.elementAt(0)
-                                .repayDate ??
-                            ""),
-                    style: ThemeHelper.getInstance()
-                        ?.textTheme
-                        .headline4
-                        ?.copyWith(
-                            color:
-                                ThemeHelper.getInstance()?.colorScheme.tertiary,
-                            fontSize: 14.sp),
                   ),
                 ],
-              )
+              ),
+
+
             ],
           ),
         ),
       ),
       onTap: () {
-        TGSession.getInstance().set(PREF_LOANOFFER, _getLoanOfferRes?.data?.offers?[index]);
-        // Navigator.pushNamed(context, MyRoutes.KfsScreenRoutes);
-        //   Navigator.of(context).push(CustomRightToLeftPageRoute(child: KfsScreen(), ));
+      //  TGSession.getInstance().set(PREF_LOANOFFER, _getLoanOfferRes?.data?.offers?[index]);
+
         Navigator.push(
             context,
             MaterialPageRoute(

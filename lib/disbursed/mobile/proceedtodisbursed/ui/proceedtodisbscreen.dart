@@ -68,15 +68,15 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      LoaderUtils.showLoaderwithmsg(context,
-          msg: "Please wait... \n Getting Information For Disbursement...");
-      if (await TGNetUtil.isInternetAvailable()) {
-        getDisbursedAccountDetailAPI();
-      } else {
-        showSnackBarForintenetConnection(context, getDisbursedAccountDetailAPI);
-      }
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) async {
+    //   LoaderUtils.showLoaderwithmsg(context,
+    //       msg: "Please wait... \n Getting Information For Disbursement...");
+    //   if (await TGNetUtil.isInternetAvailable()) {
+    //     getDisbursedAccountDetailAPI();
+    //   } else {
+    //     showSnackBarForintenetConnection(context, getDisbursedAccountDetailAPI);
+    //   }
+    // });
 
     super.initState();
   }
@@ -174,7 +174,7 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Text(
             str_the_loan_amt +
-                Utils.convertIndianCurrency(strAmount) +
+                "₹25,600" +
                 str_disb_amt,
             style: ThemeHelper.getInstance()?.textTheme.headline3,
             maxLines: 5,
@@ -221,7 +221,7 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
                     width: 15.w,
                   ),
                   Text(
-                    dictData?.data?.accountHolderName ?? "",
+                    dictData?.data?.accountHolderName ?? "State Bank Of India",
                     style: ThemeHelper.getInstance()
                         ?.textTheme
                         .bodyText2
@@ -235,55 +235,60 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
             SizedBox(
               height: 10.h,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(str_ac_no,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.h),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(str_ac_no,
+                        style: ThemeHelper.getInstance()
+                            ?.textTheme
+                            .bodyText2
+                            ?.copyWith(color: MyColors.pnbCardMediumTextColor)),
+                    Text(
+                      "XXXXXX7564",
                       style: ThemeHelper.getInstance()
                           ?.textTheme
                           .bodyText2
-                          ?.copyWith(color: MyColors.pnbCardMediumTextColor)),
-                  Text(
-                    dictData?.data?.maskedAccountNumber ?? "",
-                    style: ThemeHelper.getInstance()
-                        ?.textTheme
-                        .bodyText2
-                        ?.copyWith(
-                            color: MyColors.black,
-                            fontFamily: MyFont.Nunito_Sans_Bold),
-                  )
-                ],
+                          ?.copyWith(
+                          color: MyColors.black,
+                          fontFamily: MyFont.Nunito_Sans_Bold),
+                    )
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(str_ifsc,
+              SizedBox(
+                height: 10.h,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.h),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(str_ifsc,
+                        style: ThemeHelper.getInstance()
+                            ?.textTheme
+                            .bodyText2
+                            ?.copyWith(color: MyColors.pnbCardMediumTextColor)),
+                    Text(
+                      "SBIN0003471",
                       style: ThemeHelper.getInstance()
                           ?.textTheme
                           .bodyText2
-                          ?.copyWith(color: MyColors.pnbCardMediumTextColor)),
-                  Text(
-                    dictData?.data?.accountIFSC ?? "",
-                    style: ThemeHelper.getInstance()
-                        ?.textTheme
-                        .bodyText2
-                        ?.copyWith(
-                            color: MyColors.black,
-                            fontFamily: MyFont.Nunito_Sans_Bold),
-                  )
-                ],
+                          ?.copyWith(
+                          color: MyColors.black,
+                          fontFamily: MyFont.Nunito_Sans_Bold),
+                    )
+                  ],
+                ),
               ),
-            ),
+            ],),
+
             SizedBox(
               height: 20.h,
             ),
@@ -375,34 +380,45 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
 
   Widget TopTextCard() {
     return Container(
+      height: 100.h,
       color: MyColors.pnbPinkColor,
       child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-          child: RichText(
-            maxLines: 5,
-            text: TextSpan(
-              style: ThemeHelper.getInstance()?.textTheme.bodyText1?.copyWith(
-                  color: ThemeHelper.getInstance()?.indicatorColor,
-                  fontFamily: MyFont.Nunito_Sans_Semi_bold),
-              children: [
-                TextSpan(
-                  text: str_congratulation,
-                  style: ThemeHelper.getInstance()
-                      ?.textTheme
-                      .bodyText1
-                      ?.copyWith(fontSize: 13.sp),
+          child: Row(
+            children: [
+              SvgPicture.asset(
+                Utils.path(GREENCONFORMTICK),
+                height: 18.h,
+                width: 18.w,
+              ),
+              RichText(
+                maxLines: 5,
+                text: TextSpan(
+                  style: ThemeHelper.getInstance()?.textTheme.bodyText1?.copyWith(
+                      color: ThemeHelper.getInstance()?.indicatorColor,
+                      fontFamily: MyFont.Nunito_Sans_Semi_bold),
+                  children: [
+
+                    TextSpan(
+                      text: str_congratulation,
+                      style: ThemeHelper.getInstance()
+                          ?.textTheme
+                          .bodyText1
+                          ?.copyWith(fontSize: 13.sp,color: MyColors.pnbGreenColor),
+                    ),
+                    TextSpan(
+                      text: str_doc_process_complete,
+                      style: ThemeHelper.getInstance()
+                          ?.textTheme
+                          .bodyText2
+                          ?.copyWith(
+                               color: MyColors.pnbGreenColor,
+                              fontSize: 13.sp),
+                    ),
+                  ],
                 ),
-                TextSpan(
-                  text: str_doc_process_complete,
-                  style: ThemeHelper.getInstance()
-                      ?.textTheme
-                      .bodyText2
-                      ?.copyWith(
-                          color: ThemeHelper.getInstance()?.indicatorColor,
-                          fontSize: 13.sp),
-                ),
-              ],
-            ),
+              ),
+            ],
           )),
     );
   }

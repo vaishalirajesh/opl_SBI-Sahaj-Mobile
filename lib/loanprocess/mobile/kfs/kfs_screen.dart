@@ -70,10 +70,10 @@ class KfsScreenBody extends State<KfsScreens> {
   @override
   void initState() {
     loanOfferData = TGSession.getInstance().get(PREF_LOANOFFER);
-    getApplicantName();
-    calculateOtherChanges("");
-    calculatePanelCharges("Penal");
-    setTotalCharge();
+    // getApplicantName();
+    // calculateOtherChanges("");
+    // calculatePanelCharges("Penal");
+    // setTotalCharge();
     super.initState();
   }
 
@@ -93,7 +93,10 @@ class KfsScreenBody extends State<KfsScreens> {
           onClickAction: () => {Navigator.pop(context)}),
       body: SingleChildScrollView(
         child: Container(
-          color: ThemeHelper.getInstance()?.primaryColor,
+          decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [MyColors.lightRedGradient,MyColors.lightBlueGradient],begin: Alignment.centerLeft,end:Alignment.centerRight)
+           //   color: ThemeHelper.getInstance()?.primaryColor,
+          ),
           child: Column(
             children: [
               InvoiceDataUI(context),
@@ -163,7 +166,7 @@ class KfsScreenBody extends State<KfsScreens> {
                               color: ThemeHelper.getInstance()
                                   ?.colorScheme
                                   .surface)),
-                  Text(loanOfferData?.invoiceNumber ?? "-",
+                  Text(loanOfferData?.invoiceNumber ?? "230",
                       style: ThemeHelper.getInstance()
                           ?.textTheme
                           .headline3
@@ -185,10 +188,10 @@ class KfsScreenBody extends State<KfsScreens> {
                               color: ThemeHelper.getInstance()
                                   ?.colorScheme
                                   .surface)),
-                  Text(
-                      Utils.convertIndianCurrency(loanOfferData?.offerDetails
-                          ?.elementAt(0)
-                          .termsRequestedAmount),
+                  Text("₹35,000",
+                      // Utils.convertIndianCurrency(loanOfferData?.offerDetails
+                      //     ?.elementAt(0)
+                      //     .termsRequestedAmount
                       style: ThemeHelper.getInstance()
                           ?.textTheme
                           .headline3
@@ -196,6 +199,28 @@ class KfsScreenBody extends State<KfsScreens> {
                               color: ThemeHelper.getInstance()
                                   ?.colorScheme
                                   .background))
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(str_date,
+                      style: ThemeHelper.getInstance()
+                          ?.textTheme
+                          .headline3
+                          ?.copyWith(
+                          color: ThemeHelper.getInstance()
+                              ?.colorScheme
+                              .surface)),
+                  Text("19 Oct, 2022",
+                      style: ThemeHelper.getInstance()
+                          ?.textTheme
+                          .headline3
+                          ?.copyWith(
+                          color: ThemeHelper.getInstance()
+                              ?.colorScheme
+                              .background))
                 ],
               )
             ],
@@ -362,7 +387,7 @@ class KfsScreenBody extends State<KfsScreens> {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
-              topRight: Radius.circular(26.r), topLeft: Radius.circular(26.r)),
+              topRight: Radius.circular(0.r), topLeft: Radius.circular(0.r)),
           color: ThemeHelper.getInstance()?.backgroundColor),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -937,29 +962,18 @@ class KfsScreenBody extends State<KfsScreens> {
       child: ElevatedButton(
           onPressed: () async {
 
-            WidgetsBinding.instance.addPostFrameCallback((_) async {
-              LoaderUtils.showLoaderwithmsg(context,
-                  msg:
-                      "$str_congrats \n $str_Congratulations \n $str_congratulation_sen \n $str_while_we_process_your_loan");
-            });
+            // WidgetsBinding.instance.addPostFrameCallback((_) async {
+            //   LoaderUtils.showLoaderwithmsg(context,
+            //       msg:
+            //           "$str_congrats \n $str_Congratulations \n $str_congratulation_sen \n $str_while_we_process_your_loan");
+            // });
+            //
+            // if (await TGNetUtil.isInternetAvailable()) {
+            //   setLoanOffer();
+            // } else {
+            //   showSnackBarForintenetConnection(context, setLoanOffer);
+            // }
 
-            if (await TGNetUtil.isInternetAvailable()) {
-              setLoanOffer();
-            } else {
-              showSnackBarForintenetConnection(context, setLoanOffer);
-            }
-            /*if(loanOfferData?.existingSahayBorrower == false)
-            {
-              showAddAccDialog();
-            }
-            else
-            {
-              setState(() {
-                isLoanOfferSelected = true;
-              });
-              setLoanOffer();
-            }*/
-            //viewModel.navigateToCongratulationScreen();
           },
           child: Center(
             child: Text(

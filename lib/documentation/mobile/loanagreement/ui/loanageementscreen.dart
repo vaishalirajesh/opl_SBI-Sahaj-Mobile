@@ -76,7 +76,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
 
   @override
   void initState() {
-    getLoanAggApiCall();
+   // getLoanAggApiCall();
 
     super.initState();
   }
@@ -111,7 +111,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
       return LoadAgreementURLInWeb(context);
     } else {
       return Scaffold(
-        appBar: getAppBarWithStep('3', str_documentation, 0.75,
+        appBar: getAppBarWithStepDone('3', str_documentation, 0.75,
             onClickAction: () => {
                   Navigator.pushAndRemoveUntil(
                     context,
@@ -136,21 +136,36 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
                   height: 35.h,
                 ),
                 SizedBox(
-                  height: 50.h,
+                  height: 20.h,
                 ),
                 Text(
                   str_loan_agreement,
-                  style: ThemeHelper.getInstance()?.textTheme.headline1,
+                  style: ThemeHelper.getInstance()?.textTheme.headline2,
+                ),
+                SizedBox(height: 5.h,),
+                Text(
+                  "Before we proceed for Digital Document Execution, please keep these handy:",
+                  style: ThemeHelper.getInstance()?.textTheme.headline4,
                 ),
                 SizedBox(
-                  height: 20.h,
+                  height: 10.h,
                 ),
-                AccountInfoUI(context),
-                SizedBox(height: 15.h),
+                buildRowWidget("Aadhaar Number"),
+                buildRowWidget("Mobile no. linked to your Aadhaar for OTP verification."),
+
+                Text(
+                  "Please read and scroll through the complete agreement before you provide your acceptance.",
+                  style: ThemeHelper.getInstance()?.textTheme.headline4,
+                ),
+                SizedBox(height: 10.h,),
+
+               // SizedBox(height: 15.h),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(),
+                    AccountInfoUI(context),
+                   // Container(),
                     DownloadAgreementBtnUI(context),
                   ],
                 ),
@@ -178,15 +193,29 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
       );
     }
   }
-
+  Widget buildRowWidget(String text) => Padding(
+    padding: EdgeInsets.only(bottom: 15.h),
+    child: Row(
+      children: [
+        SvgPicture.asset(Utils.path(IMG_GREENTICK_AA),
+            height: 15.h, width: 15.w),
+        Text(" $text",
+            style: ThemeHelper.getInstance()!
+                .textTheme
+                .headline1!
+                .copyWith(color: MyColors.black, fontSize: 14.sp)),
+      ],
+    ),
+  );
   Widget AccountInfoUI(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(str_deposit_ac,
             style: ThemeHelper.getInstance()?.textTheme.headline3),
         SizedBox(
-          width: 15.w,
+          height: 20.h,
         ),
         Row(
           children: [
@@ -195,7 +224,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
                 width: 30.w,
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: ThemeHelper.getInstance()?.colorScheme.secondary),
+                    color: ThemeHelper.getInstance()?.colorScheme.secondaryContainer),
                 child: Center(
                     child: SvgPicture.asset(
                   Utils.path(SMALLBANKLOGO),
@@ -210,7 +239,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  'Punjab National Bank',
+                  'State Bank of India',
                   style: ThemeHelper.getInstance()
                       ?.textTheme
                       .headline5
@@ -220,8 +249,8 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
                           fontSize: 13.sp),
                   maxLines: 3,
                 ),
-                Text(
-                  '$str_ac_no: ${_getLoanAgreementRes?.data?.accountDetailsDataModel?.accountNumber ?? "-"}',
+                Text("Account No XXXXXX7564",
+                 // '$str_ac_no: ${_getLoanAgreementRes?.data?.accountDetailsDataModel?.accountNumber ?? "-"}',
                   style: ThemeHelper.getInstance()
                       ?.textTheme
                       .bodyText1
@@ -245,29 +274,29 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
         TGView.showSnackBar(context: context, message: "Coming Soon...");
       },
       child: Container(
+        width: 100.w,
+        height: 30.h,
         decoration: BoxDecoration(
           border: Border.all(color: MyColors.pnbCheckBoxcolor, width: 2),
           color: ThemeHelper.getInstance()?.backgroundColor,
           borderRadius: BorderRadius.circular(20.r),
         ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 15.h),
-          child: Row(
-            children: [
-              Icon(
-                Icons.file_download_sharp,
-                color: ThemeHelper.getInstance()?.primaryColor,
-                size: 18.h,
-              ),
-              SizedBox(
-                width: 5.w,
-              ),
-              Text(
-                str_download,
-                style: ThemeHelper.getInstance()?.textTheme.bodyText1,
-              ),
-            ],
-          ),
+        child: Row(
+          children: [
+            SizedBox(width: 5.w,),
+            Icon(
+              Icons.file_download_sharp,
+              color: ThemeHelper.getInstance()?.primaryColor,
+              size: 18.h,
+            ),
+            SizedBox(
+              width: 5.w,
+            ),
+            Text(
+              str_download,
+              style: ThemeHelper.getInstance()?.textTheme.bodyText2,
+            ),
+          ],
         ),
       ),
     );
