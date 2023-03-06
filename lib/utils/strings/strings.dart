@@ -75,10 +75,10 @@ const str_select_loan_offer = 'Select Loan Offer';
 
 //Key Fact Statement
 const str_kfs = 'Key Fact Statement';
-const str_invoice_number = 'Invoice Number : ';
-const str_invoice_no = 'Invoice No. : ';
-const str_invoice_amount = 'Invoice Amount : ';
-const str_date = 'Date : ';
+const str_invoice_number = 'Invoice Number';
+const str_invoice_no = 'Invoice No. :';
+const str_invoice_amount = 'Invoice Amount';
+const str_date = '  Date';
 const str_kfs_lender = 'Lender : ';
 const str_applicant_name = 'Applicant Name : ';
 const str_sanction_limit = 'Sanctioned Limit';
@@ -115,6 +115,17 @@ const str_review_acc_txt_two =
 const str_ac_no = 'A/c No';
 const str_ifsc = 'IFSC';
 const str_proceed = 'Proceed';
+
+
+//loan deposite
+const str_enter_acc_no = 'Enter Current A/c No';
+const str_IFSC_Code = 'IFSC Code';
+
+
+
+
+
+
 
 //Loan Agreement
 const str_loan_agreement = 'Loan Agreement';

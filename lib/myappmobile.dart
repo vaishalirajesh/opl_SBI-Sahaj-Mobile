@@ -20,6 +20,7 @@ import 'package:sbi_sahay_1_0/registration/mobile/gst_detail/laoderfetchgstdetai
 import 'package:sbi_sahay_1_0/registration/mobile/login/login.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/loginotpverify/loginotpverify.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/registration_completed/registration_completed.dart';
+import 'package:sbi_sahay_1_0/registration/mobile/signupdetails/signup.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/welcome/welcome_screen.dart';
 import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -62,6 +63,7 @@ import 'loanprocess/mobile/infosharedscreen/ui/infosharedscreen.dart';
 import 'loanprocess/mobile/kfs/kfs_screen.dart';
 import 'loanprocess/mobile/loanaggrementcompleted/ui/esigncompleted.dart';
 import 'loanprocess/mobile/loanaggrementcompleted/ui/loanaggrementcompleted.dart';
+import 'loanprocess/mobile/loandepositeaccount/loandepositeaccnt.dart';
 import 'loanprocess/mobile/loanoffer/loanofferscreen.dart';
 import 'loanprocess/mobile/profile/ui/contactsupport/contactlendersupport/ui/lendersupportscreen.dart';
 import 'loanprocess/mobile/profile/ui/contactsupport/ui/contactsupportscreen.dart';
@@ -113,12 +115,19 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: ProceedToDisburseMain(),
+          home: KfsScreen(),
           locale: LocaleHelper.currentLocale,
           theme: ThemeHelper.getInstance(),
           scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),
           routes: {
            // MyRoutes.splashRoutes: (context) => SplashMain(),
+
+
+            MyRoutes.signUpViewRoutes: (context) => SignUpView(),
+            MyRoutes.loanDepositeAccRoutes: (context) => LoanDepositeAcc(),
+
+
+
             MyRoutes.welcomeRoutes: (context) => WelcomePage(),
             MyRoutes.tcRouted: (context) => TCview(),
             MyRoutes.GetStartedScrRoutes: (context) => const GetStartedScreen(),

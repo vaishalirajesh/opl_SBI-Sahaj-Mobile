@@ -32,6 +32,15 @@ class MyRoutes{
 
 
   //Mobile Screen Routes
+
+
+
+  static String signUpViewRoutes = '/SignUpView';
+
+  static String loanDepositeAccRoutes = '/LoanDepositeAcc';
+
+
+
   static String splashRoutes = '/SplashScreen';
   static String welcomeRoutes = '/Welcome';
   static String accVerificationRoutes = '/AccVerification';

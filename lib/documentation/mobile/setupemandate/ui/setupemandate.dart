@@ -78,22 +78,21 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
 
   bool isLoaderStartProceed = false;
 
+  bool isOpenDetails = false;
+
   @override
   void initState() {
-    getRepaymentPlanApiCall();
+    //getRepaymentPlanApiCall();
 
     super.initState();
-
   }
 
-  Future<void> getRepaymentPlanApiCall() async
-  {
+  Future<void> getRepaymentPlanApiCall() async {
     if (await TGNetUtil.isInternetAvailable()) {
       getRepaymentPlanAPI();
     } else {
       showSnackBarForintenetConnection(context, getRepaymentPlanAPI);
     }
-
   }
 
   @override
@@ -193,14 +192,22 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
           horizontal: 20.w,
         ),
         sizebox(height: 30.h),
-        paddingOnly(
-          child: buildLoanDetailsContainer(),
-          bottom: 100.h,
-          top: 0.h,
-          right: 20.w,
-          left: 20.w,
-        ),
-        sizebox(height: 35.h),
+
+        (isOpenDetails)
+            ? Padding(
+                padding: EdgeInsets.only(top: 10.h,right: 20.w,left: 20.w),
+                child: buildLoanDetailsContainer(),
+              )
+            : _buildOnlyDetialContainer(),
+
+        // paddingOnly(
+        //   child: buildLoanDetailsContainer(),
+        //   bottom: 100.h,
+        //   top: 0.h,
+        //   right: 20.w,
+        //   left: 20.w,
+        // ),
+        sizebox(height: 50.h),
       ],
     );
   }
@@ -215,7 +222,7 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
         children: [
           SizedBox(width: 10.w),
           SvgPicture.asset(
-            Utils.path(MOBILESTEPDONE), height: 12.h, width: 12.w,
+            Utils.path(GREENCONFORMTICK), height: 12.h, width: 12.w,
             //
           ),
           SizedBox(width: 3.w),
@@ -223,7 +230,7 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
               style: ThemeHelper.getInstance()!
                   .textTheme
                   .headline1!
-                  .copyWith(fontSize: 14.sp))
+                  .copyWith(fontSize: 14.sp, color: MyColors.pnbGreenColor))
         ],
       ),
     );
@@ -236,59 +243,132 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
       double? top,
       double? left,
       double? right}) {
-    return paddingOnly(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return  Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            text(text: titletext, textStyle: textTextHeader2Copywith16),
-            text(text: titleValue, textStyle: textTextHeader1Copywith14)
+            text(text: titletext, textStyle: textTextHeader3Copywith11),
+            SizedBox(height: 2.h,),
+            text(text: titleValue, textStyle: textTextHeader1Copywith14?.copyWith(color: MyColors.darkblack))
           ],
-        ),
-        bottom: bottom ?? 8.h,
-        top: top ?? 8.h,
-        left: left ?? 0,
-        right: right ?? 0);
+        );
+
   }
 
   Widget buildLoanDetailsContainer() {
-    return Column(
+    return GestureDetector(
+        onTap: () {
+          setState(() {
+            isOpenDetails = false;
+          });
+        },
+        child: Container(
+            decoration: BoxDecoration(
+                border: Border.all(
+                    color: ThemeHelper.getInstance()!.cardColor, width: 1),
+                color: ThemeHelper.getInstance()?.backgroundColor,
+                borderRadius: BorderRadius.all(Radius.circular(16.r))),
+            //width: 335.w,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  sizebox(height: 10.h),
+                  _buildTopDetilss(),
+                  // text(text: str_details, textStyle: textTextHeader1),
+                  sizebox(height: 10.h),
+                  buildCommonRow(
+                      titletext: str_bank,
+                      titleValue: _getRepaymentPlanResMain?.data?.bankName ?? "State Bank of India"),
+                  sizebox(height: 20.h),
+                  buildCommonRow(
+                      titletext: str_bank_acc_no,
+                      titleValue:
+                          _getRepaymentPlanResMain?.data?.accountNumber ?? "XXXXXX7564"),
+                  sizebox(height: 20.h),
+                  buildCommonRow(
+                      titletext: str_bank_ifsc,
+                      titleValue: _getRepaymentPlanResMain?.data?.bankIfsc ?? "SBIN0003471"),
+                  sizebox(height: 20.h),
+                  buildCommonRow(
+                      titletext: str_bank_acc_name,
+                      titleValue:
+                          _getRepaymentPlanResMain?.data?.buyerName ?? "Indo International"),
+                  sizebox(height: 20.h),
+                  buildCommonRow(
+                      titletext: str_acc_type,
+                      titleValue: _getRepaymentPlanResMain?.data?.accType ?? "Current"),
+                  sizebox(height: 20.h),
+                  buildCommonRow(
+                      titletext: str_mobile_no,
+                      titleValue: _getRepaymentPlanResMain?.data?.mobileNo ?? "9510777718"),
+                  sizebox(height: 20.h),
+                  buildCommonRow(
+                      titletext: str_due_date,
+                      titleValue: _getRepaymentPlanResMain?.data?.dueDate ?? "12 Aug, 2022"),
+                  sizebox(height: 20.h),
+                  buildCommonRow(
+                      titletext: str_repayment_amt,
+                      titleValue: Utils.convertIndianCurrency(
+                          "26240")),
+                ],
+              ),
+            )));
+  }
+
+  _buildOnlyDetialContainer() {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          isOpenDetails = true;
+        });
+      },
+      child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(
+                color: ThemeHelper.getInstance()!.cardColor, width: 1),
+            color: ThemeHelper.getInstance()?.backgroundColor,
+            borderRadius: BorderRadius.all(Radius.circular(16.r))),
+       // width: 335.w,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15.0.w),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 10.h,
+              ),
+              _buildTopDetilss(),
+              SizedBox(
+                height: 10.h,
+              ),
+            ],
+          ),
+        ),
+      )),
+    );
+  }
+
+  _buildTopDetilss() {
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        text(text: str_details, textStyle: textTextHeader1),
-        sizebox(height: 10.h),
-        buildCommonRow(
-            titletext: str_bank,
-            titleValue: _getRepaymentPlanResMain?.data?.bankName ?? ""),
-        const Divider(),
-        buildCommonRow(
-            titletext: str_bank_acc_no,
-            titleValue: _getRepaymentPlanResMain?.data?.accountNumber ?? ""),
-        const Divider(),
-        buildCommonRow(
-            titletext: str_bank_ifsc,
-            titleValue: _getRepaymentPlanResMain?.data?.bankIfsc ?? ""),
-        const Divider(),
-        buildCommonRow(
-            titletext: str_bank_acc_name,
-            titleValue: _getRepaymentPlanResMain?.data?.buyerName ?? ""),
-        const Divider(),
-        buildCommonRow(
-            titletext: str_acc_type,
-            titleValue: _getRepaymentPlanResMain?.data?.accType ?? ""),
-        const Divider(),
-        buildCommonRow(
-            titletext: str_mobile_no,
-            titleValue: _getRepaymentPlanResMain?.data?.mobileNo ?? ""),
-        const Divider(),
-        buildCommonRow(
-            titletext: str_due_date,
-            titleValue: _getRepaymentPlanResMain?.data?.dueDate ?? ""),
-        const Divider(),
-        buildCommonRow(
-            titletext: str_repayment_amt,
-            titleValue: Utils.convertIndianCurrency(
-                _getRepaymentPlanResMain?.data?.amountPayable)),
+        SizedBox(
+            width: 200.w,
+            child: Text(
+              "Details",
+              style: ThemeHelper.getInstance()!.textTheme.headline2,
+            )),
+        Spacer(),
+        SizedBox(
+            child: Text("+",
+                style: ThemeHelper.getInstance()!.textTheme.headline3)),
       ],
     );
   }
@@ -302,23 +382,32 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
                   MyColors.pnbcolorPrimary,
               radius: 10,
             )
-          : ElevatedButton(
-              style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
-              onPressed: () async {
-                setState(() {
-                  isLoaderStartProceed = true;
-                });
-                if (await TGNetUtil.isInternetAvailable()) {
-                  setRepaymentRequestAPI();
-                } else {
-                  showSnackBarForintenetConnection(
-                      context, setRepaymentRequestAPI);
-                }
-              },
-              child: const Text(
-                str_proceed,
-              ),
+          : Container(
+            height: 80.h,
+            child: Column(
+              children: [
+                Text("You will be redirected to lender specific page for authorising through e-NACH",style: ThemeHelper.getInstance()?.textTheme.headline6?.copyWith(color: MyColors.pnbCheckboxTextColor),textAlign: TextAlign.center),
+                SizedBox(height: 5.h),
+                ElevatedButton(
+                    style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
+                    onPressed: () async {
+                      setState(() {
+                        isLoaderStartProceed = true;
+                      });
+                      if (await TGNetUtil.isInternetAvailable()) {
+                        setRepaymentRequestAPI();
+                      } else {
+                        showSnackBarForintenetConnection(
+                            context, setRepaymentRequestAPI);
+                      }
+                    },
+                    child: const Text(
+                      str_proceed,
+                    ),
+                  ),
+              ],
             ),
+          ),
     );
   }
 
@@ -733,7 +822,10 @@ Widget text(
   );
 }
 
-TextStyle? textTextHeader1 = ThemeHelper.getInstance()!.textTheme.headline1;
+TextStyle? textTextHeader1 = ThemeHelper.getInstance()!
+    .textTheme
+    .headline1
+    ?.copyWith(color: MyColors.darkblack);
 
 TextStyle? textTextHeader3 = ThemeHelper.getInstance()!.textTheme.headline3;
 TextStyle? textTextHeader2Copywith16 =

@@ -165,11 +165,16 @@ AppBar getAppBarWithBackBtn({required Function onClickAction})
       ),
     ),
     automaticallyImplyLeading: false,
-    /* iconTheme: IconThemeData(
-        color: ThemeHelper.getInstance()!.colorScheme.primary,
-
-        size: 28
-    ),*/
+    bottom: PreferredSize(
+      preferredSize: Size( MyDimension.width,3.h),
+      child: LinearProgressIndicator(value: 1,
+          semanticsLabel: '',
+          minHeight: 3.h,
+          color: ThemeHelper.getInstance()
+              ?.colorScheme
+              .primary,
+          backgroundColor: Colors.transparent),
+    ),
 
   );
 }

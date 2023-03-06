@@ -56,6 +56,10 @@ class MyColors
   static final lightSKYColor = HexColor('#EEF8FD');
 
 
+  static final  ratingBarColor = HexColor("#FFC107");
+
+  static final  sbiPinkColor = HexColor("#B22382");
+
 }
 
 

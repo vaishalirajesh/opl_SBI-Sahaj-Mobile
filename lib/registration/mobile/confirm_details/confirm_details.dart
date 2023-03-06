@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -58,6 +59,8 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
   bool isLoader = true;
   String? strLegalName = "";
 
+  bool isOpenDetails = false;
+
   @override
   void initState() {
 //     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -104,7 +107,12 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildHeader(),
-                  _buildMiddler(),
+                  (isOpenDetails)
+                      ? Padding(
+                          padding: EdgeInsets.only(top: 10.h),
+                          child:  _buildMiddler(),
+                        )
+                      :  _buildOnlyPersonalDetialContainer(),
                   confirmGstDetailCheck(),
                 ],
               ),
@@ -121,11 +129,11 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
     return Padding(
       padding: EdgeInsets.only(top: 20.0.h, bottom: 20.h),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
             str_Confirm_Details,
-            style: ThemeHelper.getInstance()!.textTheme.headline1,
+            style: ThemeHelper.getInstance()!.textTheme.headline2,
           ),
         ],
       ),
@@ -133,11 +141,17 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
   }
 
   _buildMiddler() {
-    return Container(
+    return GestureDetector(
+        onTap: (){
+      setState(() {
+        isOpenDetails = false;
+      });
+    },
+    child:Container(
       decoration: BoxDecoration(
-          border: Border.all(
-              color: ThemeHelper.getInstance()!.colorScheme.primary, width: 1),
-          color: ThemeHelper.getInstance()?.colorScheme.secondary,
+          border:
+              Border.all(color: ThemeHelper.getInstance()!.cardColor, width: 1),
+          color: ThemeHelper.getInstance()?.backgroundColor,
           borderRadius: BorderRadius.all(Radius.circular(16.r))),
       width: 335.w,
       child: Padding(
@@ -150,10 +164,14 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
             SizedBox(
               height: 20.h,
             ),
+            _buildTopPersonal(),
+            SizedBox(
+              height: 20.h,
+            ),
             _buildRow(
                 str_Legal_Name,
                 _gstBasicDataResMain?.data?.lgnm == null
-                    ? ""
+                    ? "Manish Patel"
                     : _gstBasicDataResMain?.data?.lgnm),
             SizedBox(
               height: 10.h,
@@ -161,7 +179,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
             _buildRow(
                 str_Trade_Name,
                 _gstBasicDataResMain?.data?.tradeNam == null
-                    ? ""
+                    ? "Indo International"
                     : _gstBasicDataResMain?.data?.tradeNam),
             SizedBox(
               height: 10.h,
@@ -169,7 +187,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
             _buildRow(
                 str_Constitution,
                 _gstBasicDataResMain?.data?.ctb == null
-                    ? ""
+                    ? "Proprietorship"
                     : _gstBasicDataResMain?.data?.ctb),
             SizedBox(
               height: 10.h,
@@ -177,7 +195,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
             _buildRow(
                 str_Date_of_Registration,
                 _gstBasicDataResMain?.data?.rgdt == null
-                    ? ""
+                    ? "01/08/2018"
                     : _gstBasicDataResMain?.data?.rgdt),
             SizedBox(
               height: 10.h,
@@ -185,7 +203,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
             _buildRow(
                 str_GSTIN,
                 _gstBasicDataResMain?.data?.gstin == null
-                    ? ""
+                    ? "24ABCDE1234F3Z6"
                     : _gstBasicDataResMain?.data?.gstin),
             SizedBox(
               height: 10.h,
@@ -193,7 +211,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
             _buildRow(
                 str_GSTIN_Status,
                 _gstBasicDataResMain?.data?.sts == null
-                    ? ""
+                    ? "Active"
                     : _gstBasicDataResMain?.data?.sts),
             SizedBox(
               height: 10.h,
@@ -201,7 +219,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
             _buildRow(
                 str_Taxpayer_Type,
                 _gstBasicDataResMain?.data?.dty == null
-                    ? ""
+                    ? "Regular"
                     : _gstBasicDataResMain?.data?.dty),
             SizedBox(
               height: 10.h,
@@ -209,7 +227,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
             _buildRow(
                 str_Business_Activity,
                 _gstBasicDataResMain?.data?.lgnm == null
-                    ? ""
+                    ? "Service Provider and Others"
                     : _gstBasicDataResMain?.data?.lgnm),
             SizedBox(
               height: 10.h,
@@ -217,7 +235,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
             _buildRow(
                 str_Place_of_Business,
                 _gstBasicDataResMain?.data?.stj == null
-                    ? ""
+                    ? "108, Near Datta Mandir, Radha Apartment, Bhavnagar, Gujarat, 364001"
                     : _gstBasicDataResMain?.data?.stj),
             SizedBox(
               height: 20.h,
@@ -225,7 +243,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
           ],
         ),
       ),
-    );
+    ));
   }
 
   Widget confirmGstDetailCheck() {
@@ -279,7 +297,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
   }
 
   _buildRow(String title, String? subTitle) {
-    return Row(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
@@ -288,14 +306,65 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
               title,
               style: ThemeHelper.getInstance()!.textTheme.bodyText2,
             )),
-        SizedBox(
-          width: 17.w,
-        ),
+        SizedBox(height: 2.h),
         SizedBox(
             width: 148.w,
             child: Text(subTitle ?? "",
-                style: ThemeHelper.getInstance()!.textTheme.headline6)),
+                style: ThemeHelper.getInstance()!.textTheme.headline3)),
       ],
+    );
+  }
+
+  _buildTopPersonal() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+            width: 200.w,
+            child: Text(
+              "Personal Details",
+              style: ThemeHelper.getInstance()!.textTheme.headline2,
+            )),
+        Spacer(),
+        SizedBox(
+            child: Text("+",
+                style: ThemeHelper.getInstance()!.textTheme.headline3)),
+      ],
+    );
+  }
+
+  _buildOnlyPersonalDetialContainer() {
+    return GestureDetector(
+      onTap: (){
+        setState(() {
+          isOpenDetails = true;
+        });
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            border:
+            Border.all(color: ThemeHelper.getInstance()!.cardColor, width: 1),
+            color: ThemeHelper.getInstance()?.backgroundColor,
+            borderRadius: BorderRadius.all(Radius.circular(16.r))),
+        width: 335.w,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15.0.w),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 10.h,
+              ),
+              _buildTopPersonal(),
+              SizedBox(
+                height: 10.h,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -323,15 +392,13 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
               onPressed: () {
                 if (confirmGstDetail) {
                   Navigator.pop(context);
-                
 
                   TGSharedPreferences.getInstance()
                       .set(PREF_ISGSTDETAILDONE, true);
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          DashboardWithoutGST(),
+                      builder: (BuildContext context) => DashboardWithoutGST(),
                     ),
                     (route) =>
                         false, //if you want to disable back feature set to false
