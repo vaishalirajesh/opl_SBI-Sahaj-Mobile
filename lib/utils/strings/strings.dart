@@ -96,6 +96,9 @@ const str_no_of_installment = 'No. Of Installments';
 const str_penal_charge = 'Penal Charge';
 const str_loan_tenure = 'Loan Tenure';
 const str_other_upfront_charges = 'Other Upfront Charges';
+
+const str_stamp_duty = 'Stamp Duty';
+
 const str_processing_fees = 'Processing Fees';
 const str_insurance_charges = 'Insurance Charges';
 const str_others = 'Others';

@@ -66,7 +66,6 @@ class KfsScreenBody extends State<KfsScreens> {
   TextEditingController fatherName = TextEditingController();
   bool isValidFatherName = false;
 
-
   @override
   void initState() {
     loanOfferData = TGSession.getInstance().get(PREF_LOANOFFER);
@@ -94,9 +93,12 @@ class KfsScreenBody extends State<KfsScreens> {
       body: SingleChildScrollView(
         child: Container(
           decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [MyColors.lightRedGradient,MyColors.lightBlueGradient],begin: Alignment.centerLeft,end:Alignment.centerRight)
-           //   color: ThemeHelper.getInstance()?.primaryColor,
-          ),
+              gradient: LinearGradient(colors: [
+            MyColors.lightRedGradient,
+            MyColors.lightBlueGradient
+          ], begin: Alignment.centerLeft, end: Alignment.centerRight)
+              //   color: ThemeHelper.getInstance()?.primaryColor,
+              ),
           child: Column(
             children: [
               InvoiceDataUI(context),
@@ -209,17 +211,17 @@ class KfsScreenBody extends State<KfsScreens> {
                           ?.textTheme
                           .headline6
                           ?.copyWith(
-                          color: ThemeHelper.getInstance()
-                              ?.colorScheme
-                              .surface)),
+                              color: ThemeHelper.getInstance()
+                                  ?.colorScheme
+                                  .surface)),
                   Text("19 Oct, 2022",
                       style: ThemeHelper.getInstance()
                           ?.textTheme
                           .headline6
                           ?.copyWith(
-                          color: ThemeHelper.getInstance()
-                              ?.colorScheme
-                              .background))
+                              color: ThemeHelper.getInstance()
+                                  ?.colorScheme
+                                  .background))
                 ],
               )
             ],
@@ -240,17 +242,17 @@ class KfsScreenBody extends State<KfsScreens> {
                           ?.textTheme
                           .headline6
                           ?.copyWith(
-                          color: ThemeHelper.getInstance()
-                              ?.colorScheme
-                              .surface)),
+                              color: ThemeHelper.getInstance()
+                                  ?.colorScheme
+                                  .surface)),
                   Text("State Bank of India",
                       style: ThemeHelper.getInstance()
                           ?.textTheme
                           .headline6
                           ?.copyWith(
-                          color: ThemeHelper.getInstance()
-                              ?.colorScheme
-                              .background))
+                              color: ThemeHelper.getInstance()
+                                  ?.colorScheme
+                                  .background))
                 ],
               ),
             ],
@@ -264,14 +266,14 @@ class KfsScreenBody extends State<KfsScreens> {
     return Container(
       height: 100.h,
       //color: ThemeHelper.getInstance()?.backgroundColor,
-        decoration: BoxDecoration(
-            border: Border.all(
-              width: 1,
-              color: MyColors.sbiPinkColor,
-              style: BorderStyle.solid,
-            ),
-            borderRadius: BorderRadius.all(Radius.circular(8.r)),
-            color: ThemeHelper.getInstance()?.backgroundColor),
+      decoration: BoxDecoration(
+          border: Border.all(
+            width: 1,
+            color: MyColors.sbiPinkColor,
+            style: BorderStyle.solid,
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(8.r)),
+          color: ThemeHelper.getInstance()?.backgroundColor),
       child: Column(
         children: [
           Container(
@@ -287,10 +289,14 @@ class KfsScreenBody extends State<KfsScreens> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(str_applicant_name + "Manish Patel",
-                    style: ThemeHelper.getInstance()
-                        ?.textTheme
-                        .headline3?.copyWith(color: MyColors.white),textAlign: TextAlign.center,),
+                Text(
+                  str_applicant_name + "Manish Patel",
+                  style: ThemeHelper.getInstance()
+                      ?.textTheme
+                      .headline3
+                      ?.copyWith(color: MyColors.white),
+                  textAlign: TextAlign.center,
+                ),
                 // Expanded(
                 //   child: Text(
                 //   "Manish Patel",
@@ -303,6 +309,74 @@ class KfsScreenBody extends State<KfsScreens> {
                 // )
               ],
             ),
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      Utils.path(IMG_kfs_bank),
+                      height: 20.h,
+                      width: 20.w,
+                    ),
+                    SizedBox(width: 10.w), //10
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text("Sanctioned Limit",
+                            style: ThemeHelper.getInstance()
+                                ?.textTheme
+                                .headline6
+                                ?.copyWith(color: MyColors.pnbTextcolor)),
+                        Text("₹5,00,000",
+                            style: ThemeHelper.getInstance()
+                                ?.textTheme
+                                .headline2
+                                ?.copyWith(fontSize: 14.sp)),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(width: 24.w), //10
+              Container(
+                  height: 40.h, width: 0.1.w, color: MyColors.pnbGreyColor),
+              SizedBox(width: 24.w),
+              Container(
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      Utils.path(IMG_kfs_coin_stack),
+                      height: 20.h,
+                      width: 20.w,
+                    ),
+                    SizedBox(width: 10.w), //10
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text("Sanctioned Limit",
+                            style: ThemeHelper.getInstance()
+                                ?.textTheme
+                                .headline6
+                                ?.copyWith(color: MyColors.pnbTextcolor)),
+                        Text("₹5,00,000",
+                            style: ThemeHelper.getInstance()
+                                ?.textTheme
+                                .headline2
+                                ?.copyWith(fontSize: 14.sp)),
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ],
           )
         ],
       ),
@@ -452,8 +526,10 @@ class KfsScreenBody extends State<KfsScreens> {
                 ],
               ),
             ),
-            Divider( thickness: 0.5,
-              color: ThemeHelper.getInstance()?.disabledColor,),
+            Divider(
+              thickness: 0.5,
+              color: ThemeHelper.getInstance()?.disabledColor,
+            ),
             // SizedBox(
             //   height: 10.h,
             // ),
@@ -532,7 +608,7 @@ class KfsScreenBody extends State<KfsScreens> {
             SizedBox(
               height: 15.h,
             ),
-            OtherDisclouserDetailCardUI(context),
+            OtherDisclouserDetailCardUI(),
             SizedBox(
               height: 50.h,
             )
@@ -560,9 +636,7 @@ class KfsScreenBody extends State<KfsScreens> {
                 flex: 1,
                 child: Text(
                   title,
-                  style: ThemeHelper.getInstance()
-                      ?.textTheme
-                      .bodyText2,
+                  style: ThemeHelper.getInstance()?.textTheme.bodyText2,
                   maxLines: 3,
                   softWrap: true,
                 ),
@@ -606,8 +680,9 @@ class KfsScreenBody extends State<KfsScreens> {
         ),
         Text(
           value,
-          style: ThemeHelper.getInstance()?.textTheme.headline6?.copyWith(
-              fontFamily: MyFont.Nunito_Sans_Semi_bold, fontSize: 15.sp),
+          style: ThemeHelper.getInstance()
+              ?.textTheme
+              .headline5?.copyWith(color: MyColors.black),
           textAlign: TextAlign.center,
         ),
       ],
@@ -697,10 +772,7 @@ class KfsScreenBody extends State<KfsScreens> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(str_other_upfront_charges,
-                        style: ThemeHelper.getInstance()
-                            ?.textTheme
-                            .headline6
-                    ),
+                        style: ThemeHelper.getInstance()?.textTheme.headline6),
                     Row(
                       children: [
                         Text(
@@ -712,11 +784,10 @@ class KfsScreenBody extends State<KfsScreens> {
                         ),
                         GestureDetector(
                           child: SvgPicture.asset(
-                            isOtherUpFrontDetailCard
-                                ? Utils.path(HIDEVIEW)
-                                : Utils.path(EXPANDVIEW),
-                            height: 15.h,
-                            width: 15.h,
+                        isOtherUpFrontDetailCard ?
+                        Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+                            height: 20.h,
+                            width: 20.w,
                           ),
                           onTap: () {
                             //Manish
@@ -733,6 +804,12 @@ class KfsScreenBody extends State<KfsScreens> {
               isOtherUpFrontDetailCard
                   ? Column(
                       children: [
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        OtherUpFrontRowWidget(
+                            str_stamp_duty,
+                            Utils.convertIndianCurrency("100")),
                         SizedBox(
                           height: 15.h,
                         ),
@@ -794,9 +871,11 @@ class KfsScreenBody extends State<KfsScreens> {
     );
   }
 
-  Widget OtherDisclouserDetailCardUI(BuildContext context) {
+  Widget OtherDisclouserDetailCardUI() {
     return Card(
+        color: ThemeHelper.getInstance()?.backgroundColor,
         shape: RoundedRectangleBorder(
+            side: BorderSide(color: ThemeHelper.getInstance()!.dividerColor),
             borderRadius: BorderRadiusDirectional.all(Radius.circular(12.r))),
         shadowColor: ThemeHelper.getInstance()?.shadowColor,
         elevation: 2,
@@ -816,16 +895,13 @@ class KfsScreenBody extends State<KfsScreens> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(str_other_disclouser,
-                        style: ThemeHelper.getInstance()
-                            ?.textTheme
-                            .headline6),
+                        style: ThemeHelper.getInstance()?.textTheme.headline6),
                     GestureDetector(
                       child: SvgPicture.asset(
-                        isOtherDisclouserCard
-                            ? Utils.path(LOANCARDUPARROW)
-                            : Utils.path(LOANCARDDOWNARROW),
-                        height: 15.h,
-                        width: 15.h,
+                        isOtherUpFrontDetailCard ?
+                        Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW) ,
+                        height: 20.h,
+                        width: 20.w,
                       ),
                       onTap: () {
                         setState(() {
@@ -852,7 +928,7 @@ class KfsScreenBody extends State<KfsScreens> {
                                 flex: 4,
                                 child: LoanDetailColumnWidget(
                                     str_cooling_period,
-                                    "${loanOfferData?.offerDetails?.elementAt(0).coolingOffPeriod ?? ""}",
+                                    "${loanOfferData?.offerDetails?.elementAt(0).coolingOffPeriod ?? "3 Days"}",
                                     true,
                                     str_cooling_period_tooltip)),
                             Flexible(flex: 1, child: Container()),
@@ -863,7 +939,7 @@ class KfsScreenBody extends State<KfsScreens> {
                                     loanOfferData?.offerDetails
                                             ?.elementAt(0)
                                             ?.detailsOfLSPActAsRecoveryAgent ??
-                                        "-",
+                                        "NA",
                                     true,
                                     str_lsp_detail_tooltip)),
                           ],
@@ -882,30 +958,25 @@ class KfsScreenBody extends State<KfsScreens> {
                           str_grievance_contact,
                           style: ThemeHelper.getInstance()
                               ?.textTheme
-                              .bodyText1
-                              ?.copyWith(
-                                  color:
-                                      ThemeHelper.getInstance()?.indicatorColor,
-                                  fontFamily: MyFont.Nunito_Sans_Semi_bold,
-                                  fontSize: 14.sp),
+                              .bodyText2
+                              ,
                         ),
                         SizedBox(
                           height: 10.h,
                         ),
                         SizedBox(
-                          width: 150.w,
+                          //width: 150.w,
                           child: Text(
                             loanOfferData?.offerDetails
                                     ?.elementAt(0)
                                     .contactDetailsOfNodalOfficer
                                     ?.replaceAll('null,', '')
                                     .replaceAll(',null', '') ??
-                                "-",
+                                "Jainam Shah, Greivance Redressal Officer, 1st floor, Agile Complex, Dadar, Mumbai - 400014 Phone : 022 7878 2442",
                             style: ThemeHelper.getInstance()
                                 ?.textTheme
-                                .headline6
-                                ?.copyWith(
-                                    fontFamily: MyFont.Nunito_Sans_Semi_bold),
+                                .headline5?.copyWith(color: MyColors.black)
+                                ,
                             textAlign: TextAlign.start,
                           ),
                         )
@@ -925,7 +996,6 @@ class KfsScreenBody extends State<KfsScreens> {
       height: 50.h,
       child: ElevatedButton(
           onPressed: () async {
-
             // WidgetsBinding.instance.addPostFrameCallback((_) async {
             //   LoaderUtils.showLoaderwithmsg(context,
             //       msg:
@@ -937,7 +1007,6 @@ class KfsScreenBody extends State<KfsScreens> {
             // } else {
             //   showSnackBarForintenetConnection(context, setLoanOffer);
             // }
-
           },
           child: Center(
             child: Text(
@@ -1144,7 +1213,7 @@ class KfsScreenBody extends State<KfsScreens> {
         onError: (error) => _onErrorGetLoanOffer(error));
   }
 
-  _onSuccessGetLoanOffer(SetLoanOfferResponse? response)  {
+  _onSuccessGetLoanOffer(SetLoanOfferResponse? response) {
     TGLog.d("SetLoanOfferResponse : onSuccess()");
 
     if (response?.getSetLoanOfferResObj().status == RES_SUCCESS) {
@@ -1212,8 +1281,7 @@ class KfsScreenBody extends State<KfsScreens> {
     handleServiceFailError(context, errorResponse.error);
   }
 
-  Future<void> loanAppStatusAfterSetLoanOffer() async
-  {
+  Future<void> loanAppStatusAfterSetLoanOffer() async {
     if (await TGNetUtil.isInternetAvailable()) {
       getLoanAppStatusAfterSelectLoanOffer();
     } else {
@@ -1221,6 +1289,7 @@ class KfsScreenBody extends State<KfsScreens> {
           context, getLoanAppStatusAfterSelectLoanOffer);
     }
   }
+
   void getApplicantName() async {
     var name = await TGSharedPreferences.getInstance().get(PREF_BUSINESSNAME);
     setState(() {

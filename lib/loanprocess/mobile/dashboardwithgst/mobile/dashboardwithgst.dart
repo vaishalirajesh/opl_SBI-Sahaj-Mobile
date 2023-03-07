@@ -33,6 +33,7 @@ import '../../../../utils/internetcheckdialog.dart';
 import '../../../../utils/progressLoader.dart';
 import '../../../../utils/singlebuttondialog.dart';
 import '../../../../utils/strings/strings.dart';
+import '../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 import '../../gstinvoiceslist/ui/gstinvoicelist.dart';
 import '../../profile/ui/profilescreen.dart';
 import '../../transactions/ui/transactionscreen.dart';
@@ -115,14 +116,14 @@ class _DashboardWithGstState extends State<DashboardWithGst>
 
   @override
   void initState() {
-    tabController = TabController(vsync: this, length: 3);
-    tabController.index = 0;
+    //tabController = TabController(vsync: this, length: 3);
+    //tabController.index = 0;
 
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      LoaderUtils.showLoaderwithmsg(context,
-          msg: "Getting User Details... \nWait a Moment...");
-    });
-    getBasicDetailApiCall();
+    // WidgetsBinding.instance.addPostFrameCallback((_) async {
+    //   LoaderUtils.showLoaderwithmsg(context,
+    //       msg: "Getting User Details... \nWait a Moment...");
+    // });
+    // getBasicDetailApiCall();
     super.initState();
   }
 
@@ -138,36 +139,40 @@ class _DashboardWithGstState extends State<DashboardWithGst>
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (tabController.index == 0) {
-          final shoulpop = await showFirstWaring(context);
-          return shoulpop ?? false;
-        } else if (tabController.index == 1) {
-          tabController.index = 0;
-          setState(() {
-            tabIndex = 0;
-          });
-          return false;
-        } else if (tabController.index == 2) {
-          tabController.index = 0;
-          setState(() {
-            tabIndex = 0;
-          });
-          return false;
-        } else {
-          return false;
-        }
+        // if (tabController.index == 0) {
+        //   final shoulpop = await showFirstWaring(context);
+        //   return shoulpop ?? false;
+        // } else if (tabController.index == 1) {
+        //   tabController.index = 0;
+        //   setState(() {
+        //     tabIndex = 0;
+        //   });
+        //   return false;
+        // } else if (tabController.index == 2) {
+        //   tabController.index = 0;
+        //   setState(() {
+        //     tabIndex = 0;
+        //   });
+        //   return false;
+        // } else {
+        return false;
+        //}
       },
       child: Scaffold(
-          body: TabBarView(
-            controller: tabController,
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              MainContainerView(),
-              TransactionsView(),
-              ProfileView(),
-            ],
-          ),
-          bottomNavigationBar: buildTabBar()),
+        appBar: getAppBarMainDashboard("2", str_loan_approve_process, 0.50,
+            onClickAction: () => {}),
+        // body: TabBarView(
+        //   controller: tabController,
+        //   physics: const NeverScrollableScrollPhysics(),
+        //   children: [
+        //     MainContainerView(),
+        //     TransactionsView(),
+        //     ProfileView(),
+        //   ],
+        // ),
+        body: MainContainerView(),
+        //bottomNavigationBar: buildTabBar()
+      ),
     );
   }
 
@@ -218,123 +223,163 @@ class _DashboardWithGstState extends State<DashboardWithGst>
   }
 
   Widget MainContainerView() {
-    return ListView(children: [
-      _buildTopContent(),
-      _buildMiddleContent(),
-      GestureDetector(
-          onTap: () {
-            if (pendingLoan?.isNotEmpty == true) {
-              setExpanded1();
-            }
-          },
-          child: _buildOnPendingCard(
-              str_Pending_Disbursement, str_p1, MyColors.pnbPendingBackground)),
-      GestureDetector(
-          onTap: () {
-            if (ongoingLoan?.isNotEmpty == true) {
-              setExpanded2();
-            }
-          },
-          child: buildOngingCard(
-              strOngoingapplication, str_o1, MyColors.pnbDashboardBackground)),
-      buildCardImg(),
-      recentTransactionList()
-      /* _buildTitleRow(),
-      _buildList()*/
-    ]);
+    return Container(
+       // alignment: Alignment.center,
+        decoration: BoxDecoration(
+            // borderRadius: BorderRadius.only(
+            //     bottomRight: Radius.circular(0.r),
+            //     bottomLeft: Radius.circular(0.r)),
+            // border: Border.all(
+            //     width: 1, color: ThemeHelper.getInstance()!.primaryColor),
+            // //color: ThemeHelper.getInstance()!.primaryColor,
+
+            gradient: LinearGradient(
+                colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight)),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: ListView(
+            children: [
+              _buildTopContent(),
+              _buildMiddleContent(),
+              GestureDetector(
+                  onTap: () {
+                    if (pendingLoan?.isNotEmpty == true) {
+                      setExpanded1();
+                    }
+                  },
+                  child: _buildOnPendingCard(str_Pending_Disbursement, str_p1,
+                      MyColors.white)),
+              GestureDetector(
+                  onTap: () {
+                    if (ongoingLoan?.isNotEmpty == true) {
+                      setExpanded2();
+                    }
+                  },
+                  child: buildOngingCard(strOngoingapplication, str_o1,
+                      MyColors.white)),
+              buildCardImg(),
+              SizedBox(height: 12.h,),
+              recentTransactionList()
+              /* _buildTitleRow(),
+          _buildList()*/
+            ],
+          ),
+        ));
   }
 
   Widget recentTransactionList() {
-    if (!isRecentTransactionEmpty) {
-      return Column(children: [
-        Padding(
-          padding: EdgeInsets.only(
-            left: 20.0.w,
-            right: 20.w,
-            top: 19.h,
+   // if (!isRecentTransactionEmpty) {
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(
+            Radius.circular(8.r),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(str_Recent_Transactions,
-                  style: ThemeHelper.getInstance()!
-                      .textTheme
-                      .headline6!
-                      .copyWith(color: MyColors.black, fontSize: 14.sp)),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    TGSession.getInstance().set("TabIndex", 0);
-                    tabController.index = 1;
-                    setState(() {
-                      tabIndex = 1;
-                    });
-                  });
-                },
-                child: Text(
-                  str_sellAll,
-                  style: ThemeHelper.getInstance()!
-                      .textTheme
-                      .headline6!
-                      .copyWith(
-                          decoration: TextDecoration.underline,
-                          color: MyColors.pnbUnderLineColor),
-                ),
-              )
-            ],
-          ),
+          color: ThemeHelper.getInstance()!.backgroundColor,
         ),
-        _buildList()
-      ]);
-    } else {
-      return Container();
-    }
+       // color: ThemeHelper.getInstance()?.backgroundColor,
+        child: Column(children: [
+          Padding(
+            padding: EdgeInsets.only(
+              left: 20.0.w,
+              right: 20.w,
+              top: 19.h,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(str_Recent_Transactions,
+                    style: ThemeHelper.getInstance()!
+                        .textTheme
+                        .headline6!
+                        .copyWith(color: MyColors.black, fontSize: 14.sp)),
+                GestureDetector(
+                  onTap: () {
+                    // setState(() {
+                    //   TGSession.getInstance().set("TabIndex", 0);
+                    //   tabController.index = 1;
+                    //   setState(() {
+                    //     tabIndex = 1;
+                    //   });
+                    // });
+                  },
+                  child: Text(
+                    str_sellAll,
+                    style: ThemeHelper.getInstance()!
+                        .textTheme
+                        .headline6!
+                        .copyWith(
+                            decoration: TextDecoration.underline,
+                            color: MyColors.pnbUnderLineColor),
+                  ),
+                )
+              ],
+            ),
+          ),
+          _buildList()
+        ]),
+      );
+    // } else {
+    //   return Container();
+    // }
   }
 
   _buildTopContent() {
     return Container(
-      color: ThemeHelper.getInstance()?.colorScheme.onSecondary,
-      child: Container(
-        alignment: Alignment.center,
-        height: 85.h,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(20.r),
-              bottomLeft: Radius.circular(20.r)),
-          border: Border.all(
-              width: 1, color: ThemeHelper.getInstance()!.primaryColor),
-          color: ThemeHelper.getInstance()!.primaryColor,
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Row(
-            children: [
-              Image(
-                height: 44.h,
-                width: 44.w,
-                image: AssetImage(Utils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
-              ),
-              SizedBox(width: 15.w),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 20.h),
-                  Text("Hello, $name",
-                      style: ThemeHelper.getInstance()?.textTheme.button),
-                  SizedBox(height: 5.h),
-                  Text("PAN: $pan",
-                      style: ThemeHelper.getInstance()!
-                          .textTheme
-                          .headline5!
-                          .copyWith(fontSize: 12.sp, color: MyColors.white)),
-                ],
-              ),
-              /*const Spacer(),
-              SvgPicture.asset(
-                Utils.path(MOBILEDASHWIHTOUTNOTIBELL),
-              )*/
-            ],
-          ),
+      alignment: Alignment.center,
+      height: 127.h,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+            Radius.circular(8.r),
+            ),
+        // border: Border.all(
+        //     width: 1, color: ThemeHelper.getInstance()!.primaryColor),
+        color: ThemeHelper.getInstance()!.backgroundColor,
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Image(
+                  height: 44.h,
+                  width: 44.w,
+                  image: AssetImage(Utils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
+                ),
+                SizedBox(width: 15.w),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 20.h),
+                    Text("Hello, Indo International!, $name",
+                        style: ThemeHelper.getInstance()?.textTheme.headline2),
+                    SizedBox(height: 5.h),
+                    Text("PAN: ABCDE1234F $pan",
+                        style: ThemeHelper.getInstance()!
+                            .textTheme
+                            .headline5!
+                            .copyWith(fontSize: 12.sp, color: MyColors.black)),
+                  ],
+                ),
+                /*const Spacer(),
+                SvgPicture.asset(
+                  Utils.path(MOBILEDASHWIHTOUTNOTIBELL),
+                )*/
+              ],
+            ),
+            SizedBox(height: 10.h,),
+            Divider(),
+            SizedBox(height: 10.h,),
+            Row(children: [
+              Text("GSTIN: 29ABCDE1234F3Z6",
+                  style: ThemeHelper.getInstance()?.textTheme.bodyText2),
+              Spacer(),
+              Text("State: Gujarat",
+                  style: ThemeHelper.getInstance()?.textTheme.bodyText2),
+            ],)
+          ],
         ),
       ),
     );
@@ -342,76 +387,55 @@ class _DashboardWithGstState extends State<DashboardWithGst>
 
   _buildMiddleContent() {
     return Column(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
+        SizedBox(height: 12.h),
+        Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildCard(
+                  0,
+                  str_Outstanding,
+                  MOBILETDASHBOARDWITHGSTOUTSTANDING,
+                  _basicdetailsResponse
+                          ?.data?[0].loanDetails?.outstanding?.count ??
+                      "01",
+                  Utils.convertIndianCurrency(_basicdetailsResponse
+                      ?.data?[0].loanDetails?.outstanding?.amount)),
+              _buildCard(
+                  1,
+                  strOverdue,
+                  MOBILETDASHBOARDWITHGSTOVERDUE,
+                  _basicdetailsResponse
+                          ?.data?[0].loanDetails?.overdue?.count ??
+                      "03",
+                  Utils.convertIndianCurrency(_basicdetailsResponse
+                      ?.data?[0].loanDetails?.overdue?.amount)),
+            ]),
         Padding(
-          padding: EdgeInsets.only(bottom: 20.h),
-          child: Container(
-            color: ThemeHelper.getInstance()?.colorScheme.onSecondary,
-            width: 375.w,
-            child: Column(
+          padding: EdgeInsets.only(top: 10.h, bottom: 12.h),
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: 20.0.w, right: 20.w, top: 15.h, bottom: 15.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      getRowData(str_GSTIN, gstin),
-                      getRowData(str_State, state)
-                    ],
-                  ),
-                ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _buildCard(
-                          0,
-                          str_Outstanding,
-                          MOBILETIME,
-                          _basicdetailsResponse
-                                  ?.data?[0].loanDetails?.outstanding?.count ??
-                              "0",
-                          Utils.convertIndianCurrency(_basicdetailsResponse
-                              ?.data?[0].loanDetails?.outstanding?.amount)),
-                      _buildCard(
-                          1,
-                          strOverdue,
-                          MOBILEOVERDUE,
-                          _basicdetailsResponse
-                                  ?.data?[0].loanDetails?.overdue?.count ??
-                              "0",
-                          Utils.convertIndianCurrency(_basicdetailsResponse
-                              ?.data?[0].loanDetails?.overdue?.amount)),
-                    ]),
-                Padding(
-                  padding: EdgeInsets.only(top: 10.h, bottom: 24.h),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        _buildCard(
-                            2,
-                            strRepaid,
-                            MOBILEMONEY,
-                            _basicdetailsResponse
-                                    ?.data?[0].loanDetails?.repaid?.count ??
-                                "0",
-                            Utils.convertIndianCurrency(_basicdetailsResponse
-                                ?.data?[0].loanDetails?.repaid?.amount)),
-                        _buildCard(
-                            3,
-                            strDisbursed,
-                            MOBILEHANDWITHMONEY,
-                            _basicdetailsResponse
-                                    ?.data?[0].loanDetails?.disbursed?.count ??
-                                "0",
-                            Utils.convertIndianCurrency(_basicdetailsResponse
-                                ?.data?[0].loanDetails?.disbursed?.amount))
-                      ]),
-                ),
-              ],
-            ),
-          ),
+                _buildCard(
+                    2,
+                    strRepaid,
+                    IMG_kfs_coin_stack,
+                    _basicdetailsResponse
+                            ?.data?[0].loanDetails?.repaid?.count ??
+                        "04",
+                    Utils.convertIndianCurrency(_basicdetailsResponse
+                        ?.data?[0].loanDetails?.repaid?.amount)),
+                _buildCard(
+                    3,
+                    strDisbursed,
+                    MOBILEHANDWITHMONEY,
+                    _basicdetailsResponse
+                            ?.data?[0].loanDetails?.disbursed?.count ??
+                        "06",
+                    Utils.convertIndianCurrency(_basicdetailsResponse
+                        ?.data?[0].loanDetails?.disbursed?.amount))
+              ]),
         ),
       ],
     );
@@ -437,17 +461,17 @@ class _DashboardWithGstState extends State<DashboardWithGst>
       int index, String title, String imgString, String count, String price) {
     return GestureDetector(
       onTap: () {
-        TGSession.getInstance().set("TabIndex", index);
-        tabController.index = 1;
-        setState(() {
-          tabIndex = 1;
-        });
+        // TGSession.getInstance().set("TabIndex", index);
+        // tabController.index = 1;
+        // setState(() {
+        //   tabIndex = 1;
+        // });
       },
       child: Container(
         decoration: BoxDecoration(
           color: ThemeHelper.getInstance()!.colorScheme.background,
           borderRadius: BorderRadius.all(
-            Radius.circular(14.r),
+            Radius.circular(8.r),
           ),
           boxShadow: [
             BoxShadow(
@@ -459,7 +483,7 @@ class _DashboardWithGstState extends State<DashboardWithGst>
           ],
         ),
         width: 162.w,
-        height: 76.h,
+        height: 110.h,
         child: Column(
           children: [
             Padding(
@@ -468,45 +492,59 @@ class _DashboardWithGstState extends State<DashboardWithGst>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  SvgPicture.asset(
+                    Utils.path(imgString),
+                    height: 24.h,
+                    width: 24.w,
+                  ),
+                  Spacer(),
                   Text(
-                    title,
+                    count,
                     style: ThemeHelper.getInstance()
                         ?.textTheme
                         .headline5
                         ?.copyWith(color: MyColors.pnbTextcolor),
                   ),
-                  SizedBox(
-                    width: 25.w,
-                    height: 25.h,
-                    child: CircleAvatar(
-                      backgroundColor:
-                          ThemeHelper.getInstance()!.colorScheme.onSecondary,
-                      child: SvgPicture.asset(
-                        Utils.path(imgString),
-                        height: 18.h,
-                        width: 18.w,
-                      ),
-                    ),
-                  )
+                  // SizedBox(
+                  //   width: 25.w,
+                  //   height: 25.h,
+                  //   child: CircleAvatar(
+                  //     backgroundColor:
+                  //         ThemeHelper.getInstance()!.colorScheme.onSecondary,
+                  //     child: SvgPicture.asset(
+                  //       Utils.path(imgString),
+                  //       height: 18.h,
+                  //       width: 18.w,
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
             ),
+            SizedBox(height: 8.h,),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    count,
-                    style: ThemeHelper.getInstance()?.textTheme.headline4,
-                  ),
-                  Text(
-                    price,
-                    style: ThemeHelper.getInstance()!
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 14.sp),
-                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                    Text(
+                      title,
+                      style: ThemeHelper.getInstance()?.textTheme.headline4,
+                    ),
+                    Text(
+                      price,
+                      style: ThemeHelper.getInstance()!
+                          .textTheme
+                          .headline1!
+                          .copyWith(fontSize: 14.sp),
+                    ),
+                  ],),
+
+
                 ],
               ),
             )
@@ -518,7 +556,7 @@ class _DashboardWithGstState extends State<DashboardWithGst>
 
   _buildOnPendingCard(String title, String subTitle, Color backgroundColor) {
     return Padding(
-      padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
+      padding: EdgeInsets.only(bottom: 20.h),
       child: Container(
         decoration: BoxDecoration(
           color: backgroundColor,
@@ -823,7 +861,7 @@ class _DashboardWithGstState extends State<DashboardWithGst>
 
   buildOngingCard(String title, String subTitle, Color backgroundColor) {
     return Padding(
-      padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
+      padding: EdgeInsets.only(bottom: 20.h),
       child: Container(
         decoration: BoxDecoration(
           color: backgroundColor,
@@ -908,96 +946,73 @@ class _DashboardWithGstState extends State<DashboardWithGst>
   buildCardImg() {
     return GestureDetector(
       onTap: () {
-        if (isOngoingJounery == true) {
-          DialogUtils.showCustomDialog(context,
-              title:
-                  "Other eligible invoices cannot be financed due to an ongoing application is already there.",
-              okBtnText: "OK");
-        } else {
-          TGSharedPreferences.getInstance().remove(PREF_AAID);
-          TGSharedPreferences.getInstance().remove(PREF_AACODE);
-          TGSharedPreferences.getInstance().remove(PREF_LOANAPPREFID);
-          TGSharedPreferences.getInstance().remove(PREF_LOANOFFER);
-          TGSharedPreferences.getInstance().remove(GET_ALLLIST);
-          TGSharedPreferences.getInstance().remove(PREF_AAURL);
-          TGSharedPreferences.getInstance().remove(PREF_AACALLBACKURL);
-          TGSharedPreferences.getInstance().remove(PREF_CONSENTTYPE);
-          TGSharedPreferences.getInstance().remove(PREF_CONSENT_AAID);
-          TGSharedPreferences.getInstance().remove(PREF_OFFERID);
-          TGSharedPreferences.getInstance().remove(PREF_LOANAPPID);
-          TGSharedPreferences.getInstance().remove(PREF_REPAYMENTPLANID);
-          TGSharedPreferences.getInstance().remove(PREF_CURRENT_STAGE);
-
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => GSTInvoicesList(),
-            ),
-            (route) => false, //if you want to disable back feature set to false
-          );
-        }
+        // if (isOngoingJounery == true) {
+        //   DialogUtils.showCustomDialog(context,
+        //       title:
+        //           "Other eligible invoices cannot be financed due to an ongoing application is already there.",
+        //       okBtnText: "OK");
+        // } else {
+        //   TGSharedPreferences.getInstance().remove(PREF_AAID);
+        //   TGSharedPreferences.getInstance().remove(PREF_AACODE);
+        //   TGSharedPreferences.getInstance().remove(PREF_LOANAPPREFID);
+        //   TGSharedPreferences.getInstance().remove(PREF_LOANOFFER);
+        //   TGSharedPreferences.getInstance().remove(GET_ALLLIST);
+        //   TGSharedPreferences.getInstance().remove(PREF_AAURL);
+        //   TGSharedPreferences.getInstance().remove(PREF_AACALLBACKURL);
+        //   TGSharedPreferences.getInstance().remove(PREF_CONSENTTYPE);
+        //   TGSharedPreferences.getInstance().remove(PREF_CONSENT_AAID);
+        //   TGSharedPreferences.getInstance().remove(PREF_OFFERID);
+        //   TGSharedPreferences.getInstance().remove(PREF_LOANAPPID);
+        //   TGSharedPreferences.getInstance().remove(PREF_REPAYMENTPLANID);
+        //   TGSharedPreferences.getInstance().remove(PREF_CURRENT_STAGE);
+        //
+        //   Navigator.pushAndRemoveUntil(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (BuildContext context) => GSTInvoicesList(),
+        //     ),
+        //     (route) => false, //if you want to disable back feature set to false
+        //   );
+        //}
       },
-      child: Stack(
-        children: [
-          Row(
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0.w),
-                  child: Image.asset(
-                    fit: BoxFit.fitWidth,
-                    Utils.path(MOBILEDASBOARDPNG),
-                    width: MediaQuery.of(context).size.width,
-                  ),
-                ),
-              ),
-            ],
+      child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(8.r),
+            ),
+            color: ThemeHelper.getInstance()!.backgroundColor,
           ),
-          Padding(
-            padding: EdgeInsets.only(left: 40.0.w),
-            child: SizedBox(
-              height: 113.h,
+          height: 140.h,
+        child: Row(children: [
+            Padding(
+              padding:  EdgeInsets.only(left: 12.w,top: 12.h),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    str_Finance,
+                  Expanded(
+              child:Text(
+                    "Finance other eligible invoice",
                     style: ThemeHelper.getInstance()!
                         .textTheme
-                        .headline1!
-                        .copyWith(
-                            color: ThemeHelper.getInstance()!
-                                .colorScheme
-                                .onBackground),
+                        .headline2!.copyWith(fontSize: 14.sp),maxLines: 2,)
                   ),
-                  Text(
-                    str_other_Eligible_Invoice,
-                    style: ThemeHelper.getInstance()!
-                        .textTheme
-                        .headline1!
-                        .copyWith(
-                            color: ThemeHelper.getInstance()!
-                                .colorScheme
-                                .onBackground,
-                            fontSize: 13.sp),
-                  ),
-                  Text(str_Shareothereligibleinvoicesandgetloanoffers,
+                  Expanded(
+                    child: Text(
+                        str_Shareothereligibleinvoicesandgetloanoffers,
                       style: ThemeHelper.getInstance()!
                           .textTheme
-                          .headline2!
-                          .copyWith(
-                            fontSize: 10.sp,
-                            color: ThemeHelper.getInstance()!
-                                .colorScheme
-                                .secondaryContainer,
-                          )),
+                          .bodyText2!,maxLines: 2,
+                    ),
+                  ),
                 ],
               ),
             ),
-          ),
-        ],
+           //Spacer(),
+          SvgPicture.asset(
+            Utils.path(MOBILETDASHBOARDWITHGSTINVOICE_OTHER_SERVICES),height: 88.h,width: 88.w,
+          )
+        ],)
       ),
     );
   }
@@ -1029,27 +1044,33 @@ class _DashboardWithGstState extends State<DashboardWithGst>
   }
 
   _buildList() {
-    if (isRecentTransactionEmpty) {
-      return Text(
-        "No Data Found",
-        style: ThemeHelper.getInstance()?.textTheme.headline1,
-        textAlign: TextAlign.center,
-      );
-    } else {
+    // if (isRecentTransactionEmpty) {
+    //   return Text(
+    //     "No Data Found",
+    //     style: ThemeHelper.getInstance()?.textTheme.headline1,
+    //     textAlign: TextAlign.center,
+    //   );
+    // } else {
       return Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(
+            Radius.circular(8.r),
+          ),
+          color: ThemeHelper.getInstance()!.backgroundColor,
+        ),
         height: 200.h,
         child: ListView.builder(
-            itemCount: translist?.length,
+            itemCount: 3,
             itemBuilder: (context, index) {
-              String tradename = translist?[index]?.tradename ?? '';
-              String status = translist?[index]?.status ?? '';
-              String createdDate = translist?[index]?.createdDate ?? '';
+              String tradename = translist?[index]?.tradename ?? 'Flipcart Pvt. Ltd.';
+              String status = translist?[index]?.status ?? 'Repaid';
+              String createdDate = translist?[index]?.createdDate ?? '09 Aug, 2022';
               String invoiceAmount =
-                  translist?[index]?.disbursement_amt ?? '0.0';
+                  translist?[index]?.disbursement_amt ?? '42640';
 
               return _buildListCard(
-                  day: createDay(createdDate),
-                  month: createtMonth(createdDate),
+                  day: "09",//createDay(createdDate),
+                  month: "Aug",//createtMonth(createdDate),
                   background: setBackgroundColor(index),
                   companyName: tradename,
                   subtext: status,
@@ -1057,7 +1078,7 @@ class _DashboardWithGstState extends State<DashboardWithGst>
                   top: 21.h);
             }),
       );
-    }
+    //}
 
     return [
       _buildListCard(
@@ -1124,7 +1145,7 @@ class _DashboardWithGstState extends State<DashboardWithGst>
   }
 
   Color setColor(String type) =>
-      type == strDisbursed ? MyColors.pnbGreenColor : MyColors.pnbRedColor;
+      type == strDisbursed ? MyColors.pnbGreenColor : MyColors.pnbGreenColor;//MyColors.pnbRedColor;
 
   _buildListCard(
       {required String day,
@@ -1139,36 +1160,36 @@ class _DashboardWithGstState extends State<DashboardWithGst>
       padding:
           EdgeInsets.only(left: 20.0.w, right: 20.w, bottom: bottom, top: top),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        ///mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                    color: background,
-                    borderRadius: BorderRadius.all(Radius.circular(6.r))),
-                width: 40.w,
-                height: 40.h,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(day,
-                        style: ThemeHelper.getInstance()!
-                            .textTheme
-                            .headline1!
-                            .copyWith(
-                                color: MyColors.pnbGreyColor, fontSize: 14.sp)),
-                    Text(month,
-                        style: ThemeHelper.getInstance()!
-                            .textTheme
-                            .headline3!
-                            .copyWith(color: MyColors.black, fontSize: 10.sp))
-                  ],
-                ),
-              ),
-              SizedBox(
-                width: 20.w,
-              ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //       color: background,
+              //       borderRadius: BorderRadius.all(Radius.circular(6.r))),
+              //   width: 40.w,
+              //   height: 40.h,
+              //   child: Column(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
+              //       Text(day,
+              //           style: ThemeHelper.getInstance()!
+              //               .textTheme
+              //               .headline1!
+              //               .copyWith(
+              //                   color: MyColors.pnbGreyColor, fontSize: 14.sp)),
+              //       Text(month,
+              //           style: ThemeHelper.getInstance()!
+              //               .textTheme
+              //               .headline3!
+              //               .copyWith(color: MyColors.black, fontSize: 10.sp))
+              //     ],
+              //   ),
+              // ),
+              // SizedBox(
+              //   width: 12.w,
+              // ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -1177,17 +1198,16 @@ class _DashboardWithGstState extends State<DashboardWithGst>
                           .textTheme
                           .headline1!
                           .copyWith(color: MyColors.black, fontSize: 12.sp)),
-                  Text(
-                    subtext,
-                    style: ThemeHelper.getInstance()!
-                        .textTheme
-                        .headline3!
-                        .copyWith(color: setColor(subtext), fontSize: 11.sp),
-                  )
+                  Text("19 Aug, 2022",
+                      style: ThemeHelper.getInstance()!
+                          .textTheme
+                          .bodyText2!
+                          ),
                 ],
               ),
             ],
           ),
+          Spacer(),
           Column(
             children: [
               Text(
@@ -1197,9 +1217,16 @@ class _DashboardWithGstState extends State<DashboardWithGst>
                     .textTheme
                     .headline1!
                     .copyWith(fontSize: 13.sp),
+              ),
+              Text(
+                subtext,
+                style: ThemeHelper.getInstance()!
+                    .textTheme
+                    .headline3!
+                    .copyWith(color: setColor(subtext), fontSize: 11.sp),
               )
             ],
-          )
+          ),
         ],
       ),
     );
@@ -1243,12 +1270,18 @@ class _DashboardWithGstState extends State<DashboardWithGst>
     });
 
     if (_basicdetailsResponse?.status == RES_DETAILS_FOUND) {
-      TGSharedPreferences.getInstance().set(PREF_BUSINESSNAME, _basicdetailsResponse?.data?[0].gstBasicDetails?.tradeNam);
-      TGSharedPreferences.getInstance().set(PREF_GSTIN, _basicdetailsResponse?.data?[0].gstin);
-      TGSession.getInstance().set(PREF_GSTIN, _basicdetailsResponse?.data?[0].gstin);
-      TGSharedPreferences.getInstance().set(PREF_USERNAME, _basicdetailsResponse?.data?[0].gstBasicDetails?.lgnm.toString());
-      TGSharedPreferences.getInstance().set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin?.substring(2, 12));
-      TGSharedPreferences.getInstance().set(PREF_USERSTATE, _basicdetailsResponse?.data?[0].gstBasicDetails?.stcd.toString());
+      TGSharedPreferences.getInstance().set(PREF_BUSINESSNAME,
+          _basicdetailsResponse?.data?[0].gstBasicDetails?.tradeNam);
+      TGSharedPreferences.getInstance()
+          .set(PREF_GSTIN, _basicdetailsResponse?.data?[0].gstin);
+      TGSession.getInstance()
+          .set(PREF_GSTIN, _basicdetailsResponse?.data?[0].gstin);
+      TGSharedPreferences.getInstance().set(PREF_USERNAME,
+          _basicdetailsResponse?.data?[0].gstBasicDetails?.lgnm.toString());
+      TGSharedPreferences.getInstance().set(
+          PREF_PANNO, _basicdetailsResponse?.data?[0].gstin?.substring(2, 12));
+      TGSharedPreferences.getInstance().set(PREF_USERSTATE,
+          _basicdetailsResponse?.data?[0].gstBasicDetails?.stcd.toString());
 
       setUserData();
 

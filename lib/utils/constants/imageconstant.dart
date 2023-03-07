@@ -54,7 +54,7 @@ const MOBILECONGRATULATION = 'images/congrulation_img.svg';
 const MOBILETIME = 'images/time_ic.svg';
 const MOBILEOVERDUE = 'images/overdue_ic.svg';
 const MOBILEMONEY = 'images/money.svg';
-const MOBILEHANDWITHMONEY= 'images/hand_with_money_ic.svg';
+const MOBILEHANDWITHMONEY= 'images/dash_disbursed.svg';
 const MOBILEDOWNARROWBORWN= 'images/ic_icon_round_arrow_down.svg';
 const MOBILEUPARROWBORWN= 'images/ic_icon_round_arrow_up.svg';
 const MOBILEDASBOARD= 'images/dasboard_duck_img.svg';
@@ -68,6 +68,12 @@ const MOBILEPROFFILEBROWN= 'images/profile_brown_ic.svg';
 const MOBILEDISPUTEPROGRESS= 'images/ic_icon_progress.svg';
 const MOBILERAISEDISPUTE= 'images/ic_icon_raise_dispute.svg';
 const MOBILETRACKDISPUTE= 'images/ic_icon_dispute_tracker.svg';
+
+
+const MOBILETDASHBOARDWITHGSTOUTSTANDING= 'images/outstanding.svg';
+const MOBILETDASHBOARDWITHGSTOVERDUE= 'images/overdue_time.svg';
+
+const MOBILETDASHBOARDWITHGSTINVOICE_OTHER_SERVICES= 'images/invoice_other_services.svg';
 
 
 
@@ -188,6 +194,15 @@ const IMG_PNB_BANK_NAME  = "images/pnb_loanAg_logo.svg";
 
 //Manish
 const IMG_NADL  = "images/lajvyrj9.png";
+
+const IMG_kfs_coin_stack  = "images/coin_stack.svg";
+const IMG_kfs_bank  = "images/bank.svg";
+
+const IMG_DOWN_ARROW  = "images/down_arrow.svg";
+const IMG_UP_ARROW  = "images/up_arrow.svg";
+
+
+
 
 //payment success
 
