@@ -317,6 +317,10 @@ class _DashboardWithGstState extends State<DashboardWithGst>
               ],
             ),
           ),
+          Padding(
+            padding: EdgeInsets.only(left: 20.w,right: 20.w),
+            child: Divider(),
+          ),
           _buildList()
         ]),
       );
@@ -543,8 +547,10 @@ class _DashboardWithGstState extends State<DashboardWithGst>
                           .copyWith(fontSize: 14.sp),
                     ),
                   ],),
-
-
+                  Spacer(),
+                  SvgPicture.asset(
+                    Utils.path(MOBILETDASHBOARDARROWFORWARD),height: 12.h,width: 6.w,
+                  )
                 ],
               ),
             )
@@ -597,29 +603,20 @@ class _DashboardWithGstState extends State<DashboardWithGst>
                         subTitle,
                         style: ThemeHelper.getInstance()!
                             .textTheme
-                            .headline2!
-                            .copyWith(
-                                fontSize: 10.sp,
-                                color: ThemeHelper.getInstance()!
-                                    .colorScheme
-                                    .primary),
+                            .bodyText2!
+                            ,
                       )
                     ],
                   ),
-                  isExpanded1
-                      ? SizedBox(
-                          width: 17.w,
-                          height: 17.h,
-                          child: SvgPicture.asset(
-                            Utils.path(MOBILEUPARROWBORWN),
-                          ))
-                      : SizedBox(
-                          width: 17.w,
-                          height: 17.h,
-                          child: SvgPicture.asset(
-                            Utils.path(MOBILEDOWNARROWBORWN),
-                          ),
-                        )
+
+                  SvgPicture.asset(
+                    isExpanded1 ?
+                    Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+                    height: 20.h,
+                    width: 20.w,
+                  ),
+
+
                 ],
               ),
               (isExpanded1 && pendingLoan?.isNotEmpty == true)
@@ -902,29 +899,17 @@ class _DashboardWithGstState extends State<DashboardWithGst>
                         subTitle,
                         style: ThemeHelper.getInstance()!
                             .textTheme
-                            .headline2!
-                            .copyWith(
-                                fontSize: 10.sp,
-                                color: ThemeHelper.getInstance()!
-                                    .colorScheme
-                                    .primary),
+                            .bodyText2!
+                         ,
                       )
                     ],
                   ),
-                  isExpanded2
-                      ? SizedBox(
-                          width: 17.w,
-                          height: 17.h,
-                          child: SvgPicture.asset(
-                            Utils.path(MOBILEUPARROWBORWN),
-                          ))
-                      : SizedBox(
-                          width: 17.w,
-                          height: 17.h,
-                          child: SvgPicture.asset(
-                            Utils.path(MOBILEDOWNARROWBORWN),
-                          ),
-                        )
+                  SvgPicture.asset(
+                    isExpanded2 ?
+                    Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+                    height: 20.h,
+                    width: 20.w,
+                  ),
                 ],
               ),
               (isExpanded2 && ongoingLoan?.isNotEmpty == true)
@@ -983,36 +968,60 @@ class _DashboardWithGstState extends State<DashboardWithGst>
             color: ThemeHelper.getInstance()!.backgroundColor,
           ),
           height: 140.h,
-        child: Row(children: [
-            Padding(
-              padding:  EdgeInsets.only(left: 12.w,top: 12.h),
-              child: Column(
-                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-              child:Text(
-                    "Finance other eligible invoice",
-                    style: ThemeHelper.getInstance()!
-                        .textTheme
-                        .headline2!.copyWith(fontSize: 14.sp),maxLines: 2,)
-                  ),
-                  Expanded(
-                    child: Text(
+        child: Padding(
+          padding: EdgeInsets.only(top: 18.h),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Flexible(
+                flex: 6,
+                child: Column(
+                   mainAxisAlignment: MainAxisAlignment.start,
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                          "Finance other eligible invoice",
+                          style: ThemeHelper.getInstance()!
+                              .textTheme
+                              .headline2!.copyWith(fontSize: 14.sp),maxLines: 3,softWrap: true,),
+                    Text(
                         str_Shareothereligibleinvoicesandgetloanoffers,
                       style: ThemeHelper.getInstance()!
                           .textTheme
-                          .bodyText2!,maxLines: 2,
+                          .bodyText2!,maxLines: 3,softWrap: true,
                     ),
-                  ),
-                ],
+                    SizedBox(height: 18.h),
+                    Container(
+                      width: 165.w,
+                      height: 30.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(4.r),
+                        ),
+                        color: ThemeHelper.getInstance()!.primaryColor,
+                      ),
+                      child:Center(
+                        child: Text(
+                          "Finance Another Invoice",
+                          style: ThemeHelper.getInstance()!
+                              .textTheme
+                              .headline2!.copyWith(fontSize: 14.sp,color: Colors.white)),
+                      ) ,
+                    )
+                  ],
+                ),
               ),
-            ),
-           //Spacer(),
-          SvgPicture.asset(
-            Utils.path(MOBILETDASHBOARDWITHGSTINVOICE_OTHER_SERVICES),height: 88.h,width: 88.w,
-          )
-        ],)
+             //Spacer(),
+            Flexible(
+              flex: 4,
+              child: SvgPicture.asset(
+                Utils.path(MOBILETDASHBOARDWITHGSTINVOICE_OTHER_SERVICES),height: 88.h,width: 88.w,
+              ),
+            )
+          ],),
+        )
       ),
     );
   }
@@ -1068,14 +1077,19 @@ class _DashboardWithGstState extends State<DashboardWithGst>
               String invoiceAmount =
                   translist?[index]?.disbursement_amt ?? '42640';
 
-              return _buildListCard(
+              return Column(children: [ _buildListCard(
                   day: "09",//createDay(createdDate),
                   month: "Aug",//createtMonth(createdDate),
                   background: setBackgroundColor(index),
                   companyName: tradename,
                   subtext: status,
                   price: invoiceAmount,
-                  top: 21.h);
+                  top: 21.h),
+                Padding(
+                  padding: EdgeInsets.only(left: 20.w,right: 20.w),
+                  child: Divider(),
+                ),
+              ]);
             }),
       );
     //}

@@ -1,7 +1,10 @@
 import 'package:sbi_sahay_1_0/utils/colorutils/hexcolor.dart';
 
 class MyColors
+
 {
+
+  static final veryLightgreenbg = HexColor("#F7F7F7");
   static final pnbcolorPrimary = HexColor("#673391");
   static final pnbWelcomeDivider = HexColor("#B19AC7");
   static final white = HexColor("#FFFFFF");

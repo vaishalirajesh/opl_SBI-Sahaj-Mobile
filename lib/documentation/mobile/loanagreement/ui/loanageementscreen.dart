@@ -199,11 +199,13 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
       children: [
         SvgPicture.asset(Utils.path(IMG_GREENTICK_AA),
             height: 15.h, width: 15.w),
-        Text(" $text",
-            style: ThemeHelper.getInstance()!
-                .textTheme
-                .headline1!
-                .copyWith(color: MyColors.black, fontSize: 14.sp)),
+        Expanded(
+          child: Text(" $text",
+              style: ThemeHelper.getInstance()!
+                  .textTheme
+                  .headline1!
+                  .copyWith(color: MyColors.black, fontSize: 14.sp),maxLines: 2,),
+        ),
       ],
     ),
   );
@@ -381,22 +383,24 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
                   ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
                   : ThemeHelper.setPinkDisableButtonBig(),
               onPressed: () async {
-                if (isAgreementLoaded) {
-                  setState(() {
-                    isAgreeLoaderStart = true;
-                  });
 
-                  if (await TGNetUtil.isInternetAvailable()) {
-                    postLoanAgreementRequest();
-                  } else {
-                    showSnackBarForintenetConnection(
-                        context, postLoanAgreementRequest);
-                  }
-                } else {
-                  TGView.showSnackBar(
-                      context: context,
-                      message: "Please wait while Aggrement Loading..");
-                }
+                Navigator.pushNamed(context, MyRoutes.SetupEmandateRoutes);
+                // if (isAgreementLoaded) {
+                //   setState(() {
+                //     isAgreeLoaderStart = true;
+                //   });
+                //
+                //   if (await TGNetUtil.isInternetAvailable()) {
+                //     postLoanAgreementRequest();
+                //   } else {
+                //     showSnackBarForintenetConnection(
+                //         context, postLoanAgreementRequest);
+                //   }
+                // } else {
+                //   TGView.showSnackBar(
+                //       context: context,
+                //       message: "Please wait while Aggrement Loading..");
+                // }
               },
               child: Center(
                 child: Text(

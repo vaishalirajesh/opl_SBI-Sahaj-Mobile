@@ -294,9 +294,9 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
                 Row(
                   children: [
                     refreshInvoiceButton(),
-                    SizedBox(
-                      width: 5.w,
-                    ),
+                    // SizedBox(
+                    //   width: 5.w,
+                    // ),
                     filterInvoiceButton()
                   ],
                 )
@@ -628,7 +628,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
 
   Widget refreshInvoiceButton() {
     return Container(
-      width: 40.w,
+      width: 80.w,
       height: 40.h, //38,
       child: ElevatedButton(
           onPressed: () {
@@ -659,8 +659,14 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
             //     clipBehavior: Clip.antiAlias,
             //     isScrollControlled: true);
           },
-          child: SvgPicture.asset(Utils.path(REFRESHIMG),
-              height: 20.h, width: 20.w),
+          child: Row(
+            children: [
+              SvgPicture.asset(Utils.path(REFRESHIMG),
+                  height: 15.h, width: 15.w),
+              SizedBox(width: 5.w,),
+              Text('Refresh',style: ThemeHelper.getInstance()?.textTheme.headline6,)
+            ],
+          ),
           style: ElevatedButton.styleFrom(
             shadowColor: Colors.transparent,
             //foregroundColor: ThemeHelper.getInstance()!.colorScheme.onPrimary,
@@ -671,26 +677,63 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   }
 
   Widget filterInvoiceButton() {
-    return IconButton(
-      icon: SvgPicture.asset(Utils.path(IMG_FILTER_INVOICE)),
-      iconSize: 44,
-      onPressed: () {
-        showModalBottomSheet(
+    // return IconButton(
+    //   icon: SvgPicture.asset(Utils.path(IMG_FILTER_INVOICE)),
+    //   iconSize: 44,
+    //   onPressed: () {
+    //     showModalBottomSheet(
+    //         backgroundColor: ThemeHelper.getInstance()!.backgroundColor,
+    //         context: context,
+    //         builder: (BuildContext context) {
+    //           return StatefulBuilder(
+    //               builder: (BuildContext context, StateSetter setModelState) {
+    //             return Wrap(children: [sortByBottomSheetDialog(setModelState)]);
+    //           });
+    //         },
+    //         shape: const RoundedRectangleBorder(
+    //             borderRadius: BorderRadius.only(
+    //                 topLeft: Radius.circular(25),
+    //                 topRight: Radius.circular(25))),
+    //         clipBehavior: Clip.antiAlias,
+    //         isScrollControlled: true);
+    //   },
+    // );
+
+    return Container(
+      width: 80.w,
+      height: 40.h, //38,
+      child: ElevatedButton(
+          onPressed: () {
+                showModalBottomSheet(
+                    backgroundColor: ThemeHelper.getInstance()!.backgroundColor,
+                    context: context,
+                    builder: (BuildContext context) {
+                      return StatefulBuilder(
+                          builder: (BuildContext context, StateSetter setModelState) {
+                        return Wrap(children: [sortByBottomSheetDialog(setModelState)]);
+                      });
+                    },
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(25),
+                            topRight: Radius.circular(25))),
+                    clipBehavior: Clip.antiAlias,
+                    isScrollControlled: true);
+          },
+          child: Row(
+            children: [
+              SvgPicture.asset(Utils.path(IMG_FILTER_INVOICE),
+                  height: 15.h, width: 15.w),
+              SizedBox(width: 5.w,),
+              Text('Sort',style: ThemeHelper.getInstance()?.textTheme.headline6,)
+            ],
+          ),
+          style: ElevatedButton.styleFrom(
+            shadowColor: Colors.transparent,
+            //foregroundColor: ThemeHelper.getInstance()!.colorScheme.onPrimary,
             backgroundColor: ThemeHelper.getInstance()!.backgroundColor,
-            context: context,
-            builder: (BuildContext context) {
-              return StatefulBuilder(
-                  builder: (BuildContext context, StateSetter setModelState) {
-                return Wrap(children: [sortByBottomSheetDialog(setModelState)]);
-              });
-            },
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25))),
-            clipBehavior: Clip.antiAlias,
-            isScrollControlled: true);
-      },
+            shape: CircleBorder(),
+          )),
     );
   }
 

@@ -26,6 +26,7 @@ import '../../../../utils/internetcheckdialog.dart';
 import '../../../../utils/strings/strings.dart';
 import '../../../../widgets/animation_routes/page_animation.dart';
 import '../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
+import '../../../documentation/mobile/loanagreement/ui/loanageementscreen.dart';
 
 class LoanDepositeAcc extends StatelessWidget {
   const LoanDepositeAcc({super.key});
@@ -76,7 +77,7 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
           return true;
         },
         child: Scaffold(
-            appBar: getAppBarWithStepDone("2", str_loan_approve_process, 0.50,
+            appBar: getAppBarWithStepDone("2", str_documentation, 0.50,
                 onClickAction: () => {}),
             body: AbsorbPointer(
               absorbing: isLoaderStart,
@@ -304,19 +305,19 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
             ? ThemeHelper.setPinkDisableButtonBig()
             : ThemeHelper.getInstance()!.elevatedButtonTheme.style,
         onPressed: () {
-          if (selectedValue == -1) {
-            TGView.showSnackBar(
-                context: context,
-                message: 'Please select Account Aggregator to continue');
-          } else {
+          // if (selectedValue == -1) {
+          //   TGView.showSnackBar(
+          //       context: context,
+          //       message: 'Please select Account Aggregator to continue');
+          // } else {
             //  Navigator.of(context).push(CustomRightToLeftPageRoute(child: const RedirectedLoader(), ));
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => RedirectedLoader(),
+                  builder: (context) => LoanAgreementMain(),
                 ));
-          }
-          //  Navigator.pushNamed(context, MyRoutes.LoaderRedirectedLoaderRoutes);
+          //}
+
         },
         child: const Text(str_proceed),
       ),

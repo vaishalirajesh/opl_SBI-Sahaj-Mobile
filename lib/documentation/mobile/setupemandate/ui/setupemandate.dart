@@ -214,18 +214,18 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
 
   Widget buildLoanIntrestTenure() {
     return Container(
-      height: 44.h,
+      height: 62.h,
       decoration: BoxDecoration(
-        color: ThemeHelper.getInstance()!.cardColor,
+        color: MyColors.veryLightgreenbg,
       ),
       child: Row(
         children: [
-          SizedBox(width: 10.w),
+          SizedBox(width: 20.w),
           SvgPicture.asset(
-            Utils.path(GREENCONFORMTICK), height: 12.h, width: 12.w,
+            Utils.path(FILLGREENCONFORMTICK), height: 17.h, width: 17.w,
             //
           ),
-          SizedBox(width: 3.w),
+          SizedBox(width: 6.w),
           Text(str_complete_loan_agree,
               style: ThemeHelper.getInstance()!
                   .textTheme
@@ -383,23 +383,25 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
               radius: 10,
             )
           : Container(
-            height: 80.h,
+            height: 100.h,
             child: Column(
               children: [
-                Text("You will be redirected to lender specific page for authorising through e-NACH",style: ThemeHelper.getInstance()?.textTheme.headline6?.copyWith(color: MyColors.pnbCheckboxTextColor),textAlign: TextAlign.center),
-                SizedBox(height: 5.h),
+                Text("You will be redirected to lender specific page for authorising through e-NACH",style: ThemeHelper.getInstance()?.textTheme.bodyText2,textAlign: TextAlign.center),
+                SizedBox(height: 18.h),
                 ElevatedButton(
                     style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
                     onPressed: () async {
-                      setState(() {
-                        isLoaderStartProceed = true;
-                      });
-                      if (await TGNetUtil.isInternetAvailable()) {
-                        setRepaymentRequestAPI();
-                      } else {
-                        showSnackBarForintenetConnection(
-                            context, setRepaymentRequestAPI);
-                      }
+
+                      Navigator.pushNamed(context, MyRoutes.proceedToDisbursedRoutes);
+                      // setState(() {
+                      //   isLoaderStartProceed = true;
+                      // });
+                      // if (await TGNetUtil.isInternetAvailable()) {
+                      //   setRepaymentRequestAPI();
+                      // } else {
+                      //   showSnackBarForintenetConnection(
+                      //       context, setRepaymentRequestAPI);
+                      // }
                     },
                     child: const Text(
                       str_proceed,

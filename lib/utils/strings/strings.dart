@@ -182,6 +182,11 @@ const str_give_consent = 'Give Consent';
 const str_Confirm = 'Confirm';
 const str_Proceed = 'Proceed';
 
+const str_Checkit_out = 'Check it out';
+
+
+
+
 //..gst details
 const str_Enter_GST_Details = 'Enter GST Details';
 const str_Enter_your_mobile_Details = 'Enter your mobile number';
@@ -409,7 +414,7 @@ const str_15000 = '₹15,000';
 const str_100000 = '₹1,00,000';
 const str_140000 = '₹1,40,000';
 const str_Pending_Disbursement = 'Pending Disbursement ';
-const str_p1 = '(Loan application completed, disbursement in process)';
+const str_p1 = '(Disbursement in process)';
 const strOngoingapplication = 'Ongoing Application ';
 const str_o1 = '(Loan process is pending at some stage)';
 const str_Finance = 'Finance';

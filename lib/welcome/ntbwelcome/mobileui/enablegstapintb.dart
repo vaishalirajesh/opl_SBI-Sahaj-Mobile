@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sbi_sahay_1_0/documentation/mobile/setupemandate/ui/setupemandate.dart';
@@ -12,6 +13,7 @@ import '../../../utils/Utils.dart';
 import '../../../utils/constants/imageconstant.dart';
 import '../../../utils/strings/strings.dart';
 import '../../../widgets/animation_routes/page_animation.dart';
+import '../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 
 class EnableGstApi extends StatelessWidget {
   const EnableGstApi({super.key});
@@ -58,7 +60,11 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
          return true;
       },
       child: Scaffold(
-        appBar: buildAppBarWithEnablegst(),
+        appBar: getAppBarWithBackBtn(onClickAction: () => {
+          Navigator.pop(context, false),
+          SystemNavigator.pop(animated: true)
+
+        }),
         body: Stack(
           children: [
             SingleChildScrollView(

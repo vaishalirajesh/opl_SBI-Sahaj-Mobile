@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
@@ -28,11 +29,13 @@ import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 
 import '../../../../loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
+import '../../../../loanprocess/mobile/transactions/common_card/card_2/card_2.dart';
 import '../../../../routes.dart';
 import '../../../../utils/Utils.dart';
 import '../../../../utils/colorutils/mycolors.dart';
 import '../../../../utils/constants/imageconstant.dart';
 import '../../../../utils/constants/prefrenceconstants.dart';
+import '../../../../utils/dimenutils/dimensutils.dart';
 import '../../../../utils/helpers/myfonts.dart';
 import '../../../../utils/helpers/themhelper.dart';
 import '../../../../utils/internetcheckdialog.dart';
@@ -191,11 +194,13 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
   Widget LoanDisbCard(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Card(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadiusDirectional.all(Radius.circular(12.r))),
-        shadowColor: ThemeHelper.getInstance()?.shadowColor,
-        elevation: 2,
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(
+                color: ThemeHelper.getInstance()!.cardColor, width: 1),
+            color: ThemeHelper.getInstance()?.backgroundColor,
+            borderRadius: BorderRadius.all(Radius.circular(16.r))),
+        //width: 335.w,
         child: Column(
           children: [
             SizedBox(height: 15.h),
@@ -321,7 +326,7 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
                   setIsChecked(bool!);
                 },
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(6.r))),
+                    borderRadius: BorderRadius.all(Radius.circular(2.r))),
                 side: BorderSide(
                     width: 1,
                     color: isChecked
@@ -345,29 +350,80 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
   }
 
   Widget ReqForDisbButtonUI(BuildContext context) {
-    return isTriggerdLoader
-        ? JumpingDots(
-            color: ThemeHelper.getInstance()?.primaryColor ??
-                MyColors.pnbcolorPrimary,
-            radius: 10,
-          )
-        : ElevatedButton(
+    // return isTriggerdLoader
+    //     ? JumpingDots(
+    //         color: ThemeHelper.getInstance()?.primaryColor ??
+    //             MyColors.pnbcolorPrimary,
+    //         radius: 10,
+    //       )
+    //     : Container();
+
+    return ElevatedButton(
             style: isChecked
                 ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
                 : ThemeHelper.setPinkDisableButtonBig(),
             onPressed: () async {
               if (isChecked) {
                 setState(() {
-                  isTriggerdLoader = true;
+                  //isTriggerdLoader = true;
                 });
-                if (await TGNetUtil.isInternetAvailable()) {
-                  triggerDisbursementRequestAPI();
-                } else {
-                  showSnackBarForintenetConnection(
-                      context, triggerDisbursementRequestAPI);
-                }
+                // if (await TGNetUtil.isInternetAvailable()) {
+                //   triggerDisbursementRequestAPI();
+                // } else {
+                //   showSnackBarForintenetConnection(
+                //       context, triggerDisbursementRequestAPI);
+                // }
+                showDialog(
+                    context: context,
+                    builder: (_) => Dialog(
+                      child: Container(
+                        height: 370.0,
+                        width: 435.0,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(12))
+                          ),
+                        child: Padding(
+                          padding:  EdgeInsets.symmetric(horizontal: 20.w),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(),
+                                  GestureDetector(
+                                    child: Icon(
+                                      Icons.close,
+                                      color: MyColors.pnbTextcolor,
+                                      size: 20.h,
+                                    ),
+                                    onTap: () {
+                                      setState(() {
+                                        Navigator.pop(context);
+                                      });
+                                    },
+                                  )
+                                ],
+                              ),
+                              Text("Please rate us to serve you better", style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(color: MyColors.pnbDarkGreyTextColor),textAlign: TextAlign.center,),
+                              SizedBox(height: 20.h),
+                              Text("Excellent!", style: ThemeHelper.getInstance()?.textTheme.headline1?.copyWith(fontSize: MyDimension.setFontsize(context: context, largerScreen: 20, mediumlargeScreen: 20, tabletScreen: 18, mobileScreen: 16)),textAlign: TextAlign.center,),
+                              SizedBox(height: 5.h),
+                              RatingBarWidget(onRatingChanged: (double value) {
 
-                // viewModel.navigateToDisbursedScreen();
+                              },),
+                              SizedBox(height: 30.h),
+                              FeedbackTextFieldUI(),
+                              SizedBox(height: 30.h),
+                              SubmitButton()
+
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                );
+
               }
             },
             child: Center(
@@ -381,41 +437,44 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
   Widget TopTextCard() {
     return Container(
       height: 100.h,
-      color: MyColors.pnbPinkColor,
+      color: MyColors.veryLightgreenbg,
       child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
           child: Row(
             children: [
               SvgPicture.asset(
-                Utils.path(GREENCONFORMTICK),
+                Utils.path(FILLGREENCONFORMTICK),
                 height: 18.h,
                 width: 18.w,
               ),
-              RichText(
-                maxLines: 5,
-                text: TextSpan(
-                  style: ThemeHelper.getInstance()?.textTheme.bodyText1?.copyWith(
-                      color: ThemeHelper.getInstance()?.indicatorColor,
-                      fontFamily: MyFont.Nunito_Sans_Semi_bold),
-                  children: [
+              SizedBox(width: 8.w,),
+              Expanded(
+                child: RichText(
+                  maxLines: 5,
+                  text: TextSpan(
+                    style: ThemeHelper.getInstance()?.textTheme.bodyText1?.copyWith(
+                        color: ThemeHelper.getInstance()?.indicatorColor,
+                        fontFamily: MyFont.Nunito_Sans_Semi_bold),
+                    children: [
 
-                    TextSpan(
-                      text: str_congratulation,
-                      style: ThemeHelper.getInstance()
-                          ?.textTheme
-                          .bodyText1
-                          ?.copyWith(fontSize: 13.sp,color: MyColors.pnbGreenColor),
-                    ),
-                    TextSpan(
-                      text: str_doc_process_complete,
-                      style: ThemeHelper.getInstance()
-                          ?.textTheme
-                          .bodyText2
-                          ?.copyWith(
-                               color: MyColors.pnbGreenColor,
-                              fontSize: 13.sp),
-                    ),
-                  ],
+                      TextSpan(
+                        text: str_congratulation,
+                        style: ThemeHelper.getInstance()
+                            ?.textTheme
+                            .bodyText1
+                            ?.copyWith(fontSize: 13.sp,color: MyColors.pnbGreenColor),
+                      ),
+                      TextSpan(
+                        text: str_doc_process_complete,
+                        style: ThemeHelper.getInstance()
+                            ?.textTheme
+                            .bodyText2
+                            ?.copyWith(
+                                 color: MyColors.pnbGreenColor,
+                                fontSize: 13.sp),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -431,6 +490,59 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
     });
     //notifyListeners();
   }
+
+  Widget FeedbackTextFieldUI() {
+    return Container(
+        height: 35.h,
+        child: TextFormField(
+            onChanged: (content) {},
+            cursorColor: MyColors.pnbDarkGreyTextColor,
+            decoration: InputDecoration(
+                labelText: "Please provide feedback",
+                labelStyle: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(color: MyColors.pnbCheckboxTextColor),
+                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                enabledBorder: UnderlineInputBorder(
+                    borderSide:
+                    BorderSide(color: MyColors.pnbCheckBoxcolor)),
+                focusedBorder: UnderlineInputBorder(
+                    borderSide:
+                    BorderSide(color: MyColors.pnbCheckBoxcolor))),
+            keyboardType: TextInputType.text,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(
+                  RegExp("(?!^ +\$)^[a-zA-Z ]+\$"),
+                  replacementString: "")
+            ],
+            maxLines: 1,
+            style: ThemeHelper.getInstance()?.textTheme.headline2,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "";
+              }
+              return null;
+            }));
+  }
+  Widget SubmitButton() {
+    return  ElevatedButton(
+      style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
+      onPressed: () async {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => DashboardWithGST(),
+          ),
+              (route) =>
+          false, //if you want to disable back feature set to false
+        );
+      },
+      child:  Text(
+        "Submit",
+      ),
+    );
+
+
+  }
+
 
   //API
   Future<void> getDisbursedAccountDetailAPI() async {
@@ -615,5 +727,38 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
     });
 
     handleServiceFailError(context, errorResponse.error);
+  }
+}
+
+
+class RatingBarWidget extends StatefulWidget {
+  final ValueChanged<double> onRatingChanged;
+  RatingBarWidget({Key? key,required this.onRatingChanged}) : super(key: key);
+  @override
+  _RatingBarWidgetState createState() => new _RatingBarWidgetState();
+}
+
+class _RatingBarWidgetState extends State<RatingBarWidget> {
+  double rating = 5;
+
+  @override
+  Widget build(BuildContext context) {
+    return
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          new StarRating(
+
+            rating: rating,
+
+            onRatingChanged: (rating) {
+              setState(() => this.rating = rating);
+              widget.onRatingChanged(this.rating);
+              color: MyColors.ratingBarColor;
+            }, color: MyColors.ratingBarColor,
+
+          )
+        ],
+      );
   }
 }

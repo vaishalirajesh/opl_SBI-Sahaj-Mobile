@@ -11,6 +11,7 @@ import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/loanofferlist/ui/loanofferlistscreen.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -370,18 +371,17 @@ class _AAListViewState extends State<AAListView> {
         style: selectedValue == -1 ? ThemeHelper.setPinkDisableButtonBig() : ThemeHelper.getInstance()!.elevatedButtonTheme.style,
         onPressed: () {
 
-          if(selectedValue == -1)
-          {
-            TGView.showSnackBar(context: context, message: 'Please select Account Aggregator to continue');
-          }
-          else
-          {
-          //  Navigator.of(context).push(CustomRightToLeftPageRoute(child: const RedirectedLoader(), ));
+          // if(selectedValue == -1)
+          // {
+          //   TGView.showSnackBar(context: context, message: 'Please select Account Aggregator to continue');
+          // }
+          // else
+          // {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => RedirectedLoader(),)
+                MaterialPageRoute(builder: (context) => LoanOfferList(),)
             );
 
-          }
+          //}
         //  Navigator.pushNamed(context, MyRoutes.LoaderRedirectedLoaderRoutes);
 
         },

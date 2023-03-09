@@ -22,6 +22,7 @@ import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
+import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -996,6 +997,13 @@ class KfsScreenBody extends State<KfsScreens> {
       height: 50.h,
       child: ElevatedButton(
           onPressed: () async {
+
+            showDialog(
+                context: context,
+                builder: (_) => PopUpViewForCongratulation()
+            );
+
+
             // WidgetsBinding.instance.addPostFrameCallback((_) async {
             //   LoaderUtils.showLoaderwithmsg(context,
             //       msg:
@@ -1016,6 +1024,78 @@ class KfsScreenBody extends State<KfsScreens> {
           )),
     );
   }
+
+  Widget PopUpViewForCongratulation() {
+    return GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Container(
+          color: Colors.black.withOpacity(0.5),
+          child: Center(
+              child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    image: DecorationImage(image: AssetImage(Utils.path(KFSCONGRATULATIONBG)),fit: BoxFit.fill),
+                    color: Colors.white,
+                  ),
+                  height: 400.h,
+                  width: 335.w,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                          height: 90.h), //40
+                      Center(
+                          child: SvgPicture.asset( Utils.path(FILLGREENCONFORMTICK),
+                              height: 52.h, //,
+                              width:52.w, //134.8,
+                              allowDrawingOutsideViewBox: true)),
+                      SizedBox(
+                          height: 30.h), //40
+                      Center(
+                          child: Column(children: [
+                            Text(
+                              "Congratulations",style: ThemeHelper.getInstance()?.textTheme.headline1?.copyWith(color: MyColors.darkblack),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(
+                                height: 18.h),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 30,right: 30),
+                              child: Text(
+                               "You will now proceed to NeSL's Digital Document Execution journey",
+                                textAlign: TextAlign.center,
+                                style: ThemeHelper.getInstance()?.textTheme.bodyText2,
+                              ),
+                            ),
+                          ])),
+                      //38
+                      SizedBox(
+                          height: 20.h),
+                      Padding(
+                        padding:  EdgeInsets.only(left: 20.w,right: 20.w),
+                        child: BtnProceed(),
+                      )
+                    ],
+                  ))),
+        ));
+  }
+
+  Widget BtnProceed() {
+    return ElevatedButton(
+      style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
+      onPressed: () async {
+        Navigator.pop(context);
+        Navigator.pushNamed(context, MyRoutes.loanDepositeAccRoutes);
+      },
+      child:  Text(
+        str_proceed,
+      ),
+    );
+  }
+
 
   void setIsOtherUpFrontCardShow() {
     isOtherUpFrontDetailCard = !isOtherUpFrontDetailCard;

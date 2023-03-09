@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
+import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 import '../../../loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import '../../../loanprocess/mobile/transactions/common_card/card_2/card_2.dart';
 import '../../../routes.dart';
@@ -162,63 +163,10 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         child: ElevatedButton(
           style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
           onPressed: () async {
-
-            showDialog(
-                context: context,
-                builder: (_) => Dialog(
-                  child: Container(
-                    height: 370.0,
-                    width: 435.0,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(12))
-                      ),
-                    child: Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: 20.w),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(),
-                              GestureDetector(
-                                child: Icon(
-                                  Icons.close,
-                                  color: MyColors.pnbTextcolor,
-                                  size: 20.h,
-                                ),
-                                onTap: () {
-                                  setState(() {
-                                    Navigator.pop(context);
-                                  });
-                                },
-                              )
-                            ],
-                          ),
-                          Text("Please rate us to serve you better", style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(color: MyColors.pnbDarkGreyTextColor),textAlign: TextAlign.center,),
-                          SizedBox(height: 20.h),
-                          Text("Excellent!", style: ThemeHelper.getInstance()?.textTheme.headline1?.copyWith(fontSize: MyDimension.setFontsize(context: context, largerScreen: 20, mediumlargeScreen: 20, tabletScreen: 18, mobileScreen: 16)),textAlign: TextAlign.center,),
-                          SizedBox(height: 5.h),
-                          RatingBarWidget(onRatingChanged: (double value) {
-
-                          },),
-                          SizedBox(height: 30.h),
-                          FeedbackTextFieldUI(),
-                          SizedBox(height: 30.h),
-                          SubmitButton()
-
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-            );
-
-
-
+            Navigator.pushNamed(context, MyRoutes.EnableGstApiRoutes);
           },
           child: Text(
-            "Next",
+            str_next,
           ),
         ),
       ),
@@ -275,50 +223,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
     );
   }
 
-  Widget FeedbackTextFieldUI() {
-    return Container(
-        height: 35.h,
-        child: TextFormField(
-            onChanged: (content) {},
-            cursorColor: MyColors.pnbDarkGreyTextColor,
-            decoration: InputDecoration(
-                labelText: "Please provide feedback",
-                labelStyle: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(color: MyColors.pnbCheckboxTextColor),
-                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                enabledBorder: UnderlineInputBorder(
-                    borderSide:
-                    BorderSide(color: MyColors.pnbCheckBoxcolor)),
-                focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                    BorderSide(color: MyColors.pnbCheckBoxcolor))),
-            keyboardType: TextInputType.text,
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(
-                  RegExp("(?!^ +\$)^[a-zA-Z ]+\$"),
-                  replacementString: "")
-            ],
-            maxLines: 1,
-            style: ThemeHelper.getInstance()?.textTheme.headline2,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "";
-              }
-              return null;
-            }));
-  }
-  Widget SubmitButton() {
-    return  ElevatedButton(
-      style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
-      onPressed: () async {
 
-      },
-      child:  Text(
-        "Submit",
-      ),
-    );
-
-
-  }
 
   AppBar buildAppBarWithoutAnything() {
     return AppBar(
@@ -517,35 +422,3 @@ Widget GenderTextField(String label) {
       });
 }
 
-
-class RatingBarWidget extends StatefulWidget {
-  final ValueChanged<double> onRatingChanged;
-  RatingBarWidget({Key? key,required this.onRatingChanged}) : super(key: key);
-  @override
-  _RatingBarWidgetState createState() => new _RatingBarWidgetState();
-}
-
-class _RatingBarWidgetState extends State<RatingBarWidget> {
-  double rating = 5;
-
-  @override
-  Widget build(BuildContext context) {
-    return
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          new StarRating(
-
-            rating: rating,
-
-            onRatingChanged: (rating) {
-              setState(() => this.rating = rating);
-              widget.onRatingChanged(this.rating);
-              color: MyColors.ratingBarColor;
-            }, color: MyColors.ratingBarColor,
-
-          )
-        ],
-      );
-  }
-}

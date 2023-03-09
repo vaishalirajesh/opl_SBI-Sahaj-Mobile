@@ -31,6 +31,15 @@ const  GOLDLOAN = "images/sme_gold_loan.svg";
 
 const WELCOMELEFTLOGO="images/leftLogo.svg";
 
+const  FILLGREENCONFORMTICK = "images/fill_greenTick.svg";
+
+const  KFSCONGRATULATIONBG = "images/congratulation_bg.png";
+
+
+
+
+
+
 
 
 //for ui App
@@ -74,6 +83,11 @@ const MOBILETDASHBOARDWITHGSTOUTSTANDING= 'images/outstanding.svg';
 const MOBILETDASHBOARDWITHGSTOVERDUE= 'images/overdue_time.svg';
 
 const MOBILETDASHBOARDWITHGSTINVOICE_OTHER_SERVICES= 'images/invoice_other_services.svg';
+
+
+const MOBILETDASHBOARDARROWFORWARD = 'images/arrow_forward_dash.svg';
+
+
 
 
 
