@@ -142,189 +142,270 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                 }),
         body: AbsorbPointer(
           absorbing: isGetOTPLoaderStart,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height,
-              child: ListView(
-                children: [
-                  enterMobileLabel(),
-                  //Flexible(child:  Spacer()),
-                  Column(
+          child: Stack(
+            children: [
+              Container(
+                  child:  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      child: ListView(
+                        children: [
+                          enterMobileLabel(),
+                          //Flexible(child:  Spacer()),
+                          // Column(
+                          //     mainAxisAlignment: MainAxisAlignment.start,
+                          //     crossAxisAlignment: CrossAxisAlignment.start,
+                          //     children: [
+                          //       Padding(
+                          //         padding: EdgeInsets.only(top: 10.h),
+                          //         child: Row(
+                          //           children: [
+                          //             Checkbox(
+                          //               // checkColor: MyColors.colorAccent,
+                          //               activeColor:
+                          //               ThemeHelper.getInstance()?.primaryColor,
+                          //               value: isCheckedFirst,
+                          //               onChanged: (bool) {
+                          //                 setState(() {
+                          //                   isCheckedFirst = bool!;
+                          //                 });
+                          //               },
+                          //               shape: RoundedRectangleBorder(
+                          //                   borderRadius:
+                          //                   BorderRadius.all(Radius.circular(6))),
+                          //               side: BorderSide(
+                          //                   width: 1,
+                          //                   color: isCheckedFirst
+                          //                       ? ThemeHelper.getInstance()!
+                          //                       .primaryColor
+                          //                       : ThemeHelper.getInstance()!
+                          //                       .disabledColor),
+                          //             ),
+                          //             Expanded(
+                          //                 child: Padding(
+                          //                   padding: EdgeInsets.only(top: 10.h),
+                          //                   child: Text.rich(TextSpan(
+                          //                       text: str_i_login_check_part1,
+                          //                       style: ThemeHelper.getInstance()!
+                          //                           .textTheme
+                          //                           .headline6!
+                          //                           .copyWith(
+                          //                         fontSize: 12.sp,
+                          //                         color: MyColors.pnbcolorPrimary,
+                          //                       ),
+                          //                       children: <InlineSpan>[
+                          //                         TextSpan(
+                          //                           text: str_i_login_checkpart2,
+                          //                           style: ThemeHelper.getInstance()!
+                          //                               .textTheme
+                          //                               .headline6!
+                          //                               .copyWith(
+                          //                               fontSize: 12.sp,
+                          //                               color: Colors.blue,
+                          //                               decoration:
+                          //                               TextDecoration.underline),
+                          //                         ),
+                          //                         TextSpan(
+                          //                           text: str_i_login_checkpart3,
+                          //                           style: ThemeHelper.getInstance()!
+                          //                               .textTheme
+                          //                               .headline6!
+                          //                               .copyWith(
+                          //                               fontSize: 12.sp,
+                          //                               color:
+                          //                               MyColors.pnbcolorPrimary),
+                          //                         ),
+                          //                         TextSpan(
+                          //                             text: str_i_login_checkpart4,
+                          //                             style: ThemeHelper.getInstance()!
+                          //                                 .textTheme
+                          //                                 .headline6!
+                          //                                 .copyWith(
+                          //                                 fontSize: 12.sp,
+                          //                                 color: Colors.blue,
+                          //                                 decoration:
+                          //                                 TextDecoration.underline))
+                          //                       ])),
+                          //                 )),
+                          //           ],
+                          //         ),
+                          //       ),
+                          //       Padding(
+                          //         padding: EdgeInsets.only(bottom: 20.h, top: 20.h),
+                          //         child: isGetOTPLoaderStart
+                          //             ? JumpingDots(
+                          //           color:
+                          //           ThemeHelper.getInstance()?.primaryColor ??
+                          //               MyColors.pnbcolorPrimary,
+                          //           radius: 10,
+                          //         )
+                          //             : ElevatedButton(
+                          //             style: isCheckedFirst &&
+                          //                 mobileTextController.text.length == 10
+                          //                 ? ThemeHelper.getInstance()!
+                          //                 .elevatedButtonTheme
+                          //                 .style
+                          //                 : ThemeHelper.setPinkDisableButtonBig(),
+                          //             onPressed: () async {
+                          //               //if (viewModel.isValidGSTINNumber && viewModel.isValidGSTUserName) {
+                          //               if (isCheckedFirst &&
+                          //                   mobileTextController.text.length ==
+                          //                       10) {
+                          //                 setState(() {
+                          //                   Navigator.pushNamed(context,
+                          //                       MyRoutes.OtpVerifyLoginRoutes
+                          //                   );
+                          //                   //verifyOtpBottomDialog();
+                          //                   // isGetOTPLoaderStart = true;
+                          //                 });
+                          //                 //   if (await TGNetUtil
+                          //                 //       .isInternetAvailable()) {
+                          //                 //     autoLoginRequest();
+                          //                 //   } else {
+                          //                 //     showSnackBarForintenetConnection(
+                          //                 //         context, autoLoginRequest);
+                          //                 //   }
+                          //                 //}
+                          //
+                          //               }
+                          //             },
+                          //             child: Text(str_next)),
+                          //       )
+                          //     ]),
+                        ],
+                      ),
+                    ),
+                  )),
+              Align(alignment: Alignment.bottomCenter, child: Container(
+                height: 200.h,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.h),
-                          child: Row(
-                            children: [
-                              Checkbox(
-                                // checkColor: MyColors.colorAccent,
-                                activeColor:
-                                    ThemeHelper.getInstance()?.primaryColor,
-                                value: isCheckedFirst,
-                                onChanged: (bool) {
-                                  setState(() {
-                                    isCheckedFirst = bool!;
-                                  });
-                                },
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(6))),
-                                side: BorderSide(
-                                    width: 1,
-                                    color: isCheckedFirst
-                                        ? ThemeHelper.getInstance()!
-                                            .primaryColor
-                                        : ThemeHelper.getInstance()!
-                                            .disabledColor),
-                              ),
-                              Expanded(
-                                  child: Padding(
-                                padding: EdgeInsets.only(top: 10.h),
-                                child: Text.rich(TextSpan(
-                                    text: str_i_login_check_part1,
-                                    style: ThemeHelper.getInstance()!
-                                        .textTheme
-                                        .headline6!
-                                        .copyWith(
-                                          fontSize: 12.sp,
-                                          color: MyColors.pnbcolorPrimary,
-                                        ),
-                                    children: <InlineSpan>[
-                                      TextSpan(
-                                        text: str_i_login_checkpart2,
-                                        style: ThemeHelper.getInstance()!
-                                            .textTheme
-                                            .headline6!
-                                            .copyWith(
-                                                fontSize: 12.sp,
-                                                color: Colors.blue,
-                                                decoration:
-                                                    TextDecoration.underline),
+                        Row(
+                          children: [
+                            Checkbox(
+                              // checkColor: MyColors.colorAccent,
+                              activeColor:
+                              ThemeHelper.getInstance()?.primaryColor,
+                              value: isCheckedFirst,
+                              onChanged: (bool) {
+                                setState(() {
+                                  isCheckedFirst = bool!;
+                                });
+                              },
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(2))),
+                              side: BorderSide(
+                                  width: 1,
+                                  color: isCheckedFirst
+                                      ? ThemeHelper.getInstance()!
+                                      .primaryColor
+                                      : ThemeHelper.getInstance()!
+                                      .disabledColor),
+                            ),
+                            Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.only(top: 10.h),
+                                  child: Text.rich(TextSpan(
+                                      text: str_i_login_check_part1,
+                                      style: ThemeHelper.getInstance()!
+                                          .textTheme
+                                          .headline6!
+                                          .copyWith(
+                                        fontSize: 12.sp,
+                                        color: MyColors.pnbcolorPrimary,
                                       ),
-                                      TextSpan(
-                                        text: str_i_login_checkpart3,
-                                        style: ThemeHelper.getInstance()!
-                                            .textTheme
-                                            .headline6!
-                                            .copyWith(
-                                                fontSize: 12.sp,
-                                                color:
-                                                    MyColors.pnbcolorPrimary),
-                                      ),
-                                      TextSpan(
-                                          text: str_i_login_checkpart4,
+                                      children: <InlineSpan>[
+                                        TextSpan(
+                                          text: str_i_login_checkpart2,
                                           style: ThemeHelper.getInstance()!
                                               .textTheme
                                               .headline6!
                                               .copyWith(
-                                                  fontSize: 12.sp,
-                                                  color: Colors.blue,
-                                                  decoration:
-                                                      TextDecoration.underline))
-                                    ])),
-                              )),
-                            ],
-                          ),
+                                              fontSize: 12.sp,
+                                              color: Colors.blue,
+                                              decoration:
+                                              TextDecoration.underline),
+                                        ),
+                                        TextSpan(
+                                          text: str_i_login_checkpart3,
+                                          style: ThemeHelper.getInstance()!
+                                              .textTheme
+                                              .headline6!
+                                              .copyWith(
+                                              fontSize: 12.sp,
+                                              color:
+                                              MyColors.pnbcolorPrimary),
+                                        ),
+                                        TextSpan(
+                                            text: str_i_login_checkpart4,
+                                            style: ThemeHelper.getInstance()!
+                                                .textTheme
+                                                .headline6!
+                                                .copyWith(
+                                                fontSize: 12.sp,
+                                                color: Colors.blue,
+                                                decoration:
+                                                TextDecoration.underline))
+                                      ])),
+                                )),
+                          ],
                         ),
-                        /*Padding(
-                          padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Column(
-                                children: [
-                                  Checkbox(
-                                    // checkColor: MyColors.colorAccent,
-                                    activeColor:
-                                        ThemeHelper.getInstance()?.primaryColor,
-                                    value: isCheckedSecond,
-                                    onChanged: (bool) {
-                                      setState(() {
-                                        isCheckedSecond = bool!;
-                                      });
-                                    },
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.all(Radius.circular(6))),
-                                    side: BorderSide(
-                                        width: 1,
-                                        color: isCheckedSecond
-                                            ? ThemeHelper.getInstance()!
-                                                .primaryColor
-                                            : ThemeHelper.getInstance()!
-                                                .disabledColor),
-                                  ),
-                                ],
-                              ),
-                              */ /*Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.only(top: 5.0.h),
-                                  child: Text(
-                                    str_i_login_check2,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 4,
-                                    style: ThemeHelper.getInstance()!
-                                        .textTheme
-                                        .headline6!
-                                        .copyWith(
-                                            fontSize: 12.sp,
-                                            color: MyColors.pnbcolorPrimary),
-                                  ),
-                                ),
-                              ),*/ /*
-                            ],
-                          ),
-                        ),*/
                         Padding(
                           padding: EdgeInsets.only(bottom: 20.h, top: 20.h),
                           child: isGetOTPLoaderStart
                               ? JumpingDots(
-                                  color:
-                                      ThemeHelper.getInstance()?.primaryColor ??
-                                          MyColors.pnbcolorPrimary,
-                                  radius: 10,
-                                )
+                            color:
+                            ThemeHelper.getInstance()?.primaryColor ??
+                                MyColors.pnbcolorPrimary,
+                            radius: 10,
+                          )
                               : ElevatedButton(
-                                  style: isCheckedFirst &&
-                                          mobileTextController.text.length == 10
-                                      ? ThemeHelper.getInstance()!
-                                          .elevatedButtonTheme
-                                          .style
-                                      : ThemeHelper.setPinkDisableButtonBig(),
-                                  onPressed: () async {
-                                    //if (viewModel.isValidGSTINNumber && viewModel.isValidGSTUserName) {
-                                    if (isCheckedFirst &&
-                                        mobileTextController.text.length ==
-                                            10) {
-                                      setState(() {
-                                        Navigator.pushNamed(context,
-                                           MyRoutes.OtpVerifyLoginRoutes
-                                        );
-                                        //verifyOtpBottomDialog();
-                                       // isGetOTPLoaderStart = true;
-                                      });
-                                    //   if (await TGNetUtil
-                                    //       .isInternetAvailable()) {
-                                    //     autoLoginRequest();
-                                    //   } else {
-                                    //     showSnackBarForintenetConnection(
-                                    //         context, autoLoginRequest);
-                                    //   }
-                                    //}
+                              style: isCheckedFirst &&
+                                  mobileTextController.text.length == 10
+                                  ? ThemeHelper.getInstance()!
+                                  .elevatedButtonTheme
+                                  .style
+                                  : ThemeHelper.setPinkDisableButtonBig(),
+                              onPressed: () async {
+                                //if (viewModel.isValidGSTINNumber && viewModel.isValidGSTUserName) {
+                                if (isCheckedFirst &&
+                                    mobileTextController.text.length ==
+                                        10) {
+                                  setState(() {
+                                    Navigator.pushNamed(context,
+                                        MyRoutes.OtpVerifyLoginRoutes
+                                    );
+                                    //verifyOtpBottomDialog();
+                                    // isGetOTPLoaderStart = true;
+                                  });
+                                  //   if (await TGNetUtil
+                                  //       .isInternetAvailable()) {
+                                  //     autoLoginRequest();
+                                  //   } else {
+                                  //     showSnackBarForintenetConnection(
+                                  //         context, autoLoginRequest);
+                                  //   }
+                                  //}
 
-                                    }
-                                  },
-                                  child: Text(str_next)),
+                                }
+                              },
+                              child: Text(str_next)),
                         )
                       ]),
-                ],
-              ),
-            ),
+                ),
+              ))
+            ],
           ),
+
+
+
+
         ),
       ),
     );

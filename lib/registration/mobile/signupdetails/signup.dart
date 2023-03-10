@@ -200,7 +200,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                       });
                     },
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(6.r))),
+                        borderRadius: BorderRadius.all(Radius.circular(2.r))),
                     side: BorderSide(
                         width: 1,
                         color: isCheck

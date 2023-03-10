@@ -207,7 +207,7 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
         //   right: 20.w,
         //   left: 20.w,
         // ),
-        sizebox(height: 50.h),
+        sizebox(height: 200.h),
       ],
     );
   }
@@ -383,7 +383,8 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
               radius: 10,
             )
           : Container(
-            height: 100.h,
+            color: ThemeHelper.getInstance()?.backgroundColor,
+            height: 110.h,
             child: Column(
               children: [
                 Text("You will be redirected to lender specific page for authorising through e-NACH",style: ThemeHelper.getInstance()?.textTheme.bodyText2,textAlign: TextAlign.center),

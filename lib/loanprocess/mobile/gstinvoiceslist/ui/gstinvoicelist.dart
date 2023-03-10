@@ -290,13 +290,10 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
                         .textTheme
                         .headline1!
                         .copyWith(color: MyColors.darkblack, fontSize: 20)),
-                const Spacer(),
+                Spacer(),
                 Row(
                   children: [
                     refreshInvoiceButton(),
-                    // SizedBox(
-                    //   width: 5.w,
-                    // ),
                     filterInvoiceButton()
                   ],
                 )
@@ -385,7 +382,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
                     "dd-MM-yyyy",
                     'd MMM'),
                 style: ThemeHelper.getInstance()!.textTheme.bodyText2),
-            Text(" \u2022 23001832188" ?? "",
+            Text(" | 23001832188" ?? "",
                 style: ThemeHelper.getInstance()!.textTheme.bodyText2),
           ],
         ),
@@ -628,7 +625,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
 
   Widget refreshInvoiceButton() {
     return Container(
-      width: 80.w,
+      width: 100.w,
       height: 40.h, //38,
       child: ElevatedButton(
           onPressed: () {
@@ -636,8 +633,6 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
             showDialog(
                 context: context,
                 builder: (_) =>refreshGstBottomSheetDialog()
-
-
             );
 
             // Navigator.push(
@@ -663,7 +658,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
             children: [
               SvgPicture.asset(Utils.path(REFRESHIMG),
                   height: 15.h, width: 15.w),
-              SizedBox(width: 5.w,),
+              SizedBox(width: 8.w,),
               Text('Refresh',style: ThemeHelper.getInstance()?.textTheme.headline6,)
             ],
           ),
@@ -700,7 +695,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
     // );
 
     return Container(
-      width: 80.w,
+      width: 95.w,
       height: 40.h, //38,
       child: ElevatedButton(
           onPressed: () {
@@ -724,7 +719,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
             children: [
               SvgPicture.asset(Utils.path(IMG_FILTER_INVOICE),
                   height: 15.h, width: 15.w),
-              SizedBox(width: 5.w,),
+              SizedBox(width: 8.w,),
               Text('Sort',style: ThemeHelper.getInstance()?.textTheme.headline6,)
             ],
           ),

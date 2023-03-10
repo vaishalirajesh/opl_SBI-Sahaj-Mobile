@@ -167,7 +167,7 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
                         });
                       },
                       shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(6))),
+                          borderRadius: BorderRadius.all(Radius.circular(2))),
                       side: BorderSide(
                           width: 1,
                           color: isGstConsentGiven

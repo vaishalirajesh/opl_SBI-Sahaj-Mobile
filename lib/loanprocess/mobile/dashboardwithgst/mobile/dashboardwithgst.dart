@@ -61,7 +61,14 @@ class DashboardWithGst extends StatefulWidget {
 }
 
 class _DashboardWithGstState extends State<DashboardWithGst>
+
+
+
     with SingleTickerProviderStateMixin {
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+
   late TabController tabController;
   GetGstBasicdetailsResMain? _basicdetailsResponse;
   GetAllLoanDetailByRefIdResMain? _getAllLoanDetailRes;
@@ -159,8 +166,13 @@ class _DashboardWithGstState extends State<DashboardWithGst>
         //}
       },
       child: Scaffold(
+        key: _scaffoldKey,
+        drawer: CustomDrawer(),
         appBar: getAppBarMainDashboard("2", str_loan_approve_process, 0.50,
-            onClickAction: () => {}),
+            onClickAction: () => {
+              print("Manish here"),
+              _scaffoldKey.currentState?.openDrawer()
+            }),
         // body: TabBarView(
         //   controller: tabController,
         //   physics: const NeverScrollableScrollPhysics(),
@@ -175,6 +187,8 @@ class _DashboardWithGstState extends State<DashboardWithGst>
       ),
     );
   }
+
+
 
   buildTabBar() => TabBar(
         controller: tabController,
@@ -192,6 +206,90 @@ class _DashboardWithGstState extends State<DashboardWithGst>
           _buildTab(str_Profile, MOBILEPROFFILEBROWN, MOBILEPROFFILEGREY, 2),
         ],
       );
+
+
+  Drawer CustomDrawer(){
+    return Drawer(
+      child: ListView(
+        // Important: Remove any padding from the ListView.
+        padding: EdgeInsets.zero,
+        children: [
+           SizedBox(
+             height: 100.h,
+             child: DrawerHeader(
+              decoration: BoxDecoration(
+              //  color: Colors.blue,
+                gradient: LinearGradient(colors: [MyColors.lightRedGradient,MyColors.lightBlueGradient],begin: Alignment.centerLeft,end: Alignment.centerRight )
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image(
+                    height: 44.h,
+                    width: 44.w,
+                    image: AssetImage(Utils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
+                  ),
+                  SizedBox(width: 15.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+
+                      Text("Hello, Indo International!, $name",
+                          style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(color: MyColors.white)),
+                      // SizedBox(height: 5.h),
+                      // Text("PAN: ABCDE1234F $pan",
+                      //     style: ThemeHelper.getInstance()!
+                      //         .textTheme
+                      //         .headline5!
+                      //         .copyWith(fontSize: 12.sp, color: MyColors.white)),
+                    ],
+                  ),
+                  /*const Spacer(),
+                  SvgPicture.asset(
+                    Utils.path(MOBILEDASHWIHTOUTNOTIBELL),
+                  )*/
+                ],
+              ),
+          ),
+           ),
+          ListTile(
+            title:  Text('Home',style: ThemeHelper.getInstance()?.textTheme.headline3,),
+            onTap: () {
+              // Update the state of the app.
+              // ...
+            },
+          ),
+          Divider(),
+          ListTile(
+            title:  Text('Transactions',style: ThemeHelper.getInstance()?.textTheme.headline3),
+            onTap: () {
+              // Update the state of the app.
+              // ...
+            },
+          ),
+          Divider(),
+          ListTile(
+            title:  Text('Profile',style: ThemeHelper.getInstance()?.textTheme.headline3),
+            onTap: () {
+              // Update the state of the app.
+              // ...
+            },
+          ),
+          Divider(),
+          ListTile(
+            title:  Text('Raise Dispute',style: ThemeHelper.getInstance()?.textTheme.headline3),
+            onTap: () {
+              // Update the state of the app.
+              // ...
+            },
+          ),
+          Divider(),
+        ],
+      ),
+    );
+  }
 
   bool activeChecker(int currentIndex) =>
       tabIndex == currentIndex ? true : false;

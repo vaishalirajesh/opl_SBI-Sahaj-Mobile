@@ -35,6 +35,8 @@ const  FILLGREENCONFORMTICK = "images/fill_greenTick.svg";
 
 const  KFSCONGRATULATIONBG = "images/congratulation_bg.png";
 
+const  IMG_GSTENABLE_API = "images/api_enable.svg";
+
 
 
 

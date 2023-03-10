@@ -198,7 +198,7 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
                           });
                         },
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(6))),
+                            borderRadius: BorderRadius.all(Radius.circular(2))),
                         side: BorderSide(
                             width: 1,
                             color: isConsentGiven

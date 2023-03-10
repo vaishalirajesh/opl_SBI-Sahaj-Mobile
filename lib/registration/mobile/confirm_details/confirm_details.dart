@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
 import 'package:gstmobileservices/model/models/fetch_gst_data_res_main.dart';
 import 'package:gstmobileservices/model/models/gst_basic_data_response_main.dart';
@@ -25,6 +26,10 @@ import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 
 import '../../../loanprocess/viemmodel/ConfirmDetailsVM.dart';
+import '../../../routes.dart';
+import '../../../utils/Utils.dart';
+import '../../../utils/colorutils/mycolors.dart';
+import '../../../utils/constants/imageconstant.dart';
 import '../../../utils/helpers/myfonts.dart';
 import '../../../utils/helpers/themhelper.dart';
 import '../../../utils/internetcheckdialog.dart';
@@ -273,7 +278,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                       });
                     },
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(6.r))),
+                        borderRadius: BorderRadius.all(Radius.circular(2.r))),
                     side: BorderSide(
                         width: 1,
                         color: confirmGstDetail
@@ -391,18 +396,10 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                   : ThemeHelper.setPinkDisableButtonBig(),
               onPressed: () {
                 if (confirmGstDetail) {
-                  Navigator.pop(context);
 
-                  TGSharedPreferences.getInstance()
-                      .set(PREF_ISGSTDETAILDONE, true);
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => DashboardWithoutGST(),
-                    ),
-                    (route) =>
-                        false, //if you want to disable back feature set to false
-                  );
+                  showDialog(
+                      context: context,
+                      builder: (_) => PopUpViewForRgistrationCompleted());
                   // Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationCompleted(),));
                 }
               },
@@ -410,6 +407,84 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+
+  Widget PopUpViewForRgistrationCompleted() {
+    return GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Container(
+          color: Colors.black.withOpacity(0.5),
+          child: Center(
+              child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    color: Colors.white,
+                  ),
+                  height: 300.h,
+                  width: 335.w,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                          height: 35.h), //40
+                      Center(
+                          child: SvgPicture.asset( Utils.path(GREENCONFORMTICK),
+                              height: 52.h, //,
+                              width:52.w, //134.8,
+                              allowDrawingOutsideViewBox: true)),
+                      SizedBox(
+                          height: 20.h), //40
+                      Center(
+                          child: Column(children: [
+                            Text(
+                              "Registration completed",style: ThemeHelper.getInstance()?.textTheme.headline1?.copyWith(color: MyColors.pnbDarkGreyTextColor),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(
+                                height: 12.h),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 30,right: 30),
+                              child: Text(
+                                "Welcome, Indo International. Let’s start the journey",
+                                textAlign: TextAlign.center,
+                                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(color: MyColors.pnbTextcolor),
+                              ),
+                            ),
+                          ])),
+                      //38
+                      SizedBox(
+                          height: 30.h),
+                      Padding(
+                        padding:  EdgeInsets.only(left: 20.w,right: 20.w),
+                        child: BtnProceed(),
+                      )
+                    ],
+                  ))),
+        ));
+  }
+
+  Widget BtnProceed() {
+    return ElevatedButton(
+      style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
+      onPressed: () async {
+
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => DashboardWithoutGST(),
+          ),
+              (route) =>
+          false, //if you want to disable back feature set to false
+        );
+      },
+      child:  Text(
+        str_proceed,
       ),
     );
   }

@@ -70,7 +70,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
             SingleChildScrollView(
               primary: true,
               child: SizedBox(
-                height: 680.h,
+                height: 700.h,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -90,7 +90,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
   Widget buildbottomView() {
     return Container(
       color: ThemeHelper.getInstance()!.backgroundColor,
-      height: 150.h,
+      height: 160.h,
       child: Padding(
         padding: EdgeInsets.only(left: 20.w, right: 20.w),
         child: Column(
@@ -181,7 +181,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
-                      Radius.circular(6.r),
+                      Radius.circular(2.r),
                     ),
                   ),
                   side: BorderSide(
@@ -229,7 +229,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
-                      Radius.circular(6.r),
+                      Radius.circular(2.r),
                     ),
                   ),
                   side: BorderSide(
@@ -270,7 +270,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
               style: ThemeHelper.getInstance()!
                   .textTheme
                   .headline3!
-                  .copyWith(fontSize: 12.sp, color: MyColors.pnbcolorPrimary),
+                  .copyWith(fontSize: 12.sp, color: MyColors.black),
             ),
             TextSpan(
                 text: str_confirm_bottom2,
@@ -282,7 +282,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
             TextSpan(
                 text: str_confirm_bottom3,
                 style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
-                    fontSize: 12.sp, color: MyColors.pnbcolorPrimary)),
+                    fontSize: 12.sp, color: MyColors.black)),
             TextSpan(
                 text: str_confirm_bottom4,
                 style: ThemeHelper.getInstance()!
@@ -293,7 +293,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
             TextSpan(
                 text: str_confirm_bottom5,
                 style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
-                    fontSize: 12.sp, color: MyColors.pnbcolorPrimary)),
+                    fontSize: 12.sp, color: MyColors.black)),
             TextSpan(
                 text: str_confirm_bottom6,
                 style: ThemeHelper.getInstance()!
@@ -304,7 +304,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
             TextSpan(
                 text: str_confirm_bottom6,
                 style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
-                    fontSize: 12.sp, color: MyColors.pnbcolorPrimary)),
+                    fontSize: 12.sp, color: MyColors.black)),
           ],
         ),
       ),

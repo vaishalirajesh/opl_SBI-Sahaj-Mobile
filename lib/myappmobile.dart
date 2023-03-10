@@ -115,7 +115,7 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: GSTInvoicesList(),
+          home: DashboardWithGST(),
           locale: LocaleHelper.currentLocale,
           theme: ThemeHelper.getInstance(),
           scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),
@@ -123,14 +123,15 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
            // MyRoutes.splashRoutes: (context) => SplashMain(),
 
 
-            MyRoutes.signUpViewRoutes: (context) => SignUpView(),
-            MyRoutes.loanDepositeAccRoutes: (context) => LoanDepositeAcc(),
+
+
 
 
 
             MyRoutes.welcomeRoutes: (context) => WelcomePage(),
             MyRoutes.tcRouted: (context) => TCview(),
             MyRoutes.GetStartedScrRoutes: (context) => const GetStartedScreen(),
+            MyRoutes.signUpViewRoutes: (context) => SignUpView(),
             MyRoutes.EnableGstApiRoutes: (context) => const EnableGstApi(),
             MyRoutes.StartRegistrationNtbRoutes: (context) => const StartRegistrationNtb(),
             MyRoutes.GstConfirmThanksRoutes: (context) => GstConsentConform(),
@@ -187,7 +188,7 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
             MyRoutes.OtpVerifyGSTRoutes: (context) => const OtpVerifyGST(),
             MyRoutes.GSTInvoiceListRefreshRoutes: (context) => const GSTInvoiceListRefresh(),
             MyRoutes.GSTInvoiceListFilterRoutes: (context) => const GSTInvoiceListFilter(),
-
+            MyRoutes.loanDepositeAccRoutes: (context) => LoanDepositeAcc(),
 
             // MyRoutes.StartRegistrationRoutes : (context) => StartRegistration()
           },
