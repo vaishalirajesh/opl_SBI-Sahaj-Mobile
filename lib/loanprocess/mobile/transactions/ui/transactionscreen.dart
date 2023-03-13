@@ -10,6 +10,7 @@ import 'package:gstmobileservices/service/request/tg_get_request.dart';
 import 'package:gstmobileservices/service/response/tg_response.dart';
 import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -17,6 +18,7 @@ import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import '../../../../utils/constants/imageconstant.dart';
 import '../../../../utils/helpers/myfonts.dart';
 import '../../../../utils/strings/strings.dart';
+import '../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 import '../common_card/disbursed/disbursed_transaction.dart';
 import '../common_card/outstanding/outstanding_transaction.dart';
 import '../common_card/overdue/overdue_transaction.dart';
@@ -50,16 +52,18 @@ class TranscationTabBar extends StatefulWidget {
 
 class _TranscationTabBarState extends State<TranscationTabBar>
     with SingleTickerProviderStateMixin {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   late TabController tabController;
   String dropdownvalue = 'S';
   TextEditingController searchTextController = TextEditingController();
   String? searchText;
   GetAllInvoiceLoansResponseMain? getAllLoanDetailByRefIdResMainobj;
   GetAllInvoiceLoansResObj? obj;
-   List<SharedInvoice>? outstanding_invoice;
-   List<SharedInvoice>? disbursed_invoice;
-   List<SharedInvoice>? repaidInvoice;
-   List<SharedInvoice>? overdueInvoice;
+  List<SharedInvoice>? outstanding_invoice;
+  List<SharedInvoice>? disbursed_invoice;
+  List<SharedInvoice>? repaidInvoice;
+  List<SharedInvoice>? overdueInvoice;
   List<SharedInvoice>? filter_outstanding_invoice = [];
   List<SharedInvoice>? filter_disbursed_invoice = [];
   List<SharedInvoice>? filter_repaidInvoice = [];
@@ -80,16 +84,15 @@ class _TranscationTabBarState extends State<TranscationTabBar>
     tabController.index = TGSession.getInstance().get("TabIndex") ?? 0;
     getAllLoansByReferenceId();
     super.initState();
-
-
-
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: ThemeHelper.getInstance()?.colorScheme.primary,
+        key: _scaffoldKey,
+        drawer: MyDrawer(),
+        // backgroundColor: ThemeHelper.getInstance()?.colorScheme.primary,
         appBar: buildAppBar(),
         body: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -100,7 +103,6 @@ class _TranscationTabBarState extends State<TranscationTabBar>
               buildTabView(OverDueTranstaion()),
               buildTabView(RepaidTranstaion()),
               buildTabView(DisbursedTranstaion()),
-
 
               /*buildTabView(CancelMain()),
               buildTabView(AllMain()),*/
@@ -113,31 +115,66 @@ class _TranscationTabBarState extends State<TranscationTabBar>
 
   buildAppBar() => AppBar(
         elevation: 0,
-        backgroundColor: MyColors.pnbcolorPrimary,
+        backgroundColor: MyColors.white,
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(180.0.h),
           child: Column(
-            children: [buildAppBarUpperPart(), buildAppBarBottomPart()],
+            children: [getAppBarMainDashboard("2", str_loan_approve_process, 0.25,
+                onClickAction: () => {
+                  _scaffoldKey.currentState?.openDrawer()
+                }), buildAppBarBottomPart()],
           ),
         ),
       );
 
   buildAppBarUpperPart() => Padding(
-        padding: EdgeInsets.only(left: 20.0.w, right: 20.w, bottom: 20.h),
+        padding: EdgeInsets.only(left: 20.w,right: 20.w, top: 0.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            buildAppBarTitleText(str_Financed_Invoices),
-            //buildAppBarIcon(MOBILEDASHWIHTOUTNOTIBELL)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  child: SvgPicture.asset(
+                    Utils.path(MOBILEMENUBAR),
+                  ),
+                  onTap: () {},
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 70.w),
+                  child: SvgPicture.asset(
+                    Utils.path(SAHAJLOGOWITHOUTTEXT),
+                    height: 30.h,
+                    width: 130.w,
+                  ),
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SvgPicture.asset(Utils.path(NOTIFICATIONICON),
+                    height: 20.h, width: 20.w),
+                SizedBox(
+                  width: 8.w,
+                ),
+                SvgPicture.asset(Utils.path(LOGOUT), height: 20.h, width: 20.w)
+              ],
+            )
           ],
         ),
       );
 
   buildAppBarBottomPart() => Container(
       decoration: BoxDecoration(
-          color: MyColors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(26.r), topRight: Radius.circular(26.r))),
+        color: MyColors.white,
+        // borderRadius: BorderRadius.only(
+        //     topLeft: Radius.circular(26.r), topRight: Radius.circular(26.r))
+      ),
       child: buildTabRow());
 
   buildAppBarTitleText(String title) => Text(
@@ -158,9 +195,32 @@ class _TranscationTabBarState extends State<TranscationTabBar>
       );
 
   buildTabRow() => Padding(
-        padding: EdgeInsets.only(top: 5.0.h, left: 15.w, right: 15.w),
+        padding: EdgeInsets.only(left: 0.w, right: 0.w),
         child: Column(
-          children: [buildFirstPartAppBar(), buildBottomPartAppBar()],
+          children: [
+            Container(height: 50.h,
+              width:MediaQuery.of(context).size.width,
+              child: Padding(
+                padding:  EdgeInsets.only(left: 20.w,top: 10.h),
+                child: Text(
+                    "Transactions",
+                    style: ThemeHelper.getInstance()!
+                        .textTheme
+                        .headline3!
+                        .copyWith(color: MyColors.white)),
+              ),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(0.r),
+                      bottomLeft: Radius.circular(0.r)),
+                  border: Border.all(
+                      width: 1, color: ThemeHelper.getInstance()!.primaryColor),
+                  //color: ThemeHelper.getInstance()!.primaryColor,
+
+                  gradient: LinearGradient(colors: [MyColors.lightRedGradient,MyColors.lightBlueGradient],begin: Alignment.centerLeft,end: Alignment.centerRight )
+              )),
+            buildFirstPartAppBar(),
+            buildBottomPartAppBar()],
         ),
       );
 
@@ -184,9 +244,7 @@ class _TranscationTabBarState extends State<TranscationTabBar>
   buildFirstPartAppBar() => SizedBox(
         height: 45.h,
         child: TabBar(
-          indicatorColor: ThemeHelper
-              .getInstance()
-              ?.primaryColor,
+          indicatorColor: ThemeHelper.getInstance()?.primaryColor,
           indicatorSize: TabBarIndicatorSize.tab,
           isScrollable: true,
           indicatorWeight: 4.w,
@@ -203,6 +261,33 @@ class _TranscationTabBarState extends State<TranscationTabBar>
         ),
       );
 
+  Widget filterInvoiceButton() {
+
+    return Container(
+      width: 95.w,
+      height: 40.h, //38,
+      child: ElevatedButton(
+          onPressed: () {
+
+          },
+          child: Row(
+            children: [
+              SvgPicture.asset(Utils.path(IMG_FILTER_INVOICE),
+                  height: 15.h, width: 15.w),
+              SizedBox(width: 8.w,),
+              Text('Sort',style: ThemeHelper.getInstance()?.textTheme.headline6,)
+            ],
+          ),
+          style: ElevatedButton.styleFrom(
+            shadowColor: Colors.transparent,
+            //foregroundColor: ThemeHelper.getInstance()!.colorScheme.onPrimary,
+            backgroundColor: ThemeHelper.getInstance()!.backgroundColor,
+            shape: CircleBorder(),
+          )),
+    );
+  }
+
+
   buildBottomPartAppBar() => Padding(
       padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 26.h),
       child: Row(
@@ -210,63 +295,149 @@ class _TranscationTabBarState extends State<TranscationTabBar>
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           searchBar(),
-          sortBar(context),
+          filterInvoiceButton()
         ],
       ));
 
   Widget searchBar() {
     return SizedBox(
-        width: 200.w,
-        height: 45.h,
-        child:  TextFormField(
-            autofocus: true,
-            controller: searchTextController,
-            style: ThemeHelper.getInstance()?.textTheme.headline4?.copyWith(fontFamily: MyFont.Nunito_Sans_Regular),
-            cursorColor: Colors.grey,
-            decoration: InputDecoration(
-              prefixIcon: GestureDetector(child: Icon(Icons.search_sharp,color: Colors.grey,size: 15.h,),onTap: (){
+      width: 250.w,
+      height: 45.h,
+      child: TextFormField(
+          autofocus: true,
+          controller: searchTextController,
+          style: ThemeHelper.getInstance()
+              ?.textTheme
+              .headline4
+              ?.copyWith(fontFamily: MyFont.Nunito_Sans_Regular),
+          cursorColor: Colors.grey,
+          decoration: InputDecoration(
+            prefixIcon: GestureDetector(
+              child: Icon(
+                Icons.search_sharp,
+                color: Colors.grey,
+                size: 15.h,
+              ),
+              onTap: () {
                 Navigator.pop(context);
-              },),
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.withOpacity(0.3)),
-                  borderRadius: BorderRadius.all(Radius.circular(7.r))),
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.withOpacity(0.3)),
-                  borderRadius: BorderRadius.all(Radius.circular(7.r))),
-              contentPadding: EdgeInsets.symmetric(vertical: 10.h),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.withOpacity(0.3)),
-                  borderRadius: BorderRadius.all(Radius.circular(7.r))),
-              hintText: 'Search',
-              hintStyle: ThemeHelper.getInstance()?.textTheme.headline4?.copyWith(fontFamily: MyFont.Nunito_Sans_Regular),
+              },
             ),
-            onChanged: (searchValue){
-              setState(() {
-                searchText = searchValue;
-                if(tabController.index == 0)
-                {
-                  outstanding_invoice?.where((invoiceData) => invoiceData.buyerName?.toLowerCase().contains(searchText.toString().toLowerCase()) == true || invoiceData.loanId?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) == true || invoiceData.loanAmount?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) == true || invoiceData.invoiceAmount?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) == true).toList();
-                }
-                else if(tabController.index == 1)
-                {
-                  overdueInvoice?.where((invoiceData) => invoiceData.buyerName?.toLowerCase().contains(searchText.toString().toLowerCase()) == true || invoiceData.loanId?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) == true || invoiceData.loanAmount?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) == true || invoiceData.invoiceAmount?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) == true).toList();
-                }
-                else if(tabController.index == 2)
-                {
-                  repaidInvoice?.where((invoiceData) => invoiceData.buyerName?.toLowerCase().contains(searchText.toString().toLowerCase()) == true || invoiceData.loanId?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) == true || invoiceData.loanAmount?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) == true || invoiceData.invoiceAmount?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) == true).toList();
-                }
-                else if(tabController.index == 3)
-                {
-                  disbursed_invoice?.where((invoiceData) => invoiceData.buyerName?.toLowerCase().contains(searchText.toString().toLowerCase()) == true || invoiceData.loanId?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) == true || invoiceData.loanAmount?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) == true || invoiceData.invoiceAmount?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) == true).toList();
-                }
-              });
-            },
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(
-                  RegExp("(?!^ +\$)^[a-zA-Z0-9 _]+\$"),
-                  replacementString: "")
-            ]
-        ),);
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.withOpacity(0.3)),
+                borderRadius: BorderRadius.all(Radius.circular(7.r))),
+            enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.withOpacity(0.3)),
+                borderRadius: BorderRadius.all(Radius.circular(7.r))),
+            contentPadding: EdgeInsets.symmetric(vertical: 10.h),
+            border: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.withOpacity(0.3)),
+                borderRadius: BorderRadius.all(Radius.circular(7.r))),
+            hintText: 'Search',
+            hintStyle: ThemeHelper.getInstance()
+                ?.textTheme
+                .headline4
+                ?.copyWith(fontFamily: MyFont.Nunito_Sans_Regular),
+          ),
+          onChanged: (searchValue) {
+            setState(() {
+              searchText = searchValue;
+              if (tabController.index == 0) {
+                outstanding_invoice
+                    ?.where((invoiceData) =>
+                        invoiceData.buyerName?.toLowerCase().contains(
+                                searchText.toString().toLowerCase()) ==
+                            true ||
+                        invoiceData.loanId?.toString().toLowerCase().contains(
+                                searchText.toString().toLowerCase()) ==
+                            true ||
+                        invoiceData.loanAmount
+                                ?.toString()
+                                .toLowerCase()
+                                .contains(
+                                    searchText.toString().toLowerCase()) ==
+                            true ||
+                        invoiceData.invoiceAmount
+                                ?.toString()
+                                .toLowerCase()
+                                .contains(
+                                    searchText.toString().toLowerCase()) ==
+                            true)
+                    .toList();
+              } else if (tabController.index == 1) {
+                overdueInvoice
+                    ?.where((invoiceData) =>
+                        invoiceData.buyerName?.toLowerCase().contains(
+                                searchText.toString().toLowerCase()) ==
+                            true ||
+                        invoiceData.loanId?.toString().toLowerCase().contains(
+                                searchText.toString().toLowerCase()) ==
+                            true ||
+                        invoiceData.loanAmount
+                                ?.toString()
+                                .toLowerCase()
+                                .contains(
+                                    searchText.toString().toLowerCase()) ==
+                            true ||
+                        invoiceData.invoiceAmount
+                                ?.toString()
+                                .toLowerCase()
+                                .contains(
+                                    searchText.toString().toLowerCase()) ==
+                            true)
+                    .toList();
+              } else if (tabController.index == 2) {
+                repaidInvoice
+                    ?.where((invoiceData) =>
+                        invoiceData.buyerName?.toLowerCase().contains(
+                                searchText.toString().toLowerCase()) ==
+                            true ||
+                        invoiceData.loanId?.toString().toLowerCase().contains(
+                                searchText.toString().toLowerCase()) ==
+                            true ||
+                        invoiceData.loanAmount
+                                ?.toString()
+                                .toLowerCase()
+                                .contains(
+                                    searchText.toString().toLowerCase()) ==
+                            true ||
+                        invoiceData.invoiceAmount
+                                ?.toString()
+                                .toLowerCase()
+                                .contains(
+                                    searchText.toString().toLowerCase()) ==
+                            true)
+                    .toList();
+              } else if (tabController.index == 3) {
+                disbursed_invoice
+                    ?.where((invoiceData) =>
+                        invoiceData.buyerName?.toLowerCase().contains(
+                                searchText.toString().toLowerCase()) ==
+                            true ||
+                        invoiceData.loanId?.toString().toLowerCase().contains(
+                                searchText.toString().toLowerCase()) ==
+                            true ||
+                        invoiceData.loanAmount
+                                ?.toString()
+                                .toLowerCase()
+                                .contains(
+                                    searchText.toString().toLowerCase()) ==
+                            true ||
+                        invoiceData.invoiceAmount
+                                ?.toString()
+                                .toLowerCase()
+                                .contains(
+                                    searchText.toString().toLowerCase()) ==
+                            true)
+                    .toList();
+              }
+            });
+          },
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(
+                RegExp("(?!^ +\$)^[a-zA-Z0-9 _]+\$"),
+                replacementString: "")
+          ]),
+    );
   }
 
   Widget sortBar(BuildContext context) {
@@ -320,7 +491,7 @@ class _TranscationTabBarState extends State<TranscationTabBar>
   //Api call
   Future<void> getAllLoansByReferenceId() async {
     TGGetRequest tgGetRequest =
-         GetAllInvoiceLoanDetailByRefIdReq(gstin: '24AAGFV5271N1ZP');
+        GetAllInvoiceLoanDetailByRefIdReq(gstin: '24AAGFV5271N1ZP');
     ServiceManager.getInstance().getAllInvoiceLoanDetailByRefId(
         request: tgGetRequest,
         onSuccess: (response) => _onSuccessGet2AllLoanDetailByRefId(response),
@@ -328,31 +499,35 @@ class _TranscationTabBarState extends State<TranscationTabBar>
   }
 
   _onSuccessGet2AllLoanDetailByRefId(GetAllInvoiceLoansResponse? response) {
-  setState(() {
-    getAllLoanDetailByRefIdResMainobj = response?.getAllLoanDetailObj();
-    obj = getAllLoanDetailByRefIdResMainobj?.data;
-    outstanding_invoice = obj?.outstandingInvoice;
-    disbursed_invoice = obj?.disbursedInvoice;
-    repaidInvoice = obj?.repaidInvoice;
-    overdueInvoice = obj?.overdueInvoice;
-  });
+    setState(() {
+      getAllLoanDetailByRefIdResMainobj = response?.getAllLoanDetailObj();
+      obj = getAllLoanDetailByRefIdResMainobj?.data;
+      outstanding_invoice = obj?.outstandingInvoice;
+      disbursed_invoice = obj?.disbursedInvoice;
+      repaidInvoice = obj?.repaidInvoice;
+      overdueInvoice = obj?.overdueInvoice;
+    });
   }
 
   _onErrorGet2AllLoanDetailByRefId(TGResponse errorResponse) {
     TGLog.d("GetAllInvoiceLoansResponse : onError()");
   }
 
-  Widget FetchTranstaion(){
-    if(outstanding_invoice?.isEmpty == true)
-    {
-      return Center(child: Text("No Data Found!",style: ThemeHelper.getInstance()?.textTheme.headline4?.copyWith(fontSize: 16.sp,fontFamily: MyFont.Nunito_Sans_Semi_bold),textAlign: TextAlign.center,));
+  Widget FetchTranstaion() {
+    if (outstanding_invoice?.isEmpty == true) {
+      return Center(
+          child: Text(
+        "No Data Found!",
+        style: ThemeHelper.getInstance()?.textTheme.headline4?.copyWith(
+            fontSize: 16.sp, fontFamily: MyFont.Nunito_Sans_Semi_bold),
+        textAlign: TextAlign.center,
+      ));
     }
     /*else if(searchTextController.text.isNotEmpty && filter_outstanding_invoice?.isEmpty == true && tabController.index == 0)
     {
       return Center(child: Text("No Data Found!",style: ThemeHelper.getInstance()?.textTheme.headline4?.copyWith(fontSize: 16.sp,fontFamily: MyFont.Nunito_Sans_Semi_bold),textAlign: TextAlign.center,));
     }*/
-    else
-    {
+    else {
       return Align(
         alignment: Alignment.center,
         child: ListView.builder(
@@ -362,31 +537,34 @@ class _TranscationTabBarState extends State<TranscationTabBar>
           itemBuilder: (context, index) {
             return Column(
               children: [
-                OutstandingTransactionCard(disbursedInvoice:outstanding_invoice?[index]),
-                SizedBox(height: 15.h,)
+                OutstandingTransactionCard(
+                    disbursedInvoice: outstanding_invoice?[index]),
+                SizedBox(
+                  height: 15.h,
+                )
               ],
             );
           },
         ),
       );
     }
-
-
-
   }
 
-
-  Widget RepaidTranstaion(){
-    if(repaidInvoice?.isEmpty == true)
-    {
-      return Center(child: Text("No Data Found!",style: ThemeHelper.getInstance()?.textTheme.headline4?.copyWith(fontSize: 16.sp,fontFamily: MyFont.Nunito_Sans_Semi_bold),textAlign: TextAlign.center,));
+  Widget RepaidTranstaion() {
+    if (repaidInvoice?.isEmpty == true) {
+      return Center(
+          child: Text(
+        "No Data Found!",
+        style: ThemeHelper.getInstance()?.textTheme.headline4?.copyWith(
+            fontSize: 16.sp, fontFamily: MyFont.Nunito_Sans_Semi_bold),
+        textAlign: TextAlign.center,
+      ));
     }
     /*else if(searchTextController.text.isNotEmpty && filter_repaidInvoice?.isEmpty == true && tabController.index == 2)
     {
       return Center(child: Text("No Data Found!",style: ThemeHelper.getInstance()?.textTheme.headline4?.copyWith(fontSize: 16.sp,fontFamily: MyFont.Nunito_Sans_Semi_bold),textAlign: TextAlign.center,));
     }*/
-    else
-    {
+    else {
       return Align(
         alignment: Alignment.center,
         child: ListView.builder(
@@ -396,8 +574,10 @@ class _TranscationTabBarState extends State<TranscationTabBar>
           itemBuilder: (context, index) {
             return Column(
               children: [
-                RepaidTransactionCard(repaidInvoice:repaidInvoice?[index]),
-                SizedBox(height: 15.h,)
+                RepaidTransactionCard(repaidInvoice: repaidInvoice?[index]),
+                SizedBox(
+                  height: 15.h,
+                )
               ],
             );
           },
@@ -406,17 +586,21 @@ class _TranscationTabBarState extends State<TranscationTabBar>
     }
   }
 
-  Widget DisbursedTranstaion(){
-    if(disbursed_invoice?.isEmpty == true)
-    {
-      return Center(child: Text("No Data Found!",style: ThemeHelper.getInstance()?.textTheme.headline4?.copyWith(fontSize: 16.sp,fontFamily: MyFont.Nunito_Sans_Semi_bold),textAlign: TextAlign.center,));
+  Widget DisbursedTranstaion() {
+    if (disbursed_invoice?.isEmpty == true) {
+      return Center(
+          child: Text(
+        "No Data Found!",
+        style: ThemeHelper.getInstance()?.textTheme.headline4?.copyWith(
+            fontSize: 16.sp, fontFamily: MyFont.Nunito_Sans_Semi_bold),
+        textAlign: TextAlign.center,
+      ));
     }
     /*else if(searchTextController.text.isNotEmpty && filter_disbursed_invoice?.isEmpty == true && tabController.index == 3)
     {
       return Center(child: Text("No Data Found!",style: ThemeHelper.getInstance()?.textTheme.headline4?.copyWith(fontSize: 16.sp,fontFamily: MyFont.Nunito_Sans_Semi_bold),textAlign: TextAlign.center,));
     }*/
-    else
-    {
+    else {
       return Align(
         alignment: Alignment.center,
         child: ListView.builder(
@@ -426,27 +610,34 @@ class _TranscationTabBarState extends State<TranscationTabBar>
           itemBuilder: (context, index) {
             return Column(
               children: [
-                DisbursedTransactionCard(disbursedInvoice:disbursed_invoice?[index]),
-                SizedBox(height: 15.h,)
+                DisbursedTransactionCard(
+                    disbursedInvoice: disbursed_invoice?[index]),
+                SizedBox(
+                  height: 15.h,
+                )
               ],
             );
           },
         ),
       );
     }
-
   }
-  Widget OverDueTranstaion(){
-    if(overdueInvoice?.isEmpty == true)
-    {
-      return Center(child: Text("No Data Found!",style: ThemeHelper.getInstance()?.textTheme.headline4?.copyWith(fontSize: 16.sp,fontFamily: MyFont.Nunito_Sans_Semi_bold),textAlign: TextAlign.center,));
+
+  Widget OverDueTranstaion() {
+    if (overdueInvoice?.isEmpty == true) {
+      return Center(
+          child: Text(
+        "No Data Found!",
+        style: ThemeHelper.getInstance()?.textTheme.headline4?.copyWith(
+            fontSize: 16.sp, fontFamily: MyFont.Nunito_Sans_Semi_bold),
+        textAlign: TextAlign.center,
+      ));
     }
-   /* else if(searchTextController.text.isNotEmpty && filter_overdueInvoice?.isEmpty == true && tabController.index == 1)
+    /* else if(searchTextController.text.isNotEmpty && filter_overdueInvoice?.isEmpty == true && tabController.index == 1)
     {
       return Center(child: Text("No Data Found!",style: ThemeHelper.getInstance()?.textTheme.headline4?.copyWith(fontSize: 16.sp,fontFamily: MyFont.Nunito_Sans_Semi_bold),textAlign: TextAlign.center,));
     }*/
-    else
-    {
+    else {
       return Align(
         alignment: Alignment.center,
         child: ListView.builder(
@@ -455,28 +646,27 @@ class _TranscationTabBarState extends State<TranscationTabBar>
           itemCount: overdueInvoice?.length,
           itemBuilder: (context, index) {
             return Column(
-                children: [
-                  OverdueTransactionCard(overdueInvoice:overdueInvoice?[index]),
-                  SizedBox(height: 15.h,)
-            ],
+              children: [
+                OverdueTransactionCard(overdueInvoice: overdueInvoice?[index]),
+                SizedBox(
+                  height: 15.h,
+                )
+              ],
             );
           },
         ),
       );
     }
-
   }
-
 }
 
-Widget transactionCardMainUI(SharedInvoice? invoiceData)
-{
+Widget transactionCardMainUI(SharedInvoice? invoiceData) {
   return Container(
       decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(12.r),)
-      )
-  );
+          borderRadius: BorderRadius.all(
+            Radius.circular(12.r),
+          )));
 }
 
 class RadioListBuilder extends StatefulWidget {

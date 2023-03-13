@@ -496,6 +496,13 @@ const str_Amount_due_value = '₹ 51,600';
 const str_due_value = '₹ 51,600';
 const str_due_Date_value = '09/08/22';
 
+
+//overdue
+const str_original_amnt_due = 'Original Amount Due';
+
+
+
+
 const str_l4 = '₹ 41,600';
 const str_Invoice_date = 'Invoice date';
 const str_l5 = '03/08/2022';

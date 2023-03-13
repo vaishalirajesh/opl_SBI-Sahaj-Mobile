@@ -34,7 +34,7 @@ class MyColors
   static final pnbUnderLineColor=HexColor('#196EE5');
   static final pnbGreenColor=HexColor('#6CA042');
   static final pnbRedColor=HexColor('#FF4747');
-  static final pnbYellowColor=HexColor('#FFF5D3');
+  static final pnbYellowColor=HexColor('#FF8B00');
   static final pnbGreyColor=HexColor('#3A4666');
   static final pnbPinkColor=HexColor('#F5F2F9');
   static final pnbPurpleColor=HexColor('#F4DDFF');

@@ -191,6 +191,20 @@ const PROFILE_IMG = 'images/ic_user.png';
 
 
 
+//Drawer
+
+const IMG_HOME_MENU = 'images/home_menu.svg';
+const IMG_LINE_MENU = 'images/Line_menu.svg';
+const IMG_RAISE_DISPITE_MENU = 'images/raise_dispute_menu.svg';
+const IMG_USER_MENU = 'images/user_menu.svg';
+
+
+
+
+
+
+
+
 
 //invoice list
 const REFRESHGST = 'images/rfreshinvoicepopup_img.svg';

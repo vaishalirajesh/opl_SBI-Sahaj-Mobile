@@ -167,7 +167,7 @@ class _DashboardWithGstState extends State<DashboardWithGst>
       },
       child: Scaffold(
         key: _scaffoldKey,
-        drawer: CustomDrawer(),
+        drawer: MyDrawer(),
         appBar: getAppBarMainDashboard("2", str_loan_approve_process, 0.50,
             onClickAction: () => {
               print("Manish here"),
@@ -237,7 +237,7 @@ class _DashboardWithGstState extends State<DashboardWithGst>
                     children: [
 
                       Text("Hello, Indo International!, $name",
-                          style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(color: MyColors.white)),
+                          style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(color: MyColors.white)),
                       // SizedBox(height: 5.h),
                       // Text("PAN: ABCDE1234F $pan",
                       //     style: ThemeHelper.getInstance()!
@@ -255,6 +255,11 @@ class _DashboardWithGstState extends State<DashboardWithGst>
           ),
            ),
           ListTile(
+            leading: SvgPicture.asset(
+              Utils.path(IMG_HOME_MENU),
+              height: 24.h,
+              width: 24.w,
+            ),
             title:  Text('Home',style: ThemeHelper.getInstance()?.textTheme.headline3,),
             onTap: () {
               // Update the state of the app.
@@ -263,22 +268,37 @@ class _DashboardWithGstState extends State<DashboardWithGst>
           ),
           Divider(),
           ListTile(
+            leading: SvgPicture.asset(
+              Utils.path(IMG_LINE_MENU),
+              height: 24.h,
+              width: 24.w,
+            ),
             title:  Text('Transactions',style: ThemeHelper.getInstance()?.textTheme.headline3),
             onTap: () {
-              // Update the state of the app.
-              // ...
+              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => TransactionsView()));
             },
           ),
           Divider(),
           ListTile(
+            leading: SvgPicture.asset(
+              Utils.path(IMG_USER_MENU),
+              height: 24.h,
+              width: 24.w,
+            ),
             title:  Text('Profile',style: ThemeHelper.getInstance()?.textTheme.headline3),
             onTap: () {
-              // Update the state of the app.
-              // ...
+
             },
           ),
           Divider(),
           ListTile(
+            leading: SvgPicture.asset(
+              Utils.path(IMG_RAISE_DISPITE_MENU),
+              height: 24.h,
+              width: 24.w,
+            ),
             title:  Text('Raise Dispute',style: ThemeHelper.getInstance()?.textTheme.headline3),
             onTap: () {
               // Update the state of the app.
@@ -1517,4 +1537,112 @@ class _DashboardWithGstState extends State<DashboardWithGst>
                   style: ThemeHelper.getInstance()!.textTheme.headline1,
                 ),
               ));
+}
+
+
+class MyDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+      return Drawer(
+      child: ListView(
+        // Important: Remove any padding from the ListView.
+        padding: EdgeInsets.zero,
+        children: [
+          SizedBox(
+            height: 100.h,
+            child: DrawerHeader(
+              decoration: BoxDecoration(
+                //  color: Colors.blue,
+                  gradient: LinearGradient(colors: [MyColors.lightRedGradient,MyColors.lightBlueGradient],begin: Alignment.centerLeft,end: Alignment.centerRight )
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image(
+                    height: 44.h,
+                    width: 44.w,
+                    image: AssetImage(Utils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
+                  ),
+                  SizedBox(width: 15.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+
+                      Text("Hello, Indo International!",
+                          style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(color: MyColors.white)),
+                      // SizedBox(height: 5.h),
+                      // Text("PAN: ABCDE1234F $pan",
+                      //     style: ThemeHelper.getInstance()!
+                      //         .textTheme
+                      //         .headline5!
+                      //         .copyWith(fontSize: 12.sp, color: MyColors.white)),
+                    ],
+                  ),
+                  /*const Spacer(),
+                  SvgPicture.asset(
+                    Utils.path(MOBILEDASHWIHTOUTNOTIBELL),
+                  )*/
+                ],
+              ),
+            ),
+          ),
+          ListTile(
+            leading: SvgPicture.asset(
+              Utils.path(IMG_HOME_MENU),
+              height: 24.h,
+              width: 24.w,
+            ),
+            title:  Text('Home',style: ThemeHelper.getInstance()?.textTheme.headline3,),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => DashboardWithGST()));
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: SvgPicture.asset(
+              Utils.path(IMG_LINE_MENU),
+              height: 24.h,
+              width: 24.w,
+            ),
+            title:  Text('Transactions',style: ThemeHelper.getInstance()?.textTheme.headline3),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => TransactionsView()));
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: SvgPicture.asset(
+              Utils.path(IMG_USER_MENU),
+              height: 24.h,
+              width: 24.w,
+            ),
+            title:  Text('Profile',style: ThemeHelper.getInstance()?.textTheme.headline3),
+            onTap: () {
+
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: SvgPicture.asset(
+              Utils.path(IMG_RAISE_DISPITE_MENU),
+              height: 24.h,
+              width: 24.w,
+            ),
+            title:  Text('Raise Dispute',style: ThemeHelper.getInstance()?.textTheme.headline3),
+            onTap: () {
+              // Update the state of the app.
+              // ...
+            },
+          ),
+          Divider(),
+        ],
+      ),
+    );
+  }
 }
