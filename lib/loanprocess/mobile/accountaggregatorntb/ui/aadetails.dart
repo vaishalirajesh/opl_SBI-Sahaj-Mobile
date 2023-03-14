@@ -55,7 +55,7 @@ class _AccountAggregatorScreenState extends State<AccountAggregatorScreen> {
       }),
       body: Stack(
         children: [
-        buildACCHomeContian(context),
+         buildACCHomeContian(context),
          buildBtnNextAcc(context),
                  ],
       ),
@@ -70,13 +70,14 @@ Widget buildACCHomeContian(BuildContext context) {
     Padding(
     padding: const EdgeInsets.all(20.0).w,
     child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         buildHeaderDisceContainer(str_header_discr),
         buildAccountAggregatorText(str_acount_aggregator),
         buildANewWaytoShareBankText(str_a_new_way_toshare_bank),
-        buildBeforeProceedingDescrText(str_before_proceeding_discr),
+       // buildBeforeProceedingDescrText(str_before_proceeding_discr),
+
         buildImageWidget(IMG_AA_DETAILS),
         buildSetUpListViewData(),
         buildSetupHyperText(),
@@ -88,7 +89,7 @@ Widget buildACCHomeContian(BuildContext context) {
 Widget buildHeaderDisceContainer(String text) => Padding(
       padding: EdgeInsets.only(top: 15.h),
       child: Container(
-        height: 115.h,
+        height: 70.h,
         color: ThemeHelper.getInstance()!.cardColor,
         child: Padding(
           padding: EdgeInsets.all(15.0).w,
@@ -104,7 +105,7 @@ Widget buildHeaderDisceContainer(String text) => Padding(
     );
 
 Widget buildAccountAggregatorText(String text) => Padding(
-      padding: EdgeInsets.only(left: 40.w, right: 40.w, top: 15.h),
+      padding: EdgeInsets.only(left: 0.w, right: 0.w, top: 15.h),
       child: Text(
         text,
         style: ThemeHelper.getInstance()!
@@ -116,7 +117,7 @@ Widget buildAccountAggregatorText(String text) => Padding(
     );
 
 Widget buildANewWaytoShareBankText(String text) => Padding(
-      padding: EdgeInsets.only(left: 40.w, right: 40.w, top: 5.h),
+      padding: EdgeInsets.only(left: 0.w, right: 0.w, top: 5.h,bottom: 10.h),
       child: Text(
         text,
         style: ThemeHelper.getInstance()!
@@ -140,7 +141,7 @@ Widget buildBeforeProceedingDescrText(String text) => Padding(
     );
 
 Widget buildImageWidget(String path) => Padding(
-      padding: EdgeInsets.only(left: 20.0.w, right: 20.w, bottom: 30.h),
+      padding: EdgeInsets.symmetric(horizontal: 60.w,vertical: 20.h),
       child: SvgPicture.asset(Utils.path(path),
           height: 350.h, allowDrawingOutsideViewBox: false),
     );
@@ -168,7 +169,9 @@ Widget buildRowWidget(String text) => Padding(
       padding: EdgeInsets.only(bottom: 15.h),
       child: Row(
         children: [
-          Text("\u2022 $text",
+          SvgPicture.asset(Utils.path(IMG_GREENTICK_AA),
+              height: 15.h, width: 15.w),
+          Text(" $text",
               style: ThemeHelper.getInstance()!
                   .textTheme
                   .headline1!
@@ -178,7 +181,9 @@ Widget buildRowWidget(String text) => Padding(
     );
 
 Widget buildRevokeconsetAtAnytimeRow(String title) => Row(children: [
-      Text("\u2022 $title",
+  SvgPicture.asset(Utils.path(IMG_GREENTICK_AA),
+      height: 15.h, width: 15.w),
+      Text(" $title",
           style: ThemeHelper.getInstance()!
               .textTheme
               .headline1!
@@ -198,7 +203,7 @@ Widget buildSetupHyperText() {
                   .headline1!
                   .copyWith(color: MyColors.pnbGreyColor, fontSize: 13)),
           TextSpan(
-              text: str_sahmati,
+              text: str_rbi,
               style: ThemeHelper.getInstance()!
                   .textTheme
                   .headline1!
@@ -210,7 +215,7 @@ Widget buildSetupHyperText() {
                   .headline1!
                   .copyWith(color: MyColors.pnbGreyColor, fontSize: 13)),
           TextSpan(
-              text: str_rbi,
+              text: str_sahmati,
               style: ThemeHelper.getInstance()!
                   .textTheme
                   .headline1!
@@ -235,11 +240,10 @@ Widget buildBtnNextAcc(BuildContext context) {
       child: ElevatedButton(
         style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
         onPressed: () {
-        //  Navigator.pushNamed(context, MyRoutes.BankListRoutes);
-        //  Navigator.of(context).push(CustomRightToLeftPageRoute(child: BankList(), ));
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => BankList(),)
-          );
+          Navigator.pushNamed(context, MyRoutes.AAListRoutes);
+        //   Navigator.push(context,
+        //       MaterialPageRoute(builder: (context) => BankList(),)
+        //   );
 
         },
         child: const Text(str_next),

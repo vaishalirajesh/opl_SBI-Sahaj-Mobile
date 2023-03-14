@@ -61,7 +61,7 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
         return true;
       },
       child: Scaffold(
-        appBar: getAppBarWithStep('1', str_registration, 0.25,
+        appBar: getAppBarWithStepDone('1', str_registration, 0.25,
             onClickAction: () =>
                 {Navigator.pop(context), SystemNavigator.pop(animated: true)}),
         body: AbsorbPointer(
@@ -107,7 +107,7 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
   _buildMiddler() {
     return Container(
       decoration: BoxDecoration(
-          color: ThemeHelper.getInstance()?.colorScheme.secondary,
+          color: ThemeHelper.getInstance()?.cardColor,
           borderRadius: BorderRadius.all(Radius.circular(16.r))),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.0.w),
@@ -167,7 +167,7 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
                         });
                       },
                       shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(6))),
+                          borderRadius: BorderRadius.all(Radius.circular(2))),
                       side: BorderSide(
                           width: 1,
                           color: isGstConsentGiven
@@ -203,16 +203,18 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
                           : ThemeHelper.setPinkDisableButtonBig(),
                       onPressed: () async {
                         if (isGstConsentGiven) {
-                          setState(() {
-                            isLoaderStart = true;
-                          });
+                          // setState(() {
+                          //   isLoaderStart = true;
+                          // });
 
-                          if (await TGNetUtil.isInternetAvailable()) {
-                            saveGstConsent();
-                          } else {
-                            showSnackBarForintenetConnection(
-                                context, saveGstConsent);
-                          }
+                          Navigator.pushNamed(context, MyRoutes.gstConsent);
+
+                          // if (await TGNetUtil.isInternetAvailable()) {
+                          //   saveGstConsent();
+                          // } else {
+                          //   showSnackBarForintenetConnection(
+                          //       context, saveGstConsent);
+                          // }
                         }
                       },
                       child: Text(str_give_consent),

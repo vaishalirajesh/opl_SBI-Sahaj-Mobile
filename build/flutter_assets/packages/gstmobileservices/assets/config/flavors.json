@@ -30,7 +30,7 @@
   },
   {
     "name": "dev_uat_pnb_release",
-    "baseUrl": "https://uat.gstsahay.mypnb.in",
+    "baseUrl": "https://pnbuat-gstsahay.instantmseloans.in",
     "logLevel": "ERROR",
     "applyMock": false,
     "params": {
@@ -48,7 +48,7 @@
   },
   {
     "name": "dev_qa_sidbi",
-    "baseUrl": "https://qa-gst-sahay.instantmseloans.in",
+    "baseUrl": "https://qa-gst-sahay.instantmseloans.in/",
     "logLevel": "DEBUG",
     "applyMock": false,
     "params": {

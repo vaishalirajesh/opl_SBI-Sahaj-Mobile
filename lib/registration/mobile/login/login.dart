@@ -29,6 +29,7 @@ import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
+import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusconstants.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
@@ -134,192 +135,277 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
       child: Scaffold(
         key: scaffoldKey,
         resizeToAvoidBottomInset: false,
-        appBar: getAppBarWithStep('1', str_registration, 0.25,
+        appBar: getAppBarWithStepDone('1', str_registration, 0.25,
             onClickAction: () => {
                   Navigator.pop(context, false),
                   SystemNavigator.pop(animated: true)
                 }),
         body: AbsorbPointer(
           absorbing: isGetOTPLoaderStart,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height,
-              child: ListView(
-                children: [
-                  enterMobileLabel(),
-                  //Flexible(child:  Spacer()),
-                  Column(
+          child: Stack(
+            children: [
+              Container(
+                  child:  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      child: ListView(
+                        children: [
+                          enterMobileLabel(),
+                          //Flexible(child:  Spacer()),
+                          // Column(
+                          //     mainAxisAlignment: MainAxisAlignment.start,
+                          //     crossAxisAlignment: CrossAxisAlignment.start,
+                          //     children: [
+                          //       Padding(
+                          //         padding: EdgeInsets.only(top: 10.h),
+                          //         child: Row(
+                          //           children: [
+                          //             Checkbox(
+                          //               // checkColor: MyColors.colorAccent,
+                          //               activeColor:
+                          //               ThemeHelper.getInstance()?.primaryColor,
+                          //               value: isCheckedFirst,
+                          //               onChanged: (bool) {
+                          //                 setState(() {
+                          //                   isCheckedFirst = bool!;
+                          //                 });
+                          //               },
+                          //               shape: RoundedRectangleBorder(
+                          //                   borderRadius:
+                          //                   BorderRadius.all(Radius.circular(6))),
+                          //               side: BorderSide(
+                          //                   width: 1,
+                          //                   color: isCheckedFirst
+                          //                       ? ThemeHelper.getInstance()!
+                          //                       .primaryColor
+                          //                       : ThemeHelper.getInstance()!
+                          //                       .disabledColor),
+                          //             ),
+                          //             Expanded(
+                          //                 child: Padding(
+                          //                   padding: EdgeInsets.only(top: 10.h),
+                          //                   child: Text.rich(TextSpan(
+                          //                       text: str_i_login_check_part1,
+                          //                       style: ThemeHelper.getInstance()!
+                          //                           .textTheme
+                          //                           .headline6!
+                          //                           .copyWith(
+                          //                         fontSize: 12.sp,
+                          //                         color: MyColors.pnbcolorPrimary,
+                          //                       ),
+                          //                       children: <InlineSpan>[
+                          //                         TextSpan(
+                          //                           text: str_i_login_checkpart2,
+                          //                           style: ThemeHelper.getInstance()!
+                          //                               .textTheme
+                          //                               .headline6!
+                          //                               .copyWith(
+                          //                               fontSize: 12.sp,
+                          //                               color: Colors.blue,
+                          //                               decoration:
+                          //                               TextDecoration.underline),
+                          //                         ),
+                          //                         TextSpan(
+                          //                           text: str_i_login_checkpart3,
+                          //                           style: ThemeHelper.getInstance()!
+                          //                               .textTheme
+                          //                               .headline6!
+                          //                               .copyWith(
+                          //                               fontSize: 12.sp,
+                          //                               color:
+                          //                               MyColors.pnbcolorPrimary),
+                          //                         ),
+                          //                         TextSpan(
+                          //                             text: str_i_login_checkpart4,
+                          //                             style: ThemeHelper.getInstance()!
+                          //                                 .textTheme
+                          //                                 .headline6!
+                          //                                 .copyWith(
+                          //                                 fontSize: 12.sp,
+                          //                                 color: Colors.blue,
+                          //                                 decoration:
+                          //                                 TextDecoration.underline))
+                          //                       ])),
+                          //                 )),
+                          //           ],
+                          //         ),
+                          //       ),
+                          //       Padding(
+                          //         padding: EdgeInsets.only(bottom: 20.h, top: 20.h),
+                          //         child: isGetOTPLoaderStart
+                          //             ? JumpingDots(
+                          //           color:
+                          //           ThemeHelper.getInstance()?.primaryColor ??
+                          //               MyColors.pnbcolorPrimary,
+                          //           radius: 10,
+                          //         )
+                          //             : ElevatedButton(
+                          //             style: isCheckedFirst &&
+                          //                 mobileTextController.text.length == 10
+                          //                 ? ThemeHelper.getInstance()!
+                          //                 .elevatedButtonTheme
+                          //                 .style
+                          //                 : ThemeHelper.setPinkDisableButtonBig(),
+                          //             onPressed: () async {
+                          //               //if (viewModel.isValidGSTINNumber && viewModel.isValidGSTUserName) {
+                          //               if (isCheckedFirst &&
+                          //                   mobileTextController.text.length ==
+                          //                       10) {
+                          //                 setState(() {
+                          //                   Navigator.pushNamed(context,
+                          //                       MyRoutes.OtpVerifyLoginRoutes
+                          //                   );
+                          //                   //verifyOtpBottomDialog();
+                          //                   // isGetOTPLoaderStart = true;
+                          //                 });
+                          //                 //   if (await TGNetUtil
+                          //                 //       .isInternetAvailable()) {
+                          //                 //     autoLoginRequest();
+                          //                 //   } else {
+                          //                 //     showSnackBarForintenetConnection(
+                          //                 //         context, autoLoginRequest);
+                          //                 //   }
+                          //                 //}
+                          //
+                          //               }
+                          //             },
+                          //             child: Text(str_next)),
+                          //       )
+                          //     ]),
+                        ],
+                      ),
+                    ),
+                  )),
+              Align(alignment: Alignment.bottomCenter, child: Container(
+                height: 200.h,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.h),
-                          child: Row(
-                            children: [
-                              Checkbox(
-                                // checkColor: MyColors.colorAccent,
-                                activeColor:
-                                    ThemeHelper.getInstance()?.primaryColor,
-                                value: isCheckedFirst,
-                                onChanged: (bool) {
-                                  setState(() {
-                                    isCheckedFirst = bool!;
-                                  });
-                                },
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(6))),
-                                side: BorderSide(
-                                    width: 1,
-                                    color: isCheckedFirst
-                                        ? ThemeHelper.getInstance()!
-                                            .primaryColor
-                                        : ThemeHelper.getInstance()!
-                                            .disabledColor),
-                              ),
-                              Expanded(
-                                  child: Padding(
-                                padding: EdgeInsets.only(top: 10.h),
-                                child: Text.rich(TextSpan(
-                                    text: str_i_login_check_part1,
-                                    style: ThemeHelper.getInstance()!
-                                        .textTheme
-                                        .headline6!
-                                        .copyWith(
-                                          fontSize: 12.sp,
-                                          color: MyColors.pnbcolorPrimary,
-                                        ),
-                                    children: <InlineSpan>[
-                                      TextSpan(
-                                        text: str_i_login_checkpart2,
-                                        style: ThemeHelper.getInstance()!
-                                            .textTheme
-                                            .headline6!
-                                            .copyWith(
-                                                fontSize: 12.sp,
-                                                color: Colors.blue,
-                                                decoration:
-                                                    TextDecoration.underline),
+                        Row(
+                          children: [
+                            Checkbox(
+                              // checkColor: MyColors.colorAccent,
+                              activeColor:
+                              ThemeHelper.getInstance()?.primaryColor,
+                              value: isCheckedFirst,
+                              onChanged: (bool) {
+                                setState(() {
+                                  isCheckedFirst = bool!;
+                                });
+                              },
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(2))),
+                              side: BorderSide(
+                                  width: 1,
+                                  color: isCheckedFirst
+                                      ? ThemeHelper.getInstance()!
+                                      .primaryColor
+                                      : ThemeHelper.getInstance()!
+                                      .disabledColor),
+                            ),
+                            Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.only(top: 10.h),
+                                  child: Text.rich(TextSpan(
+                                      text: str_i_login_check_part1,
+                                      style: ThemeHelper.getInstance()!
+                                          .textTheme
+                                          .headline6!
+                                          .copyWith(
+                                        fontSize: 12.sp,
+                                        color: MyColors.pnbcolorPrimary,
                                       ),
-                                      TextSpan(
-                                        text: str_i_login_checkpart3,
-                                        style: ThemeHelper.getInstance()!
-                                            .textTheme
-                                            .headline6!
-                                            .copyWith(
-                                                fontSize: 12.sp,
-                                                color:
-                                                    MyColors.pnbcolorPrimary),
-                                      ),
-                                      TextSpan(
-                                          text: str_i_login_checkpart4,
+                                      children: <InlineSpan>[
+                                        TextSpan(
+                                          text: str_i_login_checkpart2,
                                           style: ThemeHelper.getInstance()!
                                               .textTheme
                                               .headline6!
                                               .copyWith(
-                                                  fontSize: 12.sp,
-                                                  color: Colors.blue,
-                                                  decoration:
-                                                      TextDecoration.underline))
-                                    ])),
-                              )),
-                            ],
-                          ),
+                                              fontSize: 12.sp,
+                                              color: Colors.blue,
+                                              decoration:
+                                              TextDecoration.underline),
+                                        ),
+                                        TextSpan(
+                                          text: str_i_login_checkpart3,
+                                          style: ThemeHelper.getInstance()!
+                                              .textTheme
+                                              .headline6!
+                                              .copyWith(
+                                              fontSize: 12.sp,
+                                              color:
+                                              MyColors.pnbcolorPrimary),
+                                        ),
+                                        TextSpan(
+                                            text: str_i_login_checkpart4,
+                                            style: ThemeHelper.getInstance()!
+                                                .textTheme
+                                                .headline6!
+                                                .copyWith(
+                                                fontSize: 12.sp,
+                                                color: Colors.blue,
+                                                decoration:
+                                                TextDecoration.underline))
+                                      ])),
+                                )),
+                          ],
                         ),
-                        /*Padding(
-                          padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Column(
-                                children: [
-                                  Checkbox(
-                                    // checkColor: MyColors.colorAccent,
-                                    activeColor:
-                                        ThemeHelper.getInstance()?.primaryColor,
-                                    value: isCheckedSecond,
-                                    onChanged: (bool) {
-                                      setState(() {
-                                        isCheckedSecond = bool!;
-                                      });
-                                    },
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.all(Radius.circular(6))),
-                                    side: BorderSide(
-                                        width: 1,
-                                        color: isCheckedSecond
-                                            ? ThemeHelper.getInstance()!
-                                                .primaryColor
-                                            : ThemeHelper.getInstance()!
-                                                .disabledColor),
-                                  ),
-                                ],
-                              ),
-                              */ /*Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.only(top: 5.0.h),
-                                  child: Text(
-                                    str_i_login_check2,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 4,
-                                    style: ThemeHelper.getInstance()!
-                                        .textTheme
-                                        .headline6!
-                                        .copyWith(
-                                            fontSize: 12.sp,
-                                            color: MyColors.pnbcolorPrimary),
-                                  ),
-                                ),
-                              ),*/ /*
-                            ],
-                          ),
-                        ),*/
                         Padding(
                           padding: EdgeInsets.only(bottom: 20.h, top: 20.h),
                           child: isGetOTPLoaderStart
                               ? JumpingDots(
-                                  color:
-                                      ThemeHelper.getInstance()?.primaryColor ??
-                                          MyColors.pnbcolorPrimary,
-                                  radius: 10,
-                                )
+                            color:
+                            ThemeHelper.getInstance()?.primaryColor ??
+                                MyColors.pnbcolorPrimary,
+                            radius: 10,
+                          )
                               : ElevatedButton(
-                                  style: isCheckedFirst &&
-                                          mobileTextController.text.length == 10
-                                      ? ThemeHelper.getInstance()!
-                                          .elevatedButtonTheme
-                                          .style
-                                      : ThemeHelper.setPinkDisableButtonBig(),
-                                  onPressed: () async {
-                                    //if (viewModel.isValidGSTINNumber && viewModel.isValidGSTUserName) {
-                                    if (isCheckedFirst &&
-                                        mobileTextController.text.length ==
-                                            10) {
-                                      setState(() {
-                                        isGetOTPLoaderStart = true;
-                                      });
-                                      if (await TGNetUtil
-                                          .isInternetAvailable()) {
-                                        autoLoginRequest();
-                                      } else {
-                                        showSnackBarForintenetConnection(
-                                            context, autoLoginRequest);
-                                      }
-                                    }
+                              style: isCheckedFirst &&
+                                  mobileTextController.text.length == 10
+                                  ? ThemeHelper.getInstance()!
+                                  .elevatedButtonTheme
+                                  .style
+                                  : ThemeHelper.setPinkDisableButtonBig(),
+                              onPressed: () async {
+                                //if (viewModel.isValidGSTINNumber && viewModel.isValidGSTUserName) {
+                                if (isCheckedFirst &&
+                                    mobileTextController.text.length ==
+                                        10) {
+                                  setState(() {
+                                    Navigator.pushNamed(context,
+                                        MyRoutes.OtpVerifyLoginRoutes
+                                    );
+                                    //verifyOtpBottomDialog();
+                                    // isGetOTPLoaderStart = true;
+                                  });
+                                  //   if (await TGNetUtil
+                                  //       .isInternetAvailable()) {
+                                  //     autoLoginRequest();
+                                  //   } else {
+                                  //     showSnackBarForintenetConnection(
+                                  //         context, autoLoginRequest);
+                                  //   }
+                                  //}
 
-                                    //}
-                                  },
-                                  child: Text(str_next)),
+                                }
+                              },
+                              child: Text(str_next)),
                         )
                       ]),
-                ],
-              ),
-            ),
+                ),
+              ))
+            ],
           ),
+
+
+
+
         ),
       ),
     );
@@ -440,14 +526,14 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
               cursorColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
               decoration: InputDecoration(
                   hintText: str_Mobile_number,
-                  enabledBorder: OutlineInputBorder(
+                  enabledBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(6.r)),
                     borderSide: BorderSide(
                         width: 1,
                         color:
                             ThemeHelper.getInstance()!.colorScheme.onSurface),
                   ),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
                         color: ThemeHelper.getInstance()!.colorScheme.onSurface,
                         width: 1.0),
@@ -584,7 +670,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                   GestureDetector(
                     onTap: () {
                       // Navigator.pop(context);
-                      getLoginOtp();
+                      //getLoginOtp();
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -628,7 +714,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                               setModelState(() {
                                 isVerifyOTPLoaderStart = true;
                                 if (isValidOTP) {
-                                  verifyLoginOtp();
+                                  //verifyLoginOtp();
                                 }
                               });
                             },
@@ -672,321 +758,321 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
     );
   }
 
-  Future<void> autoLoginRequest() async {
-    TGSession.getInstance()
-        .set(SESSION_MOBILENUMBER, mobileTextController.text);
-    String uuid = Uuid().v1().replaceAll("-", "").substring(0, 16);
-
-    AutoLoginRequest autoLoginRequest = AutoLoginRequest(
-        mobile: mobileTextController.text,
-        cifNo: "testingCIFNo",
-        email: "w@c.com",
-        deviceId: uuid,
-        address: "sdasd");
-
-    var jsonRequest = jsonEncode(autoLoginRequest.toJson());
-
-    TGLog.d("Auto Login Request $jsonRequest");
-
-    TGPostRequest tgPostRequest = await getPayLoad(jsonRequest, URI_AUTOLOGIN);
-
-    ServiceManager.getInstance().autoLoginRequest(
-        request: tgPostRequest,
-        onSuccess: (response) => _onSuccessAutoLogin(response),
-        onError: (error) => _onErrorAutoLogin(error));
-  }
-
-  _onSuccessAutoLogin(VerifyOtpResponse response) async {
-    TGLog.d("AutoLoginResponse : onSuccess()");
-
-    if (response?.getOtpReponseObj()?.status == RES_SUCCESS) {
-      setState(() {
-        TGSharedPreferences.getInstance().set(
-            PREF_ACCESS_TOKEN, response?.getOtpReponseObj().data?.accessToken);
-        TGSharedPreferences.getInstance()
-            .set(PREF_MOBILE, mobileTextController.text);
-        setAccessTokenInRequestHeader();
-      });
-
-      if (await TGNetUtil.isInternetAvailable()) {
-        getGstBasicDetails();
-      } else {
-        showSnackBarForintenetConnection(context, getGstBasicDetails);
-      }
-    } else {
-      setState(() {
-        isGetOTPLoaderStart = false;
-      });
-      LoaderUtils.handleErrorResponse(
-          context,
-          response?.getOtpReponseObj().status ?? 0,
-          response?.getOtpReponseObj()?.message ?? "",
-          null);
-    }
-  }
-
-  _onErrorAutoLogin(TGResponse errorResponse) {
-    TGLog.d("AutoLoginResponse : onError()");
-    setState(() {
-      isGetOTPLoaderStart = false;
-    });
-    handleServiceFailError(context, errorResponse?.error);
-  }
+  // Future<void> autoLoginRequest() async {
+  //   TGSession.getInstance()
+  //       .set(SESSION_MOBILENUMBER, mobileTextController.text);
+  //   String uuid = Uuid().v1().replaceAll("-", "").substring(0, 16);
+  //
+  //   AutoLoginRequest autoLoginRequest = AutoLoginRequest(
+  //       mobile: mobileTextController.text,
+  //       cifNo: "testingCIFNo",
+  //       email: "w@c.com",
+  //       deviceId: uuid,
+  //       address: "sdasd");
+  //
+  //   var jsonRequest = jsonEncode(autoLoginRequest.toJson());
+  //
+  //   TGLog.d("Auto Login Request $jsonRequest");
+  //
+  //   TGPostRequest tgPostRequest = await getPayLoad(jsonRequest, URI_AUTOLOGIN);
+  //
+  //   ServiceManager.getInstance().autoLoginRequest(
+  //       request: tgPostRequest,
+  //       onSuccess: (response) => _onSuccessAutoLogin(response),
+  //       onError: (error) => _onErrorAutoLogin(error));
+  // }
+  //
+  // _onSuccessAutoLogin(VerifyOtpResponse response) async {
+  //   TGLog.d("AutoLoginResponse : onSuccess()");
+  //
+  //   if (response?.getOtpReponseObj()?.status == RES_SUCCESS) {
+  //     setState(() {
+  //       TGSharedPreferences.getInstance().set(
+  //           PREF_ACCESS_TOKEN, response?.getOtpReponseObj().data?.accessToken);
+  //       TGSharedPreferences.getInstance()
+  //           .set(PREF_MOBILE, mobileTextController.text);
+  //       setAccessTokenInRequestHeader();
+  //     });
+  //
+  //     if (await TGNetUtil.isInternetAvailable()) {
+  //       getGstBasicDetails();
+  //     } else {
+  //       showSnackBarForintenetConnection(context, getGstBasicDetails);
+  //     }
+  //   } else {
+  //     setState(() {
+  //       isGetOTPLoaderStart = false;
+  //     });
+  //     LoaderUtils.handleErrorResponse(
+  //         context,
+  //         response?.getOtpReponseObj().status ?? 0,
+  //         response?.getOtpReponseObj()?.message ?? "",
+  //         null);
+  //   }
+  // }
+  //
+  // _onErrorAutoLogin(TGResponse errorResponse) {
+  //   TGLog.d("AutoLoginResponse : onError()");
+  //   setState(() {
+  //     isGetOTPLoaderStart = false;
+  //   });
+  //   handleServiceFailError(context, errorResponse?.error);
+  // }
 
   //Get GST Basic Detail API Call
-  Future<void> getGstBasicDetails() async {
-    await Future.delayed(Duration(seconds: 2));
-    TGGetRequest tgGetRequest = GetGstBasicDetailsRequest();
-    ServiceManager.getInstance().getGstBasicDetails(
-        request: tgGetRequest,
-        onSuccess: (response) => _onSuccessGetGstBasicDetails(response),
-        onError: (error) => _onErrorGetGstBasicDetails(error));
-  }
-
-  _onSuccessGetGstBasicDetails(GetGstBasicDetailsResponse? response) async {
-    TGLog.d("GetGstBasicDetailsResponse : onSuccess()");
-    setState(() {
-      _basicdetailsResponse = response?.getGstBasicDetailsRes();
-    });
-
-    if (_basicdetailsResponse?.status == RES_DETAILS_FOUND) {
-      if (_basicdetailsResponse?.data?.isNotEmpty == true) {
-        if (_basicdetailsResponse?.data?[0].isOtpVerified == true) {
-          if (_basicdetailsResponse?.data?[0]?.gstin?.isNotEmpty == true) {
-            if (_basicdetailsResponse!.data![0].gstin!.length >= 12) {
-              TGSharedPreferences.getInstance().set(PREF_BUSINESSNAME,
-                  _basicdetailsResponse?.data?[0].gstBasicDetails?.tradeNam);
-              TGSharedPreferences.getInstance()
-                  .set(PREF_GSTIN, _basicdetailsResponse?.data?[0].gstin);
-              TGSharedPreferences.getInstance().set(PREF_USERNAME,
-                  _basicdetailsResponse?.data?[0].username.toString());
-              TGSharedPreferences.getInstance().set(PREF_PANNO,
-                  _basicdetailsResponse?.data?[0].gstin?.substring(2, 12));
-            } else {
-              TGSharedPreferences.getInstance()
-                  .set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin);
-            }
-          }
-
-          TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
-          TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
-          //getUserLoanDetails();
-          // Navigator.pushNamed(context, MyRoutes.DashboardWithGSTRoutes);
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => DashboardWithGST(),
-              ),
-                  (route) => false);
-        } else {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => GstConsent(),
-              ),
-                  (route) => false);
-
-          //Navigator.push(context, MaterialPageRoute(builder: (context) => GstConsent()));
-        }
-      } else {
-        if (await TGNetUtil.isInternetAvailable()) {
-          getUserLoanDetails();
-        } else {
-          showSnackBarForintenetConnection(context, getUserLoanDetails);
-        }
-      }
-    } else if (_basicdetailsResponse?.status == RES_DETAILS_NOT_FOUND) {
-      setState(() {
-        isGetOTPLoaderStart = false;
-      });
-
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => GstConsent(),
-          ),
-              (route) => false);
-    } else {
-      setState(() {
-        isGetOTPLoaderStart = false;
-      });
-      LoaderUtils.handleErrorResponse(
-          context,
-          response?.getGstBasicDetailsRes().status,
-          response?.getGstBasicDetailsRes().message,
-          null);
-    }
-  }
-
-  _onErrorGetGstBasicDetails(TGResponse errorResponse) {
-    setState(() {
-      isGetOTPLoaderStart = false;
-    });
-    TGLog.d("GetGstBasicDetailsResponse : onError()");
-    handleServiceFailError(context, errorResponse.error);
-  }
-
-  Future<void> getUserLoanDetails() async {
-    TGGetRequest tgGetRequest = GetLoanDetailByRefIdReq();
-    ServiceManager.getInstance().getAllLoanDetailByRefId(
-        request: tgGetRequest,
-        onSuccess: (response) => _onSuccessGetAllLoanDetailByRefId(response),
-        onError: (error) => _onErrorGetAllLoanDetailByRefId(error));
-  }
-
-  _onSuccessGetAllLoanDetailByRefId(GetAllLoanDetailByRefIdResponse? response) {
-    TGLog.d("UserLoanDetailsResponse : onSuccess()");
-    _getAllLoanDetailRes = response?.getAllLoanDetailObj();
-
-    if (_getAllLoanDetailRes?.status == RES_SUCCESS) {
-      if (_getAllLoanDetailRes?.data?.isEmpty == true) {
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => GstConsent(),
-            ),
-                (route) => false);
-      } else {
-        TGSharedPreferences.getInstance()
-            .set(PREF_GSTIN, _getAllLoanDetailRes?.data?[0].gstin);
-        TGSharedPreferences.getInstance().set(
-            PREF_PANNO, _getAllLoanDetailRes?.data?[0].gstin?.substring(2, 12));
-        TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
-        TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
-
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => DashboardWithGST(),
-            ),
-                (route) => false);
-      }
-    } else {
-      setState(() {
-        isGetOTPLoaderStart = false;
-      });
-      LoaderUtils.handleErrorResponse(
-          context,
-          response?.getAllLoanDetailObj().status,
-          response?.getAllLoanDetailObj().message,
-          null);
-    }
-  }
-
-  _onErrorGetAllLoanDetailByRefId(TGResponse errorResponse) {
-    TGLog.d("UserLoanDetailsResponse : onError()");
-    handleServiceFailError(context, errorResponse.error);
-    setState(() {
-      isGetOTPLoaderStart = false;
-    });
-  }
-
-
+  // Future<void> getGstBasicDetails() async {
+  //   await Future.delayed(Duration(seconds: 2));
+  //   TGGetRequest tgGetRequest = GetGstBasicDetailsRequest();
+  //   ServiceManager.getInstance().getGstBasicDetails(
+  //       request: tgGetRequest,
+  //       onSuccess: (response) => _onSuccessGetGstBasicDetails(response),
+  //       onError: (error) => _onErrorGetGstBasicDetails(error));
+  // }
+  //
+  // _onSuccessGetGstBasicDetails(GetGstBasicDetailsResponse? response) async {
+  //   TGLog.d("GetGstBasicDetailsResponse : onSuccess()");
+  //   setState(() {
+  //     _basicdetailsResponse = response?.getGstBasicDetailsRes();
+  //   });
+  //
+  //   if (_basicdetailsResponse?.status == RES_DETAILS_FOUND) {
+  //     if (_basicdetailsResponse?.data?.isNotEmpty == true) {
+  //       if (_basicdetailsResponse?.data?[0].isOtpVerified == true) {
+  //         if (_basicdetailsResponse?.data?[0]?.gstin?.isNotEmpty == true) {
+  //           if (_basicdetailsResponse!.data![0].gstin!.length >= 12) {
+  //             TGSharedPreferences.getInstance().set(PREF_BUSINESSNAME,
+  //                 _basicdetailsResponse?.data?[0].gstBasicDetails?.tradeNam);
+  //             TGSharedPreferences.getInstance()
+  //                 .set(PREF_GSTIN, _basicdetailsResponse?.data?[0].gstin);
+  //             TGSharedPreferences.getInstance().set(PREF_USERNAME,
+  //                 _basicdetailsResponse?.data?[0].username.toString());
+  //             TGSharedPreferences.getInstance().set(PREF_PANNO,
+  //                 _basicdetailsResponse?.data?[0].gstin?.substring(2, 12));
+  //           } else {
+  //             TGSharedPreferences.getInstance()
+  //                 .set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin);
+  //           }
+  //         }
+  //
+  //         TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
+  //         TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
+  //         //getUserLoanDetails();
+  //         // Navigator.pushNamed(context, MyRoutes.DashboardWithGSTRoutes);
+  //         Navigator.pushAndRemoveUntil(
+  //             context,
+  //             MaterialPageRoute(
+  //               builder: (BuildContext context) => DashboardWithGST(),
+  //             ),
+  //                 (route) => false);
+  //       } else {
+  //         Navigator.pushAndRemoveUntil(
+  //             context,
+  //             MaterialPageRoute(
+  //               builder: (BuildContext context) => GstConsent(),
+  //             ),
+  //                 (route) => false);
+  //
+  //         //Navigator.push(context, MaterialPageRoute(builder: (context) => GstConsent()));
+  //       }
+  //     } else {
+  //       if (await TGNetUtil.isInternetAvailable()) {
+  //         getUserLoanDetails();
+  //       } else {
+  //         showSnackBarForintenetConnection(context, getUserLoanDetails);
+  //       }
+  //     }
+  //   } else if (_basicdetailsResponse?.status == RES_DETAILS_NOT_FOUND) {
+  //     setState(() {
+  //       isGetOTPLoaderStart = false;
+  //     });
+  //
+  //     Navigator.pushAndRemoveUntil(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (BuildContext context) => GstConsent(),
+  //         ),
+  //             (route) => false);
+  //   } else {
+  //     setState(() {
+  //       isGetOTPLoaderStart = false;
+  //     });
+  //     LoaderUtils.handleErrorResponse(
+  //         context,
+  //         response?.getGstBasicDetailsRes().status,
+  //         response?.getGstBasicDetailsRes().message,
+  //         null);
+  //   }
+  // }
+  //
+  // _onErrorGetGstBasicDetails(TGResponse errorResponse) {
+  //   setState(() {
+  //     isGetOTPLoaderStart = false;
+  //   });
+  //   TGLog.d("GetGstBasicDetailsResponse : onError()");
+  //   handleServiceFailError(context, errorResponse.error);
+  // }
+  //
+  // Future<void> getUserLoanDetails() async {
+  //   TGGetRequest tgGetRequest = GetLoanDetailByRefIdReq();
+  //   ServiceManager.getInstance().getAllLoanDetailByRefId(
+  //       request: tgGetRequest,
+  //       onSuccess: (response) => _onSuccessGetAllLoanDetailByRefId(response),
+  //       onError: (error) => _onErrorGetAllLoanDetailByRefId(error));
+  // }
+  //
+  // _onSuccessGetAllLoanDetailByRefId(GetAllLoanDetailByRefIdResponse? response) {
+  //   TGLog.d("UserLoanDetailsResponse : onSuccess()");
+  //   _getAllLoanDetailRes = response?.getAllLoanDetailObj();
+  //
+  //   if (_getAllLoanDetailRes?.status == RES_SUCCESS) {
+  //     if (_getAllLoanDetailRes?.data?.isEmpty == true) {
+  //       Navigator.pushAndRemoveUntil(
+  //           context,
+  //           MaterialPageRoute(
+  //             builder: (BuildContext context) => GstConsent(),
+  //           ),
+  //               (route) => false);
+  //     } else {
+  //       TGSharedPreferences.getInstance()
+  //           .set(PREF_GSTIN, _getAllLoanDetailRes?.data?[0].gstin);
+  //       TGSharedPreferences.getInstance().set(
+  //           PREF_PANNO, _getAllLoanDetailRes?.data?[0].gstin?.substring(2, 12));
+  //       TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
+  //       TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
+  //
+  //       Navigator.pushAndRemoveUntil(
+  //           context,
+  //           MaterialPageRoute(
+  //             builder: (BuildContext context) => DashboardWithGST(),
+  //           ),
+  //               (route) => false);
+  //     }
+  //   } else {
+  //     setState(() {
+  //       isGetOTPLoaderStart = false;
+  //     });
+  //     LoaderUtils.handleErrorResponse(
+  //         context,
+  //         response?.getAllLoanDetailObj().status,
+  //         response?.getAllLoanDetailObj().message,
+  //         null);
+  //   }
+  // }
+  //
+  // _onErrorGetAllLoanDetailByRefId(TGResponse errorResponse) {
+  //   TGLog.d("UserLoanDetailsResponse : onError()");
+  //   handleServiceFailError(context, errorResponse.error);
+  //   setState(() {
+  //     isGetOTPLoaderStart = false;
+  //   });
+  // }
 
 
 
-  Future<void> getLoginOtp() async {
-    TGSession.getInstance()
-        .set(SESSION_MOBILENUMBER, mobileTextController.text);
 
-    String uuid = Uuid().v1().replaceAll("-", "").substring(0, 16);
-    CredBlock credBlock =
-        CredBlock(appToken: uuid, otp: "", otpSessionKey: "", status: "");
 
-    RequestAuthUser requestAuthUser = RequestAuthUser(
-        mobile: mobileTextController.text,
-        credBlock: credBlock,
-        deviceId: uuid);
-    var jsonReq = jsonEncode(requestAuthUser.toJson());
+  // Future<void> getLoginOtp() async {
+  //   TGSession.getInstance()
+  //       .set(SESSION_MOBILENUMBER, mobileTextController.text);
+  //
+  //   String uuid = Uuid().v1().replaceAll("-", "").substring(0, 16);
+  //   CredBlock credBlock =
+  //       CredBlock(appToken: uuid, otp: "", otpSessionKey: "", status: "");
+  //
+  //   RequestAuthUser requestAuthUser = RequestAuthUser(
+  //       mobile: mobileTextController.text,
+  //       credBlock: credBlock,
+  //       deviceId: uuid);
+  //   var jsonReq = jsonEncode(requestAuthUser.toJson());
+  //
+  //   TGLog.d("Get Login OTP Request : $jsonReq");
+  //
+  //   TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GETOTP);
+  //
+  //   ServiceManager.getInstance().getotp(
+  //       request: tgPostRequest,
+  //       onSuccess: (response) => _onSuccessGetOTP(response),
+  //       onError: (error) => _onErrorGetOTP(error));
+  // }
+  //
+  // _onSuccessGetOTP(GetotpResponse? response) {
+  //   TGLog.d("RegisterResponse : onSuccess()");
+  //
+  //   if (response?.getOtpReponseObj()?.status == RES_SUCCESS) {
+  //     setState(() {
+  //       isGetOTPLoaderStart = false;
+  //       getOtpRes = response?.getOtpReponseObj();
+  //
+  //       TGSession.getInstance().set(
+  //           SESSION_OTPSESSIONKEY, getOtpRes?.data?.credBlock?.otpSessionKey);
+  //       TGSharedPreferences.getInstance()
+  //           .set(PREF_MOBILE, mobileTextController.text);
+  //       Navigator.push(
+  //           context, MaterialPageRoute(builder: (context) => OtpVerifyLogin()));
+  //
+  //       //   Navigator.pushNamed(context, MyRoutes.OtpVerifyLoginRoutes);
+  //     });
+  //   } else {
+  //     LoaderUtils.handleErrorResponse(
+  //         context,
+  //         response?.getOtpReponseObj().status ?? 0,
+  //         response?.getOtpReponseObj()?.message ?? "",
+  //         null);
+  //   }
+  // }
+  //
+  // _onErrorGetOTP(TGResponse errorResponse) {
+  //   TGLog.d("RegisterResponse : onError()");
+  //   handleServiceFailError(context, errorResponse?.error);
+  //   isGetOTPLoaderStart = false;
+  // }
 
-    TGLog.d("Get Login OTP Request : $jsonReq");
-
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GETOTP);
-
-    ServiceManager.getInstance().getotp(
-        request: tgPostRequest,
-        onSuccess: (response) => _onSuccessGetOTP(response),
-        onError: (error) => _onErrorGetOTP(error));
-  }
-
-  _onSuccessGetOTP(GetotpResponse? response) {
-    TGLog.d("RegisterResponse : onSuccess()");
-
-    if (response?.getOtpReponseObj()?.status == RES_SUCCESS) {
-      setState(() {
-        isGetOTPLoaderStart = false;
-        getOtpRes = response?.getOtpReponseObj();
-
-        TGSession.getInstance().set(
-            SESSION_OTPSESSIONKEY, getOtpRes?.data?.credBlock?.otpSessionKey);
-        TGSharedPreferences.getInstance()
-            .set(PREF_MOBILE, mobileTextController.text);
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => OtpVerifyLogin()));
-
-        //   Navigator.pushNamed(context, MyRoutes.OtpVerifyLoginRoutes);
-      });
-    } else {
-      LoaderUtils.handleErrorResponse(
-          context,
-          response?.getOtpReponseObj().status ?? 0,
-          response?.getOtpReponseObj()?.message ?? "",
-          null);
-    }
-  }
-
-  _onErrorGetOTP(TGResponse errorResponse) {
-    TGLog.d("RegisterResponse : onError()");
-    handleServiceFailError(context, errorResponse?.error);
-    isGetOTPLoaderStart = false;
-  }
-
-  Future<void> verifyLoginOtp() async {
-    String uuid = const Uuid().v1().replaceAll("-", "").substring(0, 16);
-    CredBlock credBlock = CredBlock(
-        appToken: uuid,
-        otp: otp,
-        otpSessionKey: getOtpRes?.data?.credBlock?.otpSessionKey,
-        status: "");
-
-    RequestAuthUser requestAuthUser = RequestAuthUser(
-        mobile: mobileTextController.text,
-        credBlock: credBlock,
-        deviceId: uuid);
-    String jsonReq = jsonEncode(requestAuthUser.toJson());
-
-    TGLog.d("Verify-loginOTP Request : $jsonReq");
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_VERIFY_OTP);
-
-    ServiceManager.getInstance().verifyOtp(
-        request: tgPostRequest,
-        onSuccess: (response) => _onSuccessVerifyOtp(response),
-        onError: (error) => _onErrorVerifyOtp(error));
-  }
-
-  _onSuccessVerifyOtp(VerifyOtpResponse? response) async {
-    TGLog.d("VerifyOTP : onSuccess()");
-    verifyOtpResponse = response?.getOtpReponseObj();
-    // Navigator.pop(context);
-    if (verifyOtpResponse?.status == RES_SUCCESS) {
-      TGSharedPreferences.getInstance()
-          .set(PREF_ACCESS_TOKEN, verifyOtpResponse?.data?.accessToken);
-      setAccessTokenInRequestHeader();
-      getGstBasicDetails();
-    } else {
-      isVerifyOTPLoaderStart = false;
-      TGView.showSnackBar(
-          context: context,
-          message: verifyOtpResponse?.message ?? "Incorrect Otp entered!");
-    }
-  }
-
-  _onErrorVerifyOtp(TGResponse? response) {
-    TGLog.d("VerifyOTP : onError()");
-    Navigator.pop(context);
-    handleServiceFailError(context, response?.error);
-    isVerifyOTPLoaderStart = false;
-  }
+  // Future<void> verifyLoginOtp() async {
+  //   String uuid = const Uuid().v1().replaceAll("-", "").substring(0, 16);
+  //   CredBlock credBlock = CredBlock(
+  //       appToken: uuid,
+  //       otp: otp,
+  //       otpSessionKey: getOtpRes?.data?.credBlock?.otpSessionKey,
+  //       status: "");
+  //
+  //   RequestAuthUser requestAuthUser = RequestAuthUser(
+  //       mobile: mobileTextController.text,
+  //       credBlock: credBlock,
+  //       deviceId: uuid);
+  //   String jsonReq = jsonEncode(requestAuthUser.toJson());
+  //
+  //   TGLog.d("Verify-loginOTP Request : $jsonReq");
+  //   TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_VERIFY_OTP);
+  //
+  //   ServiceManager.getInstance().verifyOtp(
+  //       request: tgPostRequest,
+  //       onSuccess: (response) => _onSuccessVerifyOtp(response),
+  //       onError: (error) => _onErrorVerifyOtp(error));
+  // }
+  //
+  // _onSuccessVerifyOtp(VerifyOtpResponse? response) async {
+  //   TGLog.d("VerifyOTP : onSuccess()");
+  //   verifyOtpResponse = response?.getOtpReponseObj();
+  //   // Navigator.pop(context);
+  //   if (verifyOtpResponse?.status == RES_SUCCESS) {
+  //     TGSharedPreferences.getInstance()
+  //         .set(PREF_ACCESS_TOKEN, verifyOtpResponse?.data?.accessToken);
+  //     setAccessTokenInRequestHeader();
+  //     getGstBasicDetails();
+  //   } else {
+  //     isVerifyOTPLoaderStart = false;
+  //     TGView.showSnackBar(
+  //         context: context,
+  //         message: verifyOtpResponse?.message ?? "Incorrect Otp entered!");
+  //   }
+  // }
+  //
+  // _onErrorVerifyOtp(TGResponse? response) {
+  //   TGLog.d("VerifyOTP : onError()");
+  //   Navigator.pop(context);
+  //   handleServiceFailError(context, response?.error);
+  //   isVerifyOTPLoaderStart = false;
+  // }
 
 
 }

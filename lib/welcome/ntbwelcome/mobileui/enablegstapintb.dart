@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sbi_sahay_1_0/documentation/mobile/setupemandate/ui/setupemandate.dart';
@@ -12,6 +13,7 @@ import '../../../utils/Utils.dart';
 import '../../../utils/constants/imageconstant.dart';
 import '../../../utils/strings/strings.dart';
 import '../../../widgets/animation_routes/page_animation.dart';
+import '../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 
 class EnableGstApi extends StatelessWidget {
   const EnableGstApi({super.key});
@@ -58,17 +60,22 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
          return true;
       },
       child: Scaffold(
-        appBar: buildAppBarWithEnablegst(),
+        appBar: getAppBarWithBackBtn(onClickAction: () => {
+          Navigator.pop(context, false),
+          SystemNavigator.pop(animated: true)
+
+        }),
         body: Stack(
           children: [
             SingleChildScrollView(
               primary: true,
               child: SizedBox(
-                height: 680.h,
+                height: 700.h,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     buildSetupView(),
+
                     buildbottomView(),
                   ],
                 ),
@@ -83,14 +90,17 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
   Widget buildbottomView() {
     return Container(
       color: ThemeHelper.getInstance()!.backgroundColor,
-      height: 150.h,
+      height: 160.h,
       child: Padding(
         padding: EdgeInsets.only(left: 20.w, right: 20.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Divider(),
+            SizedBox(height: 30.h,),
             buildConfirmViewBottomText(),
+            
             buildConfirmButton(context),
           ],
         ),
@@ -122,7 +132,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
               .textTheme
               .headline1!
               .copyWith(fontSize: 16),
-          textAlign: TextAlign.center,
+          textAlign: TextAlign.left,
         ),
       );
 
@@ -131,8 +141,8 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
         child: Align(
           alignment: Alignment.center,
           child: Container(
-            height: 190.h,
-            width: 190.w,
+            height: 225.h,
+            width: 245.w,
             decoration: BoxDecoration(
               color: ThemeHelper.getInstance()!.cardColor,
               shape: BoxShape.circle,
@@ -171,7 +181,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
-                      Radius.circular(6.r),
+                      Radius.circular(2.r),
                     ),
                   ),
                   side: BorderSide(
@@ -219,7 +229,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
-                      Radius.circular(6.r),
+                      Radius.circular(2.r),
                     ),
                   ),
                   side: BorderSide(
@@ -260,7 +270,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
               style: ThemeHelper.getInstance()!
                   .textTheme
                   .headline3!
-                  .copyWith(fontSize: 12.sp, color: MyColors.pnbcolorPrimary),
+                  .copyWith(fontSize: 12.sp, color: MyColors.black),
             ),
             TextSpan(
                 text: str_confirm_bottom2,
@@ -272,7 +282,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
             TextSpan(
                 text: str_confirm_bottom3,
                 style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
-                    fontSize: 12.sp, color: MyColors.pnbcolorPrimary)),
+                    fontSize: 12.sp, color: MyColors.black)),
             TextSpan(
                 text: str_confirm_bottom4,
                 style: ThemeHelper.getInstance()!
@@ -283,7 +293,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
             TextSpan(
                 text: str_confirm_bottom5,
                 style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
-                    fontSize: 12.sp, color: MyColors.pnbcolorPrimary)),
+                    fontSize: 12.sp, color: MyColors.black)),
             TextSpan(
                 text: str_confirm_bottom6,
                 style: ThemeHelper.getInstance()!
@@ -294,7 +304,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
             TextSpan(
                 text: str_confirm_bottom6,
                 style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
-                    fontSize: 12.sp, color: MyColors.pnbcolorPrimary)),
+                    fontSize: 12.sp, color: MyColors.black)),
           ],
         ),
       ),
@@ -339,8 +349,8 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SvgPicture.asset(Utils.path(MOBILESAHAYLOGO),
-                        height: 20.h, width: 20.w)
+                    // SvgPicture.asset(Utils.path(MOBILESAHAYLOGO),
+                    //     height: 20.h, width: 20.w)
                   ],
                 )
               ],

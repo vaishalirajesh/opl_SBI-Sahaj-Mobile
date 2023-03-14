@@ -70,7 +70,7 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
           return true;
         },
         child: Scaffold(
-          appBar: getAppBarWithStep('1', str_registration, 0.25,
+          appBar: getAppBarWithStepDone('1', str_registration, 0.25,
               onClickAction: () => {
                     Navigator.pushAndRemoveUntil(
                       context,
@@ -135,7 +135,7 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
   _buildMiddler() {
     return Container(
       decoration: BoxDecoration(
-          color: ThemeHelper.getInstance()?.colorScheme.secondary,
+          color: ThemeHelper.getInstance()?.cardColor,
           borderRadius: BorderRadius.all(Radius.circular(16.r))),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.0.w),
@@ -198,7 +198,7 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
                           });
                         },
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(6))),
+                            borderRadius: BorderRadius.all(Radius.circular(2))),
                         side: BorderSide(
                             width: 1,
                             color: isConsentGiven
@@ -234,18 +234,19 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
                           ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
                           : ThemeHelper.setPinkDisableButtonBig(),
                       onPressed: () async {
-                        if (isConsentGiven) {
-                          setState(() {
-                            isLoaderStart = true;
-                          });
-
-                          if (await TGNetUtil.isInternetAvailable()) {
-                            saveCicConsent();
-                          } else {
-                            showSnackBarForintenetConnection(
-                                context, saveCicConsent);
-                          }
-                        }
+                        Navigator.pushNamed(context, MyRoutes.gstDetail);
+                        // if (isConsentGiven) {
+                        //   setState(() {
+                        //     isLoaderStart = true;
+                        //   });
+                        //
+                        //   if (await TGNetUtil.isInternetAvailable()) {
+                        //     saveCicConsent();
+                        //   } else {
+                        //     showSnackBarForintenetConnection(
+                        //         context, saveCicConsent);
+                        //   }
+                        // }
                       },
                       child: Text(str_give_consent),
                     )),

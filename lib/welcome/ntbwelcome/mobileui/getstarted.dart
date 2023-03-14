@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sbi_sahay_1_0/registration/mobile/signupdetails/signup.dart';
 import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -127,7 +128,7 @@ Widget GetStartedBTN(BuildContext context) {
     child: ElevatedButton(
       onPressed: () {
        // Navigator.push(context, CustomRightToLeftPageRoute(child:EnableGstApi()));
-        Navigator.push(context, MaterialPageRoute(builder: (context) => EnableGstApi(),));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpView(),));
 
         // Navigator.pushNamed(context, MyRoutes.EnableGstApiRoutes);
       },

@@ -44,7 +44,18 @@ class GstConsentConformState extends State<GstConsentConformScreen> {
           SystemNavigator.pop(animated: true)
 
           }),
-      body: Container(child: bodyColumn()),
+      body: Stack(
+        children: [
+          Container(
+              // color: ThemeHelper.getInstance()!.backgroundColor,
+              child: bodyColumn()),
+          Align(alignment: Alignment.bottomCenter, child: startRegButton())
+        ],
+      ),
+
+
+
+    //  Container(child: bodyColumn()),
     ),);
   }
 
@@ -79,7 +90,7 @@ class GstConsentConformState extends State<GstConsentConformScreen> {
                   textAlign: TextAlign.center,
                 )),
             SizedBox(height: 50.h),
-            startRegButton()
+            // startRegButton()
           ],
         ));
   }

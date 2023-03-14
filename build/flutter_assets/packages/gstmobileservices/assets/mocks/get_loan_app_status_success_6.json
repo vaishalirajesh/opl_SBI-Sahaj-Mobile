@@ -2,11 +2,11 @@
   "data": {
     "currentStage": "SIGN_AGGREEMENT",
     "agreementType": "HTML",
-    "stageStatus": "PROCEED",
+    "stageStatus": "RETRY",
     "agreementRedirectionData": "DQoNCjwhRE9DVFlQRSBodG1sIFBVQkxJQyAiLS8vVzNDLy9EVEQgSFRNTCA0LjAxIFRyYW5zaXRpb25hbC8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9UUi9odG1sNC9sb29zZS5kdGQiPg0KDQo8aHRtbD4NCiAgPGJvZHkgb25Mb2FkPSJkb2N1bWVudC5hc3BGb3JtLnN1Ym1pdCgpIj4gIA0KICAgIDxmb3JtIGFjdGlvbj0naHR0cHM6Ly9zdGcubmVzbC5jby5pbi9EREVfU2lnbl9WMy9Qcm9jZXNzUmVxdWVzdC5qc3AnIG1ldGhvZD0icG9zdCIgbmFtZT0iYXNwRm9ybSIgPg0KICAgIA0KICAgIDxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9InJzcE1zZyIgdmFsdWU9J1N1Y2Nlc3NmdWxseSBSZWdpc3RlcmVkJy8+ICAgDQogICAgPGlucHV0IHR5cGU9ImhpZGRlbiIgbmFtZT0ic3RhdHVzIiB2YWx1ZT0nU1VDQ0VTUycvPiANCiAgICA8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJEQVRBIiB2YWx1ZT0nbnVsbCcvPiANCiAgICA8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJ0eG5JRCIgdmFsdWU9J1VTeUpSOkhpV1p6SktNNHo1cjlQWW9EeEtzRzNneENjOkRMdk5TejdGNVJXSHNzVlhCNW9yQ2FadDJDUTNjSXQnLz4gDQogICAgPGlucHV0IHR5cGU9ImhpZGRlbiIgbmFtZT0iQ0ZsYWciIHZhbHVlPSdOJy8+IA0KICAgICAgIA0KICAgIDwvZm9ybT4NCiAgPC9ib2R5Pg0KPC9odG1sPg==",
     "nextStage": "SIGN_AGGREEMENT_STATUS"
   },
-  "message": "Success",
+  "message": "Offer Expired",
   "serverRequestId": "87e5bf97-704",
-  "status": 1000
+  "status": 1027
 }

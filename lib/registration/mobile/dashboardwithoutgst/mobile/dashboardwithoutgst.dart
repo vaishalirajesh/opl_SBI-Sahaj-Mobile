@@ -8,6 +8,7 @@ import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 
+import '../../../../loanprocess/mobile/gstinvoiceslist/ui/gstinvoicelist.dart';
 import '../../../../utils/Utils.dart';
 import '../../../../utils/constants/imageconstant.dart';
 import '../../../../utils/constants/prefrenceconstants.dart';
@@ -64,7 +65,7 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
         return true;
       },
       child: Scaffold(
-          appBar: getAppBarWithStepDone("2", str_registration, 0.25,
+          appBar: getAppBarWithStepDone("2", str_loan_approve_process, 0.25,
               onClickAction: () => {
                     Navigator.pop(context, false),
                     SystemNavigator.pop(animated: true)
@@ -89,11 +90,13 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
             height: 85.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(20.r),
-                  bottomLeft: Radius.circular(20.r)),
+                  bottomRight: Radius.circular(0.r),
+                  bottomLeft: Radius.circular(0.r)),
               border: Border.all(
                   width: 1, color: ThemeHelper.getInstance()!.primaryColor),
-              color: ThemeHelper.getInstance()!.primaryColor,
+              //color: ThemeHelper.getInstance()!.primaryColor,
+
+                gradient: LinearGradient(colors: [MyColors.lightRedGradient,MyColors.lightBlueGradient],begin: Alignment.centerLeft,end: Alignment.centerRight )
             ),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -110,10 +113,10 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 20.h),
-                      Text("Hello $name",
+                      Text("Hello,Indo International",
                           style: ThemeHelper.getInstance()?.textTheme.button),
                       SizedBox(height: 5.h),
-                      Text("PAN: $pan",
+                      Text("PAN: ABCDE1234F",
                           style: ThemeHelper.getInstance()!
                               .textTheme
                               .headline5!
@@ -135,7 +138,7 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
           Text(str_Get_Invoice_based_financein,
               style: ThemeHelper.getInstance()?.textTheme.bodyText1),
           SizedBox(
-            height: 20.h,
+            height: 5.h,
           ),
           Text(str_3SIMPLESTEP,
               style: ThemeHelper.getInstance()?.textTheme.headline1!.copyWith(
@@ -174,7 +177,7 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => CicConsent(),
+              builder: (context) => GSTInvoicesList(),
             ));
       },
       child: Text(str_Start_Loan_Process,
@@ -185,40 +188,58 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
   Widget gstLoanFinanceStepsUi() {
     return Container(
       decoration: BoxDecoration(
-        color: ThemeHelper.getInstance()!.colorScheme.secondary,
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 30.w),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            // FinanceStepsUI(
-            //     str_step1_gstWithout,
-            //     str_step1_gstWithout_disc,
-            //     viewModel),
-            // SizedBox(
-            //   height: 8.h,
-            // ),
-            financeStepsUI(str_step2_gstWithout, str_step2_gstWithout_disc),
-            // SizedBox(
-            //   height: 5.h,
-            // ),
-            financeStepsUI(str_step3_gstWithout, str_step3_gstWithout_disc),
-            // SizedBox(
-            //   height: 5.h,
-            // ),
-            financeStepsUI(str_step4_gstWithout, str_step4_gstWithout_disc),
-            // SizedBox(
-            //   height: 5.h,
-            // ),
+
+            MySeparator(color: Colors.grey,),
+            SizedBox(
+              height: 20.h,
+            ),
+            financeStepsUI(str_step1_gstWithout, str_step1_gstWithout_disc,MOBILEDASHWITOUTSTEP1),
+            SizedBox(
+              height: 20.h,
+            ),
+            MySeparator(color: Colors.grey,),
+            SizedBox(
+              height: 20.h,
+            ),
+            financeStepsUI(str_step2_gstWithout, str_step2_gstWithout_disc,MOBILEDASHWITOUTSTEP2),
+            SizedBox(
+              height: 20.h,
+            ),
+            MySeparator(color: Colors.grey,),
+            SizedBox(
+              height: 20.h,
+            ),
+            financeStepsUI(str_step3_gstWithout, str_step3_gstWithout_disc,MOBILEDASHWITOUTSTEP3),
+            SizedBox(
+              height: 20.h,
+            ),
+            MySeparator(color: Colors.grey,),
+            SizedBox(
+              height: 20.h,
+            ),
+            financeStepsUI(str_step4_gstWithout, str_step4_gstWithout_disc,MOBILEDASHWITOUTSTEP4),
+            SizedBox(
+              height: 20.h,
+            ),
+            MySeparator(color: Colors.grey,),
+            SizedBox(
+              height: 20.h,
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget financeStepsUI(String title, String desc) {
+  Widget financeStepsUI(String title, String desc,String img) {
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Row(
@@ -228,11 +249,11 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
           Padding(
             padding: EdgeInsets.only(top: 3.h), //right_arrow_brown_ic.svg
             child: SvgPicture.asset(
-              Utils.path(RIGHTARROWFILLED), height: 12.h, width: 12.w,
+              Utils.path(img), height: 40.h, width: 40.w,
               //
             ),
           ),
-          SizedBox(width: 5.w),
+          SizedBox(width: 15.w),
           gstFinanceStepTextUi(title, desc)
         ],
       ),
@@ -260,6 +281,39 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
               maxLines: 20),
         ],
       ),
+    );
+  }
+}
+
+
+class MySeparator extends StatelessWidget {
+  const MySeparator({Key? key, this.height = 0.5, this.color = Colors.black})
+      : super(key: key);
+  final double height;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final boxWidth = constraints.constrainWidth();
+        const dashWidth = 5.0;
+        final dashHeight = height;
+        final dashCount = (boxWidth / (2 * dashWidth)).floor();
+        return Flex(
+          children: List.generate(dashCount, (_) {
+            return SizedBox(
+              width: dashWidth,
+              height: dashHeight,
+              child: DecoratedBox(
+                decoration: BoxDecoration(color: color),
+              ),
+            );
+          }),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          direction: Axis.horizontal,
+        );
+      },
     );
   }
 }

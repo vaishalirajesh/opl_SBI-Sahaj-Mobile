@@ -1,7 +1,7 @@
 const str_login = "Testing Current AC";
 const str_give_constent_for_gst = 'Give Consent for GST';
 
-const str_gst_data_consent_gst = 'Give Consent for GST';
+const str_gst_data_consent_gst = 'Give Consent';
 const str_gst_data_consent = 'GST Data Consent';
 const str_Allow_Sahay_to_fetch_your_GST_Data =
     'Allow Sahay to fetch your GST Data';
@@ -75,10 +75,10 @@ const str_select_loan_offer = 'Select Loan Offer';
 
 //Key Fact Statement
 const str_kfs = 'Key Fact Statement';
-const str_invoice_number = 'Invoice Number : ';
-const str_invoice_no = 'Invoice No. : ';
-const str_invoice_amount = 'Invoice Amount : ';
-const str_date = 'Date : ';
+const str_invoice_number = 'Invoice Number';
+const str_invoice_no = 'Invoice No. :';
+const str_invoice_amount = 'Invoice Amount';
+const str_date = '  Date';
 const str_kfs_lender = 'Lender : ';
 const str_applicant_name = 'Applicant Name : ';
 const str_sanction_limit = 'Sanctioned Limit';
@@ -96,6 +96,9 @@ const str_no_of_installment = 'No. Of Installments';
 const str_penal_charge = 'Penal Charge';
 const str_loan_tenure = 'Loan Tenure';
 const str_other_upfront_charges = 'Other Upfront Charges';
+
+const str_stamp_duty = 'Stamp Duty';
+
 const str_processing_fees = 'Processing Fees';
 const str_insurance_charges = 'Insurance Charges';
 const str_others = 'Others';
@@ -115,6 +118,17 @@ const str_review_acc_txt_two =
 const str_ac_no = 'A/c No';
 const str_ifsc = 'IFSC';
 const str_proceed = 'Proceed';
+
+
+//loan deposite
+const str_enter_acc_no = 'Enter Current A/c No';
+const str_IFSC_Code = 'IFSC Code';
+
+
+
+
+
+
 
 //Loan Agreement
 const str_loan_agreement = 'Loan Agreement';
@@ -168,6 +182,11 @@ const str_give_consent = 'Give Consent';
 const str_Confirm = 'Confirm';
 const str_Proceed = 'Proceed';
 
+const str_Checkit_out = 'Check it out';
+
+
+
+
 //..gst details
 const str_Enter_GST_Details = 'Enter GST Details';
 const str_Enter_your_mobile_Details = 'Enter your mobile number';
@@ -176,7 +195,7 @@ const str_Kindly_enter_your_GST_Username_GSTIN_to_link_with_Sahay_GST_Account =
 const str_we_will_send_you_otp_for_confirmation =
     'We will send you OTP for confirmation';
 const str_GST_User_Name = 'GST User Name';
-const str_Mobile_number = 'Mobile number';
+const str_Mobile_number = 'Enter your mobile number';
 const str_15_Digit_GSTIN = '15-Digit GSTIN';
 const str_Sample_20AAAAAA1234AA1Z5 = 'Sample: 20AAAAAA1234AA1Z5';
 const str_next = 'Next';
@@ -187,7 +206,7 @@ const str_OTP_sent =
     'OTP sent to Mobile number and Email linked\nto GSTIN: ';
 const str_OTP_sent_number = 'OTP sent to +91 ';
 const str_enter_6_Digit = 'Enter 6 Digit OTP received on';
-const str_enter_6_Digit_login = 'Enter 6 Digit OTP received ';
+const str_enter_6_Digit_login = 'Enter OTP ';
 const str_Didnt_received_OTP_yet = 'Didn\'t receive OTP yet ?';
 const str_Resend_OTP = 'Resend OTP';
 const str_Verify = 'Verify';
@@ -326,7 +345,7 @@ const OK = "OK";
 //dashboard
 const str_Fetching_Eligible_Invoices = "Fetching Eligible Invoices";
 const str_Get_Invoice_based_financein = "Get Invoice based finance in";
-const str_3SIMPLESTEP = "3 SIMPLE STEPS";
+const str_3SIMPLESTEP = "4 SIMPLE STEPS";
 
 const str_step1_gstWithout = 'Share bank statement';
 const str_step1_gstWithout_disc =
@@ -352,7 +371,7 @@ const str_Start_Loan_Process = "Start Loan Process";
 const str_GST_Invoices_for_loan_offers = "GST Invoices for loan offers";
 const str_Search = "Search";
 const str_Sort = "  Sort by";
-const str_select_any_inovice = "Eligible Invoices";
+const str_select_any_inovice = "Invoices";
 const str_All_the_invoicesgenerated = "All the invoices generated";
 const str_invoice_disc =
     "during the last 2 months would be eligible for financing";
@@ -395,7 +414,7 @@ const str_15000 = '₹15,000';
 const str_100000 = '₹1,00,000';
 const str_140000 = '₹1,40,000';
 const str_Pending_Disbursement = 'Pending Disbursement ';
-const str_p1 = '(Loan application completed, disbursement in process)';
+const str_p1 = '(Disbursement in process)';
 const strOngoingapplication = 'Ongoing Application ';
 const str_o1 = '(Loan process is pending at some stage)';
 const str_Finance = 'Finance';
@@ -422,7 +441,7 @@ const str_Stage = 'Stage';
 const str_Disbursement_in_Process = 'Disbursement in Process ';
 const str_Loan_amount = 'Loan amount';
 const str_32000 = '₹32,000';
-const strPnb = 'Punjab National Bank';
+const strPnb = 'State Bank of India';
 
 const str_Finance_other_Invoice = 'Finance other Invoice';
 const str_Status = 'Status';
@@ -477,6 +496,13 @@ const str_Amount_due_value = '₹ 51,600';
 const str_due_value = '₹ 51,600';
 const str_due_Date_value = '09/08/22';
 
+
+//overdue
+const str_original_amnt_due = 'Original Amount Due';
+
+
+
+
 const str_l4 = '₹ 41,600';
 const str_Invoice_date = 'Invoice date';
 const str_l5 = '03/08/2022';
@@ -522,10 +548,10 @@ const str_CIC_Terms = "I understand and agree to CIC's Terms";
 //NTB get started
 
 const str_disc =
-    " enables proprietors of small GST registered businesses to get 'on tap' offers for invoice based financing (short term loan) from the lender. The App also helps in full credit journey of sanction, documentation and disbursement.Watch  ";
+    "  enables proprietors of small GST registered businesses to get 'on tap' offers for invoice based financing (short term loan) from the lender. The App also helps in full credit journey of sanction, documentation and disbursement.Watch  ";
 const strVideo = "video";
 const strLast = "  to understand the process and requirements of the App.";
-const str_gst_sahay = "GST Sahay App ";
+const str_gst_sahay = "Sahaj App ";
 
 const str_get_started = "Get Started";
 const str_all_have_acc = "Already have an account? ";
@@ -534,7 +560,7 @@ const str_logintc = "Log in ";
 
 //NTB enable gst api screen
 const str_confirmView_title =
-    "Before starting the Registration process \non Sahay App you have to confirm \nthe following :";
+    "Please confirm the following:";
 const str_confirm_check1 =
     "Constitution of my business is Properitorship        ";
 const str_confirm_check2 = "I have enabled GST API access on GST website*  ";
@@ -549,15 +575,15 @@ const str_confirm_bottom7 = " and enable the same. ";
 //NTB Start registration
 
 const str_gst_confirm_NTBdisc =
-    "You can now Register on GST-Sahay in 3 simple steps";
+    "You can now Register on Sahaj in 3 simple steps​";
 const str_Verify_Mobile_Number = "Verify Mobile Number";
 const str_Verify_gst_details = "Verify GST Details";
 const str_accept_tc = "Accept Terms & Conditions";
 
 //NTB AA detais
 
-const str_header_discr =
-    "Now, you need to Register / Log in with the Account Aggregator(s), with which your Current Account Bank is integrated with and provide consent to fetch your Bank account information to help us decide your loan eligibility";
+const str_header_discr ="You would now be required to share your bank statement digitally through Account Aggregator";
+    //"Now, you need to Register / Log in with the Account Aggregator(s), with which your Current Account Bank is integrated with and provide consent to fetch your Bank account information to help us decide your loan eligibility";
 const str_acount_aggregator = "Account Aggregator";
 const str_a_new_way_toshare_bank =
     "A new way to share bank account statements digitally";
@@ -568,7 +594,7 @@ const str_visit = "Visit ";
 const str_sahmati = "Sahamti ";
 const str_or = "or ";
 const str_rbi = "RBI ";
-const str_website_to_know_more = "website to know more";
+const str_website_to_know_more = "website to know more & Watch the Video to understand the Account Aggregator process";
 
 const str_share_bank_statement =
     "Share bank statements digitally, securely\n   and instantly";
@@ -581,11 +607,11 @@ const str_revoke_consent_at_anytime = "Revoke consent at anytime";
 
 //AA Steps
 const str_aa_steps_txt = "Steps involved after you select \nAccount Aggregator";
-const str_aa_step_one = "\u2022 Register/Login";
-const str_aa_step_two = "\u2022 Choose Current A/c Bank";
-const str_aa_step_three = "\u2022 Select account/s to be linked";
-const str_aa_step_four = "\u2022 Verify through OTP";
-const str_aa_step_five = "\u2022 Give consent to share linked bank account data";
+const str_aa_step_one = "1. Register/Login";
+const str_aa_step_two = "2. Choose Current A/c Bank";
+const str_aa_step_three = "3. Select account/s to be linked";
+const str_aa_step_four = "4. Verify through OTP";
+const str_aa_step_five = "5. Give consent to share linked bank account data";
 const str_select_aa = "Account Aggregator linked to your bank";
 const str_select_aa_txt = "Choose one of the RBI approved Account Aggregators to share your financial information";
 

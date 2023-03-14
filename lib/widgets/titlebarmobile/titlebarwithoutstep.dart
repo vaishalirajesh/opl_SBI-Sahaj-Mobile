@@ -6,6 +6,7 @@ import 'package:sbi_sahay_1_0/utils/dimenutils/dimensutils.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
 
 import '../../utils/Utils.dart';
+import '../../utils/colorutils/mycolors.dart';
 import '../../utils/constants/imageconstant.dart';
 import '../../utils/helpers/themhelper.dart';
 
@@ -164,11 +165,16 @@ AppBar getAppBarWithBackBtn({required Function onClickAction})
       ),
     ),
     automaticallyImplyLeading: false,
-    /* iconTheme: IconThemeData(
-        color: ThemeHelper.getInstance()!.colorScheme.primary,
-
-        size: 28
-    ),*/
+    bottom: PreferredSize(
+      preferredSize: Size( MyDimension.width,3.h),
+      child: LinearProgressIndicator(value: 1,
+          semanticsLabel: '',
+          minHeight: 3.h,
+          color: ThemeHelper.getInstance()
+              ?.colorScheme
+              .primary,
+          backgroundColor: Colors.transparent),
+    ),
 
   );
 }
@@ -209,18 +215,18 @@ AppBar getAppBarWithStep(String step,String appBarTitle,double progress,{require
               SizedBox(width: 8.w,),
               Text(appBarTitle,style: ThemeHelper.getInstance()?.appBarTheme.titleTextStyle,),
              /* SizedBox(width: 3.w,),*/
-              Icon(Icons.arrow_drop_down_sharp,color: ThemeHelper.getInstance()?.primaryColor)
+             // Icon(Icons.arrow_drop_down_sharp,color: ThemeHelper.getInstance()?.primaryColor)
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SvgPicture.asset(Utils.path(SMALLBANKLOGO),height: 20.h,width: 20.w),
-              SizedBox(width: 5.w,),
-              SvgPicture.asset(Utils.path(MOBILESAHAYLOGO),height: 20.h,width: 20.w)
-            ],
-          )
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.start,
+          //   crossAxisAlignment: CrossAxisAlignment.center,
+          //   children: [
+          //     SvgPicture.asset(Utils.path(SMALLBANKLOGO),height: 20.h,width: 20.w),
+          //     SizedBox(width: 5.w,),
+          //     SvgPicture.asset(Utils.path(MOBILESAHAYLOGO),height: 20.h,width: 20.w)
+          //   ],
+          // )
 
         ],
       ),
@@ -240,7 +246,7 @@ AppBar getAppBarWithStep(String step,String appBarTitle,double progress,{require
           minHeight: 3.h,
           color: ThemeHelper.getInstance()
               ?.colorScheme
-              .secondaryContainer,
+              .primary,
           backgroundColor: Colors.transparent),
     ),
    );
@@ -273,24 +279,24 @@ AppBar getAppBarWithStepDone(String step,String appBarTitle,double progress,{req
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 20.w),
-                    child: SvgPicture.asset(Utils.path(MOBILESTEPDONE)),
+                    child: SvgPicture.asset(Utils.path(MOBILEMENUBAR)),
 
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 10.w,right: 3.w),
                     child: Text(appBarTitle,style: ThemeHelper.getInstance()?.appBarTheme.titleTextStyle,),),
-                  Icon(Icons.arrow_drop_down_sharp,color: ThemeHelper.getInstance()?.primaryColor,)
+                 // Icon(Icons.arrow_drop_down_sharp,color: ThemeHelper.getInstance()?.primaryColor,)
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(Utils.path(SMALLBANKLOGO),height: 20.h,width: 20.w),
-                  SizedBox(width: 5.w,),
-                  SvgPicture.asset(Utils.path(MOBILESAHAYLOGO),height: 20.h,width: 20.w)
-                ],
-              )
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.start,
+              //   crossAxisAlignment: CrossAxisAlignment.center,
+              //   children: [
+              //     SvgPicture.asset(Utils.path(SMALLBANKLOGO),height: 20.h,width: 20.w),
+              //     SizedBox(width: 5.w,),
+              //     SvgPicture.asset(Utils.path(MOBILESAHAYLOGO),height: 20.h,width: 20.w)
+              //   ],
+              // )
 
             ],
           ),
@@ -307,10 +313,137 @@ AppBar getAppBarWithStepDone(String step,String appBarTitle,double progress,{req
           minHeight: 3.h,
           color: ThemeHelper.getInstance()
               ?.colorScheme
-              .secondaryContainer,
+              .primary,
           backgroundColor: Colors.transparent),
     ),
   );
+}
+
+AppBar getAppBarMainDashboard(String step,String appBarTitle,double progress,{required Function onClickAction})
+{
+  return AppBar(
+    title: Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    child: SvgPicture.asset(
+                      Utils.path(MOBILEMENUBAR),
+                    ),
+                    onTap: () {
+                      onClickAction();
+                    },
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 70.w),
+                    child: SvgPicture.asset(Utils.path(SAHAJLOGOWITHOUTTEXT),height: 30.h,width: 130.w,),
+                  )
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(Utils.path(NOTIFICATIONICON),height: 20.h,width: 20.w),
+                  SizedBox(width: 8.w,),
+                  SvgPicture.asset(Utils.path(LOGOUT),height: 20.h,width: 20.w)
+                ],
+              )
+
+            ],
+          ),
+        ),
 
 
+      ],
+    ),
+    automaticallyImplyLeading: false,
+    // bottom: PreferredSize(
+    //   preferredSize: Size( MyDimension.width,3.h),
+    //   child: LinearProgressIndicator(value: progress,
+    //       semanticsLabel: '',
+    //       minHeight: 3.h,
+    //       color: ThemeHelper.getInstance()
+    //           ?.colorScheme
+    //           .primary,
+    //       backgroundColor: Colors.transparent),
+    // ),
+  );
+}
+
+
+AppBar getAppBarMainDashboardWithBackButton(String step,String appBarTitle,double progress,{required Function onClickAction})
+{
+  return AppBar(
+    title: Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    child: SvgPicture.asset(
+                      Utils.path(MOBILEBACKBTN),
+                    ),
+                    onTap: () {
+                      onClickAction();
+                    },
+                  ),
+                  GestureDetector(
+                    child: SvgPicture.asset(
+                      Utils.path(MOBILEMENUBAR),
+                    ),
+                    onTap: () {
+                      onClickAction();
+                    },
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 70.w),
+                    child: SvgPicture.asset(Utils.path(SAHAJLOGOWITHOUTTEXT),height: 30.h,width: 130.w,),
+                  )
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(Utils.path(NOTIFICATIONICON),height: 20.h,width: 20.w),
+                  SizedBox(width: 8.w,),
+                  SvgPicture.asset(Utils.path(LOGOUT),height: 20.h,width: 20.w)
+                ],
+              )
+
+            ],
+          ),
+        ),
+
+
+      ],
+    ),
+    automaticallyImplyLeading: false,
+    // bottom: PreferredSize(
+    //   preferredSize: Size( MyDimension.width,3.h),
+    //   child: LinearProgressIndicator(value: progress,
+    //       semanticsLabel: '',
+    //       minHeight: 3.h,
+    //       color: ThemeHelper.getInstance()
+    //           ?.colorScheme
+    //           .primary,
+    //       backgroundColor: Colors.transparent),
+    // ),
+  );
 }

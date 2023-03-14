@@ -22,6 +22,7 @@ import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
+import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -66,14 +67,13 @@ class KfsScreenBody extends State<KfsScreens> {
   TextEditingController fatherName = TextEditingController();
   bool isValidFatherName = false;
 
-
   @override
   void initState() {
     loanOfferData = TGSession.getInstance().get(PREF_LOANOFFER);
-    getApplicantName();
-    calculateOtherChanges("");
-    calculatePanelCharges("Penal");
-    setTotalCharge();
+    // getApplicantName();
+    // calculateOtherChanges("");
+    // calculatePanelCharges("Penal");
+    // setTotalCharge();
     super.initState();
   }
 
@@ -89,16 +89,21 @@ class KfsScreenBody extends State<KfsScreens> {
   Widget KfsScreenMain(BuildContext context) {
     return Scaffold(
       backgroundColor: ThemeHelper.getInstance()?.backgroundColor,
-      appBar: getAppBarWithStep('2', str_loan_approve_process, 0.50,
+      appBar: getAppBarWithStepDone('2', str_loan_approve_process, 0.50,
           onClickAction: () => {Navigator.pop(context)}),
       body: SingleChildScrollView(
         child: Container(
-          color: ThemeHelper.getInstance()?.primaryColor,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [
+            MyColors.lightRedGradient,
+            MyColors.lightBlueGradient
+          ], begin: Alignment.centerLeft, end: Alignment.centerRight)
+              //   color: ThemeHelper.getInstance()?.primaryColor,
+              ),
           child: Column(
             children: [
               InvoiceDataUI(context),
-              ApplicantDataUI(context),
-              SizedBox(height: 15.h),
+              SizedBox(height: 5.h),
               //Removed Sanction Limit and Available Limit 3/2/23 Aarti
               /*LoanDataUI(context),
                 SizedBox(height: 15.h),*/
@@ -129,7 +134,7 @@ class KfsScreenBody extends State<KfsScreens> {
               Text(
                 str_kfs,
                 style: ThemeHelper.getInstance()?.textTheme.caption?.copyWith(
-                    fontSize: 23.sp, fontFamily: MyFont.Nunito_Sans_Bold),
+                    fontSize: 18.sp, fontFamily: MyFont.Nunito_Sans_Bold),
               ),
               /*Download KFS Statement Button(Future Implementation)*/
               /*Container(
@@ -158,15 +163,15 @@ class KfsScreenBody extends State<KfsScreens> {
                   Text(str_invoice_number,
                       style: ThemeHelper.getInstance()
                           ?.textTheme
-                          .headline3
+                          .headline6
                           ?.copyWith(
                               color: ThemeHelper.getInstance()
                                   ?.colorScheme
                                   .surface)),
-                  Text(loanOfferData?.invoiceNumber ?? "-",
+                  Text(loanOfferData?.invoiceNumber ?? "230",
                       style: ThemeHelper.getInstance()
                           ?.textTheme
-                          .headline3
+                          .headline6
                           ?.copyWith(
                               color: ThemeHelper.getInstance()
                                   ?.colorScheme
@@ -180,24 +185,77 @@ class KfsScreenBody extends State<KfsScreens> {
                   Text(str_invoice_amount,
                       style: ThemeHelper.getInstance()
                           ?.textTheme
-                          .headline3
+                          .headline6
                           ?.copyWith(
                               color: ThemeHelper.getInstance()
                                   ?.colorScheme
                                   .surface)),
-                  Text(
-                      Utils.convertIndianCurrency(loanOfferData?.offerDetails
-                          ?.elementAt(0)
-                          .termsRequestedAmount),
+                  Text("₹35,000",
+                      // Utils.convertIndianCurrency(loanOfferData?.offerDetails
+                      //     ?.elementAt(0)
+                      //     .termsRequestedAmount
                       style: ThemeHelper.getInstance()
                           ?.textTheme
-                          .headline3
+                          .headline6
+                          ?.copyWith(
+                              color: ThemeHelper.getInstance()
+                                  ?.colorScheme
+                                  .background))
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(str_date,
+                      style: ThemeHelper.getInstance()
+                          ?.textTheme
+                          .headline6
+                          ?.copyWith(
+                              color: ThemeHelper.getInstance()
+                                  ?.colorScheme
+                                  .surface)),
+                  Text("19 Oct, 2022",
+                      style: ThemeHelper.getInstance()
+                          ?.textTheme
+                          .headline6
                           ?.copyWith(
                               color: ThemeHelper.getInstance()
                                   ?.colorScheme
                                   .background))
                 ],
               )
+            ],
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(str_kfs_lender,
+                      style: ThemeHelper.getInstance()
+                          ?.textTheme
+                          .headline6
+                          ?.copyWith(
+                              color: ThemeHelper.getInstance()
+                                  ?.colorScheme
+                                  .surface)),
+                  Text("State Bank of India",
+                      style: ThemeHelper.getInstance()
+                          ?.textTheme
+                          .headline6
+                          ?.copyWith(
+                              color: ThemeHelper.getInstance()
+                                  ?.colorScheme
+                                  .background))
+                ],
+              ),
             ],
           ),
         ],
@@ -207,103 +265,121 @@ class KfsScreenBody extends State<KfsScreens> {
 
   Widget ApplicantDataUI(BuildContext context) {
     return Container(
-      color: ThemeHelper.getInstance()?.colorScheme.surface.withOpacity(0.2),
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(str_date,
-                        style: ThemeHelper.getInstance()
-                            ?.textTheme
-                            .headline3
-                            ?.copyWith(
-                                color: ThemeHelper.getInstance()
-                                    ?.colorScheme
-                                    .surface)),
-                    Text(
-                        Utils.convertDateFormat(
-                                loanOfferData
-                                    ?.offerDetails?[0].offerCreatedDate,
-                                'yyyy-MM-dd hh:mm:ss',
-                                'dd MMM, yyyy') ??
-                            "",
-                        style: ThemeHelper.getInstance()
-                            ?.textTheme
-                            .headline3
-                            ?.copyWith(
-                                color: ThemeHelper.getInstance()
-                                    ?.colorScheme
-                                    .background))
-                  ],
+      height: 100.h,
+      //color: ThemeHelper.getInstance()?.backgroundColor,
+      decoration: BoxDecoration(
+          border: Border.all(
+            width: 1,
+            color: MyColors.sbiPinkColor,
+            style: BorderStyle.solid,
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(8.r)),
+          color: ThemeHelper.getInstance()?.backgroundColor),
+      child: Column(
+        children: [
+          Container(
+            height: 30.h,
+            //width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(8.r),
+                  topLeft: Radius.circular(8.r),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(str_kfs_lender,
-                        style: ThemeHelper.getInstance()
-                            ?.textTheme
-                            .headline3
-                            ?.copyWith(
-                                color: ThemeHelper.getInstance()
-                                    ?.colorScheme
-                                    .surface)),
-                    Text('PNB',
-                        style: ThemeHelper.getInstance()
-                            ?.textTheme
-                            .headline3
-                            ?.copyWith(
-                                color: ThemeHelper.getInstance()
-                                    ?.colorScheme
-                                    .background))
-                  ],
-                )
+                color: MyColors.sbiPinkColor),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  str_applicant_name + "Manish Patel",
+                  style: ThemeHelper.getInstance()
+                      ?.textTheme
+                      .headline3
+                      ?.copyWith(color: MyColors.white),
+                  textAlign: TextAlign.center,
+                ),
+                // Expanded(
+                //   child: Text(
+                //   "Manish Patel",
+                //     style: ThemeHelper.getInstance()
+                //         ?.textTheme
+                //         .headline3?.copyWith(color: MyColors.white
+                //         ),textAlign: TextAlign.center,
+                //     maxLines: 5,
+                //   ),
+                // )
               ],
             ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(7.r),
-                  color: ThemeHelper.getInstance()?.backgroundColor),
-              child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 10.h, horizontal: 30.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(str_applicant_name,
-                          style: ThemeHelper.getInstance()
-                              ?.textTheme
-                              .bodyText1
-                              ?.copyWith(
-                                fontFamily: MyFont.Nunito_Sans_Regular,
-                              )),
-                      Expanded(
-                        child: Text(
-                          (applicantName ?? "-"),
-                          style: ThemeHelper.getInstance()
-                              ?.textTheme
-                              .bodyText1
-                              ?.copyWith(
-                                fontFamily: MyFont.Nunito_Sans_Regular,
-                              ),
-                          maxLines: 5,
-                        ),
-                      )
-                    ],
-                  )),
-            )
-          ],
-        ),
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      Utils.path(IMG_kfs_bank),
+                      height: 20.h,
+                      width: 20.w,
+                    ),
+                    SizedBox(width: 10.w), //10
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text("Sanctioned Limit",
+                            style: ThemeHelper.getInstance()
+                                ?.textTheme
+                                .headline6
+                                ?.copyWith(color: MyColors.pnbTextcolor)),
+                        Text("₹5,00,000",
+                            style: ThemeHelper.getInstance()
+                                ?.textTheme
+                                .headline2
+                                ?.copyWith(fontSize: 14.sp)),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(width: 24.w), //10
+              Container(
+                  height: 40.h, width: 0.1.w, color: MyColors.pnbGreyColor),
+              SizedBox(width: 24.w),
+              Container(
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      Utils.path(IMG_kfs_coin_stack),
+                      height: 20.h,
+                      width: 20.w,
+                    ),
+                    SizedBox(width: 10.w), //10
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text("Sanctioned Limit",
+                            style: ThemeHelper.getInstance()
+                                ?.textTheme
+                                .headline6
+                                ?.copyWith(color: MyColors.pnbTextcolor)),
+                        Text("₹5,00,000",
+                            style: ThemeHelper.getInstance()
+                                ?.textTheme
+                                .headline2
+                                ?.copyWith(fontSize: 14.sp)),
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ],
+          )
+        ],
       ),
     );
   }
@@ -362,14 +438,18 @@ class KfsScreenBody extends State<KfsScreens> {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
-              topRight: Radius.circular(26.r), topLeft: Radius.circular(26.r)),
+              topRight: Radius.circular(0.r), topLeft: Radius.circular(0.r)),
           color: ThemeHelper.getInstance()?.backgroundColor),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
           children: [
             SizedBox(
-              height: 30.h,
+              height: 16.h,
+            ),
+            ApplicantDataUI(context),
+            SizedBox(
+              height: 24.h,
             ),
             Card(
               color: ThemeHelper.getInstance()?.backgroundColor,
@@ -377,151 +457,149 @@ class KfsScreenBody extends State<KfsScreens> {
                   borderRadius:
                       BorderRadiusDirectional.all(Radius.circular(12.r)),
                   side: BorderSide(
-                      color: ThemeHelper.getInstance()!.dividerColor)),
+                      color: ThemeHelper.getInstance()!.backgroundColor)),
               shadowColor: ThemeHelper.getInstance()?.shadowColor,
               elevation: 2,
-              child: Padding(
-                padding: EdgeInsets.all(15.h),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Flexible(
-                            flex: 4,
-                            child: LoanDetailColumnWidget(
-                                str_loan_amt,
-                                Utils.convertIndianCurrency(loanOfferData
-                                    ?.offerDetails
-                                    ?.elementAt(0)
-                                    .termsSanctionedAmount),
-                                true,
-                                str_loan_amt_tooltip)),
-                        Flexible(flex: 1, child: Container()),
-                        Flexible(
-                            flex: 4,
-                            child: LoanDetailColumnWidget(
-                                str_total_interest,
-                                Utils.convertIndianCurrency(loanOfferData
-                                    ?.offerDetails
-                                    ?.elementAt(0)
-                                    .termsInterestAmount),
-                                true,
-                                str_total_interest_tooltip)),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Divider(
-                      thickness: 1,
-                      color: ThemeHelper.getInstance()?.disabledColor,
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Row(
-                      children: [
-                        Flexible(
-                            flex: 4,
-                            child: LoanDetailColumnWidget(
-                                str_net_disb_amt,
-                                Utils.convertIndianCurrency(loanOfferData
-                                    ?.offerDetails
-                                    ?.elementAt(0)
-                                    .netDisbursementAmount),
-                                false,
-                                "")),
-                        Flexible(flex: 1, child: Container()),
-                        Flexible(
-                            flex: 4,
-                            child: LoanDetailColumnWidget(
-                                str_total_repay_amt,
-                                Utils.convertIndianCurrency(loanOfferData
-                                    ?.offerDetails
-                                    ?.elementAt(0)
-                                    .termsTotalAmount),
-                                true,
-                                str_total_repay_amt_tooltip)),
-                      ],
-                    )
-                  ],
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Flexible(
+                          flex: 4,
+                          child: LoanDetailColumnWidget(
+                              str_loan_amt,
+                              Utils.convertIndianCurrency(loanOfferData
+                                  ?.offerDetails
+                                  ?.elementAt(0)
+                                  .termsSanctionedAmount),
+                              true,
+                              str_loan_amt_tooltip)),
+                      Flexible(flex: 1, child: Container()),
+                      Flexible(
+                          flex: 4,
+                          child: LoanDetailColumnWidget(
+                              str_total_interest,
+                              Utils.convertIndianCurrency(loanOfferData
+                                  ?.offerDetails
+                                  ?.elementAt(0)
+                                  .termsInterestAmount),
+                              true,
+                              str_total_interest_tooltip)),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Divider(
+                    thickness: 0.5,
+                    color: ThemeHelper.getInstance()?.disabledColor,
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Row(
+                    children: [
+                      Flexible(
+                          flex: 4,
+                          child: LoanDetailColumnWidget(
+                              str_net_disb_amt,
+                              Utils.convertIndianCurrency(loanOfferData
+                                  ?.offerDetails
+                                  ?.elementAt(0)
+                                  .netDisbursementAmount),
+                              false,
+                              "")),
+                      Flexible(flex: 1, child: Container()),
+                      Flexible(
+                          flex: 4,
+                          child: LoanDetailColumnWidget(
+                              str_total_repay_amt,
+                              Utils.convertIndianCurrency(loanOfferData
+                                  ?.offerDetails
+                                  ?.elementAt(0)
+                                  .termsTotalAmount),
+                              true,
+                              str_total_repay_amt_tooltip)),
+                    ],
+                  )
+                ],
               ),
             ),
-            SizedBox(
-              height: 20.h,
+            Divider(
+              thickness: 0.5,
+              color: ThemeHelper.getInstance()?.disabledColor,
             ),
+            // SizedBox(
+            //   height: 10.h,
+            // ),
             Card(
               color: ThemeHelper.getInstance()?.backgroundColor,
               shape: RoundedRectangleBorder(
                   borderRadius:
                       BorderRadiusDirectional.all(Radius.circular(12.r)),
                   side: BorderSide(
-                      color: ThemeHelper.getInstance()!.dividerColor)),
+                      color: ThemeHelper.getInstance()!.backgroundColor)),
               shadowColor: ThemeHelper.getInstance()?.shadowColor,
               elevation: 2,
-              child: Padding(
-                padding: EdgeInsets.all(15.h),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Flexible(
-                            flex: 4,
-                            child: LoanDetailColumnWidget(
-                                str_anum_per_rate,
-                                ("${loanOfferData?.offerDetails?.elementAt(0).termsInterestRate ?? "- "}% p.a."),
-                                true,
-                                str_per_rate_tooltip)),
-                        Flexible(flex: 1, child: Container()),
-                        Flexible(
-                            flex: 4,
-                            child: LoanDetailColumnWidget(
-                                str_no_of_installment,
-                                loanOfferData?.offerDetails
-                                        ?.elementAt(0)
-                                        .noOfInstallments ??
-                                    "-",
-                                false,
-                                "")),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Divider(
-                      thickness: 1,
-                      color: ThemeHelper.getInstance()?.disabledColor,
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Row(
-                      children: [
-                        Flexible(
-                            flex: 4,
-                            child: LoanDetailColumnWidget(
-                                str_loan_tenure,
-                                "${loanOfferData?.offerDetails?.elementAt(0).termsTenureDuration ?? ""} Days",
-                                false,
-                                "-")),
-                        Flexible(flex: 1, child: Container()),
-                        Flexible(
-                            flex: 4,
-                            child: LoanDetailColumnWidget(
-                                str_penal_charge,
-                                Utils.convertIndianCurrency(
-                                    panelcharges.toString()),
-                                false,
-                                "")),
-                      ],
-                    )
-                  ],
-                ),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Flexible(
+                          flex: 4,
+                          child: LoanDetailColumnWidget(
+                              str_anum_per_rate,
+                              ("${loanOfferData?.offerDetails?.elementAt(0).termsInterestRate ?? "- "}% p.a."),
+                              true,
+                              str_per_rate_tooltip)),
+                      Flexible(flex: 1, child: Container()),
+                      Flexible(
+                          flex: 4,
+                          child: LoanDetailColumnWidget(
+                              str_no_of_installment,
+                              loanOfferData?.offerDetails
+                                      ?.elementAt(0)
+                                      .noOfInstallments ??
+                                  "-",
+                              false,
+                              "")),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Divider(
+                    thickness: 0.5,
+                    color: ThemeHelper.getInstance()?.disabledColor,
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Row(
+                    children: [
+                      Flexible(
+                          flex: 4,
+                          child: LoanDetailColumnWidget(
+                              str_loan_tenure,
+                              "${loanOfferData?.offerDetails?.elementAt(0).termsTenureDuration ?? ""} Days",
+                              false,
+                              "-")),
+                      Flexible(flex: 1, child: Container()),
+                      Flexible(
+                          flex: 4,
+                          child: LoanDetailColumnWidget(
+                              str_penal_charge,
+                              Utils.convertIndianCurrency(
+                                  panelcharges.toString()),
+                              false,
+                              "")),
+                    ],
+                  )
+                ],
               ),
             ),
             SizedBox(
@@ -531,7 +609,7 @@ class KfsScreenBody extends State<KfsScreens> {
             SizedBox(
               height: 15.h,
             ),
-            OtherDisclouserDetailCardUI(context),
+            OtherDisclouserDetailCardUI(),
             SizedBox(
               height: 50.h,
             )
@@ -559,12 +637,7 @@ class KfsScreenBody extends State<KfsScreens> {
                 flex: 1,
                 child: Text(
                   title,
-                  style: ThemeHelper.getInstance()
-                      ?.textTheme
-                      .headline5
-                      ?.copyWith(
-                          color: ThemeHelper.getInstance()?.indicatorColor,
-                          fontSize: 15.sp),
+                  style: ThemeHelper.getInstance()?.textTheme.bodyText2,
                   maxLines: 3,
                   softWrap: true,
                 ),
@@ -608,8 +681,9 @@ class KfsScreenBody extends State<KfsScreens> {
         ),
         Text(
           value,
-          style: ThemeHelper.getInstance()?.textTheme.headline6?.copyWith(
-              fontFamily: MyFont.Nunito_Sans_Semi_bold, fontSize: 15.sp),
+          style: ThemeHelper.getInstance()
+              ?.textTheme
+              .headline5?.copyWith(color: MyColors.black),
           textAlign: TextAlign.center,
         ),
       ],
@@ -699,14 +773,7 @@ class KfsScreenBody extends State<KfsScreens> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(str_other_upfront_charges,
-                        style: ThemeHelper.getInstance()
-                            ?.textTheme
-                            .bodyText1
-                            ?.copyWith(
-                                color:
-                                    ThemeHelper.getInstance()?.indicatorColor,
-                                fontFamily: MyFont.Nunito_Sans_Semi_bold,
-                                fontSize: 14.sp)),
+                        style: ThemeHelper.getInstance()?.textTheme.headline6),
                     Row(
                       children: [
                         Text(
@@ -718,11 +785,10 @@ class KfsScreenBody extends State<KfsScreens> {
                         ),
                         GestureDetector(
                           child: SvgPicture.asset(
-                            isOtherUpFrontDetailCard
-                                ? Utils.path(HIDEVIEW)
-                                : Utils.path(EXPANDVIEW),
-                            height: 15.h,
-                            width: 15.h,
+                        isOtherUpFrontDetailCard ?
+                        Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+                            height: 20.h,
+                            width: 20.w,
                           ),
                           onTap: () {
                             //Manish
@@ -739,6 +805,12 @@ class KfsScreenBody extends State<KfsScreens> {
               isOtherUpFrontDetailCard
                   ? Column(
                       children: [
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        OtherUpFrontRowWidget(
+                            str_stamp_duty,
+                            Utils.convertIndianCurrency("100")),
                         SizedBox(
                           height: 15.h,
                         ),
@@ -800,9 +872,11 @@ class KfsScreenBody extends State<KfsScreens> {
     );
   }
 
-  Widget OtherDisclouserDetailCardUI(BuildContext context) {
+  Widget OtherDisclouserDetailCardUI() {
     return Card(
+        color: ThemeHelper.getInstance()?.backgroundColor,
         shape: RoundedRectangleBorder(
+            side: BorderSide(color: ThemeHelper.getInstance()!.dividerColor),
             borderRadius: BorderRadiusDirectional.all(Radius.circular(12.r))),
         shadowColor: ThemeHelper.getInstance()?.shadowColor,
         elevation: 2,
@@ -822,21 +896,13 @@ class KfsScreenBody extends State<KfsScreens> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(str_other_disclouser,
-                        style: ThemeHelper.getInstance()
-                            ?.textTheme
-                            .bodyText1
-                            ?.copyWith(
-                                color:
-                                    ThemeHelper.getInstance()?.indicatorColor,
-                                fontFamily: MyFont.Nunito_Sans_Semi_bold,
-                                fontSize: 14.sp)),
+                        style: ThemeHelper.getInstance()?.textTheme.headline6),
                     GestureDetector(
                       child: SvgPicture.asset(
-                        isOtherDisclouserCard
-                            ? Utils.path(LOANCARDUPARROW)
-                            : Utils.path(LOANCARDDOWNARROW),
-                        height: 15.h,
-                        width: 15.h,
+                        isOtherUpFrontDetailCard ?
+                        Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW) ,
+                        height: 20.h,
+                        width: 20.w,
                       ),
                       onTap: () {
                         setState(() {
@@ -863,7 +929,7 @@ class KfsScreenBody extends State<KfsScreens> {
                                 flex: 4,
                                 child: LoanDetailColumnWidget(
                                     str_cooling_period,
-                                    "${loanOfferData?.offerDetails?.elementAt(0).coolingOffPeriod ?? ""}",
+                                    "${loanOfferData?.offerDetails?.elementAt(0).coolingOffPeriod ?? "3 Days"}",
                                     true,
                                     str_cooling_period_tooltip)),
                             Flexible(flex: 1, child: Container()),
@@ -874,7 +940,7 @@ class KfsScreenBody extends State<KfsScreens> {
                                     loanOfferData?.offerDetails
                                             ?.elementAt(0)
                                             ?.detailsOfLSPActAsRecoveryAgent ??
-                                        "-",
+                                        "NA",
                                     true,
                                     str_lsp_detail_tooltip)),
                           ],
@@ -893,30 +959,25 @@ class KfsScreenBody extends State<KfsScreens> {
                           str_grievance_contact,
                           style: ThemeHelper.getInstance()
                               ?.textTheme
-                              .bodyText1
-                              ?.copyWith(
-                                  color:
-                                      ThemeHelper.getInstance()?.indicatorColor,
-                                  fontFamily: MyFont.Nunito_Sans_Semi_bold,
-                                  fontSize: 14.sp),
+                              .bodyText2
+                              ,
                         ),
                         SizedBox(
                           height: 10.h,
                         ),
                         SizedBox(
-                          width: 150.w,
+                          //width: 150.w,
                           child: Text(
                             loanOfferData?.offerDetails
                                     ?.elementAt(0)
                                     .contactDetailsOfNodalOfficer
                                     ?.replaceAll('null,', '')
                                     .replaceAll(',null', '') ??
-                                "-",
+                                "Jainam Shah, Greivance Redressal Officer, 1st floor, Agile Complex, Dadar, Mumbai - 400014 Phone : 022 7878 2442",
                             style: ThemeHelper.getInstance()
                                 ?.textTheme
-                                .headline6
-                                ?.copyWith(
-                                    fontFamily: MyFont.Nunito_Sans_Semi_bold),
+                                .headline5?.copyWith(color: MyColors.black)
+                                ,
                             textAlign: TextAlign.start,
                           ),
                         )
@@ -937,29 +998,23 @@ class KfsScreenBody extends State<KfsScreens> {
       child: ElevatedButton(
           onPressed: () async {
 
-            WidgetsBinding.instance.addPostFrameCallback((_) async {
-              LoaderUtils.showLoaderwithmsg(context,
-                  msg:
-                      "$str_congrats \n $str_Congratulations \n $str_congratulation_sen \n $str_while_we_process_your_loan");
-            });
+            showDialog(
+                context: context,
+                builder: (_) => PopUpViewForCongratulation()
+            );
 
-            if (await TGNetUtil.isInternetAvailable()) {
-              setLoanOffer();
-            } else {
-              showSnackBarForintenetConnection(context, setLoanOffer);
-            }
-            /*if(loanOfferData?.existingSahayBorrower == false)
-            {
-              showAddAccDialog();
-            }
-            else
-            {
-              setState(() {
-                isLoanOfferSelected = true;
-              });
-              setLoanOffer();
-            }*/
-            //viewModel.navigateToCongratulationScreen();
+
+            // WidgetsBinding.instance.addPostFrameCallback((_) async {
+            //   LoaderUtils.showLoaderwithmsg(context,
+            //       msg:
+            //           "$str_congrats \n $str_Congratulations \n $str_congratulation_sen \n $str_while_we_process_your_loan");
+            // });
+            //
+            // if (await TGNetUtil.isInternetAvailable()) {
+            //   setLoanOffer();
+            // } else {
+            //   showSnackBarForintenetConnection(context, setLoanOffer);
+            // }
           },
           child: Center(
             child: Text(
@@ -969,6 +1024,78 @@ class KfsScreenBody extends State<KfsScreens> {
           )),
     );
   }
+
+  Widget PopUpViewForCongratulation() {
+    return GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Container(
+          color: Colors.black.withOpacity(0.5),
+          child: Center(
+              child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    image: DecorationImage(image: AssetImage(Utils.path(KFSCONGRATULATIONBG)),fit: BoxFit.fill),
+                    color: Colors.white,
+                  ),
+                  height: 400.h,
+                  width: 335.w,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                          height: 90.h), //40
+                      Center(
+                          child: SvgPicture.asset( Utils.path(FILLGREENCONFORMTICK),
+                              height: 52.h, //,
+                              width:52.w, //134.8,
+                              allowDrawingOutsideViewBox: true)),
+                      SizedBox(
+                          height: 30.h), //40
+                      Center(
+                          child: Column(children: [
+                            Text(
+                              "Congratulations",style: ThemeHelper.getInstance()?.textTheme.headline1?.copyWith(color: MyColors.darkblack),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(
+                                height: 18.h),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 30,right: 30),
+                              child: Text(
+                               "You will now proceed to NeSL's Digital Document Execution journey",
+                                textAlign: TextAlign.center,
+                                style: ThemeHelper.getInstance()?.textTheme.bodyText2,
+                              ),
+                            ),
+                          ])),
+                      //38
+                      SizedBox(
+                          height: 20.h),
+                      Padding(
+                        padding:  EdgeInsets.only(left: 20.w,right: 20.w),
+                        child: BtnProceed(),
+                      )
+                    ],
+                  ))),
+        ));
+  }
+
+  Widget BtnProceed() {
+    return ElevatedButton(
+      style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
+      onPressed: () async {
+        Navigator.pop(context);
+        Navigator.pushNamed(context, MyRoutes.loanDepositeAccRoutes);
+      },
+      child:  Text(
+        str_proceed,
+      ),
+    );
+  }
+
 
   void setIsOtherUpFrontCardShow() {
     isOtherUpFrontDetailCard = !isOtherUpFrontDetailCard;
@@ -1166,7 +1293,7 @@ class KfsScreenBody extends State<KfsScreens> {
         onError: (error) => _onErrorGetLoanOffer(error));
   }
 
-  _onSuccessGetLoanOffer(SetLoanOfferResponse? response)  {
+  _onSuccessGetLoanOffer(SetLoanOfferResponse? response) {
     TGLog.d("SetLoanOfferResponse : onSuccess()");
 
     if (response?.getSetLoanOfferResObj().status == RES_SUCCESS) {
@@ -1234,8 +1361,7 @@ class KfsScreenBody extends State<KfsScreens> {
     handleServiceFailError(context, errorResponse.error);
   }
 
-  Future<void> loanAppStatusAfterSetLoanOffer() async
-  {
+  Future<void> loanAppStatusAfterSetLoanOffer() async {
     if (await TGNetUtil.isInternetAvailable()) {
       getLoanAppStatusAfterSelectLoanOffer();
     } else {
@@ -1243,6 +1369,7 @@ class KfsScreenBody extends State<KfsScreens> {
           context, getLoanAppStatusAfterSelectLoanOffer);
     }
   }
+
   void getApplicantName() async {
     var name = await TGSharedPreferences.getInstance().get(PREF_BUSINESSNAME);
     setState(() {
