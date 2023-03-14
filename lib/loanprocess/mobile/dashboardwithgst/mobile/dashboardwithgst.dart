@@ -23,6 +23,7 @@ import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
 import 'package:sbi_sahay_1_0/utils/movestageutils.dart';
 
+import '../../../../personalinfo/ui/personalinfo.dart';
 import '../../../../utils/Utils.dart';
 import '../../../../utils/constants/imageconstant.dart';
 import '../../../../utils/constants/prefrenceconstants.dart';
@@ -35,6 +36,7 @@ import '../../../../utils/singlebuttondialog.dart';
 import '../../../../utils/strings/strings.dart';
 import '../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 import '../../gstinvoiceslist/ui/gstinvoicelist.dart';
+import '../../profile/ui/newprofile.dart';
 import '../../profile/ui/profilescreen.dart';
 import '../../transactions/ui/transactionscreen.dart';
 
@@ -1624,7 +1626,9 @@ class MyDrawer extends StatelessWidget {
             ),
             title:  Text('Profile',style: ThemeHelper.getInstance()?.textTheme.headline3),
             onTap: () {
-
+              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => NewProfileView()));
             },
           ),
           Divider(),

@@ -758,6 +758,7 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
           setRowColumValueOpenCard("Invoice Date","09/08/2022","ROI","10% p.a."),
           setRowColumValueOpenCard("Loan Amount","₹41,600","Invoice Amount","₹52,000"),
           setRowColumValueOpenCard("Tenure","90 Days","Interest Amount","₹1040"),
+          setRowColumValueOpenCard("Late Payment Charges","2%","Days Past Due","10 Days"),
           //SizedBox(height: 10.h),
           setPayNowUi(),
           SizedBox(height: 15.h),

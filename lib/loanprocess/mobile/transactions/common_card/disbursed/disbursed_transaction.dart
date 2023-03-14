@@ -80,16 +80,15 @@ class _DisbursedTransactionCardState extends State<DisbursedTransactionCard> {
           )),
       child: Column(
         children: [
-          setDisbursedCardUi(),
+          //setDisbursedCardUi(),
           GestureDetector(
               onTap: () {
-
                   setState(() {
                     isHideView = !isHideView;
                   });
                   //    widget.flag = !widget.flag;
               },
-              child: showHideCardViewUI()),
+              child: setDisbursedCardUi()),//showHideCardViewUI()),
         ],
       ),
     );
@@ -108,8 +107,8 @@ class _DisbursedTransactionCardState extends State<DisbursedTransactionCard> {
       ),
       child: Column(
         children: [
-          disbursedTransactionCardViewUi(),
-          isHideView ? Container() : disbursedCardBottomViewUi()
+          //disbursedTransactionCardViewUi(),
+          isHideView ? disbursedTransactionCardViewUi() : disbursedCardBottomViewUi()
         ],
       ),
     );
@@ -297,6 +296,7 @@ class _DisbursedTransactionCardState extends State<DisbursedTransactionCard> {
   }
 
   disbursedTransactionCardViewUi() {
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15.w),
       child: Container(
@@ -309,86 +309,203 @@ class _DisbursedTransactionCardState extends State<DisbursedTransactionCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      buyerName ?? '',
-                      style: ThemeHelper.getInstance()!
-                          .textTheme
-                          .headline1!
-                          .copyWith(fontSize: 13.sp),
-                    ),
-                    Text(
-                      gstin ?? '',
-                      style: ThemeHelper.getInstance()!
-                          .textTheme
-                          .headline3!
-                          .copyWith(
-                          fontSize: 10.sp, color: MyColors.pnbTextcolor),
-                    )
-                  ],
+                SizedBox(
+                  width: 150.w,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        buyerName ?? 'Flipcart Pvt. Ltd.',
+                        style: ThemeHelper.getInstance()!
+                            .textTheme
+                            .headline1!
+                            .copyWith(fontSize: 13.sp),
+                      ),
+                      Text(
+                        gstin ?? 'Invoice: 23001832184',
+                        style: ThemeHelper.getInstance()!
+                            .textTheme
+                            .headline3!
+                            .copyWith(
+                            fontSize: 10.sp, color: MyColors.pnbTextcolor),
+                      )
+                    ],
+                  ),
                 ),
+                SvgPicture.asset(
+                  !isHideView ?
+                  Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+                  height: 20.h,
+                  width: 20.w,
+                ),
+                // setDueDetailUi()
               ],
             ),
             SizedBox(
               height: 11.h,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  str_stage,
-                  style: ThemeHelper.getInstance()!
-                      .textTheme
-                      .headline3!
-                      .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor),
-                ),
-                Text(
-                  '${stage?[0].toUpperCase()}${stage?.substring(1).toLowerCase() ?? ''}',
-                  style: ThemeHelper.getInstance()!
-                      .textTheme
-                      .headline1!
-                      .copyWith(
-                      fontSize: 13.sp,
-                      color: MyColors.pnbcolorPrimary,
-                )
-                )],
-            ),
             dividerUI(0.w),
             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                Expanded(flex: 3, child: setAmountDueUi()),
                 Expanded(
-                  flex: 1,
+                  flex: 3,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       //..Title Never Change
-                      Text(str_Due_date,
+                      Text("Disbursed on",
                           style: ThemeHelper.getInstance()!
                               .textTheme
                               .headline3!
                               .copyWith(
                               fontSize: 12.sp,
                               color: MyColors.pnbTextcolor)),
-                      Text(dueDate ?? '',
+                      Text('09/08/2022',
                           style: ThemeHelper.getInstance()!
                               .textTheme
                               .headline1!
-                              .copyWith(fontSize: 13.sp)),
+                              .copyWith(fontSize: 13.sp,color: MyColors.pnbDarkGreyTextColor)),
                     ],
                   ),
                 ),
-                Expanded(flex: 1, child: setLoanAmountUi()),
+                Expanded(
+                  flex: 3,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //..Title Never Change
+                      Text("Disbursed",
+                          style: ThemeHelper.getInstance()!
+                              .textTheme
+                              .headline3!
+                              .copyWith(
+                              fontSize: 12.sp,
+                              color: MyColors.pnbGreenColor)),
+                    ],
+                  ),
+                ),
               ],
             ),
-            SizedBox(height: 10.h,)
+            SizedBox(
+              height: 10.h,
+            )
           ],
         ),
       ),
     );
-  }
 
+
+    // return Padding(
+    //   padding: EdgeInsets.symmetric(horizontal: 15.w),
+    //   child: Container(
+    //     color: Colors.white,
+    //     child: Column(
+    //       children: [
+    //         SizedBox(
+    //           height: 20.h,
+    //         ),
+    //         Row(
+    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //           children: [
+    //             Column(
+    //               crossAxisAlignment: CrossAxisAlignment.start,
+    //               children: [
+    //                 Text(
+    //                   buyerName ?? '',
+    //                   style: ThemeHelper.getInstance()!
+    //                       .textTheme
+    //                       .headline1!
+    //                       .copyWith(fontSize: 13.sp),
+    //                 ),
+    //                 Text(
+    //                   gstin ?? '',
+    //                   style: ThemeHelper.getInstance()!
+    //                       .textTheme
+    //                       .headline3!
+    //                       .copyWith(
+    //                       fontSize: 10.sp, color: MyColors.pnbTextcolor),
+    //                 )
+    //               ],
+    //             ),
+    //           ],
+    //         ),
+    //         SizedBox(
+    //           height: 11.h,
+    //         ),
+    //         Row(
+    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //           children: [
+    //             Text(
+    //               str_stage,
+    //               style: ThemeHelper.getInstance()!
+    //                   .textTheme
+    //                   .headline3!
+    //                   .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor),
+    //             ),
+    //             Text(
+    //               '${stage?[0].toUpperCase()}${stage?.substring(1).toLowerCase() ?? ''}',
+    //               style: ThemeHelper.getInstance()!
+    //                   .textTheme
+    //                   .headline1!
+    //                   .copyWith(
+    //                   fontSize: 13.sp,
+    //                   color: MyColors.pnbcolorPrimary,
+    //             )
+    //             )],
+    //         ),
+    //         dividerUI(0.w),
+    //         Row(
+    //           children: [
+    //             Expanded(
+    //               flex: 1,
+    //               child: Column(
+    //                 crossAxisAlignment: CrossAxisAlignment.start,
+    //                 children: [
+    //                   //..Title Never Change
+    //                   Text(str_Due_date,
+    //                       style: ThemeHelper.getInstance()!
+    //                           .textTheme
+    //                           .headline3!
+    //                           .copyWith(
+    //                           fontSize: 12.sp,
+    //                           color: MyColors.pnbTextcolor)),
+    //                   Text(dueDate ?? '',
+    //                       style: ThemeHelper.getInstance()!
+    //                           .textTheme
+    //                           .headline1!
+    //                           .copyWith(fontSize: 13.sp)),
+    //                 ],
+    //               ),
+    //             ),
+    //             Expanded(flex: 1, child: setLoanAmountUi()),
+    //           ],
+    //         ),
+    //         SizedBox(height: 10.h,)
+    //       ],
+    //     ),
+    //   ),
+    // );
+  }
+  Widget setAmountDueUi() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Loan Amount",
+            style: ThemeHelper.getInstance()!
+                .textTheme
+                .headline3!
+                .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor)),
+        Text(amountToPay ?? "",
+            style: ThemeHelper.getInstance()!
+                .textTheme
+                .headline1!
+                .copyWith(fontSize: 12.sp,color: MyColors.pnbDarkGreyTextColor))
+      ],
+    );
+  }
 
   setLoanAmountUi() {
     return Column(
@@ -410,67 +527,296 @@ class _DisbursedTransactionCardState extends State<DisbursedTransactionCard> {
   }
 
   Widget disbursedCardBottomViewUi() {
-    return Column(
-      children: [
-        setLenderRoiDetailUi(),
-        SizedBox(
-          height: 10.h,
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w),
-          child: disbursedTransactionDetailUi(),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w),
-          child: Row(
+
+    return Padding(
+      padding:  EdgeInsets.symmetric(horizontal: 12.w),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 20.h,
+          ),
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(str_Rate_us),
               SizedBox(
-                height: 18.h,
-                child: RatingBarWidget(
-                  onRatingChanged: (double value) {
-                    setReviewRating(value);
-                  },
-                  size: 15,
+                width: 150.w,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      buyerName ?? 'Flipcart Pvt. Ltd.',
+                      style: ThemeHelper.getInstance()!
+                          .textTheme
+                          .headline1!
+                          .copyWith(fontSize: 13.sp),
+                    ),
+                    Text(
+                      gstin ?? 'Invoice: 23001832184',
+                      style: ThemeHelper.getInstance()!
+                          .textTheme
+                          .headline3!
+                          .copyWith(
+                          fontSize: 10.sp, color: MyColors.pnbTextcolor),
+                    )
+                  ],
                 ),
               ),
+              SvgPicture.asset(
+                !isHideView ?
+                Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+                height: 20.h,
+                width: 20.w,
+              ),
+              // setDueDetailUi()
             ],
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w),
-          child: Divider(
-            color: MyColors.pnbGreyColor.withOpacity(0.2),
+          SizedBox(
+            height: 11.h,
           ),
-        ),
-        Container(
-          height: 40.h,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          dividerUI(0.w),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(
-                width: 100.w,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, MyRoutes.ContactSupportRoutes);
-                  },
-                  child: Text(str_contact_support,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Colors.blue,
-                          fontSize: 13.sp)),
+              Expanded(flex: 3, child: setAmountDueUi()),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //..Title Never Change
+                    Text(str_Due_date,
+                        style: ThemeHelper.getInstance()!
+                            .textTheme
+                            .headline3!
+                            .copyWith(
+                            fontSize: 12.sp,
+                            color: MyColors.pnbTextcolor)),
+                    Text('09/08/2022',
+                        style: ThemeHelper.getInstance()!
+                            .textTheme
+                            .headline1!
+                            .copyWith(fontSize: 13.sp,color: MyColors.pnbDarkGreyTextColor)),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //..Title Never Change
+                    Text("Disbursed",
+                        style: ThemeHelper.getInstance()!
+                            .textTheme
+                            .headline3!
+                            .copyWith(
+                            fontSize: 12.sp,
+                            color: MyColors.pnbGreenColor))
+                  ],
                 ),
               ),
             ],
           ),
+          SizedBox(
+            height: 10.h,
+          ),
+          dividerUI(0.w),
+          SizedBox(
+            height: 10.h,
+          ),
+          setRowColumValueOpenCard("Invoice Date","09/08/2022","Lender","State Bank of India"),
+          setRowColumValueOpenCard("Tenure","90 Days","ROI","10% p.a."),
+          setRowColumValueOpenCard("Due Date","08/08/2022","Invoice Amount","₹52,000"),
+          setRowColumValueOpenCard("Amount Due","₹62,640","Interest Amount","₹1040"),
+          //SizedBox(height: 10.h),
+          setPayNowUi(),
+          SizedBox(height: 15.h),
+          setOpenBottomViewText(),
+          SizedBox(height: 15.h),
+        ],
+      ),
+    );
+
+
+
+    // return Column(
+    //   children: [
+    //     setLenderRoiDetailUi(),
+    //     SizedBox(
+    //       height: 10.h,
+    //     ),
+    //     Padding(
+    //       padding: EdgeInsets.symmetric(horizontal: 15.w),
+    //       child: disbursedTransactionDetailUi(),
+    //     ),
+    //     Padding(
+    //       padding: EdgeInsets.symmetric(horizontal: 15.w),
+    //       child: Row(
+    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //         children: [
+    //           Text(str_Rate_us),
+    //           SizedBox(
+    //             height: 18.h,
+    //             child: RatingBarWidget(
+    //               onRatingChanged: (double value) {
+    //                 setReviewRating(value);
+    //               },
+    //               size: 15,
+    //             ),
+    //           ),
+    //         ],
+    //       ),
+    //     ),
+    //     Padding(
+    //       padding: EdgeInsets.symmetric(horizontal: 15.w),
+    //       child: Divider(
+    //         color: MyColors.pnbGreyColor.withOpacity(0.2),
+    //       ),
+    //     ),
+    //     Container(
+    //       height: 40.h,
+    //       child: Row(
+    //         mainAxisAlignment: MainAxisAlignment.center,
+    //         children: [
+    //           SizedBox(
+    //             width: 100.w,
+    //             child: GestureDetector(
+    //               onTap: () {
+    //                 Navigator.pushNamed(context, MyRoutes.ContactSupportRoutes);
+    //               },
+    //               child: Text(str_contact_support,
+    //                   textAlign: TextAlign.center,
+    //                   style: TextStyle(
+    //                       decoration: TextDecoration.underline,
+    //                       color: Colors.blue,
+    //                       fontSize: 13.sp)),
+    //             ),
+    //           ),
+    //         ],
+    //       ),
+    //     ),
+    //   ],
+    // );
+  }
+
+  Widget setRowColumValueOpenCard(String title, String value,String title2, String value2) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title,
+                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
+                  fontSize: 12.sp,
+                )),
+            // SizedBox(
+            //   height: 5.h,
+            // ),
+            Text(value,
+                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp,)),
+            SizedBox(
+              height: 20.h,
+            ),
+          ],
         ),
+        SizedBox(width: 40.w),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title2,
+                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
+                  fontSize: 12.sp,
+                )),
+            // SizedBox(
+            //   height: 5.h,
+            // ),
+            Text(value2,
+                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp,)),
+            SizedBox(
+              height: 20.h,
+            ),
+          ],
+        )
       ],
     );
   }
 
+  Widget setPayNowUi() {
+    return SizedBox(
+        width: 100.w,
+        height: 30.h,
+        child: ElevatedButton(
+          onPressed: () {
+            // setState(() {
+            //   setState(() {
+            //     isCardHide = !isCardHide;
+            //   });
+            //
+            //   //    widget.flag = !widget.flag;
+            // });
+          },
+          // style: ThemeHelper.getInstance()?.elevale,
+          child:
+          Text(
+            "Prepay Now",
+            style: TextStyle(fontSize: 12.sp),
+          ),
+        ));
+  }
 
+  Widget setOpenBottomViewText(){
+    return Text.rich(TextSpan(
+        children: <InlineSpan>[
+
+          // TextSpan(
+          //   text: "Raise dispute",
+          //   style: ThemeHelper.getInstance()!
+          //       .textTheme
+          //       .headline6!
+          //       .copyWith(
+          //       fontSize: 12.sp,
+          //       color:
+          //       MyColors.pnbcolorPrimary,decoration:
+          //   TextDecoration.underline),
+          // ),
+          // WidgetSpan(
+          //   child: SizedBox(width: 18),
+          // ),
+          // TextSpan(
+          //   text: "Request for deferment",
+          //   style: ThemeHelper.getInstance()!
+          //       .textTheme
+          //       .headline6!
+          //       .copyWith(
+          //       fontSize: 12.sp,
+          //       color: MyColors.pnbcolorPrimary,
+          //       decoration:
+          //       TextDecoration.underline),
+          // ),
+          // WidgetSpan(
+          //   child: SizedBox(width: 18),
+          // ),
+          TextSpan(
+            text: "Contact support",
+            style: ThemeHelper.getInstance()!
+                .textTheme
+                .headline6!
+                .copyWith(
+                fontSize: 12.sp,
+                color:
+                MyColors.pnbcolorPrimary,decoration:
+            TextDecoration.underline),
+          ),
+        ]));
+
+  }
 
   void setReviewRating(double rating) {
     setState(() {
