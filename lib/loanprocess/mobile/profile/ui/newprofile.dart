@@ -23,6 +23,7 @@ import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
 import 'package:sbi_sahay_1_0/utils/movestageutils.dart';
 
+import '../../../../notificationprefrence/ui/notificationprefrence.dart';
 import '../../../../personalinfo/ui/personalinfo.dart';
 import '../../../../utils/Utils.dart';
 import '../../../../utils/constants/imageconstant.dart';
@@ -39,6 +40,8 @@ import '../../dashboardwithgst/mobile/dashboardwithgst.dart';
 import '../../gstinvoiceslist/ui/gstinvoicelist.dart';
 import '../../profile/ui/profilescreen.dart';
 import '../../transactions/ui/transactionscreen.dart';
+import 'contactsupport/ui/contactsupportscreen.dart';
+import 'faq/ui/faq.dart';
 
 class NewProfileView extends StatelessWidget {
   const NewProfileView({super.key});
@@ -330,7 +333,7 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody>
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _buildCard(
-                    2,
+                    4,
                     "Contact Support",
                     IMG_kfs_coin_stack,
                     _basicdetailsResponse
@@ -339,7 +342,7 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody>
                     Utils.convertIndianCurrency(_basicdetailsResponse
                         ?.data?[0].loanDetails?.repaid?.amount)),
                 _buildCard(
-                    3,
+                    5,
                     "FAQs",
                     MOBILEHANDWITHMONEY,
                     _basicdetailsResponse
@@ -373,6 +376,26 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody>
       int index, String title, String imgString, String count, String price) {
     return GestureDetector(
       onTap: () {
+
+        if(index == 0){
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) => PersonalInfoDetails()));
+        }else if (index == 1){
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) => NotiPrefrences()));
+        }else if (index == 2){//privacy policy
+
+        }else if (index == 3){//about
+
+        }else if (index == 4){//contact support
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) => ContactSupportMain()));
+        }else if (index == 5){//FAQ
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) => FAQMain()));
+        }
+
+
         // TGSession.getInstance().set("TabIndex", index);
         // tabController.index = 1;
         // setState(() {

@@ -17,11 +17,11 @@ class NotiPrefrences extends StatelessWidget {
     viewModel.setContxt(context);
     return LayoutBuilder(
       builder: (context, constraints) {
-        return   WillPopScope(
+        return WillPopScope(
             onWillPop: () async {
-          return true;
-        },
-        child: NotiPrefrencesScreen());
+              return true;
+            },
+            child: NotiPrefrencesScreen());
       },
     );
   }
@@ -41,22 +41,52 @@ class _NotiPrefrencesScreenState extends State<NotiPrefrencesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBarWithTitle("",onClickAction: () =>{
-        Navigator.pop(context)
-      }),
+      appBar: getAppBarMainDashboardWithBackButton(
+          "2", str_loan_approve_process, 0.25,
+          onClickAction: () => {Navigator.pop(context)}),
       body: setUpView(),
     );
   }
 
   Widget setUpView() {
     return Container(
-      color: ThemeHelper.getInstance()!.colorScheme.onSecondary,
+      color: ThemeHelper.getInstance()!.colorScheme.background,
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Container(
+                height: 50.h,
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 20.w, top: 10.h),
+                  child: Text("Notification Preferences",
+                      style: ThemeHelper.getInstance()!
+                          .textTheme
+                          .headline3!
+                          .copyWith(color: MyColors.white)),
+                ),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(0.r),
+                        bottomLeft: Radius.circular(0.r)),
+                    border: Border.all(
+                        width: 1,
+                        color: ThemeHelper.getInstance()!.primaryColor),
+                    //color: ThemeHelper.getInstance()!.primaryColor,
+
+                    gradient: LinearGradient(
+                        colors: [
+                          MyColors.lightRedGradient,
+                          MyColors.lightBlueGradient
+                        ],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight))),
             buildPushNotificationText(strPushnotifications),
             buildLongSentencePushNotification(strLongSenterPushNotification),
+            Padding(
+                padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                child: Divider()),
             buildBodyContainer()
           ],
         ),
@@ -67,8 +97,11 @@ class _NotiPrefrencesScreenState extends State<NotiPrefrencesScreen> {
   Widget buildPushNotificationText(String text) => Padding(
         padding:
             EdgeInsets.only(left: 20.w, right: 20.w, top: 43.h, bottom: 8.h),
-        child:
-            Text(text, style: ThemeHelper.getInstance()?.textTheme.headline1),
+        child: Text(text,
+            style: ThemeHelper.getInstance()
+                ?.textTheme
+                .headline1
+                ?.copyWith(color: MyColors.darkblack)),
       );
 
   Widget buildLongSentencePushNotification(String text) => Padding(
@@ -118,15 +151,19 @@ class _NotiPrefrencesScreenState extends State<NotiPrefrencesScreen> {
       );
 
   void setSwitchNotifcationState(bool mainbool, bool switchBool) {
-    setState(() {
-      notifcationBool = switchBool;
-    },);
+    setState(
+      () {
+        notifcationBool = switchBool;
+      },
+    );
   }
 
   void setSwitchSoundState(bool mainbool, bool switchBool) {
-    setState(() {
-      soundBool = switchBool;
-    },);
+    setState(
+      () {
+        soundBool = switchBool;
+      },
+    );
   }
 
   Widget buildLoanDetailCardUI(String title, String subText, bool stateBool,
@@ -135,7 +172,7 @@ class _NotiPrefrencesScreenState extends State<NotiPrefrencesScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding:  EdgeInsets.only(bottom: 10.h),
+          padding: EdgeInsets.only(bottom: 10.h),
           child: Row(
             children: [
               Text(
@@ -154,16 +191,14 @@ class _NotiPrefrencesScreenState extends State<NotiPrefrencesScreen> {
             ],
           ),
         ),
-
-
-        isDivider
-            ? Divider(
-                thickness: 1,
-                color: MyColors.PnbGrayTextColor,
-              )
-            : Container(
-                height: 0.h,
-              )
+        // isDivider
+        //     ? Divider(
+        //         thickness: 0,
+        //         color: MyColors.PnbGrayTextColor,
+        //       )
+        //     : Container(
+        //         height: 0.h,
+        //       )
       ],
     );
   }

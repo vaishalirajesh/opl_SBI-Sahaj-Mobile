@@ -61,16 +61,17 @@ class ProfileDataState extends State<ProfileData>
   @override
   void initState() {
     super.initState();
-    setPersonalDetails();
+    //setPersonalDetails();
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBarWithTitle(strPersonalInformation,onClickAction: () =>{
-        Navigator.pop(context)
-      }),
+      appBar:getAppBarMainDashboardWithBackButton("2", str_loan_approve_process, 0.25,
+          onClickAction: () => {
+          Navigator.pop(context)
+          }),
       body: Container(
-          color: ThemeHelper.getInstance()!.primaryColor,
+          //color: ThemeHelper.getInstance()!.primaryColor,
           child: setUpView(context)),
     );
   }
@@ -78,31 +79,70 @@ class ProfileDataState extends State<ProfileData>
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [buildStackImage(PROFILE_IMG), SetBodyContainer(context)],
+        children: [
+          Container(height: 50.h,
+              width:MediaQuery.of(context).size.width,
+              child: Padding(
+                padding:  EdgeInsets.only(left: 20.w,top: 10.h),
+                child: Text(
+                    "Personal Information",
+                    style: ThemeHelper.getInstance()!
+                        .textTheme
+                        .headline3!
+                        .copyWith(color: MyColors.white)),
+              ),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(0.r),
+                      bottomLeft: Radius.circular(0.r)),
+                  border: Border.all(
+                      width: 1, color: ThemeHelper.getInstance()!.primaryColor),
+                  //color: ThemeHelper.getInstance()!.primaryColor,
+
+                  gradient: LinearGradient(colors: [MyColors.lightRedGradient,MyColors.lightBlueGradient],begin: Alignment.centerLeft,end: Alignment.centerRight )
+              )),
+
+
+          buildStackImage(PROFILE_IMG),
+          SetBodyContainer(context)],
       ),
     );
   }
 
-  Widget buildStackImage(String path) => Padding(
-    padding: EdgeInsets.only(top: 43.h, bottom: 30.h),
-    child: Center(
-      child: Stack(
-        children: [
-          Container(
+
+
+  Widget buildStackImage(String path) => Stack(
+    children: [
+      Container(height: 70.h,
+          width:MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(0.r),
+                bottomLeft: Radius.circular(0.r)),
+            // border: Border.all(
+            //     width: 1, color: ThemeHelper.getInstance()!.primaryColor),
+            color: MyColors.pnbPinkColor,
+            //gradient: LinearGradient(colors: [MyColors.lightRedGradient,MyColors.lightBlueGradient],begin: Alignment.centerLeft,end: Alignment.centerRight )
+          )),
+      Center(
+        child: Padding(
+          padding:  EdgeInsets.all(20.0),
+          child: Container(
               decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.white),
               width: 101.w,
               height: 101.w,
               child: Padding(
                 padding: const EdgeInsets.all(2.0),
-                child: CircleAvatar(
-                  backgroundColor: MyColors.white,
-                  backgroundImage: AssetImage(Utils.path(PROFILE_IMG)),
+                child:  Image(
+                  height: 44.h,
+                  width: 44.w,
+                  image: AssetImage(Utils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
                 ),
               )),
-          //setEditBtn()
-        ],
+        ),
       ),
-    ),
+      //setEditBtn()
+    ],
   );
   Widget setEditBtn() {
     return Positioned(
@@ -124,11 +164,11 @@ class ProfileDataState extends State<ProfileData>
 
   Widget SetBodyContainer(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height - 174.h,
+      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: ThemeHelper.getInstance()!.backgroundColor,
-        borderRadius: BorderRadius.only(
-            topRight: Radius.circular(40), topLeft: Radius.circular(40)),
+        // borderRadius: BorderRadius.only(
+        //     topRight: Radius.circular(40), topLeft: Radius.circular(40)),
       ),
       child: Padding(
         padding: EdgeInsets.only(left: 20.w, right: 20.w),
@@ -136,19 +176,46 @@ class ProfileDataState extends State<ProfileData>
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: 30.h),
-            LoanDetailCardUI(businessName ?? "", "GST User Name", true),
-            SizedBox(height: 10.h,),
-            LoanDetailCardUI(gstinNumber ?? "", "GSTIN", true),
-            SizedBox(height: 10.h,),
-            //LoanDetailCardUI("", "Father’s Name", true),
-            SizedBox(height: 10.h,),
-            LoanDetailCardUI(mobileNumber ?? "", "Phone Numbers", true),
-            SizedBox(height: 10.h,),
-            //LoanDetailCardUI("", "Application", true),
+            buildRow("GST Username", "Indo International"),
+            buildRow("GSTIN", "29ABCDE1234F3Z6"),
+            buildRow("Father’s Name", "Magannathbhai"),
+            buildRow("Phone Number", "********"),
+            buildRow("Application", "23001832188"),
+
+            // SizedBox(height: 30.h),
+            // LoanDetailCardUI(businessName ?? "", "GST User Name", true),
+            // SizedBox(height: 10.h,),
+            // LoanDetailCardUI(gstinNumber ?? "", "GSTIN", true),
+            // SizedBox(height: 10.h,),
+            // //LoanDetailCardUI("", "Father’s Name", true),
+            // SizedBox(height: 10.h,),
+            // LoanDetailCardUI(mobileNumber ?? "", "Phone Numbers", true),
+            // SizedBox(height: 10.h,),
+
           ],
         ),
       ),
+    );
+  }
+
+  buildRow(String title, String value){
+    return  Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title,
+            style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
+              fontSize: 12.sp,
+            )),
+        // SizedBox(
+        //   height: 5.h,
+        // ),
+        Text(value,
+            style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 16.sp,)),
+        SizedBox(
+          height: 20.h,
+        ),
+      ],
     );
   }
 

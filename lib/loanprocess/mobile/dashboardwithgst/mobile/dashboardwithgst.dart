@@ -172,7 +172,6 @@ class _DashboardWithGstState extends State<DashboardWithGst>
         drawer: MyDrawer(),
         appBar: getAppBarMainDashboard("2", str_loan_approve_process, 0.50,
             onClickAction: () => {
-              print("Manish here"),
               _scaffoldKey.currentState?.openDrawer()
             }),
         // body: TabBarView(
@@ -512,10 +511,12 @@ class _DashboardWithGstState extends State<DashboardWithGst>
   _buildMiddleContent() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 12.h),
         Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildCard(
                   0,
@@ -526,6 +527,7 @@ class _DashboardWithGstState extends State<DashboardWithGst>
                       "01",
                   Utils.convertIndianCurrency(_basicdetailsResponse
                       ?.data?[0].loanDetails?.outstanding?.amount)),
+              Spacer(),
               _buildCard(
                   1,
                   strOverdue,
@@ -539,7 +541,8 @@ class _DashboardWithGstState extends State<DashboardWithGst>
         Padding(
           padding: EdgeInsets.only(top: 10.h, bottom: 12.h),
           child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildCard(
                     2,
@@ -550,6 +553,7 @@ class _DashboardWithGstState extends State<DashboardWithGst>
                         "04",
                     Utils.convertIndianCurrency(_basicdetailsResponse
                         ?.data?[0].loanDetails?.repaid?.amount)),
+                Spacer(),
                 _buildCard(
                     3,
                     strDisbursed,
