@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 
 import '../../../../../../utils/Utils.dart';
+import '../../../../../../utils/colorutils/mycolors.dart';
 import '../../../../../../utils/constants/imageconstant.dart';
 import '../../../../../../utils/strings/strings.dart';
 import '../../../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
@@ -40,8 +41,10 @@ class _FAQScreenState extends State<FAQScreen> {
         return true;
       },
       child: Scaffold(
-        appBar: getAppBarWithTitle("FAQs",
-            onClickAction: () => {Navigator.pop(context)}),
+        appBar: getAppBarMainDashboardWithBackButton("2", str_loan_approve_process, 0.25,
+            onClickAction: () => {
+              Navigator.pop(context)
+            }),
         body: SingleChildScrollView(child: buildListData()),
       ),
     );
@@ -50,6 +53,27 @@ class _FAQScreenState extends State<FAQScreen> {
   Widget buildListData() {
     return Column(
       children: [
+        Container(height: 50.h,
+            width:MediaQuery.of(context).size.width,
+            child: Padding(
+              padding:  EdgeInsets.only(left: 20.w,top: 10.h),
+              child: Text(
+                  "FAQs",
+                  style: ThemeHelper.getInstance()!
+                      .textTheme
+                      .headline3!
+                      .copyWith(color: MyColors.white)),
+            ),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(0.r),
+                    bottomLeft: Radius.circular(0.r)),
+                border: Border.all(
+                    width: 1, color: ThemeHelper.getInstance()!.primaryColor),
+                //color: ThemeHelper.getInstance()!.primaryColor,
+
+                gradient: LinearGradient(colors: [MyColors.lightRedGradient,MyColors.lightBlueGradient],begin: Alignment.centerLeft,end: Alignment.centerRight )
+            )),
         SizedBox(
           height: 30.h,
         ),
@@ -61,18 +85,18 @@ class _FAQScreenState extends State<FAQScreen> {
         SizedBox(
           height: 15.h,
         ),
-        faqUI(str_faq_three, str_faq_ans_three, 2),
-        SizedBox(
-          height: 15.h,
-        ),
+        // faqUI(str_faq_three, str_faq_ans_three, 2),
+        // SizedBox(
+        //   height: 15.h,
+        // ),
         faqUI(str_faq_four, str_faq_ans_four, 3),
         SizedBox(
           height: 15.h,
         ),
-        faqUI(str_faq_five, str_faq_ans_five, 4),
-        SizedBox(
-          height: 15.h,
-        ),
+        // faqUI(str_faq_five, str_faq_ans_five, 4),
+        // SizedBox(
+        //   height: 15.h,
+        // ),
         faqUI(str_faq_six, str_faq_ans_six, 5),
         SizedBox(
           height: 15.h,
@@ -112,11 +136,10 @@ class _FAQScreenState extends State<FAQScreen> {
               ),
               SvgPicture.asset(
                 isShowing[index]
-                    ? Utils.path(UPARROWIC)
-                    : Utils.path(DOWNARROWIC),
+                    ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
                 height: 15.h,
                 width: 15.w,
-                color: ThemeHelper.getInstance()?.colorScheme.surface,
+                //color: ThemeHelper.getInstance()?.colorScheme.surface,
               ),
             ],
           ),

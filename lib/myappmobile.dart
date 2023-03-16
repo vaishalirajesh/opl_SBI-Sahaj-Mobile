@@ -68,6 +68,8 @@ import 'loanprocess/mobile/loanoffer/loanofferscreen.dart';
 import 'loanprocess/mobile/profile/ui/contactsupport/contactlendersupport/ui/lendersupportscreen.dart';
 import 'loanprocess/mobile/profile/ui/contactsupport/ui/contactsupportscreen.dart';
 import 'loanprocess/mobile/profile/ui/faq/ui/faq.dart';
+import 'loanprocess/mobile/profile/ui/newprofile.dart';
+import 'loanprocess/mobile/profile/ui/profilescreen.dart';
 import 'loanstatus/mobile/paymentsuccess.dart';
 import 'notificationprefrence/ui/notificationprefrence.dart';
 
@@ -189,6 +191,15 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
             MyRoutes.GSTInvoiceListRefreshRoutes: (context) => const GSTInvoiceListRefresh(),
             MyRoutes.GSTInvoiceListFilterRoutes: (context) => const GSTInvoiceListFilter(),
             MyRoutes.loanDepositeAccRoutes: (context) => LoanDepositeAcc(),
+
+            MyRoutes.profileViewRoutes: (context) => ProfileView(),
+
+            MyRoutes.newProfileViewRoutes: (context) => NewProfileView(),
+
+
+
+
+
 
             // MyRoutes.StartRegistrationRoutes : (context) => StartRegistration()
           },

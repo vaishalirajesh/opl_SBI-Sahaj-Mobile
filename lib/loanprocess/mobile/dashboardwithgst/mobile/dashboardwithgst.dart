@@ -23,6 +23,7 @@ import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
 import 'package:sbi_sahay_1_0/utils/movestageutils.dart';
 
+import '../../../../personalinfo/ui/personalinfo.dart';
 import '../../../../utils/Utils.dart';
 import '../../../../utils/constants/imageconstant.dart';
 import '../../../../utils/constants/prefrenceconstants.dart';
@@ -35,6 +36,7 @@ import '../../../../utils/singlebuttondialog.dart';
 import '../../../../utils/strings/strings.dart';
 import '../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 import '../../gstinvoiceslist/ui/gstinvoicelist.dart';
+import '../../profile/ui/newprofile.dart';
 import '../../profile/ui/profilescreen.dart';
 import '../../transactions/ui/transactionscreen.dart';
 
@@ -170,7 +172,6 @@ class _DashboardWithGstState extends State<DashboardWithGst>
         drawer: MyDrawer(),
         appBar: getAppBarMainDashboard("2", str_loan_approve_process, 0.50,
             onClickAction: () => {
-              print("Manish here"),
               _scaffoldKey.currentState?.openDrawer()
             }),
         // body: TabBarView(
@@ -510,10 +511,12 @@ class _DashboardWithGstState extends State<DashboardWithGst>
   _buildMiddleContent() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 12.h),
         Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildCard(
                   0,
@@ -524,6 +527,7 @@ class _DashboardWithGstState extends State<DashboardWithGst>
                       "01",
                   Utils.convertIndianCurrency(_basicdetailsResponse
                       ?.data?[0].loanDetails?.outstanding?.amount)),
+              Spacer(),
               _buildCard(
                   1,
                   strOverdue,
@@ -537,7 +541,8 @@ class _DashboardWithGstState extends State<DashboardWithGst>
         Padding(
           padding: EdgeInsets.only(top: 10.h, bottom: 12.h),
           child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildCard(
                     2,
@@ -548,6 +553,7 @@ class _DashboardWithGstState extends State<DashboardWithGst>
                         "04",
                     Utils.convertIndianCurrency(_basicdetailsResponse
                         ?.data?[0].loanDetails?.repaid?.amount)),
+                Spacer(),
                 _buildCard(
                     3,
                     strDisbursed,
@@ -1624,7 +1630,9 @@ class MyDrawer extends StatelessWidget {
             ),
             title:  Text('Profile',style: ThemeHelper.getInstance()?.textTheme.headline3),
             onTap: () {
-
+              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => NewProfileView()));
             },
           ),
           Divider(),

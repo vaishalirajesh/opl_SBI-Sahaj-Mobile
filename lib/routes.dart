@@ -134,6 +134,16 @@ static String LogoutScreen='/LoginMain';
 
   static String ddeResponse = "/DDEResponse";
 
+  static String profileViewRoutes = "/ProfileView";
+
+
+
+  static String newProfileViewRoutes = "/NewProfileView";
+
+
+
+
+
 
 
 }

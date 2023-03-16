@@ -49,27 +49,27 @@ static  ThemeData pnbThemeMobile = ThemeData(
     toggleableActiveColor: MyColors.pnbshadowcolor,
     textTheme: TextTheme(
       caption: TextUtils.getFontStyle(
-          MyColors.white, 17.sp, MyFont.Nunito_Sans_Bold),
+          MyColors.white, 17.sp, MyFont.Roboto_Bold),
       headline1: TextUtils.getFontStyle(
-          MyColors.pnbcolorPrimary, 23.sp, MyFont.Nunito_Sans_Bold),
+          MyColors.pnbcolorPrimary, 23.sp, MyFont.Roboto_Bold),
       headline2: TextUtils.getFontStyle(
-          MyColors.pnbsmallbodyTextColor, 18.sp, MyFont.Nunito_Sans_Semi_bold),
+          MyColors.pnbsmallbodyTextColor, 18.sp, MyFont.Roboto_Medium),
       headline3: TextUtils.getFontStyle(
-          MyColors.pnbsmallbodyTextColor, 16.sp, MyFont.Nunito_Sans_Regular),
+          MyColors.pnbsmallbodyTextColor, 16.sp, MyFont.Roboto_Regular),
       headline4: TextUtils.getFontStyle(
-          MyColors.pnbCheckboxTextColor, 13.sp, MyFont.Nunito_Sans_Regular),
+          MyColors.pnbCheckboxTextColor, 13.sp, MyFont.Roboto_Regular),
       headline5: TextUtils.getFontStyle(
-          MyColors.pnbTextcolor, 13.sp, MyFont.Nunito_Sans_Semi_bold),
+          MyColors.pnbTextcolor, 13.sp, MyFont.Roboto_Medium),
       bodyText1: TextUtils.getFontStyle(
-          MyColors.pnbcolorPrimary, 16.sp, MyFont.Nunito_Sans_Bold),
+          MyColors.pnbcolorPrimary, 16.sp, MyFont.Roboto_Bold),
       bodyText2: TextUtils.getFontStyle(
-          MyColors.pnbsmallbodyTextColor, 13.sp, MyFont.Nunito_Sans_Regular),
+          MyColors.pnbsmallbodyTextColor, 13.sp, MyFont.Roboto_Regular),
       button: TextUtils.getFontStyle(
-          MyColors.white, 16.sp, MyFont.Nunito_Sans_Bold),
+          MyColors.white, 16.sp, MyFont.Roboto_Bold),
       headline6: TextUtils.getFontStyle(
-          MyColors.pnbcolorPrimary, 13.sp, MyFont.Nunito_Sans_Bold),
+          MyColors.pnbcolorPrimary, 13.sp, MyFont.Roboto_Bold),
       overline: TextUtils.getFontStyle(
-          MyColors.pnbTextcolor, 13.sp, MyFont.Nunito_Sans_Regular),
+          MyColors.pnbTextcolor, 13.sp, MyFont.Roboto_Regular),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(

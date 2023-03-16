@@ -403,6 +403,7 @@ AppBar getAppBarMainDashboardWithBackButton(String step,String appBarTitle,doubl
                       onClickAction();
                     },
                   ),
+                  SizedBox(width: 10.w),
                   GestureDetector(
                     child: SvgPicture.asset(
                       Utils.path(MOBILEMENUBAR),
