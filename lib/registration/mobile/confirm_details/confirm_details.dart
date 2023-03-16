@@ -292,8 +292,8 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                     checkboxText,
                     style: ThemeHelper.getInstance()
                         ?.textTheme
-                        .headline4
-                        ?.copyWith(fontFamily: MyFont.Nunito_Sans_Semi_bold),
+                        .headline3
+                        ?.copyWith(fontSize: 14.sp),
                     maxLines: 5,
                   ),
                 ),
@@ -309,7 +309,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
             width: 119.w,
             child: Text(
               title,
-              style: ThemeHelper.getInstance()!.textTheme.bodyText2,
+              style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(color: MyColors.lightGraySmallText,fontSize: 12.sp),
             )),
         SizedBox(height: 2.h),
         SizedBox(
@@ -331,9 +331,12 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
               style: ThemeHelper.getInstance()!.textTheme.headline2,
             )),
         Spacer(),
-        SizedBox(
-            child: Text("+",
-                style: ThemeHelper.getInstance()!.textTheme.headline3)),
+        SvgPicture.asset(
+          isOpenDetails ?
+          Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+          height: 20.h,
+          width: 20.w,
+        ),
       ],
     );
   }
@@ -434,7 +437,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                       SizedBox(
                           height: 35.h), //40
                       Center(
-                          child: SvgPicture.asset( Utils.path(GREENCONFORMTICK),
+                          child: SvgPicture.asset( Utils.path(GREENCONFORMTICKREGISTRATIONCOMPLETED),
                               height: 52.h, //,
                               width:52.w, //134.8,
                               allowDrawingOutsideViewBox: true)),
@@ -443,7 +446,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                       Center(
                           child: Column(children: [
                             Text(
-                              "Registration completed",style: ThemeHelper.getInstance()?.textTheme.headline1?.copyWith(color: MyColors.pnbDarkGreyTextColor),
+                              "Registration completed",style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(color: MyColors.darkblack),
                               textAlign: TextAlign.center,
                             ),
                             SizedBox(
@@ -453,7 +456,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                               child: Text(
                                 "Welcome, Indo International. Let’s start the journey",
                                 textAlign: TextAlign.center,
-                                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(color: MyColors.pnbTextcolor),
+                                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp,color: MyColors.darkblack),
                               ),
                             ),
                           ])),

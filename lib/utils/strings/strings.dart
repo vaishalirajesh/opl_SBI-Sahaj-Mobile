@@ -78,8 +78,8 @@ const str_kfs = 'Key Fact Statement';
 const str_invoice_number = 'Invoice Number';
 const str_invoice_no = 'Invoice No. :';
 const str_invoice_amount = 'Invoice Amount';
-const str_date = '  Date';
-const str_kfs_lender = 'Lender : ';
+const str_date = 'Date';
+const str_kfs_lender = 'Lender';
 const str_applicant_name = 'Applicant Name : ';
 const str_sanction_limit = 'Sanctioned Limit';
 const str_available_limit = 'Available Limit';
@@ -209,7 +209,7 @@ const str_enter_6_Digit = 'Enter 6 Digit OTP received on';
 const str_enter_6_Digit_login = 'Enter OTP ';
 const str_Didnt_received_OTP_yet = 'Didn\'t receive OTP yet ?';
 const str_Resend_OTP = 'Resend OTP';
-const str_Verify = 'Verify';
+const str_Verify = 'Verify OTP';
 
 //..loader
 const str_Fetching_your_GST_business_details =

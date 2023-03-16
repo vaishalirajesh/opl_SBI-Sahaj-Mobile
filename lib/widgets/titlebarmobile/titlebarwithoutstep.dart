@@ -167,13 +167,32 @@ AppBar getAppBarWithBackBtn({required Function onClickAction})
     automaticallyImplyLeading: false,
     bottom: PreferredSize(
       preferredSize: Size( MyDimension.width,3.h),
-      child: LinearProgressIndicator(value: 1,
-          semanticsLabel: '',
-          minHeight: 3.h,
-          color: ThemeHelper.getInstance()
-              ?.colorScheme
-              .primary,
-          backgroundColor: Colors.transparent),
+      child:  Container(
+          height: 2.h,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(0.r),
+                  bottomLeft: Radius.circular(0.r)),
+              border: Border.all(
+                  width: 1,
+                  color: ThemeHelper.getInstance()!.primaryColor),
+              //color: ThemeHelper.getInstance()!.primaryColor,
+              gradient: LinearGradient(
+                  colors: [
+                    MyColors.lightRedGradient,
+                    MyColors.lightBlueGradient
+                  ],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight))),
+
+
+      // LinearProgressIndicator(value: 1,
+      //     semanticsLabel: '',
+      //     minHeight: 3.h,
+      //     color: ThemeHelper.getInstance()
+      //         ?.colorScheme
+      //         .primary,
+      //     backgroundColor: Colors.transparent),
     ),
 
   );

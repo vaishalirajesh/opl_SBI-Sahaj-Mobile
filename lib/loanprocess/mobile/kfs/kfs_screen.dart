@@ -133,8 +133,7 @@ class KfsScreenBody extends State<KfsScreens> {
             children: [
               Text(
                 str_kfs,
-                style: ThemeHelper.getInstance()?.textTheme.caption?.copyWith(
-                    fontSize: 18.sp, fontFamily: MyFont.Nunito_Sans_Bold),
+                style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(color: MyColors.white),
               ),
               /*Download KFS Statement Button(Future Implementation)*/
               /*Container(
@@ -163,19 +162,19 @@ class KfsScreenBody extends State<KfsScreens> {
                   Text(str_invoice_number,
                       style: ThemeHelper.getInstance()
                           ?.textTheme
-                          .headline6
-                          ?.copyWith(
+                          .headline3
+                          ?.copyWith(fontSize: 12.sp,
                               color: ThemeHelper.getInstance()
                                   ?.colorScheme
                                   .surface)),
                   Text(loanOfferData?.invoiceNumber ?? "230",
                       style: ThemeHelper.getInstance()
                           ?.textTheme
-                          .headline6
-                          ?.copyWith(
-                              color: ThemeHelper.getInstance()
-                                  ?.colorScheme
-                                  .background))
+                          .headline2
+                          ?.copyWith(fontSize: 14.sp,
+                          color: ThemeHelper.getInstance()
+                              ?.colorScheme
+                              .background))
                 ],
               ),
               Column(
@@ -185,22 +184,22 @@ class KfsScreenBody extends State<KfsScreens> {
                   Text(str_invoice_amount,
                       style: ThemeHelper.getInstance()
                           ?.textTheme
-                          .headline6
-                          ?.copyWith(
-                              color: ThemeHelper.getInstance()
-                                  ?.colorScheme
-                                  .surface)),
+                          .headline3
+                          ?.copyWith(fontSize: 12.sp,
+                          color: ThemeHelper.getInstance()
+                              ?.colorScheme
+                              .surface)),
                   Text("₹35,000",
                       // Utils.convertIndianCurrency(loanOfferData?.offerDetails
                       //     ?.elementAt(0)
                       //     .termsRequestedAmount
                       style: ThemeHelper.getInstance()
                           ?.textTheme
-                          .headline6
-                          ?.copyWith(
-                              color: ThemeHelper.getInstance()
-                                  ?.colorScheme
-                                  .background))
+                          .headline2
+                          ?.copyWith(fontSize: 14.sp,
+                          color: ThemeHelper.getInstance()
+                              ?.colorScheme
+                              .background))
                 ],
               ),
               Column(
@@ -210,16 +209,16 @@ class KfsScreenBody extends State<KfsScreens> {
                   Text(str_date,
                       style: ThemeHelper.getInstance()
                           ?.textTheme
-                          .headline6
-                          ?.copyWith(
-                              color: ThemeHelper.getInstance()
-                                  ?.colorScheme
-                                  .surface)),
+                          .headline3
+                          ?.copyWith(fontSize: 12.sp,
+                          color: ThemeHelper.getInstance()
+                              ?.colorScheme
+                              .surface)),
                   Text("19 Oct, 2022",
                       style: ThemeHelper.getInstance()
                           ?.textTheme
-                          .headline6
-                          ?.copyWith(
+                          .headline2
+                          ?.copyWith(fontSize: 14.sp,
                               color: ThemeHelper.getInstance()
                                   ?.colorScheme
                                   .background))
@@ -241,19 +240,19 @@ class KfsScreenBody extends State<KfsScreens> {
                   Text(str_kfs_lender,
                       style: ThemeHelper.getInstance()
                           ?.textTheme
-                          .headline6
-                          ?.copyWith(
-                              color: ThemeHelper.getInstance()
-                                  ?.colorScheme
-                                  .surface)),
+                          .headline3
+                          ?.copyWith(fontSize: 12.sp,
+                          color: ThemeHelper.getInstance()
+                              ?.colorScheme
+                              .surface)),
                   Text("State Bank of India",
                       style: ThemeHelper.getInstance()
                           ?.textTheme
-                          .headline6
-                          ?.copyWith(
-                              color: ThemeHelper.getInstance()
-                                  ?.colorScheme
-                                  .background))
+                          .headline2
+                          ?.copyWith(fontSize: 14.sp,
+                          color: ThemeHelper.getInstance()
+                              ?.colorScheme
+                              .background))
                 ],
               ),
             ],
@@ -295,7 +294,7 @@ class KfsScreenBody extends State<KfsScreens> {
                   style: ThemeHelper.getInstance()
                       ?.textTheme
                       .headline3
-                      ?.copyWith(color: MyColors.white),
+                      ?.copyWith(color: MyColors.white,fontSize: 14.sp),
                   textAlign: TextAlign.center,
                 ),
                 // Expanded(
@@ -333,8 +332,9 @@ class KfsScreenBody extends State<KfsScreens> {
                         Text("Sanctioned Limit",
                             style: ThemeHelper.getInstance()
                                 ?.textTheme
-                                .headline6
-                                ?.copyWith(color: MyColors.pnbTextcolor)),
+                                .headline3
+                                ?.copyWith(color: MyColors.lightGraySmallText
+                                ,fontSize: 12.sp)),
                         Text("₹5,00,000",
                             style: ThemeHelper.getInstance()
                                 ?.textTheme
@@ -365,8 +365,9 @@ class KfsScreenBody extends State<KfsScreens> {
                         Text("Sanctioned Limit",
                             style: ThemeHelper.getInstance()
                                 ?.textTheme
-                                .headline6
-                                ?.copyWith(color: MyColors.pnbTextcolor)),
+                                .headline3
+                                ?.copyWith(color: MyColors.lightGraySmallText
+                                ,fontSize: 12.sp)),
                         Text("₹5,00,000",
                             style: ThemeHelper.getInstance()
                                 ?.textTheme
@@ -1039,14 +1040,14 @@ class KfsScreenBody extends State<KfsScreens> {
                     image: DecorationImage(image: AssetImage(Utils.path(KFSCONGRATULATIONBG)),fit: BoxFit.fill),
                     color: Colors.white,
                   ),
-                  height: 400.h,
+                  height: 300.h,
                   width: 335.w,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       SizedBox(
-                          height: 90.h), //40
+                          height: 50.h), //40
                       Center(
                           child: SvgPicture.asset( Utils.path(FILLGREENCONFORMTICK),
                               height: 52.h, //,
@@ -1057,7 +1058,7 @@ class KfsScreenBody extends State<KfsScreens> {
                       Center(
                           child: Column(children: [
                             Text(
-                              "Congratulations",style: ThemeHelper.getInstance()?.textTheme.headline1?.copyWith(color: MyColors.darkblack),
+                              "Congratulations",style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 20.sp),
                               textAlign: TextAlign.center,
                             ),
                             SizedBox(
@@ -1067,7 +1068,7 @@ class KfsScreenBody extends State<KfsScreens> {
                               child: Text(
                                "You will now proceed to NeSL's Digital Document Execution journey",
                                 textAlign: TextAlign.center,
-                                style: ThemeHelper.getInstance()?.textTheme.bodyText2,
+                                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp),
                               ),
                             ),
                           ])),

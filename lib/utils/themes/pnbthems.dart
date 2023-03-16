@@ -16,7 +16,7 @@ static  ThemeData pnbThemeMobile = ThemeData(
           toolbarHeight: 60.h,
           titleSpacing: 0,
           titleTextStyle: TextUtils.getFontStyle(
-              MyColors.pnbcolorPrimary, 16.sp, MyFont.Nunito_Sans_Semi_bold)
+              MyColors.darkblack, 18.sp, MyFont.Roboto_Medium)
       ),
     primaryColor: MyColors.pnbcolorPrimary,
     primaryColorDark: MyColors.pnbcolorPrimary,
@@ -53,7 +53,7 @@ static  ThemeData pnbThemeMobile = ThemeData(
       headline1: TextUtils.getFontStyle(
           MyColors.pnbcolorPrimary, 23.sp, MyFont.Roboto_Bold),
       headline2: TextUtils.getFontStyle(
-          MyColors.pnbsmallbodyTextColor, 18.sp, MyFont.Roboto_Medium),
+          MyColors.darkblack, 18.sp, MyFont.Roboto_Medium),
       headline3: TextUtils.getFontStyle(
           MyColors.pnbsmallbodyTextColor, 16.sp, MyFont.Roboto_Regular),
       headline4: TextUtils.getFontStyle(
@@ -65,7 +65,7 @@ static  ThemeData pnbThemeMobile = ThemeData(
       bodyText2: TextUtils.getFontStyle(
           MyColors.pnbsmallbodyTextColor, 13.sp, MyFont.Roboto_Regular),
       button: TextUtils.getFontStyle(
-          MyColors.white, 16.sp, MyFont.Roboto_Bold),
+          MyColors.white, 16.sp, MyFont.Roboto_Medium),
       headline6: TextUtils.getFontStyle(
           MyColors.pnbcolorPrimary, 13.sp, MyFont.Roboto_Bold),
       overline: TextUtils.getFontStyle(

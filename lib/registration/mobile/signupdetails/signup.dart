@@ -158,10 +158,16 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 20.h),
       child: Container(
-        height: 55.h,
+
+        decoration: BoxDecoration(
+            border: Border.all(
+                color: ThemeHelper.getInstance()!.cardColor, width: 1),
+            color: ThemeHelper.getInstance()?.backgroundColor,
+            borderRadius: BorderRadius.all(Radius.circular(8.r))),
+        height: 48.h,
         width: MediaQuery.of(context).size.width,
         child: ElevatedButton(
-          style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
+          style: isCheck ? ThemeHelper.getInstance()!.elevatedButtonTheme.style : ThemeHelper.setDisableButtonBig(),
           onPressed: () async {
             Navigator.pushNamed(context, MyRoutes.EnableGstApiRoutes);
           },
@@ -408,7 +414,7 @@ Widget GenderTextField(String label) {
           suffixIcon: IconButton(
               onPressed: () {},
               icon: Icon(
-                Icons.keyboard_arrow_down_outlined,
+                Icons.arrow_drop_down,
                 color: MyColors.pnbTextcolor,
               ))),
       keyboardType: TextInputType.text,

@@ -146,7 +146,7 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
                       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
                       child: Text(
                         str_Verify_mobile_number,
-                        style: ThemeHelper.getInstance()!.textTheme.headline1,
+                        style: ThemeHelper.getInstance()!.textTheme.headline2,
                       ),
                     ),
                     SizedBox(

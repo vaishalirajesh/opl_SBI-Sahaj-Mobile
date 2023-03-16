@@ -113,8 +113,8 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
       padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
       child: Column(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           buildConfirmViewTitle(str_confirmView_title),
           buildImageContainer(IMG_TWO_PERSON),
@@ -131,8 +131,8 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
           style: ThemeHelper.getInstance()!
               .textTheme
               .headline1!
-              .copyWith(fontSize: 16),
-          textAlign: TextAlign.left,
+              .copyWith(fontSize: 16.sp,color: MyColors.darkblack),
+         // textAlign: TextAlign.left,
         ),
       );
 
@@ -201,7 +201,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline2!
-                    .copyWith(fontSize: 15.sp, color: MyColors.pnbcolorPrimary),
+                    .copyWith(fontSize: 15.sp,color: MyColors.darkblack),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,
               ),
@@ -249,7 +249,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                       .textTheme
                       .headline2!
                       .copyWith(
-                          fontSize: 15.sp, color: MyColors.pnbcolorPrimary),
+                          fontSize: 15.sp,color: MyColors.darkblack),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 3),
             ),
@@ -277,7 +277,8 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(fontSize: 12.sp, color: MyColors.ligtBlue),
+                    .copyWith(fontSize: 12.sp, color: MyColors.ligtBlue,decoration:
+                TextDecoration.underline),
                 recognizer: TapGestureRecognizer()..onTap = () {}),
             TextSpan(
                 text: str_confirm_bottom3,
@@ -288,7 +289,8 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(fontSize: 12.sp, color: MyColors.ligtBlue),
+                    .copyWith(fontSize: 12.sp, color: MyColors.ligtBlue,decoration:
+                TextDecoration.underline),
                 recognizer: TapGestureRecognizer()..onTap = () {}),
             TextSpan(
                 text: str_confirm_bottom5,
@@ -299,7 +301,8 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(fontSize: 12.sp, color: MyColors.ligtBlue),
+                    .copyWith(fontSize: 12.sp, color: MyColors.ligtBlue,decoration:
+                TextDecoration.underline),
                 recognizer: TapGestureRecognizer()..onTap = () {}),
             TextSpan(
                 text: str_confirm_bottom6,

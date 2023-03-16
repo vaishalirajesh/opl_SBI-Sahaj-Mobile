@@ -136,13 +136,12 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
             height: 39.h,
           ),
           Text(str_Get_Invoice_based_financein,
-              style: ThemeHelper.getInstance()?.textTheme.bodyText1),
+              style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp)),
           SizedBox(
             height: 5.h,
           ),
           Text(str_3SIMPLESTEP,
-              style: ThemeHelper.getInstance()?.textTheme.headline1!.copyWith(
-                  fontFamily: MyFont.Nunito_Sans_ExtraBold, fontSize: 18)),
+              style: ThemeHelper.getInstance()?.textTheme.headline2),
           SizedBox(
             height: 15.h,
           ),
@@ -156,8 +155,8 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
           Text(str_notodler_than_60,
               style: ThemeHelper.getInstance()!
                   .textTheme
-                  .headline6!
-                  .copyWith(fontFamily: MyFont.Nunito_Sans_NunitoSansItalic)),
+                  .headline3!
+                  .copyWith(fontSize: 14.sp,fontFamily: MyFont.Roboto_Italic)),
         ]),
       ],
     );
@@ -270,13 +269,13 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
           Text(title,
               style: ThemeHelper.getInstance()!
                   .textTheme
-                  .bodyText1
-                  ?.copyWith(fontSize: 14.sp)),
+                  .headline2
+                  ?.copyWith(fontSize: 14.sp,color: MyColors.black)),
           Text(desc,
               style: ThemeHelper.getInstance()!
                   .textTheme
-                  .overline!
-                  .copyWith(color: MyColors.pnbcolorPrimary, fontSize: 11.sp),
+                  .headline3!
+                  .copyWith(fontSize: 14.sp,color: MyColors.lightGraySmallText),
               overflow: TextOverflow.ellipsis,
               maxLines: 20),
         ],

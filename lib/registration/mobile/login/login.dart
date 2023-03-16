@@ -315,43 +315,39 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                                       text: str_i_login_check_part1,
                                       style: ThemeHelper.getInstance()!
                                           .textTheme
-                                          .headline6!
+                                          .headline3!
                                           .copyWith(
-                                        fontSize: 12.sp,
-                                        color: MyColors.pnbcolorPrimary,
+                                        fontSize: 14.sp,
                                       ),
                                       children: <InlineSpan>[
                                         TextSpan(
                                           text: str_i_login_checkpart2,
                                           style: ThemeHelper.getInstance()!
                                               .textTheme
-                                              .headline6!
+                                              .headline3!
                                               .copyWith(
-                                              fontSize: 12.sp,
-                                              color: Colors.blue,
-                                              decoration:
-                                              TextDecoration.underline),
+                                              fontSize: 14.sp,
+                                              color: MyColors.pnbcolorPrimary,
+                                              ),
                                         ),
                                         TextSpan(
                                           text: str_i_login_checkpart3,
                                           style: ThemeHelper.getInstance()!
                                               .textTheme
-                                              .headline6!
+                                              .headline3!
                                               .copyWith(
-                                              fontSize: 12.sp,
-                                              color:
-                                              MyColors.pnbcolorPrimary),
+                                              fontSize: 14.sp,
+                                              ),
                                         ),
                                         TextSpan(
                                             text: str_i_login_checkpart4,
                                             style: ThemeHelper.getInstance()!
                                                 .textTheme
-                                                .headline6!
+                                                .headline3!
                                                 .copyWith(
-                                                fontSize: 12.sp,
-                                                color: Colors.blue,
-                                                decoration:
-                                                TextDecoration.underline))
+                                                fontSize: 14.sp,
+                                                color: MyColors.pnbcolorPrimary,
+                                            ))
                                       ])),
                                 )),
                           ],
@@ -461,14 +457,14 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
             icon: text == '/'
                 ? Icon(
                     Icons.backspace,
-                    color: MyColors.pnbcolorPrimary,
+                    color: MyColors.backBtnColorloginKeyboardNo,
                   )
                 : Text(
                     text,
                     style: ThemeHelper.getInstance()!
                         .textTheme
                         .headline1!
-                        .copyWith(fontSize: 25),
+                        .copyWith(fontSize: 25,color: MyColors.darkblack),
                   )));
   }
 
@@ -478,7 +474,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
         padding: EdgeInsets.only(top: 30.0.h, bottom: 9.h),
         child: Text(
           str_Enter_your_mobile_Details,
-          style: ThemeHelper.getInstance()!.textTheme.headline1,
+          style: ThemeHelper.getInstance()!.textTheme.headline2,
         ),
       ),
       Padding(
@@ -487,7 +483,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
         ),
         child: Text(
           str_we_will_send_you_otp_for_confirmation,
-          style: ThemeHelper.getInstance()!.textTheme.headline3,
+          style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(fontSize: 14.sp),
         ),
       ),
       mobileNumberTextFiled(),
@@ -512,7 +508,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
               style: ThemeHelper.getInstance()!
                   .textTheme
                   .headline3!
-                  .copyWith(color: MyColors.pnbcolorPrimary),
+                  .copyWith(color: MyColors.darkblack),
               onChanged: (String newVal) {
                 setState(() {
                   if (newVal.length <= maxLength) {

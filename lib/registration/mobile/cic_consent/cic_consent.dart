@@ -117,7 +117,7 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
         padding: EdgeInsets.only(top: 30.0.h, bottom: 20.h),
         child: Text(
           str_give_consent,
-          style: ThemeHelper.getInstance()!.textTheme.headline1,
+          style: ThemeHelper.getInstance()!.textTheme.headline2,
         ),
       ),
       Padding(
@@ -126,7 +126,7 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
         ),
         child: Text(
           str_Allow_Lenders_to_fetch_CIC_data,
-          style: ThemeHelper.getInstance()!.textTheme.headline3,
+          style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(fontSize: 14.sp),
         ),
       )
     ];
@@ -211,10 +211,7 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
                     padding: EdgeInsets.only(bottom: 8.h),
                     child: Text(
                       str_CIC_Terms,
-                      style: ThemeHelper.getInstance()!
-                          .textTheme
-                          .headline5!
-                          .copyWith(color: MyColors.pnbcolorPrimary),
+                      style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(fontSize: 14.sp),
                     ),
                   ),
                 ],

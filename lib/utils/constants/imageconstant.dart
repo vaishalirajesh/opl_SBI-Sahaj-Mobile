@@ -23,6 +23,10 @@ const  PERSIONIMAGEFORPOPUP = "images/popperson_small.png";
 const  USERCONFORM = "images/user_confirm.svg";
 const  REDARROW = "images/red_arrow.svg";
 const  GREENCONFORMTICK = "images/green_tick_confirm.svg";
+
+const  GREENCONFORMTICKREGISTRATIONCOMPLETED = "images/greentick_registration_completed.svg";
+
+
 const  LEFTBACKGROUND = "images/img_webcomeleftback.png";
 const  DIGIOD = "images/digi_od.svg";
 const  PABL = "images/welcome_pabl.svg";

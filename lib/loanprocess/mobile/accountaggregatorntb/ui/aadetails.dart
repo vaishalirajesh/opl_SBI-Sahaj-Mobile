@@ -90,14 +90,13 @@ Widget buildHeaderDisceContainer(String text) => Padding(
       padding: EdgeInsets.only(top: 15.h),
       child: Container(
         height: 70.h,
-        color: ThemeHelper.getInstance()!.cardColor,
+        color: MyColors.veryLightgreenbg,
         child: Padding(
           padding: EdgeInsets.all(15.0).w,
           child: Text(
             str_header_discr,
             style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
-                  fontSize: 13.sp,
-                  fontFamily: MyFont.Nunito_Sans_Regular,
+                  fontSize: 14.sp
                 ),
           ),
         ),
@@ -110,21 +109,21 @@ Widget buildAccountAggregatorText(String text) => Padding(
         text,
         style: ThemeHelper.getInstance()!
             .textTheme
-            .headline1!
-            .copyWith(fontSize: 25.sp),
+            .headline2!
+            ,
         textAlign: TextAlign.center,
       ),
     );
 
 Widget buildANewWaytoShareBankText(String text) => Padding(
-      padding: EdgeInsets.only(left: 0.w, right: 0.w, top: 5.h,bottom: 10.h),
+      padding: EdgeInsets.only(left: 0.w, right: 0.w, top: 12.h,bottom: 10.h),
       child: Text(
         text,
         style: ThemeHelper.getInstance()!
             .textTheme
             .headline3!
             .copyWith(fontSize: 16.sp),
-        textAlign: TextAlign.center,
+        //textAlign: TextAlign.center,
       ),
     );
 
@@ -171,11 +170,12 @@ Widget buildRowWidget(String text) => Padding(
         children: [
           SvgPicture.asset(Utils.path(IMG_GREENTICK_AA),
               height: 15.h, width: 15.w),
+          SizedBox(width: 11.w),
           Text(" $text",
               style: ThemeHelper.getInstance()!
                   .textTheme
-                  .headline1!
-                  .copyWith(color: MyColors.black, fontSize: 14.sp)),
+                  .headline3!
+                  .copyWith(fontSize: 14.sp)),
         ],
       ),
     );
@@ -183,11 +183,12 @@ Widget buildRowWidget(String text) => Padding(
 Widget buildRevokeconsetAtAnytimeRow(String title) => Row(children: [
   SvgPicture.asset(Utils.path(IMG_GREENTICK_AA),
       height: 15.h, width: 15.w),
+      SizedBox(width: 11.w),
       Text(" $title",
           style: ThemeHelper.getInstance()!
               .textTheme
-              .headline1!
-              .copyWith(color: MyColors.black, fontSize: 13.sp))
+              .headline3!
+              .copyWith(fontSize: 14.sp))
     ]);
 
 Widget buildSetupHyperText() {
@@ -200,32 +201,32 @@ Widget buildSetupHyperText() {
               text: str_visit,
               style: ThemeHelper.getInstance()!
                   .textTheme
-                  .headline1!
-                  .copyWith(color: MyColors.pnbGreyColor, fontSize: 13)),
+                  .headline3!
+                  .copyWith(fontSize: 14.sp)),
           TextSpan(
               text: str_rbi,
               style: ThemeHelper.getInstance()!
                   .textTheme
-                  .headline1!
-                  .copyWith(color: MyColors.ligtBlue, fontSize: 13)),
+                  .headline3!
+                  .copyWith(color: MyColors.ligtBlue, fontSize: 14.sp,decoration: TextDecoration.underline)),
           TextSpan(
               text: str_or,
               style: ThemeHelper.getInstance()!
                   .textTheme
-                  .headline1!
-                  .copyWith(color: MyColors.pnbGreyColor, fontSize: 13)),
+                  .headline3!
+                  .copyWith(fontSize: 14.sp)),
           TextSpan(
               text: str_sahmati,
               style: ThemeHelper.getInstance()!
                   .textTheme
-                  .headline1!
-                  .copyWith(color: MyColors.ligtBlue, fontSize: 13)),
+                  .headline3!
+                  .copyWith(color: MyColors.ligtBlue, fontSize: 14.sp,decoration: TextDecoration.underline)),
           TextSpan(
               text: str_website_to_know_more,
               style: ThemeHelper.getInstance()!
                   .textTheme
-                  .headline1!
-                  .copyWith(color: MyColors.pnbGreyColor, fontSize: 13)),
+                  .headline3!
+                  .copyWith(fontSize: 14.sp)),
         ],
       ),
     ),

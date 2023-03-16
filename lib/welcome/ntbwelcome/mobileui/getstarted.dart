@@ -102,7 +102,7 @@ Widget CardViewSetup() {
                       style: ThemeHelper.getInstance()!
                           .textTheme
                           .headline1!
-                          .copyWith(fontSize: 16)),
+                          .copyWith(fontSize: 16.sp,color: MyColors.pnbsmallbodyTextColor)),
                   TextSpan(
                       text: str_disc,
                       style: ThemeHelper.getInstance()!.textTheme.headline3),
@@ -111,7 +111,8 @@ Widget CardViewSetup() {
                       style: ThemeHelper.getInstance()!
                           .textTheme
                           .headline3!
-                          .copyWith(color: MyColors.ligtBlue)),
+                          .copyWith(color: MyColors.ligtBlue,decoration:
+                      TextDecoration.underline)),
                   TextSpan(
                       text: strLast,
                       style: ThemeHelper.getInstance()!.textTheme.headline3),
@@ -153,8 +154,8 @@ Widget BtnLoginTC() {
               text: str_logintc,
               style: ThemeHelper.getInstance()!
                   .textTheme
-                  .headline1!
-                  .copyWith(fontSize: 13.sp, color: MyColors.ligtBlue),
+                  .headline3!
+                  .copyWith(fontSize: 14.sp, color: MyColors.ligtBlue),
               recognizer: TapGestureRecognizer()..onTap = () {}),
         ])),
   );

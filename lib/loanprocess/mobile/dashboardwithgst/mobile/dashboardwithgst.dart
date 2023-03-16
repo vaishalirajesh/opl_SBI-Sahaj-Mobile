@@ -364,17 +364,17 @@ class _DashboardWithGstState extends State<DashboardWithGst>
               _buildMiddleContent(),
               GestureDetector(
                   onTap: () {
-                    if (pendingLoan?.isNotEmpty == true) {
+                   // if (pendingLoan?.isNotEmpty == true) {
                       setExpanded1();
-                    }
+                   // }
                   },
                   child: _buildOnPendingCard(str_Pending_Disbursement, str_p1,
                       MyColors.white)),
               GestureDetector(
                   onTap: () {
-                    if (ongoingLoan?.isNotEmpty == true) {
+                    //if (ongoingLoan?.isNotEmpty == true) {
                       setExpanded2();
-                    }
+                   // }
                   },
                   child: buildOngingCard(strOngoingapplication, str_o1,
                       MyColors.white)),
@@ -743,7 +743,7 @@ class _DashboardWithGstState extends State<DashboardWithGst>
 
                 ],
               ),
-              (isExpanded1 && pendingLoan?.isNotEmpty == true)
+              (isExpanded1 )//&& pendingLoan?.isNotEmpty == true)
                   ? Padding(
                       padding: EdgeInsets.only(top: 10.h),
                       child: PendingDisbursementList(),
