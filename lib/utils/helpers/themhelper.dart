@@ -49,13 +49,13 @@ static ButtonStyle setDisableButtonSmall(){
         .copyWith(
         foregroundColor:
         MaterialStateProperty.all(
-            ThemeHelper.getInstance()!.colorScheme.primary),
+            ThemeHelper.getInstance()!.backgroundColor),
         backgroundColor:
         MaterialStateProperty.all(
             ThemeHelper.getInstance()!.colorScheme.secondary),
         textStyle:
         MaterialStateProperty.all(
-          TextStyle(fontSize: 16.sp,fontFamily: MyFont.Nunito_Sans_Bold),
+          TextStyle(fontSize: 16.sp,fontFamily: MyFont.Roboto_Medium),
 
         ));
   }

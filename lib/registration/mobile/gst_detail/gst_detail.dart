@@ -19,6 +19,7 @@ import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
+import 'package:otp_text_field/otp_field_style.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/gst_detail/gstotpverify.dart';
 import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
@@ -176,7 +177,14 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
               controller: gstUsernameController,
               cursorColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
               decoration: InputDecoration(
-                  hintText: str_GST_User_Name,
+                  labelText: str_GST_User_Name,
+    suffixIcon: IconButton(
+    onPressed: () {},
+    icon: Icon(
+    Icons.info_outline,
+    color: MyColors.lightGraySmallText,
+    )),
+                  //hintText: str_GST_User_Name,
                   enabledBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(6.r)),
                     borderSide: BorderSide(
@@ -281,34 +289,37 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
                 MyColors.pnbcolorPrimary,
             radius: 10,
           )
-        : ElevatedButton(
-            style: gstinNoController.text.isNotEmpty && isValidGSTINNumber
-                ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
-                : ThemeHelper.setPinkDisableButtonBig(),
-            onPressed: () {
+        : SizedBox(
+          height: 48.h,
+          child: ElevatedButton(
+              style: gstinNoController.text.isNotEmpty && isValidGSTINNumber
+                  ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
+                  : ThemeHelper.setPinkDisableButtonBig(),
+              onPressed: () {
 
-              Navigator.pushNamed(
-                  context,
-                  MyRoutes.OtpVerifyGSTRoutes);
-              // if (gstinNoController.text.isNotEmpty &&
-              //     gstUsernameController.text.isNotEmpty &&
-              //     isValidGSTINNumber) {
+                Navigator.pushNamed(
+                    context,
+                    MyRoutes.OtpVerifyGSTRoutes);
+                // if (gstinNoController.text.isNotEmpty &&
+                //     gstUsernameController.text.isNotEmpty &&
+                //     isValidGSTINNumber) {
 
-                // setState(() async {
-                //   isSetLoader = true;
-                //   TGSharedPreferences.getInstance()
-                //       .set(PREF_GSTIN, gstinNoController.text);
-                //   TGSharedPreferences.getInstance()
-                //       .set(PREF_PANNO, gstinNoController.text.substring(2, 12));
-                //   if (await TGNetUtil.isInternetAvailable()) {
-                //     getGstOtp();
-                //   } else {
-                //     showSnackBarForintenetConnection(context, getGstOtp);
-                //   }
-                // });
-             // }
-            },
-            child: Text(str_next));
+                  // setState(() async {
+                  //   isSetLoader = true;
+                  //   TGSharedPreferences.getInstance()
+                  //       .set(PREF_GSTIN, gstinNoController.text);
+                  //   TGSharedPreferences.getInstance()
+                  //       .set(PREF_PANNO, gstinNoController.text.substring(2, 12));
+                  //   if (await TGNetUtil.isInternetAvailable()) {
+                  //     getGstOtp();
+                  //   } else {
+                  //     showSnackBarForintenetConnection(context, getGstOtp);
+                  //   }
+                  // });
+               // }
+              },
+              child: Text(str_next)),
+        );
   }
 
   _buildBottomSheet() {
@@ -490,6 +501,9 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
       child: OTPTextField(
+        otpFieldStyle: OtpFieldStyle(
+            focusBorderColor: MyColors.darkblack //(here)
+        ),
         isClearOtp: isClearOtp,
         length: 6,
         width: MediaQuery.of(context).size.width,
@@ -508,7 +522,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
               isValidOTP = false;
             }
           });
-        },
+        }, style: TextStyle(color: ThemeHelper.getInstance()?.colorScheme.primary),
       ),
     );
   }

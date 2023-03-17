@@ -17,6 +17,7 @@ import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
+import 'package:otp_text_field/otp_field_style.dart';
 
 import '../../../utils/Utils.dart';
 import '../../../utils/colorutils/mycolors.dart';
@@ -238,6 +239,9 @@ class VerifyGstOtpScreenState extends State<VerifyGstOtpScreen> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
       child: OTPTextField(
+        otpFieldStyle: OtpFieldStyle(
+            focusBorderColor: MyColors.darkblack //(here)
+        ),
         isClearOtp: isClearOtp,
         length: 6,
         width: MediaQuery.of(context).size.width,
@@ -256,7 +260,7 @@ class VerifyGstOtpScreenState extends State<VerifyGstOtpScreen> {
               isValidOTP = false;
             }
           });
-        },
+        }, style: TextStyle(color: MyColors.darkblack),
       ),
     );
   }

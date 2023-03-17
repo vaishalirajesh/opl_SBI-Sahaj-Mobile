@@ -220,17 +220,17 @@ AppBar getAppBarWithStep(String step,String appBarTitle,double progress,{require
                 },
               ),
               SizedBox(width: 20.w,),
-              Container(
-                height: 20.w,
-                width: 20.w,
-                decoration: BoxDecoration(
-                  color: ThemeHelper.getInstance()?.colorScheme.secondary,
-                  borderRadius:BorderRadius.circular(30.r),
-                  boxShadow:  [BoxShadow(color: ThemeHelper.getInstance()!.primaryColor,spreadRadius: 1.0)]),
-                child: Center(
-                  child: Text(step,style: ThemeHelper.getInstance()?.textTheme.headline6,),
-                ),
-                ),
+              // Container(
+              //   height: 20.w,
+              //   width: 20.w,
+              //   decoration: BoxDecoration(
+              //     color: ThemeHelper.getInstance()?.colorScheme.secondary,
+              //     borderRadius:BorderRadius.circular(30.r),
+              //     boxShadow:  [BoxShadow(color: ThemeHelper.getInstance()!.primaryColor,spreadRadius: 1.0)]),
+              //   child: Center(
+              //     child: Text(step,style: ThemeHelper.getInstance()?.textTheme.headline6,),
+              //   ),
+              //   ),
               SizedBox(width: 8.w,),
               Text(appBarTitle,style: ThemeHelper.getInstance()?.appBarTheme.titleTextStyle,),
              /* SizedBox(width: 3.w,),*/

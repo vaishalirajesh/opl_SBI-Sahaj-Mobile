@@ -29,6 +29,7 @@ import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
+import 'package:otp_text_field/otp_field_style.dart';
 import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusconstants.dart';
@@ -152,127 +153,6 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                       child: ListView(
                         children: [
                           enterMobileLabel(),
-                          //Flexible(child:  Spacer()),
-                          // Column(
-                          //     mainAxisAlignment: MainAxisAlignment.start,
-                          //     crossAxisAlignment: CrossAxisAlignment.start,
-                          //     children: [
-                          //       Padding(
-                          //         padding: EdgeInsets.only(top: 10.h),
-                          //         child: Row(
-                          //           children: [
-                          //             Checkbox(
-                          //               // checkColor: MyColors.colorAccent,
-                          //               activeColor:
-                          //               ThemeHelper.getInstance()?.primaryColor,
-                          //               value: isCheckedFirst,
-                          //               onChanged: (bool) {
-                          //                 setState(() {
-                          //                   isCheckedFirst = bool!;
-                          //                 });
-                          //               },
-                          //               shape: RoundedRectangleBorder(
-                          //                   borderRadius:
-                          //                   BorderRadius.all(Radius.circular(6))),
-                          //               side: BorderSide(
-                          //                   width: 1,
-                          //                   color: isCheckedFirst
-                          //                       ? ThemeHelper.getInstance()!
-                          //                       .primaryColor
-                          //                       : ThemeHelper.getInstance()!
-                          //                       .disabledColor),
-                          //             ),
-                          //             Expanded(
-                          //                 child: Padding(
-                          //                   padding: EdgeInsets.only(top: 10.h),
-                          //                   child: Text.rich(TextSpan(
-                          //                       text: str_i_login_check_part1,
-                          //                       style: ThemeHelper.getInstance()!
-                          //                           .textTheme
-                          //                           .headline6!
-                          //                           .copyWith(
-                          //                         fontSize: 12.sp,
-                          //                         color: MyColors.pnbcolorPrimary,
-                          //                       ),
-                          //                       children: <InlineSpan>[
-                          //                         TextSpan(
-                          //                           text: str_i_login_checkpart2,
-                          //                           style: ThemeHelper.getInstance()!
-                          //                               .textTheme
-                          //                               .headline6!
-                          //                               .copyWith(
-                          //                               fontSize: 12.sp,
-                          //                               color: Colors.blue,
-                          //                               decoration:
-                          //                               TextDecoration.underline),
-                          //                         ),
-                          //                         TextSpan(
-                          //                           text: str_i_login_checkpart3,
-                          //                           style: ThemeHelper.getInstance()!
-                          //                               .textTheme
-                          //                               .headline6!
-                          //                               .copyWith(
-                          //                               fontSize: 12.sp,
-                          //                               color:
-                          //                               MyColors.pnbcolorPrimary),
-                          //                         ),
-                          //                         TextSpan(
-                          //                             text: str_i_login_checkpart4,
-                          //                             style: ThemeHelper.getInstance()!
-                          //                                 .textTheme
-                          //                                 .headline6!
-                          //                                 .copyWith(
-                          //                                 fontSize: 12.sp,
-                          //                                 color: Colors.blue,
-                          //                                 decoration:
-                          //                                 TextDecoration.underline))
-                          //                       ])),
-                          //                 )),
-                          //           ],
-                          //         ),
-                          //       ),
-                          //       Padding(
-                          //         padding: EdgeInsets.only(bottom: 20.h, top: 20.h),
-                          //         child: isGetOTPLoaderStart
-                          //             ? JumpingDots(
-                          //           color:
-                          //           ThemeHelper.getInstance()?.primaryColor ??
-                          //               MyColors.pnbcolorPrimary,
-                          //           radius: 10,
-                          //         )
-                          //             : ElevatedButton(
-                          //             style: isCheckedFirst &&
-                          //                 mobileTextController.text.length == 10
-                          //                 ? ThemeHelper.getInstance()!
-                          //                 .elevatedButtonTheme
-                          //                 .style
-                          //                 : ThemeHelper.setPinkDisableButtonBig(),
-                          //             onPressed: () async {
-                          //               //if (viewModel.isValidGSTINNumber && viewModel.isValidGSTUserName) {
-                          //               if (isCheckedFirst &&
-                          //                   mobileTextController.text.length ==
-                          //                       10) {
-                          //                 setState(() {
-                          //                   Navigator.pushNamed(context,
-                          //                       MyRoutes.OtpVerifyLoginRoutes
-                          //                   );
-                          //                   //verifyOtpBottomDialog();
-                          //                   // isGetOTPLoaderStart = true;
-                          //                 });
-                          //                 //   if (await TGNetUtil
-                          //                 //       .isInternetAvailable()) {
-                          //                 //     autoLoginRequest();
-                          //                 //   } else {
-                          //                 //     showSnackBarForintenetConnection(
-                          //                 //         context, autoLoginRequest);
-                          //                 //   }
-                          //                 //}
-                          //
-                          //               }
-                          //             },
-                          //             child: Text(str_next)),
-                          //       )
-                          //     ]),
                         ],
                       ),
                     ),
@@ -306,7 +186,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                                       ? ThemeHelper.getInstance()!
                                       .primaryColor
                                       : ThemeHelper.getInstance()!
-                                      .disabledColor),
+                                      .primaryColor),
                             ),
                             Expanded(
                                 child: Padding(
@@ -327,7 +207,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                                               .headline3!
                                               .copyWith(
                                               fontSize: 14.sp,
-                                              color: MyColors.pnbcolorPrimary,
+                                              color: MyColors.hyperlinkcolornew,
                                               ),
                                         ),
                                         TextSpan(
@@ -346,7 +226,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                                                 .headline3!
                                                 .copyWith(
                                                 fontSize: 14.sp,
-                                                color: MyColors.pnbcolorPrimary,
+                                                color: MyColors.hyperlinkcolornew,
                                             ))
                                       ])),
                                 )),
@@ -361,37 +241,40 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                                 MyColors.pnbcolorPrimary,
                             radius: 10,
                           )
-                              : ElevatedButton(
-                              style: isCheckedFirst &&
-                                  mobileTextController.text.length == 10
-                                  ? ThemeHelper.getInstance()!
-                                  .elevatedButtonTheme
-                                  .style
-                                  : ThemeHelper.setPinkDisableButtonBig(),
-                              onPressed: () async {
-                                //if (viewModel.isValidGSTINNumber && viewModel.isValidGSTUserName) {
-                                if (isCheckedFirst &&
-                                    mobileTextController.text.length ==
-                                        10) {
-                                  setState(() {
-                                    Navigator.pushNamed(context,
-                                        MyRoutes.OtpVerifyLoginRoutes
-                                    );
-                                    //verifyOtpBottomDialog();
-                                    // isGetOTPLoaderStart = true;
-                                  });
-                                  //   if (await TGNetUtil
-                                  //       .isInternetAvailable()) {
-                                  //     autoLoginRequest();
-                                  //   } else {
-                                  //     showSnackBarForintenetConnection(
-                                  //         context, autoLoginRequest);
-                                  //   }
-                                  //}
+                              : SizedBox(
+                                height: 48.h,
+                                child: ElevatedButton(
+                                style: isCheckedFirst &&
+                                    mobileTextController.text.length == 10
+                                    ? ThemeHelper.getInstance()!
+                                    .elevatedButtonTheme
+                                    .style
+                                    : ThemeHelper.setPinkDisableButtonBig(),
+                                onPressed: () async {
+                                  //if (viewModel.isValidGSTINNumber && viewModel.isValidGSTUserName) {
+                                  if (isCheckedFirst &&
+                                      mobileTextController.text.length ==
+                                          10) {
+                                    setState(() {
+                                      Navigator.pushNamed(context,
+                                          MyRoutes.OtpVerifyLoginRoutes
+                                      );
+                                      //verifyOtpBottomDialog();
+                                      // isGetOTPLoaderStart = true;
+                                    });
+                                    //   if (await TGNetUtil
+                                    //       .isInternetAvailable()) {
+                                    //     autoLoginRequest();
+                                    //   } else {
+                                    //     showSnackBarForintenetConnection(
+                                    //         context, autoLoginRequest);
+                                    //   }
+                                    //}
 
-                                }
-                              },
-                              child: Text(str_next)),
+                                  }
+                                },
+                                child: Text(str_next)),
+                              ),
                         )
                       ]),
                 ),
@@ -408,42 +291,45 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
   }
 
   Widget keyboardColumn() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _buildButton(buttonList[0], 0),
-            _buildButton(buttonList[1], 1),
-            _buildButton(buttonList[2], 2)
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _buildButton(buttonList[3], 3),
-            _buildButton(buttonList[4], 4),
-            _buildButton(buttonList[5], 5)
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _buildButton(buttonList[6], 6),
-            _buildButton(buttonList[7], 7),
-            _buildButton(buttonList[8], 8)
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _buildButton(buttonList[9], 9),
-            _buildButton(buttonList[10], 10),
-            _buildButton(buttonList[11], 11)
-          ],
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(40.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildButton(buttonList[0], 0),
+              _buildButton(buttonList[1], 1),
+              _buildButton(buttonList[2], 2)
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildButton(buttonList[3], 3),
+              _buildButton(buttonList[4], 4),
+              _buildButton(buttonList[5], 5)
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildButton(buttonList[6], 6),
+              _buildButton(buttonList[7], 7),
+              _buildButton(buttonList[8], 8)
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildButton(buttonList[9], 9),
+              _buildButton(buttonList[10], 10),
+              _buildButton(buttonList[11], 11)
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -456,7 +342,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
             },
             icon: text == '/'
                 ? Icon(
-                    Icons.backspace,
+                    Icons.backspace_outlined,
                     color: MyColors.backBtnColorloginKeyboardNo,
                   )
                 : Text(
@@ -508,7 +394,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
               style: ThemeHelper.getInstance()!
                   .textTheme
                   .headline3!
-                  .copyWith(color: MyColors.darkblack),
+                  .copyWith(color: MyColors.lightGraySmallText),
               onChanged: (String newVal) {
                 setState(() {
                   if (newVal.length <= maxLength) {
@@ -731,6 +617,11 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
       child: OTPTextField(
+        style: TextStyle(fontSize: 17, color: Colors.white, ),
+        otpFieldStyle: OtpFieldStyle(
+
+            focusBorderColor: MyColors.darkblack //(here)
+        ),
         isClearOtp: isClearOtp,
         length: 6,
         width: MediaQuery.of(context).size.width,

@@ -6,7 +6,7 @@ class MyColors
 
 
 
-
+  static final hyperlinkcolornew = HexColor("#5553AA");
   static final lightGraySmallText = HexColor("#747474");
 
   static final backBtnColorloginKeyboardNo = HexColor("#B5B5B5");

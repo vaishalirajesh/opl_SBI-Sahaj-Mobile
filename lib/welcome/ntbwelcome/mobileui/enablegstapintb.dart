@@ -90,7 +90,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
   Widget buildbottomView() {
     return Container(
       color: ThemeHelper.getInstance()!.backgroundColor,
-      height: 160.h,
+      height: 200.h,
       child: Padding(
         padding: EdgeInsets.only(left: 20.w, right: 20.w),
         child: Column(
@@ -100,7 +100,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
             Divider(),
             SizedBox(height: 30.h,),
             buildConfirmViewBottomText(),
-            
+            SizedBox(height: 30.h,),
             buildConfirmButton(context),
           ],
         ),
@@ -168,7 +168,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 3).w,
+              padding: const EdgeInsets.only(top: 0).w,
               child: SizedBox(
                 width: 20.w,
                 height: 20.h,
@@ -188,7 +188,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                       width: 1,
                       color: isCheckFirst
                           ? ThemeHelper.getInstance()!.primaryColor
-                          : ThemeHelper.getInstance()!.disabledColor),
+                          : ThemeHelper.getInstance()!.primaryColor),
                 ),
               ),
             ),
@@ -236,7 +236,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                       width: 1,
                       color: isCheckSecond
                           ? ThemeHelper.getInstance()!.primaryColor
-                          : ThemeHelper.getInstance()!.disabledColor),
+                          : ThemeHelper.getInstance()!.primaryColor),
                 ),
               ),
             ),
@@ -270,44 +270,44 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
               style: ThemeHelper.getInstance()!
                   .textTheme
                   .headline3!
-                  .copyWith(fontSize: 12.sp, color: MyColors.black),
+                  .copyWith(fontSize: 14.sp, color: MyColors.black),
             ),
             TextSpan(
                 text: str_confirm_bottom2,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(fontSize: 12.sp, color: MyColors.ligtBlue,decoration:
+                    .copyWith(fontSize: 14.sp, color: MyColors.hyperlinkcolornew,decoration:
                 TextDecoration.underline),
                 recognizer: TapGestureRecognizer()..onTap = () {}),
             TextSpan(
                 text: str_confirm_bottom3,
                 style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
-                    fontSize: 12.sp, color: MyColors.black)),
+                    fontSize: 14.sp, color: MyColors.black)),
             TextSpan(
                 text: str_confirm_bottom4,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(fontSize: 12.sp, color: MyColors.ligtBlue,decoration:
+                    .copyWith(fontSize: 12.sp, color: MyColors.hyperlinkcolornew,decoration:
                 TextDecoration.underline),
                 recognizer: TapGestureRecognizer()..onTap = () {}),
             TextSpan(
                 text: str_confirm_bottom5,
                 style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
-                    fontSize: 12.sp, color: MyColors.black)),
+                    fontSize: 14.sp, color: MyColors.black)),
             TextSpan(
                 text: str_confirm_bottom6,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(fontSize: 12.sp, color: MyColors.ligtBlue,decoration:
+                    .copyWith(fontSize: 14.sp, color: MyColors.hyperlinkcolornew,decoration:
                 TextDecoration.underline),
                 recognizer: TapGestureRecognizer()..onTap = () {}),
             TextSpan(
                 text: str_confirm_bottom6,
                 style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
-                    fontSize: 12.sp, color: MyColors.black)),
+                    fontSize: 14.sp, color: MyColors.black)),
           ],
         ),
       ),
@@ -315,21 +315,24 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
   }
 
   Widget buildConfirmButton(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        if (isCheckFirst && isCheckSecond) {
-        //  Navigator.pushNamed(context, MyRoutes.StartRegistrationNtbRoutes);
-        //  Navigator.push(context, CustomRightToLeftPageRoute(child:StartRegistrationNtb()));
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => StartRegistrationNtb(),)
-          );
-        }
-      },
-      style: isCheckFirst && isCheckSecond
-          ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
-          : ThemeHelper.setPinkDisableButtonBig(),
-      child: const Text(
-        str_Confirm,
+    return SizedBox(
+      height: 48.h,
+      child: ElevatedButton(
+        onPressed: () {
+          if (isCheckFirst && isCheckSecond) {
+          //  Navigator.pushNamed(context, MyRoutes.StartRegistrationNtbRoutes);
+          //  Navigator.push(context, CustomRightToLeftPageRoute(child:StartRegistrationNtb()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => StartRegistrationNtb(),)
+            );
+          }
+        },
+        style: isCheckFirst && isCheckSecond
+            ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
+            : ThemeHelper.setPinkDisableButtonBig(),
+        child: const Text(
+          str_Confirm,
+        ),
       ),
     );
   }

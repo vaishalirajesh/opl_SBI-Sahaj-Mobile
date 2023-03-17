@@ -134,6 +134,7 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
 
   _buildMiddler() {
     return Container(
+      height: 382.h,
       decoration: BoxDecoration(
           color: ThemeHelper.getInstance()?.cardColor,
           borderRadius: BorderRadius.all(Radius.circular(16.r))),
@@ -155,8 +156,8 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
                   str_give_consent_long_sentence,
                   style: ThemeHelper.getInstance()!
                       .textTheme
-                      .bodyText2
-                      ?.copyWith(fontSize: 13.sp),
+                      .headline3
+                      ?.copyWith(fontSize: 14.sp),
                 ))
           ],
         ),
@@ -203,7 +204,7 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
                             width: 1,
                             color: isConsentGiven
                                 ? ThemeHelper.getInstance()!.primaryColor
-                                : ThemeHelper.getInstance()!.disabledColor),
+                                : ThemeHelper.getInstance()!.primaryColor),
                       ),
                     ),
                   ),
@@ -226,27 +227,30 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
                           MyColors.pnbcolorPrimary,
                       radius: 10,
                     )
-                  : ElevatedButton(
-                      style: isConsentGiven
-                          ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
-                          : ThemeHelper.setPinkDisableButtonBig(),
-                      onPressed: () async {
-                        Navigator.pushNamed(context, MyRoutes.gstDetail);
-                        // if (isConsentGiven) {
-                        //   setState(() {
-                        //     isLoaderStart = true;
-                        //   });
-                        //
-                        //   if (await TGNetUtil.isInternetAvailable()) {
-                        //     saveCicConsent();
-                        //   } else {
-                        //     showSnackBarForintenetConnection(
-                        //         context, saveCicConsent);
-                        //   }
-                        // }
-                      },
-                      child: Text(str_give_consent),
-                    )),
+                  : SizedBox(
+                 height: 48.h,
+                    child: ElevatedButton(
+                        style: isConsentGiven
+                            ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
+                            : ThemeHelper.setPinkDisableButtonBig(),
+                        onPressed: () async {
+                          Navigator.pushNamed(context, MyRoutes.gstDetail);
+                          // if (isConsentGiven) {
+                          //   setState(() {
+                          //     isLoaderStart = true;
+                          //   });
+                          //
+                          //   if (await TGNetUtil.isInternetAvailable()) {
+                          //     saveCicConsent();
+                          //   } else {
+                          //     showSnackBarForintenetConnection(
+                          //         context, saveCicConsent);
+                          //   }
+                          // }
+                        },
+                        child: Text(str_give_consent),
+                      ),
+                  )),
 
           //SizedBox(height: 49.h,)
         ],

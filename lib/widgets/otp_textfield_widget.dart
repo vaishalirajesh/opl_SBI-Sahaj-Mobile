@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:otp_text_field/otp_field_style.dart';
 
 import '../utils/helpers/themhelper.dart';
 
@@ -36,7 +37,7 @@ class OTPTextField extends StatefulWidget {
     this.controller,
     this.fieldWidth = 30,
     this.onCompleted,
-    this.onChanged,
+    this.onChanged, required OtpFieldStyle otpFieldStyle, required TextStyle style,
   })  : assert(length > 1),
         super(key: key);
 
