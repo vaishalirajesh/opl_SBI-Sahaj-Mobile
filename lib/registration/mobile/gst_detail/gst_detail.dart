@@ -143,7 +143,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
         padding: EdgeInsets.only(top: 30.0.h, bottom: 9.h),
         child: Text(
           str_Enter_GST_Details,
-          style: ThemeHelper.getInstance()!.textTheme.headline1,
+          style: ThemeHelper.getInstance()!.textTheme.headline2,
         ),
       ),
       Padding(
@@ -152,7 +152,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
         ),
         child: Text(
           str_Kindly_enter_your_GST_Username_GSTIN_to_link_with_Sahay_GST_Account,
-          style: ThemeHelper.getInstance()!.textTheme.headline3,
+          style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(fontSize: 14.sp),
         ),
       )
     ];
@@ -169,7 +169,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
               style: ThemeHelper.getInstance()!
                   .textTheme
                   .headline3!
-                  .copyWith(color: MyColors.pnbcolorPrimary),
+                  .copyWith(fontSize: 14.sp),
               onChanged: (content) {
                 CheckValidGSTUserName();
               },
@@ -215,7 +215,9 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
   }
 
   Widget gstNumberField() {
-    return Column(children: [
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
       SizedBox(
         height: 10.h,
       ),
@@ -223,7 +225,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
           style: ThemeHelper.getInstance()!
               .textTheme
               .headline3!
-              .copyWith(color: MyColors.pnbcolorPrimary),
+              .copyWith(fontSize: 16.sp),
           onChanged: (content) {
             CheckValidGSTInNumber();
           },
@@ -265,7 +267,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
       SizedBox(
         height: 10.h,
       ),
-      Text(str_Sample_20AAAAAA1234AA1Z5),
+      Text(str_Sample_20AAAAAA1234AA1Z5,style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp),),
       SizedBox(
         height: 30.h,
       ),

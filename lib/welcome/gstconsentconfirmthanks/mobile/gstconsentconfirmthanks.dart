@@ -77,7 +77,7 @@ class GstConsentConformState extends State<GstConsentConformScreen> {
               style: ThemeHelper
                   .getInstance()!
                   .textTheme
-                  .headline1,
+                  .headline2,
             ),
             SizedBox(height: 20.h),
             Center(
@@ -86,7 +86,7 @@ class GstConsentConformState extends State<GstConsentConformScreen> {
                   style: ThemeHelper
                       .getInstance()!
                       .textTheme
-                      .headline3,
+                      .headline3?.copyWith(fontSize: 14.sp),
                   textAlign: TextAlign.center,
                 )),
             SizedBox(height: 50.h),

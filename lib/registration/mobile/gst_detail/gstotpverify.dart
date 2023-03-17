@@ -572,7 +572,7 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
                       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
                       child: Text(
                         "Verify GSTIN",
-                        style: ThemeHelper.getInstance()!.textTheme.headline1,
+                        style: ThemeHelper.getInstance()!.textTheme.headline2,
                       ),
                     ),
                     SizedBox(
@@ -585,7 +585,7 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
                         style: ThemeHelper.getInstance()!
                             .textTheme
                             .headline3!
-                            .copyWith(fontSize: 15.sp),
+                            .copyWith(fontSize: 14.sp),
                       ),
                     ),
                     SizedBox(
@@ -806,16 +806,16 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
                           "It seems you have not enabled GST API.",
                           style: ThemeHelper.getInstance()
                               ?.textTheme
-                              .headline1
-                              ?.copyWith(color: MyColors.pnbDarkGreyTextColor,fontSize: 16.sp),
+                              .headline2
+                              ?.copyWith(fontSize: 16.sp),
                           textAlign: TextAlign.center,
                         ),
                         Text(
                           "To understand the process",
                           style: ThemeHelper.getInstance()
                               ?.textTheme
-                              .headline1
-                              ?.copyWith(color: MyColors.pnbDarkGreyTextColor,fontSize: 16.sp),
+                              .headline2
+                              ?.copyWith(fontSize: 16.sp),
                           textAlign: TextAlign.center,
                         ),
                       ])),

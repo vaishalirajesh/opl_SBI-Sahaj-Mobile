@@ -183,8 +183,8 @@ class _AAListViewState extends State<AAListView> {
               Text(str_aa_steps_txt,
                   style: ThemeHelper.getInstance()!
                       .textTheme
-                      .headline1!
-                      .copyWith(fontSize: 16.sp),
+                      .headline2!
+                  ,
                   textAlign: TextAlign.start),
             ]),
             SizedBox(height: 10.h),
@@ -226,8 +226,8 @@ class _AAListViewState extends State<AAListView> {
             Text(str_select_aa,
                 style: ThemeHelper.getInstance()!
                     .textTheme
-                    .headline1!
-                    .copyWith(fontSize: 18.sp),
+                    .headline2!
+                ,
                 textAlign: TextAlign.start),
             SizedBox(height: 10.h),
             Text(str_select_aa_txt,
@@ -330,7 +330,7 @@ class _AAListViewState extends State<AAListView> {
                       Text("NESL Asset Data Limited",
                           style: ThemeHelper.getInstance()!
                               .textTheme
-                              .headline1!
+                              .headline3!
                               .copyWith(fontSize: 12.sp)),
                     ],
                   ),

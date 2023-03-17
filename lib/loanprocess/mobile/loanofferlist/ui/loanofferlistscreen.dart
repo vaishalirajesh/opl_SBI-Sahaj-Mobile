@@ -105,11 +105,9 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                       "11h 48m",
                   style: ThemeHelper.getInstance()
                       ?.textTheme
-                      .headline4
+                      .headline3
                       ?.copyWith(
-                      color:
-                      ThemeHelper.getInstance()?.colorScheme.tertiary,
-                      fontSize: 14.sp),
+                      fontSize: 12.sp),
                 ),
               ],
             ),
@@ -122,7 +120,7 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
             ),
             Text(
               str_loan_offers,
-              style: ThemeHelper.getInstance()?.textTheme.headline1,
+              style: ThemeHelper.getInstance()?.textTheme.headline2,
             ),
             SizedBox(
               height: 20.h,
@@ -230,17 +228,21 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                         "Amazon Pvt. Ltd",
                         style: ThemeHelper.getInstance()
                             ?.textTheme
-                            .headline3
+                            .headline2
                             ?.copyWith(
-                                fontFamily: MyFont.Nunito_Sans_Semi_bold,
+                                fontSize: 16.sp,
                                 color:
-                                    ThemeHelper.getInstance()?.indicatorColor)),
+                                    ThemeHelper.getInstance()?.primaryColor)),
                   ),
-                  SvgPicture.asset(
-                    Utils.path(LOANCARDRIGHTARROW),
-                    height: 17.h,
-                    width: 17.w,
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: MyColors.lightGraySmallText,
                   )
+                  // SvgPicture.asset(
+                  //   Utils.path(LOANCARDRIGHTARROW),
+                  //   height: 17.h,
+                  //   width: 17.w,
+                  // )
                 ],
               ),
               SizedBox(
@@ -288,15 +290,15 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                         str_loan_offer,
                         style: ThemeHelper.getInstance()
                             ?.textTheme
-                            .headline6
-                            ?.copyWith(fontSize: 16.sp),
+                            .headline3
+                            ?.copyWith(fontSize: 12.sp),
                       ),
                       Text(
                           Utils.convertIndianCurrency("25600"),
                           style: ThemeHelper.getInstance()
                               ?.textTheme
                               .headline6
-                              ?.copyWith(fontSize: 16.sp))
+                              ?.copyWith(fontSize: 14.sp))
                     ],
                   ),
                   Column(
@@ -307,19 +309,15 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                         str_invoice_amt,
                         style: ThemeHelper.getInstance()
                             ?.textTheme
-                            .headline4
-                            ?.copyWith(
-                                color: ThemeHelper.getInstance()
-                                    ?.colorScheme
-                                    .tertiary,
-                                fontSize: 16.sp),
+                            .headline3
+                            ?.copyWith(fontSize: 12.sp,color: MyColors.lightGraySmallText),
                       ),
                       Text(
                           Utils.convertIndianCurrency("35000"),
                           style: ThemeHelper.getInstance()
                               ?.textTheme
-                              .headline6
-                              ?.copyWith(fontSize: 16.sp))
+                              .headline2
+                              ?.copyWith(fontSize: 14.sp))
                     ],
                   ),
                   Column(
@@ -330,19 +328,15 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                         str_due_date,
                         style: ThemeHelper.getInstance()
                             ?.textTheme
-                            .headline4
-                            ?.copyWith(
-                            color: ThemeHelper.getInstance()
-                                ?.colorScheme
-                                .tertiary,
-                            fontSize: 16.sp),
+                            .headline3
+                            ?.copyWith(fontSize: 12.sp,color: MyColors.lightGraySmallText),
                       ),
                       Text(
                           "22 Aug 2022",
                           style: ThemeHelper.getInstance()
                               ?.textTheme
-                              .headline6
-                              ?.copyWith(fontSize: 16.sp))
+                              .headline2
+                              ?.copyWith(fontSize: 14.sp))
                     ],
                   ),
                 ],

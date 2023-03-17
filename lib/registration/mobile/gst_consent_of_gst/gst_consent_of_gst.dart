@@ -89,7 +89,7 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
         padding: EdgeInsets.only(top: 30.0.h, bottom: 20.h),
         child: Text(
           str_gst_data_consent_gst,
-          style: ThemeHelper.getInstance()!.textTheme.headline1,
+          style: ThemeHelper.getInstance()!.textTheme.headline2,
         ),
       ),
       Padding(
@@ -181,8 +181,8 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
                       str_i_understand_and_agree_to_sahays_terms,
                       style: ThemeHelper.getInstance()!
                           .textTheme
-                          .headline5!
-                          .copyWith(color: MyColors.pnbcolorPrimary),
+                          .headline3!
+                          .copyWith(fontSize: 14.sp),
                     ),
                   ),
                 ],

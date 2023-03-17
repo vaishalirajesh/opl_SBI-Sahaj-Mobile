@@ -117,18 +117,12 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: DashboardWithGST(),
+          home: KfsScreen(),
           locale: LocaleHelper.currentLocale,
           theme: ThemeHelper.getInstance(),
           scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),
           routes: {
            // MyRoutes.splashRoutes: (context) => SplashMain(),
-
-
-
-
-
-
 
             MyRoutes.welcomeRoutes: (context) => WelcomePage(),
             MyRoutes.tcRouted: (context) => TCview(),

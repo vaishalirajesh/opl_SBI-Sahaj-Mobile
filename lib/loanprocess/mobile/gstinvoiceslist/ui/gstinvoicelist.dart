@@ -252,8 +252,8 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
             child: Text(str_GST_Invoices_for_loan_offers,
                 style: ThemeHelper.getInstance()!
                     .textTheme
-                    .headline1!
-                    .copyWith(color: MyColors.darkblack))),
+                    .headline2!
+                    )),
         SizedBox(
           height: 20.h,
         ),
@@ -391,62 +391,113 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   }
 
   Widget invoiceSearchBarTextField() {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SearchInvoiceList(arrInvoiceList),
-            ));
-      },
-      child: SizedBox(
-          height: 45.h,
-          child: TextFormField(
-            onChanged: (value) => {},
-            style: ThemeHelper.getInstance()!
-                .textTheme
-                .bodyText1!
-                .copyWith(fontSize: 14.sp),
-            cursorColor: ThemeHelper.getInstance()!.primaryColor,
-            decoration: InputDecoration(
-                fillColor: ThemeHelper.getInstance()!.cardColor,
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: ThemeHelper.getInstance()!.colorScheme.onSurface,
-                        width: 1.0),
-                    borderRadius: BorderRadius.all(Radius.circular(6.r))),
-                enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: ThemeHelper.getInstance()!.colorScheme.onSurface,
-                        width: 1.0),
-                    borderRadius: BorderRadius.all(Radius.circular(6.r))),
-                contentPadding: EdgeInsets.symmetric(vertical: 10.h),
-                prefixIcon: new Icon(Icons.search_rounded,
-                    color: ThemeHelper.getInstance()!
-                        .primaryColor
-                        .withOpacity(0.3)),
-                // hintText: "Search...",
-                labelText: str_Search,
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                hintStyle: ThemeHelper.getInstance()!
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(fontSize: 14.sp),
-                filled: true,
-                enabled: false,
-                labelStyle: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline3!
-                    .copyWith(color: MyColors.pnbcolorPrimary.withOpacity(0.3)),
-                //    fillColor: searchbarBGColor.withOpacity(0.37),
-                border: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: ThemeHelper.getInstance()!.colorScheme.onSurface,
-                        width: 1.0),
-                    borderRadius: BorderRadius.all(Radius.circular(6.r)))
-    ),
-          )),
+    return Container(
+      decoration: BoxDecoration(
+        // borderRadius: BorderRadius.all(Radius.circular(8.r)),
+        // border: Border.all(
+        //   color: ThemeHelper.getInstance()!.colorScheme.shadow,
+        //   style: BorderStyle.solid,
+        //   width: 0.5,
+        // ),
+      ),
+      height: 35.h,
+      child: TextField(
+        style: ThemeHelper.getInstance()!.textTheme.button,
+        cursorColor: ThemeHelper.getInstance()!.backgroundColor,
+        decoration: InputDecoration(
+          fillColor: ThemeHelper.getInstance()!.backgroundColor,
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+                color: ThemeHelper.getInstance()!.colorScheme.onSurface,
+                width: 1.0),
+            // borderRadius: BorderRadius.all(Radius.circular(7.r))
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+                color: ThemeHelper.getInstance()!.colorScheme.onSurface,
+                width: 1.0),
+            // borderRadius: BorderRadius.all(Radius.circular(7.r))
+          ),
+          contentPadding: EdgeInsets.symmetric(vertical: 10.h),
+          prefixIcon: Icon(Icons.search,
+              color: ThemeHelper.getInstance()!.primaryColor.withOpacity(0.3)),
+          // hintText: "Search...",
+          labelText: str_Search,
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          hintStyle: ThemeHelper.getInstance()!.textTheme.button,
+          filled: true,
+          labelStyle: ThemeHelper.getInstance()!
+              .textTheme
+              .headline3!
+              .copyWith(color: MyColors.pnbcolorPrimary.withOpacity(0.3)),
+          //    fillColor: searchbarBGColor.withOpacity(0.37),
+          border: UnderlineInputBorder(
+            borderSide: BorderSide(
+                color: ThemeHelper.getInstance()!.colorScheme.onSurface,
+                width: 1.0),
+            // borderRadius: BorderRadius.all(
+            //   Radius.circular(7.r),
+            // ),
+          ),
+        ),
+      ),
     );
+    // return GestureDetector(
+    //   onTap: () {
+    //     Navigator.push(
+    //         context,
+    //         MaterialPageRoute(
+    //           builder: (context) => SearchInvoiceList(arrInvoiceList),
+    //         ));
+    //   },
+    //   child: SizedBox(
+    //       height: 45.h,
+    //       child: TextFormField(
+    //         onChanged: (value) => {},
+    //         style: ThemeHelper.getInstance()!
+    //             .textTheme
+    //             .bodyText1!
+    //             .copyWith(fontSize: 14.sp),
+    //         cursorColor: ThemeHelper.getInstance()!.primaryColor,
+    //         decoration: InputDecoration(
+    //             fillColor: ThemeHelper.getInstance()!.backgroundColor,
+    //             focusedBorder: UnderlineInputBorder(
+    //                 borderSide: BorderSide(
+    //                     color: ThemeHelper.getInstance()!.colorScheme.primary,
+    //                     width: 1.0),
+    //                 borderRadius: BorderRadius.all(Radius.circular(6.r))),
+    //             enabledBorder: UnderlineInputBorder(
+    //                 borderSide: BorderSide(
+    //                     color: ThemeHelper.getInstance()!.colorScheme.primary,
+    //                     width: 1.0),
+    //                 borderRadius: BorderRadius.all(Radius.circular(6.r))),
+    //             contentPadding: EdgeInsets.symmetric(vertical: 10.h),
+    //             prefixIcon: new Icon(Icons.search_rounded,
+    //                 color: ThemeHelper.getInstance()!
+    //                     .primaryColor
+    //                     .withOpacity(0.3)),
+    //             // hintText: "Search...",
+    //             labelText: str_Search,
+    //             floatingLabelBehavior: FloatingLabelBehavior.never,
+    //             hintStyle: ThemeHelper.getInstance()!
+    //                 .textTheme
+    //                 .bodyText1!
+    //                 .copyWith(fontSize: 14.sp),
+    //             filled: true,
+    //             enabled: false,
+    //             labelStyle: ThemeHelper.getInstance()!
+    //                 .textTheme
+    //                 .headline3!
+    //                 .copyWith(color: MyColors.pnbcolorPrimary.withOpacity(0.3)),
+    //             //    fillColor: searchbarBGColor.withOpacity(0.37),
+    //             border: UnderlineInputBorder(
+    //                 borderSide: BorderSide(
+    //                     color: ThemeHelper.getInstance()!.colorScheme.onSurface,
+    //                     width: 1.0),
+    //                 borderRadius: BorderRadius.all(Radius.circular(6.r)))
+    // ),
+    //       )),
+    // );
   }
 
   Widget shareInvoiceButton() {
