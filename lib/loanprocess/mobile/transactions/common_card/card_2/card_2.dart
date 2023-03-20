@@ -649,19 +649,19 @@ class StarRating extends StatelessWidget {
       icon = Icon(
         Icons.star,
         color: MyColors.PnbUnFilledRatingColor,
-        size: 18,
+        size: 32,
       );
     } else if (index > rating - 1 && index < rating) {
       icon = Icon(
         Icons.star_half,
         color: color,
-        size: 18,
+        size: 32,
       );
     } else {
       icon = Icon(
         Icons.star,
         color: color,
-        size: 18,
+        size: 32,
       );
     }
     return GestureDetector(

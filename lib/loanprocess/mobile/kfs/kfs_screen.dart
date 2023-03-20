@@ -1033,7 +1033,7 @@ class KfsScreenBody extends State<KfsScreens> {
   Widget SelectLoanOfferBtnUI(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: 50.h,
+      height: 48.h,
       child: ElevatedButton(
           onPressed: () async {
 
@@ -1078,7 +1078,7 @@ class KfsScreenBody extends State<KfsScreens> {
                     image: DecorationImage(image: AssetImage(Utils.path(KFSCONGRATULATIONBG)),fit: BoxFit.fill),
                     color: Colors.white,
                   ),
-                  height: 300.h,
+                  height: 350.h,
                   width: 335.w,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -1096,7 +1096,7 @@ class KfsScreenBody extends State<KfsScreens> {
                       Center(
                           child: Column(children: [
                             Text(
-                              "Congratulations",style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 20.sp),
+                              "Congratulations",style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 20.sp,color: MyColors.lightGraySmallText),
                               textAlign: TextAlign.center,
                             ),
                             SizedBox(
@@ -1106,13 +1106,13 @@ class KfsScreenBody extends State<KfsScreens> {
                               child: Text(
                                "You will now proceed to NeSL's Digital Document Execution journey",
                                 textAlign: TextAlign.center,
-                                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp),
+                                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp,color: MyColors.lightGraySmallText),
                               ),
                             ),
                           ])),
                       //38
                       SizedBox(
-                          height: 20.h),
+                          height: 25.h),
                       Padding(
                         padding:  EdgeInsets.only(left: 20.w,right: 20.w),
                         child: BtnProceed(),
@@ -1123,14 +1123,17 @@ class KfsScreenBody extends State<KfsScreens> {
   }
 
   Widget BtnProceed() {
-    return ElevatedButton(
-      style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
-      onPressed: () async {
-        Navigator.pop(context);
-        Navigator.pushNamed(context, MyRoutes.loanDepositeAccRoutes);
-      },
-      child:  Text(
-        str_proceed,
+    return SizedBox(
+      height: 48.h,
+      child: ElevatedButton(
+        style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
+        onPressed: () async {
+          Navigator.pop(context);
+          Navigator.pushNamed(context, MyRoutes.loanDepositeAccRoutes);
+        },
+        child:  Text(
+          str_proceed,
+        ),
       ),
     );
   }

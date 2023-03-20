@@ -74,7 +74,7 @@ static ButtonStyle setDisableButtonSmall(){
             MyColorsSBI.sbicolorDisableColor),
         textStyle:
         MaterialStateProperty.all(
-          TextStyle(fontSize: 16.sp,fontFamily: MyFont.Nunito_Sans_Bold),
+          TextStyle(fontSize: 16.sp,fontFamily: MyFont.Roboto_Medium),
 
         ));
   }

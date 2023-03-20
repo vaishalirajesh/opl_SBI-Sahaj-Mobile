@@ -167,6 +167,7 @@ Widget buildSetUpListViewData() {
 Widget buildRowWidget(String text) => Padding(
       padding: EdgeInsets.only(bottom: 15.h),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SvgPicture.asset(Utils.path(IMG_GREENTICK_AA),
               height: 15.h, width: 15.w),
@@ -208,7 +209,7 @@ Widget buildSetupHyperText() {
               style: ThemeHelper.getInstance()!
                   .textTheme
                   .headline3!
-                  .copyWith(color: MyColors.ligtBlue, fontSize: 14.sp,decoration: TextDecoration.underline)),
+                  .copyWith(color: MyColors.hyperlinkcolornew, fontSize: 14.sp,decoration: TextDecoration.underline)),
           TextSpan(
               text: str_or,
               style: ThemeHelper.getInstance()!
@@ -220,7 +221,7 @@ Widget buildSetupHyperText() {
               style: ThemeHelper.getInstance()!
                   .textTheme
                   .headline3!
-                  .copyWith(color: MyColors.ligtBlue, fontSize: 14.sp,decoration: TextDecoration.underline)),
+                  .copyWith(color: MyColors.hyperlinkcolornew, fontSize: 14.sp,decoration: TextDecoration.underline)),
           TextSpan(
               text: str_website_to_know_more,
               style: ThemeHelper.getInstance()!

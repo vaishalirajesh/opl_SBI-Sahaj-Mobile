@@ -136,19 +136,19 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
                   height: 35.h,
                 ),
                 SizedBox(
-                  height: 20.h,
+                  height: 28.h,
                 ),
                 Text(
                   str_loan_agreement,
                   style: ThemeHelper.getInstance()?.textTheme.headline2,
                 ),
-                SizedBox(height: 5.h,),
+                SizedBox(height: 12.h,),
                 Text(
                   "Before we proceed for Digital Document Execution, please keep these handy:",
                   style: ThemeHelper.getInstance()?.textTheme.headline4,
                 ),
                 SizedBox(
-                  height: 10.h,
+                  height: 18.h,
                 ),
                 buildRowWidget("Aadhaar Number"),
                 buildRowWidget("Mobile no. linked to your Aadhaar for OTP verification."),
@@ -157,7 +157,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
                   "Please read and scroll through the complete agreement before you provide your acceptance.",
                   style: ThemeHelper.getInstance()?.textTheme.headline4,
                 ),
-                SizedBox(height: 10.h,),
+                SizedBox(height: 18.h,),
 
                // SizedBox(height: 15.h),
                 Row(
@@ -199,12 +199,13 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
       children: [
         SvgPicture.asset(Utils.path(IMG_GREENTICK_AA),
             height: 15.h, width: 15.w),
+        SizedBox(width: 5.w),
         Expanded(
           child: Text(" $text",
               style: ThemeHelper.getInstance()!
                   .textTheme
-                  .headline1!
-                  .copyWith(color: MyColors.black, fontSize: 14.sp),maxLines: 2,),
+                  .headline3!
+                  .copyWith(color: MyColors.lightBlackText, fontSize: 14.sp),maxLines: 2,),
         ),
       ],
     ),
@@ -287,8 +288,8 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
           children: [
             SizedBox(width: 5.w,),
             Icon(
-              Icons.file_download_sharp,
-              color: ThemeHelper.getInstance()?.primaryColor,
+              Icons.file_download_outlined,
+              color: MyColors.ligtBlue,
               size: 18.h,
             ),
             SizedBox(
@@ -296,7 +297,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
             ),
             Text(
               str_download,
-              style: ThemeHelper.getInstance()?.textTheme.bodyText2,
+              style: ThemeHelper.getInstance()?.textTheme.bodyText2?.copyWith(color: MyColors.ligtBlue),
             ),
           ],
         ),
@@ -357,6 +358,85 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
   }
 
 
+
+  Widget PopUpViewInstructionRegister() {
+    return GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Container(
+          color: Colors.black.withOpacity(0.5),
+          child: Center(
+              child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    //image: DecorationImage(image: AssetImage(Utils.path(KFSCONGRATULATIONBG)),fit: BoxFit.fill),
+                    color: Colors.white,
+                  ),
+                  height: 265.h,
+                  width: 335.w,
+                  child: Padding(
+                    padding:  EdgeInsets.only(left: 20.w,right: 20.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                            height: 36.h), //40
+                        Center(
+                            child: SvgPicture.asset( Utils.path(GREENCONFORMTICK),
+                                height: 52.h, //,
+                                width:52.w, //134.8,
+                                allowDrawingOutsideViewBox: true)),
+                        SizedBox(
+                            height: 20.h), //40
+                        Center(
+                            child: Column(children: [
+                              Text(
+                                "Your Standing Instructions have been registered successfully",style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(color: MyColors.lightGraySmallText),
+                                textAlign: TextAlign.center,
+                              ),
+                              // SizedBox(
+                              //     height: 18.h),
+                              // Padding(
+                              //   padding: const EdgeInsets.only(left: 30,right: 30),
+                              //   child: Text(
+                              //     "You will now proceed to NeSL's Digital Document Execution journey",
+                              //     textAlign: TextAlign.center,
+                              //     style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp,color: MyColors.lightGraySmallText),
+                              //   ),
+                              // ),
+                            ])),
+                        //38
+                        SizedBox(
+                            height: 25.h),
+                        Padding(
+                          padding:  EdgeInsets.only(left: 20.w,right: 20.w),
+                          child: BtnProceed(),
+                        )
+                      ],
+                    ),
+                  ))),
+        ));
+  }
+
+  Widget BtnProceed() {
+    return SizedBox(
+      height: 48.h,
+      child: ElevatedButton(
+        style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
+        onPressed: () async {
+          Navigator.pop(context);
+          Navigator.pushNamed(context, MyRoutes.SetupEmandateRoutes);
+        },
+        child:  Text(
+          str_proceed,
+        ),
+      ),
+    );
+  }
+
+
   void setAgreementRead(bool isRead)
   {
     if(isRead as bool)
@@ -384,7 +464,11 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
                   : ThemeHelper.setPinkDisableButtonBig(),
               onPressed: () async {
 
-                Navigator.pushNamed(context, MyRoutes.SetupEmandateRoutes);
+                showDialog(
+                    context: context,
+                    builder: (_) => PopUpViewInstructionRegister());
+
+               // Navigator.pushNamed(context, MyRoutes.SetupEmandateRoutes);
                 // if (isAgreementLoaded) {
                 //   setState(() {
                 //     isAgreeLoaderStart = true;

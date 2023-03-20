@@ -24,6 +24,7 @@ import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
 import 'package:sbi_sahay_1_0/utils/movestageutils.dart';
 
 import '../../../../personalinfo/ui/personalinfo.dart';
+import '../../../../registration/mobile/dashboardwithoutgst/mobile/dashboardwithoutgst.dart';
 import '../../../../utils/Utils.dart';
 import '../../../../utils/constants/imageconstant.dart';
 import '../../../../utils/constants/prefrenceconstants.dart';
@@ -354,22 +355,24 @@ class _DashboardWithGstState extends State<DashboardWithGst>
 
             gradient: LinearGradient(
                 colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight)),
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter)),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ListView(
             children: [
               _buildTopContent(),
               _buildMiddleContent(),
+
               GestureDetector(
                   onTap: () {
                    // if (pendingLoan?.isNotEmpty == true) {
                       setExpanded1();
                    // }
                   },
-                  child: _buildOnPendingCard(str_Pending_Disbursement, str_p1,
+                  child:_buildOnPendingCard(str_Pending_Disbursement, str_p1,
                       MyColors.white)),
+
               GestureDetector(
                   onTap: () {
                     //if (ongoingLoan?.isNotEmpty == true) {
@@ -464,28 +467,43 @@ class _DashboardWithGstState extends State<DashboardWithGst>
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
           children: [
+            SizedBox(height: 10.h),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image(
-                  height: 44.h,
-                  width: 44.w,
-                  image: AssetImage(Utils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
+                Center(
+                  child: Image(
+                    height: 44.h,
+                    width: 44.w,
+                    image: AssetImage(Utils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
+                  ),
                 ),
                 SizedBox(width: 15.w),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(height: 20.h),
+                    //SizedBox(height: 20.h),
                     Text("Hello, Indo International!, $name",
-                        style: ThemeHelper.getInstance()?.textTheme.headline2),
+                        style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 16.sp)),
                     SizedBox(height: 5.h),
                     Text("PAN: ABCDE1234F $pan",
                         style: ThemeHelper.getInstance()!
                             .textTheme
                             .headline5!
-                            .copyWith(fontSize: 12.sp, color: MyColors.black)),
+                            .copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText)),
                   ],
                 ),
+                Spacer(),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                  SvgPicture.asset(
+                    Utils.path(MOBILETDASHBOARDARROWFORWARD),height: 12.h,width: 6.w,
+                  ),
+                ],)
+
                 /*const Spacer(),
                 SvgPicture.asset(
                   Utils.path(MOBILEDASHWIHTOUTNOTIBELL),
@@ -743,15 +761,13 @@ class _DashboardWithGstState extends State<DashboardWithGst>
 
                 ],
               ),
-              (isExpanded1 )//&& pendingLoan?.isNotEmpty == true)
+              isExpanded1 //&& pendingLoan?.isNotEmpty == true)
                   ? Padding(
                       padding: EdgeInsets.only(top: 10.h),
                       child: PendingDisbursementList(),
                     )
                   : const SizedBox(),
-              SizedBox(
-                height: 0.h,
-              )
+
             ],
           ),
         ),
@@ -765,7 +781,7 @@ class _DashboardWithGstState extends State<DashboardWithGst>
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
-      itemCount: ongoingLoan?.length,
+      itemCount:1,
       itemBuilder: (context, index) {
         return Padding(
           key: ValueKey(''),
@@ -782,7 +798,7 @@ class _DashboardWithGstState extends State<DashboardWithGst>
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
-      itemCount: pendingLoan?.length,
+      itemCount: 1,
       itemBuilder: (context, index) {
         return Padding(
           key: ValueKey(''),
@@ -796,17 +812,18 @@ class _DashboardWithGstState extends State<DashboardWithGst>
   Widget LoanDetailCardUI(BuildContext context, LoanDetailData? data) {
     return Container(
         /* width: 335.w,*/
-        height: 160.h,
+        height: 185.h,
         color: Colors.transparent,
         child: Padding(
           padding: EdgeInsets.only(bottom: 12.h),
           child: Container(
             decoration: BoxDecoration(
-                color: MyColors.white,
+                color: MyColors.pnbPinkColor,
                 borderRadius: BorderRadius.all(Radius.circular(12.r))),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 17.w),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     height: 14.h,
@@ -817,56 +834,67 @@ class _DashboardWithGstState extends State<DashboardWithGst>
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          buildCompanyText(data?.buyerName ?? ""),
-                          buildInvoiceText(data?.invoiceNumber ?? ""),
+                          buildInvoiceText(data?.buyerName ?? "Amazon Pvt. Ltd"),
+                          buildCompanyText("Invoice: 230"),
                         ],
                       ),
                       //..Check Status Button ..I am here
-                      _buildCheckStatusButton(data)
                     ],
                   ),
                   SizedBox(
                     height: 20.h,
                   ),
+                  MySeparator(color: Colors.grey,),
+                  // _buildCustomProgressBar(
+                  //     getCurrentStage(data?.currentApplicationStage ?? "")),
+
+                  SizedBox(height: 15.h),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        str_Stage,
-                        style: ThemeHelper.getInstance()!
-                            .textTheme
-                            .headline3!
-                            .copyWith(
-                                fontSize: 10.sp, color: MyColors.pnbGreyColor),
-                      ),
-                      Row(
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                              getCurrentStage(
-                                  data?.currentApplicationStage ?? ""),
-                              style: ThemeHelper.getInstance()!
-                                  .textTheme
-                                  .headline1!
-                                  .copyWith(
-                                      fontSize: 10.sp,
-                                      color: ThemeHelper.getInstance()!
-                                          .colorScheme
-                                          .primary)),
-                          SizedBox(
-                            width: 2.w,
-                          ),
-                          Icon(
-                            Icons.info,
-                            color: ThemeHelper.getInstance()!.primaryColor,
-                            size: 12,
-                          )
+                          buildCompanyText(str_Stage),
+                          SizedBox(height: 5.h),
+                          buildInvoiceText("Disbursement in Process"),
                         ],
                       ),
+                      Spacer(),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          buildCompanyText(str_loan_amt),
+                          SizedBox(height: 5.h),
+                          buildInvoiceText("₹41,600"),
+                        ],
+                      )
+
+
+                      // Row(
+                      //   children: [
+                      //     Text(
+                      //         getCurrentStage(
+                      //             data?.currentApplicationStage ?? "Disbursement in Process"),
+                      //         style: ThemeHelper.getInstance()!
+                      //             .textTheme
+                      //             .headline1!
+                      //             .copyWith(
+                      //                 fontSize: 10.sp,
+                      //                 color: ThemeHelper.getInstance()!
+                      //                     .colorScheme
+                      //                     .primary)),
+                      //     SizedBox(
+                      //       width: 2.w,
+                      //     ),
+                      //   ],
+                      // ),
                     ],
                   ),
-                  _buildCustomProgressBar(
-                      getCurrentStage(data?.currentApplicationStage ?? "")),
-                  _buildBottomPartInsideCard(data)
+                  SizedBox(height: 20.h,),
+
+                  //_buildBottomPartInsideCard(data),
+                  _buildCheckStatusButton(data)
                 ],
               ),
             ),
@@ -875,28 +903,34 @@ class _DashboardWithGstState extends State<DashboardWithGst>
   }
 
   buildCompanyText(String text) => SizedBox(
-        width: 150.w,
+        width: 100.w,
         child: Text(
           text,
           style: ThemeHelper.getInstance()!
               .textTheme
-              .headline1!
-              .copyWith(fontSize: 11.sp),
+              .headline3!
+              .copyWith(fontSize: 12.sp,color: MyColors.lightGraySmallText),
         ),
       );
 
   buildInvoiceText(String text) => Text(
-        str_invoice_no + text,
+        text,
         style: ThemeHelper.getInstance()!
             .textTheme
-            .headline3!
-            .copyWith(fontSize: 8.sp),
+            .headline2!
+            .copyWith(fontSize: 14.sp,color: MyColors.pnbcolorPrimary),
       );
 
   _buildCheckStatusButton(LoanDetailData? data) {
-    return SizedBox(
+    return Container(
         width: 109.w,
         height: 27.h,
+
+        decoration: BoxDecoration(
+            border:
+            Border.all(color: ThemeHelper.getInstance()!.primaryColor, width: 1),
+            //color: ThemeHelper.getInstance()?.backgroundColor,
+            borderRadius: BorderRadius.all(Radius.circular(4.r))),
         child: ElevatedButton(
           onPressed: () {
             MoveStage.movetoStage(context, data);
@@ -1036,7 +1070,7 @@ class _DashboardWithGstState extends State<DashboardWithGst>
                   ),
                 ],
               ),
-              (isExpanded2 && ongoingLoan?.isNotEmpty == true)
+              (isExpanded2)//&& ongoingLoan?.isNotEmpty == true)
                   ? Padding(
                       padding: EdgeInsets.only(top: 10.h),
                       child: OnGoingDisbursementList(),

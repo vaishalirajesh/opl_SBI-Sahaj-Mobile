@@ -50,10 +50,10 @@ const str_fetch_loan_offer_from_lender = 'While we figure out the loan offers \n
 //Loan Offer List
 const str_loan_offers = 'Loan Offers';
 const str_select_invoice_below = 'Select an invoice from the below list to check the loan offers';
-const str_invoice_amt = 'Invoice amt.';
+const str_invoice_amt = 'Invoice Amount';
 const str_loan_offer = 'Loan Offer';
 const str_invoice = 'Invoice: ';
-const str_due_date = 'Due Date: ';
+const str_due_date = 'Due Date';
 const str_no_available_offer = 'There is no loan offer \navailable at this moment.';
 
 //Loan Detail
@@ -617,7 +617,7 @@ const str_select_aa_txt = "Choose one of the RBI approved Account Aggregators to
 
 //Set up Emandate
 const str_complete_loan_agree = "Loan Agreement has been successfully completed";
-const str_setup_emandate = "Set up E-Mandate";
+const str_setup_emandate = "Set up Standing Instruction";
 const str_emandate_txt = "Allow lender to auto-deduct repayment from your ";
 const str_emandate_txt1 = " account ending ****";
 const str_eNach_redirect_txt = "You will be redirected to lender specific page for authorising through e-NACH";

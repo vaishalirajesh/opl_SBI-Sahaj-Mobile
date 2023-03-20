@@ -166,7 +166,7 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
     final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
       shadowColor: Colors.transparent,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(6.r)),
+        borderRadius: BorderRadius.all(Radius.circular(8.r)),
       ),
     );
 

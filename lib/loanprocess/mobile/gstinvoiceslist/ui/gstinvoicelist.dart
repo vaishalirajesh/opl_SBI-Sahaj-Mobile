@@ -282,7 +282,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: 30.h),
+           // SizedBox(height: 10.h),
             Row(
               children: [
                 Text("$str_select_any_inovice (3)",
@@ -291,12 +291,8 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
                         .headline1!
                         .copyWith(color: MyColors.darkblack, fontSize: 20)),
                 Spacer(),
-                Row(
-                  children: [
-                    refreshInvoiceButton(),
-                    filterInvoiceButton()
-                  ],
-                )
+                refreshInvoiceButton(),
+                filterInvoiceButton()
               ],
             ),
             SizedBox(height: 15.h),
@@ -304,12 +300,12 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(color: MyColors.darkblack)),
+                    .copyWith(color: MyColors.darkblack,fontSize: 14.sp)),
             Text(str_invoice_disc,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(color: MyColors.black)),
+                    .copyWith(color: MyColors.darkblack,fontSize: 14.sp)),
             SizedBox(height: 10.h),
             const Divider(),
             SizedBox(
@@ -327,7 +323,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
-      itemCount: 10,
+      itemCount: 3,
       itemBuilder: (context, index) {
         return Column(
           children: [
@@ -359,12 +355,12 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
                "Amazon Pvt. Ltd",
               style: ThemeHelper.getInstance()!
                   .textTheme
-                  .headline2!
-                  .copyWith(fontSize: 14, fontFamily: MyFont.Nunito_Sans_Bold),
+                  .headline3!
+                  ,
               maxLines: 2,
             )),
             Text(
-                "₹ 32,205",
+                "₹32,205",
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .bodyText1!
@@ -381,9 +377,9 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
                     "24-03-2023",
                     "dd-MM-yyyy",
                     'd MMM'),
-                style: ThemeHelper.getInstance()!.textTheme.bodyText2),
+                style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(color: MyColors.lightGraySmallText)),
             Text(" | 23001832188" ?? "",
-                style: ThemeHelper.getInstance()!.textTheme.bodyText2),
+                style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(color: MyColors.lightGraySmallText)),
           ],
         ),
       ]),
@@ -420,7 +416,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
           ),
           contentPadding: EdgeInsets.symmetric(vertical: 10.h),
           prefixIcon: Icon(Icons.search,
-              color: ThemeHelper.getInstance()!.primaryColor.withOpacity(0.3)),
+              color: MyColors.lightGraySmallText.withOpacity(0.3)),
           // hintText: "Search...",
           labelText: str_Search,
           floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -429,7 +425,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
           labelStyle: ThemeHelper.getInstance()!
               .textTheme
               .headline3!
-              .copyWith(color: MyColors.pnbcolorPrimary.withOpacity(0.3)),
+              .copyWith(color: MyColors.lightGraySmallText.withOpacity(0.3)),
           //    fillColor: searchbarBGColor.withOpacity(0.37),
           border: UnderlineInputBorder(
             borderSide: BorderSide(
@@ -523,7 +519,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
             },
             child: Center(
               child: Text(
-                str_share_invoice,
+                str_proceed,
                 style: ThemeHelper.getInstance()?.textTheme.button,
               ),
             )),
@@ -675,9 +671,8 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   }
 
   Widget refreshInvoiceButton() {
-    return Container(
-      width: 100.w,
-      height: 40.h, //38,
+    return SizedBox(
+       width: 110.w,
       child: ElevatedButton(
           onPressed: () {
 
@@ -705,48 +700,29 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
             //     clipBehavior: Clip.antiAlias,
             //     isScrollControlled: true);
           },
-          child: Row(
-            children: [
-              SvgPicture.asset(Utils.path(REFRESHIMG),
-                  height: 15.h, width: 15.w),
-              SizedBox(width: 8.w,),
-              Text('Refresh',style: ThemeHelper.getInstance()?.textTheme.headline6,)
-            ],
+          child: Padding(
+            padding:  EdgeInsets.only(left: 10.w),
+            child: Row(
+               mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                SvgPicture.asset(Utils.path(REFRESHIMG),
+                    height: 15.h, width: 15.w),
+                SizedBox(width: 8.w,),
+                Text('Refresh',style: ThemeHelper.getInstance()?.textTheme.headline6,)
+              ],
+            ),
           ),
           style: ElevatedButton.styleFrom(
             shadowColor: Colors.transparent,
             //foregroundColor: ThemeHelper.getInstance()!.colorScheme.onPrimary,
             backgroundColor: ThemeHelper.getInstance()!.backgroundColor,
-            shape: CircleBorder(),
           )),
     );
   }
 
   Widget filterInvoiceButton() {
-    // return IconButton(
-    //   icon: SvgPicture.asset(Utils.path(IMG_FILTER_INVOICE)),
-    //   iconSize: 44,
-    //   onPressed: () {
-    //     showModalBottomSheet(
-    //         backgroundColor: ThemeHelper.getInstance()!.backgroundColor,
-    //         context: context,
-    //         builder: (BuildContext context) {
-    //           return StatefulBuilder(
-    //               builder: (BuildContext context, StateSetter setModelState) {
-    //             return Wrap(children: [sortByBottomSheetDialog(setModelState)]);
-    //           });
-    //         },
-    //         shape: const RoundedRectangleBorder(
-    //             borderRadius: BorderRadius.only(
-    //                 topLeft: Radius.circular(25),
-    //                 topRight: Radius.circular(25))),
-    //         clipBehavior: Clip.antiAlias,
-    //         isScrollControlled: true);
-    //   },
-    // );
-
     return Container(
-      width: 95.w,
+      width: 76.w,
       height: 40.h, //38,
       child: ElevatedButton(
           onPressed: () {
@@ -767,18 +743,19 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
                     isScrollControlled: true);
           },
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               SvgPicture.asset(Utils.path(IMG_FILTER_INVOICE),
                   height: 15.h, width: 15.w),
-              SizedBox(width: 8.w,),
-              Text('Sort',style: ThemeHelper.getInstance()?.textTheme.headline6,)
+              SizedBox(width: 4.w,),
+              Text('Sort',style: ThemeHelper.getInstance()?.textTheme.headline6,textAlign: TextAlign.right,)
             ],
           ),
           style: ElevatedButton.styleFrom(
             shadowColor: Colors.transparent,
             //foregroundColor: ThemeHelper.getInstance()!.colorScheme.onPrimary,
             backgroundColor: ThemeHelper.getInstance()!.backgroundColor,
-            shape: CircleBorder(),
           )),
     );
   }
