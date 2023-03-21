@@ -28,6 +28,7 @@ import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
+import 'package:otp_text_field/otp_field_style.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 
@@ -64,7 +65,7 @@ class OtpVerifyLogin extends StatelessWidget {
             },
             child: Scaffold(
                 resizeToAvoidBottomInset: false,
-                appBar: getAppBarWithStepDone('1', str_registration, 0.25,
+                appBar: getAppBarWithStep('1', str_registration, 0.25,
                     onClickAction: () => {Navigator.pop(context)}),
                 body: OtpVerifyLoginScreen()));
       },
@@ -226,7 +227,7 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
                             ),
                             Text(str_Resend_OTP,
                                 style:
-                                    ThemeHelper.getInstance()!.textTheme.headline6)
+                                    ThemeHelper.getInstance()!.textTheme.headline6?.copyWith(color: MyColors.hyperlinkcolornew))
                           ],
                         ),
                       ),
@@ -242,26 +243,29 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
                                   MyColors.pnbcolorPrimary,
                               radius: 10,
                             )
-                          : ElevatedButton(
-                              style: isValidOTP
-                                  ? ThemeHelper.getInstance()!
-                                      .elevatedButtonTheme
-                                      .style
-                                  : ThemeHelper.setPinkDisableButtonBig(),
-                              onPressed: () {
+                          : SizedBox(
+                            height: 48.h,
+                            child: ElevatedButton(
+                                style: isValidOTP
+                                    ? ThemeHelper.getInstance()!
+                                        .elevatedButtonTheme
+                                        .style
+                                    : ThemeHelper.setPinkDisableButtonBig(),
+                                onPressed: () {
 
-                                Navigator.pushNamed(context, MyRoutes.gstConsentGst);
-                                // setState(() {
-                                //   if (isValidOTP) {
-                                //     isVerifyOTPLoaderStart = true;
-                                //     verifyLoginOtp();
-                                //   } else {
-                                //     isVerifyOTPLoaderStart = false;
-                                //   }
-                                // });
-                              },
-                              child: Text(str_Verify),
-                            ),
+                                  Navigator.pushNamed(context, MyRoutes.gstConsentGst);
+                                  // setState(() {
+                                  //   if (isValidOTP) {
+                                  //     isVerifyOTPLoaderStart = true;
+                                  //     verifyLoginOtp();
+                                  //   } else {
+                                  //     isVerifyOTPLoaderStart = false;
+                                  //   }
+                                  // });
+                                },
+                                child: Text(str_Verify),
+                              ),
+                          ),
                     ),
                     SizedBox(
                       height: 52.h,
@@ -278,6 +282,9 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
       child: OTPTextField(
+        otpFieldStyle: OtpFieldStyle(
+            focusBorderColor: MyColors.darkblack //(here)
+        ),
         isClearOtp: isClearOtp,
         length: 6,
         width: MediaQuery.of(context).size.width,
@@ -299,7 +306,7 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
           });
 
           // });
-        },
+        }, style:  TextStyle(color: MyColors.darkblack)
       ),
     );
   }
@@ -310,7 +317,8 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
-      textStyle: ThemeHelper.getInstance()?.textTheme.bodyText1,
+
+      textStyle: ThemeHelper.getInstance()?.textTheme.headline3,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         border: Border.all(color: ThemeHelper.getInstance()!.colorScheme.onSurface),

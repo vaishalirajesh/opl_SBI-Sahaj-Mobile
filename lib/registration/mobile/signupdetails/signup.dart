@@ -138,7 +138,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         cursorColor: Colors.grey,
         decoration: InputDecoration(
             labelText: label,
-            labelStyle: ThemeHelper.getInstance()?.textTheme.headline6?.copyWith(color: MyColors.pnbTextcolor),
+            labelStyle: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp,color: MyColors.lightGraySmallText),
             enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: MyColors.pnbTextcolor)),
             focusedBorder: UnderlineInputBorder(
@@ -206,22 +206,20 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                       });
                     },
                     shape: RoundedRectangleBorder(
+
                         borderRadius: BorderRadius.all(Radius.circular(2.r))),
                     side: BorderSide(
                         width: 1,
                         color: isCheck
                             ? ThemeHelper.getInstance()!.primaryColor
-                            : ThemeHelper.getInstance()!.disabledColor),
+                            : ThemeHelper.getInstance()!.primaryColor),
                   ),
                 ),
                 SizedBox(width: 10.w),
                 Expanded(
                   child: Text(
                     "I hereby authorize State Bank of India and/or its representatives to call me, SMS me with reference to my loan application. This consent will supersede any registration for any Do Not Call (DNC) / National Do Not Call (NDNC).",
-                    style: ThemeHelper.getInstance()
-                        ?.textTheme
-                        .headline4
-                        ?.copyWith(fontFamily: MyFont.Nunito_Sans_Semi_bold),
+                    style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp,color: MyColors.lightGraySmallText),
                     maxLines: 5,
                   ),
                 ),
@@ -294,7 +292,7 @@ class EmailIdWidgetState extends State<EmailIdWidget> {
         cursorColor: Colors.grey,
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: ThemeHelper.getInstance()?.textTheme.headline6?.copyWith(color: MyColors.pnbTextcolor),
+          labelStyle: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp,color: MyColors.lightGraySmallText),
           enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: MyColors.pnbTextcolor)),
           focusedBorder: UnderlineInputBorder(
@@ -356,7 +354,7 @@ class ContactNumberWidgetState extends State<ContactNumberWidget> {
         cursorColor: Colors.grey,
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: ThemeHelper.getInstance()?.textTheme.headline6?.copyWith(color: MyColors.pnbTextcolor),
+          labelStyle: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp,color: MyColors.lightGraySmallText),
           enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: MyColors.pnbTextcolor)),
           focusedBorder: UnderlineInputBorder(
@@ -406,7 +404,7 @@ Widget GenderTextField(String label) {
       cursorColor: Colors.grey,
       decoration: InputDecoration(
           labelText: label,
-          labelStyle: ThemeHelper.getInstance()?.textTheme.headline6?.copyWith(color: MyColors.pnbTextcolor),
+          labelStyle: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp,color: MyColors.lightGraySmallText),
           enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: MyColors.pnbTextcolor)),
           focusedBorder: UnderlineInputBorder(

@@ -87,10 +87,10 @@ Widget CardViewSetup() {
   return Padding(
     padding: EdgeInsets.only(left: 20.w, right: 20.w,bottom: 100.h),
     child: Container(
-        height: 240.h,
+        height: 200.h,
         decoration: BoxDecoration(
           color: ThemeHelper.getInstance()!.cardColor,
-          borderRadius: BorderRadius.all(Radius.circular(30.0)),
+          borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),
         child: Center(
           child: Padding(
@@ -111,7 +111,7 @@ Widget CardViewSetup() {
                       style: ThemeHelper.getInstance()!
                           .textTheme
                           .headline3!
-                          .copyWith(color: MyColors.ligtBlue,decoration:
+                          .copyWith(color: MyColors.hyperlinkcolornew,decoration:
                       TextDecoration.underline)),
                   TextSpan(
                       text: strLast,
@@ -126,15 +126,18 @@ Widget CardViewSetup() {
 Widget GetStartedBTN(BuildContext context) {
   return Padding(
     padding: EdgeInsets.only(left: 20.w, right: 20.w,bottom: 5.h),
-    child: ElevatedButton(
-      onPressed: () {
-       // Navigator.push(context, CustomRightToLeftPageRoute(child:EnableGstApi()));
-        Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpView(),));
+    child: SizedBox(
+      height: 48.h,
+      child: ElevatedButton(
+        onPressed: () {
+         // Navigator.push(context, CustomRightToLeftPageRoute(child:EnableGstApi()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpView(),));
 
-        // Navigator.pushNamed(context, MyRoutes.EnableGstApiRoutes);
-      },
-      child: Text(str_get_started,
-          style: ThemeHelper.getInstance()!.textTheme.button),
+          // Navigator.pushNamed(context, MyRoutes.EnableGstApiRoutes);
+        },
+        child: Text(str_get_started,
+            style: ThemeHelper.getInstance()!.textTheme.button),
+      ),
     ),
   );
 }
@@ -155,7 +158,7 @@ Widget BtnLoginTC() {
               style: ThemeHelper.getInstance()!
                   .textTheme
                   .headline3!
-                  .copyWith(fontSize: 14.sp, color: MyColors.ligtBlue),
+                  .copyWith(fontSize: 14.sp, color: MyColors.hyperlinkcolornew),
               recognizer: TapGestureRecognizer()..onTap = () {}),
         ])),
   );

@@ -98,7 +98,7 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
         ),
         child: Text(
           str_Allow_Sahay_to_fetch_your_GST_Data,
-          style: ThemeHelper.getInstance()!.textTheme.headline3,
+          style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(fontSize: 14.sp),
         ),
       )
     ];
@@ -106,6 +106,7 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
 
   _buildMiddler() {
     return Container(
+      height: 242.h,
       decoration: BoxDecoration(
           color: ThemeHelper.getInstance()?.cardColor,
           borderRadius: BorderRadius.all(Radius.circular(16.r))),
@@ -127,8 +128,8 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
                   str_gst_data_consent_long_sentence,
                   style: ThemeHelper.getInstance()!
                       .textTheme
-                      .bodyText2
-                      ?.copyWith(fontSize: 13.sp),
+                      .headline3
+                      ?.copyWith(fontSize: 14.sp),
                 ))
           ],
         ),
@@ -172,7 +173,7 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
                           width: 1,
                           color: isGstConsentGiven
                               ? ThemeHelper.getInstance()!.primaryColor
-                              : ThemeHelper.getInstance()!.disabledColor),
+                              : ThemeHelper.getInstance()!.primaryColor),
                     ),
                   ),
                   Padding(
@@ -197,28 +198,31 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
                           MyColors.pnbcolorPrimary,
                       radius: 10,
                     )
-                  : ElevatedButton(
-                      style: isGstConsentGiven
-                          ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
-                          : ThemeHelper.setPinkDisableButtonBig(),
-                      onPressed: () async {
-                        if (isGstConsentGiven) {
-                          // setState(() {
-                          //   isLoaderStart = true;
-                          // });
+                  : SizedBox(
+                    height: 48.h,
+                    child: ElevatedButton(
+                        style: isGstConsentGiven
+                            ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
+                            : ThemeHelper.setPinkDisableButtonBig(),
+                        onPressed: () async {
+                          if (isGstConsentGiven) {
+                            // setState(() {
+                            //   isLoaderStart = true;
+                            // });
 
-                          Navigator.pushNamed(context, MyRoutes.gstConsent);
+                            Navigator.pushNamed(context, MyRoutes.gstConsent);
 
-                          // if (await TGNetUtil.isInternetAvailable()) {
-                          //   saveGstConsent();
-                          // } else {
-                          //   showSnackBarForintenetConnection(
-                          //       context, saveGstConsent);
-                          // }
-                        }
-                      },
-                      child: Text(str_give_consent),
-                    )),
+                            // if (await TGNetUtil.isInternetAvailable()) {
+                            //   saveGstConsent();
+                            // } else {
+                            //   showSnackBarForintenetConnection(
+                            //       context, saveGstConsent);
+                            // }
+                          }
+                        },
+                        child: Text(str_give_consent),
+                      ),
+                  )),
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 import '../../../registration/mobile/login/login.dart';
@@ -70,6 +71,7 @@ class StartRegistrationNtbScreen extends StatelessWidget {
 
             ],),),
           ),
+          SizedBox(height: 50.h),
           buildBTNStartStartRegistration(context)
         ],
       ),
@@ -113,10 +115,10 @@ class StartRegistrationNtbScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.purple),
-                    height: 15.w,
-                    width: 15.w,
+                    decoration:  BoxDecoration(
+                        shape: BoxShape.circle, color: ThemeHelper.getInstance()!.colorScheme.primary),
+                    height: 13.w,
+                    width: 13.w,
                     child: Icon(
                       Icons.arrow_forward_ios,
                       color: ThemeHelper.getInstance()!.backgroundColor,
@@ -141,18 +143,21 @@ class StartRegistrationNtbScreen extends StatelessWidget {
   Widget buildBTNStartStartRegistration(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20).w,
-      child: ElevatedButton(
-        style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
-        onPressed: () {
-         // Navigator.of(context).push(CustomRightToLeftPageRoute(child: GstConsentConform(), ));
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => LoginWithMobileNumber(),)
-          );
+      child: SizedBox(
+        height: 48.h,
+        child: ElevatedButton(
+          style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
+          onPressed: () {
+           // Navigator.of(context).push(CustomRightToLeftPageRoute(child: GstConsentConform(), ));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => LoginWithMobileNumber(),)
+            );
 
-          //        Navigator.pushNamed(context, MyRoutes.GstConfirmThanksRoutes);
-        },
-        child: Text(str_Start_Registration,
-            style: ThemeHelper.getInstance()!.textTheme.button),
+            //        Navigator.pushNamed(context, MyRoutes.GstConfirmThanksRoutes);
+          },
+          child: Text(str_Start_Registration,
+              style: ThemeHelper.getInstance()!.textTheme.button),
+        ),
       ),
     );
   }

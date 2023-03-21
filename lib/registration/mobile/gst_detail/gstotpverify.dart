@@ -450,6 +450,7 @@ import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
+import 'package:otp_text_field/otp_field_style.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 
@@ -709,6 +710,9 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
       child: OTPTextField(
+        otpFieldStyle: OtpFieldStyle(
+            focusBorderColor: MyColors.darkblack //(here)
+        ),
         isClearOtp: isClearOtp,
         length: 6,
         width: MediaQuery.of(context).size.width,
@@ -730,7 +734,7 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
           });
 
           // });
-        },
+        }, style:  TextStyle(color: MyColors.darkblack),
       ),
     );
   }
