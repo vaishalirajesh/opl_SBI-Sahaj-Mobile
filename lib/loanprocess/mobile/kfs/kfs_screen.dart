@@ -668,7 +668,7 @@ class KfsScreenBody extends State<KfsScreens> {
                           _onTap(key);
                         },
                         child: Padding(
-                          padding: EdgeInsets.only(top: 3.h),
+                          padding: EdgeInsets.only(top: 0.h),
                           child: Icon(
                             Icons.info_outline_rounded,
                             color: ThemeHelper.getInstance()
@@ -909,7 +909,7 @@ class KfsScreenBody extends State<KfsScreens> {
                         style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 14.sp,color: MyColors.pnbcolorPrimary)),
                     GestureDetector(
                       child: SvgPicture.asset(
-                        isOtherUpFrontDetailCard ?
+                        isOtherDisclouserCard ?
                         Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW) ,
                         height: 20.h,
                         width: 20.w,
