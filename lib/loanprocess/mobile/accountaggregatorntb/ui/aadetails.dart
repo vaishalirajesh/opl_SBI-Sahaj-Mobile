@@ -239,16 +239,19 @@ Widget buildBtnNextAcc(BuildContext context) {
     alignment: Alignment.bottomCenter,
     child: Padding(
       padding: const EdgeInsets.all(20.0).w,
-      child: ElevatedButton(
-        style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
-        onPressed: () {
-          Navigator.pushNamed(context, MyRoutes.AAListRoutes);
-        //   Navigator.push(context,
-        //       MaterialPageRoute(builder: (context) => BankList(),)
-        //   );
+      child: SizedBox(
+        height: 48.h,
+        child: ElevatedButton(
+          style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
+          onPressed: () {
+            Navigator.pushNamed(context, MyRoutes.AAListRoutes);
+          //   Navigator.push(context,
+          //       MaterialPageRoute(builder: (context) => BankList(),)
+          //   );
 
-        },
-        child: const Text(str_next),
+          },
+          child: const Text(str_next),
+        ),
       ),
     ),
   );

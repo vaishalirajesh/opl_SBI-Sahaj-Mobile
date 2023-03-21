@@ -251,10 +251,9 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                                 color:
                                     ThemeHelper.getInstance()?.primaryColor)),
                   ),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    color: MyColors.lightGraySmallText,
-                  )
+                  SvgPicture.asset(
+                    Utils.path(MOBILETDASHBOARDARROWFORWARD),height: 12.h,width: 6.w,
+                  ),
                   // SvgPicture.asset(
                   //   Utils.path(LOANCARDRIGHTARROW),
                   //   height: 17.h,
@@ -273,11 +272,11 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                         "230",
                     style: ThemeHelper.getInstance()
                         ?.textTheme
-                        .headline4
+                        .headline3
                         ?.copyWith(
                         color:
                         ThemeHelper.getInstance()?.colorScheme.tertiary,
-                        fontSize: 14.sp),
+                        fontSize: 12.sp),
                   ),
                   // Text(
                   //   str_due_date +
@@ -310,6 +309,7 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                             .headline3
                             ?.copyWith(fontSize: 12.sp,color: MyColors.pnbcolorPrimary),
                       ),
+                      SizedBox(height: 5.h,),
                       Text(
                           Utils.convertIndianCurrency("25600"),
                           style: ThemeHelper.getInstance()
@@ -329,6 +329,7 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                             .headline3
                             ?.copyWith(fontSize: 12.sp,color: MyColors.lightGraySmallText),
                       ),
+                      SizedBox(height: 5.h,),
                       Text(
                           Utils.convertIndianCurrency("35000"),
                           style: ThemeHelper.getInstance()
@@ -348,6 +349,7 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                             .headline3
                             ?.copyWith(fontSize: 12.sp,color: MyColors.lightGraySmallText),
                       ),
+                      SizedBox(height: 5.h,),
                       Text(
                           "22 Aug 2022",
                           style: ThemeHelper.getInstance()
