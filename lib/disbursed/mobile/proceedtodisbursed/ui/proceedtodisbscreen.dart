@@ -143,7 +143,7 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
                     child: DisbCheckboxUI(context),
                   ),
                   SizedBox(
-                    height: 20.h,
+                    height: 30.h,
                   ),
                   ReqForDisbButtonUI(context),
                 ],
@@ -163,15 +163,16 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TopTextCard(),
+        SizedBox(height: 18.h),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Text(
             str_proceed_to_disb,
-            style: ThemeHelper.getInstance()?.textTheme.headline1,
+            style: ThemeHelper.getInstance()?.textTheme.headline2,
           ),
         ),
         SizedBox(
-          height: 20.h,
+          height: 12.h,
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -179,12 +180,12 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
             str_the_loan_amt +
                 "₹25,600" +
                 str_disb_amt,
-            style: ThemeHelper.getInstance()?.textTheme.headline3,
+            style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp),
             maxLines: 5,
           ),
         ),
         SizedBox(
-          height: 20.h,
+          height: 28.h,
         ),
         LoanDisbCard(context)
       ],
@@ -193,7 +194,7 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
 
   Widget LoanDisbCard(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      padding: EdgeInsets.symmetric(horizontal: 18.w),
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(
@@ -202,49 +203,45 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
             borderRadius: BorderRadius.all(Radius.circular(16.r))),
         //width: 335.w,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 15.h),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                      height: 40.h,
-                      width: 40.w,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: ThemeHelper.getInstance()?.backgroundColor),
-                      child: Center(
-                          child: SvgPicture.asset(
-                        Utils.path(SMALLBANKLOGO),
-                        height: 18.h,
-                        width: 18.w,
-                      ))),
-                  SizedBox(
-                    width: 15.w,
-                  ),
-                  Text(
-                    dictData?.data?.accountHolderName ?? "State Bank Of India",
-                    style: ThemeHelper.getInstance()
-                        ?.textTheme
-                        .bodyText2
-                        ?.copyWith(
-                            color: MyColors.black,
-                            fontFamily: MyFont.Nunito_Sans_Bold),
-                  )
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                    height: 40.h,
+                    width: 40.w,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: ThemeHelper.getInstance()?.backgroundColor),
+                    child: Center(
+                        child: SvgPicture.asset(
+                      Utils.path(SMALLBANKLOGO),
+                      height: 18.h,
+                      width: 18.w,
+                    ))),
+                Text(
+                  dictData?.data?.accountHolderName ?? "State Bank Of India",
+                  style: ThemeHelper.getInstance()
+                      ?.textTheme
+                      .bodyText2
+                      ?.copyWith(
+                          color: MyColors.black,
+                          fontFamily: MyFont.Roboto_Medium),
+                )
+              ],
             ),
             SizedBox(
               height: 10.h,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.h),
+                padding: EdgeInsets.symmetric(horizontal: 18.w),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -252,16 +249,16 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
                     Text(str_ac_no,
                         style: ThemeHelper.getInstance()
                             ?.textTheme
-                            .bodyText2
-                            ?.copyWith(color: MyColors.pnbCardMediumTextColor)),
+                            .headline3
+                            ?.copyWith(color: MyColors.lightGraySmallText,fontSize: 12.sp)),
                     Text(
                       "XXXXXX7564",
                       style: ThemeHelper.getInstance()
                           ?.textTheme
-                          .bodyText2
+                          .headline2
                           ?.copyWith(
                           color: MyColors.black,
-                          fontFamily: MyFont.Nunito_Sans_Bold),
+                          fontSize: 14.sp),
                     )
                   ],
                 ),
@@ -270,30 +267,29 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
                 height: 10.h,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.h),
+                padding: EdgeInsets.symmetric(horizontal: 18.w),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(str_ifsc,
                         style: ThemeHelper.getInstance()
                             ?.textTheme
-                            .bodyText2
-                            ?.copyWith(color: MyColors.pnbCardMediumTextColor)),
+                            .headline3
+                            ?.copyWith(color: MyColors.lightGraySmallText,fontSize: 12.sp)),
                     Text(
                       "SBIN0003471",
                       style: ThemeHelper.getInstance()
                           ?.textTheme
-                          .bodyText2
+                          .headline2
                           ?.copyWith(
                           color: MyColors.black,
-                          fontFamily: MyFont.Nunito_Sans_Bold),
+                           fontSize: 14.sp),
                     )
                   ],
                 ),
               ),
             ],),
-
             SizedBox(
               height: 20.h,
             ),
@@ -331,7 +327,7 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
                     width: 1,
                     color: isChecked
                         ? ThemeHelper.getInstance()!.primaryColor
-                        : ThemeHelper.getInstance()!.disabledColor),
+                        : ThemeHelper.getInstance()!.primaryColor),
               ),
             ),
             SizedBox(width: 10.w),
@@ -340,8 +336,8 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
                 str_disb_check_txt,
                 style: ThemeHelper.getInstance()
                     ?.textTheme
-                    .headline4
-                    ?.copyWith(fontFamily: MyFont.Nunito_Sans_Semi_bold),
+                    .headline3
+                    ?.copyWith(fontSize: 14.sp),
                 maxLines: 5,
               ),
             ),
@@ -358,40 +354,41 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
     //       )
     //     : Container();
 
-    return ElevatedButton(
-            style: isChecked
-                ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
-                : ThemeHelper.setPinkDisableButtonBig(),
-            onPressed: () async {
-              if (isChecked) {
-                setState(() {
-                  //isTriggerdLoader = true;
-                });
-                // if (await TGNetUtil.isInternetAvailable()) {
-                //   triggerDisbursementRequestAPI();
-                // } else {
-                //   showSnackBarForintenetConnection(
-                //       context, triggerDisbursementRequestAPI);
-                // }
-                showDialog(
-                    context: context,
-                    builder: (_) => Dialog(
-                      child: Container(
-                        height: 370.0,
-                        width: 435.0,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(12))
-                          ),
-                        child: Padding(
-                          padding:  EdgeInsets.symmetric(horizontal: 20.w),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(),
-                                  GestureDetector(
+    return SizedBox(
+      height: 48.h,
+      child: ElevatedButton(
+              style: isChecked
+                  ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
+                  : ThemeHelper.setPinkDisableButtonBig(),
+              onPressed: () async {
+                if (isChecked) {
+                  setState(() {
+                    //isTriggerdLoader = true;
+                  });
+                  // if (await TGNetUtil.isInternetAvailable()) {
+                  //   triggerDisbursementRequestAPI();
+                  // } else {
+                  //   showSnackBarForintenetConnection(
+                  //       context, triggerDisbursementRequestAPI);
+                  // }
+                  showDialog(
+                      context: context,
+                      builder: (_) => Dialog(
+                        child: Container(
+                          height: 370.0,
+                          width: 435.0,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(12))
+                            ),
+                          child: Padding(
+                            padding:  EdgeInsets.symmetric(horizontal: 20.w),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Container(
+                                  height: 50.h,
+                                  alignment: FractionalOffset.topRight,
+                                  child:   GestureDetector(
                                     child: Icon(
                                       Icons.close,
                                       color: MyColors.pnbTextcolor,
@@ -402,36 +399,56 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
                                         Navigator.pop(context);
                                       });
                                     },
-                                  )
-                                ],
-                              ),
-                              Text("Please rate us to serve you better", style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(color: MyColors.pnbDarkGreyTextColor),textAlign: TextAlign.center,),
-                              SizedBox(height: 20.h),
-                              Text("Excellent!", style: ThemeHelper.getInstance()?.textTheme.headline1?.copyWith(fontSize: MyDimension.setFontsize(context: context, largerScreen: 20, mediumlargeScreen: 20, tabletScreen: 18, mobileScreen: 16)),textAlign: TextAlign.center,),
-                              SizedBox(height: 5.h),
-                              RatingBarWidget(onRatingChanged: (double value) {
+                                  ),
+                                ),
+                                // Padding(
+                                //   padding:  EdgeInsets.only(top: 8.0),
+                                //   child: Row(
+                                //     mainAxisAlignment: MainAxisAlignment.end,
+                                //     children: [
+                                //       Container(),
+                                //       GestureDetector(
+                                //         child: Icon(
+                                //           Icons.close,
+                                //           color: MyColors.pnbTextcolor,
+                                //           size: 20.h,
+                                //         ),
+                                //         onTap: () {
+                                //           setState(() {
+                                //             Navigator.pop(context);
+                                //           });
+                                //         },
+                                //       )
+                                //     ],
+                                //   ),
+                                // ),
+                                Text("Please rate us to serve you better", style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(color: MyColors.lightGraySmallText,fontSize: 16.sp),textAlign: TextAlign.center,),
+                                SizedBox(height: 20.h),
+                                Text("Excellent!", style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 20.sp,color: MyColors.pnbcolorPrimary),textAlign: TextAlign.center,),
+                                SizedBox(height: 5.h),
+                                RatingBarWidget(onRatingChanged: (double value) {
+                                },),
+                                SizedBox(height: 30.h),
+                                FeedbackTextFieldUI(),
+                                SizedBox(height: 30.h),
+                                SubmitButton()
 
-                              },),
-                              SizedBox(height: 30.h),
-                              FeedbackTextFieldUI(),
-                              SizedBox(height: 30.h),
-                              SubmitButton()
-
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                );
+                      )
+                  );
 
-              }
-            },
-            child: Center(
-              child: Text(
-                str_req_for_disb,
-                style: ThemeHelper.getInstance()?.textTheme.button,
-              ),
-            ));
+                }
+              },
+              child: Center(
+                child: Text(
+                  str_req_for_disb,
+                  style: ThemeHelper.getInstance()?.textTheme.button,
+                ),
+              )),
+    );
   }
 
   Widget TopTextCard() {
@@ -454,24 +471,24 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
                   text: TextSpan(
                     style: ThemeHelper.getInstance()?.textTheme.bodyText1?.copyWith(
                         color: ThemeHelper.getInstance()?.indicatorColor,
-                        fontFamily: MyFont.Nunito_Sans_Semi_bold),
+                        fontFamily: MyFont.Roboto_Medium),
                     children: [
 
                       TextSpan(
                         text: str_congratulation,
                         style: ThemeHelper.getInstance()
                             ?.textTheme
-                            .bodyText1
-                            ?.copyWith(fontSize: 13.sp,color: MyColors.pnbGreenColor),
+                            .headline2
+                            ?.copyWith(fontSize: 14.sp,color: MyColors.pnbGreenColor),
                       ),
                       TextSpan(
                         text: str_doc_process_complete,
                         style: ThemeHelper.getInstance()
                             ?.textTheme
-                            .bodyText2
+                            .headline3
                             ?.copyWith(
                                  color: MyColors.pnbGreenColor,
-                                fontSize: 13.sp),
+                                fontSize: 14.sp),
                       ),
                     ],
                   ),
@@ -499,7 +516,7 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
             cursorColor: MyColors.pnbDarkGreyTextColor,
             decoration: InputDecoration(
                 labelText: "Please provide feedback",
-                labelStyle: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(color: MyColors.pnbCheckboxTextColor),
+                labelStyle: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(color: MyColors.verylightGrayColor),
                 floatingLabelBehavior: FloatingLabelBehavior.auto,
                 enabledBorder: UnderlineInputBorder(
                     borderSide:
@@ -523,20 +540,23 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
             }));
   }
   Widget SubmitButton() {
-    return  ElevatedButton(
-      style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
-      onPressed: () async {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => DashboardWithGST(),
-          ),
-              (route) =>
-          false, //if you want to disable back feature set to false
-        );
-      },
-      child:  Text(
-        "Submit",
+    return  SizedBox(
+      height: 48.h,
+      child: ElevatedButton(
+        style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
+        onPressed: () async {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => DashboardWithGST(),
+            ),
+                (route) =>
+            false, //if you want to disable back feature set to false
+          );
+        },
+        child:  Text(
+          "Submit",
+        ),
       ),
     );
 

@@ -179,7 +179,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                     ? "Manish Patel"
                     : _gstBasicDataResMain?.data?.lgnm),
             SizedBox(
-              height: 10.h,
+              height: 24.h,
             ),
             _buildRow(
                 str_Trade_Name,
@@ -187,7 +187,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                     ? "Indo International"
                     : _gstBasicDataResMain?.data?.tradeNam),
             SizedBox(
-              height: 10.h,
+              height: 24.h,
             ),
             _buildRow(
                 str_Constitution,
@@ -195,7 +195,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                     ? "Proprietorship"
                     : _gstBasicDataResMain?.data?.ctb),
             SizedBox(
-              height: 10.h,
+              height: 24.h,
             ),
             _buildRow(
                 str_Date_of_Registration,
@@ -203,7 +203,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                     ? "01/08/2018"
                     : _gstBasicDataResMain?.data?.rgdt),
             SizedBox(
-              height: 10.h,
+              height: 24.h,
             ),
             _buildRow(
                 str_GSTIN,
@@ -211,7 +211,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                     ? "24ABCDE1234F3Z6"
                     : _gstBasicDataResMain?.data?.gstin),
             SizedBox(
-              height: 10.h,
+              height: 24.h,
             ),
             _buildRow(
                 str_GSTIN_Status,
@@ -219,7 +219,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                     ? "Active"
                     : _gstBasicDataResMain?.data?.sts),
             SizedBox(
-              height: 10.h,
+              height: 24.h,
             ),
             _buildRow(
                 str_Taxpayer_Type,
@@ -227,7 +227,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                     ? "Regular"
                     : _gstBasicDataResMain?.data?.dty),
             SizedBox(
-              height: 10.h,
+              height: 24.h,
             ),
             _buildRow(
                 str_Business_Activity,
@@ -235,7 +235,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                     ? "Service Provider and Others"
                     : _gstBasicDataResMain?.data?.lgnm),
             SizedBox(
-              height: 10.h,
+              height: 24.h,
             ),
             _buildRow(
                 str_Place_of_Business,
@@ -283,7 +283,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                         width: 1,
                         color: confirmGstDetail
                             ? ThemeHelper.getInstance()!.primaryColor
-                            : ThemeHelper.getInstance()!.disabledColor),
+                            : ThemeHelper.getInstance()!.primaryColor),
                   ),
                 ),
                 SizedBox(width: 10.w),
@@ -315,7 +315,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
         SizedBox(
             width: 148.w,
             child: Text(subTitle ?? "",
-                style: ThemeHelper.getInstance()!.textTheme.headline3)),
+                style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(color: MyColors.darkblack))),
       ],
     );
   }
@@ -393,20 +393,23 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
             SizedBox(
               height: 10.h,
             ),*/
-            ElevatedButton(
-              style: confirmGstDetail
-                  ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
-                  : ThemeHelper.setPinkDisableButtonBig(),
-              onPressed: () {
-                if (confirmGstDetail) {
+            SizedBox(
+              height: 48.h,
+              child: ElevatedButton(
+                style: confirmGstDetail
+                    ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
+                    : ThemeHelper.setPinkDisableButtonBig(),
+                onPressed: () {
+                  if (confirmGstDetail) {
 
-                  showDialog(
-                      context: context,
-                      builder: (_) => PopUpViewForRgistrationCompleted());
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationCompleted(),));
-                }
-              },
-              child: Text(str_Confirm),
+                    showDialog(
+                        context: context,
+                        builder: (_) => PopUpViewForRgistrationCompleted());
+                    // Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationCompleted(),));
+                  }
+                },
+                child: Text(str_Confirm),
+              ),
             ),
           ],
         ),
@@ -473,21 +476,24 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
   }
 
   Widget BtnProceed() {
-    return ElevatedButton(
-      style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
-      onPressed: () async {
+    return SizedBox(
+       height: 48.h,
+      child: ElevatedButton(
+        style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
+        onPressed: () async {
 
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => DashboardWithoutGST(),
-          ),
-              (route) =>
-          false, //if you want to disable back feature set to false
-        );
-      },
-      child:  Text(
-        str_proceed,
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => DashboardWithoutGST(),
+            ),
+                (route) =>
+            false, //if you want to disable back feature set to false
+          );
+        },
+        child:  Text(
+          str_proceed,
+        ),
       ),
     );
   }

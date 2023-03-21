@@ -171,15 +171,15 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         buildLoanIntrestTenure(),
-        sizebox(height: 30.h),
+        sizebox(height: 28.h),
         padding(
           child: text(
             text: str_setup_emandate,
-            textStyle: textTextHeader1,
+            textStyle:  ThemeHelper.getInstance()!.textTheme.headline2!,
           ),
           horizontal: 20.w,
         ),
-        sizebox(height: 5.h),
+        sizebox(height: 12.h),
         padding(
           child: text(
             text: str_emandate_txt +
@@ -187,11 +187,11 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
                 " " +
                 str_emandate_txt1 +
                 (_getRepaymentPlanResMain?.data?.accountNumber ?? ""),
-            textStyle: textTextHeader3,
+            textStyle: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(fontSize: 14.sp),
           ),
           horizontal: 20.w,
         ),
-        sizebox(height: 30.h),
+        sizebox(height: 24.h),
 
         (isOpenDetails)
             ? Padding(
@@ -229,7 +229,7 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
           Text(str_complete_loan_agree,
               style: ThemeHelper.getInstance()!
                   .textTheme
-                  .headline1!
+                  .headline3!
                   .copyWith(fontSize: 14.sp, color: MyColors.pnbGreenColor))
         ],
       ),
@@ -249,7 +249,7 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
           children: [
             text(text: titletext, textStyle: textTextHeader3Copywith11),
             SizedBox(height: 2.h,),
-            text(text: titleValue, textStyle: textTextHeader1Copywith14?.copyWith(color: MyColors.darkblack))
+            text(text: titleValue, textStyle: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(color: MyColors.darkblack))
           ],
         );
 
@@ -366,9 +366,12 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
               style: ThemeHelper.getInstance()!.textTheme.headline2,
             )),
         Spacer(),
-        SizedBox(
-            child: Text("+",
-                style: ThemeHelper.getInstance()!.textTheme.headline3)),
+        SvgPicture.asset(
+        isOpenDetails ?
+    Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+    height: 20.h,
+    width: 20.w,
+    ),
       ],
     );
   }
@@ -389,25 +392,28 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
               children: [
                 Text("You will be redirected to lender specific page for authorising through e-NACH",style: ThemeHelper.getInstance()?.textTheme.bodyText2,textAlign: TextAlign.center),
                 SizedBox(height: 18.h),
-                ElevatedButton(
-                    style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
-                    onPressed: () async {
+                SizedBox(
+                  height: 48.h,
+                  child: ElevatedButton(
+                      style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
+                      onPressed: () async {
 
-                      Navigator.pushNamed(context, MyRoutes.proceedToDisbursedRoutes);
-                      // setState(() {
-                      //   isLoaderStartProceed = true;
-                      // });
-                      // if (await TGNetUtil.isInternetAvailable()) {
-                      //   setRepaymentRequestAPI();
-                      // } else {
-                      //   showSnackBarForintenetConnection(
-                      //       context, setRepaymentRequestAPI);
-                      // }
-                    },
-                    child: const Text(
-                      str_proceed,
+                        Navigator.pushNamed(context, MyRoutes.proceedToDisbursedRoutes);
+                        // setState(() {
+                        //   isLoaderStartProceed = true;
+                        // });
+                        // if (await TGNetUtil.isInternetAvailable()) {
+                        //   setRepaymentRequestAPI();
+                        // } else {
+                        //   showSnackBarForintenetConnection(
+                        //       context, setRepaymentRequestAPI);
+                        // }
+                      },
+                      child: const Text(
+                        str_proceed,
+                      ),
                     ),
-                  ),
+                ),
               ],
             ),
           ),

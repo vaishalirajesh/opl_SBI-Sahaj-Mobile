@@ -85,7 +85,9 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
                 buildMainScreen(context),
                 Align(
                     alignment: Alignment.bottomCenter,
-                    child: buildBtnNextAcc(context))
+                    child: Padding(
+                        padding: EdgeInsets.only(left: 20.w,right: 20.w,bottom: 20.h),
+                        child:buildBtnNextAcc(context)))
               ]),
             )));
   }
@@ -100,7 +102,7 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
         children: [
           buildBankName(),
           SizedBox(
-            height: 20.h,
+            height: 24.h,
           ),
           buildMainScreenContent(),
         ],
@@ -158,11 +160,11 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
               Text("Select Loan Deposit A/c",
                   style: ThemeHelper.getInstance()!
                       .textTheme
-                      .headline1!
+                      .headline2!
                       .copyWith(color: MyColors.darkblack),
                   textAlign: TextAlign.start),
             ]),
-            SizedBox(height: 10.h),
+            SizedBox(height: 12.h),
             buildRowWidget(
                 "Enter the complete current account number, which was fetched through Account Aggregator. The loan would be disbursed in this account."),
             SizedBox(height: 15.h),
@@ -190,8 +192,12 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
         controller: accNuumberController,
         cursorColor: Colors.white,
         decoration: InputDecoration(
-            floatingLabelStyle: ThemeHelper.getInstance()?.textTheme.bodyText2,
-            hintText: str_enter_acc_no,
+            labelStyle: TextStyle(
+                color: MyColors.lightGraySmallText
+            ),
+            labelText: str_enter_acc_no,
+           // floatingLabelStyle: ThemeHelper.getInstance()?.textTheme.bodyText2,
+            //hintText: str_enter_acc_no,
             enabledBorder: UnderlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(6.r)),
               borderSide: BorderSide(
@@ -288,8 +294,8 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
               " $text",
               style: ThemeHelper.getInstance()!
                   .textTheme
-                  .headline1!
-                  .copyWith(color: MyColors.pnbTextcolor, fontSize: 14.sp),
+                  .headline3!
+                  .copyWith(color: MyColors.lightGraySmallText, fontSize: 14.sp),
               maxLines: 4,
             )),
 
@@ -298,8 +304,8 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
       );
 
   Widget buildBtnNextAcc(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
+    return SizedBox(
+      height: 48.h,
       child: ElevatedButton(
         style: selectedValue == -1
             ? ThemeHelper.setPinkDisableButtonBig()

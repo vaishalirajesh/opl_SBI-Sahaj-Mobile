@@ -671,29 +671,32 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
                                   MyColors.pnbcolorPrimary,
                               radius: 10,
                             )
-                          : ElevatedButton(
-                              style: isValidOTP
-                                  ? ThemeHelper.getInstance()!
-                                      .elevatedButtonTheme
-                                      .style
-                                  : ThemeHelper.setPinkDisableButtonBig(),
-                              onPressed: () {
-                                isOpenEnablePopUp ? Navigator.pushNamed(context, MyRoutes.confirmGSTDetailRoutes) :
-                                showDialog(
-                                    context: context,
-                                    builder: (_) => PopUpViewForEnableApi());
+                          : SizedBox(
+                            height: 48.h,
+                            child: ElevatedButton(
+                                style: isValidOTP
+                                    ? ThemeHelper.getInstance()!
+                                        .elevatedButtonTheme
+                                        .style
+                                    : ThemeHelper.setPinkDisableButtonBig(),
+                                onPressed: () {
+                                  isOpenEnablePopUp ? Navigator.pushNamed(context, MyRoutes.confirmGSTDetailRoutes) :
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) => PopUpViewForEnableApi());
 
-                                // setState(() {
-                                //   if (isValidOTP) {
-                                //     isVerifyOTPLoaderStart = true;
-                                //     verifyLoginOtp();
-                                //   } else {
-                                //     isVerifyOTPLoaderStart = false;
-                                //   }
-                                // });
-                              },
-                              child: Text("Verify OTP"),
-                            ),
+                                  // setState(() {
+                                  //   if (isValidOTP) {
+                                  //     isVerifyOTPLoaderStart = true;
+                                  //     verifyLoginOtp();
+                                  //   } else {
+                                  //     isVerifyOTPLoaderStart = false;
+                                  //   }
+                                  // });
+                                },
+                                child: Text("Verify OTP"),
+                              ),
+                          ),
                     ),
                     SizedBox(
                       height: 52.h,

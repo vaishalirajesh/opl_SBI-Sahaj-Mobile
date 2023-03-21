@@ -101,13 +101,20 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
             Row(
               children: [
                 Text(
-                  "Valid for:" +
-                      "11h 48m",
+                  "Valid for:",
                   style: ThemeHelper.getInstance()
                       ?.textTheme
                       .headline3
                       ?.copyWith(
                       fontSize: 12.sp),
+                ),
+                Text(
+                  "11h 48m",
+                  style: ThemeHelper.getInstance()
+                      ?.textTheme
+                      .headline2
+                      ?.copyWith(
+                      fontSize: 14.sp,color: MyColors.pnbcolorPrimary),
                 ),
               ],
             ),
@@ -209,9 +216,19 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
     return GestureDetector(
       child: Container(
         width: MediaQuery.of(context).size.width,
+
+
         decoration: BoxDecoration(
+         boxShadow:[ BoxShadow(
+           color: Colors.grey.withOpacity(0.3), //color of shadow
+           spreadRadius: 2, //spread radius
+           blurRadius: 5, // blur radius
+           offset: Offset(0, 2), // changes position of shadow
+         )],
+            // border:
+            // Border.all(color: ThemeHelper.getInstance()!.cardColor, width: 1),
             borderRadius: BorderRadius.circular(12.r),
-            color: ThemeHelper.getInstance()?.cardColor),
+            color: ThemeHelper.getInstance()?.backgroundColor),
         child: Padding(
           padding: EdgeInsets.all(15.h),
           child: Column(
@@ -245,9 +262,9 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                   // )
                 ],
               ),
-              SizedBox(
-                height: 10.h,
-              ),
+              // SizedBox(
+              //   height: 5.h,
+              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -291,7 +308,7 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                         style: ThemeHelper.getInstance()
                             ?.textTheme
                             .headline3
-                            ?.copyWith(fontSize: 12.sp),
+                            ?.copyWith(fontSize: 12.sp,color: MyColors.pnbcolorPrimary),
                       ),
                       Text(
                           Utils.convertIndianCurrency("25600"),

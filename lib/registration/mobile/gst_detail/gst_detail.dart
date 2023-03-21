@@ -153,7 +153,10 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
         ),
         child: Text(
           str_Kindly_enter_your_GST_Username_GSTIN_to_link_with_Sahay_GST_Account,
-          style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(fontSize: 14.sp),
+          style: ThemeHelper.getInstance()!
+              .textTheme
+              .headline3
+              ?.copyWith(fontSize: 14.sp),
         ),
       )
     ];
@@ -177,13 +180,16 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
               controller: gstUsernameController,
               cursorColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
               decoration: InputDecoration(
+                  labelStyle: TextStyle(
+                      color: MyColors.lightGraySmallText
+                  ),
                   labelText: str_GST_User_Name,
-    suffixIcon: IconButton(
-    onPressed: () {},
-    icon: Icon(
-    Icons.info_outline,
-    color: MyColors.lightGraySmallText,
-    )),
+                  suffixIcon: IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.info_outline,
+                        color: MyColors.lightGraySmallText,
+                      )),
                   //hintText: str_GST_User_Name,
                   enabledBorder: UnderlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(6.r)),
@@ -223,9 +229,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
   }
 
   Widget gstNumberField() {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       SizedBox(
         height: 10.h,
       ),
@@ -240,7 +244,11 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
           controller: gstinNoController,
           cursorColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
           decoration: InputDecoration(
-              hintText: str_15_Digit_GSTIN,
+              labelStyle: TextStyle(
+                  color: MyColors.lightGraySmallText
+              ),
+              labelText: str_15_Digit_GSTIN,
+             // hintText: str_15_Digit_GSTIN,
               enabledBorder: UnderlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(6.r)),
                 borderSide: BorderSide(
@@ -275,7 +283,13 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
       SizedBox(
         height: 10.h,
       ),
-      Text(str_Sample_20AAAAAA1234AA1Z5,style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp),),
+      Text(
+        str_Sample_20AAAAAA1234AA1Z5,
+        style: ThemeHelper.getInstance()
+            ?.textTheme
+            .headline3
+            ?.copyWith(fontSize: 12.sp),
+      ),
       SizedBox(
         height: 30.h,
       ),
@@ -290,19 +304,16 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
             radius: 10,
           )
         : SizedBox(
-          height: 48.h,
-          child: ElevatedButton(
-              style: gstinNoController.text.isNotEmpty && isValidGSTINNumber
-                  ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
-                  : ThemeHelper.setPinkDisableButtonBig(),
-              onPressed: () {
-
-                Navigator.pushNamed(
-                    context,
-                    MyRoutes.OtpVerifyGSTRoutes);
-                // if (gstinNoController.text.isNotEmpty &&
-                //     gstUsernameController.text.isNotEmpty &&
-                //     isValidGSTINNumber) {
+            height: 48.h,
+            child: ElevatedButton(
+                style: gstinNoController.text.isNotEmpty && isValidGSTINNumber
+                    ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
+                    : ThemeHelper.setPinkDisableButtonBig(),
+                onPressed: () {
+                  Navigator.pushNamed(context, MyRoutes.OtpVerifyGSTRoutes);
+                  // if (gstinNoController.text.isNotEmpty &&
+                  //     gstUsernameController.text.isNotEmpty &&
+                  //     isValidGSTINNumber) {
 
                   // setState(() async {
                   //   isSetLoader = true;
@@ -316,10 +327,10 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
                   //     showSnackBarForintenetConnection(context, getGstOtp);
                   //   }
                   // });
-               // }
-              },
-              child: Text(str_next)),
-        );
+                  // }
+                },
+                child: Text(str_next)),
+          );
   }
 
   _buildBottomSheet() {
@@ -501,9 +512,9 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
       child: OTPTextField(
-        otpFieldStyle: OtpFieldStyle(
-            focusBorderColor: MyColors.darkblack //(here)
-        ),
+        otpFieldStyle:
+            OtpFieldStyle(focusBorderColor: MyColors.darkblack //(here)
+                ),
         isClearOtp: isClearOtp,
         length: 6,
         width: MediaQuery.of(context).size.width,
@@ -522,7 +533,8 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
               isValidOTP = false;
             }
           });
-        }, style: TextStyle(color: ThemeHelper.getInstance()?.colorScheme.primary),
+        },
+        style: TextStyle(color: ThemeHelper.getInstance()?.colorScheme.primary),
       ),
     );
   }
@@ -722,5 +734,4 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
       handleServiceFailError(context, errorResponse.error);
     });
   }
-
 }

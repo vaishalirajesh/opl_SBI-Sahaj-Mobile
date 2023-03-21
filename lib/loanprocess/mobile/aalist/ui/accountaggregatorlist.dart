@@ -102,9 +102,12 @@ class _AAListViewState extends State<AAListView> {
           absorbing: isLoaderStart,
           child: Stack(children: [
           buildMainScreen(context),
+
      Align(
                 alignment: Alignment.bottomCenter,
-                child: buildBtnNextAcc(context))
+                child: Padding(
+                    padding: EdgeInsets.only(left: 20.w, right: 20.w,bottom: 20.h),
+                    child:buildBtnNextAcc(context)))
     ]),
         )));
   }
@@ -194,35 +197,35 @@ class _AAListViewState extends State<AAListView> {
                     .headline3!
                     .copyWith(fontSize: 14.sp),
                 textAlign: TextAlign.start),
-            SizedBox(height: 3.h),
+            SizedBox(height: 10.h),
             Text(str_aa_step_two,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
                     .copyWith(fontSize: 14.sp),
                 textAlign: TextAlign.start),
-            SizedBox(height: 3.h),
+            SizedBox(height: 10.h),
             Text(str_aa_step_three,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
                     .copyWith(fontSize: 14.sp),
                 textAlign: TextAlign.start),
-            SizedBox(height: 3.h),
+            SizedBox(height: 10.h),
             Text(str_aa_step_four,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
                     .copyWith(fontSize: 14.sp),
                 textAlign: TextAlign.start),
-            SizedBox(height: 3.h),
+            SizedBox(height: 10.h),
             Text(str_aa_step_five,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
                     .copyWith(fontSize: 14.sp),
                 textAlign: TextAlign.start),
-            SizedBox(height: 30.h),
+            SizedBox(height: 36.h),
             Text(str_select_aa,
                 style: ThemeHelper.getInstance()!
                     .textTheme
@@ -275,7 +278,7 @@ class _AAListViewState extends State<AAListView> {
              ),
           contentPadding: EdgeInsets.symmetric(vertical: 10.h),
           prefixIcon: Icon(Icons.search,
-              color: ThemeHelper.getInstance()!.primaryColor.withOpacity(0.3)),
+              color: MyColors.lightGraySmallText.withOpacity(0.3)),
           // hintText: "Search...",
           labelText: str_Search,
           floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -284,7 +287,7 @@ class _AAListViewState extends State<AAListView> {
           labelStyle: ThemeHelper.getInstance()!
               .textTheme
               .headline3!
-              .copyWith(color: MyColors.pnbcolorPrimary.withOpacity(0.3)),
+              .copyWith(color: MyColors.lightGraySmallText.withOpacity(0.3)),
           //    fillColor: searchbarBGColor.withOpacity(0.37),
           border: UnderlineInputBorder(
             borderSide: BorderSide(
@@ -317,13 +320,19 @@ class _AAListViewState extends State<AAListView> {
           child: Column(
             children: [
               ListTile(
-                leading: Padding(
-                    padding: EdgeInsets.only(bottom: 10.h),
-                    child: buildCheckboxWidgetCustom1(index)),
+                leading:Transform.translate(
+          offset: Offset(30, -5),
+          child: buildCheckboxWidgetCustom1(index),
+        ),
+
+                // Padding(
+                //     padding: EdgeInsets.only(bottom: 10.h,left: 20.w),
+                //     child: buildCheckboxWidgetCustom1(index)),
                 title: Padding(
                   padding: EdgeInsets.only(bottom: 10.h),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Image.asset(Utils.path(IMG_NADL),
                           height: 21.h, width: 60.w),
@@ -365,8 +374,8 @@ class _AAListViewState extends State<AAListView> {
   }
 
   Widget buildBtnNextAcc(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
+    return SizedBox(
+      height: 48.h,
       child: ElevatedButton(
         style: selectedValue == -1 ? ThemeHelper.setPinkDisableButtonBig() : ThemeHelper.getInstance()!.elevatedButtonTheme.style,
         onPressed: () {
