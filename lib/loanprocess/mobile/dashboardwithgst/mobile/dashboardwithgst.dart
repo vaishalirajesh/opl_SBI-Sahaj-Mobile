@@ -411,11 +411,14 @@ class _DashboardWithGstState extends State<DashboardWithGst>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(str_Recent_Transactions,
-                    style: ThemeHelper.getInstance()!
-                        .textTheme
-                        .headline6!
-                        .copyWith(color: MyColors.black, fontSize: 14.sp)),
+                FittedBox(
+                  fit:BoxFit.scaleDown,
+                  child: Text(str_Recent_Transactions,
+                      style: ThemeHelper.getInstance()!
+                          .textTheme
+                          .headline6!
+                          .copyWith(color: MyColors.black, fontSize: 14)),
+                ),
                 GestureDetector(
                   onTap: () {
                     // setState(() {
@@ -483,6 +486,7 @@ class _DashboardWithGstState extends State<DashboardWithGst>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+
                     //SizedBox(height: 20.h),
                     Text("Hello, Indo International!, $name",
                         style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 16.sp)),
@@ -1631,7 +1635,7 @@ class MyDrawer extends StatelessWidget {
           ListTile(
             leading: SvgPicture.asset(
               Utils.path(IMG_HOME_MENU),
-              height: 24.h,
+              height: 21.h,
               width: 24.w,
             ),
             title:  Text('Home',style: ThemeHelper.getInstance()?.textTheme.headline3,),
@@ -1645,7 +1649,7 @@ class MyDrawer extends StatelessWidget {
           ListTile(
             leading: SvgPicture.asset(
               Utils.path(IMG_LINE_MENU),
-              height: 24.h,
+              height: 21.h,
               width: 24.w,
             ),
             title:  Text('Transactions',style: ThemeHelper.getInstance()?.textTheme.headline3),
@@ -1659,7 +1663,7 @@ class MyDrawer extends StatelessWidget {
           ListTile(
             leading: SvgPicture.asset(
               Utils.path(IMG_USER_MENU),
-              height: 24.h,
+              height: 21.h,
               width: 24.w,
             ),
             title:  Text('Profile',style: ThemeHelper.getInstance()?.textTheme.headline3),
@@ -1673,7 +1677,7 @@ class MyDrawer extends StatelessWidget {
           ListTile(
             leading: SvgPicture.asset(
               Utils.path(IMG_RAISE_DISPITE_MENU),
-              height: 24.h,
+              height: 21.h,
               width: 24.w,
             ),
             title:  Text('Raise Dispute',style: ThemeHelper.getInstance()?.textTheme.headline3),

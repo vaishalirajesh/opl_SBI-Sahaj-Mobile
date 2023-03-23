@@ -199,7 +199,7 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
            // floatingLabelStyle: ThemeHelper.getInstance()?.textTheme.bodyText2,
             //hintText: str_enter_acc_no,
             enabledBorder: UnderlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(6.r)),
+              //borderRadius: BorderRadius.all(Radius.circular(6.r)),
               borderSide: BorderSide(
                   width: 1,
                   color:
@@ -209,16 +209,15 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
               borderSide: BorderSide(
                   color: ThemeHelper.getInstance()!.colorScheme.onSurface,
                   width: 1.0),
-              borderRadius: BorderRadius.circular(6.0.r),
+             // borderRadius: BorderRadius.circular(6.0.r),
             ),
-            // focusColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
-            // fillColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
             border: UnderlineInputBorder(
                 borderSide: BorderSide(
                     width: 1,
                     color:
                     ThemeHelper.getInstance()!.colorScheme.onSurface),
-                borderRadius: BorderRadius.all(Radius.circular(6.r))),
+                //borderRadius: BorderRadius.all(Radius.circular(6.r))
+            ),
             counterText: ''),
         keyboardType: TextInputType.text,
         maxLength: 15,
@@ -249,7 +248,7 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
             labelText: str_IFSC_Code,
             hintText: "SBIN0003471",//str_IFSC_Code,
             enabledBorder: UnderlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(6.r)),
+             // borderRadius: BorderRadius.all(Radius.circular(6.r)),
               borderSide: BorderSide(
                   width: 1,
                   color:
@@ -259,7 +258,7 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
               borderSide: BorderSide(
                   color: ThemeHelper.getInstance()!.colorScheme.onSurface,
                   width: 1.0),
-              borderRadius: BorderRadius.circular(6.0.r),
+             // borderRadius: BorderRadius.circular(6.0.r),
             ),
             // focusColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
             // fillColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
@@ -268,7 +267,8 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
                     width: 1,
                     color:
                     ThemeHelper.getInstance()!.colorScheme.onSurface),
-                borderRadius: BorderRadius.all(Radius.circular(6.r))),
+                //borderRadius: BorderRadius.all(Radius.circular(6.r))
+            ),
             counterText: ''),
         keyboardType: TextInputType.text,
         maxLength: 15,

@@ -409,7 +409,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
               decoration: InputDecoration(
                   hintText: str_Mobile_number,
                   enabledBorder: UnderlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(6.r)),
+                  //  borderRadius: BorderRadius.all(Radius.circular(6.r)),
                     borderSide: BorderSide(
                         width: 1,
                         color:
@@ -419,7 +419,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                     borderSide: BorderSide(
                         color: ThemeHelper.getInstance()!.colorScheme.onSurface,
                         width: 1.0),
-                    borderRadius: BorderRadius.circular(6.0.r),
+                   // borderRadius: BorderRadius.circular(6.0.r),
                   ),
                   // focusColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
                   // fillColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
@@ -428,7 +428,8 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                           width: 1,
                           color:
                               ThemeHelper.getInstance()!.colorScheme.onSurface),
-                      borderRadius: BorderRadius.all(Radius.circular(6.r))),
+                      //borderRadius: BorderRadius.all(Radius.circular(6.r))
+                  ),
                   counterText: ''),
               keyboardType: TextInputType.text,
               validator: (value) {

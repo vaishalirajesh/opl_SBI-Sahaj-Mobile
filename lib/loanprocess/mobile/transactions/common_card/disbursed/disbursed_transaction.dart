@@ -711,10 +711,13 @@ class _DisbursedTransactionCardState extends State<DisbursedTransactionCard> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title,
-                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
-                  fontSize: 12.sp,
-                )),
+            SizedBox(
+               width: 66.w,
+              child: Text(title,
+                  style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
+                    fontSize: 12.sp,
+                  )),
+            ),
             // SizedBox(
             //   height: 5.h,
             // ),

@@ -879,10 +879,13 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title,
-                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
-                  fontSize: 12.sp,
-                )),
+            SizedBox(
+              width: 121.w,
+              child: Text(title,
+                  style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
+                    fontSize: 12.sp,
+                  )),
+            ),
             // SizedBox(
             //   height: 5.h,
             // ),

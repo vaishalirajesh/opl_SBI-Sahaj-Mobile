@@ -112,12 +112,14 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildHeader(),
-                  (isOpenDetails)
-                      ? Padding(
-                          padding: EdgeInsets.only(top: 10.h),
-                          child:  _buildMiddler(),
-                        )
-                      :  _buildOnlyPersonalDetialContainer(),
+                  _buildMiddler(),
+
+                  // (isOpenDetails)
+                  //     ? Padding(
+                  //         padding: EdgeInsets.only(top: 10.h),
+                  //         child:  _buildMiddler(),
+                  //       )
+                  //     :  _buildOnlyPersonalDetialContainer(),
                   confirmGstDetailCheck(),
                 ],
               ),
@@ -149,11 +151,17 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
     return GestureDetector(
         onTap: (){
       setState(() {
-        isOpenDetails = false;
+        isOpenDetails = !isOpenDetails;
       });
     },
     child:Container(
       decoration: BoxDecoration(
+          boxShadow:[ BoxShadow(
+            color: Colors.grey.withOpacity(0.3), //color of shadow
+            spreadRadius: 1, //spread radius
+            blurRadius: 3, // blur radius
+            offset: Offset(0, 1), // changes position of shadow
+          )],
           border:
               Border.all(color: ThemeHelper.getInstance()!.cardColor, width: 1),
           color: ThemeHelper.getInstance()?.backgroundColor,
@@ -169,87 +177,171 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
             SizedBox(
               height: 20.h,
             ),
-            _buildTopPersonal(),
+            _buildTopPersonal() ,
             SizedBox(
               height: 20.h,
             ),
-            _buildRow(
-                str_Legal_Name,
-                _gstBasicDataResMain?.data?.lgnm == null
-                    ? "Manish Patel"
-                    : _gstBasicDataResMain?.data?.lgnm),
-            SizedBox(
-              height: 24.h,
-            ),
-            _buildRow(
-                str_Trade_Name,
-                _gstBasicDataResMain?.data?.tradeNam == null
-                    ? "Indo International"
-                    : _gstBasicDataResMain?.data?.tradeNam),
-            SizedBox(
-              height: 24.h,
-            ),
-            _buildRow(
-                str_Constitution,
-                _gstBasicDataResMain?.data?.ctb == null
-                    ? "Proprietorship"
-                    : _gstBasicDataResMain?.data?.ctb),
-            SizedBox(
-              height: 24.h,
-            ),
-            _buildRow(
-                str_Date_of_Registration,
-                _gstBasicDataResMain?.data?.rgdt == null
-                    ? "01/08/2018"
-                    : _gstBasicDataResMain?.data?.rgdt),
-            SizedBox(
-              height: 24.h,
-            ),
-            _buildRow(
-                str_GSTIN,
-                _gstBasicDataResMain?.data?.gstin == null
-                    ? "24ABCDE1234F3Z6"
-                    : _gstBasicDataResMain?.data?.gstin),
-            SizedBox(
-              height: 24.h,
-            ),
-            _buildRow(
-                str_GSTIN_Status,
-                _gstBasicDataResMain?.data?.sts == null
-                    ? "Active"
-                    : _gstBasicDataResMain?.data?.sts),
-            SizedBox(
-              height: 24.h,
-            ),
-            _buildRow(
-                str_Taxpayer_Type,
-                _gstBasicDataResMain?.data?.dty == null
-                    ? "Regular"
-                    : _gstBasicDataResMain?.data?.dty),
-            SizedBox(
-              height: 24.h,
-            ),
-            _buildRow(
-                str_Business_Activity,
-                _gstBasicDataResMain?.data?.lgnm == null
-                    ? "Service Provider and Others"
-                    : _gstBasicDataResMain?.data?.lgnm),
-            SizedBox(
-              height: 24.h,
-            ),
-            _buildRow(
-                str_Place_of_Business,
-                _gstBasicDataResMain?.data?.stj == null
-                    ? "108, Near Datta Mandir, Radha Apartment, Bhavnagar, Gujarat, 364001"
-                    : _gstBasicDataResMain?.data?.stj),
-            SizedBox(
-              height: 20.h,
-            ),
+            isOpenDetails ? ExpandedView() : Container()
+
+            // _buildRow(
+            //     str_Legal_Name,
+            //     _gstBasicDataResMain?.data?.lgnm == null
+            //         ? "Manish Patel"
+            //         : _gstBasicDataResMain?.data?.lgnm),
+            // SizedBox(
+            //   height: 24.h,
+            // ),
+            // _buildRow(
+            //     str_Trade_Name,
+            //     _gstBasicDataResMain?.data?.tradeNam == null
+            //         ? "Indo International"
+            //         : _gstBasicDataResMain?.data?.tradeNam),
+            // SizedBox(
+            //   height: 24.h,
+            // ),
+            // _buildRow(
+            //     str_Constitution,
+            //     _gstBasicDataResMain?.data?.ctb == null
+            //         ? "Proprietorship"
+            //         : _gstBasicDataResMain?.data?.ctb),
+            // SizedBox(
+            //   height: 24.h,
+            // ),
+            // _buildRow(
+            //     str_Date_of_Registration,
+            //     _gstBasicDataResMain?.data?.rgdt == null
+            //         ? "01/08/2018"
+            //         : _gstBasicDataResMain?.data?.rgdt),
+            // SizedBox(
+            //   height: 24.h,
+            // ),
+            // _buildRow(
+            //     str_GSTIN,
+            //     _gstBasicDataResMain?.data?.gstin == null
+            //         ? "24ABCDE1234F3Z6"
+            //         : _gstBasicDataResMain?.data?.gstin),
+            // SizedBox(
+            //   height: 24.h,
+            // ),
+            // _buildRow(
+            //     str_GSTIN_Status,
+            //     _gstBasicDataResMain?.data?.sts == null
+            //         ? "Active"
+            //         : _gstBasicDataResMain?.data?.sts),
+            // SizedBox(
+            //   height: 24.h,
+            // ),
+            // _buildRow(
+            //     str_Taxpayer_Type,
+            //     _gstBasicDataResMain?.data?.dty == null
+            //         ? "Regular"
+            //         : _gstBasicDataResMain?.data?.dty),
+            // SizedBox(
+            //   height: 24.h,
+            // ),
+            // _buildRow(
+            //     str_Business_Activity,
+            //     _gstBasicDataResMain?.data?.lgnm == null
+            //         ? "Service Provider and Others"
+            //         : _gstBasicDataResMain?.data?.lgnm),
+            // SizedBox(
+            //   height: 24.h,
+            // ),
+            // _buildRow(
+            //     str_Place_of_Business,
+            //     _gstBasicDataResMain?.data?.stj == null
+            //         ? "108, Near Datta Mandir, Radha Apartment, Bhavnagar, Gujarat, 364001"
+            //         : _gstBasicDataResMain?.data?.stj),
+            // SizedBox(
+            //   height: 20.h,
+            // ) ,
           ],
         ),
       ),
     ));
   }
+
+  Widget ExpandedView(){
+    return Column(
+      children: [
+        _buildRow(
+            str_Legal_Name,
+            _gstBasicDataResMain?.data?.lgnm == null
+                ? "Manish Patel"
+                : _gstBasicDataResMain?.data?.lgnm),
+        SizedBox(
+          height: 24.h,
+        ),
+        _buildRow(
+            str_Trade_Name,
+            _gstBasicDataResMain?.data?.tradeNam == null
+                ? "Indo International"
+                : _gstBasicDataResMain?.data?.tradeNam),
+        SizedBox(
+          height: 24.h,
+        ),
+        _buildRow(
+            str_Constitution,
+            _gstBasicDataResMain?.data?.ctb == null
+                ? "Proprietorship"
+                : _gstBasicDataResMain?.data?.ctb),
+        SizedBox(
+          height: 24.h,
+        ),
+        _buildRow(
+            str_Date_of_Registration,
+            _gstBasicDataResMain?.data?.rgdt == null
+                ? "01/08/2018"
+                : _gstBasicDataResMain?.data?.rgdt),
+        SizedBox(
+          height: 24.h,
+        ),
+        _buildRow(
+            str_GSTIN,
+            _gstBasicDataResMain?.data?.gstin == null
+                ? "24ABCDE1234F3Z6"
+                : _gstBasicDataResMain?.data?.gstin),
+        SizedBox(
+          height: 24.h,
+        ),
+        _buildRow(
+            str_GSTIN_Status,
+            _gstBasicDataResMain?.data?.sts == null
+                ? "Active"
+                : _gstBasicDataResMain?.data?.sts),
+        SizedBox(
+          height: 24.h,
+        ),
+        _buildRow(
+            str_Taxpayer_Type,
+            _gstBasicDataResMain?.data?.dty == null
+                ? "Regular"
+                : _gstBasicDataResMain?.data?.dty),
+        SizedBox(
+          height: 24.h,
+        ),
+        _buildRow(
+            str_Business_Activity,
+            _gstBasicDataResMain?.data?.lgnm == null
+                ? "Service Provider and Others"
+                : _gstBasicDataResMain?.data?.lgnm),
+        SizedBox(
+          height: 24.h,
+        ),
+        _buildRow(
+            str_Place_of_Business,
+            _gstBasicDataResMain?.data?.stj == null
+                ? "108, Near Datta Mandir, Radha Apartment, Bhavnagar, Gujarat, 364001"
+                : _gstBasicDataResMain?.data?.stj),
+        SizedBox(
+          height: 20.h,
+        ) ,
+
+
+      ],
+    );
+  }
+
 
   Widget confirmGstDetailCheck() {
     return GestureDetector(
@@ -341,40 +433,6 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
     );
   }
 
-  _buildOnlyPersonalDetialContainer() {
-    return GestureDetector(
-      onTap: (){
-        setState(() {
-          isOpenDetails = true;
-        });
-      },
-      child: Container(
-        decoration: BoxDecoration(
-            border:
-            Border.all(color: ThemeHelper.getInstance()!.cardColor, width: 1),
-            color: ThemeHelper.getInstance()?.backgroundColor,
-            borderRadius: BorderRadius.all(Radius.circular(16.r))),
-        width: 335.w,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.0.w),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 10.h,
-              ),
-              _buildTopPersonal(),
-              SizedBox(
-                height: 10.h,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 
   _buildBottomSheet() {
     return SizedBox(

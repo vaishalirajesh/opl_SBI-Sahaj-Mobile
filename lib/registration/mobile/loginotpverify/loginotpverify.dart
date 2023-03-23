@@ -346,241 +346,241 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
     );
   }
 
-  Future<void> getLoginOtp() async {
-    String uuid = Uuid().v1().replaceAll("-", "").substring(0, 16);
-    CredBlock credBlock =
-        CredBlock(appToken: uuid, otp: "", otpSessionKey: "", status: "");
-
-    RequestAuthUser requestAuthUser = RequestAuthUser(
-        mobile: strMobile, credBlock: credBlock, deviceId: uuid);
-    var jsonReq = jsonEncode(requestAuthUser.toJson());
-
-    TGLog.d("Get Login OTP Request : $jsonReq");
-
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GETOTP);
-
-    ServiceManager.getInstance().getotp(
-        request: tgPostRequest,
-        onSuccess: (response) => _onSuccessGetOTP(response),
-        onError: (error) => _onErrorGetOTP(error));
-  }
-
-  _onSuccessGetOTP(GetotpResponse? response) {
-    TGLog.d("RegisterResponse : onSuccess()");
-
-    setState(() {
-      getOtpRes = response?.getOtpReponseObj();
-      isGetOTPLoaderStart = false;
-      isClearOtp = false;
-    });
-  }
-
-  _onErrorGetOTP(TGResponse errorResponse) {
-    TGLog.d("RegisterResponse : onError()");
-    handleServiceFailError(context, errorResponse?.error);
-    isGetOTPLoaderStart = false;
-  }
-
-  Future<void> verifyLoginOtp() async {
-    setState(() {
-      isVerifyOTPLoaderStart = true;
-    });
-
-    String uuid = const Uuid().v1().replaceAll("-", "").substring(0, 16);
-    CredBlock credBlock = CredBlock(
-        appToken: uuid,
-        otp: otp,
-        otpSessionKey: getOtpRes != null
-            ? getOtpRes?.data?.credBlock?.otpSessionKey
-            : otpSessionKey,
-        status: "");
-
-    RequestAuthUser requestAuthUser = RequestAuthUser(
-        mobile: strMobile, credBlock: credBlock, deviceId: uuid);
-    String jsonReq = jsonEncode(requestAuthUser.toJson());
-
-    TGLog.d("Verify-loginOTP Request : $jsonReq");
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_VERIFY_OTP);
-
-    ServiceManager.getInstance().verifyOtp(
-        request: tgPostRequest,
-        onSuccess: (response) => _onSuccessVerifyOtp(response),
-        onError: (error) => _onErrorVerifyOtp(error));
-  }
-
-  _onSuccessVerifyOtp(VerifyOtpResponse? response) {
-    TGLog.d("VerifyOTP : onSuccess()");
-    isGetOTPLoaderStart = false;
-    verifyOtpResponse = response?.getOtpReponseObj();
-
-    //Navigator.pop(context);
-    if (verifyOtpResponse?.status == RES_SUCCESS) {
-      TGSharedPreferences.getInstance().set(PREF_ACCESS_TOKEN, verifyOtpResponse?.data?.accessToken);
-      setAccessTokenInRequestHeader();
-      getGstBasicDetails();
-    } else {
-      setState(() {
-        isVerifyOTPLoaderStart = false;
-      });
-      LoaderUtils.handleErrorResponse(
-          context,
-          response?.getOtpReponseObj().status,
-          response?.getOtpReponseObj().message,null);
-    }
-  }
-
-  _onErrorVerifyOtp(TGResponse? response) {
-    TGLog.d("VerifyOTP : onError()");
-    // Navigator.pop(context);
-    handleServiceFailError(context, response?.error);
-    setState(() {
-      isVerifyOTPLoaderStart = false;
-    });
-  }
-
-  Future<void> getGstBasicDetails() async {
-    await Future.delayed(Duration(seconds: 2));
-    TGGetRequest tgGetRequest = GetGstBasicDetailsRequest();
-    ServiceManager.getInstance().getGstBasicDetails(
-        request: tgGetRequest,
-        onSuccess: (response) => _onSuccessGetGstBasicDetails(response),
-        onError: (error) => _onErrorGetGstBasicDetails(error));
-  }
-
-  _onSuccessGetGstBasicDetails(GetGstBasicDetailsResponse? response) {
-    TGLog.d("GetGstBasicDetailsResponse : onSuccess()");
-    setState(() {
-      isVerifyOTPLoaderStart = false;
-      _basicdetailsResponse = response?.getGstBasicDetailsRes();
-    });
-
-    if (_basicdetailsResponse?.status == RES_DETAILS_FOUND) {
-      if (_basicdetailsResponse?.data?.isNotEmpty == true) {
-        if (_basicdetailsResponse?.data?[0].isOtpVerified == true) {
-          if (_basicdetailsResponse?.data?[0]?.gstin?.isNotEmpty == true) {
-            gstin = _basicdetailsResponse!.data![0].gstin!;
-            if (_basicdetailsResponse!.data![0].gstin!.length >= 12) {
-              TGSharedPreferences.getInstance().set(PREF_BUSINESSNAME,
-                  _basicdetailsResponse?.data?[0].gstBasicDetails?.tradeNam);
-              TGSharedPreferences.getInstance()
-                  .set(PREF_GSTIN, _basicdetailsResponse?.data?[0].gstin);
-              TGSharedPreferences.getInstance().set(PREF_USERNAME,
-                  _basicdetailsResponse?.data?[0].username.toString());
-              TGSharedPreferences.getInstance().set(PREF_PANNO,
-                  _basicdetailsResponse?.data?[0].gstin?.substring(2, 12));
-            } else {
-              TGSharedPreferences.getInstance()
-                  .set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin);
-            }
-          }
-
-          TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
-          TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
-          //getUserLoanDetails();
-          // Navigator.pushNamed(context, MyRoutes.DashboardWithGSTRoutes);
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => DashboardWithGST(),
-              ),
-              (route) => false);
-        } else {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => GstConsent(),
-              ),
-              (route) => false);
-
-          //Navigator.push(context, MaterialPageRoute(builder: (context) => GstConsent()));
-        }
-      } else {
-        getUserLoanDetails();
-      }
-    } else if (_basicdetailsResponse?.status == RES_DETAILS_NOT_FOUND) {
-      setState(() {
-        isVerifyOTPLoaderStart = false;
-      });
-
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => GstConsent(),
-          ),
-          (route) => false);
-    } else {
-      setState(() {
-        isVerifyOTPLoaderStart = false;
-      });
-      LoaderUtils.handleErrorResponse(
-          context,
-          response?.getGstBasicDetailsRes().status,
-          response?.getGstBasicDetailsRes().message,null);
-    }
-  }
-
-  _onErrorGetGstBasicDetails(TGResponse errorResponse) {
-    setState(() {
-      isVerifyOTPLoaderStart = false;
-    });
-    TGLog.d("GetGstBasicDetailsResponse : onError()");
-    handleServiceFailError(context, errorResponse.error);
-  }
-
-  Future<void> getUserLoanDetails() async {
-    TGGetRequest tgGetRequest = GetLoanDetailByRefIdReq();
-    ServiceManager.getInstance().getAllLoanDetailByRefId(
-        request: tgGetRequest,
-        onSuccess: (response) => _onSuccessGetAllLoanDetailByRefId(response),
-        onError: (error) => _onErrorGetAllLoanDetailByRefId(error));
-  }
-
-  _onSuccessGetAllLoanDetailByRefId(GetAllLoanDetailByRefIdResponse? response) {
-    TGLog.d("UserLoanDetailsResponse : onSuccess()");
-    setState(() {
-      isVerifyOTPLoaderStart = false;
-    });
-    _getAllLoanDetailRes = response?.getAllLoanDetailObj();
-
-    if (_getAllLoanDetailRes?.status == RES_SUCCESS) {
-      if (_getAllLoanDetailRes?.data?.isEmpty == true) {
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => GstConsent(),
-            ),
-            (route) => false);
-      } else {
-        TGSharedPreferences.getInstance()
-            .set(PREF_GSTIN, _getAllLoanDetailRes?.data?[0].gstin);
-        TGSharedPreferences.getInstance().set(
-            PREF_PANNO, _getAllLoanDetailRes?.data?[0].gstin?.substring(2, 12));
-        TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
-        TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
-
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => DashboardWithGST(),
-            ),
-            (route) => false);
-      }
-    } else {
-      setState(() {
-        isVerifyOTPLoaderStart = false;
-      });
-      LoaderUtils.handleErrorResponse(
-          context,
-          response?.getAllLoanDetailObj().status,
-          response?.getAllLoanDetailObj().message,null);
-    }
-  }
-
-  _onErrorGetAllLoanDetailByRefId(TGResponse errorResponse) {
-    TGLog.d("UserLoanDetailsResponse : onError()");
-    handleServiceFailError(context, errorResponse.error);
-    setState(() {
-      isVerifyOTPLoaderStart = false;
-    });
-  }
+  // Future<void> getLoginOtp() async {
+  //   String uuid = Uuid().v1().replaceAll("-", "").substring(0, 16);
+  //   CredBlock credBlock =
+  //       CredBlock(appToken: uuid, otp: "", otpSessionKey: "", status: "");
+  //
+  //   RequestAuthUser requestAuthUser = RequestAuthUser(
+  //       mobile: strMobile, credBlock: credBlock, deviceId: uuid);
+  //   var jsonReq = jsonEncode(requestAuthUser.toJson());
+  //
+  //   TGLog.d("Get Login OTP Request : $jsonReq");
+  //
+  //   TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GETOTP);
+  //
+  //   ServiceManager.getInstance().getotp(
+  //       request: tgPostRequest,
+  //       onSuccess: (response) => _onSuccessGetOTP(response),
+  //       onError: (error) => _onErrorGetOTP(error));
+  // }
+  //
+  // _onSuccessGetOTP(GetotpResponse? response) {
+  //   TGLog.d("RegisterResponse : onSuccess()");
+  //
+  //   setState(() {
+  //     getOtpRes = response?.getOtpReponseObj();
+  //     isGetOTPLoaderStart = false;
+  //     isClearOtp = false;
+  //   });
+  // }
+  //
+  // _onErrorGetOTP(TGResponse errorResponse) {
+  //   TGLog.d("RegisterResponse : onError()");
+  //   handleServiceFailError(context, errorResponse?.error);
+  //   isGetOTPLoaderStart = false;
+  // }
+  //
+  // Future<void> verifyLoginOtp() async {
+  //   setState(() {
+  //     isVerifyOTPLoaderStart = true;
+  //   });
+  //
+  //   String uuid = const Uuid().v1().replaceAll("-", "").substring(0, 16);
+  //   CredBlock credBlock = CredBlock(
+  //       appToken: uuid,
+  //       otp: otp,
+  //       otpSessionKey: getOtpRes != null
+  //           ? getOtpRes?.data?.credBlock?.otpSessionKey
+  //           : otpSessionKey,
+  //       status: "");
+  //
+  //   RequestAuthUser requestAuthUser = RequestAuthUser(
+  //       mobile: strMobile, credBlock: credBlock, deviceId: uuid);
+  //   String jsonReq = jsonEncode(requestAuthUser.toJson());
+  //
+  //   TGLog.d("Verify-loginOTP Request : $jsonReq");
+  //   TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_VERIFY_OTP);
+  //
+  //   ServiceManager.getInstance().verifyOtp(
+  //       request: tgPostRequest,
+  //       onSuccess: (response) => _onSuccessVerifyOtp(response),
+  //       onError: (error) => _onErrorVerifyOtp(error));
+  // }
+  //
+  // _onSuccessVerifyOtp(VerifyOtpResponse? response) {
+  //   TGLog.d("VerifyOTP : onSuccess()");
+  //   isGetOTPLoaderStart = false;
+  //   verifyOtpResponse = response?.getOtpReponseObj();
+  //
+  //   //Navigator.pop(context);
+  //   if (verifyOtpResponse?.status == RES_SUCCESS) {
+  //     TGSharedPreferences.getInstance().set(PREF_ACCESS_TOKEN, verifyOtpResponse?.data?.accessToken);
+  //     setAccessTokenInRequestHeader();
+  //     getGstBasicDetails();
+  //   } else {
+  //     setState(() {
+  //       isVerifyOTPLoaderStart = false;
+  //     });
+  //     LoaderUtils.handleErrorResponse(
+  //         context,
+  //         response?.getOtpReponseObj().status,
+  //         response?.getOtpReponseObj().message,null);
+  //   }
+  // }
+  //
+  // _onErrorVerifyOtp(TGResponse? response) {
+  //   TGLog.d("VerifyOTP : onError()");
+  //   // Navigator.pop(context);
+  //   handleServiceFailError(context, response?.error);
+  //   setState(() {
+  //     isVerifyOTPLoaderStart = false;
+  //   });
+  // }
+  //
+  // Future<void> getGstBasicDetails() async {
+  //   await Future.delayed(Duration(seconds: 2));
+  //   TGGetRequest tgGetRequest = GetGstBasicDetailsRequest();
+  //   ServiceManager.getInstance().getGstBasicDetails(
+  //       request: tgGetRequest,
+  //       onSuccess: (response) => _onSuccessGetGstBasicDetails(response),
+  //       onError: (error) => _onErrorGetGstBasicDetails(error));
+  // }
+  //
+  // _onSuccessGetGstBasicDetails(GetGstBasicDetailsResponse? response) {
+  //   TGLog.d("GetGstBasicDetailsResponse : onSuccess()");
+  //   setState(() {
+  //     isVerifyOTPLoaderStart = false;
+  //     _basicdetailsResponse = response?.getGstBasicDetailsRes();
+  //   });
+  //
+  //   if (_basicdetailsResponse?.status == RES_DETAILS_FOUND) {
+  //     if (_basicdetailsResponse?.data?.isNotEmpty == true) {
+  //       if (_basicdetailsResponse?.data?[0].isOtpVerified == true) {
+  //         if (_basicdetailsResponse?.data?[0]?.gstin?.isNotEmpty == true) {
+  //           gstin = _basicdetailsResponse!.data![0].gstin!;
+  //           if (_basicdetailsResponse!.data![0].gstin!.length >= 12) {
+  //             TGSharedPreferences.getInstance().set(PREF_BUSINESSNAME,
+  //                 _basicdetailsResponse?.data?[0].gstBasicDetails?.tradeNam);
+  //             TGSharedPreferences.getInstance()
+  //                 .set(PREF_GSTIN, _basicdetailsResponse?.data?[0].gstin);
+  //             TGSharedPreferences.getInstance().set(PREF_USERNAME,
+  //                 _basicdetailsResponse?.data?[0].username.toString());
+  //             TGSharedPreferences.getInstance().set(PREF_PANNO,
+  //                 _basicdetailsResponse?.data?[0].gstin?.substring(2, 12));
+  //           } else {
+  //             TGSharedPreferences.getInstance()
+  //                 .set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin);
+  //           }
+  //         }
+  //
+  //         TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
+  //         TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
+  //         //getUserLoanDetails();
+  //         // Navigator.pushNamed(context, MyRoutes.DashboardWithGSTRoutes);
+  //         Navigator.pushAndRemoveUntil(
+  //             context,
+  //             MaterialPageRoute(
+  //               builder: (BuildContext context) => DashboardWithGST(),
+  //             ),
+  //             (route) => false);
+  //       } else {
+  //         Navigator.pushAndRemoveUntil(
+  //             context,
+  //             MaterialPageRoute(
+  //               builder: (BuildContext context) => GstConsent(),
+  //             ),
+  //             (route) => false);
+  //
+  //         //Navigator.push(context, MaterialPageRoute(builder: (context) => GstConsent()));
+  //       }
+  //     } else {
+  //       getUserLoanDetails();
+  //     }
+  //   } else if (_basicdetailsResponse?.status == RES_DETAILS_NOT_FOUND) {
+  //     setState(() {
+  //       isVerifyOTPLoaderStart = false;
+  //     });
+  //
+  //     Navigator.pushAndRemoveUntil(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (BuildContext context) => GstConsent(),
+  //         ),
+  //         (route) => false);
+  //   } else {
+  //     setState(() {
+  //       isVerifyOTPLoaderStart = false;
+  //     });
+  //     LoaderUtils.handleErrorResponse(
+  //         context,
+  //         response?.getGstBasicDetailsRes().status,
+  //         response?.getGstBasicDetailsRes().message,null);
+  //   }
+  // }
+  //
+  // _onErrorGetGstBasicDetails(TGResponse errorResponse) {
+  //   setState(() {
+  //     isVerifyOTPLoaderStart = false;
+  //   });
+  //   TGLog.d("GetGstBasicDetailsResponse : onError()");
+  //   handleServiceFailError(context, errorResponse.error);
+  // }
+  //
+  // Future<void> getUserLoanDetails() async {
+  //   TGGetRequest tgGetRequest = GetLoanDetailByRefIdReq();
+  //   ServiceManager.getInstance().getAllLoanDetailByRefId(
+  //       request: tgGetRequest,
+  //       onSuccess: (response) => _onSuccessGetAllLoanDetailByRefId(response),
+  //       onError: (error) => _onErrorGetAllLoanDetailByRefId(error));
+  // }
+  //
+  // _onSuccessGetAllLoanDetailByRefId(GetAllLoanDetailByRefIdResponse? response) {
+  //   TGLog.d("UserLoanDetailsResponse : onSuccess()");
+  //   setState(() {
+  //     isVerifyOTPLoaderStart = false;
+  //   });
+  //   _getAllLoanDetailRes = response?.getAllLoanDetailObj();
+  //
+  //   if (_getAllLoanDetailRes?.status == RES_SUCCESS) {
+  //     if (_getAllLoanDetailRes?.data?.isEmpty == true) {
+  //       Navigator.pushAndRemoveUntil(
+  //           context,
+  //           MaterialPageRoute(
+  //             builder: (BuildContext context) => GstConsent(),
+  //           ),
+  //           (route) => false);
+  //     } else {
+  //       TGSharedPreferences.getInstance()
+  //           .set(PREF_GSTIN, _getAllLoanDetailRes?.data?[0].gstin);
+  //       TGSharedPreferences.getInstance().set(
+  //           PREF_PANNO, _getAllLoanDetailRes?.data?[0].gstin?.substring(2, 12));
+  //       TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
+  //       TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
+  //
+  //       Navigator.pushAndRemoveUntil(
+  //           context,
+  //           MaterialPageRoute(
+  //             builder: (BuildContext context) => DashboardWithGST(),
+  //           ),
+  //           (route) => false);
+  //     }
+  //   } else {
+  //     setState(() {
+  //       isVerifyOTPLoaderStart = false;
+  //     });
+  //     LoaderUtils.handleErrorResponse(
+  //         context,
+  //         response?.getAllLoanDetailObj().status,
+  //         response?.getAllLoanDetailObj().message,null);
+  //   }
+  // }
+  //
+  // _onErrorGetAllLoanDetailByRefId(TGResponse errorResponse) {
+  //   TGLog.d("UserLoanDetailsResponse : onError()");
+  //   handleServiceFailError(context, errorResponse.error);
+  //   setState(() {
+  //     isVerifyOTPLoaderStart = false;
+  //   });
+  // }
 }

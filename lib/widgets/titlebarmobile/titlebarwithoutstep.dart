@@ -297,12 +297,12 @@ AppBar getAppBarWithStepDone(String step,String appBarTitle,double progress,{req
                     },
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 20.w),
+                    padding: EdgeInsets.only(left: 32.w),
                     child: SvgPicture.asset(Utils.path(MOBILEMENUBAR)),
 
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 10.w,right: 3.w),
+                    padding: EdgeInsets.only(left: 20.w,right: 3.w),
                     child: Text(appBarTitle,style: ThemeHelper.getInstance()?.appBarTheme.titleTextStyle,),),
                  // Icon(Icons.arrow_drop_down_sharp,color: ThemeHelper.getInstance()?.primaryColor,)
                 ],
@@ -422,7 +422,7 @@ AppBar getAppBarMainDashboardWithBackButton(String step,String appBarTitle,doubl
                       onClickAction();
                     },
                   ),
-                  SizedBox(width: 10.w),
+                  SizedBox(width: 24.w),
                   GestureDetector(
                     child: SvgPicture.asset(
                       Utils.path(MOBILEMENUBAR),

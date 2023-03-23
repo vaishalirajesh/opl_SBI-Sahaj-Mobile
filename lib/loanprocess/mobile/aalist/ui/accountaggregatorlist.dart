@@ -320,10 +320,15 @@ class _AAListViewState extends State<AAListView> {
           child: Column(
             children: [
               ListTile(
-                leading:Transform.translate(
-          offset: Offset(30, -5),
-          child: buildCheckboxWidgetCustom1(index),
-        ),
+                leading:Padding(
+          padding: EdgeInsets.only(bottom: 10.h),
+          child:buildCheckboxWidgetCustom1(index)),
+        //
+        //
+        //         Transform.translate(
+        //   offset: Offset(30, -5),
+        //   child: buildCheckboxWidgetCustom1(index),
+        // ),
 
                 // Padding(
                 //     padding: EdgeInsets.only(bottom: 10.h,left: 20.w),
@@ -364,13 +369,18 @@ class _AAListViewState extends State<AAListView> {
 
   Widget buildCheckboxWidgetCustom1(int index) {
     return Radio<int>(
-      value:index,
+      value: index,
       groupValue: selectedValue,
       activeColor: ThemeHelper.getInstance()!.primaryColor,
       onChanged: (value) {
         changeState(index);
       },
     );
+  }
+  void changeState(int index) {
+    setState(() {
+      selectedValue = index;
+    });
   }
 
   Widget buildBtnNextAcc(BuildContext context) {
@@ -399,18 +409,6 @@ class _AAListViewState extends State<AAListView> {
     );
   }
 
-  void changeState(int index) {
-
-    // TGSession.getInstance().set(SESSION_CODE, typeListDetails?[0].code);
-    // TGSession.getInstance().set(SESSION_AAID, typeListDetails?[0].aaId);
-
-
-    setState(() {
-      selectedValue = index;
-      TGSharedPreferences.getInstance().set(PREF_AAID, typeListDetails[index].aaId);
-      TGSharedPreferences.getInstance().set(PREF_AACODE, typeListDetails[index].code);
-    });
-  }
 
   void setNextAAClick() {
     isAANextClick = true;
