@@ -192,7 +192,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
                       )),
                   //hintText: str_GST_User_Name,
                   enabledBorder: UnderlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(6.r)),
+                   // borderRadius: BorderRadius.all(Radius.circular(6.r)),
                     borderSide: BorderSide(
                         width: 1,
                         color:
@@ -202,7 +202,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
                     borderSide: BorderSide(
                         color: ThemeHelper.getInstance()!.colorScheme.onSurface,
                         width: 1.0),
-                    borderRadius: BorderRadius.circular(6.0.r),
+                   // borderRadius: BorderRadius.circular(6.0.r),
                   ),
                   // focusColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
                   // fillColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
@@ -211,7 +211,8 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
                           width: 1,
                           color:
                               ThemeHelper.getInstance()!.colorScheme.onSurface),
-                      borderRadius: BorderRadius.all(Radius.circular(6.r))),
+                      //borderRadius: BorderRadius.all(Radius.circular(6.r))
+                  ),
                   counterText: ''),
               keyboardType: TextInputType.text,
               maxLength: 15,
@@ -250,7 +251,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
               labelText: str_15_Digit_GSTIN,
              // hintText: str_15_Digit_GSTIN,
               enabledBorder: UnderlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(6.r)),
+                //borderRadius: BorderRadius.all(Radius.circular(6.r)),
                 borderSide: BorderSide(
                     width: 1,
                     color: ThemeHelper.getInstance()!.colorScheme.onSurface),
@@ -259,13 +260,14 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
                 borderSide: BorderSide(
                     color: ThemeHelper.getInstance()!.colorScheme.onSurface,
                     width: 1.0),
-                borderRadius: BorderRadius.circular(6.0.r),
+               //borderRadius: BorderRadius.circular(6.0.r),
               ),
               border: UnderlineInputBorder(
                   borderSide: BorderSide(
                       width: 1,
                       color: ThemeHelper.getInstance()!.colorScheme.onSurface),
-                  borderRadius: BorderRadius.all(Radius.circular(6.r))),
+                 //borderRadius: BorderRadius.all(Radius.circular(6.r))
+    ),
               counterText: ''),
           keyboardType: TextInputType.text,
           textCapitalization: TextCapitalization.characters,

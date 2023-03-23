@@ -192,13 +192,17 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
           horizontal: 20.w,
         ),
         sizebox(height: 24.h),
+        padding(
+          child: buildLoanDetailsContainer(),
+          horizontal: 20.w,
+        ),
 
-        (isOpenDetails)
-            ? Padding(
-                padding: EdgeInsets.only(top: 10.h,right: 20.w,left: 20.w),
-                child: buildLoanDetailsContainer(),
-              )
-            : _buildOnlyDetialContainer(),
+        // (isOpenDetails)
+        //     ? Padding(
+        //         padding: EdgeInsets.only(top: 10.h,right: 20.w,left: 20.w),
+        //         child: buildLoanDetailsContainer(),
+        //       )
+        //     : _buildOnlyDetialContainer(),
 
         // paddingOnly(
         //   child: buildLoanDetailsContainer(),
@@ -259,7 +263,7 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
     return GestureDetector(
         onTap: () {
           setState(() {
-            isOpenDetails = false;
+            isOpenDetails = !isOpenDetails;
           });
         },
         child: Container(
@@ -277,46 +281,57 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
                 children: [
                   sizebox(height: 10.h),
                   _buildTopDetilss(),
-                  // text(text: str_details, textStyle: textTextHeader1),
                   sizebox(height: 10.h),
-                  buildCommonRow(
-                      titletext: str_bank,
-                      titleValue: _getRepaymentPlanResMain?.data?.bankName ?? "State Bank of India"),
-                  sizebox(height: 20.h),
-                  buildCommonRow(
-                      titletext: str_bank_acc_no,
-                      titleValue:
-                          _getRepaymentPlanResMain?.data?.accountNumber ?? "XXXXXX7564"),
-                  sizebox(height: 20.h),
-                  buildCommonRow(
-                      titletext: str_bank_ifsc,
-                      titleValue: _getRepaymentPlanResMain?.data?.bankIfsc ?? "SBIN0003471"),
-                  sizebox(height: 20.h),
-                  buildCommonRow(
-                      titletext: str_bank_acc_name,
-                      titleValue:
-                          _getRepaymentPlanResMain?.data?.buyerName ?? "Indo International"),
-                  sizebox(height: 20.h),
-                  buildCommonRow(
-                      titletext: str_acc_type,
-                      titleValue: _getRepaymentPlanResMain?.data?.accType ?? "Current"),
-                  sizebox(height: 20.h),
-                  buildCommonRow(
-                      titletext: str_mobile_no,
-                      titleValue: _getRepaymentPlanResMain?.data?.mobileNo ?? "9510777718"),
-                  sizebox(height: 20.h),
-                  buildCommonRow(
-                      titletext: str_due_date,
-                      titleValue: _getRepaymentPlanResMain?.data?.dueDate ?? "12 Aug, 2022"),
-                  sizebox(height: 20.h),
-                  buildCommonRow(
-                      titletext: str_repayment_amt,
-                      titleValue: Utils.convertIndianCurrency(
-                          "26240")),
+                  isOpenDetails ? _expandedView() : SizedBox(height: 0)
                 ],
               ),
             )));
   }
+
+
+  _expandedView(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+      buildCommonRow(
+          titletext: str_bank,
+          titleValue: _getRepaymentPlanResMain?.data?.bankName ?? "State Bank of India"),
+      sizebox(height: 20.h),
+      buildCommonRow(
+          titletext: str_bank_acc_no,
+          titleValue:
+          _getRepaymentPlanResMain?.data?.accountNumber ?? "XXXXXX7564"),
+      sizebox(height: 20.h),
+      buildCommonRow(
+          titletext: str_bank_ifsc,
+          titleValue: _getRepaymentPlanResMain?.data?.bankIfsc ?? "SBIN0003471"),
+      sizebox(height: 20.h),
+      buildCommonRow(
+          titletext: str_bank_acc_name,
+          titleValue:
+          _getRepaymentPlanResMain?.data?.buyerName ?? "Indo International"),
+      sizebox(height: 20.h),
+      buildCommonRow(
+          titletext: str_acc_type,
+          titleValue: _getRepaymentPlanResMain?.data?.accType ?? "Current"),
+      sizebox(height: 20.h),
+      buildCommonRow(
+          titletext: str_mobile_no,
+          titleValue: _getRepaymentPlanResMain?.data?.mobileNo ?? "9510777718"),
+      sizebox(height: 20.h),
+      buildCommonRow(
+          titletext: str_due_date,
+          titleValue: _getRepaymentPlanResMain?.data?.dueDate ?? "12 Aug, 2022"),
+      sizebox(height: 20.h),
+      buildCommonRow(
+          titletext: str_repayment_amt,
+          titleValue: Utils.convertIndianCurrency(
+              "26240")),
+    ],);
+
+  }
+
 
   _buildOnlyDetialContainer() {
     return GestureDetector(
@@ -363,7 +378,7 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
             width: 200.w,
             child: Text(
               "Details",
-              style: ThemeHelper.getInstance()!.textTheme.headline2,
+              style: ThemeHelper.getInstance()!.textTheme.headline2?.copyWith(fontSize: 16.sp),
             )),
         Spacer(),
         SvgPicture.asset(

@@ -1,6 +1,6 @@
 [
   {
-    "uri": "/gstsahay/api/users/v1/auto-login",
+    "uri": "users/v1/auto-login",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -8,7 +8,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/get_otp_error.json"
   },
   {
-    "uri": "/gstsahay/api/users/v1/request-auth",
+    "uri": "users/v1/request-auth",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -16,7 +16,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/get_otp_error.json"
   },
   {
-    "uri": "/gstsahay/api/users/v1/verify-auth",
+    "uri": "users/v1/verify-auth",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -24,7 +24,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/verify_otp_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/consent/v1/save-consent-approval-date",
+    "uri": "loans/v1/consent/v1/save-consent-approval-date",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -32,7 +32,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/save_consent_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/gst/v1/gen-gst-otp",
+    "uri": "loans/v1/gst/v1/gen-gst-otp",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -40,7 +40,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/get_gst_otp_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/gst/v1/ver-gst-otp",
+    "uri": "loans/v1/gst/v1/ver-gst-otp",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -48,7 +48,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/verify_gst_otp_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/gst/v1/get-gst-data-fetch-status",
+    "uri": "loans/v1/gst/v1/get-gst-data-fetch-status",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -56,7 +56,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/fetch_gst_data_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/gst/v1/get-gstin-basic-details",
+    "uri": "loans/v1/gst/v1/get-gstin-basic-details",
     "method": "GET",
     "applyMock": true,
     "httpStatus": 200,
@@ -64,7 +64,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/gst_basic_data_error.json"
 
   },  {
-    "uri": "/gstsahay/api/loans/v1/gst/v1/get-basic-gst-data",
+    "uri": "loans/v1/gst/v1/get-basic-gst-data",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -73,7 +73,7 @@
 
   },
   {
-    "uri": "/gstsahay/api/loans/v1/application/v1/get-loan-application-reference-id/24AAGFV5271N1ZP/",
+    "uri": "loans/v1/application/v1/get-loan-application-reference-id/24AAGFV5271N1ZP/",
     "method": "GET",
     "applyMock": true,
     "httpStatus": 200,
@@ -82,7 +82,7 @@
 
   },
   {
-    "uri": "/gstsahay/api/loans/v1/gst/v1/get-invoice-data",
+    "uri": "loans/v1/gst/v1/get-invoice-data",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -91,7 +91,7 @@
 
   },
   {
-    "uri": "/gstsahay/api/loans/v1/application/v1/share-gst-invoice",
+    "uri": "loans/v1/application/v1/share-gst-invoice",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -100,7 +100,7 @@
 
   },
   {
-    "uri": "/gstsahay/api/loans/v1/application/v2/get-loan-app-status/1",
+    "uri": "loans/v1/application/v2/get-loan-app-status/1",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -109,7 +109,7 @@
 
   },
   {
-    "uri": "/gstsahay/api/loans/v1/application/v2/get-loan-app-status/2",
+    "uri": "loans/v1/application/v2/get-loan-app-status/2",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -118,7 +118,7 @@
 
   },
   {
-    "uri": "/gstsahay/api/loans/v1/application/v2/get-loan-app-status/3",
+    "uri": "loans/v1/application/v2/get-loan-app-status/3",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -127,7 +127,7 @@
 
   },
   {
-    "uri": "/gstsahay/api/loans/v1/application/v2/get-loan-app-status/4",
+    "uri": "loans/v1/application/v2/get-loan-app-status/4",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -136,7 +136,7 @@
 
   },
   {
-    "uri": "/gstsahay/api/loans/v1/application/v2/get-loan-app-status/5",
+    "uri": "loans/v1/application/v2/get-loan-app-status/5",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -145,7 +145,7 @@
 
   },
   {
-    "uri": "/gstsahay/api/loans/v1/application/v2/get-loan-app-status/6",
+    "uri": "loans/v1/application/v2/get-loan-app-status/6",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -154,7 +154,7 @@
 
   },
   {
-    "uri": "/gstsahay/api/loans/v1/application/v2/get-loan-app-status/7",
+    "uri": "loans/v1/application/v2/get-loan-app-status/7",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -163,7 +163,7 @@
 
   },
   {
-    "uri": "/gstsahay/api/loans/v1/application/v2/get-loan-app-status/8",
+    "uri": "loans/v1/application/v2/get-loan-app-status/8",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -172,7 +172,7 @@
 
   },
   {
-    "uri": "/gstsahay/api/loans/v1/application/v2/get-loan-app-status/9",
+    "uri": "loans/v1/application/v2/get-loan-app-status/9",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -181,7 +181,7 @@
 
   },
   {
-    "uri": "/gstsahay/api/loans/v1/application/v2/get-loan-app-status/10",
+    "uri": "loans/v1/application/v2/get-loan-app-status/10",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -190,7 +190,7 @@
 
   },
   {
-    "uri": "/gstsahay/api/loans/v1/application/v2/get-loan-app-status/11",
+    "uri": "loans/v1/application/v2/get-loan-app-status/11",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -199,7 +199,7 @@
 
   },
   {
-    "uri": "/gstsahay/api/loans/v1/application/v2/get-loan-app-status/12",
+    "uri": "loans/v1/application/v2/get-loan-app-status/12",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -208,7 +208,7 @@
 
   },
   {
-    "uri": "/gstsahay/api/loans/v1/offer/v1/generateOffersRequest",
+    "uri": "loans/v1/offer/v1/generateOffersRequest",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -217,7 +217,7 @@
 
   },
   {
-    "uri": "/gstsahay/api/loans/v1/offer/v2/getOffers",
+    "uri": "loans/v1/offer/v2/getOffers",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -225,7 +225,15 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/get_loan_offer_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/offer/v1/setOfferRequest",
+    "uri": "gstsahay/api/loans/v1/offer/v3/getOffers",
+    "method": "POST",
+    "applyMock": true,
+    "httpStatus": 200,
+    "successFile": "packages/gstmobileservices/assets/mocks/get_multiple_loanoffer_success.json",
+    "errorFile": "packages/gstmobileservices/assets/mocks/get_loan_offer_error.json"
+  },
+  {
+    "uri": "loans/v1/offer/v1/setOfferRequest",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -233,7 +241,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/set_loan_offer_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/disbursement/v1/getDisbursementAccounts",
+    "uri": "loans/v1/disbursement/v1/getDisbursementAccounts",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -241,7 +249,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/get_disbursed_acc_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/disbursement/v1/setDisbursementAccountRequest",
+    "uri": "loans/v1/disbursement/v1/setDisbursementAccountRequest",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -249,7 +257,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/set_disbursed_acc_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/agreement/v2/getLoanAgreement",
+    "uri": "loans/v1/agreement/v2/getLoanAgreement",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -257,7 +265,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/get_loan_agreement_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/agreement/v1/loanAgreementRequest",
+    "uri": "loans/v1/agreement/v1/loanAgreementRequest",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -265,7 +273,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/post_loan_agreement_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/aa/v1/getAllBanks",
+    "uri": "loans/v1/aa/v1/getAllBanks",
     "method": "GET",
     "applyMock": true,
     "httpStatus": 200,
@@ -273,7 +281,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/get_bank_list_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/aa/v1/getAAMasterByBankCode/SIDBI",
+    "uri": "loans/v1/aa/v1/getAAMasterByBankCode/SIDBI",
     "method": "GET",
     "applyMock": true,
     "httpStatus": 200,
@@ -281,7 +289,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/get_bank_detail_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/aa/v1/list",
+    "uri": "loans/v1/aa/v1/list",
     "method": "GET",
     "applyMock": true,
     "httpStatus": 200,
@@ -289,7 +297,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/get_aa_list_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/consent/v1/consent-handle",
+    "uri": "loans/v1/consent/v1/consent-handle",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -297,7 +305,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/consent_handle_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/consent/v1/get-consent-url",
+    "uri": "loans/v1/consent/v1/get-consent-url",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -305,7 +313,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/get_consent_url_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/consent/v1/get-redirection-decryption-url",
+    "uri": "loans/v1/consent/v1/get-redirection-decryption-url",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -313,7 +321,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/get_redirection_url_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/consent/v1/consent-status-req",
+    "uri": "loans/v1/consent/v1/consent-status-req",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -321,7 +329,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/get_consent_status_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/agreement/v1/loanAgreementStatusRequest",
+    "uri": "loans/v1/agreement/v1/loanAgreementStatusRequest",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -329,7 +337,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/loan_agreement_status_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/grantloan/v1/grantLoanRequest",
+    "uri": "loans/v1/grantloan/v1/grantLoanRequest",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -337,7 +345,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/grant_loan_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/repayment/v1/getRepaymentPlanDetails",
+    "uri": "loans/v1/repayment/v1/getRepaymentPlanDetails",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -345,7 +353,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/get_repayment_plan_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/repayment/v1/setRepaymentPlanRequest",
+    "uri": "loans/v1/repayment/v1/setRepaymentPlanRequest",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -353,7 +361,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/set_repayment_plan_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/repayment/v1/setRepaymentPlanStatusRequest",
+    "uri": "loans/v1/repayment/v1/setRepaymentPlanStatusRequest",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -361,7 +369,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/set_repayment_plan_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/disbursement/v2/getDisbursementAccountDetails",
+    "uri": "loans/v1/disbursement/v2/getDisbursementAccountDetails",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -369,7 +377,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/get_disbursed_acc_detail_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/disbursement/v1/triggerDisbursementRequest",
+    "uri": "loans/v1/disbursement/v1/triggerDisbursementRequest",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -377,7 +385,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/trigger_disbursed_req_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/disbursement/v1/getDisbursementDetails",
+    "uri": "loans/v1/disbursement/v1/getDisbursementDetails",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -385,7 +393,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/get_disbursement_detail_error.json"
   },
   {
-    "uri": "/gstsahay/api/users/v1/rating/save-rating",
+    "uri": "users/v1/rating/save-rating",
     "method": "POST",
     "applyMock": true,
     "httpStatus": 200,
@@ -393,7 +401,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/save_rating_res_error.json"
   },
   {
-    "uri": "/gstsahay/api/users/v1/auth/logout",
+    "uri": "users/v1/auth/logout",
     "method": "GET",
     "applyMock": true,
     "httpStatus": 200,
@@ -401,7 +409,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/logout_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/application/v1/get-recent-transactions",
+    "uri": "loans/v1/application/v1/get-recent-transactions",
     "method": "GET",
     "applyMock": true,
     "httpStatus": 200,
@@ -409,7 +417,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/get_recent_transaction_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/application/v2/get-all-loans-details-by-user-ref-id",
+    "uri": "loans/v1/application/v2/get-all-loans-details-by-user-ref-id",
     "method": "GET",
     "applyMock": true,
     "httpStatus": 200,
@@ -417,7 +425,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/get_all_loan_detail_by_refid_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/application/v2/get-all-loans-details-by-user-ref-id/24AAGFV5271N1ZP",
+    "uri": "loans/v1/application/v2/get-all-loans-details-by-user-ref-id/24AAGFV5271N1ZP",
     "method": "GET",
     "applyMock": true,
     "httpStatus": 200,
@@ -425,7 +433,7 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/get_all_loan_detail_by_refid_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/application/v2/get-all-loans-details-by-user-ref-id/24AAGFV5271N1ZP",
+    "uri": "loans/v1/application/v2/get-all-loans-details-by-user-ref-id/24AAGFV5271N1ZP",
     "method": "GET",
     "applyMock": true,
     "httpStatus": 200,
@@ -433,12 +441,60 @@
     "errorFile": "packages/gstmobileservices/assets/mocks/get_all_loan_detail_by_refid_error.json"
   },
   {
-    "uri": "/gstsahay/api/loans/v1/application/v1/get-all-invoice-loans-details-by-user-ref-id/ALL/24AAGFV5271N1ZP",
+    "uri": "loans/v1/application/v1/get-all-invoice-loans-details-by-user-ref-id/ALL/24AAGFV5271N1ZP",
     "method": "GET",
     "applyMock": true,
     "httpStatus": 200,
     "successFile": "packages/gstmobileservices/assets/mocks/get_all_invoice_loans_details_by_user_ref_id.json",
     "errorFile": "packages/gstmobileservices/assets/mocks/get_all_loan_detail_by_refid_error.json"
-  }
+  },
+  {
+    "uri": "jak/v1/ethics/v1/registerStore",
+    "method": "POST",
+    "applyMock": true,
+    "httpStatus": 200,
+    "successFile": "packages/gstmobileservices/assets/mocks/jak_save_kendra_success.json",
+    "errorFile": "packages/gstmobileservices/assets/mocks/jak_save_kendra_error.json"
+  },
+  {
+    "uri": "jak/v1/ethics/v1/verifyOtp",
+    "method": "POST",
+    "applyMock": true,
+    "httpStatus": 200,
+    "successFile": "packages/gstmobileservices/assets/mocks/jak_verify_otp_success.json",
+    "errorFile": "packages/gstmobileservices/assets/mocks/jak_verify_otp_error.json"
+  },
+  {
+    "uri": "jak/v1/ethics/v1/resend/otp",
+    "method": "POST",
+    "applyMock": true,
+    "httpStatus": 200,
+    "successFile": "packages/gstmobileservices/assets/mocks/jak_resend_otp_success.json",
+    "errorFile": "packages/gstmobileservices/assets/mocks/jak_resend_otp_error.json"
+  },
+  {
+    "uri": "jak/v1/ethics/v1/getSalesInvoiceForPeriod/5",
+    "method": "GET",
+    "applyMock": true,
+    "httpStatus": 200,
+    "successFile": "packages/gstmobileservices/assets/mocks/jak_fetch_invoice_success.json",
+    "errorFile": "packages/gstmobileservices/assets/mocks/jak_fetch_invoice_error.json"
 
+  },
+  {
+    "uri": "jak/v1/ethics/v1/updateStage",
+    "method": "POST",
+    "applyMock": true,
+    "httpStatus": 200,
+    "successFile": "packages/gstmobileservices/assets/mocks/consent_handle_success.json",
+    "errorFile": "packages/gstmobileservices/assets/mocks/consent_handle_error.json"
+  },
+  {
+    "uri": "jak/v1/ethics/v1/getProfileData",
+    "method": "POST",
+    "applyMock": true,
+    "httpStatus": 200,
+    "successFile": "packages/gstmobileservices/assets/mocks/jak_get_profile_data_success.json",
+    "errorFile": "packages/gstmobileservices/assets/mocks/consent_handle_error.json"
+  }
 ]

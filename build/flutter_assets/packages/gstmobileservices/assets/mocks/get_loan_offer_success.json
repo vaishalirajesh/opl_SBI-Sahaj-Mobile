@@ -1,2119 +1,3157 @@
 {
-  "status": 1001,
-  "message": "Details found",
-  "referenceId": "e9c0c1d9-3fda-48d9-a8e3-55b925e54779",
-  "data": {
-    "msg": "You have already signed Loan Agreement for a limit of Rs.5,00,000/- with SIDBI on Thu Feb 09 12:35:55 IST 2023. You can proceed towards Creating new Loan Account",
-    "offers": [
+  "message":"Details found",
+  "serverRequestId":"1c72c747-857",
+  "status":1001,
+  "data":{
+    "msg":"You have already signed Loan Agreement for a limit of Rs.5,00,000/- with SIDBI on Tue Mar 07 13:01:19 IST 2023. You can proceed towards Creating new Loan Account",
+    "offers":[
       {
-        "buyerName": "Dharmnatheshwar Enterprise",
-        "invoiceNumber": "2022-23011",
-        "loanApplicationId": "f95f16fcfdae-4672-afbb-8232f9f1bea3",
-        "offerDetails": [
+        "loanApplicationId":"7e882c3c6bb8-4a57-8f5a-3d588d5fa215",
+        "offerDetails":[
           {
-            "offerId": "91e272a5b6a5-4bb4-99fb-d61e610c4a2c",
-            "validTill": "2023-02-09T08:11:46.529Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "12980.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "11812.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "91.00",
-            "termsTotalAmount": "11903.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:32.998Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"32149.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"35400.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"31860.00",
+            "apr":"19.52",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"289.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"300.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"cf31261bd0a0-4350-9830-5605808fe3e9",
+            "netDisbursementAmount":"31460.0",
+            "repayDate":"18 Apr 2023",
+            "termsTenureDuration":"35",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23030",
+        "buyerName":"YASH GASES"
       },
       {
-        "buyerName": "AAROOP ENGINEERING SERVICES",
-        "invoiceNumber": "2022-23/016",
-        "loanApplicationId": "97491506f642-4016-a5f1-1882f474b542",
-        "offerDetails": [
+        "loanApplicationId":"bbe2ef177862-422d-840a-5cdf10cfd56e",
+        "offerDetails":[
           {
-            "offerId": "db55f3b07323-4288-9b4f-3f8439414af7",
-            "validTill": "2023-02-09T08:11:46.863Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "23600.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "21476.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "165.00",
-            "termsTotalAmount": "21641.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:35.964Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"25183.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"27730.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"24957.00",
+            "apr":"22.34",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"226.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"300.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"2ad641c7b544-42ad-8388-8d2522f89ffd",
+            "netDisbursementAmount":"24557.0",
+            "repayDate":"18 Apr 2023",
+            "termsTenureDuration":"35",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23040",
+        "buyerName":"ELECTRO MECH ENGINEERING"
       },
       {
-        "buyerName": "ELECTRO MECH ENGINEERING",
-        "invoiceNumber": "2022-23040",
-        "loanApplicationId": "72b6f7970a2c-4c82-a441-85ddcc46a3c9",
-        "offerDetails": [
+        "loanApplicationId":"a945adc65bc4-44c3-86fe-c18c31fae3b4",
+        "offerDetails":[
           {
-            "offerId": "9b9e23529907-4b99-99a0-f5d12385c71f",
-            "validTill": "2023-02-09T08:11:47.168Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "27730.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "25234.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "194.00",
-            "termsTotalAmount": "25428.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:38.859Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"30005.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"33040.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"29736.00",
+            "apr":"20.23",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"269.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"300.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"fc04fe1efdba-48f2-8aa1-960f45774515",
+            "netDisbursementAmount":"29336.0",
+            "repayDate":"18 Apr 2023",
+            "termsTenureDuration":"35",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23057",
+        "buyerName":"HANSA CHEMICALS"
       },
       {
-        "buyerName": "MADHU SILICA PVT. LTD.",
-        "invoiceNumber": "2022-23060",
-        "loanApplicationId": "0aecca328c7d-4202-9e15-8d2d525e4de0",
-        "offerDetails": [
+        "loanApplicationId":"d02dca57dd5c-4a23-8075-ddc34d73e4f8",
+        "offerDetails":[
           {
-            "offerId": "0daf2cdca912-416d-b02f-b7e9c75672e5",
-            "validTill": "2023-02-09T08:11:47.498Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "295000.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "268450.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "2059.00",
-            "termsTotalAmount": "270509.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:45.973Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"19240.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"21240.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"19116.00",
+            "apr":"25.14",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"124.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"200.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"30ca913816de-4828-9f26-577b73190800",
+            "netDisbursementAmount":"18816.0",
+            "repayDate":"08 Apr 2023",
+            "termsTenureDuration":"25",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23023",
+        "buyerName":"NEW KALYAN INDUSTRIES"
       },
       {
-        "buyerName": "OMKAR SYNTHETICS PRIVATE LIMITED",
-        "invoiceNumber": "2022-23/025",
-        "loanApplicationId": "616a0db60939-4a19-978f-de1934de5a5a",
-        "offerDetails": [
+        "loanApplicationId":"2d5dfd5d68cc-4845-a2a6-9cb60e84cdf2",
+        "offerDetails":[
           {
-            "offerId": "b10f956001b6-4b14-94c1-c22b3441ce36",
-            "validTill": "2023-02-09T08:11:47.850Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "35400.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "32214.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "247.00",
-            "termsTotalAmount": "32461.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:58.969Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"16033.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"17700.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"15930.00",
+            "apr":"28.30",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"103.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"200.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"e5048e05b997-42dc-88b8-1eb400724070",
+            "netDisbursementAmount":"15630.0",
+            "repayDate":"08 Apr 2023",
+            "termsTenureDuration":"25",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23038",
+        "buyerName":"AJAY SCRAP CORPORATION"
       },
       {
-        "buyerName": "PURE ENTERPRISES PVT. LTD.",
-        "invoiceNumber": "2022-23/061",
-        "loanApplicationId": "0485c3210f12-4bc8-8274-147d82103b02",
-        "offerDetails": [
+        "loanApplicationId":"b1c5dcbc8d34-4441-8dec-ba10ed81a6f3",
+        "offerDetails":[
           {
-            "offerId": "b2f6635b4c42-4a6b-84e0-fd887bcf4b84",
-            "validTill": "2023-02-09T08:11:48.160Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "17700.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "16107.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "124.00",
-            "termsTotalAmount": "16231.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:32:05.251Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"5344.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"5900.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"5310.00",
+            "apr":"38.29",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"34.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"100.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"f81a91a8a2a2-4bb8-aca1-15eb10685cf8",
+            "netDisbursementAmount":"5110.0",
+            "repayDate":"08 Apr 2023",
+            "termsTenureDuration":"25",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23074",
+        "buyerName":"S J DEVELOPERS"
       },
       {
-        "buyerName": "HANSA CHEMICALS",
-        "invoiceNumber": "2022-23057",
-        "loanApplicationId": "f0e24e712638-4bbc-aab2-78d69a3a9fa4",
-        "offerDetails": [
+        "loanApplicationId":"6805ee736334-4fa5-b176-8cc543997421",
+        "offerDetails":[
           {
-            "offerId": "46f47495d799-4d79-825e-286cf7b88344",
-            "validTill": "2023-02-09T08:11:48.485Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "33040.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "30066.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "231.00",
-            "termsTotalAmount": "30297.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:37.786Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"21432.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"23600.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"21240.00",
+            "apr":"24.62",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"192.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"300.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"765658087b8b-46aa-8563-0bb3d5320049",
+            "netDisbursementAmount":"20840.0",
+            "repayDate":"18 Apr 2023",
+            "termsTenureDuration":"35",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23056",
+        "buyerName":"C KIRITKUMAR AND BROTHERS"
       },
       {
-        "buyerName": "V.K.PARIKH ENTERPRISE",
-        "invoiceNumber": "2022-23/048",
-        "loanApplicationId": "c07ef9bab33b-494d-9005-e8f3ff0e4444",
-        "offerDetails": [
+        "loanApplicationId":"d84a4c57119c-4a06-854e-2e439c4733cf",
+        "offerDetails":[
           {
-            "offerId": "a9f630a8245d-45e2-86d0-f0c3a2d22406",
-            "validTill": "2023-02-09T08:11:48.797Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "18880.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "17181.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "132.00",
-            "termsTotalAmount": "17313.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:42.257Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"10689.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"11800.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"10620.00",
+            "apr":"38.06",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"69.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"200.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"afc7f54679c9-460b-82a2-5341b61ce21a",
+            "netDisbursementAmount":"10320.0",
+            "repayDate":"08 Apr 2023",
+            "termsTenureDuration":"25",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23052",
+        "buyerName":"MADHAV SAFE DEPOSIT VAULT"
       },
       {
-        "buyerName": "JANAM STEELS AND ALLOYS",
-        "invoiceNumber": "2022-23/051",
-        "loanApplicationId": "d769447807c5-4416-8616-167c02d78440",
-        "offerDetails": [
+        "loanApplicationId":"4d5b75de613e-458c-87ea-7c7e860d04ea",
+        "offerDetails":[
           {
-            "offerId": "b2a7ce5d5981-42e8-a802-cb6f40b60804",
-            "validTill": "2023-02-09T08:11:49.149Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "147500.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "134225.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "1030.00",
-            "termsTotalAmount": "135255.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:50.230Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"6413.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"7080.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"6372.00",
+            "apr":"33.35",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"41.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"100.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"6729b67fa9d8-4d6b-96bc-7c99f1c7cc4c",
+            "netDisbursementAmount":"6172.0",
+            "repayDate":"08 Apr 2023",
+            "termsTenureDuration":"25",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23/041",
+        "buyerName":"GAUTAM TRADE LINK"
       },
       {
-        "buyerName": "KALYAN INDUSTRIES",
-        "invoiceNumber": "2022-23020",
-        "loanApplicationId": "9ab606edec96-40ba-9656-ec477bf71e23",
-        "offerDetails": [
+        "loanApplicationId":"db4bbaf63bcb-4d90-a659-489cfdc665e1",
+        "offerDetails":[
           {
-            "offerId": "6c4ef48a4eab-4f1f-a3e0-1aa53b510623",
-            "validTill": "2023-02-09T08:11:49.518Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "18290.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "16644.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "128.00",
-            "termsTotalAmount": "16772.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:51.066Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"42865.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"47200.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"42480.00",
+            "apr":"16.98",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"385.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"300.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"d4364032c3fe-41eb-a90a-132484c69913",
+            "netDisbursementAmount":"42080.0",
+            "repayDate":"18 Apr 2023",
+            "termsTenureDuration":"35",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23/046",
+        "buyerName":"SAGAR LAXMI SHIP BREAKERS"
       },
       {
-        "buyerName": "SHAH MAHIPTRAI NANALAL",
-        "invoiceNumber": "2022-23059",
-        "loanApplicationId": "74fd95670591-4f63-92c6-b61f54687bf4",
-        "offerDetails": [
+        "loanApplicationId":"8d8813941678-497a-9d1d-9f4ffe72c1df",
+        "offerDetails":[
           {
-            "offerId": "7defaad401a4-4ffc-b6c6-dcb5ac9dbe1a",
-            "validTill": "2023-02-09T08:11:50.265Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "16284.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "14818.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "114.00",
-            "termsTotalAmount": "14932.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:53.485Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"21432.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"23600.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"21240.00",
+            "apr":"24.62",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"192.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"300.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"ac2c3327fd97-4a28-86d3-a5652fd73766",
+            "netDisbursementAmount":"20840.0",
+            "repayDate":"18 Apr 2023",
+            "termsTenureDuration":"35",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23029",
+        "buyerName":"P.G. SALES CORPORATION"
       },
       {
-        "buyerName": "MADHAV  STEEL",
-        "invoiceNumber": "2022-23033",
-        "loanApplicationId": "e29bde24dbaf-4af8-a44a-b682341e091f",
-        "offerDetails": [
+        "loanApplicationId":"bc2b39d513a1-45d8-bc14-0346c650f99d",
+        "offerDetails":[
           {
-            "offerId": "2ec7449fa5f0-499e-9b4e-fb7fb88e7900",
-            "validTill": "2023-02-09T08:11:50.593Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "38350.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "34899.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "268.00",
-            "termsTotalAmount": "35167.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:34.918Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"40186.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"44250.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"39825.00",
+            "apr":"17.48",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"361.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"300.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"a77ca05e1e55-4200-ace6-3b03a39929d2",
+            "netDisbursementAmount":"39425.0",
+            "repayDate":"18 Apr 2023",
+            "termsTenureDuration":"35",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23028",
+        "buyerName":"YASH GASES PVT LTD"
       },
       {
-        "buyerName": "MADHAV INDUSTRIAL CORPORATION",
-        "invoiceNumber": "2022-23021",
-        "loanApplicationId": "565b4f48691f-4ac0-b52c-90c6378aa603",
-        "offerDetails": [
+        "loanApplicationId":"79c89e14cf6d-4231-ab07-8b67a80d7d53",
+        "offerDetails":[
           {
-            "offerId": "cbc4f9c5faef-44fc-af0b-81862f1f8bcf",
-            "validTill": "2023-02-09T08:11:51.181Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "38350.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "34899.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "268.00",
-            "termsTotalAmount": "35167.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:40.583Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"101423.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"147500.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"99999.00",
+            "apr":"13.53",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"1424.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"600.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"cd8efc5d74f5-46e8-866a-3b0b65973930",
+            "netDisbursementAmount":"99299.0",
+            "repayDate":"08 May 2023",
+            "termsTenureDuration":"55",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23/051",
+        "buyerName":"JANAM STEELS AND ALLOYS"
       },
       {
-        "buyerName": "PANCHVATI SHIP BREAKERS",
-        "invoiceNumber": "2022-23/045",
-        "loanApplicationId": "34b23fd751c8-4d5f-851a-4dd7f1da4cbc",
-        "offerDetails": [
+        "loanApplicationId":"1e90c7204906-48cc-88b8-9ea63efd766e",
+        "offerDetails":[
           {
-            "offerId": "e5fa7067e01d-47ba-9117-4d9b82c7ed43",
-            "validTill": "2023-02-09T08:11:51.512Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "47200.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "42952.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "329.00",
-            "termsTotalAmount": "43281.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:47.626Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"26791.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"29500.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"26550.00",
+            "apr":"21.57",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"241.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"300.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"ccb6aba0c6ce-4fe0-a2bd-99433b7f0113",
+            "netDisbursementAmount":"26150.0",
+            "repayDate":"18 Apr 2023",
+            "termsTenureDuration":"35",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23/047",
+        "buyerName":"SAIBABA SHIP BREAKING CORPORATION"
       },
       {
-        "buyerName": "SAIBABA SHIP BREAKING CORPORATION",
-        "invoiceNumber": "2022-23/047",
-        "loanApplicationId": "10196217778a-4ccc-8afa-47a869d0ccdd",
-        "offerDetails": [
+        "loanApplicationId":"d8b7687a71ed-479e-aeb9-e75a97a65732",
+        "offerDetails":[
           {
-            "offerId": "c1c846ecd66a-4c57-84b9-a250a43f8704",
-            "validTill": "2023-02-09T08:11:52.329Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "29500.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "26845.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "206.00",
-            "termsTotalAmount": "27051.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:32:00.820Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"5344.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"5900.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"5310.00",
+            "apr":"38.29",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"34.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"100.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"eedc867ebac5-4898-b23f-cc626bd05507",
+            "netDisbursementAmount":"5110.0",
+            "repayDate":"08 Apr 2023",
+            "termsTenureDuration":"25",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23065",
+        "buyerName":"Dharmnatheshwar Enterprise"
       },
       {
-        "buyerName": "NAVAKJAR TRADARS",
-        "invoiceNumber": "2022-23024",
-        "loanApplicationId": "98ee7d2b9fa9-4d79-9c28-c59ecfbb8443",
-        "offerDetails": [
+        "loanApplicationId":"c7ff84de6e80-4f3a-9b46-3081ce97f322",
+        "offerDetails":[
           {
-            "offerId": "dc333c076328-4ceb-9530-79ad0c2a52df",
-            "validTill": "2023-02-09T08:11:52.651Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "13570.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "12349.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "95.00",
-            "termsTotalAmount": "12444.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:32:03.393Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"101423.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"118000.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"99999.00",
+            "apr":"13.53",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"1424.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"600.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"92dbe870a02a-4ac2-baa5-68f7a0dd03fd",
+            "netDisbursementAmount":"99299.0",
+            "repayDate":"08 May 2023",
+            "termsTenureDuration":"55",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23072",
+        "buyerName":"DAMODAR MANGALJI & CO. LTD."
       },
       {
-        "buyerName": "ANAND SYNTHETICS",
-        "invoiceNumber": "2022-23018",
-        "loanApplicationId": "1543ed05b392-43bc-8666-e73632d85b98",
-        "offerDetails": [
+        "loanApplicationId":"2d5ef51c70f6-4daa-84d2-bec8efed9599",
+        "offerDetails":[
           {
-            "offerId": "ae447faf5cbd-40a7-b7d5-d6bf58676910",
-            "validTill": "2023-02-09T08:11:52.966Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "35400.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "32214.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "247.00",
-            "termsTotalAmount": "32461.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:45.158Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"10689.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"11800.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"10620.00",
+            "apr":"38.06",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"69.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"200.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"e17ce6df0798-4c13-8cd7-94c447e882b1",
+            "netDisbursementAmount":"10320.0",
+            "repayDate":"08 Apr 2023",
+            "termsTenureDuration":"25",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23054",
+        "buyerName":"TANNA TRAVELS AGENCY"
       },
       {
-        "buyerName": "SHREE SAI TRAVELS",
-        "invoiceNumber": "2022-23055",
-        "loanApplicationId": "237c9b3e8e37-4dab-9c0b-7d6bee0af08d",
-        "offerDetails": [
+        "loanApplicationId":"509b5146f406-4631-a208-5e3b4b8087d0",
+        "offerDetails":[
           {
-            "offerId": "2993f7efc31c-42c4-a4b7-9173bac0acd4",
-            "validTill": "2023-02-09T08:11:53.910Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "17700.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "16107.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "124.00",
-            "termsTotalAmount": "16231.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:51.876Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"16033.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"17700.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"15930.00",
+            "apr":"28.30",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"103.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"200.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"af83adbce33b-4f5b-840d-3bce3a9f58ee",
+            "netDisbursementAmount":"15630.0",
+            "repayDate":"08 Apr 2023",
+            "termsTenureDuration":"25",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23055",
+        "buyerName":"SHREE SAI TRAVELS"
       },
       {
-        "buyerName": "MEGHAJIBHAI AND SONS",
-        "invoiceNumber": "2022-23034",
-        "loanApplicationId": "eeb7d164dcb6-4dab-9519-7dbf948521fb",
-        "offerDetails": [
+        "loanApplicationId":"c14ff3312308-45d3-9318-87ed435807b7",
+        "offerDetails":[
           {
-            "offerId": "823f6e3ecc0a-44be-bf29-c11996fe7811",
-            "validTill": "2023-02-09T08:11:54.264Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "12980.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "11812.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "91.00",
-            "termsTotalAmount": "11903.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:52.672Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"11758.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"12980.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"11682.00",
+            "apr":"35.40",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"76.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"200.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"a4e3e613164f-4de9-ace1-f5d0540a03de",
+            "netDisbursementAmount":"11382.0",
+            "repayDate":"08 Apr 2023",
+            "termsTenureDuration":"25",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23034",
+        "buyerName":"MEGHAJIBHAI AND SONS"
       },
       {
-        "buyerName": "P.G. SALES CORPORATION",
-        "invoiceNumber": "2022-23029",
-        "loanApplicationId": "0bcb1b9344a0-40e9-963d-c1dbf9d3fc13",
-        "offerDetails": [
+        "loanApplicationId":"836d084e4e02-49f8-8127-b589763ee0c9",
+        "offerDetails":[
           {
-            "offerId": "e5bfa42b1412-45be-8d3e-94d0780b2433",
-            "validTill": "2023-02-09T08:11:54.607Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "23600.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "21476.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "165.00",
-            "termsTotalAmount": "21641.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:33.850Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"13361.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"14750.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"13275.00",
+            "apr":"32.18",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"86.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"200.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"23cc14301ba3-4f8e-b134-0c7984423a85",
+            "netDisbursementAmount":"12975.0",
+            "repayDate":"08 Apr 2023",
+            "termsTenureDuration":"25",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23067",
+        "buyerName":"DYNAMIC SHIP RECYCLERS PVT LTD"
       },
       {
-        "buyerName": "SHIVAM FIBRES",
-        "invoiceNumber": "2022-23027",
-        "loanApplicationId": "0e279fa9d10a-4a5b-afc3-699ef2614585",
-        "offerDetails": [
+        "loanApplicationId":"e85924b6e5cf-4658-98e7-fd21dbfcf380",
+        "offerDetails":[
           {
-            "offerId": "543f854af256-498b-a4bc-378fa97e06d7",
-            "validTill": "2023-02-09T08:11:54.913Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "17700.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "16107.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "124.00",
-            "termsTotalAmount": "16231.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:43.356Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"6413.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"7080.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"6372.00",
+            "apr":"33.35",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"41.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"100.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"07bc40e35a78-404c-bb61-e8318f1895d6",
+            "netDisbursementAmount":"6172.0",
+            "repayDate":"08 Apr 2023",
+            "termsTenureDuration":"25",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23/043",
+        "buyerName":"J KAMLESHKUMAR AND BROS"
       },
       {
-        "buyerName": "P. N. SHAH  AND  CO.",
-        "invoiceNumber": "2022-23019",
-        "loanApplicationId": "6d1dc2486f4c-4c10-80a5-f24b90821d2c",
-        "offerDetails": [
+        "loanApplicationId":"dcb9be406822-4882-a08c-ca5726a64354",
+        "offerDetails":[
           {
-            "offerId": "d1d230b670c0-4ff8-a2b5-701ac651cdf2",
-            "validTill": "2023-02-09T08:11:55.240Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "21240.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "19328.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "148.00",
-            "termsTotalAmount": "19476.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:49.342Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"32149.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"35400.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"31860.00",
+            "apr":"19.52",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"289.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"300.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"f047573c6496-45bd-a382-e088b63a2f2e",
+            "netDisbursementAmount":"31460.0",
+            "repayDate":"18 Apr 2023",
+            "termsTenureDuration":"35",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23018",
+        "buyerName":"ANAND SYNTHETICS"
       },
       {
-        "buyerName": "RAM KRUSHAN DAIRY",
-        "invoiceNumber": "2022-23035",
-        "loanApplicationId": "9b3c8b78aabe-4334-9e34-0e147778d848",
-        "offerDetails": [
+        "loanApplicationId":"a91c5168bd4e-4277-9b2d-76831011a9e3",
+        "offerDetails":[
           {
-            "offerId": "e2ab217dc8e7-45b6-a8b4-066eeaefefc8",
-            "validTill": "2023-02-09T08:11:55.579Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "29854.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "27167.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "208.00",
-            "termsTotalAmount": "27375.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:54.603Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"16033.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"17700.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"15930.00",
+            "apr":"28.30",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"103.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"200.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"b7cd67cd1ef8-4c80-a263-a38d919c3046",
+            "netDisbursementAmount":"15630.0",
+            "repayDate":"08 Apr 2023",
+            "termsTenureDuration":"25",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23027",
+        "buyerName":"SHIVAM FIBRES"
       },
       {
-        "buyerName": "PRAKASH NANAKRAM",
-        "invoiceNumber": "2022-23/053",
-        "loanApplicationId": "77f551bd6bf2-46dc-a218-7b68a3d0ce17",
-        "offerDetails": [
+        "loanApplicationId":"34876bcc7f6f-4476-9345-85ffb668d064",
+        "offerDetails":[
           {
-            "offerId": "31e9993236a0-452b-bf65-7e8d0f9c84fa",
-            "validTill": "2023-02-09T08:11:55.913Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "24780.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "22550.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "173.00",
-            "termsTotalAmount": "22723.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:58.162Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"8017.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"8850.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"7965.00",
+            "apr":"28.58",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"52.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"100.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"09a2294d4341-4e60-a149-3fc872320c8f",
+            "netDisbursementAmount":"7765.0",
+            "repayDate":"08 Apr 2023",
+            "termsTenureDuration":"25",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23039",
+        "buyerName":"DHARTI GRUH UDHYOG"
       },
       {
-        "buyerName": "AJAY SCRAP CORPORATION",
-        "invoiceNumber": "2022-23038",
-        "loanApplicationId": "19dda56fb6e7-4939-9774-8177c8b747dc",
-        "offerDetails": [
+        "loanApplicationId":"d2475fe0ca02-4413-a19d-681def1acfe7",
+        "offerDetails":[
           {
-            "offerId": "ad0c37ab6c35-4fee-8d8a-3acb269a43fe",
-            "validTill": "2023-02-09T08:11:56.463Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "17700.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "16107.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "124.00",
-            "termsTotalAmount": "16231.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:39.731Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"17102.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"18880.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"16992.00",
+            "apr":"27.11",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"110.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"200.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"0fb21b22cd76-4485-8fb8-1998f938913b",
+            "netDisbursementAmount":"16692.0",
+            "repayDate":"08 Apr 2023",
+            "termsTenureDuration":"25",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23/048",
+        "buyerName":"V.K.PARIKH ENTERPRISE"
       },
       {
-        "buyerName": "RAJANI TRADING & INVESTMENTS PVT. LTD",
-        "invoiceNumber": "2022-23037",
-        "loanApplicationId": "95e48aac03c7-4d65-a82d-4ed9542ae3e3",
-        "offerDetails": [
+        "loanApplicationId":"b9e3474b0977-450e-8aa6-17157123fd08",
+        "offerDetails":[
           {
-            "offerId": "9fc782be2dcf-4c87-8e73-ea71bef39fcf",
-            "validTill": "2023-02-09T08:11:56.775Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "41300.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "37583.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "288.00",
-            "termsTotalAmount": "37871.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:41.424Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"16568.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"18290.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"16461.00",
+            "apr":"27.73",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"107.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"200.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"e90f897cc307-4473-8c2e-d196ff3c3195",
+            "netDisbursementAmount":"16161.0",
+            "repayDate":"08 Apr 2023",
+            "termsTenureDuration":"25",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23020",
+        "buyerName":"KALYAN INDUSTRIES"
       },
       {
-        "buyerName": "DYNAMIC SHIP RECYCLERS PVT LTD",
-        "invoiceNumber": "2022-23067",
-        "loanApplicationId": "ed661c8a764e-4654-82c8-61333499d865",
-        "offerDetails": [
+        "loanApplicationId":"a00a8fa13671-4411-afaf-828adf35e5cb",
+        "offerDetails":[
           {
-            "offerId": "49849041f28c-4381-a8f6-67239dddbe29",
-            "validTill": "2023-02-09T08:11:57.337Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "14750.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "13423.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "103.00",
-            "termsTotalAmount": "13526.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:46.816Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"31613.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"34810.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"31329.00",
+            "apr":"19.69",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"284.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"300.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"30cefbe3dcc5-4957-903c-91248b1985fc",
+            "netDisbursementAmount":"30929.0",
+            "repayDate":"18 Apr 2023",
+            "termsTenureDuration":"35",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23/049",
+        "buyerName":"MADHAV METCAST PVT LTD"
       },
       {
-        "buyerName": "MADHU SILICA PVT. LTD.",
-        "invoiceNumber": "2022-23066",
-        "loanApplicationId": "f2655e682fd4-44b2-bfd6-3f941bd52a87",
-        "offerDetails": [
+        "loanApplicationId":"9e6055deb019-4e7d-9334-78bb4cc24ec0",
+        "offerDetails":[
           {
-            "offerId": "4563262c876e-4e5a-9340-50e6101b1c7b",
-            "validTill": "2023-02-09T08:11:57.666Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "118000.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "107380.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "824.00",
-            "termsTotalAmount": "108204.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:48.478Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"12292.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"13570.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"12213.00",
+            "apr":"34.19",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"79.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"200.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"3a50ddbe8615-44ca-a012-024cfeb4aa67",
+            "netDisbursementAmount":"11913.0",
+            "repayDate":"08 Apr 2023",
+            "termsTenureDuration":"25",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23024",
+        "buyerName":"NAVAKJAR TRADARS"
       },
       {
-        "buyerName": "RAJANI TRADING & INVESTMENTS PVT. LTD",
-        "invoiceNumber": "2022-23073",
-        "loanApplicationId": "635892531458-467a-b75a-24b6330d3c70",
-        "offerDetails": [
+        "loanApplicationId":"60b25bbb1a42-44b4-9e76-21f8363e2850",
+        "offerDetails":[
           {
-            "offerId": "8f47b533118f-457c-ab0e-2c63eab340d0",
-            "validTill": "2023-02-09T08:11:58.538Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "29500.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "26845.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "206.00",
-            "termsTotalAmount": "27051.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:31:57.185Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"8551.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"9440.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"8496.00",
+            "apr":"27.28",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"55.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"100.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"8e0e17fbd5d7-4d25-89bc-086c02e00717",
+            "netDisbursementAmount":"8296.0",
+            "repayDate":"08 Apr 2023",
+            "termsTenureDuration":"25",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23032",
+        "buyerName":"VEER TRADING"
       },
       {
-        "buyerName": "SAGAR LAXMI SHIP BREAKERS",
-        "invoiceNumber": "2022-23/046",
-        "loanApplicationId": "313dcdd0cdad-466a-9a21-a58cb031f51e",
-        "offerDetails": [
+        "loanApplicationId":"0a16e54279f9-467d-b10a-a8343e323969",
+        "offerDetails":[
           {
-            "offerId": "bf820e4c8be0-453c-9392-20256d718eb7",
-            "validTill": "2023-02-09T08:11:58.866Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "47200.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "42952.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "329.00",
-            "termsTotalAmount": "43281.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:32:01.685Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"8017.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"8850.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"7965.00",
+            "apr":"28.58",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"52.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"100.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"37e12db7587f-410f-bf6b-504a1226c25c",
+            "netDisbursementAmount":"7765.0",
+            "repayDate":"08 Apr 2023",
+            "termsTenureDuration":"25",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23071",
+        "buyerName":"SHREE SAI TRAVELS"
       },
       {
-        "buyerName": "YASH GASES",
-        "invoiceNumber": "2022-23030",
-        "loanApplicationId": "3afe86016d26-4a93-91d8-d7b08cc22df3",
-        "offerDetails": [
+        "loanApplicationId":"b4e9b92662c0-4b90-985c-7baac50addbd",
+        "offerDetails":[
           {
-            "offerId": "55ac8bf2f414-4404-8321-5cbf52c8226a",
-            "validTill": "2023-02-09T08:11:59.186Z",
-            "offerCreatedDate": "2023-02-13 15:14:07.73",
-            "termsRequestedAmount": "35400.0",
-            "termsCurrency": "INR",
-            "netDisbursementAmount": "17631.0",
-            "termsSanctionedAmount": "32214.00",
-            "termsInterestType": "FIXED",
-            "termsInterestRate": "10.0",
-            "termsInterestAmount": "247.00",
-            "termsTotalAmount": "32461.00",
-            "termsTenureDuration": "28",
-            "termsTenureUnit": "DAY",
-            "repayDate": "09 Mar 2023",
-            "coolingOffPeriod": "3",
-            "detailsOfLSPActAsRecoveryAgent": "NA",
-            "contactDetailsOfNodalOfficer": "Main Officer,123,ABC,ambavadi road,ambavadi,Rajkot,GUJARAT,india,360005",
-            "prepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "21",
-              "description": "Description of charge calculation"
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "bounceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "11",
-              "description": "Description of charge calculation"
+            "validTill":"2023-03-15T12:32:04.320Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "latepaymentChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "1000",
-              "description": "Description of charge calculation"
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "processingChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "51",
-              "description": "Description of charge calculation"
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"26791.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "insuranceChargesDetails": {
-              "chargeType": "FIXED_AMOUNT",
-              "amount": "5",
-              "description": "Insurance Charges calculation"
+            "termsRequestedAmount":"29500.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
             },
-            "additionalCharges": [
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"26550.00",
+            "apr":"21.57",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"241.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "31",
-                "description": "Penal Charges calculation"
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
               },
               {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "41",
-                "description": "Unified Charges calculation"
-              },
-              {
-                "chargeType": "FIXED_AMOUNT",
-                "amount": "300.0",
-                "description": "Stamp duty Charges calculation"
+                "amount":"300.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
               }
-            ]
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"c0d88796b883-4b14-9673-1c7b53b3fc62",
+            "netDisbursementAmount":"26150.0",
+            "repayDate":"18 Apr 2023",
+            "termsTenureDuration":"35",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
           }
-        ]
+        ],
+        "invoiceNumber":"2022-23073",
+        "buyerName":"RAJANI TRADING & INVESTMENTS PVT. LTD"
+      },
+      {
+        "loanApplicationId":"b78f25a95f3e-4e5b-b6e0-c2f5764d505d",
+        "offerDetails":[
+          {
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "validTill":"2023-03-15T12:31:36.866Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"16033.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsRequestedAmount":"17700.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"15930.00",
+            "apr":"28.30",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"103.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
+              {
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
+              },
+              {
+                "amount":"200.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
+              }
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"ec4ee853190c-40fa-b73c-5ded02c5984d",
+            "netDisbursementAmount":"15630.0",
+            "repayDate":"08 Apr 2023",
+            "termsTenureDuration":"25",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
+          }
+        ],
+        "invoiceNumber":"2022-23/061",
+        "buyerName":"PURE ENTERPRISES PVT. LTD."
+      },
+      {
+        "loanApplicationId":"815660717880-4ff4-8a06-1ed473653f53",
+        "offerDetails":[
+          {
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "validTill":"2023-03-15T12:31:44.259Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"42865.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsRequestedAmount":"47200.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"42480.00",
+            "apr":"16.98",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"385.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
+              {
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
+              },
+              {
+                "amount":"300.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
+              }
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"d791d5a61f8c-4adb-8684-926e0a38be55",
+            "netDisbursementAmount":"42080.0",
+            "repayDate":"18 Apr 2023",
+            "termsTenureDuration":"35",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
+          }
+        ],
+        "invoiceNumber":"2022-23/045",
+        "buyerName":"PANCHVATI SHIP BREAKERS"
+      },
+      {
+        "loanApplicationId":"d87cbef769d3-493c-9fd0-3feb35087e8c",
+        "offerDetails":[
+          {
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "validTill":"2023-03-15T12:31:55.505Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"27112.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsRequestedAmount":"29854.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"26869.00",
+            "apr":"21.39",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"243.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
+              {
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
+              },
+              {
+                "amount":"300.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
+              }
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"0c81c5d5ff4b-484d-97ea-6bfa2a00af4b",
+            "netDisbursementAmount":"26469.0",
+            "repayDate":"18 Apr 2023",
+            "termsTenureDuration":"35",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
+          }
+        ],
+        "invoiceNumber":"2022-23035",
+        "buyerName":"RAM KRUSHAN DAIRY"
+      },
+      {
+        "loanApplicationId":"89c45be125e6-40bd-a572-c3451db2f7b7",
+        "offerDetails":[
+          {
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "validTill":"2023-03-15T12:31:56.335Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"22504.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsRequestedAmount":"24780.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"22302.00",
+            "apr":"23.90",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"202.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
+              {
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
+              },
+              {
+                "amount":"300.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
+              }
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"d7ed8d5e8a24-42bc-a946-8af36574ee5d",
+            "netDisbursementAmount":"21902.0",
+            "repayDate":"18 Apr 2023",
+            "termsTenureDuration":"35",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
+          }
+        ],
+        "invoiceNumber":"2022-23/053",
+        "buyerName":"PRAKASH NANAKRAM"
+      },
+      {
+        "loanApplicationId":"b063e5306984-467e-b8e5-286cf15ea2d5",
+        "offerDetails":[
+          {
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "validTill":"2023-03-15T12:31:59.848Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"37507.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsRequestedAmount":"41300.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"37170.00",
+            "apr":"18.07",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"337.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
+              {
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
+              },
+              {
+                "amount":"300.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
+              }
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"6cbfcff0660e-4496-8cd1-7dfd59625ca8",
+            "netDisbursementAmount":"36770.0",
+            "repayDate":"18 Apr 2023",
+            "termsTenureDuration":"35",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
+          }
+        ],
+        "invoiceNumber":"2022-23037",
+        "buyerName":"RAJANI TRADING & INVESTMENTS PVT. LTD"
+      },
+      {
+        "loanApplicationId":"6efeeae75afd-45a5-8aa2-4df4fd7caa6f",
+        "offerDetails":[
+          {
+            "bounceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "validTill":"2023-03-15T12:32:02.560Z",
+            "otherChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "cgtmseChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestRate":"9.45",
+            "termsCurrency":"INR",
+            "termsTotalAmount":"8017.00",
+            "termsTenureUnit":"DAY",
+            "contactDetailsOfNodalOfficer":"PSB,101,ashwamegh,ambawadi,CN ,Ahmedabad,GUJARAT,india,380006",
+            "processingChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsRequestedAmount":"8850.0",
+            "coolingOffPeriod":"NA",
+            "documentationChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "prepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsSanctionedAmount":"7965.00",
+            "apr":"28.58",
+            "detailsOfLSPActAsRecoveryAgent":"OPL",
+            "noOfInstallments":"1",
+            "latepaymentChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestAmount":"52.00",
+            "cicChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "additionalCharges":[
+              {
+                "amount":"100",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Portal Fee"
+              },
+              {
+                "amount":"100.0",
+                "chargeType":"FIXED_AMOUNT",
+                "description":"Stamp Duty Charges"
+              }
+            ],
+            "insuranceChargesDetails":{
+              "amount":"0",
+              "chargeType":"FIXED_AMOUNT",
+              "description":"Description of charge calculation"
+            },
+            "termsInterestType":"FIXED",
+            "offerId":"f22da549b025-4c80-9d03-c7addb21936a",
+            "netDisbursementAmount":"7765.0",
+            "repayDate":"08 Apr 2023",
+            "termsTenureDuration":"25",
+            "offerCreatedDate":"2023-03-14 17:01:30.51"
+          }
+        ],
+        "invoiceNumber":"2022-23070",
+        "buyerName":"RAM KRUSHAN DAIRY"
       }
     ],
-    "existingSahayBorrower": true
+    "existingSahayBorrower":true
   }
+
 }

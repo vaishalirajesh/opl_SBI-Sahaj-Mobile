@@ -77,36 +77,36 @@ class SplashState extends State<SplashScreen> {
   {
     TGLog.d("Splash._ayncInit");
     await Future.delayed(Duration(seconds: 5));
-    String? accetoken= await TGSharedPreferences.getInstance().get(PREF_ACCESS_TOKEN);
+    //String? accetoken= await TGSharedPreferences.getInstance().get(PREF_ACCESS_TOKEN);
     await _init();
     setState(() {
 
-      if(accetoken != null && accetoken.isNotEmpty){
-      //  Navigator.of(context).pushReplacementNamed(MyRoutes.loginRoutes);
-      //   Navigator.of(context).push(CustomRightToLeftPageRoute(
-      //     child: WelcomePage(),
-      //   ));
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => WelcomePage(),)
-        );
-
-
-        // Navigator.of(context).push(CustomRightToLeftPageRoute(
-        //     child: GSTInvoicesList(),
-        // ));
-      }else{
-     //  Navigator.of(context).pushReplacementNamed(MyRoutes.tcRouted);
-     //    Navigator.of(context).push(CustomRightToLeftPageRoute(
-     //      child: TCview(),
-     //    ));
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => TCview(),)
-        );
-
-        // Navigator.of(context).push(CustomRightToLeftPageRoute(
-        //   child: GSTInvoicesList(),
-        // ));
-      }
+     //  if(accetoken != null && accetoken.isNotEmpty){
+     //  //  Navigator.of(context).pushReplacementNamed(MyRoutes.loginRoutes);
+     //  //   Navigator.of(context).push(CustomRightToLeftPageRoute(
+     //  //     child: WelcomePage(),
+     //  //   ));
+     //    Navigator.push(context,
+     //        MaterialPageRoute(builder: (context) => WelcomePage(),)
+     //    );
+     //
+     //
+     //    // Navigator.of(context).push(CustomRightToLeftPageRoute(
+     //    //     child: GSTInvoicesList(),
+     //    // ));
+     //  }else{
+     // //  Navigator.of(context).pushReplacementNamed(MyRoutes.tcRouted);
+     // //    Navigator.of(context).push(CustomRightToLeftPageRoute(
+     // //      child: TCview(),
+     // //    ));
+     //    Navigator.push(context,
+     //        MaterialPageRoute(builder: (context) => TCview(),)
+     //    );
+     //
+     //    // Navigator.of(context).push(CustomRightToLeftPageRoute(
+     //    //   child: GSTInvoicesList(),
+     //    // ));
+     //  }
 
     });
 

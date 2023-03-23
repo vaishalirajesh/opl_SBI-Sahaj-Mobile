@@ -219,12 +219,12 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
 
 
         decoration: BoxDecoration(
-         boxShadow:[ BoxShadow(
-           color: Colors.grey.withOpacity(0.3), //color of shadow
-           spreadRadius: 2, //spread radius
-           blurRadius: 5, // blur radius
-           offset: Offset(0, 2), // changes position of shadow
-         )],
+            boxShadow:[ BoxShadow(
+              color: Colors.grey.withOpacity(0.3), //color of shadow
+              spreadRadius: 1, //spread radius
+              blurRadius: 3, // blur radius
+              offset: Offset(0, 1), // changes position of shadow
+            )],
             // border:
             // Border.all(color: ThemeHelper.getInstance()!.cardColor, width: 1),
             borderRadius: BorderRadius.circular(12.r),

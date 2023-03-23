@@ -220,7 +220,7 @@ class _WelcomePageScreenState extends State<WelcomePageScreen>
   _asyncInit() async {
     TGLog.d("WelcomePnb._ayncInit");
     await Future.delayed(Duration(seconds: 5));
-    String? accetoken= await TGSharedPreferences.getInstance().get(PREF_ACCESS_TOKEN);
+   // String? accetoken= await TGSharedPreferences.getInstance().get(PREF_ACCESS_TOKEN);
     bool? isTCDone= await  TGSharedPreferences.getInstance().get(PREF_ISTC_DONE);
     bool? isGstConsentDone= await  TGSharedPreferences.getInstance().get(PREF_ISGST_CONSENT);
     bool? isGstDetailDone= await  TGSharedPreferences.getInstance().get(PREF_ISGSTDETAILDONE);
@@ -241,19 +241,21 @@ class _WelcomePageScreenState extends State<WelcomePageScreen>
       );
 
      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TCview()));
-    } else if(accetoken == null){
-
-
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => LoginWithMobileNumber(),),
-            (
-            route) => false, //if you want to disable back feature set to false
-      );
+    }
+    // else if(accetoken == null){
+    //
+    //
+    //   Navigator.pushAndRemoveUntil(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (BuildContext context) => LoginWithMobileNumber(),),
+    //         (
+    //         route) => false, //if you want to disable back feature set to false
+    //   );
 
     //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginWithMobileNumber()));
-    }else if(isGstConsentDone == null || isGstConsentDone == false){
+    //}
+    else if(isGstConsentDone == null || isGstConsentDone == false){
 
       Navigator.pushAndRemoveUntil(
         context,
