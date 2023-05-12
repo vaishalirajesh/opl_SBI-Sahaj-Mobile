@@ -63,12 +63,15 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
           absorbing: isLoaderStart,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ..._buildHeader(),
-                _buildMiddler(),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ..._buildHeader(),
+                  _buildMiddler(),
+                ],
+              ),
             ),
           ),
         ),

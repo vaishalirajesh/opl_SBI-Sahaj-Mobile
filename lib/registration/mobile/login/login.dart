@@ -71,6 +71,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
     } else {
       var temp = text;
     }
+    setState(() {});
   }
 
   @override
