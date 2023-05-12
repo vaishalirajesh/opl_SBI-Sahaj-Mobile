@@ -408,16 +408,17 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
         mainAxisSize: MainAxisSize.min,
         children: [
           AppButton(
-              onPress: () {
-                if (confirmGstDetail) {
-                  showDialog(
-                    context: context,
-                    builder: (_) => popUpViewForRgistrationCompleted(),
-                  );
-                }
-              },
-              title: str_Confirm,
-              isButtonEnable: confirmGstDetail),
+            onPress: () {
+              if (confirmGstDetail) {
+                showDialog(
+                  context: context,
+                  builder: (_) => popUpViewForRgistrationCompleted(),
+                );
+              }
+            },
+            title: str_Confirm,
+            isButtonEnable: confirmGstDetail,
+          ),
         ],
       ),
     );

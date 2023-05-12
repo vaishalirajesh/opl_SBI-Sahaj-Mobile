@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -24,40 +23,40 @@ import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
-import 'package:gstmobileservices/util/tg_view.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/gstinvoiceslist/ui/gstinvoicelistrefresh.dart';
-import 'package:sbi_sahay_1_0/loanprocess/mobile/gstinvoiceslist/ui/searchinvoicelist.dart';
 import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusconstants.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
+import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 
 import '../../../../utils/Utils.dart';
 import '../../../../utils/constants/imageconstant.dart';
 import '../../../../utils/erros_handle.dart';
-import '../../../../utils/helpers/myfonts.dart';
 import '../../../../utils/internetcheckdialog.dart';
 import '../../../../utils/movestageutils.dart';
 import '../../../../utils/progressloader.dart';
-import '../../../../widgets/animation_routes/page_animation.dart';
-import '../../../../widgets/loaderscreen/mobileloader/loaderwithoutprogressbar.dart';
 import '../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 
 class GSTInvoicesList extends StatelessWidget {
+  const GSTInvoicesList({super.key});
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return SafeArea(child: GstInvoiceScreen());
+        return const SafeArea(child: GstInvoiceScreen());
       },
     );
   }
 }
 
 class GstInvoiceScreen extends StatefulWidget {
+  const GstInvoiceScreen({super.key});
+
   @override
   GstInvoceListState createState() => GstInvoceListState();
 }
@@ -75,27 +74,6 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   String? loanApplicationReferenceID;
 
   String? loanApplicationID;
-
-  // List<Map<String, dynamic>> allUser = [
-  //   {
-  //     'id': 1,
-  //     'companyname': 'Amazon Pvt.Ltd',
-  //     'money': '32,205',
-  //     'gstinno': '24 Aug 23001832188'
-  //   },
-  //   {
-  //     'id': 2,
-  //     'companyname': 'UrbanClap Pvt.Ltd',
-  //     'money': '52,205',
-  //     'gstinno': '24 Aug 23001832188'
-  //   },
-  //   {
-  //     'id': 3,
-  //     'companyname': 'Swiggy Pvt.Ltd',
-  //     'money': '12,000',
-  //     'gstinno': '24 Aug 23001832188'
-  //   },
-  // ];
   List<GstInvoiceDataObj> foundUser = [];
   var sortList = [
     "Invoice Date: Latest - Oldest",
@@ -115,10 +93,8 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
       case 0:
         setState(() {
           arrInvoiceList.sort((a, b) {
-            return Utils.convertDateFormat(
-                    a.invoiceData?.invDate, "dd-mm-yyyy", "yyyy-mm-dd")
-                .compareTo(Utils.convertDateFormat(
-                    b.invoiceData?.invDate, "dd-mm-yyyy", "yyyy-mm-dd"));
+            return Utils.convertDateFormat(a.invoiceData?.invDate, "dd-mm-yyyy", "yyyy-mm-dd")
+                .compareTo(Utils.convertDateFormat(b.invoiceData?.invDate, "dd-mm-yyyy", "yyyy-mm-dd"));
           });
         });
         break;
@@ -126,10 +102,8 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
       case 1:
         setState(() {
           arrInvoiceList.sort((a, b) {
-            return Utils.convertDateFormat(
-                    b.invoiceData?.invDate, "dd-mm-yyyy", "yyyy-mm-dd")
-                .compareTo(Utils.convertDateFormat(
-                    a.invoiceData?.invDate, "dd-mm-yyyy", "yyyy-mm-dd"));
+            return Utils.convertDateFormat(b.invoiceData?.invDate, "dd-mm-yyyy", "yyyy-mm-dd")
+                .compareTo(Utils.convertDateFormat(a.invoiceData?.invDate, "dd-mm-yyyy", "yyyy-mm-dd"));
           });
         });
         break;
@@ -137,10 +111,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
       case 2:
         setState(() {
           arrInvoiceList.sort((a, b) {
-            return a.buyerName
-                .toString()
-                .toLowerCase()
-                .compareTo(b.buyerName.toString().toLowerCase());
+            return a.buyerName.toString().toLowerCase().compareTo(b.buyerName.toString().toLowerCase());
           });
         });
         break;
@@ -148,10 +119,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
       case 3:
         setState(() {
           arrInvoiceList.sort((a, b) {
-            return b.buyerName
-                .toString()
-                .toLowerCase()
-                .compareTo(a.buyerName.toString().toLowerCase());
+            return b.buyerName.toString().toLowerCase().compareTo(a.buyerName.toString().toLowerCase());
           });
         });
         break;
@@ -177,14 +145,6 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
 
   @override
   void initState() {
-    // foundUser = arrInvoiceList;
-    //
-    // WidgetsBinding.instance.addPostFrameCallback((_) async {
-    //   LoaderUtils.showLoaderwithmsg(context,
-    //       msg: str_Fetching_Eligible_Invoices + "\n" + str_Kindly_wait_for_60s);
-    // });
-    // getLoanAppRefIdAPI();
-
     super.initState();
   }
 
@@ -192,8 +152,9 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
     if (await TGNetUtil.isInternetAvailable()) {
       getLoanApplicationRefrenceIDAPI();
     } else {
-      showSnackBarForintenetConnection(
-          context, getLoanApplicationRefrenceIDAPI);
+      if (context.mounted) {
+        showSnackBarForintenetConnection(context, getLoanApplicationRefrenceIDAPI);
+      }
     }
   }
 
@@ -201,18 +162,19 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   Widget build(BuildContext context) {
     isFetchInvoiceClick = true;
     return WillPopScope(
-        onWillPop: () async {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => DashboardWithGST(),
-            ),
-            (route) => false, //if you want to disable back feature set to false
-          );
+      onWillPop: () async {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => const DashboardWithGST(),
+          ),
+          (route) => false, //if you want to disable back feature set to false
+        );
 
-          return true;
-        },
-        child: bodyScaffold());
+        return true;
+      },
+      child: bodyScaffold(),
+    );
   }
 
   Widget bodyScaffold() {
@@ -222,17 +184,14 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) => DashboardWithGST(),
+                    builder: (BuildContext context) => const DashboardWithGST(),
                   ),
-                  (route) =>
-                      false, //if you want to disable back feature set to false
+                  (route) => false, //if you want to disable back feature set to false
                 )
               }),
       body: Stack(
         children: [
-          Container(
-              color: ThemeHelper.getInstance()!.backgroundColor,
-              child: gstInvoiceContent()),
+          Container(color: ThemeHelper.getInstance()!.backgroundColor, child: gstInvoiceContent()),
           Align(alignment: Alignment.bottomCenter, child: shareInvoiceButton())
         ],
       ),
@@ -248,18 +207,16 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
           height: 24.h,
         ),
         Padding(
-            padding: EdgeInsets.only(left: 20.w, right: 20.w),
-            child: Text(str_GST_Invoices_for_loan_offers,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline2!
-                    )),
+          padding: EdgeInsets.only(left: 20.w, right: 20.w),
+          child: Text(str_GST_Invoices_for_loan_offers, style: ThemeHelper.getInstance()!.textTheme.headline2!),
+        ),
         SizedBox(
           height: 20.h,
         ),
         Padding(
-            padding: EdgeInsets.only(left: 20.w, right: 20.w),
-            child: invoiceSearchBarTextField()),
+          padding: EdgeInsets.only(left: 20.w, right: 20.w),
+          child: invoiceSearchBarTextField(),
+        ),
         SizedBox(
           height: 30.h,
         ),
@@ -271,47 +228,58 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
 
   Widget eligibleInvoiceUi() {
     return Container(
-      ///height: 812.h,
-      decoration: BoxDecoration(
-        // borderRadius: const BorderRadius.only(
-        //     topRight: Radius.circular(40), topLeft: Radius.circular(40)),
-      ),
+      decoration: const BoxDecoration(),
       child: Padding(
-        padding: EdgeInsets.only(left: 20.w, right: 20.w),
+        padding: EdgeInsets.only(
+          left: 20.w,
+          right: 20.w,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-           // SizedBox(height: 10.h),
             Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Text("$str_select_any_inovice (3)",
+                Expanded(
+                  child: Text(
+                    "$str_select_any_inovice (3)",
                     style: ThemeHelper.getInstance()!
                         .textTheme
                         .headline1!
-                        .copyWith(color: MyColors.darkblack, fontSize: 20)),
-                Spacer(),
-                refreshInvoiceButton(),
+                        .copyWith(color: MyColors.darkblack, fontSize: 20),
+                  ),
+                ),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: refreshInvoiceButton(),
+                  ),
+                ),
+                SizedBox(width: 20.h),
                 filterInvoiceButton()
               ],
             ),
-            SizedBox(height: 15.h),
+            SizedBox(height: 20.h),
             Text(str_All_the_invoicesgenerated,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(color: MyColors.darkblack,fontSize: 14.sp)),
+                    .copyWith(color: MyColors.darkblack, fontSize: 14.sp)),
             Text(str_invoice_disc,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(color: MyColors.darkblack,fontSize: 14.sp)),
+                    .copyWith(color: MyColors.darkblack, fontSize: 14.sp)),
             SizedBox(height: 10.h),
             const Divider(),
             SizedBox(
               height: 10.h,
             ),
-            invoiceListContainer()
+            invoiceListContainer(),
+            SizedBox(
+              height: 70.h,
+            ),
           ],
         ),
       ),
@@ -321,14 +289,14 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   Widget invoiceListContainer() {
     return ListView.builder(
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
-      itemCount: 3,
+      itemCount: 10,
       itemBuilder: (context, index) {
         return Column(
           children: [
             Container(
-              key: ValueKey("Amazon Pvt. Ltd"),
+              key: const ValueKey("Amazon Pvt. Ltd"),
               child: invoiceDataUI(),
             ),
             SizedBox(
@@ -352,15 +320,11 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
           children: [
             Expanded(
                 child: Text(
-               "Amazon Pvt. Ltd",
-              style: ThemeHelper.getInstance()!
-                  .textTheme
-                  .headline3!
-                  ,
+              "Amazon Pvt. Ltd",
+              style: ThemeHelper.getInstance()!.textTheme.headline3!,
               maxLines: 2,
             )),
-            Text(
-                "₹32,205",
+            Text("₹32,205",
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .bodyText1!
@@ -372,11 +336,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
         ),
         Row(
           children: [
-            Text(
-                Utils.convertDateFormat(
-                    "24-03-2023",
-                    "dd-MM-yyyy",
-                    'd MMM'),
+            Text(Utils.convertDateFormat("24-03-2023", "dd-MM-yyyy", 'd MMM'),
                 style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(color: MyColors.lightGraySmallText)),
             Text(" | 23001832188" ?? "",
                 style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(color: MyColors.lightGraySmallText)),
@@ -388,14 +348,14 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
 
   Widget invoiceSearchBarTextField() {
     return Container(
-      decoration: BoxDecoration(
-        // borderRadius: BorderRadius.all(Radius.circular(8.r)),
-        // border: Border.all(
-        //   color: ThemeHelper.getInstance()!.colorScheme.shadow,
-        //   style: BorderStyle.solid,
-        //   width: 0.5,
-        // ),
-      ),
+      decoration: const BoxDecoration(
+          // borderRadius: BorderRadius.all(Radius.circular(8.r)),
+          // border: Border.all(
+          //   color: ThemeHelper.getInstance()!.colorScheme.shadow,
+          //   style: BorderStyle.solid,
+          //   width: 0.5,
+          // ),
+          ),
       height: 35.h,
       child: TextField(
         style: ThemeHelper.getInstance()!.textTheme.button,
@@ -403,20 +363,15 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
         decoration: InputDecoration(
           fillColor: ThemeHelper.getInstance()!.backgroundColor,
           focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-                color: ThemeHelper.getInstance()!.colorScheme.onSurface,
-                width: 1.0),
+            borderSide: BorderSide(color: ThemeHelper.getInstance()!.colorScheme.onSurface, width: 1.0),
             // borderRadius: BorderRadius.all(Radius.circular(7.r))
           ),
           enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-                color: ThemeHelper.getInstance()!.colorScheme.onSurface,
-                width: 1.0),
+            borderSide: BorderSide(color: ThemeHelper.getInstance()!.colorScheme.onSurface, width: 1.0),
             // borderRadius: BorderRadius.all(Radius.circular(7.r))
           ),
           contentPadding: EdgeInsets.symmetric(vertical: 10.h),
-          prefixIcon: Icon(Icons.search,
-              color: MyColors.lightGraySmallText.withOpacity(0.3)),
+          prefixIcon: Icon(Icons.search, color: MyColors.lightGraySmallText.withOpacity(0.3)),
           // hintText: "Search...",
           labelText: str_Search,
           floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -428,9 +383,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
               .copyWith(color: MyColors.lightGraySmallText.withOpacity(0.3)),
           //    fillColor: searchbarBGColor.withOpacity(0.37),
           border: UnderlineInputBorder(
-            borderSide: BorderSide(
-                color: ThemeHelper.getInstance()!.colorScheme.onSurface,
-                width: 1.0),
+            borderSide: BorderSide(color: ThemeHelper.getInstance()!.colorScheme.onSurface, width: 1.0),
             // borderRadius: BorderRadius.all(
             //   Radius.circular(7.r),
             // ),
@@ -497,32 +450,31 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   }
 
   Widget shareInvoiceButton() {
-    return Container(
+    return Padding(
+      padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 25.h, top: 25.h),
+      child: AppButton(
+        onPress: () async {
+          Navigator.pushNamed(context, MyRoutes.AccountAggregatorDetailsRoutes);
+        },
+        title: str_proceed,
+      ),
+    );
+    Container(
       color: ThemeHelper.getInstance()!.backgroundColor,
       height: 100.h,
       child: Padding(
-        padding:
-            EdgeInsets.only(left: 20.w, right: 20.w, bottom: 25.h, top: 25.h),
+        padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 25.h, top: 25.h),
         child: ElevatedButton(
-            onPressed: () async {
-
-              Navigator.pushNamed(context, MyRoutes.AccountAggregatorDetailsRoutes);
-              // WidgetsBinding.instance.addPostFrameCallback((_) async {
-              //   LoaderUtils.showLoaderwithmsg(context,
-              //       msg: str_share_invoice + "\n" + str_Kindly_wait_for_60s);
-              // });
-              // if (await TGNetUtil.isInternetAvailable()) {
-              //   shareInvoicesListAPI();
-              // } else {
-              //   showSnackBarForintenetConnection(context, shareInvoicesListAPI);
-              // }
-            },
-            child: Center(
-              child: Text(
-                str_proceed,
-                style: ThemeHelper.getInstance()?.textTheme.button,
-              ),
-            )),
+          onPressed: () async {
+            Navigator.pushNamed(context, MyRoutes.AccountAggregatorDetailsRoutes);
+          },
+          child: Center(
+            child: Text(
+              str_proceed,
+              style: ThemeHelper.getInstance()?.textTheme.button,
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -530,122 +482,107 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
 //popup
   Widget refreshGstBottomSheetDialog() {
     return Container(
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
           SizedBox(height: 30.h),
           Padding(
             padding: EdgeInsets.only(left: 20.w, right: 20.w),
             child: Container(
-                height: 500.h,
-                width: 335.w,
-                decoration: BoxDecoration(
-                  color: ThemeHelper.getInstance()!.cardColor,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(20),
-                  ),
+              height: 500.h,
+              width: 335.w,
+              decoration: BoxDecoration(
+                color: ThemeHelper.getInstance()!.cardColor,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(20),
                 ),
-                child: Column(
-                  children: [
-                    SizedBox(height: 40.h),
-                    SvgPicture.asset(Utils.path(REFRESHGST),
-                        height: 160.h, width: 154.w),
-                    SizedBox(height: 27.h),
-                    Text(
-                      str_refresh_gst,
-                      style: ThemeHelper.getInstance()!
-                          .textTheme
-                          .headline1!
-                          .copyWith(fontSize: 26),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: 40.h),
-                    Padding(
-                        padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
-                        child: Row(
-                          children: [
-                            refreshLaterButton(),
-                            SizedBox(width: 10.w),
-                            refreshNowButton(),
-
-
-                          ],
-                        ))
-                  ],
-                )),
+              ),
+              child: Column(
+                children: [
+                  SizedBox(height: 40.h),
+                  SvgPicture.asset(Utils.path(REFRESHGST), height: 160.h, width: 154.w),
+                  SizedBox(height: 27.h),
+                  Text(
+                    str_refresh_gst,
+                    style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 26),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 40.h),
+                  Padding(
+                      padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
+                      child: Row(
+                        children: [
+                          refreshLaterButton(),
+                          SizedBox(width: 10.w),
+                          refreshNowButton(),
+                        ],
+                      ))
+                ],
+              ),
+            ),
           ),
-
-        ]));
+        ],
+      ),
+    );
   }
 
   Widget sortByBottomSheetDialog(StateSetter setModelState) {
     return Container(
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
           SizedBox(height: 25.h),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Spacer(),
-                Text(
-                  str_SortBy,
-                  style: ThemeHelper.getInstance()
-                      ?.textTheme
-                      .headline2!
-                      .copyWith(color: MyColors.pnbcolorPrimary),
-                ),
-                Spacer(),
-                GestureDetector(
-                  child: Padding(
-                      padding: EdgeInsets.only(right: 20.w),
-                      child: SvgPicture.asset(Utils.path(IMG_CLOSE_X),
-                          height: 10.h, width: 10.w)),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ]),
+          Row(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
+            const Spacer(),
+            Text(
+              str_SortBy,
+              style: ThemeHelper.getInstance()?.textTheme.headline2!.copyWith(color: MyColors.pnbcolorPrimary),
+            ),
+            const Spacer(),
+            GestureDetector(
+              child: Padding(
+                  padding: EdgeInsets.only(right: 20.w),
+                  child: SvgPicture.asset(Utils.path(IMG_CLOSE_X), height: 10.h, width: 10.w)),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ]),
           SizedBox(height: 10.h),
-          Divider(),
+          const Divider(),
           sortByDialogContent(setModelState),
           Padding(
-              padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
-              child: applySortButton(setModelState))
-        ]));
+            padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
+            child: applySortButton(setModelState),
+          )
+        ],
+      ),
+    );
   }
 
   Widget refreshNowButton() {
-    return Container(
-
-
+    return SizedBox(
       width: 140.w,
       height: 56.h, //38,
       child: ElevatedButton(
           onPressed: () {},
-          child: Text(
-            str_refresh_now,
-            style: ThemeHelper.getInstance()!.textTheme.button,
-          ),
           style: ElevatedButton.styleFrom(
-
             shadowColor: Colors.transparent,
             foregroundColor: ThemeHelper.getInstance()!.primaryColor,
             backgroundColor: ThemeHelper.getInstance()!.primaryColor,
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(6))),
-
-
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(6))),
+          ),
+          child: Text(
+            str_refresh_now,
+            style: ThemeHelper.getInstance()!.textTheme.button,
           )),
     );
   }
 
   Widget refreshLaterButton() {
     return Container(
-
       decoration: BoxDecoration(
         border: Border.all(color: ThemeHelper.getInstance()!.primaryColor),
         borderRadius: const BorderRadius.all(
@@ -656,107 +593,50 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
       height: 56.h, //38,
       child: ElevatedButton(
           onPressed: () {},
-          child: Text(
-            str_refresh_later,
-            style: ThemeHelper.getInstance()!.textTheme.bodyText1,
-          ),
           style: ElevatedButton.styleFrom(
             shadowColor: Colors.transparent,
             foregroundColor: ThemeHelper.getInstance()!.backgroundColor,
             backgroundColor: ThemeHelper.getInstance()!.backgroundColor,
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(6))),
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(6))),
+          ),
+          child: Text(
+            str_refresh_later,
+            style: ThemeHelper.getInstance()!.textTheme.bodyText1,
           )),
     );
   }
 
   Widget refreshInvoiceButton() {
-    return SizedBox(
-       width: 110.w,
-      child: ElevatedButton(
-          onPressed: () {
-
-            showDialog(
-                context: context,
-                builder: (_) =>refreshGstBottomSheetDialog()
-            );
-
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (context) => GSTInvoiceListRefresh(),
-            //     ));
-
-            // showModalBottomSheet(
-            //     backgroundColor: ThemeHelper.getInstance()!.backgroundColor,
-            //     context: context,
-            //     builder: (BuildContext context) {
-            //       return Wrap(children: [refreshGstBottomSheetDialog()]);
-            //     },
-            //     shape: const RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.only(
-            //             topLeft: Radius.circular(25),
-            //             topRight: Radius.circular(25))),
-            //     clipBehavior: Clip.antiAlias,
-            //     isScrollControlled: true);
-          },
-          child: Padding(
-            padding:  EdgeInsets.only(left: 10.w),
-            child: Row(
-               mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                SvgPicture.asset(Utils.path(REFRESHIMG),
-                    height: 15.h, width: 15.w),
-                SizedBox(width: 8.w,),
-                Text('Refresh',style: ThemeHelper.getInstance()?.textTheme.headline6,)
-              ],
-            ),
-          ),
-          style: ElevatedButton.styleFrom(
-            shadowColor: Colors.transparent,
-            //foregroundColor: ThemeHelper.getInstance()!.colorScheme.onPrimary,
-            backgroundColor: ThemeHelper.getInstance()!.backgroundColor,
-          )),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        SvgPicture.asset(Utils.path(REFRESHIMG), height: 15.h, width: 15.w),
+        SizedBox(
+          width: 8.w,
+        ),
+        Text(
+          'Refresh',
+          style: ThemeHelper.getInstance()?.textTheme.headline6?.copyWith(fontSize: 16.sp),
+        )
+      ],
     );
   }
 
   Widget filterInvoiceButton() {
-    return Container(
-      width: 76.w,
-      height: 40.h, //38,
-      child: ElevatedButton(
-          onPressed: () {
-                showModalBottomSheet(
-                    backgroundColor: ThemeHelper.getInstance()!.backgroundColor,
-                    context: context,
-                    builder: (BuildContext context) {
-                      return StatefulBuilder(
-                          builder: (BuildContext context, StateSetter setModelState) {
-                        return Wrap(children: [sortByBottomSheetDialog(setModelState)]);
-                      });
-                    },
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(25),
-                            topRight: Radius.circular(25))),
-                    clipBehavior: Clip.antiAlias,
-                    isScrollControlled: true);
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              SvgPicture.asset(Utils.path(IMG_FILTER_INVOICE),
-                  height: 15.h, width: 15.w),
-              SizedBox(width: 4.w,),
-              Text('Sort',style: ThemeHelper.getInstance()?.textTheme.headline6,textAlign: TextAlign.right,)
-            ],
-          ),
-          style: ElevatedButton.styleFrom(
-            shadowColor: Colors.transparent,
-            //foregroundColor: ThemeHelper.getInstance()!.colorScheme.onPrimary,
-            backgroundColor: ThemeHelper.getInstance()!.backgroundColor,
-          )),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        SvgPicture.asset(Utils.path(IMG_FILTER_INVOICE), height: 15.h, width: 15.w),
+        SizedBox(
+          width: 4.w,
+        ),
+        Text(
+          'Sort',
+          style: ThemeHelper.getInstance()?.textTheme.headline6?.copyWith(fontSize: 16.sp),
+          textAlign: TextAlign.right,
+        )
+      ],
     );
   }
 
@@ -820,34 +700,34 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   }
 
   Widget applySortButton(StateSetter setModelState) {
-    return Container(
+    return SizedBox(
       height: 55.h,
       child: ElevatedButton(
-          onPressed: () {
-            sortListById();
-            Navigator.pop(context);
-          },
-          child: Center(
-            child: Text(
-              str_Apply,
-              style: ThemeHelper.getInstance()?.textTheme.button,
-            ),
+        onPressed: () {
+          sortListById();
+          Navigator.pop(context);
+        },
+        style: ElevatedButton.styleFrom(
+          shadowColor: Colors.transparent,
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(6))),
+        ),
+        child: Center(
+          child: Text(
+            str_Apply,
+            style: ThemeHelper.getInstance()?.textTheme.button,
           ),
-          style: ElevatedButton.styleFrom(
-            shadowColor: Colors.transparent,
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(6))),
-          )),
+        ),
+      ),
     );
   }
 
   Widget fetchInvoicesAnimation(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
-        MyColors.pnbPinkColor,
-        ThemeHelper.getInstance()!.backgroundColor
-      ], begin: Alignment.bottomCenter, end: Alignment.centerLeft)),
+          gradient: LinearGradient(
+              colors: [MyColors.pnbPinkColor, ThemeHelper.getInstance()!.backgroundColor],
+              begin: Alignment.bottomCenter,
+              end: Alignment.centerLeft)),
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       child: Column(
@@ -882,10 +762,8 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
 
   //API
 
-
   Future<void> getLoanApplicationRefrenceIDAPI() async {
-    String? loanapplicationRefID =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    String? loanapplicationRefID = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
 
     if (loanapplicationRefID == null) {
       String gstin = await TGSharedPreferences.getInstance().get(PREF_GSTIN);
@@ -907,8 +785,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   _onSuccessGetAppRefId(GetAppRefIdResponse? response) async {
     TGLog.d("GetAppRefId : onSuccess()");
     if (response?.getAppRefId()?.status == RES_SUCCESS) {
-      TGSharedPreferences.getInstance().set(PREF_LOANAPPREFID,
-          response?.getAppRefId().data?.loanApplicationRefId);
+      TGSharedPreferences.getInstance().set(PREF_LOANAPPREFID, response?.getAppRefId().data?.loanApplicationRefId);
       if (await TGNetUtil.isInternetAvailable()) {
         getGSTInvoicesListAPI();
       } else {
@@ -916,8 +793,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
       }
     } else {
       Navigator.pop(context);
-      LoaderUtils.handleErrorResponse(context, response?.getAppRefId().status,
-          response?.getAppRefId().message, null);
+      LoaderUtils.handleErrorResponse(context, response?.getAppRefId().status, response?.getAppRefId().message, null);
     }
   }
 
@@ -932,8 +808,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
     GstBasicDataRequest gstInvoiceListRequest = GstBasicDataRequest(id: gstin);
 
     var jsonReq = jsonEncode(gstInvoiceListRequest.toJson());
-    TGPostRequest tgPostRequest =
-        await getPayLoad(jsonReq, URI_GST_INVOICE_LIST);
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GST_INVOICE_LIST);
 
     TGLog.d("Invoice List Request : $jsonReq");
     ServiceManager.getInstance().getGstInvoiceList(
@@ -957,15 +832,12 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => GSTInvoiceListRefresh(),
+            builder: (context) => const GSTInvoiceListRefresh(),
           ));
     } else {
       Navigator.pop(context);
       LoaderUtils.handleErrorResponse(
-          context,
-          response?.getAppRefIdObj().status,
-          response?.getAppRefIdObj().message,
-          null);
+          context, response?.getAppRefIdObj().status, response?.getAppRefIdObj().message, null);
     }
   }
 
@@ -976,17 +848,14 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   }
 
   Future<void> shareInvoicesListAPI() async {
-    loanApplicationReferenceID =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    loanApplicationReferenceID = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
 
-    loanApplicationID =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
+    loanApplicationID = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
 
-    ShareGstInvoiceRequest shareGstInvoiceRequest = ShareGstInvoiceRequest(
-        loanApplicationRefId: loanApplicationReferenceID);
+    ShareGstInvoiceRequest shareGstInvoiceRequest =
+        ShareGstInvoiceRequest(loanApplicationRefId: loanApplicationReferenceID);
     var jsonReq = jsonEncode(shareGstInvoiceRequest.toJson());
-    TGPostRequest tgPostRequest =
-        await getPayLoad(jsonReq, URI_SHARE_GST_INVOICE);
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_SHARE_GST_INVOICE);
     ServiceManager.getInstance().shareGstInvoiceList(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessShareGstInvoice(response),
@@ -1006,10 +875,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
     } else {
       Navigator.pop(context);
       LoaderUtils.handleErrorResponse(
-          context,
-          response?.getShareGstInvoiceObj().status,
-          response?.getShareGstInvoiceObj().message,
-          null);
+          context, response?.getShareGstInvoiceObj().status, response?.getShareGstInvoiceObj().message, null);
     }
   }
 
@@ -1020,11 +886,9 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   }
 
   Future<void> getLoanApplicaionStatusAPI() async {
-    GetLoanStatusRequest getLoanStatusRequest =
-        GetLoanStatusRequest(loanApplicationRefId: loanApplicationReferenceID);
+    GetLoanStatusRequest getLoanStatusRequest = GetLoanStatusRequest(loanApplicationRefId: loanApplicationReferenceID);
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
-    TGPostRequest tgPostRequest =
-        await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('1'));
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('1'));
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessGetLoanAppStatus(response),
@@ -1038,10 +902,9 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
     if (_getLoanStatusResMain?.status == RES_SUCCESS) {
       if (_getLoanStatusResMain?.data?.stageStatus == "PROCEED") {
         Navigator.pop(context);
-        MoveStage.navigateNextStage(
-            context, _getLoanStatusResMain?.data?.currentStage);
+        MoveStage.navigateNextStage(context, _getLoanStatusResMain?.data?.currentStage);
       } else if (_getLoanStatusResMain?.data?.stageStatus == "HOLD") {
-        Future.delayed(Duration(seconds: 10), () {
+        Future.delayed(const Duration(seconds: 10), () {
           getLoanAppStatusAfterShareGstInvoiceAPI();
         });
       } else {
@@ -1049,11 +912,8 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
       }
     } else {
       Navigator.pop(context);
-      LoaderUtils.handleErrorResponse(
-          context,
-          response?.getLoanStatusResObj().status,
-          response?.getLoanStatusResObj().message,
-          response?.getLoanStatusResObj().data?.stageStatus);
+      LoaderUtils.handleErrorResponse(context, response?.getLoanStatusResObj().status,
+          response?.getLoanStatusResObj().message, response?.getLoanStatusResObj().data?.stageStatus);
     }
   }
 
@@ -1063,13 +923,11 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
     Navigator.pop(context);
   }
 
-  Future<void> getLoanAppStatusAfterShareGstInvoiceAPI() async
-  {
+  Future<void> getLoanAppStatusAfterShareGstInvoiceAPI() async {
     if (await TGNetUtil.isInternetAvailable()) {
       getLoanApplicaionStatusAPI();
     } else {
-      showSnackBarForintenetConnection(
-          context, getLoanApplicaionStatusAPI);
+      showSnackBarForintenetConnection(context, getLoanApplicaionStatusAPI);
     }
   }
 }

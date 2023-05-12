@@ -404,7 +404,7 @@ const str_Finance = 'Finance';
 const str_other_Eligible_Invoice = 'other Eligible Invoice';
 const str_Shareothereligibleinvoicesandgetloanoffers = '(Share other eligible invoices and get loan offers)';
 const str_Recent_Transactions = 'Recent Transactions';
-const str_sellAll = 'See all';
+const str_seeAll = 'See all';
 const str_Flipcart_Pvt_Ltd = 'Flipcart Pvt. Ltd.';
 const str_42640 = '₹ 42,640';
 const str_19 = '19';
@@ -423,7 +423,7 @@ const str_Stage = 'Stage';
 const str_Disbursement_in_Process = 'Disbursement in Process ';
 const str_Loan_amount = 'Loan amount';
 const str_32000 = '₹32,000';
-const strPnb = 'State Bank of India';
+const strSBI = 'State Bank of India';
 
 const str_Finance_other_Invoice = 'Finance other Invoice';
 const str_Status = 'Status';
@@ -500,6 +500,7 @@ const str_10pre = '10% p.a.';
 const str_23001832184 = '23001832184';
 const str_PayNow = 'Pay Now';
 const str_Due_in_day_10 = 'Due in 10 days';
+const str_full_paid = 'Fully Paid';
 
 const str_paidonduedate = ' Paid on (on due date)';
 const str_date_12 = '12/08/2022';
@@ -565,10 +566,10 @@ const str_before_proceeding_discr =
     "Before proceeding check whether your Current A/c Bank is within the list of Banks associated with Account Aggregator";
 
 const str_visit = "Visit ";
-const str_sahmati = "Sahamti ";
-const str_or = "or ";
-const str_rbi = "RBI ";
-const str_website_to_know_more = "website to know more & Watch the Video to understand the Account Aggregator process";
+const str_sahmati = "Sahamti";
+const str_or = " or ";
+const str_rbi = "RBI";
+const str_website_to_know_more = " website to know more & Watch the Video to understand the Account Aggregator process";
 
 const str_share_bank_statement = "Share bank statements digitally, securely\n   and instantly";
 const str_no_branch_visit_needed = "No branch visits needed";

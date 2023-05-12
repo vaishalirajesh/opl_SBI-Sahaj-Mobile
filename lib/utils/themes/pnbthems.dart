@@ -51,7 +51,7 @@ class PnbThemes {
         bodyText2: TextUtils.getFontStyle(MyColors.pnbsmallbodyTextColor, 13.sp, MyFont.Roboto_Regular),
         button: TextUtils.getFontStyle(MyColors.white, 16.sp, MyFont.Roboto_Medium),
         headline6: TextUtils.getFontStyle(MyColors.pnbcolorPrimary, 13.sp, MyFont.Roboto_Bold),
-        overline: TextUtils.getFontStyle(MyColors.pnbTextcolor, 13.sp, MyFont.Roboto_Regular),
+        overline: TextUtils.getFontStyle(MyColors.pnbTextcolor, 12.sp, MyFont.Roboto_Regular),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(

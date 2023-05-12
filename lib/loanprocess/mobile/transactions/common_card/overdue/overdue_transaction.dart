@@ -1,11 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gstmobileservices/common/tg_log.dart';
 import 'package:gstmobileservices/model/models/get_all_invoice_loan_response_main.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
-import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
@@ -15,8 +12,6 @@ import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import '../../../../../utils/Utils.dart';
 import '../../../../../utils/helpers/themhelper.dart';
 import '../../../../../utils/strings/strings.dart';
-import '../../../../../widgets/ratingwidget.dart';
-
 
 class OverdueTransactionCard extends StatefulWidget {
   static _OverdueTransactionCardState? _state;
@@ -79,20 +74,19 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
           //setOverdueTransactionCardUI(),
           GestureDetector(
               onTap: () {
-                  setState(() {
-                    isCardHide = !isCardHide;
-                  });
-                  //    widget.flag = !widget.flag;
+                setState(() {
+                  isCardHide = !isCardHide;
+                });
+                //    widget.flag = !widget.flag;
               },
-              child: setOverdueTransactionCardUI()),//showHideCardViewUI()),
+              child: setOverdueTransactionCardUI()), //showHideCardViewUI()),
         ],
       ),
     );
   }
 
 //..part 1
-  Widget setOverdueTransactionCardUI()
-  {
+  Widget setOverdueTransactionCardUI() {
     return Container(
       decoration: BoxDecoration(
         color: MyColors.white,
@@ -103,7 +97,7 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
       ),
       child: Column(
         children: [
-         // setOverdueCardView(),
+          // setOverdueCardView(),
           //isCardHide ? Container() : setOverdueCardBottomUi()
 
           isCardHide ? setOverdueCardView() : setOverdueCardBottomUi(),
@@ -112,8 +106,7 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
     );
   }
 
-  Widget showHideCardViewUI()
-  {
+  Widget showHideCardViewUI() {
     return Container(
       decoration: BoxDecoration(
         color: MyColors.pnbPinkColor,
@@ -129,10 +122,7 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
           children: [
             Text(
               isCardHide ? str_view_more : str_hide,
-              style: ThemeHelper.getInstance()!
-                  .textTheme
-                  .headline5!
-                  .copyWith(color: MyColors.pnbcolorPrimary),
+              style: ThemeHelper.getInstance()!.textTheme.headline5!.copyWith(color: MyColors.pnbcolorPrimary),
             ),
             SizedBox(
               width: 15.w,
@@ -148,16 +138,14 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
     );
   }
 
-
 //..
   _buildTopContentinsidecard() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 14.w),
       child: Container(
         height: 42.h,
-        decoration: BoxDecoration(
-            color: MyColors.pnbSecondarycolor,
-            borderRadius: BorderRadius.all(Radius.circular(8.r))),
+        decoration:
+            BoxDecoration(color: MyColors.pnbSecondarycolor, borderRadius: BorderRadius.all(Radius.circular(8.r))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -167,17 +155,11 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
                 children: [
                   Text(
                     str_Lender + ' : ',
-                    style: ThemeHelper.getInstance()!
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 13.sp),
+                    style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 13.sp),
                   ),
                   Text(
                     bankName ?? '',
-                    style: ThemeHelper.getInstance()!
-                        .textTheme
-                        .headline1!
-                        .copyWith(
+                    style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(
                           fontSize: 13.sp,
                           color: MyColors.pnbTextcolor,
                         ),
@@ -198,17 +180,11 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
                 children: [
                   Text(
                     str_ROI,
-                    style: ThemeHelper.getInstance()!
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 13.sp),
+                    style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 13.sp),
                   ),
                   Text(
                     interestRate ?? '',
-                    style: ThemeHelper.getInstance()!
-                        .textTheme
-                        .headline1!
-                        .copyWith(
+                    style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(
                           fontSize: 13.sp,
                           color: MyColors.pnbTextcolor,
                         ),
@@ -222,8 +198,7 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
     );
   }
 
-  dividerUI(double padding)
-  {
+  dividerUI(double padding) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: padding),
       child: Divider(
@@ -271,10 +246,7 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
             ),
             Text(
               value1,
-              style: ThemeHelper.getInstance()!
-                  .textTheme
-                  .bodyText1!
-                  .copyWith(fontSize: 12.sp),
+              style: ThemeHelper.getInstance()!.textTheme.bodyText1!.copyWith(fontSize: 12.sp),
             ),
           ],
         ),
@@ -288,11 +260,7 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
                   .headline3!
                   .copyWith(color: MyColors.pnbTextcolor, fontSize: 12.sp),
             ),
-            Text(value2,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(fontSize: 12.sp)),
+            Text(value2, style: ThemeHelper.getInstance()!.textTheme.bodyText1!.copyWith(fontSize: 12.sp)),
           ],
         ),
       ],
@@ -319,25 +287,20 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
                     children: [
                       Text(
                         buyerName ?? 'Flipcart Pvt. Ltd.',
-                        style: ThemeHelper.getInstance()!
-                            .textTheme
-                            .headline1!
-                            .copyWith(fontSize: 13.sp),
+                        style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 13.sp),
                       ),
                       Text(
                         gstin ?? 'Invoice: 23001832184',
                         style: ThemeHelper.getInstance()!
                             .textTheme
                             .headline3!
-                            .copyWith(
-                            fontSize: 10.sp, color: MyColors.pnbTextcolor),
+                            .copyWith(fontSize: 10.sp, color: MyColors.pnbTextcolor),
                       )
                     ],
                   ),
                 ),
                 SvgPicture.asset(
-                  !isCardHide ?
-                  Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+                  !isCardHide ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
                   height: 20.h,
                   width: 20.w,
                 ),
@@ -362,14 +325,12 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
                           style: ThemeHelper.getInstance()!
                               .textTheme
                               .headline3!
-                              .copyWith(
-                              fontSize: 12.sp,
-                              color: MyColors.pnbTextcolor)),
+                              .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor)),
                       Text('09/08/2022',
                           style: ThemeHelper.getInstance()!
                               .textTheme
                               .headline1!
-                              .copyWith(fontSize: 13.sp,color: MyColors.pnbDarkGreyTextColor)),
+                              .copyWith(fontSize: 13.sp, color: MyColors.pnbDarkGreyTextColor)),
                     ],
                   ),
                 ),
@@ -383,9 +344,7 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
                           style: ThemeHelper.getInstance()!
                               .textTheme
                               .headline3!
-                              .copyWith(
-                              fontSize: 12.sp,
-                              color: MyColors.pnbRedColor)),
+                              .copyWith(fontSize: 12.sp, color: MyColors.pnbRedColor)),
                       // Text(dueDate ?? '09/08/2022',
                       //     style: ThemeHelper.getInstance()!
                       //         .textTheme
@@ -403,8 +362,6 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
         ),
       ),
     );
-
-
 
     // return Padding(
     //   padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -495,7 +452,7 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
             style: ThemeHelper.getInstance()!
                 .textTheme
                 .headline1!
-                .copyWith(fontSize: 12.sp,color: MyColors.pnbDarkGreyTextColor))
+                .copyWith(fontSize: 12.sp, color: MyColors.pnbDarkGreyTextColor))
       ],
     );
   }
@@ -511,17 +468,14 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
                 width: 92.w,
                 height: 27.h,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, MyRoutes.PrepayNowRoutes);
-                  },
-                  child: Text(
-                    str_PayNow,
-                    style: TextStyle(fontSize: 12.sp,color: Colors.white),
-                  ),
-                  style: ThemeHelper.getInstance()!
-                      .elevatedButtonTheme
-                      .style!
-                ))
+                    onPressed: () {
+                      Navigator.pushNamed(context, MyRoutes.PrepayNowRoutes);
+                    },
+                    child: Text(
+                      str_PayNow,
+                      style: TextStyle(fontSize: 12.sp, color: Colors.white),
+                    ),
+                    style: ThemeHelper.getInstance()!.elevatedButtonTheme.style!))
           ],
         ),
       );
@@ -583,10 +537,7 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(amountToPay ?? "",
-                      style: ThemeHelper.getInstance()!
-                          .textTheme
-                          .headline1!
-                          .copyWith(fontSize: 12.sp)),
+                      style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 12.sp)),
                 ],
               ),
             )
@@ -614,19 +565,14 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(loanAmount ?? '',
-                      style: ThemeHelper.getInstance()!
-                          .textTheme
-                          .headline1!
-                          .copyWith(fontSize: 12.sp)),
+                      style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 12.sp)),
                   TextButton(
                     onPressed: () {},
                     child: Text(
                       str_fully_partialy,
                       overflow: TextOverflow.ellipsis,
-                      style: ThemeHelper.getInstance()!
-                          .textTheme
-                          .headline3!
-                          .copyWith(color: Colors.blue, fontSize: 12.sp),
+                      style:
+                          ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(color: Colors.blue, fontSize: 12.sp),
                     ),
                   )
                 ],
@@ -652,7 +598,7 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
 
   Widget setOverdueCardBottomUi() {
     return Padding(
-      padding:  EdgeInsets.symmetric(horizontal: 12.w),
+      padding: EdgeInsets.symmetric(horizontal: 12.w),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -670,25 +616,20 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
                   children: [
                     Text(
                       buyerName ?? 'Flipcart Pvt. Ltd.',
-                      style: ThemeHelper.getInstance()!
-                          .textTheme
-                          .headline1!
-                          .copyWith(fontSize: 13.sp),
+                      style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 13.sp),
                     ),
                     Text(
                       gstin ?? 'Invoice: 23001832184',
                       style: ThemeHelper.getInstance()!
                           .textTheme
                           .headline3!
-                          .copyWith(
-                          fontSize: 10.sp, color: MyColors.pnbTextcolor),
+                          .copyWith(fontSize: 10.sp, color: MyColors.pnbTextcolor),
                     )
                   ],
                 ),
               ),
               SvgPicture.asset(
-                !isCardHide ?
-                Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+                !isCardHide ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
                 height: 20.h,
                 width: 20.w,
               ),
@@ -713,14 +654,12 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
                         style: ThemeHelper.getInstance()!
                             .textTheme
                             .headline3!
-                            .copyWith(
-                            fontSize: 12.sp,
-                            color: MyColors.pnbTextcolor)),
+                            .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor)),
                     Text('09/08/2022',
                         style: ThemeHelper.getInstance()!
                             .textTheme
                             .headline1!
-                            .copyWith(fontSize: 13.sp,color: MyColors.pnbDarkGreyTextColor)),
+                            .copyWith(fontSize: 13.sp, color: MyColors.pnbDarkGreyTextColor)),
                   ],
                 ),
               ),
@@ -734,9 +673,7 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
                         style: ThemeHelper.getInstance()!
                             .textTheme
                             .headline3!
-                            .copyWith(
-                            fontSize: 12.sp,
-                            color: MyColors.pnbYellowColor)),
+                            .copyWith(fontSize: 12.sp, color: MyColors.pnbYellowColor)),
                     // Text(dueDate ?? '09/08/2022',
                     //     style: ThemeHelper.getInstance()!
                     //         .textTheme
@@ -754,11 +691,11 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
           SizedBox(
             height: 10.h,
           ),
-          setRowColumValueOpenCard("Disbursed On","09/08/2022","Lender","State Bank of India"),
-          setRowColumValueOpenCard("Invoice Date","09/08/2022","ROI","10% p.a."),
-          setRowColumValueOpenCard("Loan Amount","₹41,600","Invoice Amount","₹52,000"),
-          setRowColumValueOpenCard("Tenure","90 Days","Interest Amount","₹1040"),
-          setRowColumValueOpenCard("Late Payment Charges","2%","Days Past Due","10 Days"),
+          setRowColumValueOpenCard("Disbursed On", "09/08/2022", "Lender", "State Bank of India"),
+          setRowColumValueOpenCard("Invoice Date", "09/08/2022", "ROI", "10% p.a."),
+          setRowColumValueOpenCard("Loan Amount", "₹41,600", "Invoice Amount", "₹52,000"),
+          setRowColumValueOpenCard("Tenure", "90 Days", "Interest Amount", "₹1040"),
+          setRowColumValueOpenCard("Late Payment Charges", "2%", "Days Past Due", "10 Days"),
           //SizedBox(height: 10.h),
           setPayNowUi(),
           SizedBox(height: 15.h),
@@ -767,9 +704,6 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
         ],
       ),
     );
-
-
-
 
     // return Container(
     //   child: Column(
@@ -869,7 +803,7 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
     // );
   }
 
-  Widget setRowColumValueOpenCard(String title, String value,String title2, String value2) {
+  Widget setRowColumValueOpenCard(String title, String value, String title2, String value2) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -883,14 +817,16 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
               width: 121.w,
               child: Text(title,
                   style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
-                    fontSize: 12.sp,
-                  )),
+                        fontSize: 12.sp,
+                      )),
             ),
             // SizedBox(
             //   height: 5.h,
             // ),
             Text(value,
-                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp,)),
+                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
+                      fontSize: 14.sp,
+                    )),
             SizedBox(
               height: 20.h,
             ),
@@ -903,13 +839,15 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
           children: [
             Text(title2,
                 style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
-                  fontSize: 12.sp,
-                )),
+                      fontSize: 12.sp,
+                    )),
             // SizedBox(
             //   height: 5.h,
             // ),
             Text(value2,
-                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp,)),
+                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
+                      fontSize: 14.sp,
+                    )),
             SizedBox(
               height: 20.h,
             ),
@@ -934,64 +872,44 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
             // });
           },
           // style: ThemeHelper.getInstance()?.elevale,
-          child:
-          Text(
+          child: Text(
             "Prepay Now",
             style: TextStyle(fontSize: 12.sp),
           ),
         ));
   }
 
-  Widget setOpenBottomViewText(){
-    return Text.rich(TextSpan(
-        children: <InlineSpan>[
-
-          TextSpan(
-            text: "Raise dispute",
-            style: ThemeHelper.getInstance()!
-                .textTheme
-                .headline6!
-                .copyWith(
-                fontSize: 12.sp,
-                color:
-                MyColors.pnbcolorPrimary,decoration:
-            TextDecoration.underline),
-          ),
-          WidgetSpan(
-            child: SizedBox(width: 18),
-          ),
-          TextSpan(
-            text: "Request for deferment",
-            style: ThemeHelper.getInstance()!
-                .textTheme
-                .headline6!
-                .copyWith(
-                fontSize: 12.sp,
-                color: MyColors.pnbcolorPrimary,
-                decoration:
-                TextDecoration.underline),
-          ),
-          WidgetSpan(
-            child: SizedBox(width: 18),
-          ),
-          TextSpan(
-            text: "Contact support",
-            style: ThemeHelper.getInstance()!
-                .textTheme
-                .headline6!
-                .copyWith(
-                fontSize: 12.sp,
-                color:
-                MyColors.pnbcolorPrimary,decoration:
-            TextDecoration.underline),
-          ),
-
-
-
-        ]));
-
+  Widget setOpenBottomViewText() {
+    return Text.rich(TextSpan(children: <InlineSpan>[
+      TextSpan(
+        text: "Raise dispute",
+        style: ThemeHelper.getInstance()!
+            .textTheme
+            .headline6!
+            .copyWith(fontSize: 12.sp, color: MyColors.pnbcolorPrimary, decoration: TextDecoration.underline),
+      ),
+      WidgetSpan(
+        child: SizedBox(width: 18),
+      ),
+      TextSpan(
+        text: "Request for deferment",
+        style: ThemeHelper.getInstance()!
+            .textTheme
+            .headline6!
+            .copyWith(fontSize: 12.sp, color: MyColors.pnbcolorPrimary, decoration: TextDecoration.underline),
+      ),
+      WidgetSpan(
+        child: SizedBox(width: 18),
+      ),
+      TextSpan(
+        text: "Contact support",
+        style: ThemeHelper.getInstance()!
+            .textTheme
+            .headline6!
+            .copyWith(fontSize: 12.sp, color: MyColors.pnbcolorPrimary, decoration: TextDecoration.underline),
+      ),
+    ]));
   }
-
 
   void setReviewRating(double rating) {
     setState(() {
@@ -1000,41 +918,35 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
     });
   }
 
-  setOverdueInvoiceData(SharedInvoice? disbursedInvoice)  {
-
-      dueDate = createDueDate(disbursedInvoice?.dueDate ?? '');
-      bankName = disbursedInvoice?.bankName;
-      interestRate = disbursedInvoice?.interestRate.toString() ?? "" + " % p.a";
-      amountToPay = Utils.convertIndianCurrency(disbursedInvoice?.invoiceAmount?.toString());
-      interestAmount = Utils.convertIndianCurrency(disbursedInvoice?.interestAmount?.toString());
-      buyerName = disbursedInvoice?.buyerName;
-      disbursedOnDate = createDueDate(disbursedInvoice?.fetchedDate ?? '');
-      loanId = disbursedInvoice?.loanId ?? '';
-      utrNo = disbursedInvoice?.utrNumber ?? '';
-      invoiceDate = disbursedInvoice?.invoiceDate ?? '';
-      stage = disbursedInvoice?.stage;
-      gstin =  TGSession.getInstance().get(PREF_GSTIN);
-      dueDays = disbursedInvoice?.dueDays;
-      tenure = disbursedInvoice?.tenure.toString();
-      latePaymentCharge= Utils.convertIndianCurrency(disbursedInvoice?.amountDue?.toString());
-      invoiceAmount = Utils.convertIndianCurrency(disbursedInvoice?.invoiceAmount?.toString());
-      loanAmount = Utils.convertIndianCurrency(disbursedInvoice?.loanAmount?.toString());
+  setOverdueInvoiceData(SharedInvoice? disbursedInvoice) {
+    dueDate = createDueDate(disbursedInvoice?.dueDate ?? '');
+    bankName = disbursedInvoice?.bankName;
+    interestRate = disbursedInvoice?.interestRate.toString() ?? "" + " % p.a";
+    amountToPay = Utils.convertIndianCurrency(disbursedInvoice?.invoiceAmount?.toString());
+    interestAmount = Utils.convertIndianCurrency(disbursedInvoice?.interestAmount?.toString());
+    buyerName = disbursedInvoice?.buyerName;
+    disbursedOnDate = createDueDate(disbursedInvoice?.fetchedDate ?? '');
+    loanId = disbursedInvoice?.loanId ?? '';
+    utrNo = disbursedInvoice?.utrNumber ?? '';
+    invoiceDate = disbursedInvoice?.invoiceDate ?? '';
+    stage = disbursedInvoice?.stage;
+    gstin = TGSession.getInstance().get(PREF_GSTIN);
+    dueDays = disbursedInvoice?.dueDays;
+    tenure = disbursedInvoice?.tenure.toString();
+    latePaymentCharge = Utils.convertIndianCurrency(disbursedInvoice?.amountDue?.toString());
+    invoiceAmount = Utils.convertIndianCurrency(disbursedInvoice?.invoiceAmount?.toString());
+    loanAmount = Utils.convertIndianCurrency(disbursedInvoice?.loanAmount?.toString());
   }
 
   createDueDate(String? date) {
-    if(date?.isNotEmpty == true)
-    {
+    if (date?.isNotEmpty == true) {
       DateTime dt = DateTime.parse(date!);
 
       String formattedDate = DateFormat('MM/dd/yyyy').format(dt);
       return formattedDate;
-    }
-    else
-    {
+    } else {
       return '';
     }
   }
   //..demoData
-
 }
-

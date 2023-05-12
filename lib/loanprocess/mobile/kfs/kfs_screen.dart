@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
@@ -21,18 +19,18 @@ import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
-import 'package:gstmobileservices/util/tg_view.dart';
 import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
+import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
+import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 
 import '../../../utils/colorutils/mycolors.dart';
 import '../../../utils/constants/imageconstant.dart';
 import '../../../utils/constants/prefrenceconstants.dart';
 import '../../../utils/constants/statusConstants.dart';
-import '../../../utils/helpers/myfonts.dart';
 import '../../../utils/internetcheckdialog.dart';
 import '../../../utils/movestageutils.dart';
 import '../../../utils/progressLoader.dart';
@@ -89,15 +87,14 @@ class KfsScreenBody extends State<KfsScreens> {
   Widget KfsScreenMain(BuildContext context) {
     return Scaffold(
       backgroundColor: ThemeHelper.getInstance()?.backgroundColor,
-      appBar: getAppBarWithStepDone('2', str_loan_approve_process, 0.50,
-          onClickAction: () => {Navigator.pop(context)}),
+      appBar: getAppBarWithStepDone('2', str_loan_approve_process, 0.50, onClickAction: () => {Navigator.pop(context)}),
       body: SingleChildScrollView(
         child: Container(
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-            MyColors.lightRedGradient,
-            MyColors.lightBlueGradient
-          ], begin: Alignment.centerLeft, end: Alignment.centerRight)
+              gradient: LinearGradient(
+                  colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight)
               //   color: ThemeHelper.getInstance()?.primaryColor,
               ),
           child: Column(
@@ -116,7 +113,7 @@ class KfsScreenBody extends State<KfsScreens> {
         color: ThemeHelper.getInstance()?.backgroundColor,
         child: Padding(
           padding: EdgeInsets.only(bottom: 10.h, left: 20.w, right: 20.w),
-          child: SelectLoanOfferBtnUI(context),
+          child: selectLoanOfferBtnUI(context),
         ),
       ),
     );
@@ -135,21 +132,28 @@ class KfsScreenBody extends State<KfsScreens> {
                 str_kfs,
                 style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(color: MyColors.white),
               ),
-              /*Download KFS Statement Button(Future Implementation)*/
-              /*Container(
-                  height: 34.h,
-                  width: 34.h,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.r),
-                      color: ThemeHelper.getInstance()
-                          ?.colorScheme
-                          .secondaryContainer),
-                  child:
-                      Center(child: SvgPicture.asset(Utils.path(DOWNLOADKFS))))*/
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(Utils.path(DOWNLOADKFS), height: 14.h, width: 16.w, color: MyColors.white),
+                  SizedBox(
+                    width: 6.w,
+                  ),
+                  Text(
+                    'Download',
+                    style: ThemeHelper.getInstance()
+                        ?.textTheme
+                        .headline6
+                        ?.copyWith(fontSize: 16.sp, color: MyColors.white),
+                    textAlign: TextAlign.right,
+                  )
+                ],
+              ),
             ],
           ),
           SizedBox(
-            height: 10.h,
+            height: 20.h,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -159,36 +163,39 @@ class KfsScreenBody extends State<KfsScreens> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(str_invoice_number,
-                      style: ThemeHelper.getInstance()
-                          ?.textTheme
-                          .headline3
-                          ?.copyWith(fontSize: 12.sp,
-                              color: ThemeHelper.getInstance()
-                                  ?.colorScheme
-                                  .surface)),
-                  Text(loanOfferData?.invoiceNumber ?? "230",
-                      style: ThemeHelper.getInstance()
-                          ?.textTheme
-                          .headline2
-                          ?.copyWith(fontSize: 14.sp,
-                          color: ThemeHelper.getInstance()
-                              ?.colorScheme
-                              .background))
+                  Text(
+                    str_invoice_number,
+                    style: ThemeHelper.getInstance()
+                        ?.textTheme
+                        .headline3
+                        ?.copyWith(fontSize: 12.sp, color: ThemeHelper.getInstance()?.colorScheme.surface),
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  Text(
+                    loanOfferData?.invoiceNumber ?? "230",
+                    style: ThemeHelper.getInstance()
+                        ?.textTheme
+                        .headline2
+                        ?.copyWith(fontSize: 14.sp, color: ThemeHelper.getInstance()?.colorScheme.background),
+                  )
                 ],
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(str_invoice_amount,
-                      style: ThemeHelper.getInstance()
-                          ?.textTheme
-                          .headline3
-                          ?.copyWith(fontSize: 12.sp,
-                          color: ThemeHelper.getInstance()
-                              ?.colorScheme
-                              .surface)),
+                  Text(
+                    str_invoice_amount,
+                    style: ThemeHelper.getInstance()
+                        ?.textTheme
+                        .headline3
+                        ?.copyWith(fontSize: 12.sp, color: ThemeHelper.getInstance()?.colorScheme.surface),
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
                   Text("₹35,000",
                       // Utils.convertIndianCurrency(loanOfferData?.offerDetails
                       //     ?.elementAt(0)
@@ -196,38 +203,36 @@ class KfsScreenBody extends State<KfsScreens> {
                       style: ThemeHelper.getInstance()
                           ?.textTheme
                           .headline2
-                          ?.copyWith(fontSize: 14.sp,
-                          color: ThemeHelper.getInstance()
-                              ?.colorScheme
-                              .background))
+                          ?.copyWith(fontSize: 14.sp, color: ThemeHelper.getInstance()?.colorScheme.background))
                 ],
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(str_date,
-                      style: ThemeHelper.getInstance()
-                          ?.textTheme
-                          .headline3
-                          ?.copyWith(fontSize: 12.sp,
-                          color: ThemeHelper.getInstance()
-                              ?.colorScheme
-                              .surface)),
-                  Text("19 Oct, 2022",
-                      style: ThemeHelper.getInstance()
-                          ?.textTheme
-                          .headline2
-                          ?.copyWith(fontSize: 14.sp,
-                              color: ThemeHelper.getInstance()
-                                  ?.colorScheme
-                                  .background))
+                  Text(
+                    str_date,
+                    style: ThemeHelper.getInstance()
+                        ?.textTheme
+                        .headline3
+                        ?.copyWith(fontSize: 12.sp, color: ThemeHelper.getInstance()?.colorScheme.surface),
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  Text(
+                    "19 Oct, 2022",
+                    style: ThemeHelper.getInstance()
+                        ?.textTheme
+                        .headline2
+                        ?.copyWith(fontSize: 14.sp, color: ThemeHelper.getInstance()?.colorScheme.background),
+                  )
                 ],
               )
             ],
           ),
           SizedBox(
-            height: 10.h,
+            height: 20.h,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -237,22 +242,23 @@ class KfsScreenBody extends State<KfsScreens> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(str_kfs_lender,
-                      style: ThemeHelper.getInstance()
-                          ?.textTheme
-                          .headline3
-                          ?.copyWith(fontSize: 12.sp,
-                          color: ThemeHelper.getInstance()
-                              ?.colorScheme
-                              .surface)),
-                  Text("State Bank of India",
-                      style: ThemeHelper.getInstance()
-                          ?.textTheme
-                          .headline2
-                          ?.copyWith(fontSize: 14.sp,
-                          color: ThemeHelper.getInstance()
-                              ?.colorScheme
-                              .background))
+                  Text(
+                    str_kfs_lender,
+                    style: ThemeHelper.getInstance()
+                        ?.textTheme
+                        .headline3
+                        ?.copyWith(fontSize: 12.sp, color: ThemeHelper.getInstance()?.colorScheme.surface),
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  Text(
+                    "State Bank of India",
+                    style: ThemeHelper.getInstance()
+                        ?.textTheme
+                        .headline2
+                        ?.copyWith(fontSize: 14.sp, color: ThemeHelper.getInstance()?.colorScheme.background),
+                  )
                 ],
               ),
             ],
@@ -291,10 +297,8 @@ class KfsScreenBody extends State<KfsScreens> {
               children: [
                 Text(
                   str_applicant_name + "Manish Patel",
-                  style: ThemeHelper.getInstance()
-                      ?.textTheme
-                      .headline3
-                      ?.copyWith(color: MyColors.white,fontSize: 14.sp),
+                  style:
+                      ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(color: MyColors.white, fontSize: 14.sp),
                   textAlign: TextAlign.center,
                 ),
                 // Expanded(
@@ -333,21 +337,16 @@ class KfsScreenBody extends State<KfsScreens> {
                             style: ThemeHelper.getInstance()
                                 ?.textTheme
                                 .headline3
-                                ?.copyWith(color: MyColors.lightGraySmallText
-                                ,fontSize: 12.sp)),
+                                ?.copyWith(color: MyColors.lightGraySmallText, fontSize: 12.sp)),
                         Text("₹5,00,000",
-                            style: ThemeHelper.getInstance()
-                                ?.textTheme
-                                .headline2
-                                ?.copyWith(fontSize: 14.sp)),
+                            style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 14.sp)),
                       ],
                     )
                   ],
                 ),
               ),
               SizedBox(width: 24.w), //10
-              Container(
-                  height: 40.h, width: 0.1.w, color: MyColors.pnbGreyColor),
+              Container(height: 40.h, width: 0.1.w, color: MyColors.pnbGreyColor),
               SizedBox(width: 24.w),
               Container(
                 child: Row(
@@ -366,13 +365,9 @@ class KfsScreenBody extends State<KfsScreens> {
                             style: ThemeHelper.getInstance()
                                 ?.textTheme
                                 .headline3
-                                ?.copyWith(color: MyColors.lightGraySmallText
-                                ,fontSize: 12.sp)),
+                                ?.copyWith(color: MyColors.lightGraySmallText, fontSize: 12.sp)),
                         Text("₹5,00,000",
-                            style: ThemeHelper.getInstance()
-                                ?.textTheme
-                                .headline2
-                                ?.copyWith(fontSize: 14.sp)),
+                            style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 14.sp)),
                       ],
                     )
                   ],
@@ -392,16 +387,10 @@ class KfsScreenBody extends State<KfsScreens> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          LoanAmtLimitUI(
-              Utils.path(SANCTIONLIMIT),
-              str_sanction_limit,
-              Utils.convertIndianCurrency(
-                  loanOfferData?.offerDetails?.elementAt(0).sanctionLimit)),
-          LoanAmtLimitUI(
-              Utils.path(AVAILABLELIMIT),
-              str_available_limit,
-              Utils.convertIndianCurrency(
-                  loanOfferData?.offerDetails?.elementAt(0).availableLimit)),
+          LoanAmtLimitUI(Utils.path(SANCTIONLIMIT), str_sanction_limit,
+              Utils.convertIndianCurrency(loanOfferData?.offerDetails?.elementAt(0).sanctionLimit)),
+          LoanAmtLimitUI(Utils.path(AVAILABLELIMIT), str_available_limit,
+              Utils.convertIndianCurrency(loanOfferData?.offerDetails?.elementAt(0).availableLimit)),
         ],
       ),
     );
@@ -420,15 +409,18 @@ class KfsScreenBody extends State<KfsScreens> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(title,
-                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
-                    fontSize: 14.sp,
-                    color: ThemeHelper.getInstance()?.colorScheme.surface)),
+                style: ThemeHelper.getInstance()
+                    ?.textTheme
+                    .headline3
+                    ?.copyWith(fontSize: 14.sp, color: ThemeHelper.getInstance()?.colorScheme.surface)),
             SizedBox(
               height: 5.h,
             ),
             Text(value,
-                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
-                    color: ThemeHelper.getInstance()?.colorScheme.background))
+                style: ThemeHelper.getInstance()
+                    ?.textTheme
+                    .headline3
+                    ?.copyWith(color: ThemeHelper.getInstance()?.colorScheme.background))
           ],
         )
       ],
@@ -438,8 +430,7 @@ class KfsScreenBody extends State<KfsScreens> {
   Widget KFSDetailsUI(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(0.r), topLeft: Radius.circular(0.r)),
+          borderRadius: BorderRadius.only(topRight: Radius.circular(0.r), topLeft: Radius.circular(0.r)),
           color: ThemeHelper.getInstance()?.backgroundColor),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -455,27 +446,22 @@ class KfsScreenBody extends State<KfsScreens> {
             Card(
               color: ThemeHelper.getInstance()?.backgroundColor,
               shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadiusDirectional.all(Radius.circular(12.r)),
-                  side: BorderSide(
-                      color: ThemeHelper.getInstance()!.backgroundColor)),
+                  borderRadius: BorderRadiusDirectional.all(Radius.circular(12.r)),
+                  side: BorderSide(color: ThemeHelper.getInstance()!.backgroundColor)),
               shadowColor: ThemeHelper.getInstance()?.shadowColor,
               elevation: 2,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   Row(
                     children: [
                       Flexible(
                           flex: 4,
                           child: LoanDetailColumnWidget(
                               str_loan_amt,
-                              Utils.convertIndianCurrency(loanOfferData
-                                  ?.offerDetails
-                                  ?.elementAt(0)
-                                  .termsSanctionedAmount),
+                              Utils.convertIndianCurrency(
+                                  loanOfferData?.offerDetails?.elementAt(0).termsSanctionedAmount),
                               true,
                               str_loan_amt_tooltip)),
                       Flexible(flex: 1, child: Container()),
@@ -483,10 +469,8 @@ class KfsScreenBody extends State<KfsScreens> {
                           flex: 4,
                           child: LoanDetailColumnWidget(
                               str_total_interest,
-                              Utils.convertIndianCurrency(loanOfferData
-                                  ?.offerDetails
-                                  ?.elementAt(0)
-                                  .termsInterestAmount),
+                              Utils.convertIndianCurrency(
+                                  loanOfferData?.offerDetails?.elementAt(0).termsInterestAmount),
                               true,
                               str_total_interest_tooltip)),
                     ],
@@ -507,23 +491,19 @@ class KfsScreenBody extends State<KfsScreens> {
                           flex: 4,
                           child: LoanDetailColumnWidget(
                               str_net_disb_amt,
-                              Utils.convertIndianCurrency(loanOfferData
-                                  ?.offerDetails
-                                  ?.elementAt(0)
-                                  .netDisbursementAmount),
+                              Utils.convertIndianCurrency(
+                                  loanOfferData?.offerDetails?.elementAt(0).netDisbursementAmount),
                               false,
                               "")),
                       Flexible(flex: 1, child: Container()),
                       Flexible(
-                          flex: 4,
-                          child: LoanDetailColumnWidget(
-                              str_total_repay_amt,
-                              Utils.convertIndianCurrency(loanOfferData
-                                  ?.offerDetails
-                                  ?.elementAt(0)
-                                  .termsTotalAmount),
-                              true,
-                              str_total_repay_amt_tooltip)),
+                        flex: 4,
+                        child: LoanDetailColumnWidget(
+                            str_total_repay_amt,
+                            Utils.convertIndianCurrency(loanOfferData?.offerDetails?.elementAt(0).termsTotalAmount),
+                            true,
+                            str_total_repay_amt_tooltip),
+                      ),
                     ],
                   )
                 ],
@@ -539,10 +519,8 @@ class KfsScreenBody extends State<KfsScreens> {
             Card(
               color: ThemeHelper.getInstance()?.backgroundColor,
               shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadiusDirectional.all(Radius.circular(12.r)),
-                  side: BorderSide(
-                      color: ThemeHelper.getInstance()!.backgroundColor)),
+                  borderRadius: BorderRadiusDirectional.all(Radius.circular(12.r)),
+                  side: BorderSide(color: ThemeHelper.getInstance()!.backgroundColor)),
               shadowColor: ThemeHelper.getInstance()?.shadowColor,
               elevation: 2,
               child: Column(
@@ -561,14 +539,8 @@ class KfsScreenBody extends State<KfsScreens> {
                       Flexible(flex: 1, child: Container()),
                       Flexible(
                           flex: 4,
-                          child: LoanDetailColumnWidget(
-                              str_no_of_installment,
-                              loanOfferData?.offerDetails
-                                      ?.elementAt(0)
-                                      .noOfInstallments ??
-                                  "-",
-                              false,
-                              "")),
+                          child: LoanDetailColumnWidget(str_no_of_installment,
+                              loanOfferData?.offerDetails?.elementAt(0).noOfInstallments ?? "-", false, "")),
                     ],
                   ),
                   SizedBox(
@@ -594,11 +566,7 @@ class KfsScreenBody extends State<KfsScreens> {
                       Flexible(
                           flex: 4,
                           child: LoanDetailColumnWidget(
-                              str_penal_charge,
-                              Utils.convertIndianCurrency(
-                                  panelcharges.toString()),
-                              false,
-                              "")),
+                              str_penal_charge, Utils.convertIndianCurrency(panelcharges.toString()), false, "")),
                     ],
                   )
                 ],
@@ -621,8 +589,7 @@ class KfsScreenBody extends State<KfsScreens> {
     );
   }
 
-  Widget LoanDetailColumnWidget(
-      String title, String value, bool isOtherInfo, String toolTip) {
+  Widget LoanDetailColumnWidget(String title, String value, bool isOtherInfo, String toolTip) {
     final key = GlobalKey<State<Tooltip>>();
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -642,8 +609,7 @@ class KfsScreenBody extends State<KfsScreens> {
                   style: ThemeHelper.getInstance()
                       ?.textTheme
                       .headline3
-                      ?.copyWith(color: MyColors.lightGraySmallText
-                      ,fontSize: 12.sp),
+                      ?.copyWith(color: MyColors.lightGraySmallText, fontSize: 12.sp),
                   maxLines: 3,
                   softWrap: true,
                 ),
@@ -657,8 +623,7 @@ class KfsScreenBody extends State<KfsScreens> {
                       showDuration: const Duration(seconds: 1),
                       message: toolTip,
                       textAlign: TextAlign.center,
-                      decoration: BoxDecoration(
-                          color: ThemeHelper.getInstance()?.primaryColor),
+                      decoration: BoxDecoration(color: ThemeHelper.getInstance()?.primaryColor),
                       textStyle: ThemeHelper.getInstance()
                           ?.textTheme
                           ?.headline5
@@ -671,8 +636,7 @@ class KfsScreenBody extends State<KfsScreens> {
                           padding: EdgeInsets.only(top: 0.h),
                           child: Icon(
                             Icons.info_outline_rounded,
-                            color: ThemeHelper.getInstance()
-                                ?.unselectedWidgetColor,
+                            color: ThemeHelper.getInstance()?.unselectedWidgetColor,
                             size: 15.h,
                           ),
                         ),
@@ -687,9 +651,7 @@ class KfsScreenBody extends State<KfsScreens> {
         ),
         Text(
           value,
-          style: ThemeHelper.getInstance()
-              ?.textTheme
-              .headline2?.copyWith(fontSize: 14.sp),
+          style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 14.sp),
           textAlign: TextAlign.center,
         ),
       ],
@@ -701,16 +663,14 @@ class KfsScreenBody extends State<KfsScreens> {
     tooltip?.ensureTooltipVisible();
   }
 
-  Widget RichTextWidget(
-      String title, String value, String toolTip, bool isOtherInfo) {
+  Widget RichTextWidget(String title, String value, String toolTip, bool isOtherInfo) {
     final key = GlobalKey<State<Tooltip>>();
     return RichText(
       textAlign: TextAlign.start,
       maxLines: 5,
       text: TextSpan(
         style: ThemeHelper.getInstance()?.textTheme.headline5?.copyWith(
-              color: ThemeHelper.getInstance()
-                  ?.indicatorColor, /*fontFamily: MyFont.Nunito_Sans_Semi_bold*/
+              color: ThemeHelper.getInstance()?.indicatorColor, /*fontFamily: MyFont.Nunito_Sans_Semi_bold*/
             ),
         children: [
           TextSpan(
@@ -724,8 +684,7 @@ class KfsScreenBody extends State<KfsScreens> {
                       key: key,
                       message: toolTip,
                       textAlign: TextAlign.center,
-                      decoration: BoxDecoration(
-                          color: ThemeHelper.getInstance()?.primaryColor),
+                      decoration: BoxDecoration(color: ThemeHelper.getInstance()?.primaryColor),
                       textStyle: ThemeHelper.getInstance()
                           ?.textTheme
                           ?.headline5
@@ -738,8 +697,7 @@ class KfsScreenBody extends State<KfsScreens> {
                           padding: EdgeInsets.only(top: 3.h),
                           child: Icon(
                             Icons.info_outline_rounded,
-                            color: ThemeHelper.getInstance()
-                                ?.unselectedWidgetColor,
+                            color: ThemeHelper.getInstance()?.unselectedWidgetColor,
                             size: 15.h,
                           ),
                         ),
@@ -779,7 +737,10 @@ class KfsScreenBody extends State<KfsScreens> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(str_other_upfront_charges,
-                        style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 14.sp,color: MyColors.pnbcolorPrimary)),
+                        style: ThemeHelper.getInstance()
+                            ?.textTheme
+                            .headline2
+                            ?.copyWith(fontSize: 14.sp, color: MyColors.pnbcolorPrimary)),
                     Row(
                       children: [
                         Text(
@@ -791,8 +752,7 @@ class KfsScreenBody extends State<KfsScreens> {
                         ),
                         GestureDetector(
                           child: SvgPicture.asset(
-                        isOtherUpFrontDetailCard ?
-                        Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+                            isOtherUpFrontDetailCard ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
                             height: 20.h,
                             width: 20.w,
                           ),
@@ -818,17 +778,14 @@ class KfsScreenBody extends State<KfsScreens> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                          OtherUpFrontRowWidget(
-                              str_stamp_duty,
-                              Utils.convertIndianCurrency("100")),
+                            OtherUpFrontRowWidget(str_stamp_duty, Utils.convertIndianCurrency("100")),
                             SizedBox(width: 90.w),
-                          OtherUpFrontRowWidget(
-                              str_processing_fees,
-                              Utils.convertIndianCurrency(loanOfferData
-                                  ?.offerDetails?[0]
-                                  .processingChargesDetails
-                                  ?.amount)),
-                        ],),
+                            OtherUpFrontRowWidget(
+                                str_processing_fees,
+                                Utils.convertIndianCurrency(
+                                    loanOfferData?.offerDetails?[0].processingChargesDetails?.amount)),
+                          ],
+                        ),
                         SizedBox(height: 14.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -836,16 +793,12 @@ class KfsScreenBody extends State<KfsScreens> {
                           children: [
                             OtherUpFrontRowWidget(
                                 str_insurance_charges,
-                                Utils.convertIndianCurrency(loanOfferData
-                                    ?.offerDetails?[0]
-                                    .insuranceChargesDetails
-                                    ?.amount)),
-                           SizedBox(width: 50.w),
-                            OtherUpFrontRowWidget(
-                                str_others,
                                 Utils.convertIndianCurrency(
-                                    otherChanrges.toString())),
-                          ],),
+                                    loanOfferData?.offerDetails?[0].insuranceChargesDetails?.amount)),
+                            SizedBox(width: 50.w),
+                            OtherUpFrontRowWidget(str_others, Utils.convertIndianCurrency(otherChanrges.toString())),
+                          ],
+                        ),
                       ],
                     )
                   : Container(
@@ -864,7 +817,10 @@ class KfsScreenBody extends State<KfsScreens> {
       children: [
         Text(
           title,
-          style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp,color: MyColors.lightGraySmallText),
+          style: ThemeHelper.getInstance()
+              ?.textTheme
+              .headline3
+              ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
         ),
         SizedBox(height: 5.h),
         Text(value, style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 14.sp)),
@@ -906,11 +862,13 @@ class KfsScreenBody extends State<KfsScreens> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(str_other_disclouser,
-                        style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 14.sp,color: MyColors.pnbcolorPrimary)),
+                        style: ThemeHelper.getInstance()
+                            ?.textTheme
+                            .headline2
+                            ?.copyWith(fontSize: 14.sp, color: MyColors.pnbcolorPrimary)),
                     GestureDetector(
                       child: SvgPicture.asset(
-                        isOtherDisclouserCard ?
-                        Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW) ,
+                        isOtherDisclouserCard ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
                         height: 20.h,
                         width: 20.w,
                       ),
@@ -955,14 +913,11 @@ class KfsScreenBody extends State<KfsScreens> {
                             "${loanOfferData?.offerDetails?.elementAt(0).coolingOffPeriod ?? "3 Days"}",
                             true,
                             str_cooling_period_tooltip),
-                       SizedBox(height: 14.h),
-                       // Flexible(flex: 1, child: Container()),
+                        SizedBox(height: 14.h),
+                        // Flexible(flex: 1, child: Container()),
                         LoanDetailColumnWidget(
                             str_lsp_detail,
-                            loanOfferData?.offerDetails
-                                ?.elementAt(0)
-                                ?.detailsOfLSPActAsRecoveryAgent ??
-                                "NA",
+                            loanOfferData?.offerDetails?.elementAt(0)?.detailsOfLSPActAsRecoveryAgent ?? "NA",
                             true,
                             str_lsp_detail_tooltip),
                         // Row(
@@ -1000,7 +955,8 @@ class KfsScreenBody extends State<KfsScreens> {
                           str_grievance_contact,
                           style: ThemeHelper.getInstance()
                               ?.textTheme
-                              .headline3?.copyWith(color: MyColors.lightGraySmallText,fontSize: 12.sp),
+                              .headline3
+                              ?.copyWith(color: MyColors.lightGraySmallText, fontSize: 12.sp),
                         ),
                         SizedBox(
                           height: 10.h,
@@ -1014,9 +970,7 @@ class KfsScreenBody extends State<KfsScreens> {
                                     ?.replaceAll('null,', '')
                                     .replaceAll(',null', '') ??
                                 "Jainam Shah, Greivance Redressal Officer, 1st floor, Agile Complex, Dadar, Mumbai - 400014 Phone : 022 7878 2442",
-                            style: ThemeHelper.getInstance()
-                                ?.textTheme
-                                .headline2?.copyWith(fontSize: 14.sp),
+                            style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 14.sp),
                             textAlign: TextAlign.start,
                           ),
                         )
@@ -1030,114 +984,90 @@ class KfsScreenBody extends State<KfsScreens> {
         ));
   }
 
-  Widget SelectLoanOfferBtnUI(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 48.h,
-      child: ElevatedButton(
-          onPressed: () async {
-
-            showDialog(
-                context: context,
-                builder: (_) => PopUpViewForCongratulation()
-            );
-
-
-            // WidgetsBinding.instance.addPostFrameCallback((_) async {
-            //   LoaderUtils.showLoaderwithmsg(context,
-            //       msg:
-            //           "$str_congrats \n $str_Congratulations \n $str_congratulation_sen \n $str_while_we_process_your_loan");
-            // });
-            //
-            // if (await TGNetUtil.isInternetAvailable()) {
-            //   setLoanOffer();
-            // } else {
-            //   showSnackBarForintenetConnection(context, setLoanOffer);
-            // }
-          },
-          child: Center(
-            child: Text(
-              str_select_loan_offer,
-              style: ThemeHelper.getInstance()?.textTheme.button,
-            ),
-          )),
-    );
+  Widget selectLoanOfferBtnUI(BuildContext context) {
+    return AppButton(
+        onPress: () async {
+          showDialog(context: context, builder: (_) => popUpViewForCongratulation());
+        },
+        title: str_select_loan_offer);
   }
 
-  Widget PopUpViewForCongratulation() {
+  Widget popUpViewForCongratulation() {
     return GestureDetector(
-        onTap: () {
-          Navigator.pop(context);
-        },
-        child: Container(
-          color: Colors.black.withOpacity(0.5),
-          child: Center(
-              child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    image: DecorationImage(image: AssetImage(Utils.path(KFSCONGRATULATIONBG)),fit: BoxFit.fill),
-                    color: Colors.white,
-                  ),
-                  height: 350.h,
-                  width: 335.w,
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: Container(
+        color: Colors.black.withOpacity(0.5),
+        child: Center(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(8.r)),
+              image: DecorationImage(image: AssetImage(Utils.path(KFSCONGRATULATIONBG)), fit: BoxFit.fill),
+              color: Colors.white,
+            ),
+            height: 350.h,
+            width: 335.w,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(height: 50.h), //40
+                Center(
+                  child: SvgPicture.asset(Utils.path(FILLGREENCONFORMTICK),
+                      height: 52.h, //,
+                      width: 52.w, //134.8,
+                      allowDrawingOutsideViewBox: true),
+                ),
+                SizedBox(height: 30.h), //40
+                Center(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(
-                          height: 50.h), //40
-                      Center(
-                          child: SvgPicture.asset( Utils.path(FILLGREENCONFORMTICK),
-                              height: 52.h, //,
-                              width:52.w, //134.8,
-                              allowDrawingOutsideViewBox: true)),
-                      SizedBox(
-                          height: 30.h), //40
-                      Center(
-                          child: Column(children: [
-                            Text(
-                              "Congratulations",style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 20.sp,color: MyColors.lightGraySmallText),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(
-                                height: 18.h),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 30,right: 30),
-                              child: Text(
-                               "You will now proceed to NeSL's Digital Document Execution journey",
-                                textAlign: TextAlign.center,
-                                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp,color: MyColors.lightGraySmallText),
-                              ),
-                            ),
-                          ])),
-                      //38
-                      SizedBox(
-                          height: 25.h),
+                    children: [
+                      Text(
+                        "Congratulations",
+                        style: ThemeHelper.getInstance()
+                            ?.textTheme
+                            .headline2
+                            ?.copyWith(fontSize: 20.sp, color: MyColors.lightGraySmallText),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: 18.h),
                       Padding(
-                        padding:  EdgeInsets.only(left: 20.w,right: 20.w),
-                        child: BtnProceed(),
-                      )
+                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        child: Text(
+                          "You will now proceed to NeSL's Digital Document Execution journey",
+                          textAlign: TextAlign.center,
+                          style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
+                              fontSize: 14.sp,
+                              color: MyColors.lightGraySmallText,
+                              fontFamily: MyFont.Nunito_Sans_Regular),
+                        ),
+                      ),
                     ],
-                  ))),
-        ));
-  }
-
-  Widget BtnProceed() {
-    return SizedBox(
-      height: 48.h,
-      child: ElevatedButton(
-        style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
-        onPressed: () async {
-          Navigator.pop(context);
-          Navigator.pushNamed(context, MyRoutes.loanDepositeAccRoutes);
-        },
-        child:  Text(
-          str_proceed,
+                  ),
+                ),
+                //38
+                SizedBox(height: 25.h),
+                Padding(
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                  child: btnProceed(),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 
+  Widget btnProceed() {
+    return AppButton(
+        onPress: () async {
+          Navigator.pop(context);
+          Navigator.pushNamed(context, MyRoutes.loanDepositeAccRoutes);
+        },
+        title: str_proceed);
+  }
 
   void setIsOtherUpFrontCardShow() {
     isOtherUpFrontDetailCard = !isOtherUpFrontDetailCard;
@@ -1250,19 +1180,12 @@ class KfsScreenBody extends State<KfsScreens> {
 
   void calculateOtherChanges(String chargeType) {
     if (loanOfferData?.offerDetails?[0].additionalCharges?.isNotEmpty == true) {
-      for (int i = 0;
-          i < loanOfferData!.offerDetails![0].additionalCharges!.length;
-          i++) {
-        if ((loanOfferData!.offerDetails![0].additionalCharges?[i].description
-                    .toString()
-                    .toLowerCase() ??
-                "")
+      for (int i = 0; i < loanOfferData!.offerDetails![0].additionalCharges!.length; i++) {
+        if ((loanOfferData!.offerDetails![0].additionalCharges?[i].description.toString().toLowerCase() ?? "")
             .contains(chargeType.toLowerCase())) {
           if (chargeType != "Penal") {
-            otherChanrges = otherChanrges +
-                num.parse(loanOfferData!
-                        .offerDetails![0].additionalCharges?[i].amount ??
-                    "0");
+            otherChanrges =
+                otherChanrges + num.parse(loanOfferData!.offerDetails![0].additionalCharges?[i].amount ?? "0");
           } else {
             otherChanrges = otherChanrges + 0;
           }
@@ -1273,19 +1196,12 @@ class KfsScreenBody extends State<KfsScreens> {
 
   void calculatePanelCharges(String chargeType) {
     if (loanOfferData?.offerDetails?[0].additionalCharges?.isNotEmpty == true) {
-      for (int i = 0;
-          i < loanOfferData!.offerDetails![0].additionalCharges!.length;
-          i++) {
-        if ((loanOfferData!.offerDetails![0].additionalCharges?[i].description
-                    .toString()
-                    .toLowerCase() ??
-                "")
+      for (int i = 0; i < loanOfferData!.offerDetails![0].additionalCharges!.length; i++) {
+        if ((loanOfferData!.offerDetails![0].additionalCharges?[i].description.toString().toLowerCase() ?? "")
             .contains(chargeType.toLowerCase())) {
           if (chargeType == "Penal") {
-            panelcharges = panelcharges +
-                num.parse(loanOfferData!
-                        .offerDetails![0].additionalCharges?[i].amount ??
-                    "0");
+            panelcharges =
+                panelcharges + num.parse(loanOfferData!.offerDetails![0].additionalCharges?[i].amount ?? "0");
           } else {
             panelcharges = panelcharges + 0;
           }
@@ -1297,17 +1213,11 @@ class KfsScreenBody extends State<KfsScreens> {
   void setTotalCharge() {
     // if(loanOfferData?.offerDetails?[0].processingChargesDetails?.chargeType == "FIXED_AMOUNT")
     // {
-    totalCharge = totalCharge +
-        num.parse(
-            loanOfferData?.offerDetails?[0].processingChargesDetails?.amount ??
-                "0");
+    totalCharge = totalCharge + num.parse(loanOfferData?.offerDetails?[0].processingChargesDetails?.amount ?? "0");
     // }
     //  if(loanOfferData?.offerDetails?[0].insuranceChargesDetails?.chargeType == "FIXED_AMOUNT")
     //  {
-    totalCharge = totalCharge +
-        num.parse(
-            loanOfferData?.offerDetails?[0].insuranceChargesDetails?.amount ??
-                "0");
+    totalCharge = totalCharge + num.parse(loanOfferData?.offerDetails?[0].insuranceChargesDetails?.amount ?? "0");
     // }
     // if(getAdditionalCharge("Stamp")?.contains("%") == false)
     // {
@@ -1316,12 +1226,9 @@ class KfsScreenBody extends State<KfsScreens> {
   }
 
   Future<void> setLoanOffer() async {
-    TGSharedPreferences.getInstance()
-        .set(PREF_LOANAPPID, loanOfferData?.loanApplicationId);
-    TGSharedPreferences.getInstance()
-        .set(PREF_OFFERID, loanOfferData?.offerDetails?[0].offerId);
-    String loanAppRefId =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    TGSharedPreferences.getInstance().set(PREF_LOANAPPID, loanOfferData?.loanApplicationId);
+    TGSharedPreferences.getInstance().set(PREF_OFFERID, loanOfferData?.offerDetails?[0].offerId);
+    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     SetLoanOfferRequest setLoanOfferRequest = SetLoanOfferRequest(
         loanApplicationRefId: loanAppRefId,
         loanApplicationId: loanOfferData?.loanApplicationId,
@@ -1344,10 +1251,7 @@ class KfsScreenBody extends State<KfsScreens> {
     } else {
       Navigator.pop(context);
       LoaderUtils.handleErrorResponse(
-          context,
-          response?.getSetLoanOfferResObj().status,
-          response?.getSetLoanOfferResObj().message,
-          null);
+          context, response?.getSetLoanOfferResObj().status, response?.getSetLoanOfferResObj().message, null);
     }
   }
 
@@ -1358,13 +1262,10 @@ class KfsScreenBody extends State<KfsScreens> {
   }
 
   Future<void> getLoanAppStatusAfterSelectLoanOffer() async {
-    String loanAppRefId =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
-    GetLoanStatusRequest getLoanStatusRequest =
-        GetLoanStatusRequest(loanApplicationRefId: loanAppRefId);
+    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    GetLoanStatusRequest getLoanStatusRequest = GetLoanStatusRequest(loanApplicationRefId: loanAppRefId);
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
-    TGPostRequest tgPostRequest =
-        await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('4'));
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('4'));
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessGetLoanAppStatus(response),
@@ -1377,8 +1278,7 @@ class KfsScreenBody extends State<KfsScreens> {
     if (_getLoanStatusRes?.status == RES_SUCCESS) {
       if (_getLoanStatusRes?.data?.stageStatus == "PROCEED") {
         Navigator.pop(context);
-        MoveStage.navigateNextStage(
-            context, _getLoanStatusRes?.data?.currentStage);
+        MoveStage.navigateNextStage(context, _getLoanStatusRes?.data?.currentStage);
         //Navigator.pushNamed(context, MyRoutes.reviewDisbursedAccRoutes);
       } else if (_getLoanStatusRes?.data?.stageStatus == "HOLD") {
         Future.delayed(const Duration(seconds: 10), () {
@@ -1389,11 +1289,8 @@ class KfsScreenBody extends State<KfsScreens> {
       }
     } else {
       Navigator.pop(context);
-      LoaderUtils.handleErrorResponse(
-          context,
-          response?.getLoanStatusResObj().status,
-          response?.getLoanStatusResObj().message,
-          response?.getLoanStatusResObj().data?.stageStatus);
+      LoaderUtils.handleErrorResponse(context, response?.getLoanStatusResObj().status,
+          response?.getLoanStatusResObj().message, response?.getLoanStatusResObj().data?.stageStatus);
     }
   }
 
@@ -1407,8 +1304,7 @@ class KfsScreenBody extends State<KfsScreens> {
     if (await TGNetUtil.isInternetAvailable()) {
       getLoanAppStatusAfterSelectLoanOffer();
     } else {
-      showSnackBarForintenetConnection(
-          context, getLoanAppStatusAfterSelectLoanOffer);
+      showSnackBarForintenetConnection(context, getLoanAppStatusAfterSelectLoanOffer);
     }
   }
 

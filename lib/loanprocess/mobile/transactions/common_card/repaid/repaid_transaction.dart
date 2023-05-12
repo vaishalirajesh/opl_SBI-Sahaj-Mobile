@@ -1,27 +1,20 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gstmobileservices/common/tg_log.dart';
 import 'package:gstmobileservices/model/models/get_all_invoice_loan_response_main.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
-import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/imageconstant.dart';
 
-import '../../../../../routes.dart';
 import '../../../../../utils/Utils.dart';
 import '../../../../../utils/constants/prefrenceconstants.dart';
 import '../../../../../utils/helpers/themhelper.dart';
 import '../../../../../utils/strings/strings.dart';
-import '../../../../../widgets/ratingwidget.dart';
-
 
 class RepaidTransactionCard extends StatefulWidget {
   static _RepaidTransactionCardState? _state;
-  RepaidTransactionCard({Key? key,required this.repaidInvoice}) : super(key: key);
-
+  RepaidTransactionCard({Key? key, required this.repaidInvoice}) : super(key: key);
 
   SharedInvoice? repaidInvoice;
   @override
@@ -79,22 +72,21 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
           )),
       child: Column(
         children: [
-        //  setRepaidCardUi(),
+          //  setRepaidCardUi(),
           GestureDetector(
               onTap: () {
-                  setState(() {
-                    isHideView = !isHideView;
-                  });
+                setState(() {
+                  isHideView = !isHideView;
+                });
               },
-              child: setRepaidCardUi()),//showHideCardViewUI()),
+              child: setRepaidCardUi()), //showHideCardViewUI()),
         ],
       ),
     );
   }
 
 //..part 1
-  setRepaidCardUi()
-  {
+  setRepaidCardUi() {
     return Container(
       decoration: BoxDecoration(
         color: MyColors.white,
@@ -112,8 +104,7 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
     );
   }
 
-  Widget showHideCardViewUI()
-  {
+  Widget showHideCardViewUI() {
     return Container(
       decoration: BoxDecoration(
         color: MyColors.pnbPinkColor,
@@ -129,10 +120,7 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
           children: [
             Text(
               isHideView ? str_view_more : str_hide,
-              style: ThemeHelper.getInstance()!
-                  .textTheme
-                  .headline5!
-                  .copyWith(color: MyColors.pnbcolorPrimary),
+              style: ThemeHelper.getInstance()!.textTheme.headline5!.copyWith(color: MyColors.pnbcolorPrimary),
             ),
             SizedBox(
               width: 15.w,
@@ -154,9 +142,8 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
       padding: EdgeInsets.symmetric(horizontal: 14.w),
       child: Container(
         height: 42.h,
-        decoration: BoxDecoration(
-            color: MyColors.pnbSecondarycolor,
-            borderRadius: BorderRadius.all(Radius.circular(8.r))),
+        decoration:
+            BoxDecoration(color: MyColors.pnbSecondarycolor, borderRadius: BorderRadius.all(Radius.circular(8.r))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -166,17 +153,11 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
                 children: [
                   Text(
                     str_Lender + ' : ',
-                    style: ThemeHelper.getInstance()!
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 13.sp),
+                    style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 13.sp),
                   ),
                   Text(
                     bankName ?? '',
-                    style: ThemeHelper.getInstance()!
-                        .textTheme
-                        .headline1!
-                        .copyWith(
+                    style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(
                           fontSize: 13.sp,
                           color: MyColors.pnbTextcolor,
                         ),
@@ -197,17 +178,11 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
                 children: [
                   Text(
                     str_ROI,
-                    style: ThemeHelper.getInstance()!
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontSize: 13.sp),
+                    style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 13.sp),
                   ),
                   Text(
                     interestRate ?? '',
-                    style: ThemeHelper.getInstance()!
-                        .textTheme
-                        .headline1!
-                        .copyWith(
+                    style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(
                           fontSize: 13.sp,
                           color: MyColors.pnbTextcolor,
                         ),
@@ -285,8 +260,10 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
                   .copyWith(color: MyColors.pnbTextcolor, fontSize: 12.sp),
             ),
             Text(value2,
-                style: ThemeHelper.getInstance()!.textTheme.headline2!.copyWith(
-                    color: MyColors.pnbcolorPrimary, fontSize: 12.sp)),
+                style: ThemeHelper.getInstance()!
+                    .textTheme
+                    .headline2!
+                    .copyWith(color: MyColors.pnbcolorPrimary, fontSize: 12.sp)),
           ],
         ),
       ],
@@ -294,7 +271,6 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
   }
 
   setRepaidCardViewUi() {
-
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15.w),
       child: Container(
@@ -314,25 +290,20 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
                     children: [
                       Text(
                         buyerName ?? 'Flipcart Pvt. Ltd.',
-                        style: ThemeHelper.getInstance()!
-                            .textTheme
-                            .headline1!
-                            .copyWith(fontSize: 13.sp),
+                        style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 13.sp),
                       ),
                       Text(
                         gstin ?? 'Invoice: 23001832184',
                         style: ThemeHelper.getInstance()!
                             .textTheme
                             .headline3!
-                            .copyWith(
-                            fontSize: 10.sp, color: MyColors.pnbTextcolor),
+                            .copyWith(fontSize: 10.sp, color: MyColors.pnbTextcolor),
                       )
                     ],
                   ),
                 ),
                 SvgPicture.asset(
-                  !isHideView ?
-                  Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+                  !isHideView ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
                   height: 20.h,
                   width: 20.w,
                 ),
@@ -357,14 +328,12 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
                           style: ThemeHelper.getInstance()!
                               .textTheme
                               .headline3!
-                              .copyWith(
-                              fontSize: 12.sp,
-                              color: MyColors.pnbTextcolor)),
+                              .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor)),
                       Text('09/08/2022',
                           style: ThemeHelper.getInstance()!
                               .textTheme
                               .headline1!
-                              .copyWith(fontSize: 13.sp,color: MyColors.pnbDarkGreyTextColor)),
+                              .copyWith(fontSize: 13.sp, color: MyColors.pnbDarkGreyTextColor)),
                     ],
                   ),
                 ),
@@ -374,13 +343,11 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       //..Title Never Change
-                      Text("Fully Paid",
+                      Text("Fully Paid oo",
                           style: ThemeHelper.getInstance()!
                               .textTheme
                               .headline3!
-                              .copyWith(
-                              fontSize: 12.sp,
-                              color: MyColors.pnbGreenColor)),
+                              .copyWith(fontSize: 12.sp, color: MyColors.pnbGreenColor)),
                       // Text(dueDate ?? '09/08/2022',
                       //     style: ThemeHelper.getInstance()!
                       //         .textTheme
@@ -398,7 +365,6 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
         ),
       ),
     );
-
 
     // return Padding(
     //   padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -470,34 +436,26 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
     //     ),
     //   ),
     // );
-
   }
 
-
   setLoanAmountUi() {
-
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text(str_Loan_Amount,
-              style: ThemeHelper.getInstance()!
-                  .textTheme
-                  .headline3!
-                  .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor)),
-          Text(loanAmount ?? '',
-              style: ThemeHelper.getInstance()!
-                  .textTheme
-                  .headline1!
-                  .copyWith(fontSize: 12.sp))
-        ],
-      );
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Text(str_Loan_Amount,
+            style: ThemeHelper.getInstance()!
+                .textTheme
+                .headline3!
+                .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor)),
+        Text(loanAmount ?? '', style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 12.sp))
+      ],
+    );
   }
 
   Widget setRepaidCardBottomUi() {
-
     return Padding(
-      padding:  EdgeInsets.symmetric(horizontal: 12.w),
+      padding: EdgeInsets.symmetric(horizontal: 12.w),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -515,25 +473,20 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
                   children: [
                     Text(
                       buyerName ?? 'Flipcart Pvt. Ltd.',
-                      style: ThemeHelper.getInstance()!
-                          .textTheme
-                          .headline1!
-                          .copyWith(fontSize: 13.sp),
+                      style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 13.sp),
                     ),
                     Text(
                       gstin ?? 'Invoice: 23001832184',
                       style: ThemeHelper.getInstance()!
                           .textTheme
                           .headline3!
-                          .copyWith(
-                          fontSize: 10.sp, color: MyColors.pnbTextcolor),
+                          .copyWith(fontSize: 10.sp, color: MyColors.pnbTextcolor),
                     )
                   ],
                 ),
               ),
               SvgPicture.asset(
-                !isHideView ?
-                Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+                !isHideView ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
                 height: 20.h,
                 width: 20.w,
               ),
@@ -558,14 +511,12 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
                         style: ThemeHelper.getInstance()!
                             .textTheme
                             .headline3!
-                            .copyWith(
-                            fontSize: 12.sp,
-                            color: MyColors.pnbTextcolor)),
+                            .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor)),
                     Text('09/08/2022',
                         style: ThemeHelper.getInstance()!
                             .textTheme
                             .headline1!
-                            .copyWith(fontSize: 13.sp,color: MyColors.pnbDarkGreyTextColor)),
+                            .copyWith(fontSize: 13.sp, color: MyColors.pnbDarkGreyTextColor)),
                   ],
                 ),
               ),
@@ -579,10 +530,7 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
                         style: ThemeHelper.getInstance()!
                             .textTheme
                             .headline3!
-                            .copyWith(
-                            fontSize: 12.sp,
-                            color: MyColors.pnbGreenColor))
-
+                            .copyWith(fontSize: 12.sp, color: MyColors.pnbGreenColor))
                   ],
                 ),
               ),
@@ -595,11 +543,11 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
           SizedBox(
             height: 10.h,
           ),
-          setRowColumValueOpenCard("Disbursed On","09/08/2022","Lender","State Bank of India"),
-          setRowColumValueOpenCard("Invoice Date","09/08/2022","ROI","10% p.a."),
-          setRowColumValueOpenCard("Loan Amount","₹41,600","Invoice Amount","₹52,000"),
-          setRowColumValueOpenCard("Tenure","90 Days","Interest Amount","₹1040"),
-          setRowColumValueOpenCard("Due Date","08/08/2022","Amount Due","₹62,640"),
+          setRowColumValueOpenCard("Disbursed On", "09/08/2022", "Lender", "State Bank of India"),
+          setRowColumValueOpenCard("Invoice Date", "09/08/2022", "ROI", "10% p.a."),
+          setRowColumValueOpenCard("Loan Amount", "₹41,600", "Invoice Amount", "₹52,000"),
+          setRowColumValueOpenCard("Tenure", "90 Days", "Interest Amount", "₹1040"),
+          setRowColumValueOpenCard("Due Date", "08/08/2022", "Amount Due", "₹62,640"),
           //SizedBox(height: 10.h),
           setPayNowUi(),
           SizedBox(height: 15.h),
@@ -608,8 +556,6 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
         ],
       ),
     );
-
-
 
     // return Column(
     //   children: [
@@ -671,8 +617,7 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
     // );
   }
 
-  dividerUI(double padding)
-  {
+  dividerUI(double padding) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: padding),
       child: Divider(
@@ -695,7 +640,7 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
             style: ThemeHelper.getInstance()!
                 .textTheme
                 .headline1!
-                .copyWith(fontSize: 12.sp,color: MyColors.pnbDarkGreyTextColor))
+                .copyWith(fontSize: 12.sp, color: MyColors.pnbDarkGreyTextColor))
       ],
     );
   }
@@ -706,7 +651,8 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
       isRatingChange = true;
     });
   }
-  Widget setRowColumValueOpenCard(String title, String value,String title2, String value2) {
+
+  Widget setRowColumValueOpenCard(String title, String value, String title2, String value2) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -720,14 +666,16 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
               width: 66.w,
               child: Text(title,
                   style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
-                    fontSize: 12.sp,
-                  )),
+                        fontSize: 12.sp,
+                      )),
             ),
             // SizedBox(
             //   height: 5.h,
             // ),
             Text(value,
-                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp,)),
+                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
+                      fontSize: 14.sp,
+                    )),
             SizedBox(
               height: 20.h,
             ),
@@ -740,13 +688,15 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
           children: [
             Text(title2,
                 style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
-                  fontSize: 12.sp,
-                )),
+                      fontSize: 12.sp,
+                    )),
             // SizedBox(
             //   height: 5.h,
             // ),
             Text(value2,
-                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp,)),
+                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
+                      fontSize: 14.sp,
+                    )),
             SizedBox(
               height: 20.h,
             ),
@@ -771,66 +721,56 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
             // });
           },
           // style: ThemeHelper.getInstance()?.elevale,
-          child:
-          Text(
+          child: Text(
             "Prepay Now",
             style: TextStyle(fontSize: 12.sp),
           ),
         ));
   }
 
-  Widget setOpenBottomViewText(){
-    return Text.rich(TextSpan(
-        children: <InlineSpan>[
-
-          // TextSpan(
-          //   text: "Raise dispute",
-          //   style: ThemeHelper.getInstance()!
-          //       .textTheme
-          //       .headline6!
-          //       .copyWith(
-          //       fontSize: 12.sp,
-          //       color:
-          //       MyColors.pnbcolorPrimary,decoration:
-          //   TextDecoration.underline),
-          // ),
-          // WidgetSpan(
-          //   child: SizedBox(width: 18),
-          // ),
-          // TextSpan(
-          //   text: "Request for deferment",
-          //   style: ThemeHelper.getInstance()!
-          //       .textTheme
-          //       .headline6!
-          //       .copyWith(
-          //       fontSize: 12.sp,
-          //       color: MyColors.pnbcolorPrimary,
-          //       decoration:
-          //       TextDecoration.underline),
-          // ),
-          // WidgetSpan(
-          //   child: SizedBox(width: 18),
-          // ),
-          TextSpan(
-            text: "Contact support",
-            style: ThemeHelper.getInstance()!
-                .textTheme
-                .headline6!
-                .copyWith(
-                fontSize: 12.sp,
-                color:
-                MyColors.pnbcolorPrimary,decoration:
-            TextDecoration.underline),
-          ),
-        ]));
-
+  Widget setOpenBottomViewText() {
+    return Text.rich(TextSpan(children: <InlineSpan>[
+      // TextSpan(
+      //   text: "Raise dispute",
+      //   style: ThemeHelper.getInstance()!
+      //       .textTheme
+      //       .headline6!
+      //       .copyWith(
+      //       fontSize: 12.sp,
+      //       color:
+      //       MyColors.pnbcolorPrimary,decoration:
+      //   TextDecoration.underline),
+      // ),
+      // WidgetSpan(
+      //   child: SizedBox(width: 18),
+      // ),
+      // TextSpan(
+      //   text: "Request for deferment",
+      //   style: ThemeHelper.getInstance()!
+      //       .textTheme
+      //       .headline6!
+      //       .copyWith(
+      //       fontSize: 12.sp,
+      //       color: MyColors.pnbcolorPrimary,
+      //       decoration:
+      //       TextDecoration.underline),
+      // ),
+      // WidgetSpan(
+      //   child: SizedBox(width: 18),
+      // ),
+      TextSpan(
+        text: "Contact support",
+        style: ThemeHelper.getInstance()!
+            .textTheme
+            .headline6!
+            .copyWith(fontSize: 12.sp, color: MyColors.pnbcolorPrimary, decoration: TextDecoration.underline),
+      ),
+    ]));
   }
 
   //////
 
-
-  void setRepaidInvoiceData(SharedInvoice? disbursedInvoice){
-
+  void setRepaidInvoiceData(SharedInvoice? disbursedInvoice) {
     dueDate = createDueDate(disbursedInvoice?.dueDate ?? '');
     bankName = disbursedInvoice?.bankName;
     interestRate = disbursedInvoice?.interestRate.toString() ?? "" + " % p.a";
@@ -845,26 +785,20 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
     gstin = TGSession.getInstance().get(PREF_GSTIN);
     dueDays = disbursedInvoice?.dueDays;
     tenure = disbursedInvoice?.tenure.toString();
-    latePaymentCharge= Utils.convertIndianCurrency(disbursedInvoice?.amountDue?.toString());
+    latePaymentCharge = Utils.convertIndianCurrency(disbursedInvoice?.amountDue?.toString());
     invoiceAmount = Utils.convertIndianCurrency(disbursedInvoice?.invoiceAmount?.toString());
     loanAmount = Utils.convertIndianCurrency(disbursedInvoice?.loanAmount?.toString());
-
   }
 
   createDueDate(String date) {
-    if(date.isNotEmpty)
-    {
+    if (date.isNotEmpty) {
       DateTime dt = DateTime.parse(date);
 
       String formattedDate = DateFormat('MM/dd/yyyy').format(dt);
       return formattedDate;
-    }
-    else
-    {
+    } else {
       return '';
     }
   }
   //..demoData
-
 }
-

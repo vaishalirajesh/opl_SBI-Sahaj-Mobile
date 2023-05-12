@@ -85,6 +85,7 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
                       // height: MediaQuery.of(context).size.height,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        // mainAxisSize: MainAxisSize.min,
                         children: [
                           ..._buildHeader(),
                           _buildMiddler(),
