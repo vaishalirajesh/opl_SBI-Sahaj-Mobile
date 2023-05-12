@@ -3,15 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/signupdetails/signup.dart';
-import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
+import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 
 import '../../../utils/Utils.dart';
 import '../../../utils/constants/imageconstant.dart';
 import '../../../utils/strings/strings.dart';
-import '../../../widgets/animation_routes/page_animation.dart';
-import 'enablegstapintb.dart';
 
 class GetStartedScreen extends StatelessWidget {
   const GetStartedScreen({super.key});
@@ -38,16 +36,26 @@ class GetStarted extends StatelessWidget {
       child: Scaffold(
         body: ListView(
           children: [
-
-             PNBLogo(),
-
-             SahayLogo(),
-
-            CardViewSetup(),
-
-            GetStartedBTN(context),
-
-            BtnLoginTC()
+            pNBLogo(),
+            sahayLogo(),
+            cardViewSetup(),
+          ],
+        ),
+        bottomNavigationBar: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            SizedBox(
+              height: 10.h,
+            ),
+            getStartedBTN(context),
+            SizedBox(
+              height: 5.h,
+            ),
+            loginButton(),
+            SizedBox(
+              height: 15.h,
+            ),
           ],
         ),
       ),
@@ -55,9 +63,9 @@ class GetStarted extends StatelessWidget {
   }
 }
 
-Widget SahayLogo() {
+Widget sahayLogo() {
   return Padding(
-    padding:  EdgeInsets.only(bottom:45.h),
+    padding: EdgeInsets.only(bottom: 45.h),
     child: Center(
       child: SvgPicture.asset(
         Utils.path(IMG_SAHAY_LOGO),
@@ -70,89 +78,94 @@ Widget SahayLogo() {
   );
 }
 
-Widget PNBLogo() {
-  return
-    Padding(
-      padding:  EdgeInsets.only(top:60.h,bottom: 40.h),
-      child: Center(child:
-      SvgPicture.asset(
-      Utils.path(BANKLOGOSQUARE),
-      width: 180.w,
-      height: 35.h,
-  )),
-    );
-}
-
-Widget CardViewSetup() {
+Widget pNBLogo() {
   return Padding(
-    padding: EdgeInsets.only(left: 20.w, right: 20.w,bottom: 100.h),
-    child: Container(
-        height: 200.h,
-        decoration: BoxDecoration(
-          color: ThemeHelper.getInstance()!.cardColor,
-          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-        ),
-        child: Center(
-          child: Padding(
-              child: RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(children: [
-                  TextSpan(
-                      text: str_gst_sahay,
-                      style: ThemeHelper.getInstance()!
-                          .textTheme
-                          .headline1!
-                          .copyWith(fontSize: 16.sp,color: MyColors.pnbsmallbodyTextColor)),
-                  TextSpan(
-                      text: str_disc,
-                      style: ThemeHelper.getInstance()!.textTheme.headline3),
-                  TextSpan(
-                      text: strVideo,
-                      style: ThemeHelper.getInstance()!
-                          .textTheme
-                          .headline3!
-                          .copyWith(color: MyColors.hyperlinkcolornew,decoration:
-                      TextDecoration.underline)),
-                  TextSpan(
-                      text: strLast,
-                      style: ThemeHelper.getInstance()!.textTheme.headline3),
-                ]),
-              ),
-              padding: EdgeInsets.only(left: 20.w, right: 20.w)),
-        )),
-  );
-}
-
-Widget GetStartedBTN(BuildContext context) {
-  return Padding(
-    padding: EdgeInsets.only(left: 20.w, right: 20.w,bottom: 5.h),
-    child: SizedBox(
-      height: 48.h,
-      child: ElevatedButton(
-        onPressed: () {
-         // Navigator.push(context, CustomRightToLeftPageRoute(child:EnableGstApi()));
-          Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpView(),));
-
-          // Navigator.pushNamed(context, MyRoutes.EnableGstApiRoutes);
-        },
-        child: Text(str_get_started,
-            style: ThemeHelper.getInstance()!.textTheme.button),
+    padding: EdgeInsets.only(top: 60.h, bottom: 40.h),
+    child: Center(
+      child: SvgPicture.asset(
+        Utils.path(BANKLOGOSQUARE),
+        width: 180.w,
+        height: 35.h,
       ),
     ),
   );
 }
 
-Widget BtnLoginTC() {
+Widget cardViewSetup() {
+  return Container(
+    // height: 200.h,
+    padding: EdgeInsets.symmetric(horizontal: 10.r, vertical: 20.r),
+    margin: EdgeInsets.only(bottom: 50.h, left: 20.w, right: 20.w),
+    decoration: BoxDecoration(
+      color: ThemeHelper.getInstance()!.cardColor,
+      borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+    ),
+    child: Center(
+      child: Padding(
+        padding: EdgeInsets.only(left: 20.w, right: 20.w),
+        child: RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: str_gst_sahay,
+                style: ThemeHelper.getInstance()!
+                    .textTheme
+                    .headline1!
+                    .copyWith(fontSize: 16.sp, color: MyColors.pnbsmallbodyTextColor),
+              ),
+              TextSpan(
+                text: str_disc,
+                style: ThemeHelper.getInstance()!.textTheme.headline3,
+              ),
+              TextSpan(
+                text: strVideo,
+                style: ThemeHelper.getInstance()!
+                    .textTheme
+                    .headline3!
+                    .copyWith(color: MyColors.hyperlinkcolornew, decoration: TextDecoration.underline),
+              ),
+              TextSpan(
+                text: strLast,
+                style: ThemeHelper.getInstance()!.textTheme.headline3,
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+Widget getStartedBTN(BuildContext context) {
+  return Padding(
+    padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 5.h),
+    child: AppButton(
+      onPress: () {
+        // Navigator.push(context, CustomRightToLeftPageRoute(child:EnableGstApi()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const SignUpView(),
+            ));
+
+        // Navigator.pushNamed(context, MyRoutes.EnableGstApiRoutes);
+      },
+      title: str_get_started,
+    ),
+  );
+}
+
+Widget loginButton() {
   return TextButton(
     onPressed: () {
       //action
     },
     child: RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(children: [
-          TextSpan(
-              text: str_all_have_acc,
-              style: ThemeHelper.getInstance()!.textTheme.headline3),
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        children: [
+          TextSpan(text: str_all_have_acc, style: ThemeHelper.getInstance()!.textTheme.headline3),
           TextSpan(
               text: str_logintc,
               style: ThemeHelper.getInstance()!
@@ -160,6 +173,8 @@ Widget BtnLoginTC() {
                   .headline3!
                   .copyWith(fontSize: 14.sp, color: MyColors.hyperlinkcolornew),
               recognizer: TapGestureRecognizer()..onTap = () {}),
-        ])),
+        ],
+      ),
+    ),
   );
 }

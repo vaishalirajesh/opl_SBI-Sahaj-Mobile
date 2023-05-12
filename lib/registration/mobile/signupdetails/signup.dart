@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
-import '../../../loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
-import '../../../loanprocess/mobile/transactions/common_card/card_2/card_2.dart';
+import 'package:sbi_sahay_1_0/widgets/app_button.dart';
+
 import '../../../routes.dart';
 import '../../../utils/constants/constant.dart';
-import '../../../utils/dimenutils/dimensutils.dart';
-import '../../../utils/helpers/myfonts.dart';
 import '../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 
 class SignUpView extends StatelessWidget {
@@ -30,6 +27,7 @@ class SignUpView extends StatelessWidget {
 
 class SignUpViewBody extends StatefulWidget {
   const SignUpViewBody({Key? key}) : super(key: key);
+
   @override
   State<SignUpViewBody> createState() => _SignUpViewBodyState();
 }
@@ -44,15 +42,11 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         return SafeArea(
           child: WillPopScope(
               onWillPop: () async {
-
                 return true;
               },
               child: Scaffold(
-                appBar: getAppBarWithBackBtn(onClickAction: () => {
-                  Navigator.pop(context, false),
-                  SystemNavigator.pop(animated: true)
-
-                }),
+                appBar: getAppBarWithBackBtn(
+                    onClickAction: () => {Navigator.pop(context, false), SystemNavigator.pop(animated: true)}),
                 body: Stack(children: [
                   SingleChildScrollView(
                     primary: true,
@@ -72,62 +66,62 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
 
   Widget SignUpScreenContent() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 20.w,
-                ),
-                Text(
-                  "Please provide the basic details",
-                  style: ThemeHelper.getInstance()?.textTheme.headline2,
-                ),
-                SizedBox(
-                  height: 20.w,
-                ),
-                TextFieldUI("First Name"),
-                SizedBox(
-                  height: 20.w,
-                ),
-                TextFieldUI("Last Name"),
-                SizedBox(
-                  height: 20.w,
-                ),
-                GenderTextField("Gender"),
-                SizedBox(
-                  height: 20.w,
-                ),
-                ContactNumberWidget(label: "Contact Number"),
-                SizedBox(
-                  height: 20.w,
-                ),
-                EmailIdWidget(label: "Email ID"),
-                SizedBox(
-                  height: 20.w,
-                ),
-                TextFieldUI("PIN Code of Current Residential Address"),
-                SizedBox(
-                  height: 20.w,
-                ),
-                TextFieldUI("City"),
-                SizedBox(
-                  height: 20.w,
-                ),
-                TextFieldUI("Your Preferred Branch"),
-                SizedBox(
-                  height: 20.w,
-                ),
-                confirmGstDetailCheck(),
-                SizedBox(
-                  height: 10.w,
-                ),
-                SignUpButtonUI()
-              ],
-            ),
-    ));
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 20.w,
+              ),
+              Text(
+                "Please provide the basic details",
+                style: ThemeHelper.getInstance()?.textTheme.headline2,
+              ),
+              SizedBox(
+                height: 20.w,
+              ),
+              TextFieldUI("First Name"),
+              SizedBox(
+                height: 20.w,
+              ),
+              TextFieldUI("Last Name"),
+              SizedBox(
+                height: 20.w,
+              ),
+              GenderTextField("Gender"),
+              SizedBox(
+                height: 20.w,
+              ),
+              ContactNumberWidget(label: "Contact Number"),
+              SizedBox(
+                height: 20.w,
+              ),
+              EmailIdWidget(label: "Email ID"),
+              SizedBox(
+                height: 20.w,
+              ),
+              TextFieldUI("PIN Code of Current Residential Address"),
+              SizedBox(
+                height: 20.w,
+              ),
+              TextFieldUI("City"),
+              SizedBox(
+                height: 20.w,
+              ),
+              TextFieldUI("Your Preferred Branch"),
+              SizedBox(
+                height: 20.w,
+              ),
+              confirmGstDetailCheck(),
+              SizedBox(
+                height: 10.w,
+              ),
+              SignUpButtonUI()
+            ],
+          ),
+        ));
   }
 
   Widget TextFieldUI(
@@ -138,11 +132,12 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         cursorColor: Colors.grey,
         decoration: InputDecoration(
             labelText: label,
-            labelStyle: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp,color: MyColors.lightGraySmallText),
-            enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: MyColors.pnbTextcolor)),
-            focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: MyColors.pnbDarkGreyTextColor))),
+            labelStyle: ThemeHelper.getInstance()
+                ?.textTheme
+                .headline3
+                ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.pnbTextcolor)),
+            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.pnbDarkGreyTextColor))),
         keyboardType: TextInputType.text,
         maxLines: 1,
         style: ThemeHelper.getInstance()?.textTheme.headline3,
@@ -157,24 +152,12 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   Widget SignUpButtonUI() {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 20.h),
-      child: Container(
-
-        decoration: BoxDecoration(
-            border: Border.all(
-                color: ThemeHelper.getInstance()!.cardColor, width: 1),
-            color: ThemeHelper.getInstance()?.backgroundColor,
-            borderRadius: BorderRadius.all(Radius.circular(8.r))),
-        height: 48.h,
-        width: MediaQuery.of(context).size.width,
-        child: ElevatedButton(
-          style: isCheck ? ThemeHelper.getInstance()!.elevatedButtonTheme.style : ThemeHelper.setDisableButtonBig(),
-          onPressed: () async {
-            Navigator.pushNamed(context, MyRoutes.EnableGstApiRoutes);
-          },
-          child: Text(
-            str_next,
-          ),
-        ),
+      child: AppButton(
+        onPress: () async {
+          Navigator.pushNamed(context, MyRoutes.EnableGstApiRoutes);
+        },
+        title: str_next,
+        isButtonEnable: isCheck,
       ),
     );
   }
@@ -193,33 +176,37 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
+                SizedBox(
                   width: 20.w,
                   height: 20.h,
-                  child: Checkbox(
-                    checkColor: ThemeHelper.getInstance()!.backgroundColor,
-                    activeColor: ThemeHelper.getInstance()!.primaryColor,
-                    value: isCheck,
-                    onChanged: (bool) {
-                      setState(() {
-                        isCheck = bool!;
-                      });
-                    },
-                    shape: RoundedRectangleBorder(
-
-                        borderRadius: BorderRadius.all(Radius.circular(2.r))),
-                    side: BorderSide(
-                        width: 1,
-                        color: isCheck
-                            ? ThemeHelper.getInstance()!.primaryColor
-                            : ThemeHelper.getInstance()!.primaryColor),
+                  child: Theme(
+                    data: ThemeData(useMaterial3: true),
+                    child: Checkbox(
+                      checkColor: ThemeHelper.getInstance()!.backgroundColor,
+                      activeColor: ThemeHelper.getInstance()!.primaryColor,
+                      value: isCheck,
+                      onChanged: (bool) {
+                        setState(() {
+                          isCheck = bool!;
+                        });
+                      },
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(2.r))),
+                      side: BorderSide(
+                          width: 1,
+                          color: isCheck
+                              ? ThemeHelper.getInstance()!.primaryColor
+                              : ThemeHelper.getInstance()!.primaryColor),
+                    ),
                   ),
                 ),
                 SizedBox(width: 10.w),
                 Expanded(
                   child: Text(
                     "I hereby authorize State Bank of India and/or its representatives to call me, SMS me with reference to my loan application. This consent will supersede any registration for any Do Not Call (DNC) / National Do Not Call (NDNC).",
-                    style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp,color: MyColors.lightGraySmallText),
+                    style: ThemeHelper.getInstance()
+                        ?.textTheme
+                        .headline3
+                        ?.copyWith(fontSize: 14.sp, color: MyColors.lightGraySmallText),
                     maxLines: 5,
                   ),
                 ),
@@ -227,12 +214,9 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
     );
   }
 
-
-
   AppBar buildAppBarWithoutAnything() {
     return AppBar(
-      iconTheme: IconThemeData(
-          color: ThemeHelper.getInstance()!.colorScheme.primary, size: 28),
+      iconTheme: IconThemeData(color: ThemeHelper.getInstance()!.colorScheme.primary, size: 28),
       elevation: 0,
       automaticallyImplyLeading: true,
       title: Column(
@@ -266,7 +250,7 @@ class EmailIdWidget extends StatefulWidget {
   EmailIdWidget({Key? key, required this.label}) : super(key: key);
 
   @override
-  EmailIdWidgetState createState() => new EmailIdWidgetState();
+  EmailIdWidgetState createState() => EmailIdWidgetState();
 }
 
 class EmailIdWidgetState extends State<EmailIdWidget> {
@@ -292,22 +276,21 @@ class EmailIdWidgetState extends State<EmailIdWidget> {
         cursorColor: Colors.grey,
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp,color: MyColors.lightGraySmallText),
-          enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: MyColors.pnbTextcolor)),
-          focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: MyColors.pnbDarkGreyTextColor)),
+          labelStyle: ThemeHelper.getInstance()
+              ?.textTheme
+              .headline3
+              ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.pnbTextcolor)),
+          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.pnbDarkGreyTextColor)),
           suffixIcon: IconButton(
             icon: hidePassword
                 ? Icon(
                     Icons.visibility_off_outlined,
-                    color:
-                        hidePassword ? MyColors.pnbTextcolor : MyColors.black,
+                    color: hidePassword ? MyColors.pnbTextcolor : MyColors.black,
                   )
                 : Icon(
                     Icons.visibility_outlined,
-                    color:
-                        hidePassword ? MyColors.pnbTextcolor : MyColors.black,
+                    color: hidePassword ? MyColors.pnbTextcolor : MyColors.black,
                   ),
             onPressed: () {
               setState(
@@ -338,7 +321,7 @@ class ContactNumberWidget extends StatefulWidget {
   ContactNumberWidget({Key? key, required this.label}) : super(key: key);
 
   @override
-  ContactNumberWidgetState createState() => new ContactNumberWidgetState();
+  ContactNumberWidgetState createState() => ContactNumberWidgetState();
 }
 
 class ContactNumberWidgetState extends State<ContactNumberWidget> {
@@ -349,27 +332,28 @@ class ContactNumberWidgetState extends State<ContactNumberWidget> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-        onChanged: (content) {},
+        onChanged: (content) {
+          setState(() {});
+        },
         obscureText: hidePassword,
         cursorColor: Colors.grey,
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp,color: MyColors.lightGraySmallText),
-          enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: MyColors.pnbTextcolor)),
-          focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: MyColors.pnbDarkGreyTextColor)),
+          labelStyle: ThemeHelper.getInstance()
+              ?.textTheme
+              .headline3
+              ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.pnbTextcolor)),
+          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.pnbDarkGreyTextColor)),
           suffixIcon: IconButton(
             icon: hidePassword
                 ? Icon(
                     Icons.visibility_off_outlined,
-                    color:
-                        hidePassword ? MyColors.pnbTextcolor : MyColors.black,
+                    color: hidePassword ? MyColors.pnbTextcolor : MyColors.black,
                   )
                 : Icon(
                     Icons.visibility_outlined,
-                    color:
-                        hidePassword ? MyColors.pnbTextcolor : MyColors.black,
+                    color: hidePassword ? MyColors.pnbTextcolor : MyColors.black,
                   ),
             onPressed: () {
               setState(
@@ -391,10 +375,7 @@ class ContactNumberWidgetState extends State<ContactNumberWidget> {
           }
           return null;
         },
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(10),
-          FilteringTextInputFormatter.digitsOnly
-        ]);
+        inputFormatters: [LengthLimitingTextInputFormatter(10), FilteringTextInputFormatter.digitsOnly]);
   }
 }
 
@@ -403,18 +384,21 @@ Widget GenderTextField(String label) {
       onChanged: (content) {},
       cursorColor: Colors.grey,
       decoration: InputDecoration(
-          labelText: label,
-          labelStyle: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp,color: MyColors.lightGraySmallText),
-          enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: MyColors.pnbTextcolor)),
-          focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: MyColors.pnbDarkGreyTextColor)),
-          suffixIcon: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.arrow_drop_down,
-                color: MyColors.pnbTextcolor,
-              ))),
+        labelText: label,
+        labelStyle: ThemeHelper.getInstance()
+            ?.textTheme
+            .headline3
+            ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+        enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.pnbTextcolor)),
+        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.pnbDarkGreyTextColor)),
+        suffixIcon: IconButton(
+          onPressed: () {},
+          icon: Icon(
+            Icons.arrow_drop_down,
+            color: MyColors.pnbTextcolor,
+          ),
+        ),
+      ),
       keyboardType: TextInputType.text,
       maxLines: 1,
       style: ThemeHelper.getInstance()?.textTheme.headline3,
@@ -425,4 +409,3 @@ Widget GenderTextField(String label) {
         return null;
       });
 }
-

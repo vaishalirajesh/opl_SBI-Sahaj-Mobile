@@ -7,32 +7,27 @@ import 'package:gstmobileservices/common/tg_log.dart';
 import 'package:gstmobileservices/model/models/fetch_gst_data_res_main.dart';
 import 'package:gstmobileservices/model/models/get_gst_otp_res_main.dart';
 import 'package:gstmobileservices/model/requestmodel/get_gst_otp_request.dart';
-import 'package:gstmobileservices/model/requestmodel/verify_gst_otp_request.dart';
 import 'package:gstmobileservices/model/responsemodel/get_gst_otp_response.dart';
-import 'package:gstmobileservices/model/responsemodel/verify_gst_otp_response.dart';
 import 'package:gstmobileservices/service/request/tg_post_request.dart';
 import 'package:gstmobileservices/service/requtilization.dart';
 import 'package:gstmobileservices/service/response/tg_response.dart';
 import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
-import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
-import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/gst_detail/gstotpverify.dart';
 import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusconstants.dart';
+import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 
 import '../../../utils/Utils.dart';
 import '../../../utils/constants/imageconstant.dart';
-import '../../../utils/constants/prefrenceconstants.dart';
 import '../../../utils/constants/session_keys.dart';
 import '../../../utils/erros_handle.dart';
 import '../../../utils/helpers/themhelper.dart';
-import '../../../utils/internetcheckdialog.dart';
 import '../../../utils/jumpingdott.dart';
 import '../../../utils/progressLoader.dart';
 import '../../../utils/showcustomesnackbar.dart';
@@ -86,8 +81,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
   String forthletter = "";
   String fifthletter = "";
   String sixthletter = "";
-  final List<FocusNode?> _focusNodes =
-      List<FocusNode?>.filled(6, null, growable: false);
+  final List<FocusNode?> _focusNodes = List<FocusNode?>.filled(6, null, growable: false);
 
   FetchGstDataResMain? _fetchGstDataResMain;
 
@@ -115,8 +109,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: getAppBarWithStepDone('1', str_registration, 0.25,
-            onClickAction: () =>
-                {Navigator.pop(context), SystemNavigator.pop(animated: true)}),
+            onClickAction: () => {Navigator.pop(context), SystemNavigator.pop(animated: true)}),
         body: AbsorbPointer(
           absorbing: isSetLoader,
           child: Padding(
@@ -153,10 +146,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
         ),
         child: Text(
           str_Kindly_enter_your_GST_Username_GSTIN_to_link_with_Sahay_GST_Account,
-          style: ThemeHelper.getInstance()!
-              .textTheme
-              .headline3
-              ?.copyWith(fontSize: 14.sp),
+          style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(fontSize: 14.sp),
         ),
       )
     ];
@@ -170,19 +160,14 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
             display();
           },
           child: TextFormField(
-              style: ThemeHelper.getInstance()!
-                  .textTheme
-                  .headline3!
-                  .copyWith(fontSize: 14.sp),
+              style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
               onChanged: (content) {
                 CheckValidGSTUserName();
               },
               controller: gstUsernameController,
               cursorColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
               decoration: InputDecoration(
-                  labelStyle: TextStyle(
-                      color: MyColors.lightGraySmallText
-                  ),
+                  labelStyle: TextStyle(color: MyColors.lightGraySmallText),
                   labelText: str_GST_User_Name,
                   suffixIcon: IconButton(
                       onPressed: () {},
@@ -192,26 +177,18 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
                       )),
                   //hintText: str_GST_User_Name,
                   enabledBorder: UnderlineInputBorder(
-                   // borderRadius: BorderRadius.all(Radius.circular(6.r)),
-                    borderSide: BorderSide(
-                        width: 1,
-                        color:
-                            ThemeHelper.getInstance()!.colorScheme.onSurface),
+                    // borderRadius: BorderRadius.all(Radius.circular(6.r)),
+                    borderSide: BorderSide(width: 1, color: ThemeHelper.getInstance()!.colorScheme.onSurface),
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: ThemeHelper.getInstance()!.colorScheme.onSurface,
-                        width: 1.0),
-                   // borderRadius: BorderRadius.circular(6.0.r),
+                    borderSide: BorderSide(color: ThemeHelper.getInstance()!.colorScheme.onSurface, width: 1.0),
+                    // borderRadius: BorderRadius.circular(6.0.r),
                   ),
                   // focusColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
                   // fillColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
                   border: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          width: 1,
-                          color:
-                              ThemeHelper.getInstance()!.colorScheme.onSurface),
-                      //borderRadius: BorderRadius.all(Radius.circular(6.r))
+                    borderSide: BorderSide(width: 1, color: ThemeHelper.getInstance()!.colorScheme.onSurface),
+                    //borderRadius: BorderRadius.all(Radius.circular(6.r))
                   ),
                   counterText: ''),
               keyboardType: TextInputType.text,
@@ -224,7 +201,10 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
               }),
         ),
         isValidGSTUserName ? gstNumberField() : Container(),
-        isValidGSTUserName ? nextButton() : Container(),
+        SizedBox(
+          height: 30.h,
+        ),
+        nextButton(),
       ],
     );
   }
@@ -235,39 +215,28 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
         height: 10.h,
       ),
       TextFormField(
-          style: ThemeHelper.getInstance()!
-              .textTheme
-              .headline3!
-              .copyWith(fontSize: 16.sp),
+          style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 16.sp),
           onChanged: (content) {
             CheckValidGSTInNumber();
           },
           controller: gstinNoController,
           cursorColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
           decoration: InputDecoration(
-              labelStyle: TextStyle(
-                  color: MyColors.lightGraySmallText
-              ),
+              labelStyle: TextStyle(color: MyColors.lightGraySmallText),
               labelText: str_15_Digit_GSTIN,
-             // hintText: str_15_Digit_GSTIN,
+              // hintText: str_15_Digit_GSTIN,
               enabledBorder: UnderlineInputBorder(
                 //borderRadius: BorderRadius.all(Radius.circular(6.r)),
-                borderSide: BorderSide(
-                    width: 1,
-                    color: ThemeHelper.getInstance()!.colorScheme.onSurface),
+                borderSide: BorderSide(width: 1, color: ThemeHelper.getInstance()!.colorScheme.onSurface),
               ),
               focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                    color: ThemeHelper.getInstance()!.colorScheme.onSurface,
-                    width: 1.0),
-               //borderRadius: BorderRadius.circular(6.0.r),
+                borderSide: BorderSide(color: ThemeHelper.getInstance()!.colorScheme.onSurface, width: 1.0),
+                //borderRadius: BorderRadius.circular(6.0.r),
               ),
               border: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                      width: 1,
-                      color: ThemeHelper.getInstance()!.colorScheme.onSurface),
-                 //borderRadius: BorderRadius.all(Radius.circular(6.r))
-    ),
+                borderSide: BorderSide(width: 1, color: ThemeHelper.getInstance()!.colorScheme.onSurface),
+                //borderRadius: BorderRadius.all(Radius.circular(6.r))
+              ),
               counterText: ''),
           keyboardType: TextInputType.text,
           textCapitalization: TextCapitalization.characters,
@@ -287,10 +256,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
       ),
       Text(
         str_Sample_20AAAAAA1234AA1Z5,
-        style: ThemeHelper.getInstance()
-            ?.textTheme
-            .headline3
-            ?.copyWith(fontSize: 12.sp),
+        style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp),
       ),
       SizedBox(
         height: 30.h,
@@ -301,37 +267,17 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
   Widget nextButton() {
     return isSetLoader
         ? JumpingDots(
-            color: ThemeHelper.getInstance()?.primaryColor ??
-                MyColors.pnbcolorPrimary,
+            color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
             radius: 10,
           )
-        : SizedBox(
-            height: 48.h,
-            child: ElevatedButton(
-                style: gstinNoController.text.isNotEmpty && isValidGSTINNumber
-                    ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
-                    : ThemeHelper.setPinkDisableButtonBig(),
-                onPressed: () {
-                  Navigator.pushNamed(context, MyRoutes.OtpVerifyGSTRoutes);
-                  // if (gstinNoController.text.isNotEmpty &&
-                  //     gstUsernameController.text.isNotEmpty &&
-                  //     isValidGSTINNumber) {
-
-                  // setState(() async {
-                  //   isSetLoader = true;
-                  //   TGSharedPreferences.getInstance()
-                  //       .set(PREF_GSTIN, gstinNoController.text);
-                  //   TGSharedPreferences.getInstance()
-                  //       .set(PREF_PANNO, gstinNoController.text.substring(2, 12));
-                  //   if (await TGNetUtil.isInternetAvailable()) {
-                  //     getGstOtp();
-                  //   } else {
-                  //     showSnackBarForintenetConnection(context, getGstOtp);
-                  //   }
-                  // });
-                  // }
-                },
-                child: Text(str_next)),
+        : AppButton(
+            onPress: gstinNoController.text.isNotEmpty && isValidGSTINNumber
+                ? () {
+                    Navigator.pushNamed(context, MyRoutes.OtpVerifyGSTRoutes);
+                  }
+                : () {},
+            title: str_next,
+            isButtonEnable: gstinNoController.text.isNotEmpty && isValidGSTINNumber,
           );
   }
 
@@ -514,9 +460,8 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
       child: OTPTextField(
-        otpFieldStyle:
-            OtpFieldStyle(focusBorderColor: MyColors.darkblack //(here)
-                ),
+        otpFieldStyle: OtpFieldStyle(focusBorderColor: MyColors.darkblack //(here)
+            ),
         isClearOtp: isClearOtp,
         length: 6,
         width: MediaQuery.of(context).size.width,
@@ -550,8 +495,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
   void setFocus(int position) {
     const maxIndex = 5;
     if (position > maxIndex) {
-      throw Exception(
-          "Provided position is out of bounds for the OtpTextField");
+      throw Exception("Provided position is out of bounds for the OtpTextField");
     }
     final focusNode = _focusNodes[position];
 
@@ -638,8 +582,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
 
   void CheckValidGSTInNumber() {
     setState(() {
-      final alphanumeric =
-          RegExp('\\d{2}[A-Z]{5}\\d{4}[A-Z]{1}[A-Z\\d]{1}[Z]{1}[A-Z\\d]{1}');
+      final alphanumeric = RegExp('\\d{2}[A-Z]{5}\\d{4}[A-Z]{1}[A-Z\\d]{1}[Z]{1}[A-Z\\d]{1}');
       if (alphanumeric.hasMatch(gstinNoController.text) &&
           gstinNoController.text.isNotEmpty &&
           gstinNoController.text.length == 15) {
@@ -675,13 +618,10 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
 
   Future<void> getGstOtp() async {
     TGSession.getInstance().set("otp_gstin", gstinNoController.text);
-    TGSession.getInstance()
-        .set("otp_GSTINUserName", gstUsernameController.text); //"";
+    TGSession.getInstance().set("otp_GSTINUserName", gstUsernameController.text); //"";
 
-    GstOtpRequest gstOtpRequest = GstOtpRequest(
-        id: gstinNoController.text,
-        userName: gstUsernameController.text,
-        requestType: 'OTPREQUEST');
+    GstOtpRequest gstOtpRequest =
+        GstOtpRequest(id: gstinNoController.text, userName: gstUsernameController.text, requestType: 'OTPREQUEST');
 
     var jsonReq = jsonEncode(gstOtpRequest.toJson());
 
@@ -701,8 +641,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
 
     if (_gstOtpResponse?.status == RES_SUCCESS) {
       //    Navigator.of(context).push(CustomRightToLeftPageRoute(child: OtpVerifyGST(), ));
-      TGSession.getInstance()
-          .set(SESSION_OTPSESSIONKEY, _gstOtpResponse?.data?.sessionKey);
+      TGSession.getInstance().set(SESSION_OTPSESSIONKEY, _gstOtpResponse?.data?.sessionKey);
       setState(() {
         isSetLoader = false;
       });
@@ -719,10 +658,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
       });
     } else {
       LoaderUtils.handleErrorResponse(
-          context,
-          response?.getOtpReponseObj().status,
-          response?.getOtpReponseObj().message,
-          null);
+          context, response?.getOtpReponseObj().status, response?.getOtpReponseObj().message, null);
       setState(() {
         isSetLoader = false;
       });

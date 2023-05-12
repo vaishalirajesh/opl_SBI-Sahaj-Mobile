@@ -420,60 +420,29 @@
 //   }
 // }
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gstmobileservices/common/app_functions.dart';
-import 'package:gstmobileservices/common/keys.dart';
-import 'package:gstmobileservices/common/tg_log.dart';
 import 'package:gstmobileservices/model/models/get_gst_basic_details_res_main.dart';
 import 'package:gstmobileservices/model/models/get_loandetail_by_refid_res_main.dart';
 import 'package:gstmobileservices/model/models/get_otp_main.dart';
 import 'package:gstmobileservices/model/models/verify_otp_response_main.dart';
-import 'package:gstmobileservices/model/requestmodel/get_all_loan_detail_by_refid_request.dart';
-import 'package:gstmobileservices/model/requestmodel/get_gst_basic_details_request.dart';
-import 'package:gstmobileservices/model/requestmodel/get_otp_request.dart';
-import 'package:gstmobileservices/model/responsemodel/error/service_error.dart';
-import 'package:gstmobileservices/model/responsemodel/get_all_loan_detail_by_refid_response.dart';
-import 'package:gstmobileservices/model/responsemodel/get_gst_basic_details_response.dart';
-import 'package:gstmobileservices/model/responsemodel/get_otp_response.dart';
-import 'package:gstmobileservices/model/responsemodel/verify_otp_response.dart';
-import 'package:gstmobileservices/service/request/tg_get_request.dart';
-import 'package:gstmobileservices/service/request/tg_post_request.dart';
-import 'package:gstmobileservices/service/requtilization.dart';
-import 'package:gstmobileservices/service/response/tg_response.dart';
-import 'package:gstmobileservices/service/service_managers.dart';
-import 'package:gstmobileservices/service/tg_service.dart';
-import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
-import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
-import 'package:gstmobileservices/util/tg_view.dart';
+import 'package:gstmobileservices/util/jumpingdot_util.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:pinput/pinput.dart';
-import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
-
 import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
-import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
-import 'package:sbi_sahay_1_0/utils/constants/statusconstants.dart';
-import 'package:sbi_sahay_1_0/utils/progressloader.dart';
+import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../../utils/Utils.dart';
 import '../../../utils/constants/imageconstant.dart';
 import '../../../utils/constants/session_keys.dart';
-import '../../../utils/erros_handle.dart';
 import '../../../utils/helpers/myfonts.dart';
 import '../../../utils/helpers/themhelper.dart';
-import '../../../utils/jumpingdott.dart';
 import '../../../utils/strings/strings.dart';
-import '../../../widgets/animation_routes/page_animation.dart';
-import '../../../widgets/backbutton.dart';
 import '../../../widgets/otp_textfield_widget.dart';
-import '../gst_consent_of_gst/gst_consent_of_gst.dart';
 
 class OtpVerifyGST extends StatelessWidget {
   const OtpVerifyGST({super.key});
@@ -483,14 +452,15 @@ class OtpVerifyGST extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return WillPopScope(
-            onWillPop: () async {
-              return true;
-            },
-            child: Scaffold(
-                resizeToAvoidBottomInset: false,
-                appBar: getAppBarWithStepDone('', str_registration, 1,
-                    onClickAction: () => {Navigator.pop(context)}),
-                body: OtpVerifyGSTScreen()));
+          onWillPop: () async {
+            return true;
+          },
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: getAppBarWithStepDone('', str_registration, 1, onClickAction: () => {Navigator.pop(context)}),
+            body: const OtpVerifyGSTScreen(),
+          ),
+        );
       },
     );
   }
@@ -522,8 +492,7 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
   bool isGetOTPLoaderStart = false;
   bool isVerifyOTPLoaderStart = false;
   String gstin = '';
-  var strMobile =
-      "9601483912"; //TGSession.getInstance().get(SESSION_MOBILENUMBER); //"";
+  var strMobile = "9601483912"; //TGSession.getInstance().get(SESSION_MOBILENUMBER); //"";
   var otpSessionKey = TGSession.getInstance().get(SESSION_OTPSESSIONKEY); //"";
 
   bool isOpenEnablePopUp = false;
@@ -545,164 +514,136 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
   Widget verifyOtpContent() {
     return AbsorbPointer(
       absorbing: isVerifyOTPLoaderStart,
-      child: StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState) {
-        return Padding(
-          padding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          child: Container(
-            decoration: new BoxDecoration(
-                color: Colors.white,
-                borderRadius: new BorderRadius.only(
-                    topLeft: const Radius.circular(50.0),
-                    topRight: const Radius.circular(50.0))),
+      child: StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
+        return Scaffold(
+          body: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(50.r),
+                topRight: Radius.circular(50.r),
+              ),
+            ),
             child: Container(
-                decoration: new BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: new BorderRadius.only(
-                        topLeft: const Radius.circular(50.0),
-                        topRight: const Radius.circular(50.0))),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      height: 30.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(50.r),
+                  topRight: Radius.circular(50.r),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+                    child: Text(
+                      "Verify GSTIN",
+                      style: ThemeHelper.getInstance()!.textTheme.headline2,
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: Text(
-                        "Verify GSTIN",
-                        style: ThemeHelper.getInstance()!.textTheme.headline2,
-                      ),
+                  ),
+                  SizedBox(
+                    height: 11.h,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+                    child: Text(
+                      "OTP sent to Mobile number and Email linked to GSTIN: 29ABCDE1234F3Z6",
+                      style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
                     ),
-                    SizedBox(
-                      height: 11.h,
+                  ),
+                  SizedBox(
+                    height: 31.h,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          str_enter_6_Digit_login,
+                          style: ThemeHelper.getInstance()!.textTheme.headline4,
+                        ),
+                      ],
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: Text(
-                        "OTP sent to Mobile number and Email linked to GSTIN: 29ABCDE1234F3Z6",
-                        style: ThemeHelper.getInstance()!
-                            .textTheme
-                            .headline3!
-                            .copyWith(fontSize: 14.sp),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 31.h,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20.w),
+                  ),
+                  SizedBox(
+                    height: 16.h,
+                  ),
+                  otpTexFields(),
+                  SizedBox(
+                    height: 16.h,
+                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     Text(
+                  //       str_Didnt_received_OTP_yet,
+                  //       style: ThemeHelper.getInstance()!
+                  //           .textTheme
+                  //           .bodyText1!
+                  //           .copyWith(
+                  //               fontSize: 14.sp, color: MyColors.pnbGreyColor),
+                  //     ),
+                  //   ],
+                  // ),
+                  SizedBox(
+                    height: 11.h,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      // Navigator.pop(context);
+                      setState(() {
+                        otp = '';
+                        isClearOtp = true;
+                        isGetOTPLoaderStart = true;
+                      });
+                      // getLoginOtp();
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 20.w),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(
-                            str_enter_6_Digit_login,
-                            style:
-                                ThemeHelper.getInstance()!.textTheme.headline4,
+                          SvgPicture.asset(
+                            Utils.path(MOBILEResend),
+                            height: 16.h,
+                            width: 16.w,
+                            // color: ThemeHelper.getInstance()!.primaryColor,
                           ),
+                          SizedBox(
+                            width: 9.w,
+                          ),
+                          Text(str_Resend_OTP, style: ThemeHelper.getInstance()!.textTheme.headline6)
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 16.h,
-                    ),
-                    otpTexFields(),
-                    SizedBox(
-                      height: 16.h,
-                    ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     Text(
-                    //       str_Didnt_received_OTP_yet,
-                    //       style: ThemeHelper.getInstance()!
-                    //           .textTheme
-                    //           .bodyText1!
-                    //           .copyWith(
-                    //               fontSize: 14.sp, color: MyColors.pnbGreyColor),
-                    //     ),
-                    //   ],
-                    // ),
-                    SizedBox(
-                      height: 11.h,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        // Navigator.pop(context);
-                        setState(() {
-                          otp = '';
-                          isClearOtp = true;
-                          isGetOTPLoaderStart = true;
-                        });
-                        // getLoginOtp();
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 20.w),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            SvgPicture.asset(
-                              Utils.path(MOBILEResend),
-                              height: 16.h,
-                              width: 16.w,
-                            ),
-                            SizedBox(
-                              width: 9.w,
-                            ),
-                            Text(str_Resend_OTP,
-                                style: ThemeHelper.getInstance()!
-                                    .textTheme
-                                    .headline6)
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 300.h,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      child: isVerifyOTPLoaderStart || isGetOTPLoaderStart
-                          ? JumpingDots(
-                              color: ThemeHelper.getInstance()?.primaryColor ??
-                                  MyColors.pnbcolorPrimary,
-                              radius: 10,
-                            )
-                          : SizedBox(
-                            height: 48.h,
-                            child: ElevatedButton(
-                                style: isValidOTP
-                                    ? ThemeHelper.getInstance()!
-                                        .elevatedButtonTheme
-                                        .style
-                                    : ThemeHelper.setPinkDisableButtonBig(),
-                                onPressed: () {
-                                  isOpenEnablePopUp ? Navigator.pushNamed(context, MyRoutes.confirmGSTDetailRoutes) :
-                                  showDialog(
-                                      context: context,
-                                      builder: (_) => PopUpViewForEnableApi());
-
-                                  // setState(() {
-                                  //   if (isValidOTP) {
-                                  //     isVerifyOTPLoaderStart = true;
-                                  //     verifyLoginOtp();
-                                  //   } else {
-                                  //     isVerifyOTPLoaderStart = false;
-                                  //   }
-                                  // });
-                                },
-                                child: Text("Verify OTP"),
-                              ),
-                          ),
-                    ),
-                    SizedBox(
-                      height: 52.h,
-                    )
-                  ],
-                )),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          bottomNavigationBar: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.r, vertical: 25.r),
+            child: isVerifyOTPLoaderStart || isGetOTPLoaderStart
+                ? JumpingDots(
+                    color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
+                    radius: 10,
+                  )
+                : AppButton(
+                    onPress: () {
+                      isOpenEnablePopUp
+                          ? Navigator.pushNamed(context, MyRoutes.confirmGSTDetailRoutes)
+                          : showDialog(context: context, builder: (_) => PopUpViewForEnableApi());
+                    },
+                    title: str_Verify,
+                    isButtonEnable: isValidOTP,
+                  ),
           ),
         );
       }),
@@ -713,9 +654,8 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
       child: OTPTextField(
-        otpFieldStyle: OtpFieldStyle(
-            focusBorderColor: MyColors.darkblack //(here)
-        ),
+        otpFieldStyle: OtpFieldStyle(focusBorderColor: MyColors.darkblack //(here)
+            ),
         isClearOtp: isClearOtp,
         length: 6,
         width: MediaQuery.of(context).size.width,
@@ -737,7 +677,8 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
           });
 
           // });
-        }, style:  TextStyle(color: MyColors.darkblack),
+        },
+        style: TextStyle(color: MyColors.darkblack),
       ),
     );
   }
@@ -751,8 +692,7 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
       textStyle: ThemeHelper.getInstance()?.textTheme.bodyText1,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        border:
-            Border.all(color: ThemeHelper.getInstance()!.colorScheme.onSurface),
+        border: Border.all(color: ThemeHelper.getInstance()!.colorScheme.onSurface),
       ),
     );
     return Padding(
@@ -779,331 +719,350 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
 
   Widget PopUpViewForEnableApi() {
     return GestureDetector(
-        onTap: () {
-          Navigator.pop(context);
-          setState(() {
-            isOpenEnablePopUp = true;
-          });
-        },
-        child: Container(
-          color: Colors.black.withOpacity(0.5),
-          child: Center(
-              child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    color: ThemeHelper.getInstance()?.backgroundColor,
+      onTap: () {
+        Navigator.pop(context);
+        setState(() {
+          isOpenEnablePopUp = true;
+        });
+      },
+      child: Container(
+        color: Colors.black.withOpacity(0.5),
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        child: Center(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              color: ThemeHelper.getInstance()?.backgroundColor,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                SizedBox(
+                  height: 15.r,
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 15.r),
+                    child: GestureDetector(
+                      child: const Icon(Icons.close),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          isOpenEnablePopUp = true;
+                        });
+                      },
+                    ),
                   ),
-
-                  height: 295.h, //430,
-                  width: 335.w, //400,
-                  child: new Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                ),
+                SizedBox(height: 30.h), //40
+                Center(
+                  child: SvgPicture.asset(
+                    Utils.path(IMG_GSTENABLE_API),
+                    height: 95.h, //,
+                    width: 95.w, //134.8,
+                    allowDrawingOutsideViewBox: true,
+                  ),
+                ),
+                SizedBox(height: 30.h), //40
+                Center(
+                    child: Column(children: [
+                  Text(
+                    "It seems you have not enabled GST API.",
+                    style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 16.sp),
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    "To understand the process",
+                    style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 16.sp),
+                    textAlign: TextAlign.center,
+                  ),
+                ])),
+                SizedBox(height: 28.h), //28
+                Center(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(height: 30.h), //40
-                      Center(
-                          child: SvgPicture.asset(Utils.path(IMG_GSTENABLE_API),
-                              height: 95.h, //,
-                              width: 95.w, //134.8,
-                              allowDrawingOutsideViewBox: true)),
-                      SizedBox(height: 30.h), //40
-                      Center(
-                          child: Column(children: [
-                        Text(
-                          "It seems you have not enabled GST API.",
-                          style: ThemeHelper.getInstance()
-                              ?.textTheme
-                              .headline2
-                              ?.copyWith(fontSize: 16.sp),
-                          textAlign: TextAlign.center,
+                    children: [
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                                text: "Click for video",
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: ThemeHelper.getInstance()?.primaryColor,
+                                    decorationThickness: 2,
+                                    fontSize: 16.sp,
+                                    color: ThemeHelper.getInstance()?.primaryColor,
+                                    fontFamily: MyFont.Roboto_Medium)),
+                            const TextSpan(
+                              text: "      ",
+                            ),
+                            TextSpan(
+                              text: "Click for steps",
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: ThemeHelper.getInstance()?.primaryColor,
+                                  decorationThickness: 2,
+                                  fontSize: 16.sp,
+                                  color: ThemeHelper.getInstance()?.primaryColor,
+                                  fontFamily: MyFont.Roboto_Medium),
+                            )
+                          ],
                         ),
-                        Text(
-                          "To understand the process",
-                          style: ThemeHelper.getInstance()
-                              ?.textTheme
-                              .headline2
-                              ?.copyWith(fontSize: 16.sp),
-                          textAlign: TextAlign.center,
-                        ),
-                      ])),
-                      SizedBox(height: 28.h), //28
-                      Center(
-                          child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(children: [
-                                TextSpan(
-                                    text: "Click for video",
-                                    style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                        decorationColor:
-                                            ThemeHelper.getInstance()
-                                                ?.primaryColor,
-                                        decorationThickness: 2,
-                                        fontSize: 16.sp,
-                                        color: ThemeHelper.getInstance()
-                                            ?.primaryColor,
-                                        fontFamily: MyFont.Roboto_Medium)),
-                                TextSpan(
-                                  text: "      ",
-                                ),
-                                TextSpan(
-                                    text: "Click for steps",
-                                    style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                        decorationColor:
-                                            ThemeHelper.getInstance()
-                                                ?.primaryColor,
-                                        decorationThickness: 2,
-                                        fontSize: 16.sp,
-                                        color: ThemeHelper.getInstance()
-                                            ?.primaryColor,
-                                        fontFamily: MyFont.Roboto_Medium))
-                              ])),
-                        ],
-                      )),
+                      ),
                     ],
-                  ))),
-        ));
+                  ),
+                ),
+                SizedBox(
+                  height: 30.r,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
-  // Future<void> getLoginOtp() async {
-  //   String uuid = Uuid().v1().replaceAll("-", "").substring(0, 16);
-  //   CredBlock credBlock =
-  //   CredBlock(appToken: uuid, otp: "", otpSessionKey: "", status: "");
-  //
-  //   RequestAuthUser requestAuthUser = RequestAuthUser(
-  //       mobile: strMobile, credBlock: credBlock, deviceId: uuid);
-  //   var jsonReq = jsonEncode(requestAuthUser.toJson());
-  //
-  //   TGLog.d("Get Login OTP Request : $jsonReq");
-  //
-  //   TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GETOTP);
-  //
-  //   ServiceManager.getInstance().getotp(
-  //       request: tgPostRequest,
-  //       onSuccess: (response) => _onSuccessGetOTP(response),
-  //       onError: (error) => _onErrorGetOTP(error));
-  // }
-  //
-  // _onSuccessGetOTP(GetotpResponse? response) {
-  //   TGLog.d("RegisterResponse : onSuccess()");
-  //
-  //   setState(() {
-  //     getOtpRes = response?.getOtpReponseObj();
-  //     isGetOTPLoaderStart = false;
-  //     isClearOtp = false;
-  //   });
-  // }
-  //
-  // _onErrorGetOTP(TGResponse errorResponse) {
-  //   TGLog.d("RegisterResponse : onError()");
-  //   handleServiceFailError(context, errorResponse?.error);
-  //   isGetOTPLoaderStart = false;
-  // }
-  //
-  // Future<void> verifyLoginOtp() async {
-  //   setState(() {
-  //     isVerifyOTPLoaderStart = true;
-  //   });
-  //
-  //   String uuid = const Uuid().v1().replaceAll("-", "").substring(0, 16);
-  //   CredBlock credBlock = CredBlock(
-  //       appToken: uuid,
-  //       otp: otp,
-  //       otpSessionKey: getOtpRes != null
-  //           ? getOtpRes?.data?.credBlock?.otpSessionKey
-  //           : otpSessionKey,
-  //       status: "");
-  //
-  //   RequestAuthUser requestAuthUser = RequestAuthUser(
-  //       mobile: strMobile, credBlock: credBlock, deviceId: uuid);
-  //   String jsonReq = jsonEncode(requestAuthUser.toJson());
-  //
-  //   TGLog.d("Verify-loginOTP Request : $jsonReq");
-  //   TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_VERIFY_OTP);
-  //
-  //   ServiceManager.getInstance().verifyOtp(
-  //       request: tgPostRequest,
-  //       onSuccess: (response) => _onSuccessVerifyOtp(response),
-  //       onError: (error) => _onErrorVerifyOtp(error));
-  // }
-  //
-  // _onSuccessVerifyOtp(VerifyOtpResponse? response) {
-  //   TGLog.d("VerifyOTP : onSuccess()");
-  //   isGetOTPLoaderStart = false;
-  //   verifyOtpResponse = response?.getOtpReponseObj();
-  //
-  //   //Navigator.pop(context);
-  //   if (verifyOtpResponse?.status == RES_SUCCESS) {
-  //     TGSharedPreferences.getInstance().set(PREF_ACCESS_TOKEN, verifyOtpResponse?.data?.accessToken);
-  //     setAccessTokenInRequestHeader();
-  //     getGstBasicDetails();
-  //   } else {
-  //     setState(() {
-  //       isVerifyOTPLoaderStart = false;
-  //     });
-  //     LoaderUtils.handleErrorResponse(
-  //         context,
-  //         response?.getOtpReponseObj().status,
-  //         response?.getOtpReponseObj().message,null);
-  //   }
-  // }
-  //
-  // _onErrorVerifyOtp(TGResponse? response) {
-  //   TGLog.d("VerifyOTP : onError()");
-  //   // Navigator.pop(context);
-  //   handleServiceFailError(context, response?.error);
-  //   setState(() {
-  //     isVerifyOTPLoaderStart = false;
-  //   });
-  // }
-  //
-  // Future<void> getGstBasicDetails() async {
-  //   await Future.delayed(Duration(seconds: 2));
-  //   TGGetRequest tgGetRequest = GetGstBasicDetailsRequest();
-  //   ServiceManager.getInstance().getGstBasicDetails(
-  //       request: tgGetRequest,
-  //       onSuccess: (response) => _onSuccessGetGstBasicDetails(response),
-  //       onError: (error) => _onErrorGetGstBasicDetails(error));
-  // }
-  //
-  // _onSuccessGetGstBasicDetails(GetGstBasicDetailsResponse? response) {
-  //   TGLog.d("GetGstBasicDetailsResponse : onSuccess()");
-  //   setState(() {
-  //     isVerifyOTPLoaderStart = false;
-  //     _basicdetailsResponse = response?.getGstBasicDetailsRes();
-  //   });
-  //
-  //   if (_basicdetailsResponse?.status == RES_DETAILS_FOUND) {
-  //     if (_basicdetailsResponse?.data?.isNotEmpty == true) {
-  //       if (_basicdetailsResponse?.data?[0].isOtpVerified == true) {
-  //         if (_basicdetailsResponse?.data?[0]?.gstin?.isNotEmpty == true) {
-  //           gstin = _basicdetailsResponse!.data![0].gstin!;
-  //           if (_basicdetailsResponse!.data![0].gstin!.length >= 12) {
-  //             TGSharedPreferences.getInstance().set(PREF_BUSINESSNAME,
-  //                 _basicdetailsResponse?.data?[0].gstBasicDetails?.tradeNam);
-  //             TGSharedPreferences.getInstance()
-  //                 .set(PREF_GSTIN, _basicdetailsResponse?.data?[0].gstin);
-  //             TGSharedPreferences.getInstance().set(PREF_USERNAME,
-  //                 _basicdetailsResponse?.data?[0].username.toString());
-  //             TGSharedPreferences.getInstance().set(PREF_PANNO,
-  //                 _basicdetailsResponse?.data?[0].gstin?.substring(2, 12));
-  //           } else {
-  //             TGSharedPreferences.getInstance()
-  //                 .set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin);
-  //           }
-  //         }
-  //
-  //         TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
-  //         TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
-  //         //getUserLoanDetails();
-  //         // Navigator.pushNamed(context, MyRoutes.DashboardWithGSTRoutes);
-  //         Navigator.pushAndRemoveUntil(
-  //             context,
-  //             MaterialPageRoute(
-  //               builder: (BuildContext context) => DashboardWithGST(),
-  //             ),
-  //                 (route) => false);
-  //       } else {
-  //         Navigator.pushAndRemoveUntil(
-  //             context,
-  //             MaterialPageRoute(
-  //               builder: (BuildContext context) => GstConsent(),
-  //             ),
-  //                 (route) => false);
-  //
-  //         //Navigator.push(context, MaterialPageRoute(builder: (context) => GstConsent()));
-  //       }
-  //     } else {
-  //       getUserLoanDetails();
-  //     }
-  //   } else if (_basicdetailsResponse?.status == RES_DETAILS_NOT_FOUND) {
-  //     setState(() {
-  //       isVerifyOTPLoaderStart = false;
-  //     });
-  //
-  //     Navigator.pushAndRemoveUntil(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (BuildContext context) => GstConsent(),
-  //         ),
-  //             (route) => false);
-  //   } else {
-  //     setState(() {
-  //       isVerifyOTPLoaderStart = false;
-  //     });
-  //     LoaderUtils.handleErrorResponse(
-  //         context,
-  //         response?.getGstBasicDetailsRes().status,
-  //         response?.getGstBasicDetailsRes().message,null);
-  //   }
-  // }
-  //
-  // _onErrorGetGstBasicDetails(TGResponse errorResponse) {
-  //   setState(() {
-  //     isVerifyOTPLoaderStart = false;
-  //   });
-  //   TGLog.d("GetGstBasicDetailsResponse : onError()");
-  //   handleServiceFailError(context, errorResponse.error);
-  // }
-  //
-  // Future<void> getUserLoanDetails() async {
-  //   TGGetRequest tgGetRequest = GetLoanDetailByRefIdReq();
-  //   ServiceManager.getInstance().getAllLoanDetailByRefId(
-  //       request: tgGetRequest,
-  //       onSuccess: (response) => _onSuccessGetAllLoanDetailByRefId(response),
-  //       onError: (error) => _onErrorGetAllLoanDetailByRefId(error));
-  // }
-  //
-  // _onSuccessGetAllLoanDetailByRefId(GetAllLoanDetailByRefIdResponse? response) {
-  //   TGLog.d("UserLoanDetailsResponse : onSuccess()");
-  //   setState(() {
-  //     isVerifyOTPLoaderStart = false;
-  //   });
-  //   _getAllLoanDetailRes = response?.getAllLoanDetailObj();
-  //
-  //   if (_getAllLoanDetailRes?.status == RES_SUCCESS) {
-  //     if (_getAllLoanDetailRes?.data?.isEmpty == true) {
-  //       Navigator.pushAndRemoveUntil(
-  //           context,
-  //           MaterialPageRoute(
-  //             builder: (BuildContext context) => GstConsent(),
-  //           ),
-  //               (route) => false);
-  //     } else {
-  //       TGSharedPreferences.getInstance()
-  //           .set(PREF_GSTIN, _getAllLoanDetailRes?.data?[0].gstin);
-  //       TGSharedPreferences.getInstance().set(
-  //           PREF_PANNO, _getAllLoanDetailRes?.data?[0].gstin?.substring(2, 12));
-  //       TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
-  //       TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
-  //
-  //       Navigator.pushAndRemoveUntil(
-  //           context,
-  //           MaterialPageRoute(
-  //             builder: (BuildContext context) => DashboardWithGST(),
-  //           ),
-  //               (route) => false);
-  //     }
-  //   } else {
-  //     setState(() {
-  //       isVerifyOTPLoaderStart = false;
-  //     });
-  //     LoaderUtils.handleErrorResponse(
-  //         context,
-  //         response?.getAllLoanDetailObj().status,
-  //         response?.getAllLoanDetailObj().message,null);
-  //   }
-  // }
-  //
-  // _onErrorGetAllLoanDetailByRefId(TGResponse errorResponse) {
-  //   TGLog.d("UserLoanDetailsResponse : onError()");
-  //   handleServiceFailError(context, errorResponse.error);
-  //   setState(() {
-  //     isVerifyOTPLoaderStart = false;
-  //   });
-  // }
+// Future<void> getLoginOtp() async {
+//   String uuid = Uuid().v1().replaceAll("-", "").substring(0, 16);
+//   CredBlock credBlock =
+//   CredBlock(appToken: uuid, otp: "", otpSessionKey: "", status: "");
+//
+//   RequestAuthUser requestAuthUser = RequestAuthUser(
+//       mobile: strMobile, credBlock: credBlock, deviceId: uuid);
+//   var jsonReq = jsonEncode(requestAuthUser.toJson());
+//
+//   TGLog.d("Get Login OTP Request : $jsonReq");
+//
+//   TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GETOTP);
+//
+//   ServiceManager.getInstance().getotp(
+//       request: tgPostRequest,
+//       onSuccess: (response) => _onSuccessGetOTP(response),
+//       onError: (error) => _onErrorGetOTP(error));
+// }
+//
+// _onSuccessGetOTP(GetotpResponse? response) {
+//   TGLog.d("RegisterResponse : onSuccess()");
+//
+//   setState(() {
+//     getOtpRes = response?.getOtpReponseObj();
+//     isGetOTPLoaderStart = false;
+//     isClearOtp = false;
+//   });
+// }
+//
+// _onErrorGetOTP(TGResponse errorResponse) {
+//   TGLog.d("RegisterResponse : onError()");
+//   handleServiceFailError(context, errorResponse?.error);
+//   isGetOTPLoaderStart = false;
+// }
+//
+// Future<void> verifyLoginOtp() async {
+//   setState(() {
+//     isVerifyOTPLoaderStart = true;
+//   });
+//
+//   String uuid = const Uuid().v1().replaceAll("-", "").substring(0, 16);
+//   CredBlock credBlock = CredBlock(
+//       appToken: uuid,
+//       otp: otp,
+//       otpSessionKey: getOtpRes != null
+//           ? getOtpRes?.data?.credBlock?.otpSessionKey
+//           : otpSessionKey,
+//       status: "");
+//
+//   RequestAuthUser requestAuthUser = RequestAuthUser(
+//       mobile: strMobile, credBlock: credBlock, deviceId: uuid);
+//   String jsonReq = jsonEncode(requestAuthUser.toJson());
+//
+//   TGLog.d("Verify-loginOTP Request : $jsonReq");
+//   TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_VERIFY_OTP);
+//
+//   ServiceManager.getInstance().verifyOtp(
+//       request: tgPostRequest,
+//       onSuccess: (response) => _onSuccessVerifyOtp(response),
+//       onError: (error) => _onErrorVerifyOtp(error));
+// }
+//
+// _onSuccessVerifyOtp(VerifyOtpResponse? response) {
+//   TGLog.d("VerifyOTP : onSuccess()");
+//   isGetOTPLoaderStart = false;
+//   verifyOtpResponse = response?.getOtpReponseObj();
+//
+//   //Navigator.pop(context);
+//   if (verifyOtpResponse?.status == RES_SUCCESS) {
+//     TGSharedPreferences.getInstance().set(PREF_ACCESS_TOKEN, verifyOtpResponse?.data?.accessToken);
+//     setAccessTokenInRequestHeader();
+//     getGstBasicDetails();
+//   } else {
+//     setState(() {
+//       isVerifyOTPLoaderStart = false;
+//     });
+//     LoaderUtils.handleErrorResponse(
+//         context,
+//         response?.getOtpReponseObj().status,
+//         response?.getOtpReponseObj().message,null);
+//   }
+// }
+//
+// _onErrorVerifyOtp(TGResponse? response) {
+//   TGLog.d("VerifyOTP : onError()");
+//   // Navigator.pop(context);
+//   handleServiceFailError(context, response?.error);
+//   setState(() {
+//     isVerifyOTPLoaderStart = false;
+//   });
+// }
+//
+// Future<void> getGstBasicDetails() async {
+//   await Future.delayed(Duration(seconds: 2));
+//   TGGetRequest tgGetRequest = GetGstBasicDetailsRequest();
+//   ServiceManager.getInstance().getGstBasicDetails(
+//       request: tgGetRequest,
+//       onSuccess: (response) => _onSuccessGetGstBasicDetails(response),
+//       onError: (error) => _onErrorGetGstBasicDetails(error));
+// }
+//
+// _onSuccessGetGstBasicDetails(GetGstBasicDetailsResponse? response) {
+//   TGLog.d("GetGstBasicDetailsResponse : onSuccess()");
+//   setState(() {
+//     isVerifyOTPLoaderStart = false;
+//     _basicdetailsResponse = response?.getGstBasicDetailsRes();
+//   });
+//
+//   if (_basicdetailsResponse?.status == RES_DETAILS_FOUND) {
+//     if (_basicdetailsResponse?.data?.isNotEmpty == true) {
+//       if (_basicdetailsResponse?.data?[0].isOtpVerified == true) {
+//         if (_basicdetailsResponse?.data?[0]?.gstin?.isNotEmpty == true) {
+//           gstin = _basicdetailsResponse!.data![0].gstin!;
+//           if (_basicdetailsResponse!.data![0].gstin!.length >= 12) {
+//             TGSharedPreferences.getInstance().set(PREF_BUSINESSNAME,
+//                 _basicdetailsResponse?.data?[0].gstBasicDetails?.tradeNam);
+//             TGSharedPreferences.getInstance()
+//                 .set(PREF_GSTIN, _basicdetailsResponse?.data?[0].gstin);
+//             TGSharedPreferences.getInstance().set(PREF_USERNAME,
+//                 _basicdetailsResponse?.data?[0].username.toString());
+//             TGSharedPreferences.getInstance().set(PREF_PANNO,
+//                 _basicdetailsResponse?.data?[0].gstin?.substring(2, 12));
+//           } else {
+//             TGSharedPreferences.getInstance()
+//                 .set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin);
+//           }
+//         }
+//
+//         TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
+//         TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
+//         //getUserLoanDetails();
+//         // Navigator.pushNamed(context, MyRoutes.DashboardWithGSTRoutes);
+//         Navigator.pushAndRemoveUntil(
+//             context,
+//             MaterialPageRoute(
+//               builder: (BuildContext context) => DashboardWithGST(),
+//             ),
+//                 (route) => false);
+//       } else {
+//         Navigator.pushAndRemoveUntil(
+//             context,
+//             MaterialPageRoute(
+//               builder: (BuildContext context) => GstConsent(),
+//             ),
+//                 (route) => false);
+//
+//         //Navigator.push(context, MaterialPageRoute(builder: (context) => GstConsent()));
+//       }
+//     } else {
+//       getUserLoanDetails();
+//     }
+//   } else if (_basicdetailsResponse?.status == RES_DETAILS_NOT_FOUND) {
+//     setState(() {
+//       isVerifyOTPLoaderStart = false;
+//     });
+//
+//     Navigator.pushAndRemoveUntil(
+//         context,
+//         MaterialPageRoute(
+//           builder: (BuildContext context) => GstConsent(),
+//         ),
+//             (route) => false);
+//   } else {
+//     setState(() {
+//       isVerifyOTPLoaderStart = false;
+//     });
+//     LoaderUtils.handleErrorResponse(
+//         context,
+//         response?.getGstBasicDetailsRes().status,
+//         response?.getGstBasicDetailsRes().message,null);
+//   }
+// }
+//
+// _onErrorGetGstBasicDetails(TGResponse errorResponse) {
+//   setState(() {
+//     isVerifyOTPLoaderStart = false;
+//   });
+//   TGLog.d("GetGstBasicDetailsResponse : onError()");
+//   handleServiceFailError(context, errorResponse.error);
+// }
+//
+// Future<void> getUserLoanDetails() async {
+//   TGGetRequest tgGetRequest = GetLoanDetailByRefIdReq();
+//   ServiceManager.getInstance().getAllLoanDetailByRefId(
+//       request: tgGetRequest,
+//       onSuccess: (response) => _onSuccessGetAllLoanDetailByRefId(response),
+//       onError: (error) => _onErrorGetAllLoanDetailByRefId(error));
+// }
+//
+// _onSuccessGetAllLoanDetailByRefId(GetAllLoanDetailByRefIdResponse? response) {
+//   TGLog.d("UserLoanDetailsResponse : onSuccess()");
+//   setState(() {
+//     isVerifyOTPLoaderStart = false;
+//   });
+//   _getAllLoanDetailRes = response?.getAllLoanDetailObj();
+//
+//   if (_getAllLoanDetailRes?.status == RES_SUCCESS) {
+//     if (_getAllLoanDetailRes?.data?.isEmpty == true) {
+//       Navigator.pushAndRemoveUntil(
+//           context,
+//           MaterialPageRoute(
+//             builder: (BuildContext context) => GstConsent(),
+//           ),
+//               (route) => false);
+//     } else {
+//       TGSharedPreferences.getInstance()
+//           .set(PREF_GSTIN, _getAllLoanDetailRes?.data?[0].gstin);
+//       TGSharedPreferences.getInstance().set(
+//           PREF_PANNO, _getAllLoanDetailRes?.data?[0].gstin?.substring(2, 12));
+//       TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
+//       TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
+//
+//       Navigator.pushAndRemoveUntil(
+//           context,
+//           MaterialPageRoute(
+//             builder: (BuildContext context) => DashboardWithGST(),
+//           ),
+//               (route) => false);
+//     }
+//   } else {
+//     setState(() {
+//       isVerifyOTPLoaderStart = false;
+//     });
+//     LoaderUtils.handleErrorResponse(
+//         context,
+//         response?.getAllLoanDetailObj().status,
+//         response?.getAllLoanDetailObj().message,null);
+//   }
+// }
+//
+// _onErrorGetAllLoanDetailByRefId(TGResponse errorResponse) {
+//   TGLog.d("UserLoanDetailsResponse : onError()");
+//   handleServiceFailError(context, errorResponse.error);
+//   setState(() {
+//     isVerifyOTPLoaderStart = false;
+//   });
+// }
 }

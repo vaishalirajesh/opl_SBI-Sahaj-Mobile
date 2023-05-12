@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
+import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
+
 import '../../../registration/mobile/login/login.dart';
-import '../../../routes.dart';
 import '../../../utils/Utils.dart';
 import '../../../utils/constants/imageconstant.dart';
 import '../../../utils/strings/strings.dart';
-import '../../../widgets/animation_routes/page_animation.dart';
-import '../../gstconsentconfirmthanks/mobile/gstconsentconfirmthanks.dart';
 
 class StartRegistrationNtb extends StatelessWidget {
   const StartRegistrationNtb({super.key});
@@ -37,42 +35,43 @@ class StartRegistrationNtbScreen extends StatelessWidget {
         return true;
       },
       child: Scaffold(
-        appBar: getAppBarWithBackBtn(onClickAction: () => {
-          Navigator.pop(context)
-        }),
+        appBar: getAppBarWithBackBtn(onClickAction: () => {Navigator.pop(context)}),
         body: buildSetupView(context),
+        bottomNavigationBar: buildBTNStartStartRegistration(context),
       ),
     );
   }
 
   Widget buildSetupView(BuildContext context) {
     //appbar_check_icon.svg
-    return SizedBox(
+    return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           buildThankForConfirmingText(str_Thanks_for_confirming),
           buildGSTConfirmNTBDiscText(str_gst_confirm_NTBdisc),
-          Padding(
-            padding:  EdgeInsets.only(left: 24.w,right: 24.w),
-            child: Container(
-              height: 445.h,
-              decoration: BoxDecoration(
-                  color: ThemeHelper.getInstance()!.cardColor,
-                  borderRadius: BorderRadius.circular(6.r)),
-              child: Column(children: [
-                SizedBox(height: 20.h,),
-              buildImageWidget(MOBILESTEPDONE),
-              SizedBox(height: 10.h,),
-              buildCenterCard(str_Verify_Mobile_Number),
-              buildCenterCard(str_Verify_gst_details),
-              buildCenterCard(str_accept_tc),
-
-            ],),),
+          Container(
+            padding: EdgeInsets.only(top: 20.h, bottom: 20.h),
+            margin: EdgeInsets.symmetric(horizontal: 20.r),
+            decoration:
+                BoxDecoration(color: ThemeHelper.getInstance()!.cardColor, borderRadius: BorderRadius.circular(6.r)),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 20.h,
+                ),
+                buildImageWidget(MOBILESTEPDONE),
+                SizedBox(
+                  height: 10.h,
+                ),
+                buildCenterCard(str_Verify_Mobile_Number),
+                buildCenterCard(str_Verify_gst_details),
+                buildCenterCard(str_accept_tc),
+              ],
+            ),
           ),
-          SizedBox(height: 50.h),
-          buildBTNStartStartRegistration(context)
         ],
       ),
     );
@@ -85,28 +84,29 @@ class StartRegistrationNtbScreen extends StatelessWidget {
       );
 
   Widget buildThankForConfirmingText(String text) => Padding(
-        padding: EdgeInsets.only(top: 30.0.h, bottom: 5.h,left: 24.w),
-        child:
-            Text(text, style: ThemeHelper.getInstance()!.textTheme.headline2,),
+        padding: EdgeInsets.only(top: 30.0.h, bottom: 5.h, left: 24.w),
+        child: Text(
+          text,
+          style: ThemeHelper.getInstance()!.textTheme.headline2,
+        ),
       );
 
   Widget buildGSTConfirmNTBDiscText(String text) => Padding(
-    padding:  EdgeInsets.only(left: 24.w,bottom: 30.h),
-    child: Text(
-      text,
-      style: ThemeHelper.getInstance()!.textTheme.headline3,
-      textAlign: TextAlign.center,
-    ),
-  );
+        padding: EdgeInsets.only(left: 24.w, bottom: 30.h),
+        child: Text(
+          text,
+          style: ThemeHelper.getInstance()!.textTheme.headline3,
+          textAlign: TextAlign.center,
+        ),
+      );
 
   Widget buildCenterCard(String stepname) {
     return Padding(
-      padding: EdgeInsets.only(left: 40.w, right: 40.w, bottom: 20.h),
+      padding: EdgeInsets.only(left: 30.w, right: 30.w, bottom: 20.h),
       child: Container(
         height: 46.h,
         decoration: BoxDecoration(
-            color: ThemeHelper.getInstance()!.colorScheme.background,
-            borderRadius: BorderRadius.circular(6.r)),
+            color: ThemeHelper.getInstance()!.colorScheme.background, borderRadius: BorderRadius.circular(6.r)),
         child: Padding(
           padding: EdgeInsets.only(left: 20.w, top: 12.h),
           child: Column(
@@ -115,8 +115,8 @@ class StartRegistrationNtbScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    decoration:  BoxDecoration(
-                        shape: BoxShape.circle, color: ThemeHelper.getInstance()!.colorScheme.primary),
+                    decoration:
+                        BoxDecoration(shape: BoxShape.circle, color: ThemeHelper.getInstance()!.colorScheme.primary),
                     height: 13.w,
                     width: 13.w,
                     child: Icon(
@@ -128,8 +128,7 @@ class StartRegistrationNtbScreen extends StatelessWidget {
                   SizedBox(
                     width: 10.w,
                   ),
-                  Text(stepname,
-                      style: ThemeHelper.getInstance()!.textTheme.headline3)
+                  Text(stepname, style: ThemeHelper.getInstance()!.textTheme.headline3)
                 ],
               )
               //ButtonUI(context, str_verify_mobile_no),
@@ -143,21 +142,16 @@ class StartRegistrationNtbScreen extends StatelessWidget {
   Widget buildBTNStartStartRegistration(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20).w,
-      child: SizedBox(
-        height: 48.h,
-        child: ElevatedButton(
-          style: ThemeHelper.getInstance()!.elevatedButtonTheme.style,
-          onPressed: () {
-           // Navigator.of(context).push(CustomRightToLeftPageRoute(child: GstConsentConform(), ));
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => LoginWithMobileNumber(),)
-            );
-
-            //        Navigator.pushNamed(context, MyRoutes.GstConfirmThanksRoutes);
-          },
-          child: Text(str_Start_Registration,
-              style: ThemeHelper.getInstance()!.textTheme.button),
-        ),
+      child: AppButton(
+        onPress: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LoginWithMobileNumber(),
+            ),
+          );
+        },
+        title: str_Start_Registration,
       ),
     );
   }

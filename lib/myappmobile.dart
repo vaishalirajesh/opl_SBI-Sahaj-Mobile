@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gstmobileservices/common/app_constants.dart';
@@ -25,8 +24,6 @@ import 'package:sbi_sahay_1_0/registration/mobile/welcome/welcome_screen.dart';
 import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/utils/locale/localehelper.dart';
-import 'package:sbi_sahay_1_0/utils/locale/tg_locale.dart';
-
 import 'package:sbi_sahay_1_0/welcome/gstconsentconfirmthanks/mobile/gstconsentconfirmthanks.dart';
 import 'package:sbi_sahay_1_0/welcome/ntbwelcome/mobileui/enablegstapintb.dart';
 import 'package:sbi_sahay_1_0/welcome/ntbwelcome/mobileui/getstarted.dart';
@@ -75,18 +72,16 @@ import 'notificationprefrence/ui/notificationprefrence.dart';
 
 class MyAppForMobileApp extends StatefulWidget {
   const MyAppForMobileApp({super.key});
-  static _MyAppForMobileAppState? _state;
+
   // static void setLocale(Locale locale) async {
   //   TGLog.d("TGPortalApp.setLocale : " + locale.toString());
   //   _state?.setLocale(locale);
   // }
   @override
   State<MyAppForMobileApp> createState() => _MyAppForMobileAppState();
-
 }
 
 class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
-
   // setLocale(Locale locale) {
   //   setState(() {
   //     TGLocale.currentLocale = locale;
@@ -99,17 +94,17 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
     TGLog.d("main.didDependencyChange");
     super.didChangeDependencies();
   }
+
   @override
   void initState() {
     TGLog.d('main.initState()');
     super.initState();
     _initFlavor();
     _init();
-
   }
+
   @override
   Widget build(BuildContext context) {
-    // ThemeHelper.setTheme(PnbThemes.pnbThemeMobile);
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
@@ -117,21 +112,19 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: DashboardWithGST(),
+          home: const GetStartedScreen(),
           locale: LocaleHelper.currentLocale,
           theme: ThemeHelper.getInstance(),
           scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),
           routes: {
-           // MyRoutes.splashRoutes: (context) => SplashMain(),
-
             MyRoutes.welcomeRoutes: (context) => WelcomePage(),
             MyRoutes.tcRouted: (context) => TCview(),
             MyRoutes.GetStartedScrRoutes: (context) => const GetStartedScreen(),
-            MyRoutes.signUpViewRoutes: (context) => SignUpView(),
+            MyRoutes.signUpViewRoutes: (context) => const SignUpView(),
             MyRoutes.EnableGstApiRoutes: (context) => const EnableGstApi(),
             MyRoutes.StartRegistrationNtbRoutes: (context) => const StartRegistrationNtb(),
             MyRoutes.GstConfirmThanksRoutes: (context) => GstConsentConform(),
-            MyRoutes.loginRoutes: (context) => LoginWithMobileNumber(),
+            MyRoutes.loginRoutes: (context) => const LoginWithMobileNumber(),
             MyRoutes.gstConsentGst: (context) => GstConsent(),
             MyRoutes.gstDetail: (context) => GstDetailMain(),
             MyRoutes.confirmGSTDetailRoutes: (context) => GstBasicDetails(),
@@ -139,20 +132,20 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
             MyRoutes.DashboardWithoutGSTRoutes: (context) => DashboardWithoutGST(),
             MyRoutes.gstConsent: (context) => CicConsent(),
             MyRoutes.GSTInvoicesListRoutes: (context) => GSTInvoicesList(),
-           // MyRoutes.LoaderShareInvoicesRoutes: (context) => const LoaderShareInvoices(),
+            // MyRoutes.LoaderShareInvoicesRoutes: (context) => const LoaderShareInvoices(),
             MyRoutes.AccountAggregatorDetailsRoutes: (context) => const AccountAggregatorDetails(),
             MyRoutes.BankListRoutes: (context) => const BankList(),
             MyRoutes.BankListLoaderRoutes: (context) => const BankListLoader(),
             MyRoutes.AAListRoutes: (context) => const AAList(),
             MyRoutes.LoaderRedirectedLoaderRoutes: (context) => const RedirectedLoader(),
-            MyRoutes.AAWebView: (context) =>  AccountAggregatorWebview(),
-            MyRoutes.AAWebViewCallBack: (context) =>  AAAfterCallBack(),
+            MyRoutes.AAWebView: (context) => AccountAggregatorWebview(),
+            MyRoutes.AAWebViewCallBack: (context) => const AAAfterCallBack(),
             MyRoutes.infoShareRoutes: (context) => InfoShare(),
             MyRoutes.loanOfferListRoutes: (context) => LoanOfferList(),
-           // MyRoutes.accVerificationRoutes: (context) => AccVerification(),
-            MyRoutes.DashboardWithGSTRoutes: (context) => DashboardWithGST(),
+            // MyRoutes.accVerificationRoutes: (context) => AccVerification(),
+            MyRoutes.DashboardWithGSTRoutes: (context) => const DashboardWithGST(),
             MyRoutes.TransactionRoutes: (context) => TransactionsView(),
-           // MyRoutes.loanOfferSelectedRoutes: (context) => CongratulationsMain(),
+            // MyRoutes.loanOfferSelectedRoutes: (context) => CongratulationsMain(),
             MyRoutes.LoanOfferScreenRoutes: (context) => LoanOfferScreen(),
             MyRoutes.KfsScreenRoutes: (context) => KfsScreen(),
             MyRoutes.reviewDisbursedAccRoutes: (context) => ReviewDisbursedAccMain(),
@@ -162,7 +155,7 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
             MyRoutes.DisbursementSuccessMessage: (context) => ImportantSMSMain(),
             MyRoutes.LoanAggCompeletedRoutes: (context) => LoanAggCompeleted(),
             MyRoutes.LoanAgreementRoutes: (context) => LoanAgreementMain(),
-            MyRoutes.EmailSentRoutes: (context) => EmailSentAfterLoanAgreement(),
+            MyRoutes.EmailSentRoutes: (context) => const EmailSentAfterLoanAgreement(),
             MyRoutes.LoanDetailsRoutes: (context) => CongratulationsFinalMain(),
             MyRoutes.ContactSupportRoutes: (context) => ContactSupportMain(),
             MyRoutes.LenderContactSupportRoutes: (context) => LenderSupportMain(),
@@ -171,11 +164,11 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
             MyRoutes.DisputeInProgressRoutes: (context) => DisputeProgessMain(),
             MyRoutes.DisputeSubmitRoutes: (context) => SubmitDisputeMain(),
             MyRoutes.DisputeResolvedRoutes: (context) => DisputeResolvedMain(),
-            MyRoutes.PaymentSuccessRoutes: (context) => PaymentSuccess(),
+            MyRoutes.PaymentSuccessRoutes: (context) => const PaymentSuccess(),
             MyRoutes.PrepayNowRoutes: (context) => PayNow(),
-            MyRoutes.PersonalInfoDetailsRoutes: (context) => PersonalInfoDetails(),
+            MyRoutes.PersonalInfoDetailsRoutes: (context) => const PersonalInfoDetails(),
             MyRoutes.NotiPrefrencesRoutes: (context) => NotiPrefrences(),
-            MyRoutes.FAQRoutes: (context) => FAQMain(),
+            MyRoutes.FAQRoutes: (context) => const FAQMain(),
             MyRoutes.SetupEmandateRoutes: (context) => const SetupEmandate(),
             MyRoutes.EmandateStatusRoutes: (context) => const EmandateStatus(),
             MyRoutes.LoaderFetchGstDetailsRoutes: (context) => const LoaderFetchGstDetails(),
@@ -184,47 +177,31 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
             MyRoutes.OtpVerifyGSTRoutes: (context) => const OtpVerifyGST(),
             MyRoutes.GSTInvoiceListRefreshRoutes: (context) => const GSTInvoiceListRefresh(),
             MyRoutes.GSTInvoiceListFilterRoutes: (context) => const GSTInvoiceListFilter(),
-            MyRoutes.loanDepositeAccRoutes: (context) => LoanDepositeAcc(),
-
+            MyRoutes.loanDepositeAccRoutes: (context) => const LoanDepositeAcc(),
             MyRoutes.profileViewRoutes: (context) => ProfileView(),
-
-            MyRoutes.newProfileViewRoutes: (context) => NewProfileView(),
-
-
-
-
-
-
-            // MyRoutes.StartRegistrationRoutes : (context) => StartRegistration()
+            MyRoutes.newProfileViewRoutes: (context) => const NewProfileView(),
           },
-
           onGenerateRoute: RouteGenerator.generateRoute,
         );
       },
     );
   }
 
-
-
-
-
-  Future<void> _initFlavor() async{
+  Future<void> _initFlavor() async {
     TGFlavor.init("packages/gstmobileservices/$CONFIG_FLAVORS_FILE");
   }
 
   Future<void> _init() async {
     TGLog.d("_init: Start");
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     await initService();
     TGLog.d("_init: End");
   }
-
 }
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     String? route;
-    Map? queryParameters;
     if (settings.name != null) {
       var uriData = Uri.parse(settings.name!);
       route = uriData.path;
@@ -245,9 +222,4 @@ class RouteGenerator {
       settings: settings,
     );
   }
-
-
-
-
-
 }

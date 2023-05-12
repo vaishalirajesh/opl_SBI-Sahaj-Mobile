@@ -3,16 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:sbi_sahay_1_0/documentation/mobile/setupemandate/ui/setupemandate.dart';
-import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/welcome/ntbwelcome/mobileui/startregistration.dart';
+import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 
 import '../../../utils/Utils.dart';
 import '../../../utils/constants/imageconstant.dart';
 import '../../../utils/strings/strings.dart';
-import '../../../widgets/animation_routes/page_animation.dart';
 import '../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 
 class EnableGstApi extends StatelessWidget {
@@ -57,14 +55,11 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-         return true;
+        return true;
       },
       child: Scaffold(
-        appBar: getAppBarWithBackBtn(onClickAction: () => {
-          Navigator.pop(context, false),
-          SystemNavigator.pop(animated: true)
-
-        }),
+        appBar: getAppBarWithBackBtn(
+            onClickAction: () => {Navigator.pop(context, false), SystemNavigator.pop(animated: true)}),
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -75,8 +70,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     buildSetupView(),
-
-                    buildbottomView(),
+                    buildBottomView(),
                   ],
                 ),
               ),
@@ -87,7 +81,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
     );
   }
 
-  Widget buildbottomView() {
+  Widget buildBottomView() {
     return Container(
       color: ThemeHelper.getInstance()!.backgroundColor,
       height: 200.h,
@@ -97,10 +91,14 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Divider(),
-            SizedBox(height: 30.h,),
+            const Divider(),
+            SizedBox(
+              height: 30.h,
+            ),
             buildConfirmViewBottomText(),
-            SizedBox(height: 30.h,),
+            SizedBox(
+              height: 30.h,
+            ),
             buildConfirmButton(context),
           ],
         ),
@@ -128,11 +126,8 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
         padding: EdgeInsets.only(top: 15.h, bottom: 70.h),
         child: Text(
           text,
-          style: ThemeHelper.getInstance()!
-              .textTheme
-              .headline1!
-              .copyWith(fontSize: 16.sp,color: MyColors.darkblack),
-         // textAlign: TextAlign.left,
+          style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 16.sp, color: MyColors.darkblack),
+          // textAlign: TextAlign.left,
         ),
       );
 
@@ -172,23 +167,26 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
               child: SizedBox(
                 width: 20.w,
                 height: 20.h,
-                child: Checkbox(
-                  // checkColor: MyColors.colorAccent,
-                  activeColor: ThemeHelper.getInstance()?.primaryColor,
-                  value: isCheckFirst,
-                  onChanged: (value) {
-                    changestateConfirmViewFirstCheckBox(value!);
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(2.r),
+                child: Theme(
+                  data: ThemeData(useMaterial3: true),
+                  child: Checkbox(
+                    // checkColor: MyColors.colorAccent,
+                    activeColor: ThemeHelper.getInstance()?.primaryColor,
+                    value: isCheckFirst,
+                    onChanged: (value) {
+                      changestateConfirmViewFirstCheckBox(value!);
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(2.r),
+                      ),
                     ),
+                    side: BorderSide(
+                        width: 1,
+                        color: isCheckFirst
+                            ? ThemeHelper.getInstance()!.primaryColor
+                            : ThemeHelper.getInstance()!.primaryColor),
                   ),
-                  side: BorderSide(
-                      width: 1,
-                      color: isCheckFirst
-                          ? ThemeHelper.getInstance()!.primaryColor
-                          : ThemeHelper.getInstance()!.primaryColor),
                 ),
               ),
             ),
@@ -201,7 +199,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline2!
-                    .copyWith(fontSize: 15.sp,color: MyColors.darkblack),
+                    .copyWith(fontSize: 15.sp, color: MyColors.darkblack),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,
               ),
@@ -220,23 +218,26 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
               child: SizedBox(
                 width: 20.w,
                 height: 20.h,
-                child: Checkbox(
-                  // checkColor: MyColors.colorAccent,
-                  activeColor: ThemeHelper.getInstance()?.primaryColor,
-                  value: isCheckSecond,
-                  onChanged: (value) {
-                    changestateConfirmViewSecondCheckBox(value!);
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(2.r),
+                child: Theme(
+                  data: ThemeData(useMaterial3: true),
+                  child: Checkbox(
+                    // checkColor: MyColors.colorAccent,
+                    activeColor: ThemeHelper.getInstance()?.primaryColor,
+                    value: isCheckSecond,
+                    onChanged: (value) {
+                      changestateConfirmViewSecondCheckBox(value!);
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(2.r),
+                      ),
                     ),
+                    side: BorderSide(
+                        width: 1,
+                        color: isCheckSecond
+                            ? ThemeHelper.getInstance()!.primaryColor
+                            : ThemeHelper.getInstance()!.primaryColor),
                   ),
-                  side: BorderSide(
-                      width: 1,
-                      color: isCheckSecond
-                          ? ThemeHelper.getInstance()!.primaryColor
-                          : ThemeHelper.getInstance()!.primaryColor),
                 ),
               ),
             ),
@@ -248,8 +249,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                   style: ThemeHelper.getInstance()!
                       .textTheme
                       .headline2!
-                      .copyWith(
-                          fontSize: 15.sp,color: MyColors.darkblack),
+                      .copyWith(fontSize: 15.sp, color: MyColors.darkblack),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 3),
             ),
@@ -267,47 +267,41 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
           children: [
             TextSpan(
               text: str_confirm_bottom1,
-              style: ThemeHelper.getInstance()!
-                  .textTheme
-                  .headline3!
-                  .copyWith(fontSize: 14.sp, color: MyColors.black),
+              style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp, color: MyColors.black),
             ),
             TextSpan(
                 text: str_confirm_bottom2,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(fontSize: 14.sp, color: MyColors.hyperlinkcolornew,decoration:
-                TextDecoration.underline),
+                    .copyWith(fontSize: 14.sp, color: MyColors.hyperlinkcolornew, decoration: TextDecoration.underline),
                 recognizer: TapGestureRecognizer()..onTap = () {}),
             TextSpan(
                 text: str_confirm_bottom3,
-                style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
-                    fontSize: 14.sp, color: MyColors.black)),
+                style:
+                    ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp, color: MyColors.black)),
             TextSpan(
                 text: str_confirm_bottom4,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(fontSize: 12.sp, color: MyColors.hyperlinkcolornew,decoration:
-                TextDecoration.underline),
+                    .copyWith(fontSize: 12.sp, color: MyColors.hyperlinkcolornew, decoration: TextDecoration.underline),
                 recognizer: TapGestureRecognizer()..onTap = () {}),
             TextSpan(
                 text: str_confirm_bottom5,
-                style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
-                    fontSize: 14.sp, color: MyColors.black)),
+                style:
+                    ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp, color: MyColors.black)),
             TextSpan(
                 text: str_confirm_bottom6,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(fontSize: 14.sp, color: MyColors.hyperlinkcolornew,decoration:
-                TextDecoration.underline),
+                    .copyWith(fontSize: 14.sp, color: MyColors.hyperlinkcolornew, decoration: TextDecoration.underline),
                 recognizer: TapGestureRecognizer()..onTap = () {}),
             TextSpan(
                 text: str_confirm_bottom6,
-                style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
-                    fontSize: 14.sp, color: MyColors.black)),
+                style:
+                    ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp, color: MyColors.black)),
           ],
         ),
       ),
@@ -315,32 +309,24 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
   }
 
   Widget buildConfirmButton(BuildContext context) {
-    return SizedBox(
-      height: 48.h,
-      child: ElevatedButton(
-        onPressed: () {
-          if (isCheckFirst && isCheckSecond) {
-          //  Navigator.pushNamed(context, MyRoutes.StartRegistrationNtbRoutes);
-          //  Navigator.push(context, CustomRightToLeftPageRoute(child:StartRegistrationNtb()));
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => StartRegistrationNtb(),)
-            );
-          }
-        },
-        style: isCheckFirst && isCheckSecond
-            ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
-            : ThemeHelper.setPinkDisableButtonBig(),
-        child: const Text(
-          str_Confirm,
-        ),
-      ),
+    return AppButton(
+      onPress: () {
+        if (isCheckFirst && isCheckSecond) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const StartRegistrationNtb(),
+              ));
+        }
+      },
+      title: str_Confirm,
+      isButtonEnable: isCheckFirst && isCheckSecond,
     );
   }
 
   AppBar buildAppBarWithEnablegst() {
     return AppBar(
-      iconTheme: IconThemeData(
-          color: ThemeHelper.getInstance()!.colorScheme.primary, size: 28),
+      iconTheme: IconThemeData(color: ThemeHelper.getInstance()!.colorScheme.primary, size: 28),
       elevation: 0,
       automaticallyImplyLeading: true,
       title: Column(

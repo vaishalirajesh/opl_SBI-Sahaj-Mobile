@@ -18,6 +18,7 @@ import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
 import 'package:otp_text_field/otp_field_style.dart';
+import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 
 import '../../../utils/Utils.dart';
 import '../../../utils/colorutils/mycolors.dart';
@@ -55,8 +56,7 @@ class VerifyGstOtpScreenState extends State<VerifyGstOtpScreen> {
   GstOtpResponseMain? _verifyOtpResponse;
 
   String strGSTIN = TGSession.getInstance().get("otp_gstin"); //"";
-  String strGSTINUserName =
-      TGSession.getInstance().get("otp_GSTINUserName"); //"";
+  String strGSTINUserName = TGSession.getInstance().get("otp_GSTINUserName"); //"";
   String otpSessionKey = TGSession.getInstance().get(SESSION_OTPSESSIONKEY);
 
   bool isLoader = false;
@@ -73,8 +73,7 @@ class VerifyGstOtpScreenState extends State<VerifyGstOtpScreen> {
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: getAppBarWithStep('1', str_registration, 0.25,
-            onClickAction: () => {Navigator.pop(context)}),
+        appBar: getAppBarWithStep('1', str_registration, 0.25, onClickAction: () => {Navigator.pop(context)}),
         body: BottomPopupTC(),
       ),
     );
@@ -84,22 +83,19 @@ class VerifyGstOtpScreenState extends State<VerifyGstOtpScreen> {
     return AbsorbPointer(
       absorbing: isLoader,
       child: Padding(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Container(
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
                   topLeft: const Radius.circular(50.0),
-                  topRight: const Radius.circular(
-                      50.0))), //could change this to Color(0xFF737373),
+                  topRight: const Radius.circular(50.0))), //could change this to Color(0xFF737373),
           //so you don't have to change MaterialApp canvasColor
           child: Container(
               decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: const Radius.circular(50.0),
-                      topRight: const Radius.circular(50.0))),
+                  borderRadius:
+                      BorderRadius.only(topLeft: const Radius.circular(50.0), topRight: const Radius.circular(50.0))),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -121,10 +117,7 @@ class VerifyGstOtpScreenState extends State<VerifyGstOtpScreen> {
                     padding: EdgeInsets.symmetric(horizontal: 20.0.w),
                     child: Text(
                       str_OTP_sent + strGSTIN,
-                      style: ThemeHelper.getInstance()!
-                          .textTheme
-                          .headline3!
-                          .copyWith(fontSize: 15.sp),
+                      style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 15.sp),
                     ),
                   ),
                   SizedBox(
@@ -154,8 +147,7 @@ class VerifyGstOtpScreenState extends State<VerifyGstOtpScreen> {
                         style: ThemeHelper.getInstance()!
                             .textTheme
                             .bodyText1!
-                            .copyWith(
-                                fontSize: 14.sp, color: MyColors.pnbGreyColor),
+                            .copyWith(fontSize: 14.sp, color: MyColors.pnbGreyColor),
                       ),
                     ],
                   ),
@@ -170,10 +162,9 @@ class VerifyGstOtpScreenState extends State<VerifyGstOtpScreen> {
                         isLoader = true;
                       });
                       if (await TGNetUtil.isInternetAvailable()) {
-                      getGstOtp();
+                        getGstOtp();
                       } else {
-                      showSnackBarForintenetConnection(
-                      context, getGstOtp);
+                        showSnackBarForintenetConnection(context, getGstOtp);
                       }
                     },
                     child: Row(
@@ -188,9 +179,7 @@ class VerifyGstOtpScreenState extends State<VerifyGstOtpScreen> {
                         SizedBox(
                           width: 9.w,
                         ),
-                        Text(str_Resend_OTP,
-                            style:
-                                ThemeHelper.getInstance()!.textTheme.headline6)
+                        Text(str_Resend_OTP, style: ThemeHelper.getInstance()!.textTheme.headline6)
                       ],
                     ),
                   ),
@@ -201,28 +190,24 @@ class VerifyGstOtpScreenState extends State<VerifyGstOtpScreen> {
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
                     child: isLoader
                         ? JumpingDots(
-                            color: ThemeHelper.getInstance()?.primaryColor ??
-                                MyColors.pnbcolorPrimary,
+                            color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
                             radius: 10,
                           )
-                        : ElevatedButton(
-                            style: isValidOTP
-                                ? ThemeHelper.getInstance()!
-                                    .elevatedButtonTheme
-                                    .style
-                                : ThemeHelper.setPinkDisableButtonBig(),
-                            onPressed: () async {
+                        : AppButton(
+                            onPress: () async {
                               if (isValidOTP) {
                                 isShowLaoder();
                                 if (await TGNetUtil.isInternetAvailable()) {
                                   verifyGstOtp();
                                 } else {
-                                  showSnackBarForintenetConnection(
-                                      context, verifyGstOtp);
+                                  if (context.mounted) {
+                                    showSnackBarForintenetConnection(context, verifyGstOtp);
+                                  }
                                 }
                               }
                             },
-                            child: Text(str_Verify),
+                            title: str_Verify,
+                            isButtonEnable: isValidOTP,
                           ),
                   ),
                   /* SizedBox(
@@ -239,9 +224,8 @@ class VerifyGstOtpScreenState extends State<VerifyGstOtpScreen> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
       child: OTPTextField(
-        otpFieldStyle: OtpFieldStyle(
-            focusBorderColor: MyColors.darkblack //(here)
-        ),
+        otpFieldStyle: OtpFieldStyle(focusBorderColor: MyColors.darkblack //(here)
+            ),
         isClearOtp: isClearOtp,
         length: 6,
         width: MediaQuery.of(context).size.width,
@@ -260,7 +244,8 @@ class VerifyGstOtpScreenState extends State<VerifyGstOtpScreen> {
               isValidOTP = false;
             }
           });
-        }, style: TextStyle(color: MyColors.darkblack),
+        },
+        style: TextStyle(color: MyColors.darkblack),
       ),
     );
   }
@@ -279,8 +264,7 @@ class VerifyGstOtpScreenState extends State<VerifyGstOtpScreen> {
   }
 
   Future<void> getGstOtp() async {
-    GstOtpRequest gstOtpRequest = GstOtpRequest(
-        id: strGSTIN, userName: strGSTINUserName, requestType: 'OTPREQUEST');
+    GstOtpRequest gstOtpRequest = GstOtpRequest(id: strGSTIN, userName: strGSTINUserName, requestType: 'OTPREQUEST');
 
     var jsonReq = jsonEncode(gstOtpRequest.toJson());
 
@@ -302,21 +286,15 @@ class VerifyGstOtpScreenState extends State<VerifyGstOtpScreen> {
         isClearOtp = false;
         isLoader = false;
       });
-    } else if (_gstOtpResponse?.status == RES_GST_APIDENIED ||
-        _gstOtpResponse?.status == UNKNOWN) {
-      TGView.showSnackBar(
-          context: context,
-          message: response?.getOtpReponseObj()?.message ?? "");
+    } else if (_gstOtpResponse?.status == RES_GST_APIDENIED || _gstOtpResponse?.status == UNKNOWN) {
+      TGView.showSnackBar(context: context, message: response?.getOtpReponseObj()?.message ?? "");
       setState(() {
         isClearOtp = false;
         isLoader = false;
       });
     } else {
       LoaderUtils.handleErrorResponse(
-          context,
-          response?.getOtpReponseObj().status,
-          response?.getOtpReponseObj().message,
-          null);
+          context, response?.getOtpReponseObj().status, response?.getOtpReponseObj().message, null);
       setState(() {
         HideLaoder();
       });
@@ -337,10 +315,8 @@ class VerifyGstOtpScreenState extends State<VerifyGstOtpScreen> {
   }
 
   Future<void> verifyGstOtp() async {
-    VerifyGstOtpRequest verifyGstOtpRequest = VerifyGstOtpRequest(
-        id: strGSTIN,
-        otp: otp,
-        sessionKey: _gstOtpResponse?.data?.sessionKey ?? otpSessionKey);
+    VerifyGstOtpRequest verifyGstOtpRequest =
+        VerifyGstOtpRequest(id: strGSTIN, otp: otp, sessionKey: _gstOtpResponse?.data?.sessionKey ?? otpSessionKey);
 
     var jsonReq = jsonEncode(verifyGstOtpRequest.toJson());
 
@@ -366,15 +342,11 @@ class VerifyGstOtpScreenState extends State<VerifyGstOtpScreen> {
           ));
       HideLaoder();
     } else if (_verifyOtpResponse?.status == RES_GST_APIDENIED) {
-      TGView.showSnackBar(
-          context: context, message: _verifyOtpResponse?.message ?? "");
+      TGView.showSnackBar(context: context, message: _verifyOtpResponse?.message ?? "");
       HideLaoder();
     } else {
       LoaderUtils.handleErrorResponse(
-          context,
-          response?.getOtpReponseObj().status,
-          response?.getOtpReponseObj().message,
-          null);
+          context, response?.getOtpReponseObj().status, response?.getOtpReponseObj().message, null);
       HideLaoder();
     }
   }
