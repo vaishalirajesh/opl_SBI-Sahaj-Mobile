@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
+import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/welcome/ntbwelcome/mobileui/startregistration.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
@@ -55,6 +57,8 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
+        Navigator.pop(context, false);
+        SystemNavigator.pop(animated: true);
         return true;
       },
       child: Scaffold(
@@ -312,44 +316,17 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
     return AppButton(
       onPress: () {
         if (isCheckFirst && isCheckSecond) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const StartRegistrationNtb(),
-              ));
+          TGSharedPreferences.getInstance().set(PREF_ISTC_DONE, true);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const StartRegistrationNtb(),
+            ),
+          );
         }
       },
       title: str_Confirm,
       isButtonEnable: isCheckFirst && isCheckSecond,
-    );
-  }
-
-  AppBar buildAppBarWithEnablegst() {
-    return AppBar(
-      iconTheme: IconThemeData(color: ThemeHelper.getInstance()!.colorScheme.primary, size: 28),
-      elevation: 0,
-      automaticallyImplyLeading: true,
-      title: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // SvgPicture.asset(Utils.path(MOBILESAHAYLOGO),
-                    //     height: 20.h, width: 20.w)
-                  ],
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

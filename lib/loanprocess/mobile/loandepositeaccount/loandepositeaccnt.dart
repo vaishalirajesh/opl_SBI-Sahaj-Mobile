@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gstmobileservices/model/models/get_aa_list_response_main.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
@@ -60,23 +61,38 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => const DashboardWithGST(),
+          ),
+          (route) => false, //if you want to disable back feature set to false
+        );
         return true;
       },
       child: Scaffold(
-        appBar: getAppBarWithStepDone("2", str_documentation, 0.50, onClickAction: () => {}),
+        appBar: getAppBarWithStepDone("2", str_documentation, 0.50,
+            onClickAction: () => {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => const DashboardWithGST(),
+                    ),
+                    (route) => false, //if you want to disable back feature set to false
+                  )
+                }),
         body: AbsorbPointer(
           absorbing: isLoaderStart,
-          child: Stack(
-            children: [
-              buildMainScreen(context),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
-                  child: buildBtnNextAcc(context),
-                ),
-              )
-            ],
+          child: buildMainScreen(context),
+        ),
+        bottomNavigationBar: SizedBox(
+          height: 0.15.sh,
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
+              child: buildBtnNextAcc(context),
+            ),
           ),
         ),
       ),
@@ -268,11 +284,13 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
   Widget buildBtnNextAcc(BuildContext context) {
     return AppButton(
       onPress: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => LoanAgreementMain(),
-            ));
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LoanAgreementMain(),
+          ),
+          (route) => false, //
+        );
       },
       title: str_proceed,
       isButtonEnable: selectedValue == -1,

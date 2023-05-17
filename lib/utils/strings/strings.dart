@@ -229,7 +229,9 @@ const str_Congratulations = 'You have accepted the loan offer from PNB\n';
 const str_congratulation_sen = 'You will now proceed to NeSL\'s Digital\nDocument Execution journey';
 const str_Practise_the_art_of_patience = 'Practise the art of patience';
 const str_while_we_process_your_loan = 'Please wait while we process your loan...';
-
+const str_loan_disbursed_process = 'Loan Disbursement Details';
+const str_congratulation_txt =
+    "The loan disbursement has been initiated by the lender through NEFT. Please note that NEFT is processed in half-hourly intervals.";
 //Faqs
 const str_faq_one = "What is Sahay App?";
 const str_faq_ans_one =
@@ -310,6 +312,10 @@ const str_raise_dispute = 'Raise A Dispute';
 const str_sidbi_support = 'Contact SIDBI Support team';
 const str_axis_support = 'Contact Axis Support team';
 const str_icici_support = 'Contact ICICI Support team';
+const String validOTPMsg = 'Please enter valid OTP';
+const String resendOTPMsg = 'OTP resend successfully on register mobile number';
+
+const String unknownError = 'Unknow Error. Please contact Support.';
 
 //thanks gst confirm
 const str_Thanks_for_confirming = "Thanks for confirming!!";
@@ -414,6 +420,7 @@ const str_Home = 'Home';
 const str_Transactions = 'Transactions';
 const str_Profile = 'Profile';
 const str_Financed_Invoices = 'Financed Invoices';
+const str_Financed_other_Invoices = 'Finance Other Invoice';
 const str_Pending = 'Pending';
 const str_Ongoing = 'Ongoing';
 const str_AmazonPvtLtd = 'Amazon Pvt. Ltd.';
@@ -501,6 +508,7 @@ const str_23001832184 = '23001832184';
 const str_PayNow = 'Pay Now';
 const str_Due_in_day_10 = 'Due in 10 days';
 const str_full_paid = 'Fully Paid';
+const str_paid_on = 'Paid on';
 
 const str_paidonduedate = ' Paid on (on due date)';
 const str_date_12 = '12/08/2022';
@@ -569,7 +577,9 @@ const str_visit = "Visit ";
 const str_sahmati = "Sahamti";
 const str_or = " or ";
 const str_rbi = "RBI";
-const str_website_to_know_more = " website to know more & Watch the Video to understand the Account Aggregator process";
+const str_website_to_know_more_one = " website to know more & Watch the ";
+const str_website_to_know_more_two = "Video";
+const str_website_to_know_more_three = " to understand the Account Aggregator process";
 
 const str_share_bank_statement = "Share bank statements digitally, securely\n   and instantly";
 const str_no_branch_visit_needed = "No branch visits needed";

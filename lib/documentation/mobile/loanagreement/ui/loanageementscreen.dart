@@ -96,7 +96,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context) => DashboardWithGST(),
+              builder: (BuildContext context) => const DashboardWithGST(),
             ),
             (route) => false, //if you want to disable back feature set to false
           );
@@ -116,7 +116,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (BuildContext context) => DashboardWithGST(),
+                      builder: (BuildContext context) => const DashboardWithGST(),
                     ),
                     (route) => false, //if you want to disable back feature set to false
                   )
@@ -325,7 +325,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
                js:"function testPlatformSpecificMethod(msg) { TestDartCallback('Web callback says: ' + msg) }",
 
              ),*/
-            EmbeddedJsContent(
+            const EmbeddedJsContent(
                 webJs:
                     "window.addEventListener('scroll', () => {if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {"
                     "TestDartCallback(true)"
@@ -362,18 +362,19 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
         color: Colors.black.withOpacity(0.5),
         child: Center(
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(8)),
               //image: DecorationImage(image: AssetImage(Utils.path(KFSCONGRATULATIONBG)),fit: BoxFit.fill),
               color: Colors.white,
             ),
-            height: 265.h,
+            // height: 265.h,
             width: 335.w,
             child: Padding(
               padding: EdgeInsets.only(left: 20.w, right: 20.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   SizedBox(height: 36.h), //40
                   Center(
@@ -394,8 +395,9 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
                     ),
                   ),
                   //38
-                  SizedBox(height: 25.h),
-                  BtnProceed()
+                  SizedBox(height: 40.h),
+                  BtnProceed(),
+                  SizedBox(height: 30.h),
                 ],
               ),
             ),
@@ -409,7 +411,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
     return AppButton(
       onPress: () async {
         Navigator.pop(context);
-        Navigator.pushNamed(context, MyRoutes.SetupEmandateRoutes);
+        Navigator.pushReplacementNamed(context, MyRoutes.SetupEmandateRoutes);
       },
       title: str_proceed,
     );
@@ -669,7 +671,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => EmailSentAfterLoanAgreement(),
+            builder: (context) => const EmailSentAfterLoanAgreement(),
           ));
     } else if (_getLoanStatusRes?.data?.stageStatus == "HOLD") {
       Future.delayed(const Duration(seconds: 10), () {

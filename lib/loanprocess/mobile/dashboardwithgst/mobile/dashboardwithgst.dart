@@ -19,12 +19,10 @@ import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:intl/intl.dart';
-import 'package:sbi_sahay_1_0/loanprocess/mobile/accountaggregatorntb/ui/aadetails.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/congatulation/ui/congratulations.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/gstinvoiceslist/ui/gstinvoicelist.dart';
-import 'package:sbi_sahay_1_0/loanprocess/mobile/loanofferlist/ui/loanofferlistscreen.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
-import 'package:sbi_sahay_1_0/utils/movestageutils.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 
 import '../../../../registration/mobile/dashboardwithoutgst/mobile/dashboardwithoutgst.dart';
@@ -141,6 +139,8 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
+        final shouldPop = await _showFirstWaring(context);
+        return shouldPop ?? false;
         // if (tabController.index == 0) {
         //   final shoulpop = await showFirstWaring(context);
         //   return shoulpop ?? false;
@@ -269,7 +269,11 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
             title: Text('Transactions', style: ThemeHelper.getInstance()?.textTheme.headline3),
             onTap: () {
               Navigator.of(context).pop();
-              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => TransactionsView()));
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) => const TransactionsView(),
+                ),
+              );
             },
           ),
           const Divider(),
@@ -774,111 +778,82 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
         padding: EdgeInsets.only(bottom: 12.h),
         child: GestureDetector(
           onTap: () {
+            TGLog.d("ON press account");
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) => LoanOfferList(),
+                builder: (BuildContext context) => const CongratulationsScreen(),
               ),
               (route) => false, //if you want to disable back feature set to false
             );
           },
-          child: GestureDetector(
-            onTap: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => const AccountAggregatorDetails(),
-                ),
-                (route) => false, //if you want to disable back feature set to false
-              );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: MyColors.pnbPinkColor,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(12.r),
-                ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: MyColors.pnbPinkColor,
+              borderRadius: BorderRadius.all(
+                Radius.circular(12.r),
               ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 17.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 14.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            buildInvoiceText(data?.buyerName ?? "Amazon Pvt. Ltd"),
-                            buildCompanyText("Invoice: 230"),
-                          ],
-                        ),
-                        //..Check Status Button ..I am here
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    const MySeparator(
-                      color: Colors.grey,
-                    ),
-                    // _buildCustomProgressBar(
-                    //     getCurrentStage(data?.currentApplicationStage ?? "")),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 17.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 14.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          buildInvoiceText(data?.buyerName ?? "Amazon Pvt. Ltd"),
+                          buildCompanyText("Invoice: 230"),
+                        ],
+                      ),
+                      //..Check Status Button ..I am here
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  const MySeparator(
+                    color: Colors.grey,
+                  ),
+                  // _buildCustomProgressBar(
+                  //     getCurrentStage(data?.currentApplicationStage ?? "")),
 
-                    SizedBox(height: 15.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            buildCompanyText(str_Stage),
-                            SizedBox(height: 5.h),
-                            buildInvoiceText("Disbursement in Process"),
-                          ],
-                        ),
-                        const Spacer(),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            buildCompanyText(str_loan_amt),
-                            SizedBox(height: 5.h),
-                            buildInvoiceText("₹41,600"),
-                          ],
-                        )
+                  SizedBox(height: 15.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          buildCompanyText(str_Stage),
+                          SizedBox(height: 5.h),
+                          buildInvoiceText("Disbursement in Process"),
+                        ],
+                      ),
+                      const Spacer(),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          buildCompanyText(str_loan_amt),
+                          SizedBox(height: 5.h),
+                          buildInvoiceText("₹41,600"),
+                        ],
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
 
-                        // Row(
-                        //   children: [
-                        //     Text(
-                        //         getCurrentStage(
-                        //             data?.currentApplicationStage ?? "Disbursement in Process"),
-                        //         style: ThemeHelper.getInstance()!
-                        //             .textTheme
-                        //             .headline1!
-                        //             .copyWith(
-                        //                 fontSize: 10.sp,
-                        //                 color: ThemeHelper.getInstance()!
-                        //                     .colorScheme
-                        //                     .primary)),
-                        //     SizedBox(
-                        //       width: 2.w,
-                        //     ),
-                        //   ],
-                        // ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-
-                    //_buildBottomPartInsideCard(data),
-                    _buildCheckStatusButton(data)
-                  ],
-                ),
+                  //_buildBottomPartInsideCard(data),
+                  _buildCheckStatusButton(data)
+                ],
               ),
             ),
           ),
@@ -909,12 +884,21 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
         width: 109.w,
         height: 27.h,
         decoration: BoxDecoration(
-            border: Border.all(color: ThemeHelper.getInstance()!.primaryColor, width: 1),
-            //color: ThemeHelper.getInstance()?.backgroundColor,
-            borderRadius: BorderRadius.all(Radius.circular(4.r))),
+          border: Border.all(color: ThemeHelper.getInstance()!.primaryColor, width: 1),
+          //color: ThemeHelper.getInstance()?.backgroundColor,
+          borderRadius: BorderRadius.all(
+            Radius.circular(4.r),
+          ),
+        ),
         child: ElevatedButton(
           onPressed: () {
-            MoveStage.movetoStage(context, data);
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => const CongratulationsScreen(),
+              ),
+              (route) => false, //if you want to disable back feature set to false
+            );
           },
           style: ThemeHelper.getInstance()!.elevatedButtonTheme.style!.copyWith(
                 foregroundColor: MaterialStateProperty.all(MyColors.pnbcolorPrimary),
@@ -1516,6 +1500,35 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
               style: ThemeHelper.getInstance()!.textTheme.headline1,
             ),
           ));
+
+  static Future<bool?> _showFirstWaring(BuildContext context) async => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          content: const Text('Do You Want to Exit?'),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.of(context).popUntil((route) => false);
+                  },
+                  child: const Text('Exit'),
+                )
+              ],
+            ),
+          ],
+          title: Text(
+            'Exit',
+            style: ThemeHelper.getInstance()!.textTheme.displayLarge,
+          ),
+        ),
+      );
 }
 
 class MyDrawer extends StatelessWidget {
@@ -1593,7 +1606,8 @@ class MyDrawer extends StatelessWidget {
             title: Text('Transactions', style: ThemeHelper.getInstance()?.textTheme.headline3),
             onTap: () {
               Navigator.of(context).pop();
-              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => TransactionsView()));
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (BuildContext context) => const TransactionsView()));
             },
           ),
           const Divider(),

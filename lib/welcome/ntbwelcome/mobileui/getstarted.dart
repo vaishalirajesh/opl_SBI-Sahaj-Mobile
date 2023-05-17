@@ -2,6 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gstmobileservices/common/tg_log.dart';
+import 'package:gstmobileservices/util/jumpingdot_util.dart';
+import 'package:gstmobileservices/util/tg_flavor.dart';
+import 'package:sbi_sahay_1_0/registration/mobile/login/login.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/signupdetails/signup.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -24,8 +28,15 @@ class GetStartedScreen extends StatelessWidget {
   }
 }
 
-class GetStarted extends StatelessWidget {
+class GetStarted extends StatefulWidget {
   const GetStarted({Key? key}) : super(key: key);
+
+  @override
+  State<GetStarted> createState() => _GetStartedState();
+}
+
+class _GetStartedState extends State<GetStarted> {
+  bool isLoaderStart = false;
 
   @override
   Widget build(BuildContext context) {
@@ -34,31 +45,73 @@ class GetStarted extends StatelessWidget {
         return true;
       },
       child: Scaffold(
-        body: ListView(
-          children: [
-            pNBLogo(),
-            sahayLogo(),
-            cardViewSetup(),
-          ],
+        body: AbsorbPointer(
+          absorbing: isLoaderStart,
+          child: ListView(
+            children: [
+              pNBLogo(),
+              sahayLogo(),
+              cardViewSetup(),
+            ],
+          ),
         ),
-        bottomNavigationBar: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            SizedBox(
-              height: 10.h,
-            ),
-            getStartedBTN(context),
-            SizedBox(
-              height: 5.h,
-            ),
-            loginButton(),
-            SizedBox(
-              height: 15.h,
-            ),
-          ],
+        bottomNavigationBar: AbsorbPointer(
+          absorbing: isLoaderStart,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              SizedBox(
+                height: 10.h,
+              ),
+              getStartedBTN(context),
+              SizedBox(
+                height: 5.h,
+              ),
+              loginButton(context),
+              SizedBox(
+                height: 15.h,
+              ),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Widget getStartedBTN(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 5.h),
+      child: isLoaderStart
+          ? SizedBox(
+              height: 50.h,
+              child: JumpingDots(
+                color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
+                radius: 10,
+              ),
+            )
+          : AppButton(
+              onPress: () {
+                setState(() {
+                  isLoaderStart = true;
+                });
+                Future.delayed(const Duration(seconds: 2), () {
+                  setState(() {
+                    isLoaderStart = false;
+                  });
+                  TGLog.d('Bank name--${TGFlavor.param("bankName")}');
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SignUpView(),
+                    ),
+                  );
+                });
+
+                // Navigator.pushNamed(context, MyRoutes.EnableGstApiRoutes);
+              },
+              title: str_get_started,
+            ),
     );
   }
 }
@@ -137,26 +190,7 @@ Widget cardViewSetup() {
   );
 }
 
-Widget getStartedBTN(BuildContext context) {
-  return Padding(
-    padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 5.h),
-    child: AppButton(
-      onPress: () {
-        // Navigator.push(context, CustomRightToLeftPageRoute(child:EnableGstApi()));
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const SignUpView(),
-            ));
-
-        // Navigator.pushNamed(context, MyRoutes.EnableGstApiRoutes);
-      },
-      title: str_get_started,
-    ),
-  );
-}
-
-Widget loginButton() {
+Widget loginButton(BuildContext context) {
   return TextButton(
     onPressed: () {
       //action
@@ -172,7 +206,16 @@ Widget loginButton() {
                   .textTheme
                   .headline3!
                   .copyWith(fontSize: 14.sp, color: MyColors.hyperlinkcolornew),
-              recognizer: TapGestureRecognizer()..onTap = () {}),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  TGLog.d("On tap login");
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginWithMobileNumber(),
+                    ),
+                  );
+                }),
         ],
       ),
     ),

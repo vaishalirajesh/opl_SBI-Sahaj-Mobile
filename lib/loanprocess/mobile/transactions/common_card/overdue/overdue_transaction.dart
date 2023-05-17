@@ -4,60 +4,68 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gstmobileservices/model/models/get_all_invoice_loan_response_main.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:intl/intl.dart';
-import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/imageconstant.dart';
-import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 
 import '../../../../../utils/Utils.dart';
+import '../../../../../utils/constants/prefrenceconstants.dart';
 import '../../../../../utils/helpers/themhelper.dart';
 import '../../../../../utils/strings/strings.dart';
 
-class OverdueTransactionCard extends StatefulWidget {
-  static _OverdueTransactionCardState? _state;
-  OverdueTransactionCard({Key? key, this.overdueInvoice}) : super(key: key);
+class OverDueCard extends StatefulWidget {
+  const OverDueCard({
+    Key? key,
+    required this.sharedInvoice,
+    required this.bottomWidget,
+  }) : super(key: key);
 
-  SharedInvoice? overdueInvoice;
+  final SharedInvoice? sharedInvoice;
+  final Widget bottomWidget;
+
   @override
-  State<OverdueTransactionCard> createState() {
-    return _OverdueTransactionCardState();
+  State<OverDueCard> createState() {
+    return _OverDueCardState();
   }
 }
 
-class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
+class _OverDueCardState extends State<OverDueCard> {
   double rating = 3;
-  var isCardHide = true;
+  var ratingText = '';
   var isRatingChange = false;
-  var isDialogShowing = false;
+  var isCardHide = true;
 
-  String? stage;
   String? dueDate;
   String? bankName;
   String? buyerName;
   String? amountToPay;
   String? disbursedOnDate;
-  String? interestRate;
-  String? gstin;
-  String? loanAmount;
+  String? disbursedDate;
+  String? invoiceNumber;
   String? loanId;
   String? utrNo;
   String? latePaymentCharge;
+  String? interestRate;
+  String? gstin;
+  String? loanAmount;
+  String? disbursedmentAmount;
   String? invoiceDate;
   String? invoiceAmount;
   String? tenure;
   String? interestAmount;
   String? dueDays;
+
   @override
   void initState() {
+    setDisbursedList(widget.sharedInvoice);
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      setDisbursedList(widget.overdueInvoice);
+      setDisbursedList(widget.sharedInvoice);
     });
   }
 
   setDisbursedList(SharedInvoice? disbursedInvoice) {
     setState(() {
-      setOverdueInvoiceData(disbursedInvoice);
+      setOutstandingInvoiceData(disbursedInvoice);
     });
   }
 
@@ -65,28 +73,29 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: MyColors.pnbPinkColor,
-          borderRadius: BorderRadius.all(
-            Radius.circular(12.r),
-          )),
+        color: MyColors.pnbPinkColor,
+        borderRadius: BorderRadius.all(
+          Radius.circular(12.r),
+        ),
+      ),
       child: Column(
         children: [
-          //setOverdueTransactionCardUI(),
+          // setOutstandingCardUI(),
           GestureDetector(
-              onTap: () {
-                setState(() {
-                  isCardHide = !isCardHide;
-                });
-                //    widget.flag = !widget.flag;
-              },
-              child: setOverdueTransactionCardUI()), //showHideCardViewUI()),
+            onTap: () {
+              setState(() {
+                isCardHide = !isCardHide;
+              });
+            },
+            child: setOutstandingCardUI(),
+          ) //showHideCardViewUI()),
         ],
       ),
     );
   }
 
-//..part 1
-  Widget setOverdueTransactionCardUI() {
+//Main Content
+  Widget setOutstandingCardUI() {
     return Container(
       decoration: BoxDecoration(
         color: MyColors.white,
@@ -97,10 +106,13 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
       ),
       child: Column(
         children: [
-          // setOverdueCardView(),
-          //isCardHide ? Container() : setOverdueCardBottomUi()
-
-          isCardHide ? setOverdueCardView() : setOverdueCardBottomUi(),
+          isCardHide
+              ? Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.w),
+                  child: setOutStandingCardView(),
+                )
+              : setOutStandingCardBottomView(),
+          //isCardHide ? Container() : setOutStandingCardBottomView()
         ],
       ),
     );
@@ -125,10 +137,10 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
               style: ThemeHelper.getInstance()!.textTheme.headline5!.copyWith(color: MyColors.pnbcolorPrimary),
             ),
             SizedBox(
-              width: 15.w,
-              height: 15.h,
+              width: 12.w,
+              height: 12.h,
               child: SvgPicture.asset(
-                Utils.path(isCardHide ? DOWNARROWIC : UPARROWIC),
+                isCardHide ? Utils.path(DOWNARROWIC) : Utils.path(UPARROWIC),
 //
               ),
             ),
@@ -138,8 +150,232 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
     );
   }
 
-//..
-  _buildTopContentinsidecard() {
+  Widget setOutStandingCardView() {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          SizedBox(
+            height: 20.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      buyerName ?? 'Flipcart Pvt. Ltd.',
+                      style: ThemeHelper.getInstance()!.textTheme.headline5!.copyWith(
+                            fontSize: 14.sp,
+                            color: MyColors.pnbcolorPrimary,
+                          ),
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    Text(
+                      gstin ?? 'Invoice: 23001832184',
+                      style: ThemeHelper.getInstance()!
+                          .textTheme
+                          .headline4!
+                          .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor),
+                    )
+                  ],
+                ),
+              ),
+              SvgPicture.asset(
+                !isCardHide ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+                height: 20.h,
+                width: 20.w,
+              ),
+              // setDueDetailUi()
+            ],
+          ),
+          SizedBox(
+            height: 5.h,
+          ),
+          dividerUI(0.w),
+          SizedBox(
+            height: 8.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 3,
+                child: setAmountDueUi(),
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //..Title Never Change
+                    Text(
+                      str_Due_date,
+                      style: ThemeHelper.getInstance()!.textTheme.overline!,
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    Text(
+                      '09/08/2022',
+                      style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
+                            fontSize: 14.sp,
+                            color: MyColors.darkblack,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //..Title Never Change
+                      Text(
+                        '',
+                        style: ThemeHelper.getInstance()!.textTheme.overline!,
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Text(
+                        strOverdue,
+                        style: ThemeHelper.getInstance()!.textTheme.headline4!.copyWith(
+                              fontSize: 12.sp,
+                              color: Utils.getBgColorByTransactionStatus(strOverdue),
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 15.h,
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget setAmountDueUi() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          str_original_amnt_due,
+          style: ThemeHelper.getInstance()!.textTheme.overline!,
+        ),
+        SizedBox(
+          height: 5.h,
+        ),
+        Text(
+          amountToPay ?? "",
+          style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
+                fontSize: 14.sp,
+                color: MyColors.darkblack,
+              ),
+        )
+      ],
+    );
+  }
+
+  Widget setOutStandingCardBottomView() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15.w),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          setOutStandingCardView(),
+          dividerUI(0.w),
+          SizedBox(
+            height: 10.h,
+          ),
+          setRowColumValueOpenCard("Disbursed On", "09/08/2022", "Lender", "State Bank of India"),
+          setRowColumValueOpenCard("Invoice Date", "09/08/2022", "ROI", "10% p.a."),
+          setRowColumValueOpenCard("Loan Amount", "₹41,600", "Invoice Amount", "₹52,000"),
+          setRowColumValueOpenCard("Tenure", "90 Days", "Interest Amount", "₹1040"),
+          setRowColumValueOpenCard(str_Late_payment_charges, "2%", str_Days_past_due, "10 days"),
+          // setRowColumValueOpenCard(str_Due_Date, "09/08/2022", str_Amount_due, "₹52,236"),
+
+          //SizedBox(height: 10.h),
+          widget.bottomWidget,
+        ],
+      ),
+    );
+  }
+
+  Widget setRowColumValueOpenCard(String title, String value, String title2, String value2) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                // width: 66.w,
+                child: Text(
+                  title,
+                  style: ThemeHelper.getInstance()!.textTheme.overline!,
+                ),
+              ),
+              Text(
+                value,
+                style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
+                      fontSize: 14.sp,
+                      color: MyColors.darkblack,
+                    ),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+            ],
+          ),
+        ),
+        SizedBox(width: 40.w),
+        Expanded(
+          flex: 1,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title2, style: ThemeHelper.getInstance()!.textTheme.overline!),
+              // SizedBox(
+              //   height: 5.h,
+              // ),
+              Text(
+                value2,
+                style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
+                      fontSize: 14.sp,
+                      color: MyColors.darkblack,
+                    ),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget setLenderRoiDetailUi() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 14.w),
       child: Container(
@@ -198,26 +434,17 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
     );
   }
 
-  dividerUI(double padding) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: padding),
-      child: Divider(
-        color: MyColors.pnbGreyColor.withOpacity(0.2),
-      ),
-    );
-  }
-
-  _buildListRow() {
+  Widget setTransactionDetailListUI() {
     return Column(children: [
-      _buildRepeatRow(str_loan_id, loanId ?? '', str_utr_no, utrNo ?? ''),
+      setTransactionDetailUi(str_loan_id, loanId ?? '', str_utr_no, utrNo ?? ''),
       dividerUI(0.w),
-      _buildRepeatRow(str_Disbursed_on, disbursedOnDate ?? '', str_Loan_Amount, loanAmount ?? ''),
+      setTransactionDetailUi(str_Disbursed_on, disbursedOnDate ?? '', str_Loan_Amount, loanAmount ?? ''),
       dividerUI(0.w),
-      _buildRepeatRow(str_Invoice_date, invoiceDate ?? '', str_Invoice_amount, invoiceAmount.toString() ?? ''),
+      setTransactionDetailUi(str_Invoice_date, invoiceDate ?? '', str_Invoice_amount, invoiceAmount ?? ""),
       dividerUI(0.w),
-      _buildRepeatRow(str_Tenure, tenure ?? '', str_Interest_amount, interestAmount ?? ''),
+      setTransactionDetailUi(str_Tenure, tenure ?? '', str_Interest_amount, interestAmount ?? ''),
       dividerUI(0.w),
-      _buildRepeatRow(str_Late_payment_charges, latePaymentCharge ?? "", str_Days_past_due, dueDays ?? ''),
+      setTransactionDetailUi(str_Late_payment_charges, latePaymentCharge ?? "", str_Days_past_due, dueDays ?? ''),
       dividerUI(0.w),
 
       // _buildRepeatRow(str_Late_payment_charges, str_l9, str_Days_past, str_10),
@@ -230,7 +457,7 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
     ]);
   }
 
-  _buildRepeatRow(String title1, String value1, String title2, String value2) {
+  Widget setTransactionDetailUi(String title1, String value1, String title2, String value2) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -246,7 +473,10 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
             ),
             Text(
               value1,
-              style: ThemeHelper.getInstance()!.textTheme.bodyText1!.copyWith(fontSize: 12.sp),
+              style: ThemeHelper.getInstance()!
+                  .textTheme
+                  .headline2!
+                  .copyWith(color: MyColors.pnbcolorPrimary, fontSize: 12.sp),
             ),
           ],
         ),
@@ -260,655 +490,24 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
                   .headline3!
                   .copyWith(color: MyColors.pnbTextcolor, fontSize: 12.sp),
             ),
-            Text(value2, style: ThemeHelper.getInstance()!.textTheme.bodyText1!.copyWith(fontSize: 12.sp)),
-          ],
-        ),
-      ],
-    );
-  }
-
-  setOverdueCardView() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15.w),
-      child: Container(
-        color: Colors.white,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20.h,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  width: 150.w,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        buyerName ?? 'Flipcart Pvt. Ltd.',
-                        style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 13.sp),
-                      ),
-                      Text(
-                        gstin ?? 'Invoice: 23001832184',
-                        style: ThemeHelper.getInstance()!
-                            .textTheme
-                            .headline3!
-                            .copyWith(fontSize: 10.sp, color: MyColors.pnbTextcolor),
-                      )
-                    ],
-                  ),
-                ),
-                SvgPicture.asset(
-                  !isCardHide ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
-                  height: 20.h,
-                  width: 20.w,
-                ),
-                // setDueDetailUi()
-              ],
-            ),
-            SizedBox(
-              height: 11.h,
-            ),
-            dividerUI(0.w),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(flex: 3, child: setAmountDueUi()),
-                Expanded(
-                  flex: 3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //..Title Never Change
-                      Text(str_Due_date,
-                          style: ThemeHelper.getInstance()!
-                              .textTheme
-                              .headline3!
-                              .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor)),
-                      Text('09/08/2022',
-                          style: ThemeHelper.getInstance()!
-                              .textTheme
-                              .headline1!
-                              .copyWith(fontSize: 13.sp, color: MyColors.pnbDarkGreyTextColor)),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //..Title Never Change
-                      Text("Overdue",
-                          style: ThemeHelper.getInstance()!
-                              .textTheme
-                              .headline3!
-                              .copyWith(fontSize: 12.sp, color: MyColors.pnbRedColor)),
-                      // Text(dueDate ?? '09/08/2022',
-                      //     style: ThemeHelper.getInstance()!
-                      //         .textTheme
-                      //         .headline1!
-                      //         .copyWith(fontSize: 13.sp)),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10.h,
-            )
-          ],
-        ),
-      ),
-    );
-
-    // return Padding(
-    //   padding: EdgeInsets.symmetric(horizontal: 15.w),
-    //   child: Container(
-    //     color: Colors.white,
-    //     child: Column(
-    //       children: [
-    //         SizedBox(
-    //           height: 20.h,
-    //         ),
-    //         Row(
-    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //           children: [
-    //             SizedBox(
-    //               width: 150.w,
-    //               child: Column(
-    //                 crossAxisAlignment: CrossAxisAlignment.start,
-    //                 children: [
-    //                   Text(
-    //                     buyerName ?? '',
-    //                     style: ThemeHelper.getInstance()!
-    //                         .textTheme
-    //                         .headline1!
-    //                         .copyWith(fontSize: 13.sp),
-    //                   ),
-    //                   Text(
-    //                     gstin ?? '',
-    //                     style: ThemeHelper.getInstance()!
-    //                         .textTheme
-    //                         .headline3!
-    //                         .copyWith(
-    //                             fontSize: 10.sp, color: MyColors.pnbTextcolor),
-    //                   )
-    //                 ],
-    //               ),
-    //             ),
-    //             selectedCardFirstPart()
-    //           ],
-    //         ),
-    //         SizedBox(
-    //           height: 11.h,
-    //         ),
-    //         dividerUI(0.w),
-    //         Row(
-    //           children: [
-    //             Expanded(
-    //               flex: 1,
-    //               child: Column(
-    //                 crossAxisAlignment: CrossAxisAlignment.start,
-    //                 children: [
-    //                   //..Title Never Change
-    //                   Text(str_Due_date,
-    //                       style: ThemeHelper.getInstance()!
-    //                           .textTheme
-    //                           .headline3!
-    //                           .copyWith(
-    //                               fontSize: 12.sp,
-    //                               color: MyColors.pnbTextcolor)),
-    //                   Text(dueDate ?? '',
-    //                       style: ThemeHelper.getInstance()!
-    //                           .textTheme
-    //                           .headline1!
-    //                           .copyWith(fontSize: 13.sp)),
-    //                 ],
-    //               ),
-    //             ),
-    //             Expanded(flex: 1, child: selectedCardSecondPart()),
-    //           ],
-    //         ),
-    //         SizedBox(height: 10.h,)
-    //       ],
-    //     ),
-    //   ),
-    // );
-  }
-
-  Widget setAmountDueUi() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(str_original_amnt_due,
-            style: ThemeHelper.getInstance()!
-                .textTheme
-                .headline3!
-                .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor)),
-        Text(amountToPay ?? "",
-            style: ThemeHelper.getInstance()!
-                .textTheme
-                .headline1!
-                .copyWith(fontSize: 12.sp, color: MyColors.pnbDarkGreyTextColor))
-      ],
-    );
-  }
-
-  selectedCardFirstPart() {
-    if (strDisbursed.toLowerCase() == stage?.toLowerCase()) {
-      return Container();
-    } else if (strOverdue.toLowerCase() == stage?.toLowerCase()) {
-      return Container(
-        child: Column(
-          children: [
-            SizedBox(
-                width: 92.w,
-                height: 27.h,
-                child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, MyRoutes.PrepayNowRoutes);
-                    },
-                    child: Text(
-                      str_PayNow,
-                      style: TextStyle(fontSize: 12.sp, color: Colors.white),
-                    ),
-                    style: ThemeHelper.getInstance()!.elevatedButtonTheme.style!))
-          ],
-        ),
-      );
-    } else if (strRepaid.toLowerCase() == stage?.toLowerCase()) {
-      return Container(
-        child: Column(
-          children: [],
-        ),
-      );
-    } else if (str_Outstanding == stage) {
-      return Container(
-        child: Column(
-          children: [],
-        ),
-      );
-    } else {
-      return Container(
-        child: Column(
-          children: [],
-        ),
-      );
-    }
-  }
-
-  selectedCardSecondPart() {
-    if (strDisbursed.toLowerCase() == stage?.toLowerCase()) {
-      return Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(str_Loan_Amount,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline3!
-                    .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor)),
-            Text(loanAmount.toString() ?? '',
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline1!
-                    .copyWith(fontSize: 13.sp, color: MyColors.pnbcolorPrimary))
-          ],
-        ),
-      );
-    } else if (strOverdue.toLowerCase() == stage?.toLowerCase()) {
-      return Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(str_Original_amount_due,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline3!
-                    .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor)),
-            FittedBox(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(amountToPay ?? "",
-                      style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 12.sp)),
-                ],
-              ),
-            )
-          ],
-        ),
-      );
-    } else if (strRepaid.toLowerCase() == stage?.toLowerCase()) {
-      return Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(right: 12.w),
-              //Title Never Change
-              child: Text(str_Loan_Amount,
-                  style: ThemeHelper.getInstance()!
-                      .textTheme
-                      .headline3!
-                      .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor)),
-            ),
-            FittedBox(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(loanAmount ?? '',
-                      style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 12.sp)),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      str_fully_partialy,
-                      overflow: TextOverflow.ellipsis,
-                      style:
-                          ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(color: Colors.blue, fontSize: 12.sp),
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      );
-    } else if (str_Outstanding.toLowerCase() == stage?.toLowerCase()) {
-      return Container(
-        child: Column(
-          children: [],
-        ),
-      );
-    } else {
-      return Container(
-        child: Column(
-          children: [],
-        ),
-      );
-    }
-  }
-
-  Widget setOverdueCardBottomUi() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 12.w),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 20.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: 150.w,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      buyerName ?? 'Flipcart Pvt. Ltd.',
-                      style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 13.sp),
-                    ),
-                    Text(
-                      gstin ?? 'Invoice: 23001832184',
-                      style: ThemeHelper.getInstance()!
-                          .textTheme
-                          .headline3!
-                          .copyWith(fontSize: 10.sp, color: MyColors.pnbTextcolor),
-                    )
-                  ],
-                ),
-              ),
-              SvgPicture.asset(
-                !isCardHide ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
-                height: 20.h,
-                width: 20.w,
-              ),
-              // setDueDetailUi()
-            ],
-          ),
-          SizedBox(
-            height: 11.h,
-          ),
-          dividerUI(0.w),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(flex: 3, child: setAmountDueUi()),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //..Title Never Change
-                    Text(str_Due_date,
-                        style: ThemeHelper.getInstance()!
-                            .textTheme
-                            .headline3!
-                            .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor)),
-                    Text('09/08/2022',
-                        style: ThemeHelper.getInstance()!
-                            .textTheme
-                            .headline1!
-                            .copyWith(fontSize: 13.sp, color: MyColors.pnbDarkGreyTextColor)),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //..Title Never Change
-                    Text("Due in 10 days",
-                        style: ThemeHelper.getInstance()!
-                            .textTheme
-                            .headline3!
-                            .copyWith(fontSize: 12.sp, color: MyColors.pnbYellowColor)),
-                    // Text(dueDate ?? '09/08/2022',
-                    //     style: ThemeHelper.getInstance()!
-                    //         .textTheme
-                    //         .headline1!
-                    //         .copyWith(fontSize: 13.sp)),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          dividerUI(0.w),
-          SizedBox(
-            height: 10.h,
-          ),
-          setRowColumValueOpenCard("Disbursed On", "09/08/2022", "Lender", "State Bank of India"),
-          setRowColumValueOpenCard("Invoice Date", "09/08/2022", "ROI", "10% p.a."),
-          setRowColumValueOpenCard("Loan Amount", "₹41,600", "Invoice Amount", "₹52,000"),
-          setRowColumValueOpenCard("Tenure", "90 Days", "Interest Amount", "₹1040"),
-          setRowColumValueOpenCard("Late Payment Charges", "2%", "Days Past Due", "10 Days"),
-          //SizedBox(height: 10.h),
-          setPayNowUi(),
-          SizedBox(height: 15.h),
-          setOpenBottomViewText(),
-          SizedBox(height: 15.h),
-        ],
-      ),
-    );
-
-    // return Container(
-    //   child: Column(
-    //     children: [
-    //       _buildTopContentinsidecard(),
-    //       SizedBox(
-    //         height: 10.h,
-    //       ),
-    //       Padding(
-    //         padding: EdgeInsets.symmetric(horizontal: 15.w),
-    //         child: _buildListRow(),
-    //       ),
-    //       Padding(
-    //         padding: EdgeInsets.symmetric(horizontal: 15.w),
-    //         child: Row(
-    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //           children: [
-    //             Text(str_Rate_us),
-    //             SizedBox(
-    //               height: 18.h,
-    //               child: RatingBarWidget(
-    //                 onRatingChanged: (double value) {
-    //                   setReviewRating(value);
-    //                 }, size: 15,
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-    //       Padding(
-    //         padding: EdgeInsets.symmetric(horizontal: 15.w),
-    //         child: Divider(
-    //           color: MyColors.pnbGreyColor.withOpacity(0.2),
-    //         ),
-    //       ),
-    //   SizedBox(
-    //     height: 40.h,
-    //     child: Row(
-    //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //       children: [
-    //         SizedBox(
-    //             width: 100.w,
-    //             child: GestureDetector(
-    //                 onTap: () {},
-    //                 child: Text(str_Raise_dispute,
-    //                     textAlign: TextAlign.center,
-    //                     style: TextStyle(
-    //                         decoration: TextDecoration.underline,
-    //                         color: Colors.yellow,
-    //                         fontSize: 13.sp)))),
-    //         Padding(
-    //           padding: EdgeInsets.symmetric(vertical: 7.0.h),
-    //           child: Container(
-    //             color: MyColors.pnbGreyColor.withOpacity(0.2),
-    //             width: 1.w,
-    //           ),
-    //         ),
-    //         Container(
-    //             alignment: Alignment.center,
-    //             width: 100.w,
-    //             child: GestureDetector(
-    //               onTap: () {},
-    //               child: Text(
-    //                 str_Request_for_deferment,
-    //                 textAlign: TextAlign.center,
-    //                 style: TextStyle(
-    //                     decoration: TextDecoration.underline,
-    //                     color: Colors.red,
-    //                     fontSize: 13.sp),
-    //               ),
-    //             )),
-    //         Padding(
-    //           padding: EdgeInsets.symmetric(vertical: 7.0.h),
-    //           child: Container(
-    //             color: MyColors.pnbGreyColor.withOpacity(0.2),
-    //             width: 1.w,
-    //           ),
-    //         ),
-    //         SizedBox(
-    //             width: 100.w,
-    //             child: GestureDetector(
-    //               onTap: () {
-    //                 Navigator.pushNamed(context, MyRoutes.ContactSupportRoutes);
-    //               },
-    //               child: Text(str_contact_support,
-    //                   textAlign: TextAlign.center,
-    //                   style: TextStyle(
-    //                       decoration: TextDecoration.underline,
-    //                       color: Colors.blue,
-    //                       fontSize: 13.sp)),
-    //             )),
-    //       ],
-    //     ),
-    //   ),
-    //     ],
-    //   ),
-    // );
-  }
-
-  Widget setRowColumValueOpenCard(String title, String value, String title2, String value2) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 121.w,
-              child: Text(title,
-                  style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
-                        fontSize: 12.sp,
-                      )),
-            ),
-            // SizedBox(
-            //   height: 5.h,
-            // ),
-            Text(value,
-                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
-                      fontSize: 14.sp,
-                    )),
-            SizedBox(
-              height: 20.h,
-            ),
-          ],
-        ),
-        SizedBox(width: 40.w),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(title2,
-                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
-                      fontSize: 12.sp,
-                    )),
-            // SizedBox(
-            //   height: 5.h,
-            // ),
             Text(value2,
-                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
-                      fontSize: 14.sp,
-                    )),
-            SizedBox(
-              height: 20.h,
-            ),
+                style: ThemeHelper.getInstance()!
+                    .textTheme
+                    .headline2!
+                    .copyWith(color: MyColors.pnbcolorPrimary, fontSize: 12.sp)),
           ],
-        )
+        ),
       ],
     );
   }
 
-  Widget setPayNowUi() {
-    return SizedBox(
-        width: 100.w,
-        height: 30.h,
-        child: ElevatedButton(
-          onPressed: () {
-            // setState(() {
-            //   setState(() {
-            //     isCardHide = !isCardHide;
-            //   });
-            //
-            //   //    widget.flag = !widget.flag;
-            // });
-          },
-          // style: ThemeHelper.getInstance()?.elevale,
-          child: Text(
-            "Prepay Now",
-            style: TextStyle(fontSize: 12.sp),
-          ),
-        ));
-  }
-
-  Widget setOpenBottomViewText() {
-    return Text.rich(TextSpan(children: <InlineSpan>[
-      TextSpan(
-        text: "Raise dispute",
-        style: ThemeHelper.getInstance()!
-            .textTheme
-            .headline6!
-            .copyWith(fontSize: 12.sp, color: MyColors.pnbcolorPrimary, decoration: TextDecoration.underline),
+  Widget dividerUI(double padding) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: padding),
+      child: Divider(
+        color: MyColors.pnbGreyColor.withOpacity(0.2),
       ),
-      WidgetSpan(
-        child: SizedBox(width: 18),
-      ),
-      TextSpan(
-        text: "Request for deferment",
-        style: ThemeHelper.getInstance()!
-            .textTheme
-            .headline6!
-            .copyWith(fontSize: 12.sp, color: MyColors.pnbcolorPrimary, decoration: TextDecoration.underline),
-      ),
-      WidgetSpan(
-        child: SizedBox(width: 18),
-      ),
-      TextSpan(
-        text: "Contact support",
-        style: ThemeHelper.getInstance()!
-            .textTheme
-            .headline6!
-            .copyWith(fontSize: 12.sp, color: MyColors.pnbcolorPrimary, decoration: TextDecoration.underline),
-      ),
-    ]));
+    );
   }
 
   void setReviewRating(double rating) {
@@ -918,7 +517,7 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
     });
   }
 
-  setOverdueInvoiceData(SharedInvoice? disbursedInvoice) {
+  void setOutstandingInvoiceData(SharedInvoice? disbursedInvoice) {
     dueDate = createDueDate(disbursedInvoice?.dueDate ?? '');
     bankName = disbursedInvoice?.bankName;
     interestRate = disbursedInvoice?.interestRate.toString() ?? "" + " % p.a";
@@ -929,7 +528,6 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
     loanId = disbursedInvoice?.loanId ?? '';
     utrNo = disbursedInvoice?.utrNumber ?? '';
     invoiceDate = disbursedInvoice?.invoiceDate ?? '';
-    stage = disbursedInvoice?.stage;
     gstin = TGSession.getInstance().get(PREF_GSTIN);
     dueDays = disbursedInvoice?.dueDays;
     tenure = disbursedInvoice?.tenure.toString();
@@ -938,9 +536,9 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
     loanAmount = Utils.convertIndianCurrency(disbursedInvoice?.loanAmount?.toString());
   }
 
-  createDueDate(String? date) {
-    if (date?.isNotEmpty == true) {
-      DateTime dt = DateTime.parse(date!);
+  String createDueDate(String date) {
+    if (date.isNotEmpty) {
+      DateTime dt = DateTime.parse(date);
 
       String formattedDate = DateFormat('MM/dd/yyyy').format(dt);
       return formattedDate;
@@ -948,5 +546,5 @@ class _OverdueTransactionCardState extends State<OverdueTransactionCard> {
       return '';
     }
   }
-  //..demoData
+//..demoData
 }

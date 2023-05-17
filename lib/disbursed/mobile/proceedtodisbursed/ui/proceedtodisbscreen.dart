@@ -83,22 +83,22 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       return SafeArea(
-          child: WillPopScope(
-              onWillPop: () async {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => const DashboardWithGST(),
-                  ),
-                  (route) => false, //if you want to disable back feature set to false
-                );
+        child: WillPopScope(
+          onWillPop: () async {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => const DashboardWithGST(),
+              ),
+              (route) => false, //if you want to disable back feature set to false
+            );
 
-                return true;
-              },
-              child: SetContent(context)));
+            return true;
+          },
+          child: SetContent(context),
+        ),
+      );
     });
-    return SetContent(context);
-    ;
   }
 
   Widget SetContent(BuildContext context) {
@@ -339,16 +339,13 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
     return AppButton(
       onPress: () async {
         if (isChecked) {
-          setState(() {
-            //isTriggerdLoader = true;
-          });
-          // if (await TGNetUtil.isInternetAvailable()) {
-          //   triggerDisbursementRequestAPI();
-          // } else {
-          //   showSnackBarForintenetConnection(
-          //       context, triggerDisbursementRequestAPI);
-          // }
-          showDialog(context: context, builder: (_) => buildRatingDialog());
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => const DashboardWithGST(),
+            ),
+            (route) => false, //if you want to disable back feature set to false
+          );
         }
       },
       title: str_req_for_disb,
@@ -410,9 +407,9 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 10.h),
-              RatingBarWidget(
-                onRatingChanged: (double value) {},
-              ),
+              // RatingBarWidget(
+              //   onRatingChanged: (double value) {},
+              // ),
               SizedBox(height: 30.h),
               FeedbackTextFieldUI(),
               SizedBox(height: 30.h),

@@ -41,24 +41,27 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
       builder: (context, constraints) {
         return SafeArea(
           child: WillPopScope(
-              onWillPop: () async {
-                return true;
-              },
-              child: Scaffold(
-                appBar: getAppBarWithBackBtn(
-                    onClickAction: () => {Navigator.pop(context, false), SystemNavigator.pop(animated: true)}),
-                body: Stack(children: [
-                  SingleChildScrollView(
-                    primary: true,
-                    child: Container(
-                      child: SignUpScreenContent(),
-                    ),
+            onWillPop: () async {
+              Navigator.pop(context, false);
+              SystemNavigator.pop(animated: true);
+              return true;
+            },
+            child: Scaffold(
+              appBar: getAppBarWithBackBtn(
+                  onClickAction: () => {Navigator.pop(context, false), SystemNavigator.pop(animated: true)}),
+              body: Stack(children: [
+                SingleChildScrollView(
+                  primary: true,
+                  child: Container(
+                    child: SignUpScreenContent(),
                   ),
-                  // Align(
-                  //     alignment: Alignment.bottomCenter,
-                  //     child: SignUpButtonUI())
-                ]),
-              )),
+                ),
+                // Align(
+                //     alignment: Alignment.bottomCenter,
+                //     child: SignUpButtonUI())
+              ]),
+            ),
+          ),
         );
       },
     );
@@ -67,7 +70,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   Widget SignUpScreenContent() {
     return Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: Container(
+        child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,7 +157,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
       padding: EdgeInsets.symmetric(vertical: 20.h),
       child: AppButton(
         onPress: () async {
-          Navigator.pushNamed(context, MyRoutes.EnableGstApiRoutes);
+          Navigator.pushReplacementNamed(context, MyRoutes.EnableGstApiRoutes);
         },
         title: str_next,
         isButtonEnable: isCheck,
@@ -211,35 +214,6 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   ),
                 ),
               ])),
-    );
-  }
-
-  AppBar buildAppBarWithoutAnything() {
-    return AppBar(
-      iconTheme: IconThemeData(color: ThemeHelper.getInstance()!.colorScheme.primary, size: 28),
-      elevation: 0,
-      automaticallyImplyLeading: true,
-      title: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // SvgPicture.asset(Utils.path(MOBILESAHAYLOGO),
-                    //     height: 20.h, width: 20.w)
-                  ],
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

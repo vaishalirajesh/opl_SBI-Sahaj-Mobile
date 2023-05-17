@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -40,20 +41,36 @@ class _AccountAggregatorScreenState extends State<AccountAggregatorScreen> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        onWillPop: () async {
-          return true;
-        },
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar:
-              getAppBarWithStepDone("2", str_loan_approve_process, 0.25, onClickAction: () => {Navigator.pop(context)}),
-          body: Stack(
-            children: [
-              buildACCHomeContian(context),
-              buildBtnNextAcc(context),
-            ],
+      onWillPop: () async {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => const DashboardWithGST(),
           ),
-        ));
+          (route) => false, //if you want to disable back feature set to false
+        );
+        return true;
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: getAppBarWithStepDone("2", str_loan_approve_process, 0.25,
+            onClickAction: () => {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => const DashboardWithGST(),
+                    ),
+                    (route) => false, //if you want to disable back feature set to false
+                  )
+                }),
+        body: Stack(
+          children: [
+            buildACCHomeContian(context),
+            buildBtnNextAcc(context),
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -188,7 +205,18 @@ Widget buildSetupHyperText() {
                 .copyWith(color: MyColors.hyperlinkcolornew, fontSize: 14.sp, decoration: TextDecoration.underline),
           ),
           TextSpan(
-            text: str_website_to_know_more,
+            text: str_website_to_know_more_one,
+            style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
+          ),
+          TextSpan(
+            text: str_website_to_know_more_two,
+            style: ThemeHelper.getInstance()!
+                .textTheme
+                .headline3!
+                .copyWith(color: MyColors.hyperlinkcolornew, fontSize: 14.sp, decoration: TextDecoration.underline),
+          ),
+          TextSpan(
+            text: str_website_to_know_more_three,
             style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
           ),
         ],
@@ -204,7 +232,7 @@ Widget buildBtnNextAcc(BuildContext context) {
       padding: const EdgeInsets.all(20.0).w,
       child: AppButton(
           onPress: () {
-            Navigator.pushNamed(context, MyRoutes.AAListRoutes);
+            Navigator.pushReplacementNamed(context, MyRoutes.AAListRoutes);
           },
           title: str_next),
     ),

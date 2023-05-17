@@ -100,7 +100,9 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
     TGLog.d('main.initState()');
     super.initState();
     _initFlavor();
-    _init();
+    Future.delayed(const Duration(seconds: 3), () {
+      _init();
+    });
   }
 
   @override

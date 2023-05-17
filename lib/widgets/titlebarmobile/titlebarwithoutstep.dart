@@ -138,13 +138,16 @@ AppBar getAppBarWithBackBtn({required Function onClickAction}) {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          GestureDetector(
-            child: SvgPicture.asset(
-              Utils.path(MOBILEBACKBTN),
+          Padding(
+            padding: EdgeInsets.all(10.r),
+            child: GestureDetector(
+              child: SvgPicture.asset(
+                Utils.path(MOBILEBACKBTN),
+              ),
+              onTap: () {
+                onClickAction();
+              },
             ),
-            onTap: () {
-              onClickAction();
-            },
           ),
         ],
       ),
@@ -186,16 +189,19 @@ AppBar getAppBarWithStep(String step, String appBarTitle, double progress, {requ
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              GestureDetector(
-                child: SvgPicture.asset(
-                  Utils.path(MOBILEBACKBTN),
+              Padding(
+                padding: EdgeInsets.all(10.r),
+                child: GestureDetector(
+                  child: SvgPicture.asset(
+                    Utils.path(MOBILEBACKBTN),
+                  ),
+                  onTap: () {
+                    onClickAction();
+                  },
                 ),
-                onTap: () {
-                  onClickAction();
-                },
               ),
               SizedBox(
-                width: 20.w,
+                width: 10.w,
               ),
               // Container(
               //   height: 20.w,
@@ -259,16 +265,19 @@ AppBar getAppBarWithStepDone(String step, String appBarTitle, double progress, {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  GestureDetector(
-                    child: SvgPicture.asset(
-                      Utils.path(MOBILEBACKBTN),
+                  Padding(
+                    padding: EdgeInsets.all(10.r),
+                    child: GestureDetector(
+                      child: SvgPicture.asset(
+                        Utils.path(MOBILEBACKBTN),
+                      ),
+                      onTap: () {
+                        onClickAction();
+                      },
                     ),
-                    onTap: () {
-                      onClickAction();
-                    },
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 32.w),
+                    padding: EdgeInsets.only(left: 22.w),
                     child: SvgPicture.asset(Utils.path(MOBILEMENUBAR)),
                   ),
                   Padding(

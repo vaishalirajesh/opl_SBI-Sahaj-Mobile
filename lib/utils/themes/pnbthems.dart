@@ -56,7 +56,7 @@ class PnbThemes {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           minimumSize: Size(double.infinity, 45.h),
-          textStyle: TextUtils.getFontStyle(MyColors.white, 16.sp, MyFont.Nunito_Sans_Bold),
+          textStyle: TextUtils.getFontStyle(MyColors.white, 16.sp, MyFont.Roboto_Medium),
           backgroundColor: MyColors.pnbcolorPrimary,
           foregroundColor: MyColors.white,
           shape: RoundedRectangleBorder(

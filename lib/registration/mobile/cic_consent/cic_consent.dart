@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
@@ -12,13 +13,13 @@ import 'package:gstmobileservices/service/response/tg_response.dart';
 import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
-import 'package:sbi_sahay_1_0/registration/mobile/dashboardwithoutgst/mobile/dashboardwithoutgst.dart';
-import 'package:sbi_sahay_1_0/routes.dart';
+import 'package:gstmobileservices/util/tg_net_util.dart';
+import 'package:sbi_sahay_1_0/registration/mobile/gst_detail/gst_detail.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
+import 'package:sbi_sahay_1_0/utils/internetcheckdialog.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 
-import '../../../loanprocess/mobile/gstinvoiceslist/ui/gstinvoicelist.dart';
 import '../../../utils/Utils.dart';
 import '../../../utils/constants/imageconstant.dart';
 import '../../../utils/constants/statusConstants.dart';
@@ -54,26 +55,13 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
     return SafeArea(
       child: WillPopScope(
         onWillPop: () async {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => DashboardWithoutGST(),
-            ),
-            (route) => false, //if you want to disable back feature set to false
-          );
+          Navigator.pop(context, false);
+          SystemNavigator.pop(animated: true);
           return true;
         },
         child: Scaffold(
           appBar: getAppBarWithStepDone('1', str_registration, 0.25,
-              onClickAction: () => {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => DashboardWithoutGST(),
-                      ),
-                      (route) => false, //if you want to disable back feature set to false
-                    )
-                  }),
+              onClickAction: () => {Navigator.pop(context, false), SystemNavigator.pop(animated: true)}),
           body: AbsorbPointer(
             absorbing: isLoaderStart,
             child: Stack(
@@ -213,9 +201,7 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
                   radius: 10,
                 )
               : AppButton(
-                  onPress: () async {
-                    Navigator.pushNamed(context, MyRoutes.gstDetail);
-                  },
+                  onPress: onPressConsentButton,
                   title: str_give_consent,
                   isButtonEnable: isConsentGiven,
                 ),
@@ -304,21 +290,29 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => GSTInvoicesList(),
-                      ),
-                    );
-                  },
+                  onPressed: onPressConsentButton,
                   child: const Text(str_ok),
                 ),
               ),
             ],
           )),
     );
+  }
+
+  void onPressConsentButton() async {
+    if (isConsentGiven) {
+      setState(() {
+        isLoaderStart = true;
+      });
+
+      if (await TGNetUtil.isInternetAvailable()) {
+        saveCicConsent();
+      } else {
+        if (context.mounted) {
+          showSnackBarForintenetConnection(context, saveCicConsent);
+        }
+      }
+    }
   }
 
   Future<void> saveCicConsent() async {
@@ -329,6 +323,7 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
 
     var jsonRequest = jsonEncode(requestSaveConsent.toJson());
     TGPostRequest tgPostRequest = await getPayLoad(jsonRequest, URI_CONSENT_APPROVAL);
+    TGLog.d("CIC Consent Request : $jsonRequest");
 
     ServiceManager.getInstance().saveConsent(
         request: tgPostRequest,
@@ -344,12 +339,13 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
         isLoaderStart = false;
       });
       TGSharedPreferences.getInstance().set(PREF_ISCIC_CONSENT, true);
-      // Navigator.pop(context);
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => GSTInvoicesList(),
-          ));
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => GstDetailMain(),
+        ),
+        (route) => false,
+      );
     } else {
       setState(() {
         isLoaderStart = false;

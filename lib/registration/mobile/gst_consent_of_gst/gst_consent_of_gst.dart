@@ -13,9 +13,11 @@ import 'package:gstmobileservices/service/response/tg_response.dart';
 import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
+import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusconstants.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
+import 'package:sbi_sahay_1_0/utils/internetcheckdialog.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 
 import '../../../routes.dart';
@@ -25,7 +27,6 @@ import '../../../utils/jumpingdott.dart';
 import '../../../utils/progressLoader.dart';
 import '../../../utils/strings/strings.dart';
 import '../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
-import '../gst_detail/gst_detail.dart';
 
 class GstConsent extends StatelessWidget {
   @override
@@ -187,11 +188,7 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
                     radius: 10,
                   )
                 : AppButton(
-                    onPress: () async {
-                      if (isGstConsentGiven) {
-                        Navigator.pushNamed(context, MyRoutes.gstConsent);
-                      }
-                    },
+                    onPress: onPressGiveConsentButton,
                     title: str_give_consent,
                     isButtonEnable: isGstConsentGiven,
                   ),
@@ -199,6 +196,22 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
         ],
       ),
     );
+  }
+
+  void onPressGiveConsentButton() async {
+    if (isGstConsentGiven) {
+      setState(() {
+        isLoaderStart = true;
+      });
+
+      if (await TGNetUtil.isInternetAvailable()) {
+        saveGstConsent();
+      } else {
+        if (context.mounted) {
+          showSnackBarForintenetConnection(context, saveGstConsent);
+        }
+      }
+    }
   }
 
   Future<void> saveGstConsent() async {
@@ -228,11 +241,7 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
         isLoaderStart = false;
       });
       TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => GstDetailMain(),
-          ));
+      Navigator.pushReplacementNamed(context, MyRoutes.gstConsent);
     } else {
       setState(() {
         isLoaderStart = false;

@@ -14,12 +14,15 @@ import 'package:gstmobileservices/service/response/tg_response.dart';
 import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
+import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
+import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/gst_detail/gstotpverify.dart';
-import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
+import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusconstants.dart';
+import 'package:sbi_sahay_1_0/utils/internetcheckdialog.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 
@@ -67,7 +70,6 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
   bool ispopupshow = false;
 
   bool isLoader = false;
-  bool isSetLoader = false;
   bool flag = false;
   bool isValidGSTUserName = false;
   bool isValidGSTINNumber = false;
@@ -88,18 +90,17 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
   bool isClearOtp = false;
 
   @override
-  Widget build(BuildContext context) {
-    return SetGstDetailContent(context);
+  void initState() {
+    // pinController = TextEditingController(text: '');
+    super.initState();
   }
 
-  Widget SetGstDetailContent(BuildContext context) {
-    // if (isSetLoader) {
-    //   return MobileLoaderWithoutProgess(
-    //       context,
-    //       Utils.path(LOANOFFERLOADER),
-    //       str_Fetching_your_GST_business_details,
-    //       str_Kindly_wait_for_60s);
-    // } else {
+  @override
+  Widget build(BuildContext context) {
+    return setGstDetailContent(context);
+  }
+
+  Widget setGstDetailContent(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
         Navigator.pop(context);
@@ -111,7 +112,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
         appBar: getAppBarWithStepDone('1', str_registration, 0.25,
             onClickAction: () => {Navigator.pop(context), SystemNavigator.pop(animated: true)}),
         body: AbsorbPointer(
-          absorbing: isSetLoader,
+          absorbing: isLoader,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: SizedBox(
@@ -265,17 +266,13 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
   }
 
   Widget nextButton() {
-    return isSetLoader
+    return isLoader
         ? JumpingDots(
             color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
             radius: 10,
           )
         : AppButton(
-            onPress: gstinNoController.text.isNotEmpty && isValidGSTINNumber
-                ? () {
-                    Navigator.pushNamed(context, MyRoutes.OtpVerifyGSTRoutes);
-                  }
-                : () {},
+            onPress: gstinNoController.text.isNotEmpty && isValidGSTINNumber ? onPressNextButton : () {},
             title: str_next,
             isButtonEnable: gstinNoController.text.isNotEmpty && isValidGSTINNumber,
           );
@@ -296,165 +293,6 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
       ),
     );
   }
-
-  // void _modalBottomSheetMenu() {
-  //
-  //   showModalBottomSheet(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return StatefulBuilder(
-  //             builder: (BuildContext context, StateSetter setModelState) {
-  //               return Wrap(children: [BottomPopupTC(setModelState)]);});
-  //
-  //       },
-  //       shape: const RoundedRectangleBorder(
-  //           borderRadius: BorderRadius.only(
-  //               topLeft: Radius.circular(25), topRight: Radius.circular(25))),
-  //       clipBehavior: Clip.antiAlias,
-  //       isScrollControlled: true);
-  // }
-  //
-  // Widget BottomPopupTC(StateSetter setModelState) {
-  //   return Padding(
-  //     padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-  //     child: Container(
-  //       decoration: new BoxDecoration(
-  //           color: Colors.white,
-  //           borderRadius: new BorderRadius.only(
-  //               topLeft: const Radius.circular(50.0),
-  //               topRight: const Radius.circular(
-  //                   50.0))), //could change this to Color(0xFF737373),
-  //       //so you don't have to change MaterialApp canvasColor
-  //       child: Container(
-  //           decoration: new BoxDecoration(
-  //               color: Colors.white,
-  //               borderRadius: new BorderRadius.only(
-  //                   topLeft: const Radius.circular(50.0),
-  //                   topRight: const Radius.circular(50.0))),
-  //           child: Column(
-  //             crossAxisAlignment: CrossAxisAlignment.start,
-  //             mainAxisSize: MainAxisSize.min,
-  //             children: [
-  //               SizedBox(
-  //                 height: 30.h,
-  //               ),
-  //               Padding(
-  //                 padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-  //                 child: Text(
-  //                   str_Verify_GSTIN,
-  //                   style: ThemeHelper
-  //                       .getInstance()!
-  //                       .textTheme
-  //                       .headline1,
-  //                 ),
-  //               ),
-  //               SizedBox(
-  //                 height: 11.h,
-  //               ),
-  //               Padding(
-  //                 padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-  //                 child: Text(
-  //                   str_OTP_sent + gstinNoController.text,
-  //                   style: ThemeHelper
-  //                       .getInstance()!
-  //                       .textTheme
-  //                       .headline3!
-  //                       .copyWith(fontSize: 15.sp),
-  //                 ),
-  //               ),
-  //               SizedBox(
-  //                 height: 31.h,
-  //               ),
-  //               Row(
-  //                 mainAxisAlignment: MainAxisAlignment.center,
-  //                 children: [
-  //                   Text(
-  //                     str_enter_6_Digit,
-  //                     style: ThemeHelper
-  //                         .getInstance()!
-  //                         .textTheme
-  //                         .headline4,
-  //                   ),
-  //                 ],
-  //               ),
-  //               SizedBox(
-  //                 height: 16.h,
-  //               ),
-  //               SetUpOtpTextFieldForGSTDetail(setModelState),
-  //               SizedBox(
-  //                 height: 16.h,
-  //               ),
-  //               Row(
-  //                 mainAxisAlignment: MainAxisAlignment.center,
-  //                 children: [
-  //                   Text(
-  //                     str_Didnt_received_OTP_yet,
-  //                     style: ThemeHelper
-  //                         .getInstance()!
-  //                         .textTheme
-  //                         .bodyText1!
-  //                         .copyWith(
-  //                         fontSize: 14.sp, color: MyColors.pnbGreyColor),
-  //                   ),
-  //                 ],
-  //               ),
-  //               SizedBox(
-  //                 height: 11.h,
-  //               ),
-  //               GestureDetector(
-  //                 onTap: () {
-  //                   Navigator.pop(context);
-  //                   getGstOtp();
-  //                 },
-  //                 child: Row(
-  //                   mainAxisAlignment: MainAxisAlignment.center,
-  //                   children: [
-  //                     SvgPicture.asset(
-  //                       Utils.path(MOBILEResend),
-  //                       height: 16.h,
-  //                       width: 16.w,
-  //                     ),
-  //                     SizedBox(
-  //                       width: 9.w,
-  //                     ),
-  //                     Text(str_Resend_OTP, style: ThemeHelper
-  //                         .getInstance()!
-  //                         .textTheme
-  //                         .headline2!
-  //                         .copyWith(
-  //                         fontSize: 16.sp, color: MyColors.pnbcolorPrimary))
-  //                   ],
-  //                 ),
-  //               ),
-  //               SizedBox(
-  //                 height: 30.h,
-  //               ),
-  //               Padding(
-  //                 padding: EdgeInsets.symmetric(horizontal: 20.w),
-  //                 child:isLoader ? JumpingDots(color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary, radius: 10,) : ElevatedButton(
-  //                   style: isValidOTP
-  //                       ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
-  //                       : ThemeHelper.setPinkDisableButtonBig(),
-  //                   onPressed: () {
-  //                     setModelState(() {
-  //                       if (isValidOTP) {
-  //                         isShowLaoder();
-  //                         verifyGstOtp();
-  //                       }
-  //                     });
-  //
-  //                   },
-  //                   child: Text(str_Verify),
-  //                 ),
-  //               ),
-  //               SizedBox(
-  //                 height: 52.h,
-  //               )
-  //             ],
-  //           )),
-  //     ),
-  //   );
-  // }
 
   Widget SetUpOtpTextFieldForGSTDetail(StateSetter setModelState) {
     return Padding(
@@ -507,7 +345,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
   void setIsLoader() {
     Future.delayed(Duration(seconds: 0), () {
       setState(() {
-        isSetLoader = true;
+        isLoader = true;
       });
     });
   }
@@ -616,6 +454,21 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
     return true;
   }
 
+  void onPressNextButton() async {
+    if (gstinNoController.text.isNotEmpty && gstUsernameController.text.isNotEmpty && isValidGSTINNumber) {
+      _isShowLoader();
+      TGSharedPreferences.getInstance().set(PREF_GSTIN, gstinNoController.text);
+      TGSharedPreferences.getInstance().set(PREF_PANNO, gstinNoController.text.substring(2, 12));
+      if (await TGNetUtil.isInternetAvailable()) {
+        getGstOtp();
+      } else {
+        if (context.mounted) {
+          showSnackBarForintenetConnection(context, getGstOtp);
+        }
+      }
+    }
+  }
+
   Future<void> getGstOtp() async {
     TGSession.getInstance().set("otp_gstin", gstinNoController.text);
     TGSession.getInstance().set("otp_GSTINUserName", gstUsernameController.text); //"";
@@ -643,24 +496,25 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
       //    Navigator.of(context).push(CustomRightToLeftPageRoute(child: OtpVerifyGST(), ));
       TGSession.getInstance().set(SESSION_OTPSESSIONKEY, _gstOtpResponse?.data?.sessionKey);
       setState(() {
-        isSetLoader = false;
+        isLoader = false;
       });
       Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => OtpVerifyGST(),
-          ));
+        context,
+        MaterialPageRoute(
+          builder: (context) => const OtpVerifyGST(),
+        ),
+      );
       //_modalBottomSheetMenu();
     } else if (_gstOtpResponse?.status == RES_GST_APIDENIED) {
       TGView.showSnackBar(context: context, message: "Please enable GST API");
       setState(() {
-        isSetLoader = false;
+        isLoader = false;
       });
     } else {
       LoaderUtils.handleErrorResponse(
           context, response?.getOtpReponseObj().status, response?.getOtpReponseObj().message, null);
       setState(() {
-        isSetLoader = false;
+        isLoader = false;
       });
     }
   }
@@ -668,8 +522,20 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
   _onErrorGetGstOTP(TGResponse errorResponse) {
     TGLog.d("RegisterResponse : onError()");
     setState(() {
-      isSetLoader = false;
+      isLoader = false;
       handleServiceFailError(context, errorResponse.error);
+    });
+  }
+
+  void _isShowLoader() {
+    setState(() {
+      isLoader = true;
+    });
+  }
+
+  void _hideLaoder() {
+    setState(() {
+      isLoader = false;
     });
   }
 }

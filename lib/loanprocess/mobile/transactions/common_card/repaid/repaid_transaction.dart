@@ -12,23 +12,28 @@ import '../../../../../utils/constants/prefrenceconstants.dart';
 import '../../../../../utils/helpers/themhelper.dart';
 import '../../../../../utils/strings/strings.dart';
 
-class RepaidTransactionCard extends StatefulWidget {
-  static _RepaidTransactionCardState? _state;
-  RepaidTransactionCard({Key? key, required this.repaidInvoice}) : super(key: key);
+class RepaidCard extends StatefulWidget {
+  const RepaidCard({
+    Key? key,
+    required this.sharedInvoice,
+    required this.bottomWidget,
+  }) : super(key: key);
 
-  SharedInvoice? repaidInvoice;
+  final SharedInvoice? sharedInvoice;
+  final Widget bottomWidget;
+
   @override
-  State<RepaidTransactionCard> createState() {
-    return _RepaidTransactionCardState();
+  State<RepaidCard> createState() {
+    return _RepaidCardState();
   }
 }
 
-class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
-  var isRatingChange = false;
-  var isHideView = true;
+class _RepaidCardState extends State<RepaidCard> {
   double rating = 3;
+  var ratingText = '';
+  var isRatingChange = false;
+  var isCardHide = true;
 
-  String? stage;
   String? dueDate;
   String? bankName;
   String? buyerName;
@@ -48,17 +53,19 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
   String? tenure;
   String? interestAmount;
   String? dueDays;
+
   @override
   void initState() {
+    setDisbursedList(widget.sharedInvoice);
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      setDisbursedList(widget.repaidInvoice);
+      setDisbursedList(widget.sharedInvoice);
     });
   }
 
-  setDisbursedList(SharedInvoice? repaidInvoice) {
+  setDisbursedList(SharedInvoice? disbursedInvoice) {
     setState(() {
-      setRepaidInvoiceData(repaidInvoice);
+      setOutstandingInvoiceData(disbursedInvoice);
     });
   }
 
@@ -66,27 +73,29 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: MyColors.pnbPinkColor,
-          borderRadius: BorderRadius.all(
-            Radius.circular(12.r),
-          )),
+        color: MyColors.pnbPinkColor,
+        borderRadius: BorderRadius.all(
+          Radius.circular(12.r),
+        ),
+      ),
       child: Column(
         children: [
-          //  setRepaidCardUi(),
+          // setOutstandingCardUI(),
           GestureDetector(
-              onTap: () {
-                setState(() {
-                  isHideView = !isHideView;
-                });
-              },
-              child: setRepaidCardUi()), //showHideCardViewUI()),
+            onTap: () {
+              setState(() {
+                isCardHide = !isCardHide;
+              });
+            },
+            child: setOutstandingCardUI(),
+          ) //showHideCardViewUI()),
         ],
       ),
     );
   }
 
-//..part 1
-  setRepaidCardUi() {
+//Main Content
+  Widget setOutstandingCardUI() {
     return Container(
       decoration: BoxDecoration(
         color: MyColors.white,
@@ -97,8 +106,13 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
       ),
       child: Column(
         children: [
-          //setRepaidCardViewUi(),
-          isHideView ? setRepaidCardViewUi() : setRepaidCardBottomUi()
+          isCardHide
+              ? Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.w),
+                  child: setOutStandingCardView(),
+                )
+              : setOutStandingCardBottomView(),
+          //isCardHide ? Container() : setOutStandingCardBottomView()
         ],
       ),
     );
@@ -119,14 +133,14 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              isHideView ? str_view_more : str_hide,
+              isCardHide ? str_view_more : str_hide,
               style: ThemeHelper.getInstance()!.textTheme.headline5!.copyWith(color: MyColors.pnbcolorPrimary),
             ),
             SizedBox(
-              width: 15.w,
-              height: 15.h,
+              width: 12.w,
+              height: 12.h,
               child: SvgPicture.asset(
-                Utils.path(isHideView ? DOWNARROWIC : UPARROWIC),
+                isCardHide ? Utils.path(DOWNARROWIC) : Utils.path(UPARROWIC),
 //
               ),
             ),
@@ -136,8 +150,229 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
     );
   }
 
-//..
-  setLenderRoiDetailUI() {
+  Widget setOutStandingCardView() {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          SizedBox(
+            height: 20.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      buyerName ?? 'Flipcart Pvt. Ltd.',
+                      style: ThemeHelper.getInstance()!.textTheme.headline5!.copyWith(
+                            fontSize: 14.sp,
+                            color: MyColors.pnbcolorPrimary,
+                          ),
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    Text(
+                      gstin ?? 'Invoice: 23001832184',
+                      style: ThemeHelper.getInstance()!
+                          .textTheme
+                          .headline4!
+                          .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor),
+                    )
+                  ],
+                ),
+              ),
+              SvgPicture.asset(
+                !isCardHide ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+                height: 20.h,
+                width: 20.w,
+              ),
+              // setDueDetailUi()
+            ],
+          ),
+          SizedBox(
+            height: 5.h,
+          ),
+          dividerUI(0.w),
+          SizedBox(
+            height: 8.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 3,
+                child: setAmountDueUi(),
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //..Title Never Change
+                    Text(
+                      str_paid_on,
+                      style: ThemeHelper.getInstance()!.textTheme.overline!,
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    Text(
+                      '09/08/2022',
+                      style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
+                            fontSize: 14.sp,
+                            color: MyColors.darkblack,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //..Title Never Change
+                      Text(
+                        '',
+                        style: ThemeHelper.getInstance()!.textTheme.overline!,
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Text(
+                        strRepaid,
+                        style: ThemeHelper.getInstance()!.textTheme.headline4!.copyWith(
+                              fontSize: 12.sp,
+                              color: Utils.getBgColorByTransactionStatus(strRepaid),
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 15.h,
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget setAmountDueUi() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          str_Loan_Agreement,
+          style: ThemeHelper.getInstance()!.textTheme.overline!,
+        ),
+        SizedBox(
+          height: 5.h,
+        ),
+        Text(
+          amountToPay ?? "",
+          style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
+                fontSize: 14.sp,
+                color: MyColors.darkblack,
+              ),
+        )
+      ],
+    );
+  }
+
+  Widget setOutStandingCardBottomView() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15.w),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          setOutStandingCardView(),
+          dividerUI(0.w),
+          SizedBox(
+            height: 10.h,
+          ),
+          setRowColumValueOpenCard("Disbursed On", "09/08/2022", "Lender", "State Bank of India"),
+          setRowColumValueOpenCard("Invoice Date", "09/08/2022", "ROI", "10% p.a."),
+          setRowColumValueOpenCard("Loan Amount", "₹41,600", "Invoice Amount", "₹52,000"),
+          setRowColumValueOpenCard("Tenure", "90 Days", "Interest Amount", "₹1040"),
+          setRowColumValueOpenCard(str_Due_Date, "09/08/2022", str_Amount_due, "₹52,236"),
+          widget.bottomWidget,
+        ],
+      ),
+    );
+  }
+
+  Widget setRowColumValueOpenCard(String title, String value, String title2, String value2) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                // width: 66.w,
+                child: Text(
+                  title,
+                  style: ThemeHelper.getInstance()!.textTheme.overline!,
+                ),
+              ),
+              Text(
+                value,
+                style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
+                      fontSize: 14.sp,
+                      color: MyColors.darkblack,
+                    ),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+            ],
+          ),
+        ),
+        SizedBox(width: 40.w),
+        Expanded(
+          flex: 1,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title2, style: ThemeHelper.getInstance()!.textTheme.overline!),
+              // SizedBox(
+              //   height: 5.h,
+              // ),
+              Text(
+                value2,
+                style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
+                      fontSize: 14.sp,
+                      color: MyColors.darkblack,
+                    ),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget setLenderRoiDetailUi() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 14.w),
       child: Container(
@@ -196,25 +431,18 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
     );
   }
 
-  dividerUi(double padding) => Padding(
-        padding: EdgeInsets.symmetric(horizontal: padding),
-        child: Divider(
-          color: MyColors.pnbGreyColor.withOpacity(0.2),
-        ),
-      );
-
-  repaidTransactionDetailUI() {
+  Widget setTransactionDetailListUI() {
     return Column(children: [
-      transactionDetailUi(str_loan_id, loanId ?? '', str_utr_no, utrNo ?? ''),
-      dividerUi(0.w),
-      transactionDetailUi(str_Disbursed_on, disbursedOnDate ?? '', str_Loan_Amount, loanAmount ?? ''),
-      dividerUi(0.w),
-      transactionDetailUi(str_Invoice_date, invoiceDate ?? '', str_Invoice_amount, invoiceAmount.toString() ?? ''),
-      dividerUi(0.w),
-      transactionDetailUi(str_Tenure, tenure ?? '', str_Interest_amount, interestAmount ?? ''),
-      dividerUi(0.w),
-      transactionDetailUi(str_Late_payment_charges, latePaymentCharge ?? "", str_Days_past_due, dueDays ?? ''),
-      dividerUi(0.w),
+      setTransactionDetailUi(str_loan_id, loanId ?? '', str_utr_no, utrNo ?? ''),
+      dividerUI(0.w),
+      setTransactionDetailUi(str_Disbursed_on, disbursedOnDate ?? '', str_Loan_Amount, loanAmount ?? ''),
+      dividerUI(0.w),
+      setTransactionDetailUi(str_Invoice_date, invoiceDate ?? '', str_Invoice_amount, invoiceAmount ?? ""),
+      dividerUI(0.w),
+      setTransactionDetailUi(str_Tenure, tenure ?? '', str_Interest_amount, interestAmount ?? ''),
+      dividerUI(0.w),
+      setTransactionDetailUi(str_Late_payment_charges, latePaymentCharge ?? "", str_Days_past_due, dueDays ?? ''),
+      dividerUI(0.w),
 
       // _buildRepeatRow(str_Late_payment_charges, str_l9, str_Days_past, str_10),
       // Padding(
@@ -226,7 +454,7 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
     ]);
   }
 
-  transactionDetailUi(String title1, String value1, String title2, String value2) {
+  Widget setTransactionDetailUi(String title1, String value1, String title2, String value2) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -270,378 +498,12 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
     );
   }
 
-  setRepaidCardViewUi() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15.w),
-      child: Container(
-        color: Colors.white,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20.h,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  width: 150.w,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        buyerName ?? 'Flipcart Pvt. Ltd.',
-                        style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 13.sp),
-                      ),
-                      Text(
-                        gstin ?? 'Invoice: 23001832184',
-                        style: ThemeHelper.getInstance()!
-                            .textTheme
-                            .headline3!
-                            .copyWith(fontSize: 10.sp, color: MyColors.pnbTextcolor),
-                      )
-                    ],
-                  ),
-                ),
-                SvgPicture.asset(
-                  !isHideView ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
-                  height: 20.h,
-                  width: 20.w,
-                ),
-                // setDueDetailUi()
-              ],
-            ),
-            SizedBox(
-              height: 11.h,
-            ),
-            dividerUI(0.w),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(flex: 3, child: setAmountDueUi()),
-                Expanded(
-                  flex: 3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //..Title Never Change
-                      Text("Paid on",
-                          style: ThemeHelper.getInstance()!
-                              .textTheme
-                              .headline3!
-                              .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor)),
-                      Text('09/08/2022',
-                          style: ThemeHelper.getInstance()!
-                              .textTheme
-                              .headline1!
-                              .copyWith(fontSize: 13.sp, color: MyColors.pnbDarkGreyTextColor)),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //..Title Never Change
-                      Text("Fully Paid oo",
-                          style: ThemeHelper.getInstance()!
-                              .textTheme
-                              .headline3!
-                              .copyWith(fontSize: 12.sp, color: MyColors.pnbGreenColor)),
-                      // Text(dueDate ?? '09/08/2022',
-                      //     style: ThemeHelper.getInstance()!
-                      //         .textTheme
-                      //         .headline1!
-                      //         .copyWith(fontSize: 13.sp)),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10.h,
-            )
-          ],
-        ),
-      ),
-    );
-
-    // return Padding(
-    //   padding: EdgeInsets.symmetric(horizontal: 15.w),
-    //   child: Container(
-    //     color: Colors.white,
-    //     child: Column(
-    //       children: [
-    //         SizedBox(
-    //           height: 20.h,
-    //         ),
-    //         Row(
-    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //           children: [
-    //             Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 Text(
-    //                   buyerName ?? '',
-    //                   style: ThemeHelper.getInstance()!
-    //                       .textTheme
-    //                       .headline1!
-    //                       .copyWith(fontSize: 13.sp),
-    //                 ),
-    //                 Text(
-    //                   gstin ?? '',
-    //                   style: ThemeHelper.getInstance()!
-    //                       .textTheme
-    //                       .headline3!
-    //                       .copyWith(
-    //                           fontSize: 10.sp, color: MyColors.pnbTextcolor),
-    //                 )
-    //               ],
-    //             ),
-    //           ],
-    //         ),
-    //         SizedBox(
-    //           height: 11.h,
-    //         ),
-    //         dividerUi(0.w),
-    //         Row(
-    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //           children: [
-    //             Flexible(
-    //               flex: 1,
-    //               child: Column(
-    //                 crossAxisAlignment: CrossAxisAlignment.start,
-    //                 children: [
-    //                   //..Title Never Change
-    //                   Text(str_Due_date,
-    //                       style: ThemeHelper.getInstance()!
-    //                           .textTheme
-    //                           .headline3!
-    //                           .copyWith(
-    //                               fontSize: 12.sp,
-    //                               color: MyColors.pnbTextcolor)),
-    //                   Text(dueDate ?? '',
-    //                       style: ThemeHelper.getInstance()!
-    //                           .textTheme
-    //                           .headline1!
-    //                           .copyWith(fontSize: 13.sp)),
-    //                 ],
-    //               ),
-    //             ),
-    //             Flexible(flex: 1, child: setLoanAmountUi()),
-    //           ],
-    //         ),
-    //         SizedBox(height: 10.h,)
-    //       ],
-    //     ),
-    //   ),
-    // );
-  }
-
-  setLoanAmountUi() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Text(str_Loan_Amount,
-            style: ThemeHelper.getInstance()!
-                .textTheme
-                .headline3!
-                .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor)),
-        Text(loanAmount ?? '', style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 12.sp))
-      ],
-    );
-  }
-
-  Widget setRepaidCardBottomUi() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 12.w),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 20.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: 150.w,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      buyerName ?? 'Flipcart Pvt. Ltd.',
-                      style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 13.sp),
-                    ),
-                    Text(
-                      gstin ?? 'Invoice: 23001832184',
-                      style: ThemeHelper.getInstance()!
-                          .textTheme
-                          .headline3!
-                          .copyWith(fontSize: 10.sp, color: MyColors.pnbTextcolor),
-                    )
-                  ],
-                ),
-              ),
-              SvgPicture.asset(
-                !isHideView ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
-                height: 20.h,
-                width: 20.w,
-              ),
-              // setDueDetailUi()
-            ],
-          ),
-          SizedBox(
-            height: 11.h,
-          ),
-          dividerUI(0.w),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(flex: 3, child: setAmountDueUi()),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //..Title Never Change
-                    Text(str_Due_date,
-                        style: ThemeHelper.getInstance()!
-                            .textTheme
-                            .headline3!
-                            .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor)),
-                    Text('09/08/2022',
-                        style: ThemeHelper.getInstance()!
-                            .textTheme
-                            .headline1!
-                            .copyWith(fontSize: 13.sp, color: MyColors.pnbDarkGreyTextColor)),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //..Title Never Change
-                    Text("Fully Paid",
-                        style: ThemeHelper.getInstance()!
-                            .textTheme
-                            .headline3!
-                            .copyWith(fontSize: 12.sp, color: MyColors.pnbGreenColor))
-                  ],
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          dividerUI(0.w),
-          SizedBox(
-            height: 10.h,
-          ),
-          setRowColumValueOpenCard("Disbursed On", "09/08/2022", "Lender", "State Bank of India"),
-          setRowColumValueOpenCard("Invoice Date", "09/08/2022", "ROI", "10% p.a."),
-          setRowColumValueOpenCard("Loan Amount", "₹41,600", "Invoice Amount", "₹52,000"),
-          setRowColumValueOpenCard("Tenure", "90 Days", "Interest Amount", "₹1040"),
-          setRowColumValueOpenCard("Due Date", "08/08/2022", "Amount Due", "₹62,640"),
-          //SizedBox(height: 10.h),
-          setPayNowUi(),
-          SizedBox(height: 15.h),
-          setOpenBottomViewText(),
-          SizedBox(height: 15.h),
-        ],
-      ),
-    );
-
-    // return Column(
-    //   children: [
-    //     setLenderRoiDetailUI(),
-    //     SizedBox(
-    //       height: 10.h,
-    //     ),
-    //     Padding(
-    //       padding: EdgeInsets.symmetric(horizontal: 15.w),
-    //       child: repaidTransactionDetailUI(),
-    //     ),
-    //     Padding(
-    //       padding: EdgeInsets.symmetric(horizontal: 15.w),
-    //       child: Row(
-    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //         children: [
-    //           Text(str_Rate_us),
-    //           SizedBox(
-    //             height: 18.h,
-    //             child: RatingBarWidget(
-    //               onRatingChanged: (double value) {
-    //                 setReviewRating(value);
-    //               },
-    //               size: 15,
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //     Padding(
-    //       padding: EdgeInsets.symmetric(horizontal: 15.w),
-    //       child: Divider(
-    //         color: MyColors.pnbGreyColor.withOpacity(0.2),
-    //       ),
-    //     ),
-    //     Container(
-    //       height: 40.h,
-    //       child: Row(
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         children: [
-    //           SizedBox(
-    //             width: 100.w,
-    //             child: GestureDetector(
-    //               onTap: () {
-    //                 Navigator.pushNamed(context, MyRoutes.ContactSupportRoutes);
-    //               },
-    //               child: Text(str_contact_support,
-    //                   textAlign: TextAlign.center,
-    //                   style: TextStyle(
-    //                       decoration: TextDecoration.underline,
-    //                       color: Colors.blue,
-    //                       fontSize: 13.sp)),
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   ],
-    // );
-  }
-
-  dividerUI(double padding) {
+  Widget dividerUI(double padding) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: padding),
       child: Divider(
         color: MyColors.pnbGreyColor.withOpacity(0.2),
       ),
-    );
-  }
-
-  Widget setAmountDueUi() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("Loan Amount",
-            style: ThemeHelper.getInstance()!
-                .textTheme
-                .headline3!
-                .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor)),
-        Text(amountToPay ?? "",
-            style: ThemeHelper.getInstance()!
-                .textTheme
-                .headline1!
-                .copyWith(fontSize: 12.sp, color: MyColors.pnbDarkGreyTextColor))
-      ],
     );
   }
 
@@ -652,125 +514,7 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
     });
   }
 
-  Widget setRowColumValueOpenCard(String title, String value, String title2, String value2) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 66.w,
-              child: Text(title,
-                  style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
-                        fontSize: 12.sp,
-                      )),
-            ),
-            // SizedBox(
-            //   height: 5.h,
-            // ),
-            Text(value,
-                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
-                      fontSize: 14.sp,
-                    )),
-            SizedBox(
-              height: 20.h,
-            ),
-          ],
-        ),
-        SizedBox(width: 40.w),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(title2,
-                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
-                      fontSize: 12.sp,
-                    )),
-            // SizedBox(
-            //   height: 5.h,
-            // ),
-            Text(value2,
-                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
-                      fontSize: 14.sp,
-                    )),
-            SizedBox(
-              height: 20.h,
-            ),
-          ],
-        )
-      ],
-    );
-  }
-
-  Widget setPayNowUi() {
-    return SizedBox(
-        width: 100.w,
-        height: 30.h,
-        child: ElevatedButton(
-          onPressed: () {
-            // setState(() {
-            //   setState(() {
-            //     isCardHide = !isCardHide;
-            //   });
-            //
-            //   //    widget.flag = !widget.flag;
-            // });
-          },
-          // style: ThemeHelper.getInstance()?.elevale,
-          child: Text(
-            "Prepay Now",
-            style: TextStyle(fontSize: 12.sp),
-          ),
-        ));
-  }
-
-  Widget setOpenBottomViewText() {
-    return Text.rich(TextSpan(children: <InlineSpan>[
-      // TextSpan(
-      //   text: "Raise dispute",
-      //   style: ThemeHelper.getInstance()!
-      //       .textTheme
-      //       .headline6!
-      //       .copyWith(
-      //       fontSize: 12.sp,
-      //       color:
-      //       MyColors.pnbcolorPrimary,decoration:
-      //   TextDecoration.underline),
-      // ),
-      // WidgetSpan(
-      //   child: SizedBox(width: 18),
-      // ),
-      // TextSpan(
-      //   text: "Request for deferment",
-      //   style: ThemeHelper.getInstance()!
-      //       .textTheme
-      //       .headline6!
-      //       .copyWith(
-      //       fontSize: 12.sp,
-      //       color: MyColors.pnbcolorPrimary,
-      //       decoration:
-      //       TextDecoration.underline),
-      // ),
-      // WidgetSpan(
-      //   child: SizedBox(width: 18),
-      // ),
-      TextSpan(
-        text: "Contact support",
-        style: ThemeHelper.getInstance()!
-            .textTheme
-            .headline6!
-            .copyWith(fontSize: 12.sp, color: MyColors.pnbcolorPrimary, decoration: TextDecoration.underline),
-      ),
-    ]));
-  }
-
-  //////
-
-  void setRepaidInvoiceData(SharedInvoice? disbursedInvoice) {
+  void setOutstandingInvoiceData(SharedInvoice? disbursedInvoice) {
     dueDate = createDueDate(disbursedInvoice?.dueDate ?? '');
     bankName = disbursedInvoice?.bankName;
     interestRate = disbursedInvoice?.interestRate.toString() ?? "" + " % p.a";
@@ -781,7 +525,6 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
     loanId = disbursedInvoice?.loanId ?? '';
     utrNo = disbursedInvoice?.utrNumber ?? '';
     invoiceDate = disbursedInvoice?.invoiceDate ?? '';
-    stage = disbursedInvoice?.stage;
     gstin = TGSession.getInstance().get(PREF_GSTIN);
     dueDays = disbursedInvoice?.dueDays;
     tenure = disbursedInvoice?.tenure.toString();
@@ -790,7 +533,7 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
     loanAmount = Utils.convertIndianCurrency(disbursedInvoice?.loanAmount?.toString());
   }
 
-  createDueDate(String date) {
+  String createDueDate(String date) {
     if (date.isNotEmpty) {
       DateTime dt = DateTime.parse(date);
 
@@ -800,5 +543,5 @@ class _RepaidTransactionCardState extends State<RepaidTransactionCard> {
       return '';
     }
   }
-  //..demoData
+//..demoData
 }

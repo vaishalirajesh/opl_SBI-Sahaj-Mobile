@@ -92,9 +92,10 @@ class KfsScreenBody extends State<KfsScreens> {
         child: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
-                  colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight)
+            colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+          )
               //   color: ThemeHelper.getInstance()?.primaryColor,
               ),
           child: Column(
@@ -1062,11 +1063,12 @@ class KfsScreenBody extends State<KfsScreens> {
 
   Widget btnProceed() {
     return AppButton(
-        onPress: () async {
-          Navigator.pop(context);
-          Navigator.pushNamed(context, MyRoutes.loanDepositeAccRoutes);
-        },
-        title: str_proceed);
+      onPress: () async {
+        Navigator.pop(context);
+        Navigator.pushReplacementNamed(context, MyRoutes.loanDepositeAccRoutes);
+      },
+      title: str_proceed,
+    );
   }
 
   void setIsOtherUpFrontCardShow() {

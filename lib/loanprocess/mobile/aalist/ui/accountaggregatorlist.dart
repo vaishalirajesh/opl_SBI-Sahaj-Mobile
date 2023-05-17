@@ -10,7 +10,8 @@ import 'package:gstmobileservices/service/response/tg_response.dart';
 import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
-import 'package:sbi_sahay_1_0/loanprocess/mobile/loanofferlist/ui/loanofferlistscreen.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/loanofferlist/ui/loan_offer_pop_up.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -23,7 +24,6 @@ import '../../../../utils/constants/statusConstants.dart';
 import '../../../../utils/internetcheckdialog.dart';
 import '../../../../utils/strings/strings.dart';
 import '../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
-import '../../accountaggregatorntb/ui/aadetails.dart';
 
 class AAList extends StatelessWidget {
   const AAList({super.key});
@@ -78,6 +78,13 @@ class _AAListViewState extends State<AAListView> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => const DashboardWithGst(),
+          ),
+          (route) => false, //if you want to disable back feature set to false
+        );
         return true;
       },
       child: Scaffold(
@@ -86,7 +93,7 @@ class _AAListViewState extends State<AAListView> {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (BuildContext context) => const AccountAggregatorDetails(),
+                      builder: (BuildContext context) => const DashboardWithGst(),
                     ),
                     (route) => false, //if you want to disable back feature set to false
                   )
@@ -344,11 +351,13 @@ class _AAListViewState extends State<AAListView> {
   Widget buildBtnNextAcc(BuildContext context) {
     return AppButton(
       onPress: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => LoanOfferList(),
-            ));
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LoanOfferDialog(),
+          ),
+          (route) => false,
+        );
       },
       title: str_proceed,
     );

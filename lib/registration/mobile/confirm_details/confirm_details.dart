@@ -23,6 +23,7 @@ import 'package:sbi_sahay_1_0/utils/constants/statusconstants.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
+import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 
 import '../../../loanprocess/viemmodel/ConfirmDetailsVM.dart';
@@ -63,17 +64,12 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
   bool isLoader = true;
   String? strLegalName = "";
 
-  bool isOpenDetails = false;
+  bool isOpenDetails = true;
+  bool isLoadData = false;
 
   @override
   void initState() {
-//     WidgetsBinding.instance.addPostFrameCallback((_) async {
-//       LoaderUtils.showLoaderwithmsg(context,
-//           msg: str_Fetching_your_GST_business_details);
-// // your code goes here
-//     });
-//     getGstDetailStatus();
-
+    getGstDetailStatus();
     super.initState();
   }
 
@@ -81,49 +77,56 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
     if (await TGNetUtil.isInternetAvailable()) {
       gstDetailsStatusAPI();
     } else {
-      showSnackBarForintenetConnection(context, gstDetailsStatusAPI);
+      if (mounted) {
+        showSnackBarForintenetConnection(context, gstDetailsStatusAPI);
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // if (isLoaderRun){
-    //   return MobileLoaderWithoutProgess(context, Utils.path(LOANOFFERLOADER), str_Fetching_your_GST_business_details, str_Kindly_wait_for_60s);
-    // }else {
     return WillPopScope(
       onWillPop: () async {
         Navigator.pop(context, false);
         SystemNavigator.pop(animated: true);
         return true;
       },
-      child: Scaffold(
-        appBar: getAppBarWithStepDone('1', str_registration, 0.25,
-            onClickAction: () => {Navigator.pop(context, false), SystemNavigator.pop(animated: true)}),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: SingleChildScrollView(
-            child: SizedBox(
-              //height: MediaQuery.of(context).size.height,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildHeader(),
-                  _buildMiddler(),
+      child: !isLoadData
+          ? const ShowInfoLoader(
+              msg: str_Fetching_your_GST_business_details,
+              subMsg: '',
+            )
+          : Scaffold(
+              appBar: getAppBarWithStepDone('1', str_registration, 0.25,
+                  onClickAction: () => {
+                        Navigator.pop(context, false),
+                        SystemNavigator.pop(animated: true),
+                      }),
+              body: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: SingleChildScrollView(
+                  child: SizedBox(
+                    //height: MediaQuery.of(context).size.height,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildHeader(),
+                        _buildMiddler(),
 
-                  // (isOpenDetails)
-                  //     ? Padding(
-                  //         padding: EdgeInsets.only(top: 10.h),
-                  //         child:  _buildMiddler(),
-                  //       )
-                  //     :  _buildOnlyPersonalDetialContainer(),
-                  confirmGstDetailCheck(),
-                ],
+                        // (isOpenDetails)
+                        //     ? Padding(
+                        //         padding: EdgeInsets.only(top: 10.h),
+                        //         child:  _buildMiddler(),
+                        //       )
+                        //     :  _buildOnlyPersonalDetialContainer(),
+                        confirmGstDetailCheck(),
+                      ],
+                    ),
+                  ),
+                ),
               ),
+              bottomNavigationBar: _buildBottomSheet(),
             ),
-          ),
-        ),
-        bottomNavigationBar: _buildBottomSheet(),
-      ),
     );
     // }
   }
@@ -408,14 +411,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
         mainAxisSize: MainAxisSize.min,
         children: [
           AppButton(
-            onPress: () {
-              if (confirmGstDetail) {
-                showDialog(
-                  context: context,
-                  builder: (_) => popUpViewForRgistrationCompleted(),
-                );
-              }
-            },
+            onPress: onPressConfirmButton,
             title: str_Confirm,
             isButtonEnable: confirmGstDetail,
           ),
@@ -445,10 +441,11 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
               children: <Widget>[
                 SizedBox(height: 35.h), //40
                 Center(
-                    child: SvgPicture.asset(Utils.path(GREENCONFORMTICKREGISTRATIONCOMPLETED),
-                        height: 52.h, //,
-                        width: 52.w, //134.8,
-                        allowDrawingOutsideViewBox: true)),
+                  child: SvgPicture.asset(Utils.path(GREENCONFORMTICKREGISTRATIONCOMPLETED),
+                      height: 52.h, //,
+                      width: 52.w, //134.8,
+                      allowDrawingOutsideViewBox: true),
+                ),
                 SizedBox(height: 20.h), //40
                 Center(
                   child: Column(
@@ -502,6 +499,17 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
     );
   }
 
+  void onPressConfirmButton() {
+    if (confirmGstDetail) {
+      TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
+      showDialog(
+        context: context,
+        builder: (_) => popUpViewForRgistrationCompleted(),
+      );
+      // Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationCompleted(),));
+    }
+  }
+
   void hideLoader() {
     setState(() {
       isLoader = false;
@@ -513,10 +521,11 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
       isLoader = true;
     });
     String gstin = await TGSharedPreferences.getInstance().get(PREF_GSTIN);
-
     FetGstDataStatusRequest fetGstDataStatusRequest = FetGstDataStatusRequest(id: gstin);
     var jsonReq = jsonEncode(fetGstDataStatusRequest.toJson());
     TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_FETCH_GST_DATA_STATUS);
+    TGLog.d("FetchGstDataStatus  request: $tgPostRequest");
+
     ServiceManager.getInstance().fetchGstDataStatus(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessFetchGstDataStatus(response),
@@ -533,7 +542,9 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
         if (await TGNetUtil.isInternetAvailable()) {
           getGSTBasicsDetails();
         } else {
-          showSnackBarForintenetConnection(context, getGSTBasicsDetails);
+          if (mounted) {
+            showSnackBarForintenetConnection(context, getGSTBasicsDetails);
+          }
         }
       } else if (_fetchGstDataResMain?.data?.status == "RETRY") {
         Future.delayed(const Duration(seconds: 10), () {
@@ -573,7 +584,6 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
   _onSuccessGetGstBasicDetails(GstBasicDataResponse? response) {
     TGLog.d("GetGstBasicDetails : onSuccess()");
     if (response?.getFetchGstDataObj().status == RES_DETAILS_FOUND) {
-      Navigator.pop(context);
       setState(() {
         _gstBasicDataResMain = response?.getFetchGstDataObj();
         TGSharedPreferences.getInstance().set(PREF_BUSINESSNAME, _gstBasicDataResMain?.data?.tradeNam);
@@ -582,22 +592,21 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
         hideLoader();
       });
     } else if (response?.getFetchGstDataObj().status == RES_DETAILS_NOT_FOUND) {
-      Navigator.pop(context);
       LoaderUtils.handleErrorResponse(
           context, response?.getFetchGstDataObj().status, response?.getFetchGstDataObj().message, null);
       hideLoader();
     } else {
-      Navigator.pop(context);
       LoaderUtils.handleErrorResponse(
           context, response?.getFetchGstDataObj().status, response?.getFetchGstDataObj().message, null);
       hideLoader();
     }
+    isLoadData = true;
   }
 
   _onErrorGetBasicGstDetails(TGResponse errorResponse) {
-    Navigator.pop(context);
     TGLog.d("GetGstBasicDetails : onError()");
     handleServiceFailError(context, errorResponse.error);
     hideLoader();
+    isLoadData = true;
   }
 }

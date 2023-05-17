@@ -49,10 +49,18 @@ class SetupEmandate extends StatelessWidget {
       builder: (context, constraints) {
         return SafeArea(
           child: WillPopScope(
-              onWillPop: () async {
-                return true;
-              },
-              child: const SetupEmandateViewScreen()),
+            onWillPop: () async {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => const DashboardWithGST(),
+                ),
+                (route) => false, //if you want to disable back feature set to false
+              );
+              return true;
+            },
+            child: const SetupEmandateViewScreen(),
+          ),
         );
       },
     );
@@ -76,7 +84,7 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
 
   bool isLoaderStartProceed = false;
 
-  bool isOpenDetails = false;
+  bool isOpenDetails = true;
 
   @override
   void initState() {
@@ -178,11 +186,8 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
         sizebox(height: 12.h),
         padding(
           child: text(
-            text: str_emandate_txt +
-                (_getRepaymentPlanResMain?.data?.bankName ?? "") +
-                " " +
-                str_emandate_txt1 +
-                (_getRepaymentPlanResMain?.data?.accountNumber ?? ""),
+            text:
+                "$str_emandate_txt${_getRepaymentPlanResMain?.data?.bankName ?? ""} $str_emandate_txt1${_getRepaymentPlanResMain?.data?.accountNumber ?? ""}",
             textStyle: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(fontSize: 14.sp),
           ),
           horizontal: 20.w,
@@ -394,7 +399,7 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
                   SizedBox(height: 18.h),
                   AppButton(
                     onPress: () async {
-                      Navigator.pushNamed(context, MyRoutes.proceedToDisbursedRoutes);
+                      Navigator.pushReplacementNamed(context, MyRoutes.proceedToDisbursedRoutes);
                     },
                     title: str_proceed,
                   ),

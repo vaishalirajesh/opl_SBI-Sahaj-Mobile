@@ -454,27 +454,9 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
       padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 25.h, top: 25.h),
       child: AppButton(
         onPress: () async {
-          Navigator.pushNamed(context, MyRoutes.AccountAggregatorDetailsRoutes);
+          Navigator.pushReplacementNamed(context, MyRoutes.AccountAggregatorDetailsRoutes);
         },
         title: str_proceed,
-      ),
-    );
-    Container(
-      color: ThemeHelper.getInstance()!.backgroundColor,
-      height: 100.h,
-      child: Padding(
-        padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 25.h, top: 25.h),
-        child: ElevatedButton(
-          onPressed: () async {
-            Navigator.pushNamed(context, MyRoutes.AccountAggregatorDetailsRoutes);
-          },
-          child: Center(
-            child: Text(
-              str_proceed,
-              style: ThemeHelper.getInstance()?.textTheme.button,
-            ),
-          ),
-        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -32,10 +33,13 @@ class StartRegistrationNtbScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
+        Navigator.pop(context, false);
+        SystemNavigator.pop(animated: true);
         return true;
       },
       child: Scaffold(
-        appBar: getAppBarWithBackBtn(onClickAction: () => {Navigator.pop(context)}),
+        appBar: getAppBarWithBackBtn(
+            onClickAction: () => {Navigator.pop(context, false), SystemNavigator.pop(animated: true)}),
         body: buildSetupView(context),
         bottomNavigationBar: buildBTNStartStartRegistration(context),
       ),
@@ -104,11 +108,10 @@ class StartRegistrationNtbScreen extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(left: 30.w, right: 30.w, bottom: 20.h),
       child: Container(
-        height: 46.h,
         decoration: BoxDecoration(
             color: ThemeHelper.getInstance()!.colorScheme.background, borderRadius: BorderRadius.circular(6.r)),
         child: Padding(
-          padding: EdgeInsets.only(left: 20.w, top: 12.h),
+          padding: EdgeInsets.only(left: 20.w, top: 15.h, bottom: 15.h),
           child: Column(
             children: [
               Row(
@@ -128,7 +131,7 @@ class StartRegistrationNtbScreen extends StatelessWidget {
                   SizedBox(
                     width: 10.w,
                   ),
-                  Text(stepname, style: ThemeHelper.getInstance()!.textTheme.headline3)
+                  Flexible(child: Text(stepname, style: ThemeHelper.getInstance()!.textTheme.headline3))
                 ],
               )
               //ButtonUI(context, str_verify_mobile_no),
@@ -144,7 +147,7 @@ class StartRegistrationNtbScreen extends StatelessWidget {
       padding: const EdgeInsets.all(20).w,
       child: AppButton(
         onPress: () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => const LoginWithMobileNumber(),

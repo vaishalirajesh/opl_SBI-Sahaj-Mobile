@@ -11,7 +11,10 @@ import 'package:gstmobileservices/service/response/tg_response.dart';
 import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
-import 'package:sbi_sahay_1_0/loanprocess/mobile/transactions/ui/transaction_card.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/transactions/common_card/disbursed/disbursed_transaction.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/transactions/common_card/outstanding/outstanding_transaction.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/transactions/common_card/overdue/overdue_transaction.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/transactions/common_card/repaid/repaid_transaction.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -193,23 +196,27 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
         child: Column(
           children: [
             Container(
-                height: 50.h,
-                width: MediaQuery.of(context).size.width,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 20.w, top: 10.h),
-                  child: Text("Transactions",
-                      style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(color: MyColors.white)),
-                ),
-                decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.only(bottomRight: Radius.circular(0.r), bottomLeft: Radius.circular(0.r)),
-                    border: Border.all(width: 1, color: ThemeHelper.getInstance()!.primaryColor),
-                    //color: ThemeHelper.getInstance()!.primaryColor,
+              height: 50.h,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.only(left: 20.w),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(bottomRight: Radius.circular(0.r), bottomLeft: Radius.circular(0.r)),
+                border: Border.all(width: 1, color: ThemeHelper.getInstance()!.primaryColor),
+                //color: ThemeHelper.getInstance()!.primaryColor,
 
-                    gradient: LinearGradient(
-                        colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight))),
+                gradient: LinearGradient(
+                    colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight),
+              ),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Transactions",
+                  style: ThemeHelper.getInstance()!.textTheme.button!.copyWith(color: MyColors.white),
+                ),
+              ),
+            ),
             buildFirstPartAppBar(),
             buildBottomPartAppBar()
           ],
@@ -463,7 +470,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
       getAllLoanDetailByRefIdResMainobj = response?.getAllLoanDetailObj();
       obj = getAllLoanDetailByRefIdResMainobj?.data;
       outstanding_invoice = obj?.outstandingInvoice;
-      disbursed_invoice = obj?.disbursedInvoice;
+      disbursed_invoice = obj?.outstandingInvoice;
       repaidInvoice = obj?.repaidInvoice;
       overdueInvoice = obj?.overdueInvoice;
     });
@@ -495,11 +502,8 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
           itemBuilder: (context, index) {
             return Column(
               children: [
-                TransactionCard(
+                OutstandingCard(
                   sharedInvoice: outstanding_invoice?[index],
-                  paymentType: str_Due_in_day_10,
-                  status: str_Outstanding,
-                  fieldName: str_Amount_due,
                   bottomWidget: buildOutStandingBottomWidget(),
                 ),
                 SizedBox(
@@ -629,11 +633,8 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
           itemBuilder: (context, index) {
             return Column(
               children: [
-                TransactionCard(
+                RepaidCard(
                   sharedInvoice: repaidInvoice?[index],
-                  paymentType: str_full_paid,
-                  status: strRepaid,
-                  fieldName: str_loan_amt,
                   bottomWidget: buildRepaidBottomWidget(),
                 ),
                 SizedBox(
@@ -665,15 +666,12 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
         child: ListView.builder(
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
-          itemCount: disbursed_invoice?.length ?? 0,
+          itemCount: 10,
           itemBuilder: (context, index) {
             return Column(
               children: [
-                TransactionCard(
+                DisbursedCard(
                   sharedInvoice: overdueInvoice?[index],
-                  paymentType: strDisbursed,
-                  status: strDisbursed,
-                  fieldName: str_loan_amt,
                   bottomWidget: buildOutStandingBottomWidget(),
                 ),
                 SizedBox(
@@ -708,11 +706,8 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
           itemBuilder: (context, index) {
             return Column(
               children: [
-                TransactionCard(
+                OverDueCard(
                   sharedInvoice: overdueInvoice?[index],
-                  paymentType: strOverdue,
-                  status: strOverdue,
-                  fieldName: str_original_amnt_due,
                   bottomWidget: buildOverDueBottomWidget(),
                 ),
                 SizedBox(

@@ -60,7 +60,6 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
         onWillPop: () async {
           Navigator.pop(context, false);
           SystemNavigator.pop(animated: true);
-
           return true;
         },
         child: Scaffold(
@@ -177,11 +176,12 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
   Widget startLoanProcessButton() {
     return AppButton(
       onPress: () {
-        Navigator.pushReplacement(
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             builder: (context) => const GSTInvoicesList(),
           ),
+          (route) => false, //i
         );
       },
       title: str_Start_Loan_Process,

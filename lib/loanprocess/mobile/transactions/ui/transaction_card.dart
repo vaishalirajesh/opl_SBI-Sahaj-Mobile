@@ -235,18 +235,28 @@ class _TransactionCardState extends State<TransactionCard> {
               ),
               Expanded(
                 flex: 3,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //..Title Never Change
-                    Text(
-                      widget.paymentType,
-                      style: ThemeHelper.getInstance()!.textTheme.headline4!.copyWith(
-                            fontSize: 12.sp,
-                            color: Utils.getBgColorByTransactionStatus(widget.status),
-                          ),
-                    ),
-                  ],
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //..Title Never Change
+                      Text(
+                        '',
+                        style: ThemeHelper.getInstance()!.textTheme.overline!,
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Text(
+                        widget.paymentType,
+                        style: ThemeHelper.getInstance()!.textTheme.headline4!.copyWith(
+                              fontSize: 12.sp,
+                              color: Utils.getBgColorByTransactionStatus(widget.status),
+                            ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -298,6 +308,11 @@ class _TransactionCardState extends State<TransactionCard> {
           setRowColumValueOpenCard("Invoice Date", "09/08/2022", "ROI", "10% p.a."),
           setRowColumValueOpenCard("Loan Amount", "₹41,600", "Invoice Amount", "₹52,000"),
           setRowColumValueOpenCard("Tenure", "90 Days", "Interest Amount", "₹1040"),
+          if (widget.status == strOverdue)
+            setRowColumValueOpenCard(str_Late_payment_charges, "2%", str_Days_past_due, "10 days"),
+          if (widget.status == strRepaid)
+            setRowColumValueOpenCard(str_Due_Date, "09/08/2022", str_Amount_due, "₹52,236"),
+
           //SizedBox(height: 10.h),
           widget.bottomWidget,
         ],
@@ -311,50 +326,56 @@ class _TransactionCardState extends State<TransactionCard> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 66.w,
-              child: Text(
-                title,
-                style: ThemeHelper.getInstance()!.textTheme.overline!,
+        Expanded(
+          flex: 1,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                // width: 66.w,
+                child: Text(
+                  title,
+                  style: ThemeHelper.getInstance()!.textTheme.overline!,
+                ),
               ),
-            ),
-            Text(
-              value,
-              style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
-                    fontSize: 14.sp,
-                    color: MyColors.darkblack,
-                  ),
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-          ],
+              Text(
+                value,
+                style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
+                      fontSize: 14.sp,
+                      color: MyColors.darkblack,
+                    ),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+            ],
+          ),
         ),
         SizedBox(width: 40.w),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(title2, style: ThemeHelper.getInstance()!.textTheme.overline!),
-            // SizedBox(
-            //   height: 5.h,
-            // ),
-            Text(
-              value2,
-              style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
-                    fontSize: 14.sp,
-                    color: MyColors.darkblack,
-                  ),
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-          ],
-        )
+        Expanded(
+          flex: 1,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title2, style: ThemeHelper.getInstance()!.textTheme.overline!),
+              // SizedBox(
+              //   height: 5.h,
+              // ),
+              Text(
+                value2,
+                style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
+                      fontSize: 14.sp,
+                      color: MyColors.darkblack,
+                    ),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
