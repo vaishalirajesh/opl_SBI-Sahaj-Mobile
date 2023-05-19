@@ -17,12 +17,14 @@ import 'package:gstmobileservices/service/response/tg_response.dart';
 import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
+import 'package:gstmobileservices/util/data_format_utils.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:intl/intl.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/congatulation/ui/congratulations.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/gstinvoiceslist/ui/gstinvoicelist.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
+import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 
 import '../../../../registration/mobile/dashboardwithoutgst/mobile/dashboardwithoutgst.dart';
@@ -60,7 +62,7 @@ class DashboardWithGst extends StatefulWidget {
 }
 
 class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   late TabController tabController;
   GetGstBasicdetailsResMain? _basicdetailsResponse;
@@ -77,8 +79,6 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
   int tabIndex = 0;
   bool isExpanded1 = false;
   bool isExpanded2 = false;
-
-  /*String expanded1 = 'Pending';*/
   int count = 0;
   bool isOngoingJounery = false;
 
@@ -98,8 +98,6 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
     });
   }
 
-  //showDialog(context: context, builder: (BuildContext context) => errorDialog);}
-
   void setUserData() async {
     String? text = await TGSharedPreferences.getInstance().get(PREF_BUSINESSNAME);
     String? text1 = await TGSharedPreferences.getInstance().get(PREF_PANNO);
@@ -114,16 +112,13 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
     });
   }
 
+  bool isLoadData = false;
+
   @override
   void initState() {
     //tabController = TabController(vsync: this, length: 3);
     //tabController.index = 0;
-
-    // WidgetsBinding.instance.addPostFrameCallback((_) async {
-    //   LoaderUtils.showLoaderwithmsg(context,
-    //       msg: "Getting User Details... \nWait a Moment...");
-    // });
-    // getBasicDetailApiCall();
+    getBasicDetailApiCall();
     super.initState();
   }
 
@@ -137,47 +132,52 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        final shouldPop = await _showFirstWaring(context);
-        return shouldPop ?? false;
-        // if (tabController.index == 0) {
-        //   final shoulpop = await showFirstWaring(context);
-        //   return shoulpop ?? false;
-        // } else if (tabController.index == 1) {
-        //   tabController.index = 0;
-        //   setState(() {
-        //     tabIndex = 0;
-        //   });
-        //   return false;
-        // } else if (tabController.index == 2) {
-        //   tabController.index = 0;
-        //   setState(() {
-        //     tabIndex = 0;
-        //   });
-        //   return false;
-        // } else {
-        return false;
-        //}
-      },
-      child: Scaffold(
-        key: _scaffoldKey,
-        drawer: MyDrawer(),
-        appBar: getAppBarMainDashboard("2", str_loan_approve_process, 0.50,
-            onClickAction: () => {_scaffoldKey.currentState?.openDrawer()}),
-        // body: TabBarView(
-        //   controller: tabController,
-        //   physics: const NeverScrollableScrollPhysics(),
-        //   children: [
-        //     MainContainerView(),
-        //     TransactionsView(),
-        //     ProfileView(),
-        //   ],
-        // ),
-        body: MainContainerView(),
-        //bottomNavigationBar: buildTabBar()
-      ),
-    );
+    return !isLoadData
+        ? const ShowInfoLoader(
+            msg: str_getting_user_detail,
+            subMsg: str_wait_a_moment,
+          )
+        : WillPopScope(
+            onWillPop: () async {
+              final shouldPop = await _showFirstWaring(context);
+              return shouldPop ?? false;
+              // if (tabController.index == 0) {
+              //   final shoulpop = await showFirstWaring(context);
+              //   return shoulpop ?? false;
+              // } else if (tabController.index == 1) {
+              //   tabController.index = 0;
+              //   setState(() {
+              //     tabIndex = 0;
+              //   });
+              //   return false;
+              // } else if (tabController.index == 2) {
+              //   tabController.index = 0;
+              //   setState(() {
+              //     tabIndex = 0;
+              //   });
+              //   return false;
+              // } else {
+              return false;
+              //}
+            },
+            child: Scaffold(
+              key: _scaffoldKey,
+              drawer: MyDrawer(),
+              appBar: getAppBarMainDashboard("2", str_loan_approve_process, 0.50,
+                  onClickAction: () => {_scaffoldKey.currentState?.openDrawer()}),
+              // body: TabBarView(
+              //   controller: tabController,
+              //   physics: const NeverScrollableScrollPhysics(),
+              //   children: [
+              //     MainContainerView(),
+              //     TransactionsView(),
+              //     ProfileView(),
+              //   ],
+              // ),
+              body: MainContainerView(),
+              //bottomNavigationBar: buildTabBar()
+            ),
+          );
   }
 
   buildTabBar() => TabBar(
@@ -207,11 +207,12 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
             height: 100.h,
             child: DrawerHeader(
               decoration: BoxDecoration(
-                  //  color: Colors.blue,
-                  gradient: LinearGradient(
-                      colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight)),
+                //  color: Colors.blue,
+                gradient: LinearGradient(
+                    colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight),
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -226,7 +227,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Hello, Indo International!, $name",
+                      Text("Hello, 2Indo International!, $name",
                           style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(color: MyColors.white)),
                       // SizedBox(height: 5.h),
                       // Text("PAN: ABCDE1234F $pan",
@@ -331,19 +332,12 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
 
   Widget MainContainerView() {
     return Container(
-        // alignment: Alignment.center,
         decoration: BoxDecoration(
-          // borderRadius: BorderRadius.only(
-          //     bottomRight: Radius.circular(0.r),
-          //     bottomLeft: Radius.circular(0.r)),
-          // border: Border.all(
-          //     width: 1, color: ThemeHelper.getInstance()!.primaryColor),
-          // //color: ThemeHelper.getInstance()!.primaryColor,
-
           gradient: LinearGradient(
-              colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter),
+            colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+          ),
         ),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -395,9 +389,10 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
             children: [
               FittedBox(
                 fit: BoxFit.scaleDown,
-                child: Text(str_Recent_Transactions,
-                    style:
-                        ThemeHelper.getInstance()!.textTheme.headline6!.copyWith(color: MyColors.black, fontSize: 14)),
+                child: Text(
+                  str_Recent_Transactions,
+                  style: ThemeHelper.getInstance()!.textTheme.headline6!.copyWith(color: MyColors.black, fontSize: 14),
+                ),
               ),
               GestureDetector(
                 onTap: () {
@@ -415,12 +410,15 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                     ),
                   );
                 },
-                child: Text(
-                  str_seeAll,
-                  style: ThemeHelper.getInstance()!
-                      .textTheme
-                      .headline6!
-                      .copyWith(decoration: TextDecoration.underline, color: MyColors.pnbUnderLineColor),
+                child: Padding(
+                  padding: EdgeInsets.all(5.r),
+                  child: Text(
+                    str_seeAll,
+                    style: ThemeHelper.getInstance()!
+                        .textTheme
+                        .headline6!
+                        .copyWith(decoration: TextDecoration.underline, color: MyColors.pnbUnderLineColor),
+                  ),
                 ),
               )
             ],
@@ -441,7 +439,8 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
   _buildTopContent() {
     return Container(
       alignment: Alignment.center,
-      height: 127.h,
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+      // height: 127.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
           Radius.circular(8.r),
@@ -450,67 +449,65 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
         //     width: 1, color: ThemeHelper.getInstance()!.primaryColor),
         color: ThemeHelper.getInstance()!.backgroundColor,
       ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: Column(
-          children: [
-            SizedBox(height: 10.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(
-                  child: Image(
-                    height: 44.h,
-                    width: 44.w,
-                    image: AssetImage(Utils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
-                  ),
-                ),
-                SizedBox(width: 15.w),
-                Column(
+      child: Column(
+        children: [
+          SizedBox(height: 10.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Image(
+                height: 44.h,
+                width: 44.w,
+                image: AssetImage(Utils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
+              ),
+              SizedBox(width: 15.w),
+              Flexible(
+                flex: 9,
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     //SizedBox(height: 20.h),
-                    Text("Hello, Indo International!, $name",
-                        style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 16.sp)),
+                    Text(name, style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 16.sp)),
                     SizedBox(height: 5.h),
-                    Text("PAN: ABCDE1234F $pan",
+                    Text(pan,
                         style: ThemeHelper.getInstance()!
                             .textTheme
                             .headline5!
                             .copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText)),
                   ],
                 ),
-                const Spacer(),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      Utils.path(MOBILETDASHBOARDARROWFORWARD),
-                      height: 12.h,
-                      width: 6.w,
-                    ),
-                  ],
-                )
-              ],
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            const Divider(),
-            SizedBox(
-              height: 10.h,
-            ),
-            Row(
-              children: [
-                Text("GSTIN: 29ABCDE1234F3Z6", style: ThemeHelper.getInstance()?.textTheme.bodyText2),
-                const Spacer(),
-                Text("State: Gujarat", style: ThemeHelper.getInstance()?.textTheme.bodyText2),
-              ],
-            )
-          ],
-        ),
+              ),
+              SizedBox(width: 20.w),
+              Flexible(
+                flex: 2,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: SvgPicture.asset(
+                    Utils.path(MOBILETDASHBOARDARROWFORWARD),
+                    height: 12.h,
+                    width: 6.w,
+                  ),
+                ),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          const Divider(),
+          SizedBox(
+            height: 10.h,
+          ),
+          Row(
+            children: [
+              Text("GSTIN: $gstin", style: ThemeHelper.getInstance()?.textTheme.bodyText2),
+              const Spacer(),
+              Text("State: $state", style: ThemeHelper.getInstance()?.textTheme.bodyText2),
+            ],
+          )
+        ],
       ),
     );
   }
@@ -742,7 +739,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
-      itemCount: 1,
+      itemCount: ongoingLoan?.length ?? 0,
       itemBuilder: (context, index) {
         return Padding(
           key: const ValueKey(''),
@@ -759,7 +756,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
-      itemCount: 1,
+      itemCount: pendingLoan?.length ?? 0,
       itemBuilder: (context, index) {
         return Padding(
           key: const ValueKey(''),
@@ -771,106 +768,104 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
   }
 
   Widget loanDetailCardUI(BuildContext context, LoanDetailData? data) {
-    return Container(
-      height: 185.h,
-      color: Colors.transparent,
-      child: Padding(
-        padding: EdgeInsets.only(bottom: 12.h),
-        child: GestureDetector(
-          onTap: () {
-            TGLog.d("ON press account");
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => const CongratulationsScreen(),
-              ),
-              (route) => false, //if you want to disable back feature set to false
-            );
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              color: MyColors.pnbPinkColor,
-              borderRadius: BorderRadius.all(
-                Radius.circular(12.r),
-              ),
+    return Padding(
+      padding: EdgeInsets.only(bottom: 12.h),
+      child: GestureDetector(
+        onTap: () {
+          TGLog.d("ON press account");
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => const CongratulationsScreen(),
             ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 17.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            (route) => false, //if you want to disable back feature set to false
+          );
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: MyColors.pnbPinkColor,
+            borderRadius: BorderRadius.all(
+              Radius.circular(12.r),
+            ),
+          ),
+          padding: EdgeInsets.only(left: 15.r, right: 15.r, bottom: 15.r),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(
-                    height: 14.h,
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        buildInvoiceText(data?.buyerName ?? ''),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        buildCompanyText("Invoice: ${data?.totalInvoice ?? 0}")
+                      ],
+                    ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          buildInvoiceText(data?.buyerName ?? "Amazon Pvt. Ltd"),
-                          buildCompanyText("Invoice: 230"),
-                        ],
-                      ),
-                      //..Check Status Button ..I am here
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  const MySeparator(
-                    color: Colors.grey,
-                  ),
-                  // _buildCustomProgressBar(
-                  //     getCurrentStage(data?.currentApplicationStage ?? "")),
-
-                  SizedBox(height: 15.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          buildCompanyText(str_Stage),
-                          SizedBox(height: 5.h),
-                          buildInvoiceText("Disbursement in Process"),
-                        ],
-                      ),
-                      const Spacer(),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          buildCompanyText(str_loan_amt),
-                          SizedBox(height: 5.h),
-                          buildInvoiceText("₹41,600"),
-                        ],
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-
-                  //_buildBottomPartInsideCard(data),
-                  _buildCheckStatusButton(data)
+                  //..Check Status Button ..I am here
                 ],
               ),
-            ),
+              SizedBox(
+                height: 20.h,
+              ),
+              const MySeparator(
+                color: Colors.grey,
+              ),
+              SizedBox(height: 15.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        buildCompanyText(str_Stage),
+                        SizedBox(height: 5.h),
+                        buildInvoiceText(data?.currentApplicationStage ?? ''),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      buildCompanyText(str_loan_amt),
+                      SizedBox(height: 5.h),
+                      buildInvoiceText(DataFormatUtils.convertIndianCurrency(data?.disbursementAmt) ?? '0'),
+                    ],
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+
+              //_buildBottomPartInsideCard(data),
+              _buildCheckStatusButton(data)
+            ],
           ),
         ),
       ),
     );
   }
 
-  buildCompanyText(String text) => SizedBox(
-        width: 100.w,
-        child: Text(
-          text,
-          style: ThemeHelper.getInstance()!
-              .textTheme
-              .headline3!
-              .copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
-        ),
+  buildCompanyText(String text) => Text(
+        text,
+        style: ThemeHelper.getInstance()!
+            .textTheme
+            .headline3!
+            .copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
       );
 
   buildInvoiceText(String text) => Text(
@@ -1168,22 +1163,19 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
       ),
       height: 200.h,
       child: ListView.builder(
-          itemCount: 3,
+          itemCount: translist?.length ?? 0,
           itemBuilder: (context, index) {
             String tradename = translist?[index]?.tradename ?? 'Flipcart Pvt. Ltd.';
             String status = translist?[index]?.status ?? 'Repaid';
             String createdDate = translist?[index]?.createdDate ?? '09 Aug, 2022';
-            String invoiceAmount = translist?[index]?.disbursement_amt ?? '42640';
-
+            String invoiceAmount = translist?[index]?.disbursement_amt ?? '44000';
             return Column(children: [
               _buildListCard(
-                  day: "09",
-                  //createDay(createdDate),
+                  day: Utils.convertDateFormat(createdDate, "dd-MM-yyyy", 'dd MMM, yyyy'),
                   month: "Aug",
-                  //createtMonth(createdDate),
                   background: setBackgroundColor(index),
                   companyName: tradename,
-                  subtext: status,
+                  subtext: Utils.getCamelCase(status),
                   price: invoiceAmount,
                   top: 21.h),
               Padding(
@@ -1274,51 +1266,24 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
     return Padding(
       padding: EdgeInsets.only(left: 20.0.w, right: 20.w, bottom: bottom, top: top),
       child: Row(
-        ///mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              // Container(
-              //   decoration: BoxDecoration(
-              //       color: background,
-              //       borderRadius: BorderRadius.all(Radius.circular(6.r))),
-              //   width: 40.w,
-              //   height: 40.h,
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [
-              //       Text(day,
-              //           style: ThemeHelper.getInstance()!
-              //               .textTheme
-              //               .headline1!
-              //               .copyWith(
-              //                   color: MyColors.pnbGreyColor, fontSize: 14.sp)),
-              //       Text(month,
-              //           style: ThemeHelper.getInstance()!
-              //               .textTheme
-              //               .headline3!
-              //               .copyWith(color: MyColors.black, fontSize: 10.sp))
-              //     ],
-              //   ),
-              // ),
-              // SizedBox(
-              //   width: 12.w,
-              // ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(companyName,
-                      style: ThemeHelper.getInstance()!
-                          .textTheme
-                          .headline1!
-                          .copyWith(color: MyColors.black, fontSize: 12.sp)),
-                  Text("19 Aug, 2022", style: ThemeHelper.getInstance()!.textTheme.bodyText2!),
-                ],
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(companyName,
+                    style: ThemeHelper.getInstance()!
+                        .textTheme
+                        .headline1!
+                        .copyWith(color: MyColors.black, fontSize: 12.sp)),
+                Text(day, style: ThemeHelper.getInstance()!.textTheme.bodyText2!),
+              ],
+            ),
           ),
-          const Spacer(),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 Utils.convertIndianCurrency(price),
@@ -1393,13 +1358,19 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
         showSnackBarForintenetConnection(context, getUserLoanDetails);
       }
     } else {
+      setState(() {
+        isLoadData = true;
+      });
+
       // Navigator.pop(context);
       //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardWithoutGST()));
     }
   }
 
   _onErrorGetGstBasicDetails(TGResponse errorResponse) {
-    Navigator.pop(context);
+    setState(() {
+      isLoadData = true;
+    });
     TGLog.d("GetGstBasicDetailsResponse : onError()");
   }
 
@@ -1412,26 +1383,22 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
   }
 
   _onSuccessGetAllLoanDetailByRefId(GetAllLoanDetailByRefIdResponse? response) async {
-    TGLog.d("RegisterResponse : onSuccess()");
-    setState(() {
-      _getAllLoanDetailRes = response?.getAllLoanDetailObj();
-      if (_getAllLoanDetailRes?.data?.isNotEmpty == true) {
-        if (_getAllLoanDetailRes?.data?[0].currentApplicationStage != STAGE_DISBURSEMENT_STATUS) {
-          isOngoingJounery = true;
-        }
+    TGLog.d("RegisterResponse : onSuccess()--${response?.getAllLoanDetailObj()}");
 
-        pendingLoan =
-            _getAllLoanDetailRes?.data?.where((i) => i.currentApplicationStage == STAGE_DISBURSEMENT_STATUS).toList();
-
-        ongoingLoan =
-            _getAllLoanDetailRes?.data?.where((i) => i.currentApplicationStage != STAGE_DISBURSEMENT_STATUS).toList();
-      } else {
-        //  Navigator.pop(context);
-        //   Navigator.of(context).push(CustomRightToLeftPageRoute(child: DashboardWithoutGST(),));
-
-        isOngoingJounery = false;
+    _getAllLoanDetailRes = response?.getAllLoanDetailObj();
+    if (_getAllLoanDetailRes?.data?.isNotEmpty == true) {
+      if (_getAllLoanDetailRes?.data?[0].currentApplicationStage != STAGE_DISBURSEMENT_STATUS) {
+        isOngoingJounery = true;
       }
-    });
+      pendingLoan =
+          _getAllLoanDetailRes?.data?.where((i) => i.currentApplicationStage == STAGE_DISBURSEMENT_STATUS).toList();
+
+      ongoingLoan =
+          _getAllLoanDetailRes?.data?.where((i) => i.currentApplicationStage != STAGE_DISBURSEMENT_STATUS).toList();
+    } else {
+      isOngoingJounery = false;
+    }
+    setState(() {});
 
     if (await TGNetUtil.isInternetAvailable()) {
       getRecentTransactionDetail();
@@ -1441,8 +1408,10 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
   }
 
   _onErrorGetAllLoanDetailByRefId(TGResponse errorResponse) {
-    Navigator.pop(context);
     TGLog.d("RegisterResponse : onError()");
+    setState(() {
+      isLoadData = true;
+    });
   }
 
   Future<void> getRecentTransactionDetail() async {
@@ -1465,13 +1434,16 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
         isRecentTransactionEmpty = true;
       }
     });
-
-    Navigator.pop(context);
+    setState(() {
+      isLoadData = true;
+    });
   }
 
   _onErrorGetRecentTransaction(TGResponse errorResponse) {
-    Navigator.pop(context);
     TGLog.d("GetRecentTransactiResponse : onError()");
+    setState(() {
+      isLoadData = true;
+    });
   }
 
   static Future<bool?> showFirstWaring(BuildContext context) async => showDialog(
@@ -1562,7 +1534,7 @@ class MyDrawer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Hello, Indo International!",
+                      Text("Hello, 1",
                           style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(color: MyColors.white)),
                       // SizedBox(height: 5.h),
                       // Text("PAN: ABCDE1234F $pan",

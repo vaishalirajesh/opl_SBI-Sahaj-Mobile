@@ -25,9 +25,9 @@ import 'package:sbi_sahay_1_0/utils/constants/statusconstants.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
+import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
 
 import '../../../../loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
-import '../../../../loanprocess/mobile/transactions/common_card/card_2/card_2.dart';
 import '../../../../utils/Utils.dart';
 import '../../../../utils/colorutils/mycolors.dart';
 import '../../../../utils/constants/imageconstant.dart';
@@ -35,11 +35,12 @@ import '../../../../utils/constants/prefrenceconstants.dart';
 import '../../../../utils/helpers/myfonts.dart';
 import '../../../../utils/helpers/themhelper.dart';
 import '../../../../utils/internetcheckdialog.dart';
-import '../../../../utils/movestageutils.dart';
 import '../../../../utils/progressLoader.dart';
 import '../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 
 class ProceedToDisburseMain extends StatelessWidget {
+  const ProceedToDisburseMain({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ProceedToDisburseMains();
@@ -62,92 +63,98 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
   GetLoanStatusResMain? _getLoanStatusResMain;
   GetDisbursedAccObj? dictData;
   bool isLoading = true;
-  bool isTriggerdLoader = false;
+  bool isLoaderTriggred = false;
+  bool isLoadData = false;
 
   @override
   void initState() {
-    // WidgetsBinding.instance.addPostFrameCallback((_) async {
-    //   LoaderUtils.showLoaderwithmsg(context,
-    //       msg: "Please wait... \n Getting Information For Disbursement...");
-    //   if (await TGNetUtil.isInternetAvailable()) {
-    //     getDisbursedAccountDetailAPI();
-    //   } else {
-    //     showSnackBarForintenetConnection(context, getDisbursedAccountDetailAPI);
-    //   }
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (await TGNetUtil.isInternetAvailable()) {
+        getDisbursedAccountDetailAPI();
+      } else {
+        showSnackBarForintenetConnection(context, getDisbursedAccountDetailAPI);
+      }
+    });
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return SafeArea(
-        child: WillPopScope(
-          onWillPop: () async {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => const DashboardWithGST(),
-              ),
-              (route) => false, //if you want to disable back feature set to false
-            );
+    return !isLoadData
+        ? const ShowInfoLoader(
+            msg: str_consent_monitering,
+            subMsg: str_Kindly_wait_for_60s,
+          )
+        : LayoutBuilder(builder: (context, constraints) {
+            return SafeArea(
+              child: WillPopScope(
+                onWillPop: () async {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => const DashboardWithGST(),
+                    ),
+                    (route) => false, //if you want to disable back feature set to false
+                  );
 
-            return true;
-          },
-          child: SetContent(context),
-        ),
-      );
-    });
+                  return true;
+                },
+                child: SetContent(context),
+              ),
+            );
+          });
   }
 
   Widget SetContent(BuildContext context) {
-    // if (isLoader) {
-    //   return MobileLoaderWithoutProgess(
-    //       context, Utils.path(LOADING_STOP_WATCH), strConsent_for_monitoring_getting_generated,
-    //       str_Kindly_wait_for_60s);
-    // }
-    // else {
-    return Scaffold(
-      appBar: getAppBarWithStepDone('3', str_documentation, 0.75,
-          onClickAction: () => {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => const DashboardWithGST(),
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: getAppBarWithStepDone('3', str_documentation, 0.75,
+              onClickAction: () => {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const DashboardWithGST(),
+                      ),
+                      (route) => false, //if you want to disable back feature set to false
+                    )
+                  }),
+          body: AbsorbPointer(
+            absorbing: isLoaderTriggred,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                proceedToDisbContent(context),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 20.h, left: 20.w, right: 20.w),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: 30.w),
+                        child: DisbCheckboxUI(context),
+                      ),
+                      SizedBox(
+                        height: 30.h,
+                      ),
+                      ReqForDisbButtonUI(context),
+                    ],
                   ),
-                  (route) => false, //if you want to disable back feature set to false
-                )
-              }),
-      body: AbsorbPointer(
-        absorbing: isTriggerdLoader,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            proceedToDisbContent(context),
-            Padding(
-              padding: EdgeInsets.only(bottom: 20.h, left: 20.w, right: 20.w),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(right: 30.w),
-                    child: DisbCheckboxUI(context),
-                  ),
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                  ReqForDisbButtonUI(context),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+        if (isLoaderTriggred)
+          ShowInfoLoader(
+            msg: str_request_disbursedment,
+            subMsg: str_share_feedback,
+            isTransparentColor: isLoaderTriggred,
+          ),
+      ],
     );
-    // }
-    //}
   }
 
   Widget proceedToDisbContent(BuildContext context) {
@@ -170,7 +177,7 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Text(
-            "$str_the_loan_amt₹25,600$str_disb_amt",
+            "$str_the_loan_amt${Utils.convertIndianCurrency(strAmount)}$str_disb_amt",
             style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp),
             maxLines: 5,
           ),
@@ -242,7 +249,7 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
                               .headline3
                               ?.copyWith(color: MyColors.lightGraySmallText, fontSize: 12.sp)),
                       Text(
-                        "XXXXXX7564",
+                        dictData?.data?.maskedAccountNumber ?? '',
                         style: ThemeHelper.getInstance()
                             ?.textTheme
                             .headline2
@@ -260,13 +267,15 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(str_ifsc,
-                          style: ThemeHelper.getInstance()
-                              ?.textTheme
-                              .headline3
-                              ?.copyWith(color: MyColors.lightGraySmallText, fontSize: 12.sp)),
                       Text(
-                        "SBIN0003471",
+                        str_ifsc,
+                        style: ThemeHelper.getInstance()
+                            ?.textTheme
+                            .headline3
+                            ?.copyWith(color: MyColors.lightGraySmallText, fontSize: 12.sp),
+                      ),
+                      Text(
+                        dictData?.data?.accountIFSC ?? '',
                         style: ThemeHelper.getInstance()
                             ?.textTheme
                             .headline2
@@ -301,18 +310,22 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
             Container(
               width: 20.w,
               height: 20.h,
-              child: Checkbox(
-                checkColor: ThemeHelper.getInstance()!.backgroundColor,
-                activeColor: ThemeHelper.getInstance()!.primaryColor,
-                value: isChecked,
-                onChanged: (bool) {
-                  setIsChecked(bool!);
-                },
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(2.r))),
-                side: BorderSide(
-                    width: 1,
-                    color:
-                        isChecked ? ThemeHelper.getInstance()!.primaryColor : ThemeHelper.getInstance()!.primaryColor),
+              child: Theme(
+                data: ThemeData(useMaterial3: true),
+                child: Checkbox(
+                  checkColor: ThemeHelper.getInstance()!.backgroundColor,
+                  activeColor: ThemeHelper.getInstance()!.primaryColor,
+                  value: isChecked,
+                  onChanged: (bool) {
+                    setIsChecked(bool!);
+                  },
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(2.r))),
+                  side: BorderSide(
+                      width: 1,
+                      color: isChecked
+                          ? ThemeHelper.getInstance()!.primaryColor
+                          : ThemeHelper.getInstance()!.primaryColor),
+                ),
               ),
             ),
             SizedBox(width: 10.w),
@@ -337,17 +350,7 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
     //     : Container();
 
     return AppButton(
-      onPress: () async {
-        if (isChecked) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => const DashboardWithGST(),
-            ),
-            (route) => false, //if you want to disable back feature set to false
-          );
-        }
-      },
+      onPress: onPressProceedButton,
       title: str_req_for_disb,
       isButtonEnable: isChecked,
     );
@@ -544,7 +547,6 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
     _getDisbursedAccDetailResMain = response?.getDisbursedAccDetailResObj();
 
     if (_getDisbursedAccDetailResMain?.status == RES_DETAILS_FOUND) {
-      Navigator.pop(context);
       setState(() {
         isLoading = false;
         dictData = _getDisbursedAccDetailResMain?.data?.accountDetailsModel;
@@ -563,19 +565,35 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
       setState(() {
         isLoading = false;
       });
-      Navigator.pop(context);
       LoaderUtils.handleErrorResponse(context, response?.getDisbursedAccDetailResObj().status,
           response?.getDisbursedAccDetailResObj().message, null);
     }
+    setState(() {
+      isLoadData = true;
+    });
   }
 
   _onErrorGetDisbursedAccDetail(TGResponse errorResponse) {
-    setState(() {
-      isLoading = false;
-    });
     TGLog.d("GetDisbursedAccDetailResponse : onError()");
-    Navigator.pop(context);
     handleServiceFailError(context, errorResponse.error);
+    setState(() {
+      isLoadData = true;
+    });
+  }
+
+  void onPressProceedButton() async {
+    if (isChecked) {
+      setState(() {
+        isLoaderTriggred = true;
+      });
+      if (await TGNetUtil.isInternetAvailable()) {
+        triggerDisbursementRequestAPI();
+      } else {
+        if (context.mounted) {
+          showSnackBarForintenetConnection(context, triggerDisbursementRequestAPI);
+        }
+      }
+    }
   }
 
   Future<void> triggerDisbursementRequestAPI() async {
@@ -600,7 +618,7 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
       loanAppStatusApiCall();
     } else {
       setState(() {
-        isTriggerdLoader = false;
+        isLoaderTriggred = false;
       });
       LoaderUtils.handleErrorResponse(
           context, response?.getTriggerDisburseReqObj().status, response?.getTriggerDisburseReqObj().message, null);
@@ -610,7 +628,7 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
   _onErrorTriggerDisbursement(TGResponse errorResponse) {
     TGLog.d("TriggerDisbursementResponse : onError()");
     setState(() {
-      isTriggerdLoader = false;
+      isLoaderTriggred = false;
     });
 
     handleServiceFailError(context, errorResponse.error);
@@ -620,12 +638,13 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
     if (await TGNetUtil.isInternetAvailable()) {
       getLoanApplicaionStatusAPI();
     } else {
-      showSnackBarForintenetConnection(context, getLoanApplicaionStatusAPI);
+      if (mounted) {
+        showSnackBarForintenetConnection(context, getLoanApplicaionStatusAPI);
+      }
     }
   }
 
   Future<void> getLoanApplicaionStatusAPI() async {
-    //String loanApplicationReferenceID = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     String? loanApplicationId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
 
@@ -652,63 +671,33 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
 
     if (_getLoanStatusResMain?.data?.stageStatus == "PROCEED") {
       setState(() {
-        isTriggerdLoader = false;
+        isLoaderTriggred = false;
       });
-      MoveStage.navigateNextStage(context, _getLoanStatusResMain?.data?.currentStage);
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => const DashboardWithGST(),
+        ),
+        (route) => false, //if you want to disable back feature set to false
+      );
     } else if (_getLoanStatusResMain?.data?.stageStatus == "HOLD") {
       await Future.delayed(const Duration(seconds: 10));
       loanAppStatusApiCall();
     } else {
       setState(() {
-        isTriggerdLoader = false;
+        isLoaderTriggred = false;
       });
       LoaderUtils.handleErrorResponse(context, response?.getLoanStatusResObj().status,
           response?.getLoanStatusResObj().message, response?.getLoanStatusResObj().data?.stageStatus);
     }
-    //if(_getLoanStatusResMain?.status == 1000){
-
-    //Navigator.pushNamed(context, MyRoutes.DisbursementSuccessMessage);
-    // }
   }
 
   _onErrorGetLoanAppStatus(TGResponse errorResponse) {
     TGLog.d("GetLoanAppStatusResponse : onError()");
     setState(() {
-      isTriggerdLoader = false;
+      isLoaderTriggred = false;
     });
 
     handleServiceFailError(context, errorResponse.error);
-  }
-}
-
-class RatingBarWidget extends StatefulWidget {
-  final ValueChanged<double> onRatingChanged;
-
-  RatingBarWidget({Key? key, required this.onRatingChanged}) : super(key: key);
-
-  @override
-  _RatingBarWidgetState createState() => new _RatingBarWidgetState();
-}
-
-class _RatingBarWidgetState extends State<RatingBarWidget> {
-  double rating = 5;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        new StarRating(
-          rating: rating,
-          onRatingChanged: (rating) {
-            setState(() => this.rating = rating);
-            widget.onRatingChanged(this.rating);
-            color:
-            MyColors.ratingBarColor;
-          },
-          color: MyColors.ratingBarColor,
-        )
-      ],
-    );
   }
 }

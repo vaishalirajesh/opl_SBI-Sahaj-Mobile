@@ -24,6 +24,7 @@ import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
+import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
@@ -34,7 +35,6 @@ import 'package:webviewx/webviewx.dart';
 
 import '../../../../loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import '../../../../loanprocess/mobile/emailafterloanagreement/mobile/email_sent_after_loan_agreement.dart';
-import '../../../../routes.dart';
 import '../../../../utils/colorutils/mycolors.dart';
 import '../../../../utils/constants/imageconstant.dart';
 import '../../../../utils/constants/prefrenceconstants.dart';
@@ -44,9 +44,6 @@ import '../../../../utils/internetcheckdialog.dart';
 import '../../../../utils/jumpingdott.dart';
 import '../../../../utils/strings/strings.dart';
 import '../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
-import '../ui/launchURL/ddelaunchurlmain.dart'
-    if (dart.library.html) '../ui/launchURL/ddelaunchweb.dart'
-    if (dart.library.io) '../ui/launchURL/ddelaunchmobile.dart';
 
 class LoanAgreementMain extends StatelessWidget {
   @override
@@ -76,8 +73,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
 
   @override
   void initState() {
-    // getLoanAggApiCall();
-
+    getLoanAggApiCall();
     super.initState();
   }
 
@@ -85,25 +81,28 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
     if (await TGNetUtil.isInternetAvailable()) {
       getLoanAgreement();
     } else {
-      showSnackBarForintenetConnection(context, getLoanAgreement);
+      if (mounted) {
+        showSnackBarForintenetConnection(context, getLoanAgreement);
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        onWillPop: () async {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => const DashboardWithGST(),
-            ),
-            (route) => false, //if you want to disable back feature set to false
-          );
+      onWillPop: () async {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => const DashboardWithGST(),
+          ),
+          (route) => false, //if you want to disable back feature set to false
+        );
 
-          return true;
-        },
-        child: bodyScaffold(context));
+        return true;
+      },
+      child: bodyScaffold(context),
+    );
   }
 
   Widget bodyScaffold(BuildContext context) {
@@ -309,8 +308,9 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
   }
 
   Widget aggrementContainer(BuildContext context) {
-    return Container(
-        height: MediaQuery.of(context).size.height * 0.50,
+    return Expanded(
+      child: Container(
+        // height: MediaQuery.of(context).size.height * 0.50,
         width: MediaQuery.of(context).size.width,
         decoration:
             const BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(5.0))),
@@ -320,12 +320,8 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
           initialContent: utf8.decode(base64Decode(_getLoanAgreementRes?.data?.loanAgreementModel?.data ?? "")),
           initialSourceType:
               _getLoanAgreementRes?.data?.loanAgreementModel?.type == "HTML" ? SourceType.html : SourceType.url,
-          jsContent: {
-            /*EmbeddedJsContent(
-               js:"function testPlatformSpecificMethod(msg) { TestDartCallback('Web callback says: ' + msg) }",
-
-             ),*/
-            const EmbeddedJsContent(
+          jsContent: const {
+            EmbeddedJsContent(
                 webJs:
                     "window.addEventListener('scroll', () => {if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {"
                     "TestDartCallback(true)"
@@ -344,13 +340,15 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
           onWebViewCreated: (controller) {
             webviewController = controller;
             /*controller.getScrollY().whenComplete(() {
-                setState(() {
-                  isAgreementRead = true;
-                });
-            });*/
+                  setState(() {
+                    isAgreementRead = true;
+                  });
+              });*/
           },
           height: MediaQuery.of(context).size.height * 0.50,
-        ));
+        ),
+      ),
+    );
   }
 
   Widget PopUpViewInstructionRegister() {
@@ -409,19 +407,39 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
 
   Widget BtnProceed() {
     return AppButton(
-      onPress: () async {
-        Navigator.pop(context);
-        Navigator.pushReplacementNamed(context, MyRoutes.SetupEmandateRoutes);
-      },
+      onPress: onPressIAgreeButton,
       title: str_proceed,
+      isButtonEnable: isAgreementRead,
     );
   }
 
-  void setAgreementRead(bool isRead) {
-    if (isRead as bool) {
+  void setAgreementRead(dynamic isRead) {
+    if (isRead != null && (isRead == true || isRead == "true")) {
       setState(() {
         isAgreementRead = true;
       });
+    }
+  }
+
+  void onPressIAgreeButton() async {
+    Navigator.pop(context);
+    // Navigator.pushReplacementNamed(context, MyRoutes.SetupEmandateRoutes);
+    if (isAgreementLoaded) {
+      if (isAgreementRead) {
+        setState(() {
+          isAgreeLoaderStart = true;
+        });
+
+        if (await TGNetUtil.isInternetAvailable()) {
+          postLoanAgreementRequest();
+        } else {
+          if (mounted) {
+            showSnackBarForintenetConnection(context, postLoanAgreementRequest);
+          }
+        }
+      }
+    } else {
+      TGView.showSnackBar(context: context, message: str_agreement_loading_txt);
     }
   }
 
@@ -435,9 +453,11 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
             ),
           )
         : AppButton(
-            onPress: () async {
-              showDialog(context: context, builder: (_) => PopUpViewInstructionRegister());
-            },
+            onPress: isAgreementRead
+                ? () async {
+                    showDialog(context: context, builder: (_) => PopUpViewInstructionRegister());
+                  }
+                : () {},
             title: str_agree,
             isButtonEnable: isAgreementRead,
           );
@@ -549,6 +569,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
 
   //Post Loan Agreement
   Future<void> postLoanAgreementRequest() async {
+    //jiuhiuhuihiuhiuhui
     String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     String loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
     PostLoanAgreementRequest postLoanAgreementRequest = PostLoanAgreementRequest(
@@ -584,6 +605,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
   }
 
   Future<void> loanAppStatusAfterPostAgg() async {
+    // /kbkbjkkjkjkj
     if (await TGNetUtil.isInternetAvailable()) {
       getLoanAppStatusAfterPostLoanAgreeReq();
     } else {
@@ -593,6 +615,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
 
   // Loan App Status After Post Loan Agreement Request
   Future<void> getLoanAppStatusAfterPostLoanAgreeReq() async {
+    //kjjkbkjbkjbjk
     String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     String loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
     GetLoanStatusRequest getLoanStatusRequest =
@@ -615,8 +638,16 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
       TGLog.d("Type :${_getLoanStatusRes!.data!.agreementType}");
 
       String url = utf8.decode(base64Decode(_getLoanStatusRes?.data?.agreementRedirectionData ?? ""));
-
-      launchdde(url);
+      // TODO: remove navigation and add/uncomment launch URL
+      Navigator.pushReplacementNamed(context, MyRoutes.SetupEmandateRoutes);
+      // Navigator.pushAndRemoveUntil(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => ESignCompletedMain(),
+      //   ),
+      //   (route) => false,
+      // );
+      // launchdde(url);
       // TGLog.d(url);
       // js.context.callMethod('customAlertMessage', [url]);
 

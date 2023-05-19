@@ -17,7 +17,10 @@ import 'package:sbi_sahay_1_0/loanprocess/mobile/transactions/common_card/overdu
 import 'package:sbi_sahay_1_0/loanprocess/mobile/transactions/common_card/repaid/repaid_transaction.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
+import 'package:sbi_sahay_1_0/utils/constants/statusConstants.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
+import 'package:sbi_sahay_1_0/utils/progressLoader.dart';
+import 'package:sbi_sahay_1_0/widgets/animation_routes/shimmer_widget.dart';
 
 import '../../../../utils/constants/imageconstant.dart';
 import '../../../../utils/helpers/myfonts.dart';
@@ -70,6 +73,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
   List<SharedInvoice>? filter_disbursed_invoice = [];
   List<SharedInvoice>? filter_repaidInvoice = [];
   List<SharedInvoice>? filter_overdueInvoice = [];
+  bool isListLoaded = false;
 
   // List of items in our dropdown menu
   var items = [
@@ -85,7 +89,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
   void initState() {
     tabController = TabController(vsync: this, length: 4);
     tabController.index = TGSession.getInstance().get("TabIndex") ?? 0;
-    // getAllLoansByReferenceId();
+    getAllLoansByReferenceId();
     super.initState();
   }
 
@@ -263,6 +267,12 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
       height: 40.h, //38,
       child: ElevatedButton(
           onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            shadowColor: Colors.transparent,
+            //foregroundColor: ThemeHelper.getInstance()!.colorScheme.onPrimary,
+            backgroundColor: ThemeHelper.getInstance()!.backgroundColor,
+            shape: const CircleBorder(),
+          ),
           child: Row(
             children: [
               SvgPicture.asset(Utils.path(IMG_FILTER_INVOICE), height: 15.h, width: 15.w),
@@ -274,12 +284,6 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
                 style: ThemeHelper.getInstance()?.textTheme.headline6,
               )
             ],
-          ),
-          style: ElevatedButton.styleFrom(
-            shadowColor: Colors.transparent,
-            //foregroundColor: ThemeHelper.getInstance()!.colorScheme.onPrimary,
-            backgroundColor: ThemeHelper.getInstance()!.backgroundColor,
-            shape: const CircleBorder(),
           )),
     );
   }
@@ -297,7 +301,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
       width: 250.w,
       height: 45.h,
       child: TextFormField(
-          autofocus: true,
+          autofocus: false,
           controller: searchTextController,
           style: ThemeHelper.getInstance()?.textTheme.headline4?.copyWith(fontFamily: MyFont.Nunito_Sans_Regular),
           cursorColor: Colors.grey,
@@ -459,6 +463,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
   //Api call
   Future<void> getAllLoansByReferenceId() async {
     TGGetRequest tgGetRequest = GetAllInvoiceLoanDetailByRefIdReq(gstin: '24AAGFV5271N1ZP');
+    TGLog.d("getAllLoansByReferenceId request: $tgGetRequest");
     ServiceManager.getInstance().getAllInvoiceLoanDetailByRefId(
         request: tgGetRequest,
         onSuccess: (response) => _onSuccessGet2AllLoanDetailByRefId(response),
@@ -466,17 +471,32 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
   }
 
   _onSuccessGet2AllLoanDetailByRefId(GetAllInvoiceLoansResponse? response) {
-    setState(() {
-      getAllLoanDetailByRefIdResMainobj = response?.getAllLoanDetailObj();
-      obj = getAllLoanDetailByRefIdResMainobj?.data;
-      outstanding_invoice = obj?.outstandingInvoice;
-      disbursed_invoice = obj?.outstandingInvoice;
-      repaidInvoice = obj?.repaidInvoice;
-      overdueInvoice = obj?.overdueInvoice;
-    });
+    TGLog.d("getAllLoansByReferenceId onSuccess(): $response");
+    if (response?.getAllLoanDetailObj().status == RES_DETAILS_FOUND) {
+      if (mounted) {
+        setState(() {
+          getAllLoanDetailByRefIdResMainobj = response?.getAllLoanDetailObj();
+          obj = getAllLoanDetailByRefIdResMainobj?.data;
+          outstanding_invoice = obj?.outstandingInvoice;
+          disbursed_invoice = obj?.disbursedInvoice;
+          repaidInvoice = obj?.repaidInvoice;
+          overdueInvoice = obj?.overdueInvoice;
+          isListLoaded = true;
+        });
+      }
+    } else {
+      setState(() {
+        isListLoaded = true;
+      });
+      LoaderUtils.handleErrorResponse(
+          context, response?.getAllLoanDetailObj().status, response?.getAllLoanDetailObj().message, null);
+    }
   }
 
   _onErrorGet2AllLoanDetailByRefId(TGResponse errorResponse) {
+    setState(() {
+      isListLoaded = true;
+    });
     TGLog.d("GetAllInvoiceLoansResponse : onError()");
   }
 
@@ -498,19 +518,21 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
         child: ListView.builder(
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
-          itemCount: outstanding_invoice?.length,
+          itemCount: !isListLoaded ? 3 : outstanding_invoice?.length ?? 0,
           itemBuilder: (context, index) {
-            return Column(
-              children: [
-                OutstandingCard(
-                  sharedInvoice: outstanding_invoice?[index],
-                  bottomWidget: buildOutStandingBottomWidget(),
-                ),
-                SizedBox(
-                  height: 15.h,
-                )
-              ],
-            );
+            return !isListLoaded
+                ? shimmerLoader()
+                : Column(
+                    children: [
+                      OutstandingCard(
+                        sharedInvoice: outstanding_invoice?[index],
+                        bottomWidget: buildOutStandingBottomWidget(),
+                      ),
+                      SizedBox(
+                        height: 15.h,
+                      )
+                    ],
+                  );
           },
         ),
       );
@@ -629,19 +651,21 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
         child: ListView.builder(
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
-          itemCount: repaidInvoice?.length,
+          itemCount: !isListLoaded ? 3 : repaidInvoice?.length ?? 0,
           itemBuilder: (context, index) {
-            return Column(
-              children: [
-                RepaidCard(
-                  sharedInvoice: repaidInvoice?[index],
-                  bottomWidget: buildRepaidBottomWidget(),
-                ),
-                SizedBox(
-                  height: 15.h,
-                )
-              ],
-            );
+            return !isListLoaded
+                ? shimmerLoader()
+                : Column(
+                    children: [
+                      RepaidCard(
+                        sharedInvoice: repaidInvoice?[index],
+                        bottomWidget: buildRepaidBottomWidget(),
+                      ),
+                      SizedBox(
+                        height: 15.h,
+                      )
+                    ],
+                  );
           },
         ),
       );
@@ -666,19 +690,21 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
         child: ListView.builder(
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
-          itemCount: 10,
+          itemCount: !isListLoaded ? 3 : overdueInvoice?.length ?? 0,
           itemBuilder: (context, index) {
-            return Column(
-              children: [
-                DisbursedCard(
-                  sharedInvoice: overdueInvoice?[index],
-                  bottomWidget: buildOutStandingBottomWidget(),
-                ),
-                SizedBox(
-                  height: 15.h,
-                )
-              ],
-            );
+            return !isListLoaded
+                ? shimmerLoader()
+                : Column(
+                    children: [
+                      DisbursedCard(
+                        sharedInvoice: overdueInvoice?[index],
+                        bottomWidget: buildOutStandingBottomWidget(),
+                      ),
+                      SizedBox(
+                        height: 15.h,
+                      )
+                    ],
+                  );
           },
         ),
       );
@@ -702,23 +728,94 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
         child: ListView.builder(
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
-          itemCount: overdueInvoice?.length,
+          itemCount: !isListLoaded ? 3 : overdueInvoice?.length ?? 0,
           itemBuilder: (context, index) {
-            return Column(
-              children: [
-                OverDueCard(
-                  sharedInvoice: overdueInvoice?[index],
-                  bottomWidget: buildOverDueBottomWidget(),
-                ),
-                SizedBox(
-                  height: 15.h,
-                )
-              ],
-            );
+            return !isListLoaded
+                ? shimmerLoader()
+                : Column(
+                    children: [
+                      OverDueCard(
+                        sharedInvoice: overdueInvoice?[index],
+                        bottomWidget: buildOverDueBottomWidget(),
+                      ),
+                      SizedBox(
+                        height: 15.h,
+                      )
+                    ],
+                  );
           },
         ),
       );
     }
+  }
+
+  Widget shimmerLoader() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+            border: Border.all(color: MyColors.pnbCheckBoxcolor, width: 1),
+            borderRadius: BorderRadius.circular(12.r),
+            color: Colors.white),
+        child: Padding(
+          padding: EdgeInsets.all(15.h),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      ShimmerWidget.rectangle(
+                        height: 15.h,
+                        widht: 100.w,
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      ShimmerWidget.rectangle(
+                        height: 15.h,
+                        widht: 100.w,
+                      ),
+                    ],
+                  ),
+                  ShimmerWidget.rectangle(
+                    height: 20.h,
+                    widht: 100.w,
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Divider(
+                thickness: 1,
+                color: MyColors.pnbWelcomeDivider,
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ShimmerWidget.rectangle(
+                    height: 20.h,
+                    widht: 100.w,
+                  ),
+                  ShimmerWidget.rectangle(
+                    height: 20.h,
+                    widht: 100.w,
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 

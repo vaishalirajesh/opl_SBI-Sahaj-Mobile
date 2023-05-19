@@ -133,19 +133,12 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
   }
 
   Widget verifyOtpContent() {
-    return AbsorbPointer(
-      absorbing: isVerifyOTPLoaderStart,
-      child: StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
-        return Scaffold(
-          body: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(50.r),
-                topRight: Radius.circular(50.r),
-              ),
-            ),
-            child: Container(
+    return SafeArea(
+      child: AbsorbPointer(
+        absorbing: isVerifyOTPLoaderStart,
+        child: StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
+          return Scaffold(
+            body: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -153,140 +146,149 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
                   topRight: Radius.circular(50.r),
                 ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    height: 30.h,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(50.r),
+                    topRight: Radius.circular(50.r),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                    child: Text(
-                      "Verify GSTIN",
-                      style: ThemeHelper.getInstance()!.textTheme.headline2,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      height: 30.h,
                     ),
-                  ),
-                  SizedBox(
-                    height: 11.h,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                    child: Text(
-                      "OTP sent to Mobile number and Email linked to GSTIN: 29ABCDE1234F3Z6",
-                      style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+                      child: Text(
+                        "Verify GSTIN",
+                        style: ThemeHelper.getInstance()!.textTheme.headline2,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 31.h,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          str_enter_6_Digit_login,
-                          style: ThemeHelper.getInstance()!.textTheme.headline4,
-                        ),
-                      ],
+                    SizedBox(
+                      height: 11.h,
                     ),
-                  ),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  otpTexFields(),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     Text(
-                  //       str_Didnt_received_OTP_yet,
-                  //       style: ThemeHelper.getInstance()!
-                  //           .textTheme
-                  //           .bodyText1!
-                  //           .copyWith(
-                  //               fontSize: 14.sp, color: MyColors.pnbGreyColor),
-                  //     ),
-                  //   ],
-                  // ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  GestureDetector(
-                    onTap: isVerifyOTPLoaderStart || isGetOTPLoaderStart
-                        ? null
-                        : () {
-                            // Navigator.pop(context);
-                            setState(() {
-                              otp = '';
-                              isClearOtp = true;
-                              isGetOTPLoaderStart = true;
-                            });
-                            getLoginOtp();
-                          },
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 20.w, top: 10.h, bottom: 10.h, left: 10.w),
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SvgPicture.asset(
-                              Utils.path(MOBILEResend),
-                              height: 16.h,
-                              width: 16.w,
-                              color: isVerifyOTPLoaderStart || isGetOTPLoaderStart
-                                  ? MyColors.verylightGrayColor
-                                  : MyColors.pnbcolorPrimary,
-                            ),
-                            SizedBox(
-                              width: 9.w,
-                            ),
-                            Text(
-                              str_Resend_OTP,
-                              style: ThemeHelper.getInstance()!.textTheme.headline6?.copyWith(
-                                    color: isVerifyOTPLoaderStart || isGetOTPLoaderStart
-                                        ? MyColors.verylightGrayColor
-                                        : MyColors.pnbcolorPrimary,
-                                  ),
-                            )
-                          ],
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+                      child: Text(
+                        "OTP sent to Mobile number and Email linked to GSTIN: 29ABCDE1234F3Z6",
+                        style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 31.h,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            str_enter_6_Digit_login,
+                            style: ThemeHelper.getInstance()!.textTheme.headline4,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 16.h,
+                    ),
+                    otpTexFields(),
+                    SizedBox(
+                      height: 16.h,
+                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     Text(
+                    //       str_Didnt_received_OTP_yet,
+                    //       style: ThemeHelper.getInstance()!
+                    //           .textTheme
+                    //           .bodyText1!
+                    //           .copyWith(
+                    //               fontSize: 14.sp, color: MyColors.pnbGreyColor),
+                    //     ),
+                    //   ],
+                    // ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    GestureDetector(
+                      onTap: isVerifyOTPLoaderStart || isGetOTPLoaderStart
+                          ? null
+                          : () {
+                              // Navigator.pop(context);
+                              setState(() {
+                                otp = '';
+                                isClearOtp = true;
+                                isGetOTPLoaderStart = true;
+                              });
+                              getLoginOtp();
+                            },
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 20.w, top: 10.h, bottom: 10.h, left: 10.w),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SvgPicture.asset(
+                                Utils.path(MOBILEResend),
+                                height: 16.h,
+                                width: 16.w,
+                                color: isVerifyOTPLoaderStart || isGetOTPLoaderStart
+                                    ? MyColors.verylightGrayColor
+                                    : MyColors.pnbcolorPrimary,
+                              ),
+                              SizedBox(
+                                width: 9.w,
+                              ),
+                              Text(
+                                str_Resend_OTP,
+                                style: ThemeHelper.getInstance()!.textTheme.headline6?.copyWith(
+                                      color: isVerifyOTPLoaderStart || isGetOTPLoaderStart
+                                          ? MyColors.verylightGrayColor
+                                          : MyColors.pnbcolorPrimary,
+                                    ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          bottomNavigationBar: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.r, vertical: 25.r),
-            child: isVerifyOTPLoaderStart || isGetOTPLoaderStart
-                ? SizedBox(
-                    height: 100.h,
-                    child: JumpingDots(
-                      color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
-                      radius: 10,
+            bottomNavigationBar: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.r, vertical: 25.r),
+              child: isVerifyOTPLoaderStart || isGetOTPLoaderStart
+                  ? SizedBox(
+                      height: 100.h,
+                      child: JumpingDots(
+                        color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
+                        radius: 10,
+                      ),
+                    )
+                  : AppButton(
+                      onPress: () {
+                        TGSharedPreferences.getInstance().set(PREF_ENABLE_POPUP, true);
+                        isOpenEnablePopUp
+                            ? onPressVerifyButton()
+                            : showDialog(context: context, builder: (_) => PopUpViewForEnableApi());
+                      },
+                      title: str_Verify,
+                      isButtonEnable: isValidOTP,
                     ),
-                  )
-                : AppButton(
-                    onPress: () {
-                      TGSharedPreferences.getInstance().set(PREF_ENABLE_POPUP, true);
-                      isOpenEnablePopUp
-                          ? onPressVerifyButton()
-                          : showDialog(context: context, builder: (_) => PopUpViewForEnableApi());
-                    },
-                    title: str_Verify,
-                    isButtonEnable: isValidOTP,
-                  ),
-          ),
-        );
-      }),
+            ),
+          );
+        }),
+      ),
     );
   }
 

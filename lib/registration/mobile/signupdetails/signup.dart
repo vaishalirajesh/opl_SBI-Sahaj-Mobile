@@ -156,9 +156,11 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 20.h),
       child: AppButton(
-        onPress: () async {
-          Navigator.pushReplacementNamed(context, MyRoutes.EnableGstApiRoutes);
-        },
+        onPress: isCheck
+            ? () async {
+                Navigator.pushReplacementNamed(context, MyRoutes.EnableGstApiRoutes);
+              }
+            : () {},
         title: str_next,
         isButtonEnable: isCheck,
       ),

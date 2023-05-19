@@ -203,6 +203,23 @@ const str_Verify = 'Verify OTP';
 //..loader
 const str_Fetching_your_GST_business_details = 'Fetching your\nGST business details...';
 const str_Kindly_wait_for_60s = 'Kindly wait for 60s';
+const str_wait_for_gst_invoice = 'Please wait while we find your GST invoices';
+const str_sharing_invoice = 'Sharing Your Invoices';
+const str_loan_process = 'Please wait while we process your loan...';
+const str_agreement_loading_txt = "Please wait while Aggrement Loading..";
+const str_laon_offer_from_lender = "Please wait while we figure out the loan offers from the lender";
+const str_aa_redirect = "Redirecting to Account Aggregator... NADL...";
+const str_aa_redirect_sub = "for providing consent for account monitoring.";
+const str_consent_monitering = "Consent for monitoring getting generated";
+const str_request_disbursedment = "Your request for disbursement is in process.";
+const str_share_feedback = "Please share your valuable feedback.";
+const str_getting_user_detail = "Getting User Details...";
+const str_wait_a_moment = "Wait a Moment...";
+const str_no_account = "No account found";
+const str_no_search = "No Search result";
+const str_fetching_bank_account_details = "Fetching Bank Account Details";
+const str_disb_acc_detail_loading = "Please Wait While Disbursement Account Details are Loading..";
+const str_digital_document_process = 'Waiting for Digital Document Execution Status \n Kindly wait for 60s';
 
 //..Confirm Details
 const str_Confirm_Details = 'Confirm Details';
@@ -570,6 +587,7 @@ const str_header_discr = "You would now be required to share your bank statement
 //"Now, you need to Register / Log in with the Account Aggregator(s), with which your Current Account Bank is integrated with and provide consent to fetch your Bank account information to help us decide your loan eligibility";
 const str_acount_aggregator = "Account Aggregator";
 const str_a_new_way_toshare_bank = "A new way to share bank account statements digitally";
+
 const str_before_proceeding_discr =
     "Before proceeding check whether your Current A/c Bank is within the list of Banks associated with Account Aggregator";
 
@@ -598,6 +616,7 @@ const str_aa_step_four = "4. Verify through OTP";
 const str_aa_step_five = "5. Give consent to share linked bank account data";
 const str_select_aa = "Account Aggregator linked to your bank";
 const str_select_aa_txt = "Choose one of the RBI approved Account Aggregators to share your financial information";
+const str_no_data_found = "No Data Found!";
 
 //Set up Emandate
 const str_complete_loan_agree = "Loan Agreement has been successfully completed";

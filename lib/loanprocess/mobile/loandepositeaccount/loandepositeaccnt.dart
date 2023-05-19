@@ -1,11 +1,32 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gstmobileservices/common/tg_log.dart';
 import 'package:gstmobileservices/model/models/get_aa_list_response_main.dart';
+import 'package:gstmobileservices/model/models/get_disbursed_acc_res_main.dart';
+import 'package:gstmobileservices/model/models/get_loan_app_status_main.dart';
+import 'package:gstmobileservices/model/requestmodel/get_loan_app_status_request.dart';
+import 'package:gstmobileservices/model/requestmodel/set_disbursed_acc_request.dart';
+import 'package:gstmobileservices/model/responsemodel/get_loan_app_status_response.dart';
+import 'package:gstmobileservices/model/responsemodel/set_disbursed_acc_response.dart';
+import 'package:gstmobileservices/service/request/tg_post_request.dart';
+import 'package:gstmobileservices/service/requtilization.dart';
+import 'package:gstmobileservices/service/response/tg_response.dart';
+import 'package:gstmobileservices/service/service_managers.dart';
+import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
+import 'package:gstmobileservices/util/erros_handle_util.dart';
+import 'package:gstmobileservices/util/jumpingdot_util.dart';
+import 'package:gstmobileservices/util/tg_net_util.dart';
+import 'package:sbi_sahay_1_0/documentation/mobile/loanagreement/ui/loanageementscreen.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
+import 'package:sbi_sahay_1_0/utils/constants/statusConstants.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
+import 'package:sbi_sahay_1_0/utils/internetcheckdialog.dart';
+import 'package:sbi_sahay_1_0/utils/progressLoader.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 
 import '../../../../utils/Utils.dart';
@@ -13,7 +34,6 @@ import '../../../../utils/constants/imageconstant.dart';
 import '../../../../utils/constants/prefrenceconstants.dart';
 import '../../../../utils/strings/strings.dart';
 import '../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
-import '../../../documentation/mobile/loanagreement/ui/loanageementscreen.dart';
 
 class LoanDepositeAcc extends StatelessWidget {
   const LoanDepositeAcc({super.key});
@@ -34,26 +54,27 @@ class LoanDepositeAccView extends StatefulWidget {
 }
 
 class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
-  TextEditingController accNuumberController = TextEditingController();
-  TextEditingController ifscNoController = TextEditingController();
+  TextEditingController accNuumberController = TextEditingController(text: '');
+  TextEditingController ifscNoController = TextEditingController(text: '');
   bool _autoValidate = true;
-
   int typeListlen = 0;
   late List<GetAAListObj> typeListDetails;
   bool isAANextClick = false;
   int listLength = 3;
   String isCheckedGroup = 'BankGroupName';
+  GetDisbursedAccResMain? _getDisbursedAccRes;
+  GetDisbursedAccObj? _selectedAcc;
+  GetLoanStatusResMain? _getLoanStatusRes;
 
   //List<int> isCheckedList = [];
   int selectedValue = -1;
 
-  bool isLoaderStart = false;
+  bool isDataSet = false;
+  bool isValidIFSCCode = false;
+  bool isValidAccountNo = false;
 
   @override
   void initState() {
-    typeListDetails = [];
-    // getAAListApiCall();
-
     super.initState();
   }
 
@@ -82,7 +103,7 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
                   )
                 }),
         body: AbsorbPointer(
-          absorbing: isLoaderStart,
+          absorbing: isDataSet,
           child: buildMainScreen(context),
         ),
         bottomNavigationBar: SizedBox(
@@ -190,7 +211,9 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
   Widget EnterAcc() {
     return TextFormField(
         style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(color: MyColors.pnbTextcolor),
-        onChanged: (content) {},
+        onChanged: (content) {
+          _checkValidAccountNo();
+        },
         controller: accNuumberController,
         cursorColor: Colors.white,
         decoration: InputDecoration(
@@ -213,6 +236,10 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
             counterText: ''),
         keyboardType: TextInputType.text,
         maxLength: 15,
+        inputFormatters: [
+          UpperCaseTextFormatter(),
+          // FilteringTextInputFormatter.allow(RegExp("^[0-9]{9,18}\$")),
+        ],
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Please enter User name';
@@ -224,7 +251,13 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
   Widget iFSCcodeText() {
     return TextFormField(
         style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(color: MyColors.pnbTextcolor),
-        onChanged: (content) {},
+        onChanged: (content) {
+          _checkValidIFSCCode();
+        },
+        inputFormatters: [
+          UpperCaseTextFormatter(),
+          // FilteringTextInputFormatter.allow(RegExp("^[A-Za-z]{4}\d{7}\$")),
+        ],
         autofocus: _autoValidate,
         controller: ifscNoController,
         cursorColor: Colors.white,
@@ -251,13 +284,33 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
             ),
             counterText: ''),
         keyboardType: TextInputType.text,
-        maxLength: 15,
+        maxLength: 11,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Please enter User name';
+            return 'Please enter valid IFSC code';
           }
           return null;
         });
+  }
+
+  void _checkValidIFSCCode() {
+    setState(() {
+      if (ifscNoController.text.isNotEmpty) {
+        isValidIFSCCode = true;
+      } else {
+        isValidIFSCCode = false;
+      }
+    });
+  }
+
+  void _checkValidAccountNo() {
+    setState(() {
+      if (accNuumberController.text.isNotEmpty) {
+        isValidAccountNo = true;
+      } else {
+        isValidAccountNo = false;
+      }
+    });
   }
 
   Widget buildRowWidget(String text) => Padding(
@@ -282,8 +335,95 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
       );
 
   Widget buildBtnNextAcc(BuildContext context) {
-    return AppButton(
-      onPress: () {
+    return isDataSet
+        ? JumpingDots(
+            color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
+            radius: 10,
+          )
+        : AppButton(
+            onPress: onPressProceedButton,
+            title: str_proceed,
+            isButtonEnable: isValidIFSCCode && isValidAccountNo,
+          );
+  }
+
+  void onPressProceedButton() async {
+    _selectedAcc = _getDisbursedAccRes?.data?[0];
+    setState(() {
+      isDataSet = true;
+    });
+    if (await TGNetUtil.isInternetAvailable()) {
+      _setDisbursedAcc();
+    } else {
+      if (context.mounted) {
+        showSnackBarForintenetConnection(context, _setDisbursedAcc);
+      }
+    }
+  }
+
+  Future<void> _setDisbursedAcc() async {
+    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    String offerId = await TGSharedPreferences.getInstance().get(PREF_OFFERID);
+    String loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
+    SetDisbursedAccRequest setDisbursedAccRequest = SetDisbursedAccRequest(
+      loanApplicationRefId: loanAppRefId,
+      offerId: offerId,
+      loanApplicationId: loanAppId,
+      accountNumber: accNuumberController.text != '' ? '9846789878' : accNuumberController.text,
+      accountId: ifscNoController.text != '' ? '32323' : ifscNoController.text,
+    );
+    var jsonReq = jsonEncode(setDisbursedAccRequest.toJson());
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_SET_DISBURSED_ACC);
+    ServiceManager.getInstance().setLoanDisbursedAcc(
+        request: tgPostRequest,
+        onSuccess: (response) => _onSuccessSetDisbursedAcc(response),
+        onError: (error) => _onErrorSetDisbursedAcc(error));
+  }
+
+  _onSuccessSetDisbursedAcc(SetDisbursedAccResponse? response) {
+    TGLog.d("SetDisbursementResponse : onSuccess()");
+
+    if (response?.getSetDisbAccObj().status == RES_SUCCESS) {
+      _getLoanAppStatusAfterSetDisbAccApiCall();
+    } else {
+      Navigator.pop(context);
+      LoaderUtils.handleErrorResponse(
+          context, response?.getSetDisbAccObj().status, response?.getSetDisbAccObj().message, null);
+    }
+  }
+
+  _onErrorSetDisbursedAcc(TGResponse errorResponse) {
+    TGLog.d("SetDisbursementResponse : onError()");
+    Navigator.pop(context);
+    handleServiceFailError(context, errorResponse.error);
+  }
+
+  Future<void> _getLoanAppStatusAfterSetDisbAccApiCall() async {
+    if (await TGNetUtil.isInternetAvailable()) {
+      _getLoanAppStatusAfterSetDisburseAcc();
+    } else {
+      if (context.mounted) {
+        showSnackBarForintenetConnection(context, _getLoanAppStatusAfterSetDisburseAcc);
+      }
+    }
+  }
+
+  Future<void> _getLoanAppStatusAfterSetDisburseAcc() async {
+    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    GetLoanStatusRequest getLoanStatusRequest = GetLoanStatusRequest(loanApplicationRefId: loanAppRefId);
+    var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('5'));
+    ServiceManager.getInstance().getLoanAppStatus(
+        request: tgPostRequest,
+        onSuccess: (response) => _onSuccessGetLoanAppStatus(response),
+        onError: (error) => _onErrorGetLoanAppStatus(error));
+  }
+
+  _onSuccessGetLoanAppStatus(GetLoanStatusResponse? response) {
+    TGLog.d("LoanAppStatusResponse : onSuccess()");
+    _getLoanStatusRes = response?.getLoanStatusResObj();
+    if (_getLoanStatusRes?.status == RES_SUCCESS) {
+      if (_getLoanStatusRes?.data?.stageStatus == "PROCEED") {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
@@ -291,25 +431,27 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
           ),
           (route) => false, //
         );
-      },
-      title: str_proceed,
-      isButtonEnable: selectedValue == -1,
-    );
-  }
-
-  void changeState(int index) {
-    // TGSession.getInstance().set(SESSION_CODE, typeListDetails?[0].code);
-    // TGSession.getInstance().set(SESSION_AAID, typeListDetails?[0].aaId);
-
+      } else if (_getLoanStatusRes?.data?.stageStatus == "HOLD") {
+        Future.delayed(const Duration(seconds: 10), () {
+          _getLoanAppStatusAfterSetDisbAccApiCall();
+        });
+      } else {
+        _getLoanAppStatusAfterSetDisbAccApiCall();
+      }
+    } else {
+      LoaderUtils.handleErrorResponse(context, response?.getLoanStatusResObj().status,
+          response?.getLoanStatusResObj().message, response?.getLoanStatusResObj().data?.stageStatus);
+    }
     setState(() {
-      selectedValue = index;
-      TGSharedPreferences.getInstance().set(PREF_AAID, typeListDetails[index].aaId);
-      TGSharedPreferences.getInstance().set(PREF_AACODE, typeListDetails[index].code);
+      isDataSet = false;
     });
   }
 
-  void setNextAAClick() {
-    isAANextClick = true;
-    setState(() {});
+  _onErrorGetLoanAppStatus(TGResponse errorResponse) {
+    TGLog.d("LoanAppStatusResponse : onError()");
+    handleServiceFailError(context, errorResponse.error);
+    setState(() {
+      isDataSet = false;
+    });
   }
 }

@@ -196,9 +196,12 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
         Padding(
           padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
           child: isLoaderStart
-              ? JumpingDots(
-                  color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
-                  radius: 10,
+              ? SizedBox(
+                  height: 60.h,
+                  child: JumpingDots(
+                    color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
+                    radius: 10,
+                  ),
                 )
               : AppButton(
                   onPress: onPressConsentButton,

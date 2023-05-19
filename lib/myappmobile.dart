@@ -38,7 +38,7 @@ import 'documentation/mobile/loanagreement/ui/loanageementscreen.dart';
 import 'documentation/mobile/reviewdisbursedacc/ui/reviewdisbursedaccscreen.dart';
 import 'documentation/mobile/setupemandate/ui/setupemandate.dart';
 import 'hidescrollbar.dart';
-import 'loader/aaaftercallback_loader.dart';
+import 'loader/aa_completed.dart';
 import 'loader/redirecting_loader.dart';
 import 'loanprocess/mobile/aalist/ui/accountaggregatorlist.dart';
 import 'loanprocess/mobile/accountaggregatorntb/ui/aadetails.dart';
@@ -133,7 +133,7 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
             MyRoutes.registrationCompleted: (context) => RegistrationCompleted(),
             MyRoutes.DashboardWithoutGSTRoutes: (context) => DashboardWithoutGST(),
             MyRoutes.gstConsent: (context) => CicConsent(),
-            MyRoutes.GSTInvoicesListRoutes: (context) => GSTInvoicesList(),
+            MyRoutes.GSTInvoicesListRoutes: (context) => const GSTInvoicesList(),
             // MyRoutes.LoaderShareInvoicesRoutes: (context) => const LoaderShareInvoices(),
             MyRoutes.AccountAggregatorDetailsRoutes: (context) => const AccountAggregatorDetails(),
             MyRoutes.BankListRoutes: (context) => const BankList(),
@@ -141,19 +141,18 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
             MyRoutes.AAListRoutes: (context) => const AAList(),
             MyRoutes.LoaderRedirectedLoaderRoutes: (context) => const RedirectedLoader(),
             MyRoutes.AAWebView: (context) => AccountAggregatorWebview(),
-            MyRoutes.AAWebViewCallBack: (context) => const AAAfterCallBack(),
             MyRoutes.infoShareRoutes: (context) => InfoShare(),
             MyRoutes.loanOfferListRoutes: (context) => LoanOfferList(),
             // MyRoutes.accVerificationRoutes: (context) => AccVerification(),
             MyRoutes.DashboardWithGSTRoutes: (context) => const DashboardWithGST(),
-            MyRoutes.TransactionRoutes: (context) => TransactionsView(),
+            MyRoutes.TransactionRoutes: (context) => const TransactionsView(),
             // MyRoutes.loanOfferSelectedRoutes: (context) => CongratulationsMain(),
             MyRoutes.LoanOfferScreenRoutes: (context) => LoanOfferScreen(),
             MyRoutes.KfsScreenRoutes: (context) => KfsScreen(),
             MyRoutes.reviewDisbursedAccRoutes: (context) => ReviewDisbursedAccMain(),
             MyRoutes.loanAgreementRoutes: (context) => LoanAgreementMain(),
             MyRoutes.loanReviewRoutes: (context) => LoanReviewMain(),
-            MyRoutes.proceedToDisbursedRoutes: (context) => ProceedToDisburseMain(),
+            MyRoutes.proceedToDisbursedRoutes: (context) => const ProceedToDisburseMain(),
             MyRoutes.DisbursementSuccessMessage: (context) => ImportantSMSMain(),
             MyRoutes.LoanAggCompeletedRoutes: (context) => LoanAggCompeleted(),
             MyRoutes.LoanAgreementRoutes: (context) => LoanAgreementMain(),
@@ -204,9 +203,15 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     String? route;
+    Map? queryParameters;
     if (settings.name != null) {
       var uriData = Uri.parse(settings.name!);
       route = uriData.path;
+      if (route == MyRoutes.AAWebViewCallBack) {
+        //converts string to a uri
+        queryParameters = uriData.queryParameters; // query parameters automatically populated
+        TGLog.d("Query Param $queryParameters");
+      }
       // if (route == MyRoutes.aarepponse || route == MyRoutes.ConsentMonitoring) {
       //   queryParameters = uriData.queryParameters;
       // }
@@ -217,6 +222,8 @@ class RouteGenerator {
         if (route == MyRoutes.ddeResponse) {
           /* Call after Loan Agreement Process*/
           return ESignCompletedMain();
+        } else if (route == MyRoutes.AAWebViewCallBack) {
+          return AaCompletedPage(str: queryParameters!);
         } else {
           return Container();
         }

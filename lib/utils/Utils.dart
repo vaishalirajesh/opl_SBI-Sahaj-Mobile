@@ -90,6 +90,15 @@ class Utils {
     }
   }
 
+  // For capitalize string
+  static String getCamelCase(String status) {
+    if (status.isNotEmpty) {
+      return "${status[0].toUpperCase()}${status.substring(1).toLowerCase()}";
+    } else {
+      return '';
+    }
+  }
+
   static capitalizeFirstLetter(String? value) {
     if (value?.isNotEmpty == true) {
       return "${value?[0].toUpperCase()}${value?.substring(1).toLowerCase()}";

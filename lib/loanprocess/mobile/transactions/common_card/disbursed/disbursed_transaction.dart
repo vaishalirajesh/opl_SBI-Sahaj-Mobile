@@ -161,12 +161,13 @@ class _DisbursedCardState extends State<DisbursedCard> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      buyerName ?? 'Flipcart Pvt. Ltd.',
+                      buyerName ?? '',
                       style: ThemeHelper.getInstance()!.textTheme.headline5!.copyWith(
                             fontSize: 14.sp,
                             color: MyColors.pnbcolorPrimary,
@@ -176,7 +177,7 @@ class _DisbursedCardState extends State<DisbursedCard> {
                       height: 5.h,
                     ),
                     Text(
-                      gstin ?? 'Invoice: 23001832184',
+                      gstin ?? '',
                       style: ThemeHelper.getInstance()!
                           .textTheme
                           .headline4!
@@ -221,7 +222,7 @@ class _DisbursedCardState extends State<DisbursedCard> {
                       height: 5.h,
                     ),
                     Text(
-                      '09/08/2022',
+                      dueDate ?? '-',
                       style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
                             fontSize: 14.sp,
                             color: MyColors.darkblack,
@@ -301,10 +302,10 @@ class _DisbursedCardState extends State<DisbursedCard> {
           SizedBox(
             height: 10.h,
           ),
-          setRowColumValueOpenCard("Disbursed On", "09/08/2022", "Lender", "State Bank of India"),
-          setRowColumValueOpenCard("Invoice Date", "09/08/2022", "ROI", "10% p.a."),
-          setRowColumValueOpenCard("Loan Amount", "₹41,600", "Invoice Amount", "₹52,000"),
-          setRowColumValueOpenCard("Tenure", "90 Days", "Interest Amount", "₹1040"),
+          setRowColumValueOpenCard("Disbursed On", disbursedDate ?? '-', "Lender", bankName ?? '-'),
+          setRowColumValueOpenCard("Tenure", tenure ?? '-', "ROI", interestRate ?? '-'),
+          setRowColumValueOpenCard(str_Due_Date, dueDate ?? '-', "Invoice Amount", invoiceAmount ?? '0'),
+          setRowColumValueOpenCard(str_Amount_due, amountToPay ?? '0', "Interest Amount", interestAmount ?? '0'),
           // setRowColumValueOpenCard(str_Late_payment_charges, "2%", str_Days_past_due, "10 days"),
           // setRowColumValueOpenCard(str_Due_Date, "09/08/2022", str_Amount_due, "₹52,236"),
 

@@ -26,6 +26,7 @@ import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
+import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 import 'package:webviewx/webviewx.dart';
 
@@ -50,13 +51,7 @@ class SetupEmandate extends StatelessWidget {
         return SafeArea(
           child: WillPopScope(
             onWillPop: () async {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => const DashboardWithGST(),
-                ),
-                (route) => false, //if you want to disable back feature set to false
-              );
+              Navigator.pushReplacementNamed(context, MyRoutes.SetupEmandateRoutes);
               return true;
             },
             child: const SetupEmandateViewScreen(),
@@ -85,11 +80,12 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
   bool isLoaderStartProceed = false;
 
   bool isOpenDetails = true;
+  bool isDataLoaded = false;
+  bool isRepaymentDataLoaded = false;
 
   @override
   void initState() {
-    //getRepaymentPlanApiCall();
-
+    getRepaymentPlanApiCall();
     super.initState();
   }
 
@@ -97,7 +93,9 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
     if (await TGNetUtil.isInternetAvailable()) {
       getRepaymentPlanAPI();
     } else {
-      showSnackBarForintenetConnection(context, getRepaymentPlanAPI);
+      if (mounted) {
+        showSnackBarForintenetConnection(context, getRepaymentPlanAPI);
+      }
     }
   }
 
@@ -111,7 +109,7 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => const DashboardWithGST(),
+                  builder: (BuildContext context) => const SetupEmandate(),
                 ),
                 (route) => false, //if you want to disable back feature set to false
               );
@@ -119,32 +117,47 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
             },
             child: isLoadWebView
                 ? LoadSetupEmandateURLInWeb(context)
-                : Scaffold(
-                    appBar: getAppBarWithStepDone("3", "Documentation", 0.75,
-                        onClickAction: () => {
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) => const DashboardWithGST(),
-                                ),
-                                (route) => false, //if you want to disable back feature set to false
-                              )
-                            }),
-                    body: AbsorbPointer(
-                      absorbing: isLoaderStartProceed,
-                      child: Stack(
+                : !isRepaymentDataLoaded
+                    ? const ShowInfoLoader(
+                        msg: str_aa_redirect,
+                        subMsg: str_aa_redirect_sub,
+                      )
+                    : Stack(
                         children: [
-                          SingleChildScrollView(
-                            primary: true,
-                            child: Container(
-                              child: containerView(),
+                          Scaffold(
+                            appBar: getAppBarWithStepDone("3", "Documentation", 0.75,
+                                onClickAction: () => {
+                                      Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (BuildContext context) => const DashboardWithGST(),
+                                        ),
+                                        (route) => false, //if you want to disable back feature set to false
+                                      )
+                                    }),
+                            body: AbsorbPointer(
+                              absorbing: isLoaderStartProceed,
+                              child: Stack(
+                                children: [
+                                  SingleChildScrollView(
+                                    primary: true,
+                                    child: Container(
+                                      child: containerView(),
+                                    ),
+                                  ),
+                                  Align(alignment: Alignment.bottomCenter, child: buildBTNLoanOffer(context))
+                                ],
+                              ),
                             ),
                           ),
-                          Align(alignment: Alignment.bottomCenter, child: buildBTNLoanOffer(context))
+                          if (isDataLoaded)
+                            ShowInfoLoader(
+                              msg: str_aa_redirect,
+                              subMsg: str_aa_redirect_sub,
+                              isTransparentColor: isDataLoaded,
+                            )
                         ],
                       ),
-                    ),
-                  ),
           ),
         );
       },
@@ -398,15 +411,26 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
                       style: ThemeHelper.getInstance()?.textTheme.bodyText2, textAlign: TextAlign.center),
                   SizedBox(height: 18.h),
                   AppButton(
-                    onPress: () async {
-                      Navigator.pushReplacementNamed(context, MyRoutes.proceedToDisbursedRoutes);
-                    },
+                    onPress: onPressProceedButton,
                     title: str_proceed,
                   ),
                 ],
               ),
             ),
     );
+  }
+
+  void onPressProceedButton() async {
+    setState(() {
+      isDataLoaded = true;
+    });
+    if (await TGNetUtil.isInternetAvailable()) {
+      setRepaymentRequestAPI();
+    } else {
+      if (context.mounted) {
+        showSnackBarForintenetConnection(context, setRepaymentRequestAPI);
+      }
+    }
   }
 
   Widget LoadSetupEmandateURLInWeb(BuildContext context) {
@@ -482,11 +506,6 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
 
   _onSuccessGetRepaymentPlan(GetRepaymentPlanResponse? response) {
     TGLog.d("GetRepaymentPlanResponse : onSuccess()");
-
-    // setState(() {
-    //   _getRepaymentPlanResMain = response?.getRepaymentPlanResObj();
-    // });
-
     if (response?.getRepaymentPlanResObj().status == RES_DETAILS_FOUND) {
       TGSharedPreferences.getInstance()
           .set(PREF_REPAYMENTPLANID, response?.getRepaymentPlanResObj().data?.repaymentPlanId);
@@ -502,13 +521,20 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
     } else {
       TGView.showSnackBar(context: context, message: response?.getRepaymentPlanResObj().message ?? "");
     }
+    setState(() {
+      isRepaymentDataLoaded = true;
+    });
   }
 
   _onErrorGetRepaymentPlan(TGResponse errorResponse) {
     TGLog.d("GetRepaymentPlanResponse : onError()");
     handleServiceFailError(context, errorResponse.error);
+    setState(() {
+      isRepaymentDataLoaded = true;
+    });
   }
 
+  // Navigator.pushReplacementNamed(context, MyRoutes.proceedToDisbursedRoutes);
   Future<void> setRepaymentRequestAPI() async {
     String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     String loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
@@ -599,7 +625,9 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
         setState(() {
           isLoaderStartProceed = false;
           _getLoanStatusResMain = response?.getLoanStatusResObj();
-          isLoadWebView = true;
+          //TODO: Remove navgation and uncomment bellow line
+          Navigator.pushReplacementNamed(context, MyRoutes.proceedToDisbursedRoutes);
+          // isLoadWebView = true;
         });
       } else if (_getLoanStatusResMain?.data?.stageStatus == "HOLD") {
         await Future.delayed(const Duration(seconds: 10));
@@ -608,6 +636,9 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
     } else {
       TGView.showSnackBar(context: context, message: _getLoanStatusResMain?.message ?? "");
     }
+    setState(() {
+      isDataLoaded = false;
+    });
   }
 
   _onErrorGetLoanAppStatus(TGResponse errorResponse) {
@@ -615,6 +646,9 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
     setState(() {
       isLoaderStartProceed = false;
       handleServiceFailError(context, errorResponse.error);
+    });
+    setState(() {
+      isDataLoaded = false;
     });
   }
 

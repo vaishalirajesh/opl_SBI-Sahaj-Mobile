@@ -183,9 +183,12 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
           Padding(
             padding: EdgeInsets.only(bottom: 40.h),
             child: isLoaderStart
-                ? JumpingDots(
-                    color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
-                    radius: 10,
+                ? SizedBox(
+                    height: 60.h,
+                    child: JumpingDots(
+                      color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
+                      radius: 10,
+                    ),
                   )
                 : AppButton(
                     onPress: onPressGiveConsentButton,

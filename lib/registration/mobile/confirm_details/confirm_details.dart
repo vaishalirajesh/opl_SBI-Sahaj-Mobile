@@ -85,48 +85,49 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        Navigator.pop(context, false);
-        SystemNavigator.pop(animated: true);
-        return true;
-      },
-      child: !isLoadData
-          ? const ShowInfoLoader(
-              msg: str_Fetching_your_GST_business_details,
-              subMsg: '',
-            )
-          : Scaffold(
-              appBar: getAppBarWithStepDone('1', str_registration, 0.25,
-                  onClickAction: () => {
-                        Navigator.pop(context, false),
-                        SystemNavigator.pop(animated: true),
-                      }),
-              body: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: SingleChildScrollView(
-                  child: SizedBox(
-                    //height: MediaQuery.of(context).size.height,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildHeader(),
-                        _buildMiddler(),
+    return SafeArea(
+      child: WillPopScope(
+        onWillPop: () async {
+          Navigator.pop(context, false);
+          SystemNavigator.pop(animated: true);
+          return true;
+        },
+        child: !isLoadData
+            ? const ShowInfoLoader(
+                msg: str_Fetching_your_GST_business_details,
+              )
+            : Scaffold(
+                appBar: getAppBarWithStepDone('1', str_registration, 0.25,
+                    onClickAction: () => {
+                          Navigator.pop(context, false),
+                          SystemNavigator.pop(animated: true),
+                        }),
+                body: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: SingleChildScrollView(
+                    child: SizedBox(
+                      //height: MediaQuery.of(context).size.height,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildHeader(),
+                          _buildMiddler(),
 
-                        // (isOpenDetails)
-                        //     ? Padding(
-                        //         padding: EdgeInsets.only(top: 10.h),
-                        //         child:  _buildMiddler(),
-                        //       )
-                        //     :  _buildOnlyPersonalDetialContainer(),
-                        confirmGstDetailCheck(),
-                      ],
+                          // (isOpenDetails)
+                          //     ? Padding(
+                          //         padding: EdgeInsets.only(top: 10.h),
+                          //         child:  _buildMiddler(),
+                          //       )
+                          //     :  _buildOnlyPersonalDetialContainer(),
+                          confirmGstDetailCheck(),
+                        ],
+                      ),
                     ),
                   ),
                 ),
+                bottomNavigationBar: _buildBottomSheet(),
               ),
-              bottomNavigationBar: _buildBottomSheet(),
-            ),
+      ),
     );
     // }
   }
@@ -313,48 +314,49 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
         });
       },
       child: Padding(
-          padding: EdgeInsets.only(top: 21.0.h),
-          child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 20.w,
-                  height: 20.h,
-                  child: Theme(
-                    data: ThemeData(useMaterial3: true),
-                    child: Checkbox(
-                      checkColor: ThemeHelper.getInstance()!.backgroundColor,
-                      activeColor: ThemeHelper.getInstance()!.primaryColor,
-                      value: confirmGstDetail,
-                      onChanged: (bool) {
-                        setState(() {
-                          confirmGstDetail = bool!;
-                        });
-                      },
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(2.r),
-                        ),
+        padding: EdgeInsets.only(top: 21.0.h),
+        child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 20.w,
+                height: 20.h,
+                child: Theme(
+                  data: ThemeData(useMaterial3: true),
+                  child: Checkbox(
+                    checkColor: ThemeHelper.getInstance()!.backgroundColor,
+                    activeColor: ThemeHelper.getInstance()!.primaryColor,
+                    value: confirmGstDetail,
+                    onChanged: (bool) {
+                      setState(() {
+                        confirmGstDetail = bool!;
+                      });
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(2.r),
                       ),
-                      side: BorderSide(
-                          width: 1,
-                          color: confirmGstDetail
-                              ? ThemeHelper.getInstance()!.primaryColor
-                              : ThemeHelper.getInstance()!.primaryColor),
                     ),
+                    side: BorderSide(
+                        width: 1,
+                        color: confirmGstDetail
+                            ? ThemeHelper.getInstance()!.primaryColor
+                            : ThemeHelper.getInstance()!.primaryColor),
                   ),
                 ),
-                SizedBox(width: 10.w),
-                Expanded(
-                  child: Text(
-                    checkboxText,
-                    style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp),
-                    maxLines: 5,
-                  ),
+              ),
+              SizedBox(width: 10.w),
+              Expanded(
+                child: Text(
+                  checkboxText,
+                  style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp),
+                  maxLines: 5,
                 ),
-              ])),
+              ),
+            ]),
+      ),
     );
   }
 

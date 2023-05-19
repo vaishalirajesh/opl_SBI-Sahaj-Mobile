@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
-import 'package:sbi_sahay_1_0/utils/themes/pnbthems.dart';
+import 'package:sbi_sahay_1_0/utils/themes/sbi_thems.dart';
 
 import 'myfonts.dart';
 
@@ -16,7 +16,7 @@ class ThemeHelper {
     if (theme != null) {
       return theme;
     } else {
-      return PnbThemes.pnbThemeMobile;
+      return SbiThemes.sbiThemeMobile;
     }
   }
 

@@ -18,7 +18,9 @@ import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
+import 'package:gstmobileservices/util/data_format_utils.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
@@ -26,13 +28,13 @@ import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
+import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
 
 import '../../../utils/colorutils/mycolors.dart';
 import '../../../utils/constants/imageconstant.dart';
 import '../../../utils/constants/prefrenceconstants.dart';
 import '../../../utils/constants/statusConstants.dart';
 import '../../../utils/internetcheckdialog.dart';
-import '../../../utils/movestageutils.dart';
 import '../../../utils/progressLoader.dart';
 import '../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 
@@ -56,67 +58,93 @@ class KfsScreenBody extends State<KfsScreens> {
   var isOtherDisclouserCard = false;
   var applicantName = '';
   num totalCharge = 0;
-  num otherChanrges = 0;
-  num panelcharges = 0;
+  num otherCharges = 0;
+  num panelCharges = 0;
 
   LoanOfferData? loanOfferData;
   ShareGstInvoiceResMain? _setLoanOfferRes;
   GetLoanStatusResMain? _getLoanStatusRes;
   TextEditingController fatherName = TextEditingController();
   bool isValidFatherName = false;
+  bool isDataLoaded = false;
 
   @override
   void initState() {
     loanOfferData = TGSession.getInstance().get(PREF_LOANOFFER);
-    // getApplicantName();
-    // calculateOtherChanges("");
-    // calculatePanelCharges("Penal");
-    // setTotalCharge();
+    getApplicantName();
+    calculateOtherChanges("");
+    calculatePanelCharges("Penal");
+    setTotalCharge();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        onWillPop: () async {
-          return true;
-        },
-        child: KfsScreenMain(context));
+      onWillPop: () async {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => KfsScreen(),
+          ),
+        );
+        return true;
+      },
+      child: kfsScreenMain(context),
+    );
   }
 
-  Widget KfsScreenMain(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ThemeHelper.getInstance()?.backgroundColor,
-      appBar: getAppBarWithStepDone('2', str_loan_approve_process, 0.50, onClickAction: () => {Navigator.pop(context)}),
-      body: SingleChildScrollView(
-        child: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-            colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          )
-              //   color: ThemeHelper.getInstance()?.primaryColor,
+  Widget kfsScreenMain(BuildContext context) {
+    return Stack(
+      children: [
+        Scaffold(
+          backgroundColor: ThemeHelper.getInstance()?.backgroundColor,
+          appBar: getAppBarWithStepDone('2', str_loan_approve_process, 0.50,
+              onClickAction: () => {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const DashboardWithGST(),
+                      ),
+                      (route) => false, //if you want to disable back feature set to false
+                    )
+                  }),
+          body: SingleChildScrollView(
+            child: Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              )
+                  //   color: ThemeHelper.getInstance()?.primaryColor,
+                  ),
+              child: Column(
+                children: [
+                  InvoiceDataUI(context),
+                  SizedBox(height: 5.h),
+                  //Removed Sanction Limit and Available Limit 3/2/23 Aarti
+                  /*LoanDataUI(context),
+                    SizedBox(height: 15.h),*/
+                  KFSDetailsUI(context),
+                ],
               ),
-          child: Column(
-            children: [
-              InvoiceDataUI(context),
-              SizedBox(height: 5.h),
-              //Removed Sanction Limit and Available Limit 3/2/23 Aarti
-              /*LoanDataUI(context),
-                SizedBox(height: 15.h),*/
-              KFSDetailsUI(context),
-            ],
+            ),
+          ),
+          bottomNavigationBar: Container(
+            color: ThemeHelper.getInstance()?.backgroundColor,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 10.h, left: 20.w, right: 20.w),
+              child: selectLoanOfferBtnUI(context),
+            ),
           ),
         ),
-      ),
-      bottomNavigationBar: Container(
-        color: ThemeHelper.getInstance()?.backgroundColor,
-        child: Padding(
-          padding: EdgeInsets.only(bottom: 10.h, left: 20.w, right: 20.w),
-          child: selectLoanOfferBtnUI(context),
-        ),
-      ),
+        if (isDataLoaded)
+          ShowInfoLoader(
+            msg: str_loan_process,
+            isTransparentColor: isDataLoaded,
+          )
+      ],
     );
   }
 
@@ -197,10 +225,7 @@ class KfsScreenBody extends State<KfsScreens> {
                   SizedBox(
                     height: 5.h,
                   ),
-                  Text("₹35,000",
-                      // Utils.convertIndianCurrency(loanOfferData?.offerDetails
-                      //     ?.elementAt(0)
-                      //     .termsRequestedAmount
+                  Text(Utils.convertIndianCurrency(loanOfferData?.offerDetails?.elementAt(0).termsRequestedAmount),
                       style: ThemeHelper.getInstance()
                           ?.textTheme
                           .headline2
@@ -222,7 +247,8 @@ class KfsScreenBody extends State<KfsScreens> {
                     height: 5.h,
                   ),
                   Text(
-                    "19 Oct, 2022",
+                    DataFormatUtils.convertDateFormat(loanOfferData?.offerDetails?.elementAt(0).offerCreatedDate,
+                        'yyyy-MM-dd hh:mm:ss', 'dd MMM, yyyy'),
                     style: ThemeHelper.getInstance()
                         ?.textTheme
                         .headline2
@@ -567,7 +593,7 @@ class KfsScreenBody extends State<KfsScreens> {
                       Flexible(
                           flex: 4,
                           child: LoanDetailColumnWidget(
-                              str_penal_charge, Utils.convertIndianCurrency(panelcharges.toString()), false, "")),
+                              str_penal_charge, Utils.convertIndianCurrency(panelCharges.toString()), false, "")),
                     ],
                   )
                 ],
@@ -797,7 +823,7 @@ class KfsScreenBody extends State<KfsScreens> {
                                 Utils.convertIndianCurrency(
                                     loanOfferData?.offerDetails?[0].insuranceChargesDetails?.amount)),
                             SizedBox(width: 50.w),
-                            OtherUpFrontRowWidget(str_others, Utils.convertIndianCurrency(otherChanrges.toString())),
+                            OtherUpFrontRowWidget(str_others, Utils.convertIndianCurrency(otherCharges.toString())),
                           ],
                         ),
                       ],
@@ -987,10 +1013,11 @@ class KfsScreenBody extends State<KfsScreens> {
 
   Widget selectLoanOfferBtnUI(BuildContext context) {
     return AppButton(
-        onPress: () async {
-          showDialog(context: context, builder: (_) => popUpViewForCongratulation());
-        },
-        title: str_select_loan_offer);
+      onPress: () async {
+        showDialog(context: context, builder: (_) => popUpViewForCongratulation());
+      },
+      title: str_select_loan_offer,
+    );
   }
 
   Widget popUpViewForCongratulation() {
@@ -1065,7 +1092,7 @@ class KfsScreenBody extends State<KfsScreens> {
     return AppButton(
       onPress: () async {
         Navigator.pop(context);
-        Navigator.pushReplacementNamed(context, MyRoutes.loanDepositeAccRoutes);
+        onPressSelectLoanOffersButton();
       },
       title: str_proceed,
     );
@@ -1186,10 +1213,10 @@ class KfsScreenBody extends State<KfsScreens> {
         if ((loanOfferData!.offerDetails![0].additionalCharges?[i].description.toString().toLowerCase() ?? "")
             .contains(chargeType.toLowerCase())) {
           if (chargeType != "Penal") {
-            otherChanrges =
-                otherChanrges + num.parse(loanOfferData!.offerDetails![0].additionalCharges?[i].amount ?? "0");
+            otherCharges =
+                otherCharges + num.parse(loanOfferData!.offerDetails![0].additionalCharges?[i].amount ?? "0");
           } else {
-            otherChanrges = otherChanrges + 0;
+            otherCharges = otherCharges + 0;
           }
         }
       }
@@ -1202,10 +1229,10 @@ class KfsScreenBody extends State<KfsScreens> {
         if ((loanOfferData!.offerDetails![0].additionalCharges?[i].description.toString().toLowerCase() ?? "")
             .contains(chargeType.toLowerCase())) {
           if (chargeType == "Penal") {
-            panelcharges =
-                panelcharges + num.parse(loanOfferData!.offerDetails![0].additionalCharges?[i].amount ?? "0");
+            panelCharges =
+                panelCharges + num.parse(loanOfferData!.offerDetails![0].additionalCharges?[i].amount ?? "0");
           } else {
-            panelcharges = panelcharges + 0;
+            panelCharges = panelCharges + 0;
           }
         }
       }
@@ -1223,8 +1250,34 @@ class KfsScreenBody extends State<KfsScreens> {
     // }
     // if(getAdditionalCharge("Stamp")?.contains("%") == false)
     // {
-    totalCharge = totalCharge + otherChanrges;
+
+    totalCharge = totalCharge + num.parse(loanOfferData?.offerDetails?[0].cicChargesDetails?.amount ?? "0");
+    if (loanOfferData?.offerDetails?[0].cgtmseChargesDetails?.amount != "0") {
+      totalCharge = totalCharge + num.parse(loanOfferData?.offerDetails?[0].cgtmseChargesDetails?.amount ?? "0");
+    }
+
+    if (loanOfferData?.offerDetails?[0].documentationChargesDetails?.amount != "0") {
+      totalCharge = totalCharge + num.parse(loanOfferData?.offerDetails?[0].documentationChargesDetails?.amount ?? "0");
+    }
+
+    totalCharge = totalCharge + num.parse(loanOfferData?.offerDetails?[0].otherChargesDetails?.amount ?? "0");
+
+    totalCharge = totalCharge + otherCharges;
+
     //}
+  }
+
+  void onPressSelectLoanOffersButton() async {
+    setState(() {
+      isDataLoaded = true;
+    });
+    if (await TGNetUtil.isInternetAvailable()) {
+      setLoanOffer();
+    } else {
+      if (context.mounted) {
+        showSnackBarForintenetConnection(context, setLoanOffer);
+      }
+    }
   }
 
   Future<void> setLoanOffer() async {
@@ -1251,16 +1304,20 @@ class KfsScreenBody extends State<KfsScreens> {
       _setLoanOfferRes = response?.getSetLoanOfferResObj();
       loanAppStatusAfterSetLoanOffer();
     } else {
-      Navigator.pop(context);
       LoaderUtils.handleErrorResponse(
           context, response?.getSetLoanOfferResObj().status, response?.getSetLoanOfferResObj().message, null);
+      setState(() {
+        isDataLoaded = false;
+      });
     }
   }
 
   _onErrorGetLoanOffer(TGResponse errorResponse) {
     TGLog.d("SetLoanOfferResponse : onError()");
-    Navigator.pop(context);
     handleServiceFailError(context, errorResponse.error);
+    setState(() {
+      isDataLoaded = false;
+    });
   }
 
   Future<void> getLoanAppStatusAfterSelectLoanOffer() async {
@@ -1279,9 +1336,7 @@ class KfsScreenBody extends State<KfsScreens> {
     _getLoanStatusRes = response?.getLoanStatusResObj();
     if (_getLoanStatusRes?.status == RES_SUCCESS) {
       if (_getLoanStatusRes?.data?.stageStatus == "PROCEED") {
-        Navigator.pop(context);
-        MoveStage.navigateNextStage(context, _getLoanStatusRes?.data?.currentStage);
-        //Navigator.pushNamed(context, MyRoutes.reviewDisbursedAccRoutes);
+        Navigator.pushReplacementNamed(context, MyRoutes.loanDepositeAccRoutes);
       } else if (_getLoanStatusRes?.data?.stageStatus == "HOLD") {
         Future.delayed(const Duration(seconds: 10), () {
           loanAppStatusAfterSetLoanOffer();
@@ -1290,16 +1345,20 @@ class KfsScreenBody extends State<KfsScreens> {
         loanAppStatusAfterSetLoanOffer();
       }
     } else {
-      Navigator.pop(context);
       LoaderUtils.handleErrorResponse(context, response?.getLoanStatusResObj().status,
           response?.getLoanStatusResObj().message, response?.getLoanStatusResObj().data?.stageStatus);
     }
+    setState(() {
+      isDataLoaded = false;
+    });
   }
 
   _onErrorGetLoanAppStatus(TGResponse errorResponse) {
     TGLog.d("LoanAppStatusResponse : onError()");
-    Navigator.pop(context);
     handleServiceFailError(context, errorResponse.error);
+    setState(() {
+      isDataLoaded = false;
+    });
   }
 
   Future<void> loanAppStatusAfterSetLoanOffer() async {
@@ -1307,6 +1366,9 @@ class KfsScreenBody extends State<KfsScreens> {
       getLoanAppStatusAfterSelectLoanOffer();
     } else {
       showSnackBarForintenetConnection(context, getLoanAppStatusAfterSelectLoanOffer);
+      setState(() {
+        isDataLoaded = false;
+      });
     }
   }
 

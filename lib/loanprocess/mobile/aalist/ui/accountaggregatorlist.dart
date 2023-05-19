@@ -1,22 +1,36 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
 import 'package:gstmobileservices/model/models/get_aa_list_response_main.dart';
+import 'package:gstmobileservices/model/models/get_consent_handle_url_response_main.dart';
+import 'package:gstmobileservices/model/requestmodel/consent_handle_request.dart';
 import 'package:gstmobileservices/model/requestmodel/get_aa_list_request.dart';
+import 'package:gstmobileservices/model/requestmodel/get_consent_handle_url_request.dart';
+import 'package:gstmobileservices/model/responsemodel/consent_handle_response.dart';
 import 'package:gstmobileservices/model/responsemodel/get_aa_list_response.dart';
+import 'package:gstmobileservices/model/responsemodel/get_consent_handle_url_response.dart';
 import 'package:gstmobileservices/service/request/tg_get_request.dart';
+import 'package:gstmobileservices/service/request/tg_post_request.dart';
+import 'package:gstmobileservices/service/requtilization.dart';
 import 'package:gstmobileservices/service/response/tg_response.dart';
 import 'package:gstmobileservices/service/service_managers.dart';
+import 'package:gstmobileservices/service/uris.dart';
+import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
+import 'package:sbi_sahay_1_0/loader/aa_completed.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
-import 'package:sbi_sahay_1_0/loanprocess/mobile/loanofferlist/ui/loan_offer_pop_up.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
+import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/utils/jumpingdott.dart';
+import 'package:sbi_sahay_1_0/utils/progressLoader.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
+import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
 
 import '../../../../utils/Utils.dart';
 import '../../../../utils/constants/imageconstant.dart';
@@ -46,21 +60,28 @@ class AAListView extends StatefulWidget {
 class _AAListViewState extends State<AAListView> {
   GetAAListResMain? typeList;
   int typeListlen = 0;
-  late List<GetAAListObj> typeListDetails;
   bool isAANextClick = false;
   int listLength = 3;
   String isCheckedGroup = 'BankGroupName';
+  late List<GetAAListObj> _aaListObj;
+  late List<GetAAListObj> _searchResult;
+  final TextEditingController _searchController = TextEditingController();
+  GetConsentHandleUrlResMain? _consentUrlData;
+  String bankName = '';
+  bool isBankNameFetched = true;
 
   //List<int> isCheckedList = [];
   int selectedValue = -1;
 
   bool isLoaderStart = false;
+  bool isShowLoader = false;
 
   @override
   void initState() {
-    typeListDetails = [];
-    // getAAListApiCall();
-
+    _aaListObj = [];
+    _aaListObj = [];
+    _searchResult = [];
+    getAAListApiCall();
     super.initState();
   }
 
@@ -87,32 +108,41 @@ class _AAListViewState extends State<AAListView> {
         );
         return true;
       },
-      child: Scaffold(
-        appBar: getAppBarWithStepDone("2", str_loan_approve_process, 0.50,
-            onClickAction: () => {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => const DashboardWithGst(),
+      child: Stack(
+        children: [
+          Scaffold(
+            appBar: getAppBarWithStepDone("2", str_loan_approve_process, 0.50,
+                onClickAction: () => {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => const DashboardWithGst(),
+                        ),
+                        (route) => false, //if you want to disable back feature set to false
+                      )
+                    }),
+            body: AbsorbPointer(
+              absorbing: isLoaderStart,
+              child: Stack(
+                children: [
+                  buildMainScreen(context),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
+                      child: buildBtnNextAcc(context),
                     ),
-                    (route) => false, //if you want to disable back feature set to false
                   )
-                }),
-        body: AbsorbPointer(
-          absorbing: isLoaderStart,
-          child: Stack(
-            children: [
-              buildMainScreen(context),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
-                  child: buildBtnNextAcc(context),
-                ),
-              )
-            ],
+                ],
+              ),
+            ),
           ),
-        ),
+          if (isShowLoader)
+            ShowInfoLoader(
+              msg: str_aa_redirect,
+              isTransparentColor: isShowLoader,
+            )
+        ],
       ),
     );
   }
@@ -139,7 +169,7 @@ class _AAListViewState extends State<AAListView> {
                 : buildListOfAA(),
           ),
           SizedBox(
-            height: 50.h,
+            height: 100.h,
           )
         ],
       ),
@@ -233,8 +263,18 @@ class _AAListViewState extends State<AAListView> {
     return SizedBox(
       height: 35.h,
       child: TextField(
-        style: ThemeHelper.getInstance()!.textTheme.button,
-        cursorColor: ThemeHelper.getInstance()!.backgroundColor,
+        style: ThemeHelper.getInstance()!.textTheme.button?.copyWith(color: MyColors.black),
+        controller: _searchController,
+        onChanged: (_) {
+          setState(() {
+            _searchResult = _aaListObj
+                .where((bankList) =>
+                    bankList.name?.toLowerCase().contains(_searchController.text.toLowerCase()) == true ||
+                    bankList.code?.toString().toLowerCase().contains(_searchController.text.toString().toLowerCase()) ==
+                        true)
+                .toList();
+          });
+        },
         decoration: InputDecoration(
           fillColor: ThemeHelper.getInstance()!.backgroundColor,
           focusedBorder: UnderlineInputBorder(
@@ -269,66 +309,97 @@ class _AAListViewState extends State<AAListView> {
   }
 
   Widget buildListOfAA() {
-    return ListView.builder(
-      shrinkWrap: true,
-      //scrollDirection: Axis.vertical,
-      itemCount: 1,
-      itemBuilder: (context, index) {
-        return InkWell(
-          onTap: () {
-            changeState(index);
-            // setState((){
-            //   selectedValue = index;
-            // });
-            //
-            // TGSharedPreferences.getInstance().set(PREF_AAID, typeListDetails[index].aaId);
-            // TGSharedPreferences.getInstance().set(PREF_AACODE, typeListDetails[index].code);
-          },
-          child: Column(
-            children: [
-              ListTile(
-                leading: Padding(
-                  padding: EdgeInsets.only(bottom: 10.h),
-                  child: buildCheckboxWidgetCustom1(index),
-                ),
-                //
-                //
-                //         Transform.translate(
-                //   offset: Offset(30, -5),
-                //   child: buildCheckboxWidgetCustom1(index),
-                // ),
-
-                // Padding(
-                //     padding: EdgeInsets.only(bottom: 10.h,left: 20.w),
-                //     child: buildCheckboxWidgetCustom1(index)),
-                title: Padding(
-                  padding: EdgeInsets.only(bottom: 10.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+    if (_searchController.text.isNotEmpty) {
+      return _searchResult?.length != 0
+          ? ListView.builder(
+              shrinkWrap: true,
+              itemCount: _searchResult.length,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {
+                    changeState(index);
+                    TGSharedPreferences.getInstance().set(PREF_AAID, _searchResult[index].aaId);
+                    TGSharedPreferences.getInstance().set(PREF_AACODE, _searchResult[index].code);
+                  },
+                  child: Column(
                     children: [
-                      Image.asset(Utils.path(IMG_NADL), height: 21.h, width: 60.w),
-                      Text("NESL Asset Data Limited",
-                          style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 12.sp)),
+                      ListTile(
+                        leading: Padding(
+                          padding: EdgeInsets.only(bottom: 10.h),
+                          child: buildCheckboxWidgetCustom1(index),
+                        ),
+                        title: Padding(
+                          padding: EdgeInsets.only(bottom: 10.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.asset(Utils.path(IMG_NADL), height: 21.h, width: 60.w),
+                              Text("${_searchResult?[index].name}",
+                                  style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 12.sp)),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: const Divider(
+                          color: Colors.grey,
+                          thickness: 0.5,
+                        ),
+                      ),
                     ],
                   ),
+                );
+              },
+            )
+          : SizedBox(
+              height: 100.h,
+              child: const Center(child: Text(str_no_account)),
+            );
+    } else {
+      return ListView.builder(
+        shrinkWrap: true,
+        //scrollDirection: Axis.vertical,
+        itemCount: typeList?.data?.length ?? 0,
+        itemBuilder: (context, index) {
+          return InkWell(
+            onTap: () {
+              changeState(index);
+            },
+            child: Column(
+              children: [
+                ListTile(
+                  leading: Padding(
+                    padding: EdgeInsets.only(bottom: 10.h),
+                    child: buildCheckboxWidgetCustom1(index),
+                  ),
+                  title: Padding(
+                    padding: EdgeInsets.only(bottom: 10.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset(Utils.path(IMG_NADL), height: 21.h, width: 60.w),
+                        Text("${typeList?.data?[index].name}",
+                            style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 12.sp)),
+                      ],
+                    ),
+                  ),
                 ),
-                // trailing: Padding(
-                //     padding: EdgeInsets.only(bottom: 10.h),
-                //     child: buildCheckboxWidgetCustom1(index)),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: const Divider(
-                  color: Colors.grey,
-                  thickness: 0.5,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: const Divider(
+                    color: Colors.grey,
+                    thickness: 0.5,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
+              ],
+            ),
+          );
+        },
+      );
+    }
   }
 
   Widget buildCheckboxWidgetCustom1(int index) {
@@ -350,17 +421,27 @@ class _AAListViewState extends State<AAListView> {
 
   Widget buildBtnNextAcc(BuildContext context) {
     return AppButton(
-      onPress: () {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const LoanOfferDialog(),
-          ),
-          (route) => false,
-        );
-      },
+      onPress: onPressProceed,
       title: str_proceed,
+      isButtonEnable: selectedValue > -1,
     );
+  }
+
+  Future<void> onPressProceed() async {
+    if (selectedValue == -1) {
+      TGView.showSnackBar(context: context, message: 'Please select Account Aggregator to continue');
+    } else {
+      setState(() {
+        isShowLoader = true;
+      });
+      if (await TGNetUtil.isInternetAvailable()) {
+        _postConsentHandleRequest();
+      } else {
+        if (context.mounted) {
+          showSnackBarForintenetConnection(context, _postConsentHandleRequest);
+        }
+      }
+    }
   }
 
   void setNextAAClick() {
@@ -371,26 +452,22 @@ class _AAListViewState extends State<AAListView> {
   //..22) Get Account Aggregator List
   Future<void> getAccountAggregatorListApi() async {
     TGLog.d("Enter : getBankByCodeApi()");
-
     TGGetRequest tgGetRequest = GetAAListRequest();
-
     ServiceManager.getInstance().getAAList(
         request: tgGetRequest,
         onSuccess: (response) => _onSuccessGetAAList(response),
         onError: (error) => _onErrorGetAAList(error));
-
     TGLog.d("Exit : getBankByCodeApi()");
   }
 
   _onSuccessGetAAList(GetAAListResponse? response) {
     TGLog.d("GetAppRefId : onSuccess()");
-
     if (response?.getAAListResObj().status == RES_DETAILS_FOUND) {
       setState(() {
         isLoaderStart = false;
         typeList = response?.getAAListResObj();
         if (typeList?.data?.isNotEmpty == true) {
-          typeListDetails = typeList!.data!;
+          _aaListObj = typeList!.data!;
           typeListlen = typeList!.data!.length!;
         }
       });
@@ -407,6 +484,105 @@ class _AAListViewState extends State<AAListView> {
     setState(() {
       isLoaderStart = false;
       handleServiceFailError(context, errorResponse.error);
+    });
+  }
+
+  Future<void> _postConsentHandleRequest() async {
+    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    ConsentHandleRequest consentHandleRequest = ConsentHandleRequest(
+        loanApplicationRefId: loanAppRefId,
+        aaCode: _aaListObj[selectedValue].code.toString(),
+        aaId: _aaListObj[selectedValue].aaId.toString(),
+        consentFetchType: 'ONE_TIME');
+
+    var jsonReq = jsonEncode(consentHandleRequest.toJson());
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_CONSENT_HANDLE);
+
+    ServiceManager.getInstance().consentHandleRequest(
+        request: tgPostRequest,
+        onSuccess: (response) => _onSuccessConsentHandle(response),
+        onError: (error) => _onErrorConsentHandle(error));
+  }
+
+  _onSuccessConsentHandle(ConsentHandleResponse? response) async {
+    TGLog.d("ConsentHandleResponse : onSuccess()");
+    if (response?.getConsentHandleResObj().status == RES_SUCCESS) {
+      TGSharedPreferences.getInstance().set(PREF_CONSENT_AAID, response?.getConsentHandleResObj().data?.consentAggId);
+      if (await TGNetUtil.isInternetAvailable()) {
+        _getConsentHandleUrl();
+      } else {
+        showSnackBarForintenetConnection(context, _getConsentHandleUrl);
+      }
+    } else {
+      setState(() {
+        isShowLoader = false;
+      });
+      LoaderUtils.handleErrorResponse(
+          context, response?.getConsentHandleResObj().status, response?.getConsentHandleResObj().message, null);
+    }
+  }
+
+  _onErrorConsentHandle(TGResponse errorResponse) {
+    TGLog.d("ConsentHandleResponse : onError()");
+    handleServiceFailError(context, errorResponse.error);
+    setState(() {
+      isShowLoader = false;
+    });
+  }
+
+  Future<void> _getConsentHandleUrl() async {
+    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    String consentAggId = await TGSharedPreferences.getInstance().get(PREF_CONSENT_AAID) ?? '';
+    GetConsentHandleUrlReq getConsentHandleUrlReq =
+        GetConsentHandleUrlReq(loanApplicationRefId: loanAppRefId, consentAggId: consentAggId);
+
+    var jsonReq = jsonEncode(getConsentHandleUrlReq.toJson());
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GET_CONSENT_URL);
+
+    ServiceManager.getInstance().consentHandleUrl(
+        request: tgPostRequest,
+        onSuccess: (response) => _onSuccessGetConsentHandleUrl(response),
+        onError: (error) => _onErrorGetConsentHandleUrl(error));
+  }
+
+  _onSuccessGetConsentHandleUrl(GetConsentHandleUrlResponse? response) async {
+    TGLog.d("GetConsentHandleUrl : onSuccess()");
+    if (response?.getConsentHandleUrlObj().status == RES_SUCCESS) {
+      TGLog.d("GetConsentHandleUrl : on launch URL --${response?.getConsentHandleUrlObj().data?.url}()");
+
+      String url = response?.getConsentHandleUrlObj().data?.url ?? "";
+
+      // TODO : Remove navigation and add URL lunch
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const AaCompletedPage(
+            str: {},
+          ),
+        ),
+        (route) => false,
+      );
+      // launchAa(url);
+    } else if (response?.getConsentHandleUrlObj().status == RES_RETRY_URL) {
+      if (await TGNetUtil.isInternetAvailable()) {
+        _getConsentHandleUrl();
+      } else {
+        showSnackBarForintenetConnection(context, _getConsentHandleUrl);
+      }
+    } else {
+      LoaderUtils.handleErrorResponse(
+          context, response?.getConsentHandleUrlObj().status, response?.getConsentHandleUrlObj().message, null);
+    }
+    setState(() {
+      isShowLoader = false;
+    });
+  }
+
+  _onErrorGetConsentHandleUrl(TGResponse errorResponse) {
+    TGLog.d("GetConsentHandleUrl : onError()");
+    handleServiceFailError(context, errorResponse.error);
+    setState(() {
+      isShowLoader = false;
     });
   }
 }

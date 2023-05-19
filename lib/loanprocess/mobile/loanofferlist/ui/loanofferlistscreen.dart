@@ -12,12 +12,14 @@ import 'package:gstmobileservices/service/requtilization.dart';
 import 'package:gstmobileservices/service/response/tg_response.dart';
 import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/service/uris.dart';
+import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusconstants.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
+import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 
 import '../../../../utils/constants/imageconstant.dart';
@@ -41,7 +43,7 @@ class LoanOfferList extends StatelessWidget {
 
 class LoanOfferListSc extends StatefulWidget {
   @override
-  LoanOfferListBody createState() => new LoanOfferListBody();
+  LoanOfferListBody createState() => LoanOfferListBody();
 }
 
 class LoanOfferListBody extends State<LoanOfferListSc> {
@@ -55,7 +57,7 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
 
   @override
   void initState() {
-    // getLoanOfferListAPI();
+    getLoanOfferListAPI();
     super.initState();
   }
 
@@ -80,7 +82,6 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
           ),
           (route) => false, //if you want to disable back feature set to false
         );
-
         return true;
       },
       child: LoanOfferListScreenContent(context),
@@ -98,7 +99,7 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
             Row(
               children: [
                 Text(
-                  "Valid for:",
+                  "Valid for: ",
                   style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp),
                 ),
                 Text(
@@ -115,14 +116,14 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
             ),
             const Divider(),
             SizedBox(
-              height: 25.h,
+              height: 15.h,
             ),
             Text(
               str_loan_offers,
               style: ThemeHelper.getInstance()?.textTheme.headline2,
             ),
             SizedBox(
-              height: 20.h,
+              height: 10.h,
             ),
             Text(
               str_select_invoice_below,
@@ -139,20 +140,25 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
   }
 
   Widget LoanOfferListScreenContent(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ThemeHelper.getInstance()?.backgroundColor,
-      appBar: getAppBarWithStepDone('2', str_loan_approve_process, 0.50,
-          onClickAction: () => {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => const DashboardWithGST(),
-                  ),
-                  (route) => false, //if you want to disable back feature set to false
-                )
-              }),
-      body: OfferContent(context),
-    );
+    return !isListLoaded
+        ? ShowInfoLoader(
+            msg: str_laon_offer_from_lender,
+            isTransparentColor: isListLoaded,
+          )
+        : Scaffold(
+            backgroundColor: ThemeHelper.getInstance()?.backgroundColor,
+            appBar: getAppBarWithStepDone('2', str_loan_approve_process, 0.50,
+                onClickAction: () => {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => const DashboardWithGST(),
+                        ),
+                        (route) => false, //if you want to disable back feature set to false
+                      )
+                    }),
+            body: OfferContent(context),
+          );
     //   }
   }
 
@@ -173,21 +179,10 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
-        itemCount: !isListLoaded ? 7 : 10,
-        //_getLoanOfferRes?.data?.offers?.length,
+        itemCount: _getLoanOfferRes?.data?.offers?.length ?? 0,
         itemBuilder: (context, index) {
-          // if (!isListLoaded) {
-          //   return Column(
-          //     children: [
-          //       ShimmerLoader(),
-          //       SizedBox(
-          //         height: 10.h,
-          //       )
-          //     ],
-          //   );
-          // } else {
           return Padding(
-            key: const ValueKey("Amazon Pvt. Ltd"),
+            key: ValueKey("${_getLoanOfferRes?.data?.offers?[index]}"),
             padding: EdgeInsets.only(bottom: 20.h),
             child: loanofferItemContainer(context, index),
           );
@@ -202,18 +197,17 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
       child: Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.3), //color of shadow
-                spreadRadius: 1, //spread radius
-                blurRadius: 3, // blur radius
-                offset: const Offset(0, 1), // changes position of shadow
-              )
-            ],
-            // border:
-            // Border.all(color: ThemeHelper.getInstance()!.cardColor, width: 1),
-            borderRadius: BorderRadius.circular(12.r),
-            color: ThemeHelper.getInstance()?.backgroundColor),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3), //color of shadow
+              spreadRadius: 1, //spread radius
+              blurRadius: 3, // blur radius
+              offset: const Offset(0, 1), // changes position of shadow
+            )
+          ],
+          borderRadius: BorderRadius.circular(12.r),
+          color: ThemeHelper.getInstance()?.backgroundColor,
+        ),
         child: Padding(
           padding: EdgeInsets.all(15.h),
           child: Column(
@@ -225,11 +219,16 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: Text("Amazon Pvt. Ltd",
-                        style: ThemeHelper.getInstance()
-                            ?.textTheme
-                            .headline2
-                            ?.copyWith(fontSize: 16.sp, color: ThemeHelper.getInstance()?.primaryColor)),
+                    child: Text(
+                      _getLoanOfferRes?.data?.offers?[index].buyerName ?? '',
+                      style: ThemeHelper.getInstance()
+                          ?.textTheme
+                          .headline2
+                          ?.copyWith(fontSize: 16.sp, color: ThemeHelper.getInstance()?.primaryColor),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10.w,
                   ),
                   SvgPicture.asset(
                     Utils.path(MOBILETDASHBOARDARROWFORWARD),
@@ -238,23 +237,18 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                   ),
                 ],
               ),
-              // SizedBox(
-              //   height: 5.h,
-              // ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    str_invoice + "230",
-                    style: ThemeHelper.getInstance()
-                        ?.textTheme
-                        .headline3
-                        ?.copyWith(color: ThemeHelper.getInstance()?.colorScheme.tertiary, fontSize: 12.sp),
-                  ),
-                ],
+              SizedBox(
+                height: 5.h,
+              ),
+              Text(
+                '$str_invoice${_getLoanOfferRes?.data?.offers?[index].invoiceNumber}',
+                style: ThemeHelper.getInstance()
+                    ?.textTheme
+                    .headline3
+                    ?.copyWith(color: ThemeHelper.getInstance()?.colorScheme.tertiary, fontSize: 12.sp),
               ),
               SizedBox(
-                height: 10.h,
+                height: 15.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -277,7 +271,8 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                       FittedBox(
                         fit: BoxFit.fill,
                         child: Text(
-                          Utils.convertIndianCurrency("25600"),
+                          Utils.convertIndianCurrency(
+                              _getLoanOfferRes?.data?.offers?[index].offerDetails?[0].termsSanctionedAmount),
                           style: ThemeHelper.getInstance()?.textTheme.headline6?.copyWith(fontSize: 14.sp),
                         ),
                       )
@@ -300,7 +295,8 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                       FittedBox(
                         fit: BoxFit.fill,
                         child: Text(
-                          Utils.convertIndianCurrency("35000"),
+                          Utils.convertIndianCurrency(
+                              _getLoanOfferRes?.data?.offers?[index].offerDetails?[0].termsRequestedAmount),
                           style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 14.sp),
                         ),
                       )
@@ -321,7 +317,11 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                         height: 5.h,
                       ),
                       Text(
-                        "22 Aug 2022",
+                        Utils.convertDateFormat(
+                          _getLoanOfferRes?.data?.offers?.elementAt(index).offerDetails?.elementAt(0).repayDate ?? "",
+                          'dd MMM yyyy',
+                          'dd MMM, yyyy',
+                        ),
                         style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 14.sp),
                       )
                     ],
@@ -333,13 +333,13 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
         ),
       ),
       onTap: () {
-        //  TGSession.getInstance().set(PREF_LOANOFFER, _getLoanOfferRes?.data?.offers?[index]);
-
+        TGSession.getInstance().set(PREF_LOANOFFER, _getLoanOfferRes?.data?.offers?[index]);
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => KfsScreen(),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) => KfsScreen(),
+          ),
+        );
       },
     );
   }
