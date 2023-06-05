@@ -22,6 +22,7 @@ import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
 import 'package:sbi_sahay_1_0/documentation/mobile/emailsentaftersetupemandate/emandate_status.dart';
+import 'package:sbi_sahay_1_0/loader/aa_completed.dart';
 import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -437,56 +438,56 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
     late WebViewXController webviewController;
 
     return Container(
-        decoration:
-            const BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(5.0))),
-        child: WebViewX(
-          key: const ValueKey('webviewx'),
-          initialContent: _getLoanStatusResMain?.data?.paymentUrl.toString() ?? "",
-          initialSourceType: SourceType.url,
-          height: MyDimension.getFullScreenHeight(),
-          width: MyDimension.getFullScreenWidth(),
+      decoration: const BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(5.0))),
+      child: WebViewX(
+        key: const ValueKey('webviewx'),
+        initialContent: _getLoanStatusResMain?.data?.paymentUrl.toString() ?? "",
+        initialSourceType: SourceType.url,
+        height: MyDimension.getFullScreenHeight(),
+        width: MyDimension.getFullScreenWidth(),
 
-          onWebViewCreated: (controller) => webviewController = controller,
-          onPageStarted: (src) => {
-            TGLog.d(src),
-            if (src.contains("output=") ||
-                src.contains("https://uat-gst-sahay.instantmseloans.in/sahay/#/ENachResponse") ||
-                src.contains("https://uat-oam.instantmseloans.in/tsp/updateNeSLStatus") ||
-                src.contains("https://liveoam.instantmseloans.in/tsp/neslSuccess"))
-              {setRepaymentPlanStatusApiCall()}
-          },
+        onWebViewCreated: (controller) => webviewController = controller,
+        onPageStarted: (src) => {
+          TGLog.d(src),
+          if (src.contains("output=") ||
+              src.contains("https://uat-gst-sahay.instantmseloans.in/sahay/#/ENachResponse") ||
+              src.contains("https://uat-oam.instantmseloans.in/tsp/updateNeSLStatus") ||
+              src.contains("https://liveoam.instantmseloans.in/tsp/neslSuccess"))
+            {setRepaymentPlanStatusApiCall()}
+        },
 
-          // onPageFinished: (src) =>
-          //
-          //
-          //     debugPrint('The page has finished loading: $src\n'),
-          jsContent: const {
-            EmbeddedJsContent(
-              js: "function testPlatformIndependentMethod() { console.log('Hi from JS') }",
-            ),
-            EmbeddedJsContent(
-              webJs: "function testPlatformSpecificMethod(msg) { TestDartCallback('Web callback says: ' + msg) }",
-              mobileJs:
-                  "function testPlatformSpecificMethod(msg) { TestDartCallback.postMessage('Mobile callback says: ' + msg) }",
-            ),
-          },
-          dartCallBacks: {
-            DartCallback(
-              name: 'TestDartCallback',
-              callBack: (msg) => "Error",
-            )
-          },
-          webSpecificParams: const WebSpecificParams(
-            printDebugInfo: true,
+        // onPageFinished: (src) =>
+        //
+        //
+        //     debugPrint('The page has finished loading: $src\n'),
+        jsContent: const {
+          EmbeddedJsContent(
+            js: "function testPlatformIndependentMethod() { console.log('Hi from JS') }",
           ),
-          mobileSpecificParams: const MobileSpecificParams(
-            androidEnableHybridComposition: true,
+          EmbeddedJsContent(
+            webJs: "function testPlatformSpecificMethod(msg) { TestDartCallback('Web callback says: ' + msg) }",
+            mobileJs:
+                "function testPlatformSpecificMethod(msg) { TestDartCallback.postMessage('Mobile callback says: ' + msg) }",
           ),
-          navigationDelegate: (navigation) {
-            debugPrint(navigation.content.sourceType.toString());
-            return NavigationDecision.navigate;
-          },
-        ));
+        },
+        dartCallBacks: {
+          DartCallback(
+            name: 'TestDartCallback',
+            callBack: (msg) => "Error",
+          )
+        },
+        webSpecificParams: const WebSpecificParams(
+          printDebugInfo: true,
+        ),
+        mobileSpecificParams: const MobileSpecificParams(
+          androidEnableHybridComposition: true,
+        ),
+        navigationDelegate: (navigation) {
+          debugPrint(navigation.content.sourceType.toString());
+          return NavigationDecision.navigate;
+        },
+      ),
+    );
   }
 
   //webAPI
@@ -626,6 +627,15 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
           isLoaderStartProceed = false;
           _getLoanStatusResMain = response?.getLoanStatusResObj();
           //TODO: Remove navgation and uncomment bellow line
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AaCompletedPage(
+                str: {},
+              ),
+            ),
+            (route) => false,
+          );
           Navigator.pushReplacementNamed(context, MyRoutes.proceedToDisbursedRoutes);
           // isLoadWebView = true;
         });

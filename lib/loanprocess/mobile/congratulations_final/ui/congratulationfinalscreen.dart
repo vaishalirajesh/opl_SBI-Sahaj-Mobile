@@ -262,3 +262,4 @@ class CongratulationsFinalMainBody extends State<CongratulationsFinalMains> {
     TGLog.d("TriggerDisbursementResponse : onError()");
     handleServiceFailError(context, errorResponse.error);
   }
+}

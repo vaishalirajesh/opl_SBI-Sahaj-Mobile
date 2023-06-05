@@ -102,7 +102,7 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
   bool isGetOTPLoaderStart = false;
   bool isVerifyOTPLoaderStart = false;
   String gstin = '';
-  var strMobile = "9601483912"; //TGSession.getInstance().get(SESSION_MOBILENUMBER); //"";
+  var strMobile = ""; //TGSession.getInstance().get(SESSION_MOBILENUMBER); //"";
   var otpSessionKey = TGSession.getInstance().get(SESSION_OTPSESSIONKEY); //"";
 
   void checkOtp() {
@@ -112,6 +112,12 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
         forthletter.isNotEmpty &&
         fifthletter.isNotEmpty &&
         sixthletter.isNotEmpty;
+  }
+
+  @override
+  void initState() {
+    strMobile = TGSession.getInstance().get(SESSION_MOBILENUMBER);
+    super.initState();
   }
 
   @override

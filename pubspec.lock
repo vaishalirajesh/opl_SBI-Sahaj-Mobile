@@ -276,10 +276,10 @@ packages:
     dependency: transitive
     description:
       name: fwfh_text_style
-      sha256: "37806ee0222f79b6e8d4c698c322c897eae6a817258156f40aeece4e588fac60"
+      sha256: "66ea19f4b5837789a82e5dd4a1d169e4f1693f6846d7e50439772a6a324343f7"
       url: "https://pub.dev"
     source: hosted
-    version: "2.22.08+1"
+    version: "2.22.8+2"
   gif:
     dependency: "direct main"
     description:
@@ -301,8 +301,8 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: e72589164baa46a28ab92de60753509b5615c465
-      url: "https://github.com/capitawrld/gstsahaymobileappservice.git"
+      resolved-ref: "108790a5b71892e2374cc2f7cb9b53c43040a165"
+      url: "https://github.com/jaympatelopl/gstsahaymobileappservice"
     source: git
     version: "0.0.1"
   html:
@@ -613,10 +613,10 @@ packages:
     dependency: "direct main"
     description:
       name: rflutter_alert
-      sha256: a77c8c937fad29e70565388c5934f678b92325047663367b985570ba101929fa
+      sha256: a6ab258293eefede4326d0de08929b38a0182b57c7dd94af37d3c39d85612c4e
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.4"
+    version: "2.0.6"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -698,10 +698,10 @@ packages:
     dependency: transitive
     description:
       name: source_gen
-      sha256: "378a173055cd1fcd2a36e94bf254786d6812688b5f53b6038a2fd180a5a5e210"
+      sha256: "373f96cf5a8744bc9816c1ff41cf5391bbdbe3d7a96fe98c622b6738a8a7bd33"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.1"
+    version: "1.3.2"
   source_helper:
     dependency: transitive
     description:
@@ -818,10 +818,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_android
-      sha256: "22f8db4a72be26e9e3a4aa3f194b1f7afbc76d20ec141f84be1d787db2155cbd"
+      sha256: "1a5848f598acc5b7d8f7c18b8cb834ab667e59a13edc3c93e9d09cf38cc6bc87"
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.31"
+    version: "6.0.34"
   url_launcher_ios:
     dependency: transitive
     description:

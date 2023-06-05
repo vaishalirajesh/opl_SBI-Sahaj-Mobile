@@ -451,7 +451,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
       ),
       child: Column(
         children: [
-          SizedBox(height: 10.h),
+          SizedBox(height: 5.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -461,8 +461,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                 image: AssetImage(Utils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
               ),
               SizedBox(width: 15.w),
-              Flexible(
-                flex: 9,
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -471,7 +470,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                     //SizedBox(height: 20.h),
                     Text(name, style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 16.sp)),
                     SizedBox(height: 5.h),
-                    Text(pan,
+                    Text('PAN: $pan',
                         style: ThemeHelper.getInstance()!
                             .textTheme
                             .headline5!
@@ -480,15 +479,12 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                 ),
               ),
               SizedBox(width: 20.w),
-              Flexible(
-                flex: 2,
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: SvgPicture.asset(
-                    Utils.path(MOBILETDASHBOARDARROWFORWARD),
-                    height: 12.h,
-                    width: 6.w,
-                  ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: SvgPicture.asset(
+                  Utils.path(MOBILETDASHBOARDARROWFORWARD),
+                  height: 15.h,
+                  width: 10.w,
                 ),
               )
             ],

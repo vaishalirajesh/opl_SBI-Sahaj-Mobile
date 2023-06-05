@@ -24,7 +24,7 @@ import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
-import 'package:sbi_sahay_1_0/routes.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/loanaggrementcompleted/ui/esigncompleted.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
@@ -165,15 +165,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
                 ),
 
                 // SizedBox(height: 15.h),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AccountInfoUI(context),
-                    // Container(),
-                    DownloadAgreementBtnUI(context),
-                  ],
-                ),
+                AccountInfoUI(context),
                 SizedBox(
                   height: 20.h,
                 ),
@@ -223,12 +215,20 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Text(str_deposit_ac, style: ThemeHelper.getInstance()?.textTheme.headline3),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Expanded(child: Text(str_deposit_ac, style: ThemeHelper.getInstance()?.textTheme.headline3)),
+            DownloadAgreementBtnUI(context),
+          ],
+        ),
         SizedBox(
           height: 20.h,
         ),
         Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
                 height: 30.h,
@@ -639,14 +639,14 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
 
       String url = utf8.decode(base64Decode(_getLoanStatusRes?.data?.agreementRedirectionData ?? ""));
       // TODO: remove navigation and add/uncomment launch URL
-      Navigator.pushReplacementNamed(context, MyRoutes.SetupEmandateRoutes);
-      // Navigator.pushAndRemoveUntil(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => ESignCompletedMain(),
-      //   ),
-      //   (route) => false,
-      // );
+      // Navigator.pushReplacementNamed(context, MyRoutes.SetupEmandateRoutes);
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ESignCompletedMain(),
+        ),
+        (route) => false,
+      );
       // launchdde(url);
       // TGLog.d(url);
       // js.context.callMethod('customAlertMessage', [url]);

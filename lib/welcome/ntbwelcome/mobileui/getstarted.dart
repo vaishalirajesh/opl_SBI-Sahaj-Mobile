@@ -96,9 +96,6 @@ class _GetStartedState extends State<GetStarted> {
                   isLoaderStart = true;
                 });
                 Future.delayed(const Duration(seconds: 2), () {
-                  setState(() {
-                    isLoaderStart = false;
-                  });
                   TGLog.d('Bank name--${TGFlavor.param("bankName")}');
                   Navigator.pushReplacement(
                     context,
@@ -106,6 +103,9 @@ class _GetStartedState extends State<GetStarted> {
                       builder: (context) => const SignUpView(),
                     ),
                   );
+                  setState(() {
+                    isLoaderStart = false;
+                  });
                 });
 
                 // Navigator.pushNamed(context, MyRoutes.EnableGstApiRoutes);

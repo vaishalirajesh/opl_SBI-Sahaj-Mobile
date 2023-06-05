@@ -219,7 +219,7 @@ const str_no_account = "No account found";
 const str_no_search = "No Search result";
 const str_fetching_bank_account_details = "Fetching Bank Account Details";
 const str_disb_acc_detail_loading = "Please Wait While Disbursement Account Details are Loading..";
-const str_digital_document_process = 'Waiting for Digital Document Execution Status \n Kindly wait for 60s';
+const str_digital_document_process = 'Waiting for Digital Document Execution Status';
 
 //..Confirm Details
 const str_Confirm_Details = 'Confirm Details';

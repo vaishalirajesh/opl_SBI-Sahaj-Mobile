@@ -80,6 +80,7 @@ class ESignCompleted extends State<ESignCompletedMains> {
     return !isLoadData
         ? const ShowInfoLoader(
             msg: str_digital_document_process,
+            subMsg: str_Kindly_wait_for_60s,
           )
         : LayoutBuilder(builder: (context, constraints) {
             return SafeArea(
@@ -164,7 +165,7 @@ class ESignCompleted extends State<ESignCompletedMains> {
       // }
       Future.delayed(const Duration(seconds: 2))
           .then((value) => MoveStage.navigateNextStage(context, response?.getLoanStatusResObj().data?.currentStage));
-
+      // Navigator.pushReplacementNamed(context, MyRoutes.SetupEmandateRoutes);
       TGLog.d('Current stage- if--2');
     } else if (_getLoanStatusRes?.data?.stageStatus == "HOLD") {
       TGLog.d('Current stage- else if');

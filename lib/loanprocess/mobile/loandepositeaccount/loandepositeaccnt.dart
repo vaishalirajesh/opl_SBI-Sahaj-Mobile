@@ -348,15 +348,17 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
   }
 
   void onPressProceedButton() async {
-    _selectedAcc = _getDisbursedAccRes?.data?[0];
-    setState(() {
-      isDataSet = true;
-    });
-    if (await TGNetUtil.isInternetAvailable()) {
-      _setDisbursedAcc();
-    } else {
-      if (context.mounted) {
-        showSnackBarForintenetConnection(context, _setDisbursedAcc);
+    if (isValidIFSCCode && isValidAccountNo) {
+      _selectedAcc = _getDisbursedAccRes?.data?[0];
+      setState(() {
+        isDataSet = true;
+      });
+      if (await TGNetUtil.isInternetAvailable()) {
+        _setDisbursedAcc();
+      } else {
+        if (context.mounted) {
+          showSnackBarForintenetConnection(context, _setDisbursedAcc);
+        }
       }
     }
   }

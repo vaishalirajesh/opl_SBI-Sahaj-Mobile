@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gstmobileservices/model/models/get_loandetail_by_refid_res_main.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
-import 'package:sbi_sahay_1_0/routes.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/loanofferlist/ui/loan_offer_pop_up.dart';
 
 import '../disbursed/mobile/loanreview/ui/loanreviewscreen.dart';
 import '../disbursed/mobile/proceedtodisbursed/ui/proceedtodisbscreen.dart';
@@ -18,13 +16,11 @@ import '../loanprocess/mobile/gstinvoiceslist/ui/gstinvoicelist.dart';
 import '../loanprocess/mobile/infosharedscreen/ui/infosharedscreen.dart';
 import '../loanprocess/mobile/loanofferlist/ui/loanofferlistscreen.dart';
 import '../registration/mobile/cic_consent/cic_consent.dart';
-import '../widgets/animation_routes/page_animation.dart';
 import 'constants/prefrenceconstants.dart';
 import 'constants/stageconstants.dart';
 
 class MoveStage {
-  static void movetoStage(
-      BuildContext context, LoanDetailData? loanDetailsData) async {
+  static void movetoStage(BuildContext context, LoanDetailData? loanDetailsData) async {
     await TGSharedPreferences.getInstance().set(PREF_LOANAPPREFID, loanDetailsData?.loanAppRefNo);
     await TGSharedPreferences.getInstance().set(PREF_CURRENT_STAGE, loanDetailsData?.currentApplicationStage);
     await TGSharedPreferences.getInstance().set(PREF_GSTIN, loanDetailsData?.gstin);
@@ -32,88 +28,74 @@ class MoveStage {
     bool? isCicConsentDone = await TGSharedPreferences.getInstance().get(PREF_ISCIC_CONSENT);
 
     if (loanDetailsData?.currentApplicationStage != STAGE_DISBURSEMENT_STATUS) {
-      if (loanDetailsData?.currentApplicationStage == STAGE_INITIATED && loanDetailsData?.nextApplicationStage == STAGE_SHARE_INVOICE) {
-
-        if(isCicConsentDone == null || isCicConsentDone == false)
-        {
+      if (loanDetailsData?.currentApplicationStage == STAGE_INITIATED &&
+          loanDetailsData?.nextApplicationStage == STAGE_SHARE_INVOICE) {
+        if (isCicConsentDone == null || isCicConsentDone == false) {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
               builder: (BuildContext context) => CicConsent(),
             ),
-                (route) => false,//if you want to disable back feature set to false
+            (route) => false, //if you want to disable back feature set to false
           );
-        }
-        else
-        {
+        } else {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context) => GSTInvoicesList(),
+              builder: (BuildContext context) => const GSTInvoicesList(),
             ),
-                (route) => false,//if you want to disable back feature set to false
+            (route) => false, //if you want to disable back feature set to false
           );
         }
 
-
-      //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GSTInvoicesList()));
+        //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GSTInvoicesList()));
       } else if (loanDetailsData?.currentApplicationStage == STAGE_INITIATED) {
-
-        if(isCicConsentDone == null || isCicConsentDone == false)
-        {
+        if (isCicConsentDone == null || isCicConsentDone == false) {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
               builder: (BuildContext context) => CicConsent(),
             ),
-                (route) => false,//if you want to disable back feature set to false
+            (route) => false, //if you want to disable back feature set to false
           );
-        }
-        else
-        {
+        } else {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context) => GSTInvoicesList(),
+              builder: (BuildContext context) => const GSTInvoicesList(),
             ),
-                (route) => false,//if you want to disable back feature set to false
+            (route) => false, //if you want to disable back feature set to false
           );
         }
 
         //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GSTInvoicesList()));
       } else if (loanDetailsData?.currentApplicationStage == STAGE_SHARE_INVOICE) {
-
-        if(isCicConsentDone == null || isCicConsentDone == false)
-        {
+        if (isCicConsentDone == null || isCicConsentDone == false) {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
               builder: (BuildContext context) => CicConsent(),
             ),
-                (route) => false,//if you want to disable back feature set to false
+            (route) => false, //if you want to disable back feature set to false
           );
-        }
-        else
-        {
+        } else {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context) => GSTInvoicesList(),
+              builder: (BuildContext context) => const GSTInvoicesList(),
             ),
-                (route) => false,//if you want to disable back feature set to false
+            (route) => false, //if you want to disable back feature set to false
           );
         }
 
-       // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GSTInvoicesList()));
+        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GSTInvoicesList()));
       } else if (loanDetailsData?.currentApplicationStage == STAGE_CONSENT) {
-
-
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => AccountAggregatorDetails(),
+            builder: (BuildContext context) => const AccountAggregatorDetails(),
           ),
-              (route) => false,//if you want to disable back feature set to false
+          (route) => false, //if you want to disable back feature set to false
         );
 
         ///Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AccountAggregatorDetails()));
@@ -121,16 +103,15 @@ class MoveStage {
         await TGSharedPreferences.getInstance().set(PREF_AAID, loanDetailsData?.aaId);
         await TGSharedPreferences.getInstance().set(PREF_AACODE, loanDetailsData?.aaCode);
 
-
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             builder: (BuildContext context) => LoanOfferList(),
           ),
-              (route) => false,//if you want to disable back feature set to false
+          (route) => false, //if you want to disable back feature set to false
         );
 
-       // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanOfferList()));
+        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanOfferList()));
 
         //Navigator.pushNamed(context, MyRoutes.loanOfferListRoutes);
       } else if (loanDetailsData?.currentApplicationStage == STAGE_LOAN_OFFER) {
@@ -141,22 +122,21 @@ class MoveStage {
           MaterialPageRoute(
             builder: (BuildContext context) => InfoShare(),
           ),
-              (route) => false,//if you want to disable back feature set to false
+          (route) => false, //if you want to disable back feature set to false
         );
-      //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => InfoShare()));
+        //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => InfoShare()));
       } else if (loanDetailsData?.currentApplicationStage == STAGE_SET_DISBURSEMENT_ACC) {
         await TGSharedPreferences.getInstance().set(PREF_AAID, loanDetailsData?.aaId);
         await TGSharedPreferences.getInstance().set(PREF_AACODE, loanDetailsData?.aaCode);
         await TGSharedPreferences.getInstance().set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
         await TGSharedPreferences.getInstance().set(PREF_OFFERID, loanDetailsData?.offerId);
 
-
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             builder: (BuildContext context) => ReviewDisbursedAccMain(),
           ),
-              (route) => false,//if you want to disable back feature set to false
+          (route) => false, //if you want to disable back feature set to false
         );
 
         //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ReviewDisbursedAccMain()));
@@ -171,7 +151,7 @@ class MoveStage {
           MaterialPageRoute(
             builder: (BuildContext context) => LoanAgreementMain(),
           ),
-              (route) => false,//if you want to disable back feature set to false
+          (route) => false, //if you want to disable back feature set to false
         );
 
         //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanAgreementMain()));
@@ -181,16 +161,15 @@ class MoveStage {
         await TGSharedPreferences.getInstance().set(PREF_AACODE, loanDetailsData?.aaCode);
         await TGSharedPreferences.getInstance().set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
 
-
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             builder: (BuildContext context) => LoanAgreementMain(),
           ),
-              (route) => false,//if you want to disable back feature set to false
+          (route) => false, //if you want to disable back feature set to false
         );
 
-       // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanAgreementMain()));
+        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanAgreementMain()));
       } else if (loanDetailsData?.currentApplicationStage == STAGE_GRANT_LOAN) {
         await TGSharedPreferences.getInstance().set(PREF_AAID, loanDetailsData?.aaId);
         await TGSharedPreferences.getInstance().set(PREF_OFFERID, loanDetailsData?.offerId);
@@ -200,9 +179,9 @@ class MoveStage {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => EmailSentAfterLoanAgreement(),
+            builder: (BuildContext context) => const EmailSentAfterLoanAgreement(),
           ),
-              (route) => false,//if you want to disable back feature set to false
+          (route) => false, //if you want to disable back feature set to false
         );
 
         //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EmailSentAfterLoanAgreement()));
@@ -212,16 +191,15 @@ class MoveStage {
         await TGSharedPreferences.getInstance().set(PREF_AACODE, loanDetailsData?.aaCode);
         await TGSharedPreferences.getInstance().set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
 
-
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => SetupEmandate(),
+            builder: (BuildContext context) => const SetupEmandate(),
           ),
-              (route) => false,//if you want to disable back feature set to false
+          (route) => false, //if you want to disable back feature set to false
         );
 
-       // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SetupEmandate()));
+        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SetupEmandate()));
       } else if (loanDetailsData?.currentApplicationStage == STAGE_E_MANDATE_STATUS) {
         await TGSharedPreferences.getInstance().set(PREF_AAID, loanDetailsData?.aaId);
         await TGSharedPreferences.getInstance().set(PREF_OFFERID, loanDetailsData?.offerId);
@@ -232,9 +210,9 @@ class MoveStage {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => SetupEmandate(),
+            builder: (BuildContext context) => const SetupEmandate(),
           ),
-              (route) => false,//if you want to disable back feature set to false
+          (route) => false, //if you want to disable back feature set to false
         );
 
         //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SetupEmandate()));
@@ -247,66 +225,61 @@ class MoveStage {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => RedirectedLoader(),
+            builder: (BuildContext context) => const RedirectedLoader(),
           ),
-              (route) => false,//if you want to disable back feature set to false
+          (route) => false, //if you want to disable back feature set to false
         );
 
-     //   Navigator.pushNamed(context, MyRoutes.proceedToDisbursedRoutes);
+        //   Navigator.pushNamed(context, MyRoutes.proceedToDisbursedRoutes);
       } else if (loanDetailsData?.currentApplicationStage == STAGE_DISBURSEMENT) {
         await TGSharedPreferences.getInstance().set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
-
 
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => ProceedToDisburseMain(),
+            builder: (BuildContext context) => const ProceedToDisburseMain(),
           ),
-              (route) => false,//if you want to disable back feature set to false
+          (route) => false, //if you want to disable back feature set to false
         );
 
-       // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProceedToDisburseMain()));
-
+        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProceedToDisburseMain()));
       } else if (loanDetailsData?.currentApplicationStage == STAGE_DISBURSEMENT_STATUS) {
         await TGSharedPreferences.getInstance().set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
-
 
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             builder: (BuildContext context) => LoanReviewMain(),
           ),
-              (route) => false,//if you want to disable back feature set to false
+          (route) => false, //if you want to disable back feature set to false
         );
 
-      //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanReviewMain()));
+        //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanReviewMain()));
 
         // Navigator.pushNamed(context, MyRoutes.reviewDisbursedAccRoutes);
       } else {
-
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             builder: (BuildContext context) => CongratulationsFinalMain(),
           ),
-              (route) => false,//if you want to disable back feature set to false
+          (route) => false, //if you want to disable back feature set to false
         );
 
-      //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CongratulationsFinalMain()));
+        //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CongratulationsFinalMain()));
       }
     } else {
       await TGSharedPreferences.getInstance().set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
-
 
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
           builder: (BuildContext context) => CongratulationsFinalMain(),
         ),
-            (route) => false,//if you want to disable back feature set to false
+        (route) => false, //if you want to disable back feature set to false
       );
 
-    //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CongratulationsFinalMain()));
+      //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CongratulationsFinalMain()));
     }
   }
 
@@ -317,29 +290,28 @@ class MoveStage {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => GSTInvoicesList(),
+          builder: (BuildContext context) => const GSTInvoicesList(),
         ),
-            (route) => false,//if you want to disable back feature set to false
+        (route) => false, //if you want to disable back feature set to false
       );
       //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GSTInvoicesList()));
     } else if (currentAppStage == STAGE_SHARE_INVOICE) {
-
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => GSTInvoicesList(),
+          builder: (BuildContext context) => const GSTInvoicesList(),
         ),
-            (route) => false,//if you want to disable back feature set to false
+        (route) => false, //if you want to disable back feature set to false
       );
 
-     // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GSTInvoicesList()));
+      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GSTInvoicesList()));
     } else if (currentAppStage == STAGE_CONSENT) {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => AccountAggregatorDetails(),
+          builder: (BuildContext context) => const AccountAggregatorDetails(),
         ),
-            (route) => false,//if you want to disable back feature set to false
+        (route) => false, //if you want to disable back feature set to false
       );
 
       //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AccountAggregatorDetails()));
@@ -347,130 +319,120 @@ class MoveStage {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => LoanOfferList(),
+          builder: (BuildContext context) => const LoanOfferDialog(),
         ),
-            (route) => false,//if you want to disable back feature set to false
+        (route) => false, //if you want to disable back feature set to false
       );
 
-    //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanOfferList()));
+      //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanOfferList()));
     } else if (currentAppStage == STAGE_LOAN_OFFER) {
-
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => InfoShare(),
+          builder: (context) => const LoanOfferDialog(),
         ),
-            (route) => false,//if you want to disable back feature set to false
+        (route) => false,
       );
 
       //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => InfoShare()));
     } else if (currentAppStage == STAGE_SET_DISBURSEMENT_ACC) {
-
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => ReviewDisbursedAccMain(),
+          builder: (context) => const LoanOfferDialog(),
         ),
-            (route) => false,//if you want to disable back feature set to false
+        (route) => false,
       );
       //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ReviewDisbursedAccMain()));
     } else if (currentAppStage == STAGE_SIGN_AGGREEMENT) {
-
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
           builder: (BuildContext context) => LoanAgreementMain(),
         ),
-            (route) => false,//if you want to disable back feature set to false
+        (route) => false, //if you want to disable back feature set to false
       );
-     // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanAgreementMain()));
+      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanAgreementMain()));
     } else if (currentAppStage == STAGE_SIGN_AGGREEMENT_STATUS) {
-
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
           builder: (BuildContext context) => LoanAgreementMain(),
         ),
-            (route) => false,//if you want to disable back feature set to false
+        (route) => false, //if you want to disable back feature set to false
       );
 
-     // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanAgreementMain()));
+      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanAgreementMain()));
     } else if (currentAppStage == STAGE_GRANT_LOAN) {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => EmailSentAfterLoanAgreement(),
+          builder: (BuildContext context) => const SetupEmandate(),
         ),
-            (route) => false,//if you want to disable back feature set to false
+        (route) => false, //if you want to disable back feature set to false
       );
 
-     // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EmailSentAfterLoanAgreement()));
+      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EmailSentAfterLoanAgreement()));
     } else if (currentAppStage == STAGE_E_MANDATE) {
-
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => SetupEmandate(),
+          builder: (BuildContext context) => const ProceedToDisburseMain(),
         ),
-            (route) => false,//if you want to disable back feature set to false
+        (route) => false, //if you want to disable back feature set to false
       );
-    //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SetupEmandate()));
+      //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SetupEmandate()));
     } else if (currentAppStage == STAGE_E_MANDATE_STATUS) {
-
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => SetupEmandate(),
+          builder: (BuildContext context) => const SetupEmandate(),
         ),
-            (route) => false,//if you want to disable back feature set to false
+        (route) => false, //if you want to disable back feature set to false
       );
 
-     // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SetupEmandate()));
+      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SetupEmandate()));
     } else if (currentAppStage == STAGE_CONSENT_MONITORING) {
-
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => RedirectedLoader(),
+          builder: (BuildContext context) => const RedirectedLoader(),
         ),
-            (route) => false,//if you want to disable back feature set to false
+        (route) => false, //if you want to disable back feature set to false
       );
 
-    //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RedirectedLoader()));
+      //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RedirectedLoader()));
     } else if (currentAppStage == STAGE_DISBURSEMENT) {
-
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => ProceedToDisburseMain(),
+          builder: (BuildContext context) => const ProceedToDisburseMain(),
         ),
-            (route) => false,//if you want to disable back feature set to false
+        (route) => false, //if you want to disable back feature set to false
       );
 
-     // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProceedToDisburseMain()));
-     // Navigator.pushNamed(context, MyRoutes.proceedToDisbursedRoutes);
+      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProceedToDisburseMain()));
+      // Navigator.pushNamed(context, MyRoutes.proceedToDisbursedRoutes);
     } else if (currentAppStage == STAGE_DISBURSEMENT_STATUS) {
-
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
           builder: (BuildContext context) => LoanReviewMain(),
         ),
-            (route) => false,//if you want to disable back feature set to false
+        (route) => false, //if you want to disable back feature set to false
       );
 
-     // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanReviewMain()));
+      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanReviewMain()));
     } else {
-
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
           builder: (BuildContext context) => CongratulationsFinalMain(),
         ),
-            (route) => false,//if you want to disable back feature set to false
+        (route) => false, //if you want to disable back feature set to false
       );
 
-     // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CongratulationsFinalMain()));
+      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CongratulationsFinalMain()));
     }
   }
 }

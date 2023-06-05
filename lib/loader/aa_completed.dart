@@ -19,7 +19,7 @@ import 'package:gstmobileservices/util/erros_handle_util.dart';
 import 'package:gstmobileservices/util/tg_flavor.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
-import 'package:sbi_sahay_1_0/loanprocess/mobile/loanofferlist/ui/loan_offer_pop_up.dart';
+import 'package:sbi_sahay_1_0/utils/movestageutils.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
 
@@ -56,9 +56,8 @@ class _AaCompletedState extends State<AaCompletedPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       // loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
       if (mounted) {
-        setState(() async {
-          loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
-        });
+        loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
+        setState(() {});
       }
     });
   }
@@ -209,7 +208,7 @@ class _AaCompletedState extends State<AaCompletedPage> {
     if (loanAppId == null || loanAppId == "") {
       tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('2'));
     } else {
-      tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('4'));
+      tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('7'));
     }
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,
@@ -221,13 +220,7 @@ class _AaCompletedState extends State<AaCompletedPage> {
     TGLog.d("LoanAppStatusResponse : onSuccess()");
     if (response?.getLoanStatusResObj().status == RES_SUCCESS) {
       if (response?.getLoanStatusResObj().data?.stageStatus == "PROCEED") {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const LoanOfferDialog(),
-          ),
-          (route) => false,
-        );
+        MoveStage.navigateNextStage(context, response?.getLoanStatusResObj().data?.currentStage);
       } else if (response?.getLoanStatusResObj().data?.stageStatus == "HOLD") {
         Future.delayed(const Duration(seconds: 10), () {
           _loanAppStatusAfterConsentStatus();

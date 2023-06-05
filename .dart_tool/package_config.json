@@ -213,9 +213,9 @@
     },
     {
       "name": "fwfh_text_style",
-      "rootUri": "file:///C:/Users/Vaishali.patel/AppData/Local/Pub/Cache/hosted/pub.dev/fwfh_text_style-2.22.08+1",
+      "rootUri": "file:///C:/Users/Vaishali.patel/AppData/Local/Pub/Cache/hosted/pub.dev/fwfh_text_style-2.22.8+2",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.17"
     },
     {
       "name": "gif",
@@ -231,7 +231,7 @@
     },
     {
       "name": "gstmobileservices",
-      "rootUri": "file:///C:/Users/Vaishali.patel/AppData/Local/Pub/Cache/git/gstsahaymobileappservice-e72589164baa46a28ab92de60753509b5615c465/",
+      "rootUri": "file:///C:/Users/Vaishali.patel/AppData/Local/Pub/Cache/git/gstsahaymobileappservice-108790a5b71892e2374cc2f7cb9b53c43040a165/",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -465,7 +465,7 @@
     },
     {
       "name": "rflutter_alert",
-      "rootUri": "file:///C:/Users/Vaishali.patel/AppData/Local/Pub/Cache/hosted/pub.dev/rflutter_alert-2.0.4",
+      "rootUri": "file:///C:/Users/Vaishali.patel/AppData/Local/Pub/Cache/hosted/pub.dev/rflutter_alert-2.0.6",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -531,7 +531,7 @@
     },
     {
       "name": "source_gen",
-      "rootUri": "file:///C:/Users/Vaishali.patel/AppData/Local/Pub/Cache/hosted/pub.dev/source_gen-1.3.1",
+      "rootUri": "file:///C:/Users/Vaishali.patel/AppData/Local/Pub/Cache/hosted/pub.dev/source_gen-1.3.2",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -621,7 +621,7 @@
     },
     {
       "name": "url_launcher_android",
-      "rootUri": "file:///C:/Users/Vaishali.patel/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_android-6.0.31",
+      "rootUri": "file:///C:/Users/Vaishali.patel/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_android-6.0.34",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -758,7 +758,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-05-11T10:02:10.790553Z",
+  "generated": "2023-05-19T11:22:24.202214Z",
   "generator": "pub",
   "generatorVersion": "2.19.5"
 }
