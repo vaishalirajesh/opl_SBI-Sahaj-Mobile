@@ -35,6 +35,7 @@ import '../../../../utils/constants/stageconstants.dart';
 import '../../../../utils/constants/statusConstants.dart';
 import '../../../../utils/helpers/themhelper.dart';
 import '../../../../utils/internetcheckdialog.dart';
+import '../../../../utils/movestageutils.dart';
 import '../../../../utils/strings/strings.dart';
 import '../../profile/ui/newprofile.dart';
 import '../../transactions/ui/transactionscreen.dart';
@@ -769,13 +770,14 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
       child: GestureDetector(
         onTap: () {
           TGLog.d("ON press account");
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => const CongratulationsScreen(),
-            ),
-            (route) => false, //if you want to disable back feature set to false
-          );
+          MoveStage.movetoStage(context, data);
+          // Navigator.pushAndRemoveUntil(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (BuildContext context) => const CongratulationsScreen(),
+          //   ),
+          //   (route) => false, //if you want to disable back feature set to false
+          // );
         },
         child: Container(
           decoration: BoxDecoration(
@@ -883,13 +885,14 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
         ),
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => const CongratulationsScreen(),
-              ),
-              (route) => false, //if you want to disable back feature set to false
-            );
+            MoveStage.movetoStage(context, data);
+            // Navigator.pushAndRemoveUntil(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (BuildContext context) => const CongratulationsScreen(),
+            //   ),
+            //   (route) => false, //if you want to disable back feature set to false
+            // );
           },
           style: ThemeHelper.getInstance()!.elevatedButtonTheme.style!.copyWith(
                 foregroundColor: MaterialStateProperty.all(MyColors.pnbcolorPrimary),

@@ -13,6 +13,7 @@ import 'package:gstmobileservices/model/models/verify_otp_response_main.dart';
 import 'package:gstmobileservices/model/requestmodel/get_all_loan_detail_by_refid_request.dart';
 import 'package:gstmobileservices/model/requestmodel/get_gst_basic_details_request.dart';
 import 'package:gstmobileservices/model/requestmodel/get_otp_request.dart';
+import 'package:gstmobileservices/model/requestmodel/verify_gst_otp_request.dart';
 import 'package:gstmobileservices/model/responsemodel/get_all_loan_detail_by_refid_response.dart';
 import 'package:gstmobileservices/model/responsemodel/get_gst_basic_details_response.dart';
 import 'package:gstmobileservices/model/responsemodel/get_otp_response.dart';
@@ -27,6 +28,7 @@ import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/erros_handle_util.dart';
 import 'package:gstmobileservices/util/jumpingdot_util.dart';
+import 'package:gstmobileservices/util/tg_flavor.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:pinput/pinput.dart';
@@ -42,12 +44,14 @@ import 'package:uuid/uuid.dart';
 
 import '../../../utils/Utils.dart';
 import '../../../utils/constants/imageconstant.dart';
+import '../../../utils/constants/route_handler.dart';
 import '../../../utils/constants/session_keys.dart';
 import '../../../utils/helpers/myfonts.dart';
 import '../../../utils/helpers/themhelper.dart';
 import '../../../utils/internetcheckdialog.dart';
 import '../../../utils/strings/strings.dart';
 import '../../../widgets/otp_textfield_widget.dart';
+import '../confirm_details/confirm_details.dart';
 
 class OtpVerifyGST extends StatelessWidget {
   const OtpVerifyGST({super.key});
@@ -102,8 +106,8 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
   bool isClearOtp = false;
   bool isGetOTPLoaderStart = false;
   bool isVerifyOTPLoaderStart = false;
-  String gstin = '';
-  var strMobile = "9601483912"; //TGSession.getInstance().get(SESSION_MOBILENUMBER); //"";
+  String gstin = "";
+  var strMobile = TGSession.getInstance().get(SESSION_MOBILENUMBER); //"";
   var otpSessionKey = TGSession.getInstance().get(SESSION_OTPSESSIONKEY); //"";
 
   bool isOpenEnablePopUp = false;
@@ -116,6 +120,7 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
 
   void getPopupValue() async {
     isOpenEnablePopUp = await TGSharedPreferences.getInstance().get(PREF_ENABLE_POPUP) ?? false;
+    gstin = await TGSharedPreferences.getInstance().get(PREF_GSTIN);;
   }
 
   void checkOtp() {
@@ -174,8 +179,8 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
                       child: Text(
-                        "OTP sent to Mobile number and Email linked to GSTIN: 29ABCDE1234F3Z6",
-                        style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
+                        "OTP sent to Mobile number and Email linked to GSTIN: " + gstin,
+                        style: ThemeHelper.getInstance()!.textTheme.displayMedium!.copyWith(fontSize: 14.sp),
                       ),
                     ),
                     SizedBox(
@@ -501,18 +506,24 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
       isVerifyOTPLoaderStart = true;
     });
 
-    String uuid = const Uuid().v1().replaceAll("-", "").substring(0, 16);
-    CredBlock credBlock = CredBlock(
-        appToken: uuid,
-        otp: otp,
-        otpSessionKey: getOtpRes != null ? getOtpRes?.data?.credBlock?.otpSessionKey : otpSessionKey,
-        status: "");
+    // String uuid = const Uuid().v1().replaceAll("-", "").substring(0, 16);
+    // CredBlock credBlock = CredBlock(
+    //     appToken: uuid,
+    //     otp: otp,
+    //     otpSessionKey: getOtpRes != null ? getOtpRes?.data?.credBlock?.otpSessionKey : otpSessionKey,
+    //     status: "");
 
-    RequestAuthUser requestAuthUser = RequestAuthUser(mobile: strMobile, credBlock: credBlock, deviceId: uuid);
-    String jsonReq = jsonEncode(requestAuthUser.toJson());
+
+    String otpSessionKey = TGSession.getInstance().get(SESSION_OTPSESSIONKEY);
+    String strGSTIN = TGSession.getInstance().get("otp_gstin");
+    VerifyGstOtpRequest verifyGstOtpRequest =
+    VerifyGstOtpRequest(id: strGSTIN, otp: otp, sessionKey: getOtpRes?.data?.sessionKey ?? otpSessionKey);
+
+   // RequestAuthUser requestAuthUser = RequestAuthUser(mobile: strMobile, credBlock: credBlock, deviceId: uuid);
+    String jsonReq = jsonEncode(verifyGstOtpRequest.toJson());
 
     TGLog.d("Verify GST OTP Request : $jsonReq");
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_VERIFY_OTP);
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_VERIFY_GSTOTP);
 
     ServiceManager.getInstance().verifyOtp(
         request: tgPostRequest,
@@ -528,8 +539,16 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
     //Navigator.pop(context);
     if (verifyOtpResponse?.status == RES_SUCCESS) {
       TGSharedPreferences.getInstance().set(PREF_ACCESS_TOKEN, verifyOtpResponse?.data?.accessToken);
-      setAccessTokenInRequestHeader();
-      getGstBasicDetails();
+       setAccessTokenInRequestHeader();
+      // getGstBasicDetails();
+
+      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => GstBasicDetails(),
+        ),
+      );
     } else {
       setState(() {
         isVerifyOTPLoaderStart = false;

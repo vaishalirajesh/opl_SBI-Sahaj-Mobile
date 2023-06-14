@@ -38,6 +38,7 @@ import '../../../../utils/constants/statusConstants.dart';
 import '../../../../utils/internetcheckdialog.dart';
 import '../../../../utils/strings/strings.dart';
 import '../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
+import '../../accountaggregatorntb/launchAaUrl/aalaunchurlmain.dart';
 
 class AAList extends StatelessWidget {
   const AAList({super.key});
@@ -73,7 +74,7 @@ class _AAListViewState extends State<AAListView> {
   //List<int> isCheckedList = [];
   int selectedValue = -1;
 
-  bool isLoaderStart = false;
+  bool isLoaderStart = true;
   bool isShowLoader = false;
 
   @override
@@ -336,7 +337,7 @@ class _AAListViewState extends State<AAListView> {
                             children: [
                               Image.asset(Utils.path(IMG_NADL), height: 21.h, width: 60.w),
                               Text("${_searchResult?[index].name}",
-                                  style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 12.sp)),
+                                  style: ThemeHelper.getInstance()!.textTheme.displayMedium!.copyWith(fontSize: 12.sp)),
                             ],
                           ),
                         ),
@@ -361,11 +362,17 @@ class _AAListViewState extends State<AAListView> {
       return ListView.builder(
         shrinkWrap: true,
         //scrollDirection: Axis.vertical,
-        itemCount: typeList?.data?.length ?? 0,
+        itemCount: _aaListObj.length ?? 0,
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
-              changeState(index);
+              //changeState(index);
+
+              setState(() {
+                selectedValue = index;
+              });
+              TGSharedPreferences.getInstance().set(PREF_AAID, _aaListObj[index].aaId);
+              TGSharedPreferences.getInstance().set(PREF_AACODE, _aaListObj[index].code);
             },
             child: Column(
               children: [
@@ -380,9 +387,9 @@ class _AAListViewState extends State<AAListView> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image.asset(Utils.path(IMG_NADL), height: 21.h, width: 60.w),
-                        Text("${typeList?.data?[index].name}",
-                            style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 12.sp)),
+                        //Image.asset(Utils.path(IMG_NADL), height: 21.h, width: 60.w),
+                        Text("${_aaListObj?[index].name}",
+                            style: ThemeHelper.getInstance()!.textTheme.displayMedium!.copyWith(fontSize: 12.sp)),
                       ],
                     ),
                   ),
@@ -465,17 +472,29 @@ class _AAListViewState extends State<AAListView> {
     if (response?.getAAListResObj().status == RES_DETAILS_FOUND) {
       setState(() {
         isLoaderStart = false;
-        typeList = response?.getAAListResObj();
-        if (typeList?.data?.isNotEmpty == true) {
-          _aaListObj = typeList!.data!;
-          typeListlen = typeList!.data!.length!;
+        if (response?.getAAListResObj().data?.isNotEmpty == true) {
+          _aaListObj = response?.getAAListResObj().data ?? [];
         }
       });
+
+      // setState(() {
+      //   isLoaderStart = false;
+      //   typeList = response?.getAAListResObj();
+      //   if (typeList?.data?.isNotEmpty == true) {
+      //     _aaListObj = typeList!.data!;
+      //     typeListlen = typeList!.data!.length!;
+      //   }
+      // });
     } else {
-      TGView.showSnackBar(context: context, message: response?.getAAListResObj().message ?? "No Data Found");
-      setState(() {
-        isLoaderStart = false;
-      });
+      isLoaderStart = false;
+
+      LoaderUtils.handleErrorResponse(
+          context, response?.getAAListResObj().status, response?.getAAListResObj().message, null);
+
+      // TGView.showSnackBar(context: context, message: response?.getAAListResObj().message ?? "No Data Found");
+      // setState(() {
+      //   isLoaderStart = false;
+      // });
     }
   }
 
@@ -489,6 +508,9 @@ class _AAListViewState extends State<AAListView> {
 
   Future<void> _postConsentHandleRequest() async {
     String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    TGSharedPreferences.getInstance().set(PREF_AACODE,_aaListObj[selectedValue].code.toString());
+    TGSharedPreferences.getInstance().set(PREF_AAID,_aaListObj[selectedValue].aaId.toString());
+
     ConsentHandleRequest consentHandleRequest = ConsentHandleRequest(
         loanApplicationRefId: loanAppRefId,
         aaCode: _aaListObj[selectedValue].code.toString(),
@@ -517,6 +539,7 @@ class _AAListViewState extends State<AAListView> {
       setState(() {
         isShowLoader = false;
       });
+      Navigator.pop(context);
       LoaderUtils.handleErrorResponse(
           context, response?.getConsentHandleResObj().status, response?.getConsentHandleResObj().message, null);
     }
@@ -551,18 +574,17 @@ class _AAListViewState extends State<AAListView> {
       TGLog.d("GetConsentHandleUrl : on launch URL --${response?.getConsentHandleUrlObj().data?.url}()");
 
       String url = response?.getConsentHandleUrlObj().data?.url ?? "";
-
-      // TODO : Remove navigation and add URL lunch
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const AaCompletedPage(
-            str: {},
-          ),
-        ),
-        (route) => false,
-      );
-      // launchAa(url);
+      // // TODO : Remove navigation and add URL lunch
+      // Navigator.pushAndRemoveUntil(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => const AaCompletedPage(
+      //       str: {},
+      //     ),
+      //   ),
+      //   (route) => false,
+      // );
+       launchAa(url);
     } else if (response?.getConsentHandleUrlObj().status == RES_RETRY_URL) {
       if (await TGNetUtil.isInternetAvailable()) {
         _getConsentHandleUrl();
@@ -570,6 +592,7 @@ class _AAListViewState extends State<AAListView> {
         showSnackBarForintenetConnection(context, _getConsentHandleUrl);
       }
     } else {
+      Navigator.pop(context);
       LoaderUtils.handleErrorResponse(
           context, response?.getConsentHandleUrlObj().status, response?.getConsentHandleUrlObj().message, null);
     }

@@ -212,6 +212,11 @@ class RouteGenerator {
         queryParameters = uriData.queryParameters; // query parameters automatically populated
         TGLog.d("Query Param $queryParameters");
       }
+      if (route == MyRoutes.AAWebViewCallBack) {
+        //converts string to a uri
+        queryParameters = uriData.queryParameters; // query parameters automatically populated
+        TGLog.d("Query Param $queryParameters");
+      }
       // if (route == MyRoutes.aarepponse || route == MyRoutes.ConsentMonitoring) {
       //   queryParameters = uriData.queryParameters;
       // }
@@ -225,7 +230,9 @@ class RouteGenerator {
         } else if (route == MyRoutes.AAWebViewCallBack) {
           return AaCompletedPage(str: queryParameters!);
         } else {
-          return Container();
+          return Container(child: Center(
+            child: Text("You are Unthorised", textAlign: TextAlign.center),
+          ),);
         }
       },
       settings: settings,

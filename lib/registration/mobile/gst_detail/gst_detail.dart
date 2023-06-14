@@ -147,7 +147,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
         ),
         child: Text(
           str_Kindly_enter_your_GST_Username_GSTIN_to_link_with_Sahay_GST_Account,
-          style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(fontSize: 14.sp),
+          style: ThemeHelper.getInstance()!.textTheme.displayMedium?.copyWith(fontSize: 14.sp),
         ),
       )
     ];
@@ -161,7 +161,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
             display();
           },
           child: TextFormField(
-              style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
+              style: ThemeHelper.getInstance()!.textTheme.displayMedium!.copyWith(fontSize: 14.sp),
               onChanged: (content) {
                 CheckValidGSTUserName();
               },
@@ -216,7 +216,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
         height: 10.h,
       ),
       TextFormField(
-          style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 16.sp),
+          style: ThemeHelper.getInstance()!.textTheme.displayMedium!.copyWith(fontSize: 16.sp),
           onChanged: (content) {
             CheckValidGSTInNumber();
           },

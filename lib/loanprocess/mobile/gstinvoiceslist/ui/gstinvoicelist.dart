@@ -39,6 +39,7 @@ import '../../../../utils/Utils.dart';
 import '../../../../utils/constants/imageconstant.dart';
 import '../../../../utils/erros_handle.dart';
 import '../../../../utils/internetcheckdialog.dart';
+import '../../../../utils/movestageutils.dart';
 import '../../../../utils/progressloader.dart';
 import '../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 
@@ -260,7 +261,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
               children: [
                 Expanded(
                   child: Text(
-                    "$str_select_any_inovice (3)",
+                    "$str_select_any_inovice (${arrInvoiceList.length})",
                     style: ThemeHelper.getInstance()!
                         .textTheme
                         .headline1!
@@ -313,7 +314,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
         return Column(
           children: [
             Container(
-              key: ValueKey("${_gstInvoceListResMain?.data?[index]}"),
+              key: ValueKey("${_gstInvoceListResMain?.data?[index].buyerName.toString()}"),
               child: invoiceDataUI(index),
             ),
             SizedBox(
@@ -337,12 +338,12 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
           children: [
             Expanded(
                 child: Text(
-              _gstInvoceListResMain?.data?[index].buyerName ?? '',
-              style: ThemeHelper.getInstance()!.textTheme.headline3!,
+              _gstInvoceListResMain?.data?[index].buyerName.toString() ?? '',
+              style: ThemeHelper.getInstance()!.textTheme.displayMedium!,
               maxLines: 2,
             )),
             Text(
-              Utils.convertIndianCurrency('${_gstInvoceListResMain?.data?[index].invoiceData?.invValue ?? ''} '),
+              Utils.convertIndianCurrency('${_gstInvoceListResMain?.data?[index].invoiceData?.invValue.toString() ?? ''} '),
               style: ThemeHelper.getInstance()!
                   .textTheme
                   .bodyText1!
@@ -357,10 +358,10 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
           children: [
             Text(
                 Utils.convertDateFormat(
-                    _gstInvoceListResMain?.data?[index].invoiceData?.invDate ?? "24-03-2023", "dd-MM-yyyy", 'd MMM'),
-                style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(color: MyColors.lightGraySmallText)),
+                    _gstInvoceListResMain?.data?[index].invoiceData?.invDate.toString() ?? "24-03-2023", "dd-MM-yyyy", 'd MMM'),
+                style: ThemeHelper.getInstance()!.textTheme.displayMedium?.copyWith(color: MyColors.lightGraySmallText)),
             Text(" | ${_gstInvoceListResMain?.data?[index].ctin}" ?? "",
-                style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(color: MyColors.lightGraySmallText)),
+                style: ThemeHelper.getInstance()!.textTheme.displayMedium?.copyWith(color: MyColors.lightGraySmallText)),
           ],
         ),
       ]),
@@ -910,7 +911,6 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
 
   Future<void> shareInvoicesListAPI() async {
     loanApplicationReferenceID = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
-
     loanApplicationID = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
 
     ShareGstInvoiceRequest shareGstInvoiceRequest =
@@ -963,9 +963,14 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
     if (_getLoanStatusResMain?.status == RES_SUCCESS) {
       if (_getLoanStatusResMain?.data?.stageStatus == "PROCEED") {
         TGLog.d("GetLoanAppStatusResponse : in proceed");
-
+        setState(() {
+          isLoadData = true;
+          isShowTransparentBg = false;
+        });
+        MoveStage.navigateNextStage(
+            context, _getLoanStatusResMain?.data?.currentStage);
         // Navigator.pop(context);
-        Navigator.pushReplacementNamed(context, MyRoutes.AccountAggregatorDetailsRoutes);
+        //Navigator.pushReplacementNamed(context, MyRoutes.AccountAggregatorDetailsRoutes);
       } else if (_getLoanStatusResMain?.data?.stageStatus == "HOLD") {
         Future.delayed(const Duration(seconds: 10), () {
           getLoanAppStatusAfterShareGstInvoiceAPI();
@@ -975,12 +980,16 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
       }
     } else {
       // Navigator.pop(context);
+      setState(() {
+        isLoadData = true;
+        isShowTransparentBg = false;
+      });
       LoaderUtils.handleErrorResponse(context, response?.getLoanStatusResObj().status,
           response?.getLoanStatusResObj().message, response?.getLoanStatusResObj().data?.stageStatus);
     }
-    setState(() {
-      isShowTransparentBg = false;
-    });
+    // setState(() {
+    //   isShowTransparentBg = false;
+    // });
   }
 
   _onErrorGetLoanAppStatus(TGResponse errorResponse) {
@@ -988,6 +997,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
     handleServiceFailError(context, errorResponse.error);
     setState(() {
       isShowTransparentBg = false;
+      isLoadData = true;
     });
     // Navigator.pop(context);
   }

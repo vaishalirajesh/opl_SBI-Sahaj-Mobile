@@ -69,6 +69,8 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
 
   @override
   void initState() {
+
+
     getGstDetailStatus();
     super.initState();
   }
@@ -112,13 +114,6 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                         children: [
                           _buildHeader(),
                           _buildMiddler(),
-
-                          // (isOpenDetails)
-                          //     ? Padding(
-                          //         padding: EdgeInsets.only(top: 10.h),
-                          //         child:  _buildMiddler(),
-                          //       )
-                          //     :  _buildOnlyPersonalDetialContainer(),
                           confirmGstDetailCheck(),
                         ],
                       ),
@@ -183,79 +178,6 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                   height: 20.h,
                 ),
                 isOpenDetails ? ExpandedView() : Container()
-
-                // _buildRow(
-                //     str_Legal_Name,
-                //     _gstBasicDataResMain?.data?.lgnm == null
-                //         ? "Manish Patel"
-                //         : _gstBasicDataResMain?.data?.lgnm),
-                // SizedBox(
-                //   height: 24.h,
-                // ),
-                // _buildRow(
-                //     str_Trade_Name,
-                //     _gstBasicDataResMain?.data?.tradeNam == null
-                //         ? "Indo International"
-                //         : _gstBasicDataResMain?.data?.tradeNam),
-                // SizedBox(
-                //   height: 24.h,
-                // ),
-                // _buildRow(
-                //     str_Constitution,
-                //     _gstBasicDataResMain?.data?.ctb == null
-                //         ? "Proprietorship"
-                //         : _gstBasicDataResMain?.data?.ctb),
-                // SizedBox(
-                //   height: 24.h,
-                // ),
-                // _buildRow(
-                //     str_Date_of_Registration,
-                //     _gstBasicDataResMain?.data?.rgdt == null
-                //         ? "01/08/2018"
-                //         : _gstBasicDataResMain?.data?.rgdt),
-                // SizedBox(
-                //   height: 24.h,
-                // ),
-                // _buildRow(
-                //     str_GSTIN,
-                //     _gstBasicDataResMain?.data?.gstin == null
-                //         ? "24ABCDE1234F3Z6"
-                //         : _gstBasicDataResMain?.data?.gstin),
-                // SizedBox(
-                //   height: 24.h,
-                // ),
-                // _buildRow(
-                //     str_GSTIN_Status,
-                //     _gstBasicDataResMain?.data?.sts == null
-                //         ? "Active"
-                //         : _gstBasicDataResMain?.data?.sts),
-                // SizedBox(
-                //   height: 24.h,
-                // ),
-                // _buildRow(
-                //     str_Taxpayer_Type,
-                //     _gstBasicDataResMain?.data?.dty == null
-                //         ? "Regular"
-                //         : _gstBasicDataResMain?.data?.dty),
-                // SizedBox(
-                //   height: 24.h,
-                // ),
-                // _buildRow(
-                //     str_Business_Activity,
-                //     _gstBasicDataResMain?.data?.lgnm == null
-                //         ? "Service Provider and Others"
-                //         : _gstBasicDataResMain?.data?.lgnm),
-                // SizedBox(
-                //   height: 24.h,
-                // ),
-                // _buildRow(
-                //     str_Place_of_Business,
-                //     _gstBasicDataResMain?.data?.stj == null
-                //         ? "108, Near Datta Mandir, Radha Apartment, Bhavnagar, Gujarat, 364001"
-                //         : _gstBasicDataResMain?.data?.stj),
-                // SizedBox(
-                //   height: 20.h,
-                // ) ,
               ],
             ),
           ),
@@ -351,7 +273,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
               Expanded(
                 child: Text(
                   checkboxText,
-                  style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp),
+                  style: ThemeHelper.getInstance()?.textTheme.displayMedium?.copyWith(fontSize: 14.sp),
                   maxLines: 5,
                 ),
               ),
@@ -368,7 +290,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
             width: 119.w,
             child: Text(
               title,
-              style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(
+              style: ThemeHelper.getInstance()!.textTheme.displayMedium?.copyWith(
                     color: MyColors.lightGraySmallText,
                     fontSize: 12.sp,
                   ),
@@ -378,7 +300,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
           width: 148.w,
           child: Text(
             subTitle ?? "",
-            style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(color: MyColors.darkblack),
+            style: ThemeHelper.getInstance()!.textTheme.displayMedium?.copyWith(color: MyColors.darkblack),
           ),
         ),
       ],
@@ -461,11 +383,11 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                       Padding(
                         padding: const EdgeInsets.only(left: 30, right: 30),
                         child: Text(
-                          "Welcome, Indo International. Let’s start the journey",
+                          "Welcome, ${_gstBasicDataResMain?.data?.tradeNam.toString()}. Let’s start the journey",
                           textAlign: TextAlign.center,
                           style: ThemeHelper.getInstance()
                               ?.textTheme
-                              .headline3
+                              .displayMedium
                               ?.copyWith(fontSize: 14.sp, color: MyColors.darkblack, fontFamily: MyFont.Roboto_Regular),
                         ),
                       ),

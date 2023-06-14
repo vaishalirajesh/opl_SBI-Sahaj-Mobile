@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gstmobileservices/common/app_functions.dart';
+import 'package:gstmobileservices/common/keys.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
 import 'package:gstmobileservices/model/models/get_gst_basic_details_res_main.dart';
 import 'package:gstmobileservices/model/models/get_loandetail_by_refid_res_main.dart';
@@ -397,6 +398,7 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
     //Navigator.pop(context);
     if (verifyOtpResponse?.status == RES_SUCCESS) {
       TGSharedPreferences.getInstance().set(PREF_ACCESS_TOKEN, verifyOtpResponse?.data?.accessToken);
+      TGSharedPreferences.getInstance().set(PREF_ACCESS_TOKEN_SBI, verifyOtpResponse?.data?.accessToken);
       setAccessTokenInRequestHeader();
       getGstBasicDetails();
     } else {

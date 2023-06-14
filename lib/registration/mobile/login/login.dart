@@ -609,6 +609,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
   _onSuccessGetOTP(GetotpResponse? response) {
     TGLog.d("Get GST OTP : onSuccess()");
     TGSession.getInstance().set(SESSION_MOBILENUMBER, mobileTextController.text);
+    TGSession.getInstance().set(SESSION_OTPSESSIONKEY, response?.getOtpReponseObj().data?.credBlock?.otpSessionKey);
     setState(() {
       getOtpRes = response?.getOtpReponseObj();
       _isGetOTPLoaderStart = false;

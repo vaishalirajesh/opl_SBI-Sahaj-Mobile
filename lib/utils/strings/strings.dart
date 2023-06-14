@@ -660,3 +660,7 @@ const str_outstanding = 'Outstanding';
 const strConsent_for_monitoring_getting_generated = "Consent for monitoring getting generated";
 const str_NO_Offer_found = 'No offer Found';
 const str_back_press_alert_msg = "You cannot back press while data is loading...";
+
+
+const str_hello = "Hello, ";
+const str_pan = "PAN: ";

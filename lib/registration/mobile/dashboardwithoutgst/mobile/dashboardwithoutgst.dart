@@ -119,10 +119,10 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 20.h),
-                    Text("Hello,Indo International", style: ThemeHelper.getInstance()?.textTheme.button),
+                    Text(str_hello + name!, style: ThemeHelper.getInstance()?.textTheme.button),
                     SizedBox(height: 5.h),
                     Text(
-                      "PAN: ABCDE1234F",
+                      str_pan +  pan!,
                       style: ThemeHelper.getInstance()!.textTheme.headline5!.copyWith(color: MyColors.white),
                     ),
                   ],
