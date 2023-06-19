@@ -169,18 +169,23 @@ Widget cardViewSetup() {
               ),
               TextSpan(
                 text: str_disc,
-                style: ThemeHelper.getInstance()!.textTheme.headline3,
+                style: ThemeHelper.getInstance()!.textTheme.displayMedium,
               ),
               TextSpan(
+                recognizer: new TapGestureRecognizer()
+                  ..onTap = () => {
+                    // redurectURLGST(
+                    //     "https://www.youtube.com/watch?v=vcxK5Ppd4R4")
+                  },
                 text: strVideo,
                 style: ThemeHelper.getInstance()!
                     .textTheme
-                    .headline3!
+                    .displayMedium!
                     .copyWith(color: MyColors.hyperlinkcolornew, decoration: TextDecoration.underline),
               ),
               TextSpan(
                 text: strLast,
-                style: ThemeHelper.getInstance()!.textTheme.headline3,
+                style: ThemeHelper.getInstance()!.textTheme.displayMedium,
               ),
             ],
           ),
@@ -204,7 +209,7 @@ Widget loginButton(BuildContext context) {
               text: str_logintc,
               style: ThemeHelper.getInstance()!
                   .textTheme
-                  .headline3!
+                  .displayMedium!
                   .copyWith(fontSize: 14.sp, color: MyColors.hyperlinkcolornew),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
@@ -220,4 +225,6 @@ Widget loginButton(BuildContext context) {
       ),
     ),
   );
+
+
 }

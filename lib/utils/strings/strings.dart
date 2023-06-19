@@ -664,3 +664,5 @@ const str_back_press_alert_msg = "You cannot back press while data is loading...
 
 const str_hello = "Hello, ";
 const str_pan = "PAN: ";
+
+const str_get_best_offer = 'Getting Best Offers';

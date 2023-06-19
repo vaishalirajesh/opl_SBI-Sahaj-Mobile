@@ -231,15 +231,15 @@
     },
     {
       "name": "gstmobileservices",
-      "rootUri": "file:///Users/cwdt127/.pub-cache/git/gstsahaymobileappservice-bd827fbd32e614bb976f3503dfc7ad2e5c299b5a/",
+      "rootUri": "file:///Users/cwdt127/.pub-cache/git/gstsahaymobileappservice-83f2ea36fa5e67a625f4ad20f2974509d1ab6dbe/",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "html",
-      "rootUri": "file:///Users/cwdt127/.pub-cache/hosted/pub.dev/html-0.15.3",
+      "rootUri": "file:///Users/cwdt127/.pub-cache/hosted/pub.dev/html-0.15.4",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.19"
     },
     {
       "name": "http",
@@ -471,9 +471,9 @@
     },
     {
       "name": "shared_preferences",
-      "rootUri": "file:///Users/cwdt127/.pub-cache/hosted/pub.dev/shared_preferences-2.1.1",
+      "rootUri": "file:///Users/cwdt127/.pub-cache/hosted/pub.dev/shared_preferences-2.1.2",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "shared_preferences_android",
@@ -758,7 +758,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-06-07T09:23:51.220670Z",
+  "generated": "2023-06-16T08:50:29.578908Z",
   "generator": "pub",
   "generatorVersion": "2.19.5"
 }

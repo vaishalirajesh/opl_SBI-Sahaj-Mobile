@@ -117,13 +117,24 @@ class MoveStage {
       } else if (loanDetailsData?.currentApplicationStage == STAGE_LOAN_OFFER) {
         await TGSharedPreferences.getInstance().set(PREF_AAID, loanDetailsData?.aaId);
         await TGSharedPreferences.getInstance().set(PREF_AACODE, loanDetailsData?.aaCode);
+
+
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => InfoShare(),
+            builder: (context) => const LoanOfferDialog(),
           ),
-          (route) => false, //if you want to disable back feature set to false
+              (route) => false,
         );
+
+
+        // Navigator.pushAndRemoveUntil(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (BuildContext context) => InfoShare(),
+        //   ),
+        //   (route) => false, //if you want to disable back feature set to false
+        // );
         //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => InfoShare()));
       } else if (loanDetailsData?.currentApplicationStage == STAGE_SET_DISBURSEMENT_ACC) {
         await TGSharedPreferences.getInstance().set(PREF_AAID, loanDetailsData?.aaId);
@@ -319,9 +330,9 @@ class MoveStage {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => const LoanOfferDialog(),
+          builder: (BuildContext context) =>  LoanOfferList(),
         ),
-        (route) => false, //if you want to disable back feature set to false
+            (route) => false, //if you want to disable back feature set to false
       );
 
       //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanOfferList()));
@@ -339,9 +350,9 @@ class MoveStage {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => const LoanOfferDialog(),
+          builder: (BuildContext context) =>  ReviewDisbursedAccMain(),
         ),
-        (route) => false,
+            (route) => false, //if you want to disable back feature set to false
       );
       //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ReviewDisbursedAccMain()));
     } else if (currentAppStage == STAGE_SIGN_AGGREEMENT) {

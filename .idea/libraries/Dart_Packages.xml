@@ -271,14 +271,14 @@
         <entry key="gstmobileservices">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/git/gstsahaymobileappservice-bd827fbd32e614bb976f3503dfc7ad2e5c299b5a//lib" />
+              <option value="$USER_HOME$/.pub-cache/git/gstsahaymobileappservice-83f2ea36fa5e67a625f4ad20f2974509d1ab6dbe//lib" />
             </list>
           </value>
         </entry>
         <entry key="html">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/html-0.15.3/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/html-0.15.4/lib" />
             </list>
           </value>
         </entry>
@@ -551,7 +551,7 @@
         <entry key="shared_preferences">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/shared_preferences-2.1.1/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/shared_preferences-2.1.2/lib" />
             </list>
           </value>
         </entry>
@@ -880,7 +880,7 @@
       </option>
     </properties>
     <CLASSES>
-      <root url="file://$USER_HOME$/.pub-cache/git/gstsahaymobileappservice-bd827fbd32e614bb976f3503dfc7ad2e5c299b5a//lib" />
+      <root url="file://$USER_HOME$/.pub-cache/git/gstsahaymobileappservice-83f2ea36fa5e67a625f4ad20f2974509d1ab6dbe//lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-61.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-5.13.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/archive-3.3.7/lib" />
@@ -916,7 +916,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/fwfh_text_style-2.22.8+3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/gif-2.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/glob-2.1.2/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/html-0.15.3/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/html-0.15.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http-0.13.6/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http_parser-4.0.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/internet_connection_checker_plus-1.0.1/lib" />
@@ -955,7 +955,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/quiver-2.1.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/responsive_framework-0.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/rflutter_alert-2.0.7/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/shared_preferences-2.1.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/shared_preferences-2.1.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/shared_preferences_android-2.1.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.2.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/shared_preferences_linux-2.2.0/lib" />

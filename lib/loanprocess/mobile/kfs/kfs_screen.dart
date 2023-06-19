@@ -35,6 +35,7 @@ import '../../../utils/constants/imageconstant.dart';
 import '../../../utils/constants/prefrenceconstants.dart';
 import '../../../utils/constants/statusConstants.dart';
 import '../../../utils/internetcheckdialog.dart';
+import '../../../utils/movestageutils.dart';
 import '../../../utils/progressLoader.dart';
 import '../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 
@@ -203,7 +204,7 @@ class KfsScreenBody extends State<KfsScreens> {
                     height: 5.h,
                   ),
                   Text(
-                    loanOfferData?.invoiceNumber ?? "230",
+                    loanOfferData?.invoiceNumber ?? "",
                     style: ThemeHelper.getInstance()
                         ?.textTheme
                         .headline2
@@ -323,9 +324,9 @@ class KfsScreenBody extends State<KfsScreens> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  str_applicant_name + "Manish Patel",
+                  str_applicant_name + applicantName,
                   style:
-                      ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(color: MyColors.white, fontSize: 14.sp),
+                      ThemeHelper.getInstance()?.textTheme.displayMedium?.copyWith(color: MyColors.white, fontSize: 14.sp),
                   textAlign: TextAlign.center,
                 ),
                 // Expanded(
@@ -365,7 +366,7 @@ class KfsScreenBody extends State<KfsScreens> {
                                 ?.textTheme
                                 .headline3
                                 ?.copyWith(color: MyColors.lightGraySmallText, fontSize: 12.sp)),
-                        Text("₹5,00,000",
+                        Text(loanOfferData?.offerDetails?.elementAt(0).availableLimit ?? "",
                             style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 14.sp)),
                       ],
                     )
@@ -393,7 +394,7 @@ class KfsScreenBody extends State<KfsScreens> {
                                 ?.textTheme
                                 .headline3
                                 ?.copyWith(color: MyColors.lightGraySmallText, fontSize: 12.sp)),
-                        Text("₹5,00,000",
+                        Text(loanOfferData?.offerDetails?.elementAt(0).sanctionLimit ?? "0",
                             style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 14.sp)),
                       ],
                     )
@@ -438,7 +439,7 @@ class KfsScreenBody extends State<KfsScreens> {
             Text(title,
                 style: ThemeHelper.getInstance()
                     ?.textTheme
-                    .headline3
+                    .displayMedium
                     ?.copyWith(fontSize: 14.sp, color: ThemeHelper.getInstance()?.colorScheme.surface)),
             SizedBox(
               height: 5.h,
@@ -446,7 +447,7 @@ class KfsScreenBody extends State<KfsScreens> {
             Text(value,
                 style: ThemeHelper.getInstance()
                     ?.textTheme
-                    .headline3
+                    .displayMedium
                     ?.copyWith(color: ThemeHelper.getInstance()?.colorScheme.background))
           ],
         )
@@ -937,7 +938,7 @@ class KfsScreenBody extends State<KfsScreens> {
 
                         LoanDetailColumnWidget(
                             str_cooling_period,
-                            "${loanOfferData?.offerDetails?.elementAt(0).coolingOffPeriod ?? "3 Days"}",
+                            "${loanOfferData?.offerDetails?.elementAt(0).coolingOffPeriod ?? "0 Days"}",
                             true,
                             str_cooling_period_tooltip),
                         SizedBox(height: 14.h),
@@ -996,7 +997,7 @@ class KfsScreenBody extends State<KfsScreens> {
                                     .contactDetailsOfNodalOfficer
                                     ?.replaceAll('null,', '')
                                     .replaceAll(',null', '') ??
-                                "Jainam Shah, Greivance Redressal Officer, 1st floor, Agile Complex, Dadar, Mumbai - 400014 Phone : 022 7878 2442",
+                                "",
                             style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 14.sp),
                             textAlign: TextAlign.start,
                           ),
@@ -1306,9 +1307,9 @@ class KfsScreenBody extends State<KfsScreens> {
     } else {
       LoaderUtils.handleErrorResponse(
           context, response?.getSetLoanOfferResObj().status, response?.getSetLoanOfferResObj().message, null);
-      setState(() {
-        isDataLoaded = false;
-      });
+      // setState(() {
+      //   isDataLoaded = false;
+      // });
     }
   }
 
@@ -1336,7 +1337,14 @@ class KfsScreenBody extends State<KfsScreens> {
     _getLoanStatusRes = response?.getLoanStatusResObj();
     if (_getLoanStatusRes?.status == RES_SUCCESS) {
       if (_getLoanStatusRes?.data?.stageStatus == "PROCEED") {
-        Navigator.pushReplacementNamed(context, MyRoutes.loanDepositeAccRoutes);
+        setState(() {
+          isDataLoaded = false;
+        });
+        Navigator.of(context, rootNavigator: true).pop();
+        MoveStage.navigateNextStage(
+            context, _getLoanStatusRes?.data?.currentStage);
+
+        //Navigator.pushReplacementNamed(context, MyRoutes.loanDepositeAccRoutes);
       } else if (_getLoanStatusRes?.data?.stageStatus == "HOLD") {
         Future.delayed(const Duration(seconds: 10), () {
           loanAppStatusAfterSetLoanOffer();
@@ -1345,12 +1353,13 @@ class KfsScreenBody extends State<KfsScreens> {
         loanAppStatusAfterSetLoanOffer();
       }
     } else {
+      setState(() {
+        isDataLoaded = false;
+      });
       LoaderUtils.handleErrorResponse(context, response?.getLoanStatusResObj().status,
           response?.getLoanStatusResObj().message, response?.getLoanStatusResObj().data?.stageStatus);
     }
-    setState(() {
-      isDataLoaded = false;
-    });
+
   }
 
   _onErrorGetLoanAppStatus(TGResponse errorResponse) {
@@ -1366,9 +1375,9 @@ class KfsScreenBody extends State<KfsScreens> {
       getLoanAppStatusAfterSelectLoanOffer();
     } else {
       showSnackBarForintenetConnection(context, getLoanAppStatusAfterSelectLoanOffer);
-      setState(() {
-        isDataLoaded = false;
-      });
+      // setState(() {
+      //   isDataLoaded = false;
+      // });
     }
   }
 

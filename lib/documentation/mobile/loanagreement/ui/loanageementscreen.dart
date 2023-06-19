@@ -322,17 +322,19 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
               _getLoanAgreementRes?.data?.loanAgreementModel?.type == "HTML" ? SourceType.html : SourceType.url,
           jsContent: const {
             EmbeddedJsContent(
-                webJs:
-                    "window.addEventListener('scroll', () => {if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {"
+                webJs: "window.addEventListener('scroll', () => {"
+                    "console.log('webJs');"
+                    "console.log(window.innerHeight + window.scrollY+50);"
+                    "console.log(document.body.offsetHeight);"
+                    "if ((Math.round(window.innerHeight + window.scrollY)+50) >= Math.round(document.body.offsetHeight)) {"
                     "TestDartCallback(true)"
-                    /*"console.log('end of scroll')"*/
-                    /*"`_functionName = allowInterop(setAgreementRead);`"*/
                     "}})",
-                mobileJs:
-                    "window.addEventListener('scroll', () => {if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {"
+                mobileJs: "window.addEventListener('scroll', () => {"
+                    "console.log('mobileJs');"
+                    "console.log(window.innerHeight + window.scrollY+50);"
+                    "console.log(document.body.offsetHeight);"
+                    "if ((Math.round(window.innerHeight + window.scrollY)+50) >= Math.round(document.body.offsetHeight)) {"
                     "TestDartCallback.postMessage(true)"
-                    /*"console.log('end of scroll')"*/
-                    /*"`_functionName = allowInterop(setAgreementRead);`"*/
                     "}})")
           },
           dartCallBacks: {DartCallback(name: 'TestDartCallback', callBack: (msg) => setAgreementRead(msg))},

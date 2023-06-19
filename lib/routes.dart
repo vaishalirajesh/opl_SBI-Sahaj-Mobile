@@ -97,7 +97,7 @@ class MyRoutes {
   static String LoaderPrepareLoanDisbursmentRoutes = '/LoaderPrepareLoanDisbursment';
   static String LoaderRedirectedLoaderRoutes = '/LoaderRedirected';
   static String AAWebView = '/AAWebRedirection';
-  static String AAWebViewCallBack = '/AAAfterCallBack';
+  static String AAWebViewCallBack = '/AAresponse';
 
   static String LoaderFetchGstDetailsRoutes = '/LoaderFetchGstDetails';
 
