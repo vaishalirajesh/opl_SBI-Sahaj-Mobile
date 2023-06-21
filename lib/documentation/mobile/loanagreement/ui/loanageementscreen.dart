@@ -44,6 +44,10 @@ import '../../../../utils/internetcheckdialog.dart';
 import '../../../../utils/jumpingdott.dart';
 import '../../../../utils/strings/strings.dart';
 import '../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
+import '../ui/launchURL/ddelaunchurlmain.dart'
+if (dart.library.html) '../ui/launchURL/ddelaunchweb.dart'
+if (dart.library.io) '../ui/launchURL/ddelaunchmobile.dart';
+
 
 class LoanAgreementMain extends StatelessWidget {
   @override
@@ -642,14 +646,14 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
       String url = utf8.decode(base64Decode(_getLoanStatusRes?.data?.agreementRedirectionData ?? ""));
       // TODO: remove navigation and add/uncomment launch URL
       // Navigator.pushReplacementNamed(context, MyRoutes.SetupEmandateRoutes);
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ESignCompletedMain(),
-        ),
-        (route) => false,
-      );
-      // launchdde(url);
+      // Navigator.pushAndRemoveUntil(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => ESignCompletedMain(),
+      //   ),
+      //   (route) => false,
+      // );
+       launchdde(url);
       // TGLog.d(url);
       // js.context.callMethod('customAlertMessage', [url]);
 
