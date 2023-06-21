@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
@@ -21,18 +20,18 @@ import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
-import 'package:gstmobileservices/util/tg_view.dart';
-import 'package:lottie/lottie.dart';
 import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/utils/constants/session_keys.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusConstants.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
 
+import '../loanprocess/mobile/accountaggregatorntb/launchAaUrl/aalaunchurlmain.dart'
+    if (dart.library.html) '../loanprocess/mobile/accountaggregatorntb/launchAaUrl/aaloaunchurlweb.dart'
+    if (dart.library.io) '../loanprocess/mobile/accountaggregatorntb/launchAaUrl/aalaunchurlmobile.dart';
 import '../routes.dart';
 import '../utils/Utils.dart';
 import '../utils/colorutils/mycolors.dart';
 import '../utils/constants/appconstant.dart';
-import '../utils/constants/constant.dart';
 import '../utils/constants/imageconstant.dart';
 import '../utils/constants/stageconstants.dart';
 import '../utils/dimenutils/dimensutils.dart';
@@ -267,7 +266,7 @@ class _RedirectedLoaderState extends State<RedirectedLoader> {
       consentHandleUrlobject = response?.getConsentHandleUrlObj();
       AppConstant.AAWEBREDIRCTIONURL = consentHandleUrlobject?.data?.url;
       hideLoader();
-      Navigator.pushNamed(context, MyRoutes.AAWebView);
+      launchAa(AppConstant.AAWEBREDIRCTIONURL!);
     } else if (response?.getConsentHandleUrlObj().status == RES_RETRY_URL) {
       await Future.delayed(Duration(seconds: 5), () async {
         if (await TGNetUtil.isInternetAvailable()) {

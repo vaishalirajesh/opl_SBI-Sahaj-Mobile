@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:sbi_sahay_1_0/utils/constants/appconstant.dart';
@@ -7,7 +6,6 @@ import 'package:webviewx/webviewx.dart';
 
 import '../../../../routes.dart';
 import '../../../../utils/constants/prefrenceconstants.dart';
-import '../../../../utils/dimenutils/dimensutils.dart';
 
 class AccountAggregatorWebview extends StatelessWidget {
   @override
@@ -24,15 +22,15 @@ class AAWebviewScreen extends StatefulWidget {
 class _AAWebviewScreenState extends State<AAWebviewScreen> {
   @override
   Widget build(BuildContext context) {
-    return    WillPopScope(
+    return WillPopScope(
         onWillPop: () async {
-      return true;
-    },
-    child:SafeArea(
-      child: Scaffold(
-        body: accAggregatorWebview(context),
-      ),
-    ));
+          return true;
+        },
+        child: SafeArea(
+          child: Scaffold(
+            body: accAggregatorWebview(context),
+          ),
+        ));
   }
 
   Widget accAggregatorWebview(BuildContext context) {
@@ -48,15 +46,15 @@ class _AAWebviewScreenState extends State<AAWebviewScreen> {
           key: const ValueKey('webviewx'),
           initialContent: AppConstant.AAWEBREDIRCTIONURL ?? "",
           initialSourceType: SourceType.url,
-          height: MyDimension.getFullScreenHeight(),
-          width: MyDimension.getFullScreenWidth(),
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
 
           onWebViewCreated: (controller) => webviewController = controller,
           onPageStarted: (src) => {
             TGLog.d("onPageStarted : $src"),
             if (src.contains("resdate="))
               {
-               TGSharedPreferences.getInstance().set(PREF_AACALLBACKURL, src),
+                TGSharedPreferences.getInstance().set(PREF_AACALLBACKURL, src),
                 Navigator.pushNamed(context, MyRoutes.AAWebViewCallBack)
               }
           },
