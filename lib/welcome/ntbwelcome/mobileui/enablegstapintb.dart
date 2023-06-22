@@ -9,6 +9,7 @@ import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/welcome/ntbwelcome/mobileui/startregistration.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../utils/Utils.dart';
 import '../../../utils/constants/imageconstant.dart';
@@ -63,7 +64,10 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
       },
       child: Scaffold(
         appBar: getAppBarWithBackBtn(
-            onClickAction: () => {Navigator.pop(context, false), SystemNavigator.pop(animated: true)}),
+            onClickAction: () => {
+                  Navigator.pop(context, false),
+                  SystemNavigator.pop(animated: true)
+                }),
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -130,7 +134,10 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
         padding: EdgeInsets.only(top: 15.h, bottom: 70.h),
         child: Text(
           text,
-          style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 16.sp, color: MyColors.darkblack),
+          style: ThemeHelper.getInstance()!
+              .textTheme
+              .headline1!
+              .copyWith(fontSize: 16.sp, color: MyColors.darkblack),
           // textAlign: TextAlign.left,
         ),
       );
@@ -164,33 +171,30 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
         Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 0).w,
-              child: SizedBox(
-                width: 20.w,
-                height: 20.h,
-                child: Theme(
-                  data: ThemeData(useMaterial3: true),
-                  child: Checkbox(
-                    // checkColor: MyColors.colorAccent,
-                    activeColor: ThemeHelper.getInstance()?.primaryColor,
-                    value: isCheckFirst,
-                    onChanged: (value) {
-                      changestateConfirmViewFirstCheckBox(value!);
-                    },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(2.r),
-                      ),
+            SizedBox(
+              width: 20.w,
+              height: 20.h,
+              child: Theme(
+                data: ThemeData(useMaterial3: true),
+                child: Checkbox(
+                  // checkColor: MyColors.colorAccent,
+                  activeColor: ThemeHelper.getInstance()?.primaryColor,
+                  value: isCheckFirst,
+                  onChanged: (value) {
+                    changestateConfirmViewFirstCheckBox(value!);
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(2.r),
                     ),
-                    side: BorderSide(
-                        width: 1,
-                        color: isCheckFirst
-                            ? ThemeHelper.getInstance()!.primaryColor
-                            : ThemeHelper.getInstance()!.primaryColor),
                   ),
+                  side: BorderSide(
+                      width: 1,
+                      color: isCheckFirst
+                          ? ThemeHelper.getInstance()!.primaryColor
+                          : ThemeHelper.getInstance()!.primaryColor),
                 ),
               ),
             ),
@@ -202,8 +206,8 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                 str_confirm_check1,
                 style: ThemeHelper.getInstance()!
                     .textTheme
-                    .headline2!
-                    .copyWith(fontSize: 15.sp, color: MyColors.darkblack),
+                    .titleMedium!
+                    .copyWith(fontSize: 14.sp, color: MyColors.lightBlackText),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,
               ),
@@ -215,33 +219,30 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: EdgeInsets.only(top: 3.r),
-              child: SizedBox(
-                width: 20.w,
-                height: 20.h,
-                child: Theme(
-                  data: ThemeData(useMaterial3: true),
-                  child: Checkbox(
-                    // checkColor: MyColors.colorAccent,
-                    activeColor: ThemeHelper.getInstance()?.primaryColor,
-                    value: isCheckSecond,
-                    onChanged: (value) {
-                      changestateConfirmViewSecondCheckBox(value!);
-                    },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(2.r),
-                      ),
+            SizedBox(
+              width: 20.w,
+              height: 20.h,
+              child: Theme(
+                data: ThemeData(useMaterial3: true),
+                child: Checkbox(
+                  // checkColor: MyColors.colorAccent,
+                  activeColor: ThemeHelper.getInstance()?.primaryColor,
+                  value: isCheckSecond,
+                  onChanged: (value) {
+                    changestateConfirmViewSecondCheckBox(value!);
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(2.r),
                     ),
-                    side: BorderSide(
-                        width: 1,
-                        color: isCheckSecond
-                            ? ThemeHelper.getInstance()!.primaryColor
-                            : ThemeHelper.getInstance()!.primaryColor),
                   ),
+                  side: BorderSide(
+                      width: 1,
+                      color: isCheckSecond
+                          ? ThemeHelper.getInstance()!.primaryColor
+                          : ThemeHelper.getInstance()!.primaryColor),
                 ),
               ),
             ),
@@ -252,8 +253,9 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
               child: Text(str_confirm_check2,
                   style: ThemeHelper.getInstance()!
                       .textTheme
-                      .headline2!
-                      .copyWith(fontSize: 15.sp, color: MyColors.darkblack),
+                      .titleMedium!
+                      .copyWith(
+                          fontSize: 14.sp, color: MyColors.lightBlackText),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 3),
             ),
@@ -271,41 +273,70 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
           children: [
             TextSpan(
               text: str_confirm_bottom1,
-              style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp, color: MyColors.black),
+              style: ThemeHelper.getInstance()!
+                  .textTheme
+                  .headline3!
+                  .copyWith(fontSize: 14.sp, color: MyColors.black),
             ),
             TextSpan(
                 text: str_confirm_bottom2,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline3!
-                    .copyWith(fontSize: 14.sp, color: MyColors.hyperlinkcolornew, decoration: TextDecoration.underline),
-                recognizer: TapGestureRecognizer()..onTap = () {}),
+                style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
+                    fontSize: 14.sp,
+                    color: MyColors.hyperlinkcolornew,
+                    decoration: TextDecoration.underline),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    showGeneralDialog(
+                      context: context,
+                      barrierColor: Colors.white,
+                      barrierDismissible: false,
+                      barrierLabel: 'Dialog',
+                      transitionDuration: Duration(milliseconds: 400),
+                      pageBuilder: (_, __, ___) {
+                        return GstApiSteps();
+                      },
+                    );
+                  }),
             TextSpan(
                 text: str_confirm_bottom3,
-                style:
-                    ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp, color: MyColors.black)),
+                style: ThemeHelper.getInstance()!
+                    .textTheme
+                    .headline3!
+                    .copyWith(fontSize: 14.sp, color: MyColors.black)),
             TextSpan(
                 text: str_confirm_bottom4,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline3!
-                    .copyWith(fontSize: 12.sp, color: MyColors.hyperlinkcolornew, decoration: TextDecoration.underline),
-                recognizer: TapGestureRecognizer()..onTap = () {}),
+                style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
+                    fontSize: 14.sp,
+                    color: MyColors.hyperlinkcolornew,
+                    decoration: TextDecoration.underline),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    launchUrl(Uri.parse(
+                        "https://www.youtube.com/watch?v=vcxK5Ppd4R4"));
+                  }),
             TextSpan(
                 text: str_confirm_bottom5,
-                style:
-                    ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp, color: MyColors.black)),
-            TextSpan(
-                text: str_confirm_bottom6,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(fontSize: 14.sp, color: MyColors.hyperlinkcolornew, decoration: TextDecoration.underline),
-                recognizer: TapGestureRecognizer()..onTap = () {}),
+                    .copyWith(fontSize: 14.sp, color: MyColors.black)),
             TextSpan(
                 text: str_confirm_bottom6,
-                style:
-                    ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp, color: MyColors.black)),
+                style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
+                    fontSize: 14.sp,
+                    color: MyColors.hyperlinkcolornew,
+                    decoration: TextDecoration.underline),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    launchUrl(Uri.parse(
+                        "https://services.gst.gov.in/services/login"));
+                  }),
+            TextSpan(
+                text: str_confirm_bottom7,
+                style: ThemeHelper.getInstance()!
+                    .textTheme
+                    .headline3!
+                    .copyWith(fontSize: 14.sp, color: MyColors.black)),
           ],
         ),
       ),
@@ -327,6 +358,169 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
       },
       title: str_Confirm,
       isButtonEnable: isCheckFirst && isCheckSecond,
+    );
+  }
+}
+
+class GstApiSteps extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _GstApiStepsState();
+}
+
+class _GstApiStepsState extends State<GstApiSteps> {
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context);
+        return true;
+      },
+      child: SafeArea(
+          child: Scaffold(
+        backgroundColor: MyColors.white,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(80.h),
+          child: Container(
+            height: 80.h,
+            decoration: BoxDecoration(
+                color: ThemeHelper.getInstance()!.colorScheme.background,
+                boxShadow: [
+                  BoxShadow(
+                    color: ThemeHelper.getInstance()!.dividerColor,
+                    offset: const Offset(0, 2.0),
+                    blurRadius: 4.0,
+                  )
+                ]),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 20.w,
+                  ),
+                  Icon(
+                    Icons.close,
+                    size: 25.h,
+                    color: MyColors.black,
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Text(
+                    "Steps",
+                    style: ThemeHelper.getInstance()
+                        ?.textTheme
+                        .displayLarge
+                        ?.copyWith(color: MyColors.black),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                color: ThemeHelper.getInstance()!.colorScheme.background,
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        Utils.path(SAHAYLOGO),
+                        height: 50.h,
+                        width: 90.w,
+                      ),
+                      Icon(
+                        Icons.search_rounded,
+                        size: 30.h,
+                        color: MyColors.PnbGrayTextColor,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Text(
+                      str_enable_gst_api,
+                      style: ThemeHelper.getInstance()?.textTheme.displayLarge,
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    _apiStepUi(str_gst_api_step1),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    _apiStepUi(str_gst_api_step2),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    _apiStepUi(str_gst_api_step3),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    _apiStepUi(str_gst_api_step4),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    _apiStepUi(str_gst_api_step5),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      )),
+    );
+  }
+
+  String str_enable_gst_api = 'How to Enable API Access in Your GST Account?';
+
+  String str_gst_api_step1 =
+      'Visit www.gst.gov.in, click on the "login" button and insert your credential to log in to your GST account.';
+  String str_gst_api_step2 =
+      'After logging in, click on the "View Profile" link located on the right side.';
+  String str_gst_api_step3 =
+      'Under Quick links, click on the "Manage API Access" link.';
+  String str_gst_api_step4 =
+      'Click on the "Yes" button next to the "Enable API Request", select "Duration" from the dropdown provided and click on "Confirm" button.';
+  String str_gst_api_step5 =
+      'Insert your GST Number and Username, you will receive OTP on the mobile number registered with GST Account.';
+  Widget _apiStepUi(String step) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          str_ol,
+          style: ThemeHelper.getInstance()?.textTheme.displayMedium,
+        ),
+        SizedBox(
+          width: 5.w,
+        ),
+        Flexible(
+            child: Text(
+          step,
+          style: ThemeHelper.getInstance()?.textTheme.displayMedium,
+        )),
+      ],
     );
   }
 }

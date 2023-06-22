@@ -39,7 +39,10 @@ class StartRegistrationNtbScreen extends StatelessWidget {
       },
       child: Scaffold(
         appBar: getAppBarWithBackBtn(
-            onClickAction: () => {Navigator.pop(context, false), SystemNavigator.pop(animated: true)}),
+            onClickAction: () => {
+                  Navigator.pop(context, false),
+                  SystemNavigator.pop(animated: true)
+                }),
         body: buildSetupView(context),
         bottomNavigationBar: buildBTNStartStartRegistration(context),
       ),
@@ -59,8 +62,9 @@ class StartRegistrationNtbScreen extends StatelessWidget {
           Container(
             padding: EdgeInsets.only(top: 20.h, bottom: 20.h),
             margin: EdgeInsets.symmetric(horizontal: 20.r),
-            decoration:
-                BoxDecoration(color: ThemeHelper.getInstance()!.cardColor, borderRadius: BorderRadius.circular(6.r)),
+            decoration: BoxDecoration(
+                color: ThemeHelper.getInstance()!.cardColor,
+                borderRadius: BorderRadius.circular(6.r)),
             child: Column(
               children: [
                 SizedBox(
@@ -91,7 +95,10 @@ class StartRegistrationNtbScreen extends StatelessWidget {
         padding: EdgeInsets.only(top: 30.0.h, bottom: 5.h, left: 24.w),
         child: Text(
           text,
-          style: ThemeHelper.getInstance()!.textTheme.headline2,
+          style: ThemeHelper.getInstance()!
+              .textTheme
+              .headline2!
+              .copyWith(fontSize: 18.sp),
         ),
       );
 
@@ -99,7 +106,10 @@ class StartRegistrationNtbScreen extends StatelessWidget {
         padding: EdgeInsets.only(left: 24.w, bottom: 30.h),
         child: Text(
           text,
-          style: ThemeHelper.getInstance()!.textTheme.headline3,
+          style: ThemeHelper.getInstance()!
+              .textTheme
+              .headline3!
+              .copyWith(fontSize: 14.sp),
           textAlign: TextAlign.center,
         ),
       );
@@ -109,7 +119,8 @@ class StartRegistrationNtbScreen extends StatelessWidget {
       padding: EdgeInsets.only(left: 30.w, right: 30.w, bottom: 20.h),
       child: Container(
         decoration: BoxDecoration(
-            color: ThemeHelper.getInstance()!.colorScheme.background, borderRadius: BorderRadius.circular(6.r)),
+            color: ThemeHelper.getInstance()!.colorScheme.background,
+            borderRadius: BorderRadius.circular(6.r)),
         child: Padding(
           padding: EdgeInsets.only(left: 20.w, top: 15.h, bottom: 15.h),
           child: Column(
@@ -118,8 +129,9 @@ class StartRegistrationNtbScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    decoration:
-                        BoxDecoration(shape: BoxShape.circle, color: ThemeHelper.getInstance()!.colorScheme.primary),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: ThemeHelper.getInstance()!.colorScheme.primary),
                     height: 13.w,
                     width: 13.w,
                     child: Icon(
@@ -131,7 +143,10 @@ class StartRegistrationNtbScreen extends StatelessWidget {
                   SizedBox(
                     width: 10.w,
                   ),
-                  Flexible(child: Text(stepname, style: ThemeHelper.getInstance()!.textTheme.headline3))
+                  Flexible(
+                      child: Text(stepname,
+                          style:
+                              ThemeHelper.getInstance()!.textTheme.headline3))
                 ],
               )
               //ButtonUI(context, str_verify_mobile_no),
