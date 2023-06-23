@@ -43,6 +43,7 @@ import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../utils/helpers/myfonts.dart';
 import '../../../utils/helpers/themhelper.dart';
 import '../../../utils/jumpingdott.dart';
 import '../../../utils/strings/strings.dart';
@@ -579,10 +580,10 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
               )
             : Text(
                 text,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline1!
-                    .copyWith(fontSize: 25, color: MyColors.darkblack),
+                style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(
+                    fontSize: 25,
+                    color: Colors.black,
+                    fontFamily: MyFont.Nunito_Sans_Bold),
               ),
       ),
     );
@@ -631,7 +632,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
               style: ThemeHelper.getInstance()!
                   .textTheme
                   .headline3!
-                  .copyWith(color: MyColors.verylightGrayColor),
+                  .copyWith(color: MyColors.darkblack),
               onChanged: (String newVal) {
                 setState(() {
                   if (newVal.length <= maxLength) {

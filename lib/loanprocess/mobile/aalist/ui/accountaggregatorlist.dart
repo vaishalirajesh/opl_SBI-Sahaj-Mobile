@@ -21,8 +21,6 @@ import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
-import 'package:sbi_sahay_1_0/loader/aa_completed.dart';
-import 'package:sbi_sahay_1_0/loanprocess/mobile/accountaggregatorntb/ui/accountaggregatorwebview.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
@@ -34,14 +32,13 @@ import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
 
 import '../../../../utils/Utils.dart';
-import '../../../../utils/constants/appconstant.dart';
 import '../../../../utils/constants/imageconstant.dart';
 import '../../../../utils/constants/statusConstants.dart';
 import '../../../../utils/internetcheckdialog.dart';
 import '../../../../utils/strings/strings.dart';
 import '../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 import '../../accountaggregatorntb/launchAaUrl/aalaunchurlmain.dart'
-     if (dart.library.html) '../../accountaggregatorntb/launchAaUrl/aaloaunchurlweb.dart'
+    if (dart.library.html) '../../accountaggregatorntb/launchAaUrl/aaloaunchurlweb.dart'
     if (dart.library.io) '../../accountaggregatorntb/launchAaUrl/aalaunchurlmobile.dart';
 
 class AAList extends StatelessWidget {
@@ -83,7 +80,6 @@ class _AAListViewState extends State<AAListView> {
 
   @override
   void initState() {
-
     _aaListObj = [];
     _aaListObj = [];
     _searchResult = [];
@@ -419,7 +415,6 @@ class _AAListViewState extends State<AAListView> {
           return InkWell(
             onTap: () {
               //changeState(index);
-
               setState(() {
                 selectedValue = index;
               });
@@ -535,15 +530,6 @@ class _AAListViewState extends State<AAListView> {
           _aaListObj = response?.getAAListResObj().data ?? [];
         }
       });
-
-      // setState(() {
-      //   isLoaderStart = false;
-      //   typeList = response?.getAAListResObj();
-      //   if (typeList?.data?.isNotEmpty == true) {
-      //     _aaListObj = typeList!.data!;
-      //     typeListlen = typeList!.data!.length!;
-      //   }
-      // });
     } else {
       isLoaderStart = false;
 

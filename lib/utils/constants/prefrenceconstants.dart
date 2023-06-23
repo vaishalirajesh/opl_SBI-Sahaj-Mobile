@@ -4,7 +4,7 @@ var refreshtoken = "";
 String? sessionkey = "";
 
 //const PREF_GSTIN="gstin";
-const PREF_GSTIN = "";
+const PREF_GSTIN = "gstin";
 const PREF_REFRESHTOKEN = "refreshtoken";
 const PREF_MOBILE = "mobileNumber";
 //const PREF_LOANAPPLICATION="loanAppRefrenceID";

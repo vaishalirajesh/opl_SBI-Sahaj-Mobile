@@ -129,7 +129,8 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
   Widget verifyOtpContent() {
     return AbsorbPointer(
       absorbing: isVerifyOTPLoaderStart,
-      child: StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
+      child: StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
         return Scaffold(
           body: Container(
             decoration: BoxDecoration(
@@ -166,9 +167,25 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                    child: Text(
-                      "$str_OTP_sent_number${strMobile.substring(0, 7)} ***",
-                      style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
+                    child: Row(
+                      children: [
+                        Text(
+                          "$str_OTP_sent_number",
+                          style: ThemeHelper.getInstance()!
+                              .textTheme
+                              .headline3!
+                              .copyWith(fontSize: 14.sp),
+                        ),
+                        Text(
+                          "${strMobile.substring(0, 7)} ***",
+                          style: ThemeHelper.getInstance()!
+                              .textTheme
+                              .headline3!
+                              .copyWith(
+                                  fontSize: 14.sp,
+                                  color: MyColors.hyperlinkcolornew),
+                        )
+                      ],
                     ),
                   ),
                   SizedBox(
@@ -222,7 +239,8 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
                             getLoginOtp();
                           },
                     child: Padding(
-                      padding: EdgeInsets.only(right: 20.w, top: 10.h, bottom: 10.h, left: 10.w),
+                      padding: EdgeInsets.only(
+                          right: 20.w, top: 10.h, bottom: 10.h, left: 10.w),
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: Row(
@@ -234,17 +252,22 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
                               Utils.path(MOBILEResend),
                               height: 16.h,
                               width: 16.w,
-                              color: isVerifyOTPLoaderStart || isGetOTPLoaderStart
-                                  ? MyColors.verylightGrayColor
-                                  : MyColors.pnbcolorPrimary,
+                              color:
+                                  isVerifyOTPLoaderStart || isGetOTPLoaderStart
+                                      ? MyColors.verylightGrayColor
+                                      : MyColors.pnbcolorPrimary,
                             ),
                             SizedBox(
                               width: 9.w,
                             ),
                             Text(
                               str_Resend_OTP,
-                              style: ThemeHelper.getInstance()!.textTheme.headline6?.copyWith(
-                                    color: isVerifyOTPLoaderStart || isGetOTPLoaderStart
+                              style: ThemeHelper.getInstance()!
+                                  .textTheme
+                                  .headline6
+                                  ?.copyWith(
+                                    color: isVerifyOTPLoaderStart ||
+                                            isGetOTPLoaderStart
                                         ? MyColors.verylightGrayColor
                                         : MyColors.pnbcolorPrimary,
                                   ),
@@ -264,7 +287,8 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
                 ? SizedBox(
                     height: 100.h,
                     child: JumpingDots(
-                      color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
+                      color: ThemeHelper.getInstance()?.primaryColor ??
+                          MyColors.pnbcolorPrimary,
                       radius: 10,
                     ),
                   )
@@ -283,8 +307,9 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
       child: OTPTextField(
-        otpFieldStyle: OtpFieldStyle(focusBorderColor: MyColors.darkblack //(here)
-            ),
+        otpFieldStyle:
+            OtpFieldStyle(focusBorderColor: MyColors.darkblack //(here)
+                ),
         isClearOtp: isClearOtp,
         length: 6,
         width: MediaQuery.of(context).size.width,
@@ -321,7 +346,8 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
       textStyle: ThemeHelper.getInstance()?.textTheme.bodyText1,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        border: Border.all(color: ThemeHelper.getInstance()!.colorScheme.onSurface),
+        border:
+            Border.all(color: ThemeHelper.getInstance()!.colorScheme.onSurface),
       ),
     );
     return Padding(
@@ -375,10 +401,13 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
     CredBlock credBlock = CredBlock(
         appToken: uuid,
         otp: otp,
-        otpSessionKey: getOtpRes != null ? getOtpRes?.data?.credBlock?.otpSessionKey : otpSessionKey,
+        otpSessionKey: getOtpRes != null
+            ? getOtpRes?.data?.credBlock?.otpSessionKey
+            : otpSessionKey,
         status: "");
 
-    RequestAuthUser requestAuthUser = RequestAuthUser(mobile: strMobile, credBlock: credBlock, deviceId: uuid);
+    RequestAuthUser requestAuthUser = RequestAuthUser(
+        mobile: strMobile, credBlock: credBlock, deviceId: uuid);
     String jsonReq = jsonEncode(requestAuthUser.toJson());
 
     TGLog.d("Verify GST OTP Request : $jsonReq");
@@ -397,8 +426,10 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
 
     //Navigator.pop(context);
     if (verifyOtpResponse?.status == RES_SUCCESS) {
-      TGSharedPreferences.getInstance().set(PREF_ACCESS_TOKEN, verifyOtpResponse?.data?.accessToken);
-      TGSharedPreferences.getInstance().set(PREF_ACCESS_TOKEN_SBI, verifyOtpResponse?.data?.accessToken);
+      TGSharedPreferences.getInstance()
+          .set(PREF_ACCESS_TOKEN, verifyOtpResponse?.data?.accessToken);
+      TGSharedPreferences.getInstance()
+          .set(PREF_ACCESS_TOKEN_SBI, verifyOtpResponse?.data?.accessToken);
       setAccessTokenInRequestHeader();
       getGstBasicDetails();
     } else {
@@ -406,7 +437,10 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
         isVerifyOTPLoaderStart = false;
       });
       LoaderUtils.handleErrorResponse(
-          context, response?.getOtpReponseObj().status, response?.getOtpReponseObj().message, null);
+          context,
+          response?.getOtpReponseObj().status,
+          response?.getOtpReponseObj().message,
+          null);
     }
   }
 
@@ -441,14 +475,17 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
           if (_basicdetailsResponse?.data?[0]?.gstin?.isNotEmpty == true) {
             gstin = _basicdetailsResponse!.data![0].gstin!;
             if (_basicdetailsResponse!.data![0].gstin!.length >= 12) {
+              TGSharedPreferences.getInstance().set(PREF_BUSINESSNAME,
+                  _basicdetailsResponse?.data?[0].gstBasicDetails?.tradeNam);
               TGSharedPreferences.getInstance()
-                  .set(PREF_BUSINESSNAME, _basicdetailsResponse?.data?[0].gstBasicDetails?.tradeNam);
-              TGSharedPreferences.getInstance().set(PREF_GSTIN, _basicdetailsResponse?.data?[0].gstin);
-              TGSharedPreferences.getInstance().set(PREF_USERNAME, _basicdetailsResponse?.data?[0].username.toString());
-              TGSharedPreferences.getInstance()
-                  .set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin?.substring(2, 12));
+                  .set(PREF_GSTIN, _basicdetailsResponse?.data?[0].gstin);
+              TGSharedPreferences.getInstance().set(PREF_USERNAME,
+                  _basicdetailsResponse?.data?[0].username.toString());
+              TGSharedPreferences.getInstance().set(PREF_PANNO,
+                  _basicdetailsResponse?.data?[0].gstin?.substring(2, 12));
             } else {
-              TGSharedPreferences.getInstance().set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin);
+              TGSharedPreferences.getInstance()
+                  .set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin);
             }
           }
           TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
@@ -485,7 +522,10 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
         isVerifyOTPLoaderStart = false;
       });
       LoaderUtils.handleErrorResponse(
-          context, response?.getGstBasicDetailsRes().status, response?.getGstBasicDetailsRes().message, null);
+          context,
+          response?.getGstBasicDetailsRes().status,
+          response?.getGstBasicDetailsRes().message,
+          null);
     }
   }
 
@@ -521,8 +561,10 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
             ),
             (route) => false);
       } else {
-        TGSharedPreferences.getInstance().set(PREF_GSTIN, _getAllLoanDetailRes?.data?[0].gstin);
-        TGSharedPreferences.getInstance().set(PREF_PANNO, _getAllLoanDetailRes?.data?[0].gstin?.substring(2, 12));
+        TGSharedPreferences.getInstance()
+            .set(PREF_GSTIN, _getAllLoanDetailRes?.data?[0].gstin);
+        TGSharedPreferences.getInstance().set(
+            PREF_PANNO, _getAllLoanDetailRes?.data?[0].gstin?.substring(2, 12));
         TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
         TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
 
@@ -538,7 +580,10 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
         isVerifyOTPLoaderStart = false;
       });
       LoaderUtils.handleErrorResponse(
-          context, response?.getAllLoanDetailObj().status, response?.getAllLoanDetailObj().message, null);
+          context,
+          response?.getAllLoanDetailObj().status,
+          response?.getAllLoanDetailObj().message,
+          null);
     }
   }
 
@@ -552,9 +597,11 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
 
   Future<void> getLoginOtp() async {
     String uuid = Uuid().v1().replaceAll("-", "").substring(0, 16);
-    CredBlock credBlock = CredBlock(appToken: uuid, otp: "", otpSessionKey: "", status: "");
+    CredBlock credBlock =
+        CredBlock(appToken: uuid, otp: "", otpSessionKey: "", status: "");
 
-    RequestAuthUser requestAuthUser = RequestAuthUser(mobile: strMobile, credBlock: credBlock, deviceId: uuid);
+    RequestAuthUser requestAuthUser = RequestAuthUser(
+        mobile: strMobile, credBlock: credBlock, deviceId: uuid);
     var jsonReq = jsonEncode(requestAuthUser.toJson());
 
     TGLog.d("Get GST OTP Request : $jsonReq");
