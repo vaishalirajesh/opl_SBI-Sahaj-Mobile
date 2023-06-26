@@ -48,7 +48,10 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             },
             child: Scaffold(
               appBar: getAppBarWithBackBtn(
-                  onClickAction: () => {Navigator.pop(context, false), SystemNavigator.pop(animated: true)}),
+                  onClickAction: () => {
+                        Navigator.pop(context, false),
+                        SystemNavigator.pop(animated: true)
+                      }),
               body: Stack(children: [
                 SingleChildScrollView(
                   primary: true,
@@ -139,8 +142,10 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 ?.textTheme
                 .headline3
                 ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
-            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.pnbTextcolor)),
-            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.pnbDarkGreyTextColor))),
+            enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: MyColors.pnbTextcolor)),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: MyColors.pnbDarkGreyTextColor))),
         keyboardType: TextInputType.text,
         maxLines: 1,
         style: ThemeHelper.getInstance()?.textTheme.headline3,
@@ -158,7 +163,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
       child: AppButton(
         onPress: isCheck
             ? () async {
-                Navigator.pushReplacementNamed(context, MyRoutes.EnableGstApiRoutes);
+                Navigator.pushReplacementNamed(
+                    context, MyRoutes.EnableGstApiRoutes);
               }
             : () {},
         title: str_next,
@@ -195,7 +201,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                           isCheck = bool!;
                         });
                       },
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(2.r))),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(2.r))),
                       side: BorderSide(
                           width: 1,
                           color: isCheck
@@ -211,7 +218,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                     style: ThemeHelper.getInstance()
                         ?.textTheme
                         .headline3
-                        ?.copyWith(fontSize: 14.sp, color: MyColors.lightGraySmallText),
+                        ?.copyWith(
+                            fontSize: 14.sp, color: MyColors.lightBlackText),
                     maxLines: 5,
                   ),
                 ),
@@ -256,17 +264,21 @@ class EmailIdWidgetState extends State<EmailIdWidget> {
               ?.textTheme
               .headline3
               ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
-          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.pnbTextcolor)),
-          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.pnbDarkGreyTextColor)),
+          enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: MyColors.pnbTextcolor)),
+          focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: MyColors.pnbDarkGreyTextColor)),
           suffixIcon: IconButton(
             icon: hidePassword
                 ? Icon(
                     Icons.visibility_off_outlined,
-                    color: hidePassword ? MyColors.pnbTextcolor : MyColors.black,
+                    color:
+                        hidePassword ? MyColors.pnbTextcolor : MyColors.black,
                   )
                 : Icon(
                     Icons.visibility_outlined,
-                    color: hidePassword ? MyColors.pnbTextcolor : MyColors.black,
+                    color:
+                        hidePassword ? MyColors.pnbTextcolor : MyColors.black,
                   ),
             onPressed: () {
               setState(
@@ -319,17 +331,21 @@ class ContactNumberWidgetState extends State<ContactNumberWidget> {
               ?.textTheme
               .headline3
               ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
-          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.pnbTextcolor)),
-          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.pnbDarkGreyTextColor)),
+          enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: MyColors.pnbTextcolor)),
+          focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: MyColors.pnbDarkGreyTextColor)),
           suffixIcon: IconButton(
             icon: hidePassword
                 ? Icon(
                     Icons.visibility_off_outlined,
-                    color: hidePassword ? MyColors.pnbTextcolor : MyColors.black,
+                    color:
+                        hidePassword ? MyColors.pnbTextcolor : MyColors.black,
                   )
                 : Icon(
                     Icons.visibility_outlined,
-                    color: hidePassword ? MyColors.pnbTextcolor : MyColors.black,
+                    color:
+                        hidePassword ? MyColors.pnbTextcolor : MyColors.black,
                   ),
             onPressed: () {
               setState(
@@ -351,7 +367,10 @@ class ContactNumberWidgetState extends State<ContactNumberWidget> {
           }
           return null;
         },
-        inputFormatters: [LengthLimitingTextInputFormatter(10), FilteringTextInputFormatter.digitsOnly]);
+        inputFormatters: [
+          LengthLimitingTextInputFormatter(10),
+          FilteringTextInputFormatter.digitsOnly
+        ]);
   }
 }
 
@@ -365,8 +384,10 @@ Widget GenderTextField(String label) {
             ?.textTheme
             .headline3
             ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
-        enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.pnbTextcolor)),
-        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.pnbDarkGreyTextColor)),
+        enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: MyColors.pnbTextcolor)),
+        focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: MyColors.pnbDarkGreyTextColor)),
         suffixIcon: IconButton(
           onPressed: () {},
           icon: Icon(

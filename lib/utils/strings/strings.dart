@@ -589,9 +589,9 @@ const str_CIC_Terms = "I understand and agree to CIC's Terms";
 //NTB get started
 
 const str_disc =
-    " enables proprietors of small GST registered businesses to get 'on tap' offers for invoice based financing (short term loan) from the lender. The App also helps in full credit journey of sanction, documentation and disbursement.Watch  ";
+    "enables proprietors of small GST registered businesses to get 'on tap' offers for invoice based financing (short term loan) from the lender. The App also helps in full credit journey of sanction, documentation and disbursement.Watch ";
 const strVideo = "video";
-const strLast = "  to understand the process and requirements of the App.";
+const strLast = " to understand the process and requirements of the App.";
 const str_gst_sahay = "Sahaj App ";
 
 const str_get_started = "Get Started";

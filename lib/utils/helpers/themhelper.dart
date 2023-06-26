@@ -20,7 +20,8 @@ class ThemeHelper {
     }
   }
 
-  static TextStyle setSemiboldFontMidium(Color color, double fontSize, String fontFamily) {
+  static TextStyle setSemiboldFontMidium(
+      Color color, double fontSize, String fontFamily) {
     return TextStyle(
       color: color,
       fontSize: fontSize,
@@ -30,8 +31,10 @@ class ThemeHelper {
 
   static ButtonStyle setDisableButtonSmall() {
     return ThemeHelper.getInstance()!.elevatedButtonTheme.style!.copyWith(
-          foregroundColor: MaterialStateProperty.all(ThemeHelper.getInstance()!.colorScheme.primary),
-          backgroundColor: MaterialStateProperty.all(ThemeHelper.getInstance()!.colorScheme.secondary),
+          foregroundColor: MaterialStateProperty.all(
+              ThemeHelper.getInstance()!.colorScheme.primary),
+          backgroundColor: MaterialStateProperty.all(
+              ThemeHelper.getInstance()!.colorScheme.secondary),
           textStyle: MaterialStateProperty.all(
             TextStyle(fontSize: 12.sp, fontFamily: MyFont.Nunito_Sans_Bold),
           ),
@@ -40,8 +43,10 @@ class ThemeHelper {
 
   static ButtonStyle setDisableButtonBig() {
     return ThemeHelper.getInstance()!.elevatedButtonTheme.style!.copyWith(
-          foregroundColor: MaterialStateProperty.all(ThemeHelper.getInstance()!.backgroundColor),
-          backgroundColor: MaterialStateProperty.all(ThemeHelper.getInstance()!.colorScheme.secondary),
+          foregroundColor: MaterialStateProperty.all(
+              ThemeHelper.getInstance()!.backgroundColor),
+          backgroundColor: MaterialStateProperty.all(
+              ThemeHelper.getInstance()!.colorScheme.secondary),
           textStyle: MaterialStateProperty.all(
             TextStyle(fontSize: 16.sp, fontFamily: MyFont.Roboto_Medium),
           ),
@@ -51,9 +56,10 @@ class ThemeHelper {
   static ButtonStyle setPinkDisableButtonBig() {
     return ThemeHelper.getInstance()!.elevatedButtonTheme.style!.copyWith(
           foregroundColor: MaterialStateProperty.all(MyColors.white),
-          backgroundColor: MaterialStateProperty.all(MyColorsSBI.sbicolorDisableColor),
+          backgroundColor:
+              MaterialStateProperty.all(MyColorsSBI.sbicolorDisableColor),
           textStyle: MaterialStateProperty.all(
-            TextStyle(fontSize: 16.sp, fontFamily: MyFont.Roboto_Medium),
+            TextStyle(fontSize: 19.sp, fontFamily: MyFont.Roboto_Medium),
           ),
         );
   }

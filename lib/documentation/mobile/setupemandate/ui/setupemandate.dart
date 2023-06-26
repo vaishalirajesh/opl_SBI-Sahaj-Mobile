@@ -9,10 +9,8 @@ import 'package:gstmobileservices/model/models/get_repayment_plan_res_main.dart'
 import 'package:gstmobileservices/model/models/share_gst_invoice_res_main.dart';
 import 'package:gstmobileservices/model/requestmodel/get_loan_app_status_request.dart';
 import 'package:gstmobileservices/model/requestmodel/get_repayment_plan_request.dart';
-import 'package:gstmobileservices/model/requestmodel/set_repayment_request.dart';
 import 'package:gstmobileservices/model/responsemodel/get_loan_app_status_response.dart';
 import 'package:gstmobileservices/model/responsemodel/get_repayment_plan_response.dart';
-import 'package:gstmobileservices/model/responsemodel/set_repayment_response.dart';
 import 'package:gstmobileservices/service/request/tg_post_request.dart';
 import 'package:gstmobileservices/service/requtilization.dart';
 import 'package:gstmobileservices/service/response/tg_response.dart';
@@ -52,7 +50,8 @@ class SetupEmandate extends StatelessWidget {
         return SafeArea(
           child: WillPopScope(
             onWillPop: () async {
-              Navigator.pushReplacementNamed(context, MyRoutes.SetupEmandateRoutes);
+              Navigator.pushReplacementNamed(
+                  context, MyRoutes.SetupEmandateRoutes);
               return true;
             },
             child: const SetupEmandateViewScreen(),
@@ -67,7 +66,8 @@ class SetupEmandateViewScreen extends StatefulWidget {
   const SetupEmandateViewScreen({Key? key}) : super(key: key);
 
   @override
-  State<SetupEmandateViewScreen> createState() => _SetupEmandateViewScreenState();
+  State<SetupEmandateViewScreen> createState() =>
+      _SetupEmandateViewScreenState();
 }
 
 class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
@@ -112,7 +112,8 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
                 MaterialPageRoute(
                   builder: (BuildContext context) => const SetupEmandate(),
                 ),
-                (route) => false, //if you want to disable back feature set to false
+                (route) =>
+                    false, //if you want to disable back feature set to false
               );
               return true;
             },
@@ -126,14 +127,17 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
                     : Stack(
                         children: [
                           Scaffold(
-                            appBar: getAppBarWithStepDone("3", "Documentation", 0.75,
+                            appBar: getAppBarWithStepDone(
+                                "3", "Documentation", 0.75,
                                 onClickAction: () => {
                                       Navigator.pushAndRemoveUntil(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (BuildContext context) => const DashboardWithGST(),
+                                          builder: (BuildContext context) =>
+                                              const DashboardWithGST(),
                                         ),
-                                        (route) => false, //if you want to disable back feature set to false
+                                        (route) =>
+                                            false, //if you want to disable back feature set to false
                                       )
                                     }),
                             body: AbsorbPointer(
@@ -146,7 +150,9 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
                                       child: containerView(),
                                     ),
                                   ),
-                                  Align(alignment: Alignment.bottomCenter, child: buildBTNLoanOffer(context))
+                                  Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: buildBTNLoanOffer(context))
                                 ],
                               ),
                             ),
@@ -202,7 +208,10 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
           child: text(
             text:
                 "$str_emandate_txt${_getRepaymentPlanResMain?.data?.bankName ?? ""} $str_emandate_txt1${_getRepaymentPlanResMain?.data?.accountNumber ?? ""}",
-            textStyle: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(fontSize: 14.sp),
+            textStyle: ThemeHelper.getInstance()!
+                .textTheme
+                .headline3
+                ?.copyWith(fontSize: 14.sp),
           ),
           horizontal: 20.w,
         ),
@@ -272,7 +281,10 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
         ),
         text(
             text: titleValue,
-            textStyle: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(color: MyColors.darkblack))
+            textStyle: ThemeHelper.getInstance()!
+                .textTheme
+                .headline3!
+                .copyWith(color: MyColors.darkblack))
       ],
     );
   }
@@ -286,7 +298,8 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
         },
         child: Container(
             decoration: BoxDecoration(
-                border: Border.all(color: ThemeHelper.getInstance()!.cardColor, width: 1),
+                border: Border.all(
+                    color: ThemeHelper.getInstance()!.cardColor, width: 1),
                 color: ThemeHelper.getInstance()?.backgroundColor,
                 borderRadius: BorderRadius.all(Radius.circular(16.r))),
             //width: 335.w,
@@ -311,24 +324,42 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         buildCommonRow(
-            titletext: str_bank, titleValue: _getRepaymentPlanResMain?.data?.bankName ?? "State Bank of India"),
+            titletext: str_bank,
+            titleValue: _getRepaymentPlanResMain?.data?.bankName ??
+                "State Bank of India"),
         sizebox(height: 20.h),
         buildCommonRow(
-            titletext: str_bank_acc_no, titleValue: _getRepaymentPlanResMain?.data?.accountNumber ?? "XXXXXX7564"),
+            titletext: str_bank_acc_no,
+            titleValue:
+                _getRepaymentPlanResMain?.data?.accountNumber ?? "XXXXXX7564"),
         sizebox(height: 20.h),
-        buildCommonRow(titletext: str_bank_ifsc, titleValue: _getRepaymentPlanResMain?.data?.bankIfsc ?? "SBIN0003471"),
+        buildCommonRow(
+            titletext: str_bank_ifsc,
+            titleValue:
+                _getRepaymentPlanResMain?.data?.bankIfsc ?? "SBIN0003471"),
         sizebox(height: 20.h),
         buildCommonRow(
             titletext: str_bank_acc_name,
-            titleValue: _getRepaymentPlanResMain?.data?.buyerName ?? "Indo International"),
+            titleValue: _getRepaymentPlanResMain?.data?.buyerName ??
+                "Indo International"),
         sizebox(height: 20.h),
-        buildCommonRow(titletext: str_acc_type, titleValue: _getRepaymentPlanResMain?.data?.accType ?? "Current"),
+        buildCommonRow(
+            titletext: str_acc_type,
+            titleValue: _getRepaymentPlanResMain?.data?.accType ?? "Current"),
         sizebox(height: 20.h),
-        buildCommonRow(titletext: str_mobile_no, titleValue: _getRepaymentPlanResMain?.data?.mobileNo ?? "9510777718"),
+        buildCommonRow(
+            titletext: str_mobile_no,
+            titleValue:
+                _getRepaymentPlanResMain?.data?.mobileNo ?? "9510777718"),
         sizebox(height: 20.h),
-        buildCommonRow(titletext: str_due_date, titleValue: _getRepaymentPlanResMain?.data?.dueDate ?? "12 Aug, 2022"),
+        buildCommonRow(
+            titletext: str_due_date,
+            titleValue:
+                _getRepaymentPlanResMain?.data?.dueDate ?? "12 Aug, 2022"),
         sizebox(height: 20.h),
-        buildCommonRow(titletext: str_repayment_amt, titleValue: Utils.convertIndianCurrency("26240")),
+        buildCommonRow(
+            titletext: str_repayment_amt,
+            titleValue: Utils.convertIndianCurrency("26240")),
       ],
     );
   }
@@ -344,7 +375,8 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
           padding: EdgeInsets.symmetric(horizontal: 20.0.w),
           child: Container(
             decoration: BoxDecoration(
-              border: Border.all(color: ThemeHelper.getInstance()!.cardColor, width: 1),
+              border: Border.all(
+                  color: ThemeHelper.getInstance()!.cardColor, width: 1),
               color: ThemeHelper.getInstance()?.backgroundColor,
               borderRadius: BorderRadius.all(
                 Radius.circular(16.r),
@@ -380,7 +412,10 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
             width: 200.w,
             child: Text(
               "Details",
-              style: ThemeHelper.getInstance()!.textTheme.headline2?.copyWith(fontSize: 16.sp),
+              style: ThemeHelper.getInstance()!
+                  .textTheme
+                  .headline2
+                  ?.copyWith(fontSize: 16.sp),
             )),
         const Spacer(),
         SvgPicture.asset(
@@ -398,7 +433,8 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
       padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
       child: isLoaderStartProceed
           ? JumpingDots(
-              color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
+              color: ThemeHelper.getInstance()?.primaryColor ??
+                  MyColors.pnbcolorPrimary,
               radius: 10,
             )
           : Container(
@@ -409,7 +445,8 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
                 children: [
                   SizedBox(height: 10.h),
                   Text(str_eNach_redirect_txt,
-                      style: ThemeHelper.getInstance()?.textTheme.bodyText2, textAlign: TextAlign.center),
+                      style: ThemeHelper.getInstance()?.textTheme.bodyText2,
+                      textAlign: TextAlign.center),
                   SizedBox(height: 18.h),
                   AppButton(
                     onPress: onPressProceedButton,
@@ -425,23 +462,20 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
     setState(() {
       isDataLoaded = true;
     });
-    if (await TGNetUtil.isInternetAvailable()) {
-      setRepaymentRequestAPI();
-    } else {
-      if (context.mounted) {
-        showSnackBarForintenetConnection(context, setRepaymentRequestAPI);
-      }
-    }
+    getLoanApplicaionStatusAPI();
   }
 
   Widget LoadSetupEmandateURLInWeb(BuildContext context) {
     late WebViewXController webviewController;
 
     return Container(
-      decoration: const BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(5.0))),
+      decoration: const BoxDecoration(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.all(Radius.circular(5.0))),
       child: WebViewX(
         key: const ValueKey('webviewx'),
-        initialContent: _getLoanStatusResMain?.data?.paymentUrl.toString() ?? "",
+        initialContent:
+            _getLoanStatusResMain?.data?.paymentUrl.toString() ?? "",
         initialSourceType: SourceType.url,
         height: MyDimension.getFullScreenHeight(),
         width: MyDimension.getFullScreenWidth(),
@@ -450,10 +484,13 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
         onPageStarted: (src) => {
           TGLog.d(src),
           if (src.contains("output=") ||
-              src.contains("https://uat-gst-sahay.instantmseloans.in/sahay/#/ENachResponse") ||
-              src.contains("https://uat-oam.instantmseloans.in/tsp/updateNeSLStatus") ||
-              src.contains("https://liveoam.instantmseloans.in/tsp/neslSuccess"))
-            {setRepaymentPlanStatusApiCall()}
+              src.contains(
+                  "https://uat-gst-sahay.instantmseloans.in/sahay/#/ENachResponse") ||
+              src.contains(
+                  "https://uat-oam.instantmseloans.in/tsp/updateNeSLStatus") ||
+              src.contains(
+                  "https://liveoam.instantmseloans.in/tsp/neslSuccess"))
+            {}
         },
 
         // onPageFinished: (src) =>
@@ -465,7 +502,8 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
             js: "function testPlatformIndependentMethod() { console.log('Hi from JS') }",
           ),
           EmbeddedJsContent(
-            webJs: "function testPlatformSpecificMethod(msg) { TestDartCallback('Web callback says: ' + msg) }",
+            webJs:
+                "function testPlatformSpecificMethod(msg) { TestDartCallback('Web callback says: ' + msg) }",
             mobileJs:
                 "function testPlatformSpecificMethod(msg) { TestDartCallback.postMessage('Mobile callback says: ' + msg) }",
           ),
@@ -492,13 +530,18 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
 
   //webAPI
   Future<void> getRepaymentPlanAPI() async {
-    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
-    String loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
+    String loanAppRefId =
+        await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    String loanAppId =
+        await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
     String offerId = await TGSharedPreferences.getInstance().get(PREF_OFFERID);
-    GetRepaymentPlanRequest getRepaymentPlanRequest =
-        GetRepaymentPlanRequest(loanApplicationRefId: loanAppRefId, loanApplicationId: loanAppId, offerId: offerId);
+    GetRepaymentPlanRequest getRepaymentPlanRequest = GetRepaymentPlanRequest(
+        loanApplicationRefId: loanAppRefId,
+        loanApplicationId: loanAppId,
+        offerId: offerId);
     var jsonReq = jsonEncode(getRepaymentPlanRequest.toJson());
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GET_REPAYMENT_PLAN);
+    TGPostRequest tgPostRequest =
+        await getPayLoad(jsonReq, URI_GET_REPAYMENT_PLAN);
     ServiceManager.getInstance().getRepaymentPlanDetail(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessGetRepaymentPlan(response),
@@ -508,19 +551,22 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
   _onSuccessGetRepaymentPlan(GetRepaymentPlanResponse? response) {
     TGLog.d("GetRepaymentPlanResponse : onSuccess()");
     if (response?.getRepaymentPlanResObj().status == RES_DETAILS_FOUND) {
-      TGSharedPreferences.getInstance()
-          .set(PREF_REPAYMENTPLANID, response?.getRepaymentPlanResObj().data?.repaymentPlanId);
+      TGSharedPreferences.getInstance().set(PREF_REPAYMENTPLANID,
+          response?.getRepaymentPlanResObj().data?.repaymentPlanId);
       setState(() {
         _getRepaymentPlanResMain = response?.getRepaymentPlanResObj();
       });
     } else if (response?.getRepaymentPlanResObj().status == RES_OFFER_EXPIRED) {
       //move to no offerfound
       TGView.showSnackBar(context: context, message: "offer expired");
-    } else if (response?.getRepaymentPlanResObj().status == RES_OFFER_INELIGIBLE) {
+    } else if (response?.getRepaymentPlanResObj().status ==
+        RES_OFFER_INELIGIBLE) {
       //move to no offerfound
       TGView.showSnackBar(context: context, message: "Inaligible");
     } else {
-      TGView.showSnackBar(context: context, message: response?.getRepaymentPlanResObj().message ?? "");
+      TGView.showSnackBar(
+          context: context,
+          message: response?.getRepaymentPlanResObj().message ?? "");
     }
     setState(() {
       isRepaymentDataLoaded = true;
@@ -535,81 +581,29 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
     });
   }
 
-  // Navigator.pushReplacementNamed(context, MyRoutes.proceedToDisbursedRoutes);
-  Future<void> setRepaymentRequestAPI() async {
-    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
-    String loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
-    String repaymentPlanId = await TGSharedPreferences.getInstance().get(PREF_REPAYMENTPLANID);
-
-    SetRepaymentRequest setRepaymentRequest = SetRepaymentRequest(
-        loanApplicationRefId: loanAppRefId, loanApplicationId: loanAppId, repaymentPlanId: repaymentPlanId);
-
-    Map<String, dynamic> test = setRepaymentRequest.toJson();
-    test.removeWhere((key, value) => value == null);
-    var jsonReq = jsonEncode(test);
-
-    TGLog.d("SetRepaymentPlanRequest : $jsonReq");
-
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_SET_REPAYMENT_REQUEST);
-    ServiceManager.getInstance().setRepaymentRequest(
-        request: tgPostRequest,
-        onSuccess: (response) => _onSuccessSetRepaymentPlan(response),
-        onError: (error) => _onErrorSetRepaymentPlan(error));
-  }
-
-  _onSuccessSetRepaymentPlan(SetRepaymentResponse? response) {
-    TGLog.d("SetRepaymentPlanResponse : onSuccess()");
-
-    if (response?.setRepaymentResObj().status == RES_SUCCESS) {
-      setState(() {
-        _shareGstInvoiceResMain = response?.setRepaymentResObj();
-        getLoanAppStatusApiCall();
-      });
-    } else if (response?.setRepaymentResObj().status == RES_OFFER_EXPIRED) {
-      //move to no offerfound
-      setState(() {
-        isLoaderStartProceed = false;
-      });
-      TGView.showSnackBar(context: context, message: "offer expired");
-    } else if (response?.setRepaymentResObj().status == RES_OFFER_INELIGIBLE) {
-      //move to no offerfound
-      setState(() {
-        isLoaderStartProceed = false;
-      });
-      TGView.showSnackBar(context: context, message: "Inaligible");
-    } else {
-      setState(() {
-        isLoaderStartProceed = false;
-      });
-      TGView.showSnackBar(context: context, message: response?.setRepaymentResObj().message ?? "");
-    }
-  }
-
-  _onErrorSetRepaymentPlan(TGResponse errorResponse) {
-    TGLog.d("SetRepaymentPlanResponse : onError()");
-    setState(() {
-      isLoaderStartProceed = false;
-      handleServiceFailError(context, errorResponse.error);
-    });
-  }
-
   Future<void> getLoanApplicaionStatusAPI() async {
     // String loanApplicationReferenceID =
     // await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     // String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
 
-    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
-    String loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
-    String repaymentPlanId = await TGSharedPreferences.getInstance().get(PREF_REPAYMENTPLANID);
+    String loanAppRefId =
+        await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    String loanAppId =
+        await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
+    String repaymentPlanId =
+        await TGSharedPreferences.getInstance().get(PREF_REPAYMENTPLANID);
 
     GetLoanStatusRequest getLoanStatusRequest = GetLoanStatusRequest(
-        loanApplicationRefId: loanAppRefId, loanApplicationId: loanAppId, repaymentPlanId: repaymentPlanId);
+        loanApplicationRefId: loanAppRefId,
+        loanApplicationId: loanAppId,
+        repaymentPlanId: repaymentPlanId);
 
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
 
     TGLog.d("Before Status API Requst : $jsonReq");
 
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('8'));
+    TGPostRequest tgPostRequest =
+        await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('8'));
 
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,
@@ -636,7 +630,8 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
             ),
             (route) => false,
           );
-          Navigator.pushReplacementNamed(context, MyRoutes.proceedToDisbursedRoutes);
+          Navigator.pushReplacementNamed(
+              context, MyRoutes.proceedToDisbursedRoutes);
           // isLoadWebView = true;
         });
       } else if (_getLoanStatusResMain?.data?.stageStatus == "HOLD") {
@@ -644,7 +639,8 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
         getLoanAppStatusApiCall();
       }
     } else {
-      TGView.showSnackBar(context: context, message: _getLoanStatusResMain?.message ?? "");
+      TGView.showSnackBar(
+          context: context, message: _getLoanStatusResMain?.message ?? "");
     }
     setState(() {
       isDataLoaded = false;
@@ -662,62 +658,25 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
     });
   }
 
-  Future<void> setRepaymentRequestStatusAPI() async {
-    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
-    String loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
-    String repaymentPlanId = await TGSharedPreferences.getInstance().get(PREF_REPAYMENTPLANID);
-
-    SetRepaymentRequest setRepaymentRequest = SetRepaymentRequest(
-        loanApplicationRefId: loanAppRefId,
-        loanApplicationId: loanAppId,
-        repaymentPlanId: repaymentPlanId,
-        camsCallBackRes: "");
-
-    var jsonReq = jsonEncode(setRepaymentRequest.toJson());
-
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_SET_REPAYMENT_PLAN_STATUS);
-
-    ServiceManager.getInstance().setRepaymentPlanStatus(
-        request: tgPostRequest,
-        onSuccess: (response) => _onSuccessSetRepaymentPlanStatus(response),
-        onError: (error) => _onErrorSetRepaymentPlanStatus(error));
-  }
-
-  _onSuccessSetRepaymentPlanStatus(SetRepaymentResponse? response) {
-    TGLog.d("setRepaymentRequestStatusResponse : onSuccess()");
-
-    if (response?.setRepaymentResObj().status == RES_SUCCESS) {
-      _shareGstInvoiceResMain = response?.setRepaymentResObj();
-      getLoanAppStatusAfterWebviewApiCall();
-    } else if (response?.setRepaymentResObj().status == RES_OFFER_EXPIRED) {
-      //move to no offerfound
-      TGView.showSnackBar(context: context, message: "offer expired");
-    } else if (response?.setRepaymentResObj().status == RES_OFFER_INELIGIBLE) {
-      //move to no offerfound
-      TGView.showSnackBar(context: context, message: "Inaligible");
-    } else {
-      TGView.showSnackBar(context: context, message: response?.setRepaymentResObj().message ?? "");
-    }
-  }
-
-  _onErrorSetRepaymentPlanStatus(TGResponse errorResponse) {
-    TGLog.d("setRepaymentRequestStatusResponse : onError()");
-    handleServiceFailError(context, errorResponse.error);
-  }
-
   Future<void> getLoanAppStatusAfterWebview() async {
-    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
-    String loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
-    String repaymentPlanId = await TGSharedPreferences.getInstance().get(PREF_REPAYMENTPLANID);
+    String loanAppRefId =
+        await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    String loanAppId =
+        await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
+    String repaymentPlanId =
+        await TGSharedPreferences.getInstance().get(PREF_REPAYMENTPLANID);
 
     GetLoanStatusRequest getLoanStatusRequest = GetLoanStatusRequest(
-        loanApplicationRefId: loanAppRefId, loanApplicationId: loanAppId, repaymentPlanId: repaymentPlanId);
+        loanApplicationRefId: loanAppRefId,
+        loanApplicationId: loanAppId,
+        repaymentPlanId: repaymentPlanId);
 
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
 
     TGLog.d("Before Status API Requst : $jsonReq");
 
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('8'));
+    TGPostRequest tgPostRequest =
+        await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('8'));
 
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,
@@ -732,7 +691,8 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
 
     if (_getLoanStatusResMain?.status == RES_SUCCESS) {
       if (_getLoanStatusResMain?.data?.stageStatus == "PROCEED") {
-        TGSharedPreferences.getInstance().set(PREF_CURRENT_STAGE, _getLoanStatusResMain?.data?.currentStage);
+        TGSharedPreferences.getInstance()
+            .set(PREF_CURRENT_STAGE, _getLoanStatusResMain?.data?.currentStage);
         //     Navigator.of(context).push(CustomRightToLeftPageRoute(child: const EmandateStatus(), ));
         Navigator.push(
             context,
@@ -753,7 +713,8 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
         isLoaderStartProceed = false;
         isLoadWebView = false;
       });
-      TGView.showSnackBar(context: context, message: _getLoanStatusResMain?.message ?? "");
+      TGView.showSnackBar(
+          context: context, message: _getLoanStatusResMain?.message ?? "");
     }
   }
 
@@ -773,13 +734,13 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
     }
   }
 
-  Future<void> setRepaymentPlanStatusApiCall() async {
-    if (await TGNetUtil.isInternetAvailable()) {
-      setRepaymentRequestStatusAPI();
-    } else {
-      showSnackBarForintenetConnection(context, setRepaymentRequestStatusAPI);
-    }
-  }
+  // Future<void> setRepaymentPlanStatusApiCall() async {
+  //   if (await TGNetUtil.isInternetAvailable()) {
+  //     setRepaymentRequestStatusAPI();
+  //   } else {
+  //     showSnackBarForintenetConnection(context, setRepaymentRequestStatusAPI);
+  //   }
+  // }
 
   Future<void> getLoanAppStatusApiCall() async {
     if (await TGNetUtil.isInternetAvailable()) {
@@ -796,8 +757,8 @@ Widget sizebox({required double height}) {
   );
 }
 
-Widget padding({required Widget child, required double horizontal}) =>
-    Padding(padding: EdgeInsets.symmetric(horizontal: horizontal), child: child);
+Widget padding({required Widget child, required double horizontal}) => Padding(
+    padding: EdgeInsets.symmetric(horizontal: horizontal), child: child);
 
 Widget paddingOnly(
         {required Widget child,
@@ -805,9 +766,15 @@ Widget paddingOnly(
         required double top,
         required double left,
         required double right}) =>
-    Padding(padding: EdgeInsets.only(left: left, right: right, bottom: bottom, top: top), child: child);
+    Padding(
+        padding:
+            EdgeInsets.only(left: left, right: right, bottom: bottom, top: top),
+        child: child);
 
-Widget text({required String text, TextStyle? textStyle, TextAlign? textAlgin = TextAlign.left}) {
+Widget text(
+    {required String text,
+    TextStyle? textStyle,
+    TextAlign? textAlgin = TextAlign.left}) {
   return Text(
     text,
     style: textStyle,
@@ -815,9 +782,15 @@ Widget text({required String text, TextStyle? textStyle, TextAlign? textAlgin = 
   );
 }
 
-TextStyle? textTextHeader1 = ThemeHelper.getInstance()!.textTheme.headline1?.copyWith(color: MyColors.darkblack);
+TextStyle? textTextHeader1 = ThemeHelper.getInstance()!
+    .textTheme
+    .headline1
+    ?.copyWith(color: MyColors.darkblack);
 
 TextStyle? textTextHeader3 = ThemeHelper.getInstance()!.textTheme.headline3;
-TextStyle? textTextHeader2Copywith16 = ThemeHelper.getInstance()!.textTheme.headline2!.copyWith(fontSize: 16.sp);
-TextStyle? textTextHeader1Copywith14 = ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 14.sp);
-TextStyle? textTextHeader3Copywith11 = ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 11.sp);
+TextStyle? textTextHeader2Copywith16 =
+    ThemeHelper.getInstance()!.textTheme.headline2!.copyWith(fontSize: 16.sp);
+TextStyle? textTextHeader1Copywith14 =
+    ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 14.sp);
+TextStyle? textTextHeader3Copywith11 =
+    ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 11.sp);

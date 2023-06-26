@@ -10,6 +10,7 @@ import 'package:sbi_sahay_1_0/registration/mobile/signupdetails/signup.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../utils/Utils.dart';
 import '../../../utils/constants/imageconstant.dart';
@@ -86,7 +87,8 @@ class _GetStartedState extends State<GetStarted> {
           ? SizedBox(
               height: 50.h,
               child: JumpingDots(
-                color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
+                color: ThemeHelper.getInstance()?.primaryColor ??
+                    MyColors.pnbcolorPrimary,
                 radius: 10,
               ),
             )
@@ -162,30 +164,37 @@ Widget cardViewSetup() {
             children: [
               TextSpan(
                 text: str_gst_sahay,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline1!
-                    .copyWith(fontSize: 16.sp, color: MyColors.pnbsmallbodyTextColor),
+                style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(
+                    fontSize: 22.sp, color: MyColors.pnbsmallbodyTextColor),
               ),
               TextSpan(
                 text: str_disc,
-                style: ThemeHelper.getInstance()!.textTheme.displayMedium,
+                style: ThemeHelper.getInstance()!
+                    .textTheme
+                    .displayMedium!
+                    .copyWith(fontSize: 22.sp),
               ),
               TextSpan(
                 recognizer: new TapGestureRecognizer()
-                  ..onTap = () => {
-                    // redurectURLGST(
-                    //     "https://www.youtube.com/watch?v=vcxK5Ppd4R4")
+                  ..onTap = () {
+                    launchUrl(Uri.parse(
+                        "https://www.youtube.com/watch?v=vcxK5Ppd4R4"));
                   },
                 text: strVideo,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .displayMedium!
-                    .copyWith(color: MyColors.hyperlinkcolornew, decoration: TextDecoration.underline),
+                    .copyWith(
+                        color: MyColors.hyperlinkcolornew,
+                        decoration: TextDecoration.underline,
+                        fontSize: 22.sp),
               ),
               TextSpan(
                 text: strLast,
-                style: ThemeHelper.getInstance()!.textTheme.displayMedium,
+                style: ThemeHelper.getInstance()!
+                    .textTheme
+                    .displayMedium!
+                    .copyWith(fontSize: 22.sp),
               ),
             ],
           ),
@@ -204,7 +213,9 @@ Widget loginButton(BuildContext context) {
       textAlign: TextAlign.center,
       text: TextSpan(
         children: [
-          TextSpan(text: str_all_have_acc, style: ThemeHelper.getInstance()!.textTheme.headline3),
+          TextSpan(
+              text: str_all_have_acc,
+              style: ThemeHelper.getInstance()!.textTheme.headline3),
           TextSpan(
               text: str_logintc,
               style: ThemeHelper.getInstance()!
@@ -225,6 +236,4 @@ Widget loginButton(BuildContext context) {
       ),
     ),
   );
-
-
 }

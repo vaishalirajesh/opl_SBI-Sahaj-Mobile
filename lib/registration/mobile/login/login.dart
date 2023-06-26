@@ -100,6 +100,8 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
   bool isClearOtp = false;
   bool _isGetOTPLoaderStart = false;
 
+  String text = "";
+
   onPressed(String text) {
     if (counter <= maxLength - 1 && text != '/') {
       counter++;
@@ -143,13 +145,100 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  child: ListView(
-                    children: [
-                      enterMobileLabel(),
-                    ],
-                  ),
-                ),
+                    height: MediaQuery.of(context).size.height,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 30.0.h, bottom: 9.h),
+                            child: Text(
+                              str_Enter_your_mobile_Details,
+                              style: ThemeHelper.getInstance()!
+                                  .textTheme
+                                  .headline2,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              bottom: 20.0.h,
+                            ),
+                            child: Text(
+                              str_we_will_send_you_otp_for_confirmation,
+                              style: ThemeHelper.getInstance()!
+                                  .textTheme
+                                  .headline3
+                                  ?.copyWith(fontSize: 14.sp),
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  //  viewModel.display();
+                                },
+                                child: TextFormField(
+                                    readOnly: true,
+                                    maxLength: 5,
+                                    maxLengthEnforcement:
+                                        MaxLengthEnforcement.enforced,
+                                    controller: mobileTextController,
+                                    style: ThemeHelper.getInstance()!
+                                        .textTheme
+                                        .headline3!
+                                        .copyWith(color: MyColors.darkblack),
+                                    onChanged: (String newVal) {
+                                      setState(() {
+                                        if (newVal.length <= maxLength) {
+                                          text = newVal;
+                                        } else {
+                                          mobileTextController.text = text;
+                                        }
+                                      });
+                                    },
+                                    cursorColor: ThemeHelper.getInstance()!
+                                        .colorScheme
+                                        .onSurface,
+                                    decoration: InputDecoration(
+                                        hintText: str_Mobile_number,
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: 1,
+                                              color: ThemeHelper.getInstance()!
+                                                  .colorScheme
+                                                  .onSurface),
+                                        ),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ThemeHelper.getInstance()!
+                                                  .colorScheme
+                                                  .onSurface,
+                                              width: 1.0),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: 1,
+                                              color: ThemeHelper.getInstance()!
+                                                  .colorScheme
+                                                  .onSurface),
+                                        ),
+                                        counterText: ''),
+                                    keyboardType: TextInputType.text,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please Enter Mobile Number';
+                                      }
+                                      return null;
+                                    }),
+                              ),
+                              SizedBox(
+                                height: 20.h,
+                              ),
+                              keyboardColumn(),
+                            ],
+                          ),
+                        ])),
               ),
               Align(
                 alignment: Alignment.bottomCenter,
@@ -589,95 +678,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
     );
   }
 
-  enterMobileLabel() {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-        padding: EdgeInsets.only(top: 30.0.h, bottom: 9.h),
-        child: Text(
-          str_Enter_your_mobile_Details,
-          style: ThemeHelper.getInstance()!.textTheme.headline2,
-        ),
-      ),
-      Padding(
-        padding: EdgeInsets.only(
-          bottom: 20.0.h,
-        ),
-        child: Text(
-          str_we_will_send_you_otp_for_confirmation,
-          style: ThemeHelper.getInstance()!
-              .textTheme
-              .headline3
-              ?.copyWith(fontSize: 14.sp),
-        ),
-      ),
-      mobileNumberTextFiled(),
-    ]);
-  }
-
-  mobileNumberTextFiled() {
-    var text;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        GestureDetector(
-          onTap: () {
-            //  viewModel.display();
-          },
-          child: TextFormField(
-              readOnly: true,
-              maxLength: 5,
-              maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              controller: mobileTextController,
-              style: ThemeHelper.getInstance()!
-                  .textTheme
-                  .headline3!
-                  .copyWith(color: MyColors.darkblack),
-              onChanged: (String newVal) {
-                setState(() {
-                  if (newVal.length <= maxLength) {
-                    text = newVal;
-                  } else {
-                    mobileTextController.text = text;
-                  }
-                });
-              },
-              cursorColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
-              decoration: InputDecoration(
-                  hintText: str_Mobile_number,
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        width: 1,
-                        color:
-                            ThemeHelper.getInstance()!.colorScheme.onSurface),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: ThemeHelper.getInstance()!.colorScheme.onSurface,
-                        width: 1.0),
-                  ),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        width: 1,
-                        color:
-                            ThemeHelper.getInstance()!.colorScheme.onSurface),
-                  ),
-                  counterText: ''),
-              keyboardType: TextInputType.text,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please Enter Mobile Number';
-                }
-                return null;
-              }),
-        ),
-        SizedBox(
-          height: 20.h,
-        ),
-        keyboardColumn(),
-      ],
-    );
-  }
+  enterMobileLabel() {}
 
   @override
   void dispose() {
