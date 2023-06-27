@@ -201,7 +201,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                                         .colorScheme
                                         .onSurface,
                                     decoration: InputDecoration(
-                                        hintText: str_Mobile_number,
+                                        labelText: "Enter your Mobile Number",
                                         enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               width: 1,
@@ -233,7 +233,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                                     }),
                               ),
                               SizedBox(
-                                height: 20.h,
+                                height: 30.h,
                               ),
                               keyboardColumn(),
                             ],
@@ -252,8 +252,9 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                       children: [
                         Row(
                           children: [
-                            Theme(
-                              data: ThemeData(useMaterial3: true),
+                            SizedBox(
+                              height: 40.h,
+                              width: 40.w,
                               child: Checkbox(
                                 // checkColor: MyColors.colorAccent,
                                 activeColor:
@@ -281,46 +282,54 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                             Expanded(
                               child: Padding(
                                 padding: EdgeInsets.only(top: 10.h),
-                                child: Text.rich(
-                                  TextSpan(
-                                    text: str_i_login_check_part1,
-                                    style: ThemeHelper.getInstance()!
-                                        .textTheme
-                                        .headline3!
-                                        .copyWith(
-                                          fontSize: 14.sp,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    isCheckedFirst = !isCheckedFirst;
+                                    setState(() {});
+                                  },
+                                  child: Text.rich(
+                                    TextSpan(
+                                      text: str_i_login_check_part1,
+                                      style: ThemeHelper.getInstance()!
+                                          .textTheme
+                                          .headline3!
+                                          .copyWith(
+                                            fontSize: 14.sp,
+                                          ),
+                                      children: <InlineSpan>[
+                                        TextSpan(
+                                          text: str_i_login_checkpart2,
+                                          style: ThemeHelper.getInstance()!
+                                              .textTheme
+                                              .headline3!
+                                              .copyWith(
+                                                fontSize: 14.sp,
+                                                color:
+                                                    MyColors.hyperlinkcolornew,
+                                              ),
                                         ),
-                                    children: <InlineSpan>[
-                                      TextSpan(
-                                        text: str_i_login_checkpart2,
-                                        style: ThemeHelper.getInstance()!
-                                            .textTheme
-                                            .headline3!
-                                            .copyWith(
-                                              fontSize: 14.sp,
-                                              color: MyColors.hyperlinkcolornew,
-                                            ),
-                                      ),
-                                      TextSpan(
-                                        text: str_i_login_checkpart3,
-                                        style: ThemeHelper.getInstance()!
-                                            .textTheme
-                                            .headline3!
-                                            .copyWith(
-                                              fontSize: 14.sp,
-                                            ),
-                                      ),
-                                      TextSpan(
-                                        text: str_i_login_checkpart4,
-                                        style: ThemeHelper.getInstance()!
-                                            .textTheme
-                                            .headline3!
-                                            .copyWith(
-                                              fontSize: 14.sp,
-                                              color: MyColors.hyperlinkcolornew,
-                                            ),
-                                      )
-                                    ],
+                                        TextSpan(
+                                          text: str_i_login_checkpart3,
+                                          style: ThemeHelper.getInstance()!
+                                              .textTheme
+                                              .headline3!
+                                              .copyWith(
+                                                fontSize: 14.sp,
+                                              ),
+                                        ),
+                                        TextSpan(
+                                          text: str_i_login_checkpart4,
+                                          style: ThemeHelper.getInstance()!
+                                              .textTheme
+                                              .headline3!
+                                              .copyWith(
+                                                fontSize: 14.sp,
+                                                color:
+                                                    MyColors.hyperlinkcolornew,
+                                              ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -657,7 +666,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
 
   _buildButton(String text, int index) {
     return SizedBox(
-      height: 60.h,
+      height: 70.h,
       child: IconButton(
         onPressed: () {
           onPressed(buttonList[index]);

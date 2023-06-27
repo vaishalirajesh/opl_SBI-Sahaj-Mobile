@@ -96,7 +96,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               SizedBox(
                 height: 20.w,
               ),
-              GenderTextField("Gender"),
+              GenderTextField("Gender", context),
               SizedBox(
                 height: 20.w,
               ),
@@ -224,6 +224,65 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   ),
                 ),
               ])),
+    );
+  }
+
+  List<String> genders = ['Male', 'Female', 'Prefer not to say'];
+
+  String gender = "Male";
+  Widget GenderTextField(String label, BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 10.h),
+      height: 30.h,
+      width: MediaQuery.of(context).size.width - 20,
+      padding: EdgeInsets.zero,
+      color: Colors.white,
+      child: Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: Colors.white,
+        ),
+        child: DropdownButton<String>(
+          value: genders.elementAt(0),
+          items: genders.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Container(
+                  margin: EdgeInsets.all(3),
+                  color: Colors.white,
+                  width: MediaQuery.of(context).size.width - 86,
+                  child: Text(
+                    value,
+                    style: ThemeHelper.getInstance()!
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(fontSize: 12.sp),
+                  )),
+            );
+          }).toList(),
+          icon: null,
+          isDense: true,
+          underline: Container(
+            height: 1,
+            color: MyColors.pnbTextcolor,
+          ),
+          isExpanded: true,
+          selectedItemBuilder: (context) {
+            return [
+              Container(
+                  margin: EdgeInsets.all(3.h),
+                  width: MediaQuery.of(context).size.width - 86,
+                  child: Text(
+                    "Male",
+                    style: ThemeHelper.getInstance()!
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(fontSize: 12.sp),
+                  ))
+            ];
+          },
+          onChanged: (_) {},
+        ),
+      ),
     );
   }
 }
@@ -372,37 +431,4 @@ class ContactNumberWidgetState extends State<ContactNumberWidget> {
           FilteringTextInputFormatter.digitsOnly
         ]);
   }
-}
-
-Widget GenderTextField(String label) {
-  return TextFormField(
-      onChanged: (content) {},
-      cursorColor: Colors.grey,
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: ThemeHelper.getInstance()
-            ?.textTheme
-            .headline3
-            ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
-        enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: MyColors.pnbTextcolor)),
-        focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: MyColors.pnbDarkGreyTextColor)),
-        suffixIcon: IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.arrow_drop_down,
-            color: MyColors.pnbTextcolor,
-          ),
-        ),
-      ),
-      keyboardType: TextInputType.text,
-      maxLines: 1,
-      style: ThemeHelper.getInstance()?.textTheme.headline3,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter $label';
-        }
-        return null;
-      });
 }

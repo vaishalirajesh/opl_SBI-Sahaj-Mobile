@@ -184,6 +184,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                   value: isCheckFirst,
                   onChanged: (value) {
                     changestateConfirmViewFirstCheckBox(value!);
+                    setState(() {});
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
@@ -202,14 +203,20 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
               width: 10.w,
             ),
             Expanded(
-              child: Text(
-                str_confirm_check1,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(fontSize: 14.sp, color: MyColors.lightBlackText),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 3,
+              child: GestureDetector(
+                onTap: () {
+                  changestateConfirmViewFirstCheckBox(isCheckFirst);
+                },
+                child: Text(
+                  str_confirm_check1,
+                  style: ThemeHelper.getInstance()!
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(
+                          fontSize: 14.sp, color: MyColors.lightBlackText),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 3,
+                ),
               ),
             ),
           ],
@@ -250,14 +257,20 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
               width: 10.w,
             ),
             Expanded(
-              child: Text(str_confirm_check2,
-                  style: ThemeHelper.getInstance()!
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(
-                          fontSize: 14.sp, color: MyColors.lightBlackText),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 3),
+              child: GestureDetector(
+                onTap: () {
+                  changestateConfirmViewSecondCheckBox(!isCheckSecond);
+                  setState(() {});
+                },
+                child: Text(str_confirm_check2,
+                    style: ThemeHelper.getInstance()!
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(
+                            fontSize: 14.sp, color: MyColors.lightBlackText),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3),
+              ),
             ),
           ],
         )

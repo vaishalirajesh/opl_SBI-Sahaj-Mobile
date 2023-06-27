@@ -13,19 +13,24 @@ import '../loanprocess/mobile/accountaggregatorntb/ui/aadetails.dart';
 import '../loanprocess/mobile/congratulations_final/ui/congratulationfinalscreen.dart';
 import '../loanprocess/mobile/emailafterloanagreement/mobile/email_sent_after_loan_agreement.dart';
 import '../loanprocess/mobile/gstinvoiceslist/ui/gstinvoicelist.dart';
-import '../loanprocess/mobile/infosharedscreen/ui/infosharedscreen.dart';
 import '../loanprocess/mobile/loanofferlist/ui/loanofferlistscreen.dart';
 import '../registration/mobile/cic_consent/cic_consent.dart';
 import 'constants/prefrenceconstants.dart';
 import 'constants/stageconstants.dart';
 
 class MoveStage {
-  static void movetoStage(BuildContext context, LoanDetailData? loanDetailsData) async {
-    await TGSharedPreferences.getInstance().set(PREF_LOANAPPREFID, loanDetailsData?.loanAppRefNo);
-    await TGSharedPreferences.getInstance().set(PREF_CURRENT_STAGE, loanDetailsData?.currentApplicationStage);
-    await TGSharedPreferences.getInstance().set(PREF_GSTIN, loanDetailsData?.gstin);
-    TGSharedPreferences.getInstance().set(PREF_CURRENT_STAGE, loanDetailsData?.currentApplicationStage);
-    bool? isCicConsentDone = await TGSharedPreferences.getInstance().get(PREF_ISCIC_CONSENT);
+  static void movetoStage(
+      BuildContext context, LoanDetailData? loanDetailsData) async {
+    await TGSharedPreferences.getInstance()
+        .set(PREF_LOANAPPREFID, loanDetailsData?.loanAppRefNo);
+    await TGSharedPreferences.getInstance()
+        .set(PREF_CURRENT_STAGE, loanDetailsData?.currentApplicationStage);
+    await TGSharedPreferences.getInstance()
+        .set(PREF_GSTIN, loanDetailsData?.gstin);
+    TGSharedPreferences.getInstance()
+        .set(PREF_CURRENT_STAGE, loanDetailsData?.currentApplicationStage);
+    bool? isCicConsentDone =
+        await TGSharedPreferences.getInstance().get(PREF_ISCIC_CONSENT);
 
     if (loanDetailsData?.currentApplicationStage != STAGE_DISBURSEMENT_STATUS) {
       if (loanDetailsData?.currentApplicationStage == STAGE_INITIATED &&
@@ -69,7 +74,8 @@ class MoveStage {
         }
 
         //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GSTInvoicesList()));
-      } else if (loanDetailsData?.currentApplicationStage == STAGE_SHARE_INVOICE) {
+      } else if (loanDetailsData?.currentApplicationStage ==
+          STAGE_SHARE_INVOICE) {
         if (isCicConsentDone == null || isCicConsentDone == false) {
           Navigator.pushAndRemoveUntil(
             context,
@@ -100,8 +106,10 @@ class MoveStage {
 
         ///Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AccountAggregatorDetails()));
       } else if (loanDetailsData?.currentApplicationStage == STAGE_LIST_OFFER) {
-        await TGSharedPreferences.getInstance().set(PREF_AAID, loanDetailsData?.aaId);
-        await TGSharedPreferences.getInstance().set(PREF_AACODE, loanDetailsData?.aaCode);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_AAID, loanDetailsData?.aaId);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_AACODE, loanDetailsData?.aaCode);
 
         Navigator.pushAndRemoveUntil(
           context,
@@ -115,18 +123,18 @@ class MoveStage {
 
         //Navigator.pushNamed(context, MyRoutes.loanOfferListRoutes);
       } else if (loanDetailsData?.currentApplicationStage == STAGE_LOAN_OFFER) {
-        await TGSharedPreferences.getInstance().set(PREF_AAID, loanDetailsData?.aaId);
-        await TGSharedPreferences.getInstance().set(PREF_AACODE, loanDetailsData?.aaCode);
-
+        await TGSharedPreferences.getInstance()
+            .set(PREF_AAID, loanDetailsData?.aaId);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_AACODE, loanDetailsData?.aaCode);
 
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             builder: (context) => const LoanOfferDialog(),
           ),
-              (route) => false,
+          (route) => false,
         );
-
 
         // Navigator.pushAndRemoveUntil(
         //   context,
@@ -136,11 +144,16 @@ class MoveStage {
         //   (route) => false, //if you want to disable back feature set to false
         // );
         //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => InfoShare()));
-      } else if (loanDetailsData?.currentApplicationStage == STAGE_SET_DISBURSEMENT_ACC) {
-        await TGSharedPreferences.getInstance().set(PREF_AAID, loanDetailsData?.aaId);
-        await TGSharedPreferences.getInstance().set(PREF_AACODE, loanDetailsData?.aaCode);
-        await TGSharedPreferences.getInstance().set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
-        await TGSharedPreferences.getInstance().set(PREF_OFFERID, loanDetailsData?.offerId);
+      } else if (loanDetailsData?.currentApplicationStage ==
+          STAGE_SET_DISBURSEMENT_ACC) {
+        await TGSharedPreferences.getInstance()
+            .set(PREF_AAID, loanDetailsData?.aaId);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_AACODE, loanDetailsData?.aaCode);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_OFFERID, loanDetailsData?.offerId);
 
         Navigator.pushAndRemoveUntil(
           context,
@@ -151,11 +164,16 @@ class MoveStage {
         );
 
         //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ReviewDisbursedAccMain()));
-      } else if (loanDetailsData?.currentApplicationStage == STAGE_SIGN_AGGREEMENT) {
-        await TGSharedPreferences.getInstance().set(PREF_AAID, loanDetailsData?.aaId);
-        await TGSharedPreferences.getInstance().set(PREF_AACODE, loanDetailsData?.aaCode);
-        await TGSharedPreferences.getInstance().set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
-        await TGSharedPreferences.getInstance().set(PREF_OFFERID, loanDetailsData?.offerId);
+      } else if (loanDetailsData?.currentApplicationStage ==
+          STAGE_SIGN_AGGREEMENT) {
+        await TGSharedPreferences.getInstance()
+            .set(PREF_AAID, loanDetailsData?.aaId);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_AACODE, loanDetailsData?.aaCode);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_OFFERID, loanDetailsData?.offerId);
 
         Navigator.pushAndRemoveUntil(
           context,
@@ -166,11 +184,16 @@ class MoveStage {
         );
 
         //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanAgreementMain()));
-      } else if (loanDetailsData?.currentApplicationStage == STAGE_SIGN_AGGREEMENT_STATUS) {
-        await TGSharedPreferences.getInstance().set(PREF_AAID, loanDetailsData?.aaId);
-        await TGSharedPreferences.getInstance().set(PREF_OFFERID, loanDetailsData?.offerId);
-        await TGSharedPreferences.getInstance().set(PREF_AACODE, loanDetailsData?.aaCode);
-        await TGSharedPreferences.getInstance().set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
+      } else if (loanDetailsData?.currentApplicationStage ==
+          STAGE_SIGN_AGGREEMENT_STATUS) {
+        await TGSharedPreferences.getInstance()
+            .set(PREF_AAID, loanDetailsData?.aaId);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_OFFERID, loanDetailsData?.offerId);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_AACODE, loanDetailsData?.aaCode);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
 
         Navigator.pushAndRemoveUntil(
           context,
@@ -182,25 +205,34 @@ class MoveStage {
 
         // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanAgreementMain()));
       } else if (loanDetailsData?.currentApplicationStage == STAGE_GRANT_LOAN) {
-        await TGSharedPreferences.getInstance().set(PREF_AAID, loanDetailsData?.aaId);
-        await TGSharedPreferences.getInstance().set(PREF_OFFERID, loanDetailsData?.offerId);
-        await TGSharedPreferences.getInstance().set(PREF_AACODE, loanDetailsData?.aaCode);
-        await TGSharedPreferences.getInstance().set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_AAID, loanDetailsData?.aaId);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_OFFERID, loanDetailsData?.offerId);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_AACODE, loanDetailsData?.aaCode);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
 
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => const EmailSentAfterLoanAgreement(),
+            builder: (BuildContext context) =>
+                const EmailSentAfterLoanAgreement(),
           ),
           (route) => false, //if you want to disable back feature set to false
         );
 
         //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EmailSentAfterLoanAgreement()));
       } else if (loanDetailsData?.currentApplicationStage == STAGE_E_MANDATE) {
-        await TGSharedPreferences.getInstance().set(PREF_AAID, loanDetailsData?.aaId);
-        await TGSharedPreferences.getInstance().set(PREF_OFFERID, loanDetailsData?.offerId);
-        await TGSharedPreferences.getInstance().set(PREF_AACODE, loanDetailsData?.aaCode);
-        await TGSharedPreferences.getInstance().set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_AAID, loanDetailsData?.aaId);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_OFFERID, loanDetailsData?.offerId);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_AACODE, loanDetailsData?.aaCode);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
 
         Navigator.pushAndRemoveUntil(
           context,
@@ -211,12 +243,18 @@ class MoveStage {
         );
 
         // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SetupEmandate()));
-      } else if (loanDetailsData?.currentApplicationStage == STAGE_E_MANDATE_STATUS) {
-        await TGSharedPreferences.getInstance().set(PREF_AAID, loanDetailsData?.aaId);
-        await TGSharedPreferences.getInstance().set(PREF_OFFERID, loanDetailsData?.offerId);
-        await TGSharedPreferences.getInstance().set(PREF_AACODE, loanDetailsData?.aaCode);
-        await TGSharedPreferences.getInstance().set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
-        await TGSharedPreferences.getInstance().set(PREF_REPAYMENTPLANID, loanDetailsData?.repaymentPlanId);
+      } else if (loanDetailsData?.currentApplicationStage ==
+          STAGE_E_MANDATE_STATUS) {
+        await TGSharedPreferences.getInstance()
+            .set(PREF_AAID, loanDetailsData?.aaId);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_OFFERID, loanDetailsData?.offerId);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_AACODE, loanDetailsData?.aaCode);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_REPAYMENTPLANID, loanDetailsData?.repaymentPlanId);
 
         Navigator.pushAndRemoveUntil(
           context,
@@ -227,10 +265,14 @@ class MoveStage {
         );
 
         //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SetupEmandate()));
-      } else if (loanDetailsData?.currentApplicationStage == STAGE_CONSENT_MONITORING) {
-        await TGSharedPreferences.getInstance().set(PREF_AAID, loanDetailsData?.aaId);
-        await TGSharedPreferences.getInstance().set(PREF_AACODE, loanDetailsData?.aaCode);
-        await TGSharedPreferences.getInstance().set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
+      } else if (loanDetailsData?.currentApplicationStage ==
+          STAGE_CONSENT_MONITORING) {
+        await TGSharedPreferences.getInstance()
+            .set(PREF_AAID, loanDetailsData?.aaId);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_AACODE, loanDetailsData?.aaCode);
+        await TGSharedPreferences.getInstance()
+            .set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
         //Navigator.pushNamed(context, MyRoutes.ConsentMonitoring);
 
         Navigator.pushAndRemoveUntil(
@@ -242,8 +284,10 @@ class MoveStage {
         );
 
         //   Navigator.pushNamed(context, MyRoutes.proceedToDisbursedRoutes);
-      } else if (loanDetailsData?.currentApplicationStage == STAGE_DISBURSEMENT) {
-        await TGSharedPreferences.getInstance().set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
+      } else if (loanDetailsData?.currentApplicationStage ==
+          STAGE_DISBURSEMENT) {
+        await TGSharedPreferences.getInstance()
+            .set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
 
         Navigator.pushAndRemoveUntil(
           context,
@@ -254,8 +298,10 @@ class MoveStage {
         );
 
         // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProceedToDisburseMain()));
-      } else if (loanDetailsData?.currentApplicationStage == STAGE_DISBURSEMENT_STATUS) {
-        await TGSharedPreferences.getInstance().set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
+      } else if (loanDetailsData?.currentApplicationStage ==
+          STAGE_DISBURSEMENT_STATUS) {
+        await TGSharedPreferences.getInstance()
+            .set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
 
         Navigator.pushAndRemoveUntil(
           context,
@@ -280,7 +326,8 @@ class MoveStage {
         //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CongratulationsFinalMain()));
       }
     } else {
-      await TGSharedPreferences.getInstance().set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
+      await TGSharedPreferences.getInstance()
+          .set(PREF_LOANAPPID, loanDetailsData?.loanApplicationId);
 
       Navigator.pushAndRemoveUntil(
         context,
@@ -330,9 +377,9 @@ class MoveStage {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) =>  LoanOfferList(),
+          builder: (BuildContext context) => LoanOfferList(),
         ),
-            (route) => false, //if you want to disable back feature set to false
+        (route) => false, //if you want to disable back feature set to false
       );
 
       //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanOfferList()));
@@ -350,9 +397,9 @@ class MoveStage {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) =>  ReviewDisbursedAccMain(),
+          builder: (BuildContext context) => ReviewDisbursedAccMain(),
         ),
-            (route) => false, //if you want to disable back feature set to false
+        (route) => false, //if you want to disable back feature set to false
       );
       //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ReviewDisbursedAccMain()));
     } else if (currentAppStage == STAGE_SIGN_AGGREEMENT) {
@@ -363,7 +410,7 @@ class MoveStage {
         ),
         (route) => false, //if you want to disable back feature set to false
       );
-      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanAgreementMain()));
+      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoanAgreementMain()));5
     } else if (currentAppStage == STAGE_SIGN_AGGREEMENT_STATUS) {
       Navigator.pushAndRemoveUntil(
         context,
@@ -378,7 +425,8 @@ class MoveStage {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => const SetupEmandate(),
+          builder: (BuildContext context) =>
+              const EmailSentAfterLoanAgreement(),
         ),
         (route) => false, //if you want to disable back feature set to false
       );

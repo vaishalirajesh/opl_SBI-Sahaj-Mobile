@@ -165,14 +165,14 @@ Widget cardViewSetup() {
               TextSpan(
                 text: str_gst_sahay,
                 style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(
-                    fontSize: 22.sp, color: MyColors.pnbsmallbodyTextColor),
+                    fontSize: 16.sp, color: MyColors.pnbsmallbodyTextColor),
               ),
               TextSpan(
                 text: str_disc,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .displayMedium!
-                    .copyWith(fontSize: 22.sp),
+                    .copyWith(fontSize: 16.sp),
               ),
               TextSpan(
                 recognizer: new TapGestureRecognizer()
@@ -187,14 +187,14 @@ Widget cardViewSetup() {
                     .copyWith(
                         color: MyColors.hyperlinkcolornew,
                         decoration: TextDecoration.underline,
-                        fontSize: 22.sp),
+                        fontSize: 16.sp),
               ),
               TextSpan(
                 text: strLast,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .displayMedium!
-                    .copyWith(fontSize: 22.sp),
+                    .copyWith(fontSize: 16.sp),
               ),
             ],
           ),
