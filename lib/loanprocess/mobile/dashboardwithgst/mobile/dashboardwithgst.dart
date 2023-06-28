@@ -35,6 +35,7 @@ import '../../../../utils/constants/statusConstants.dart';
 import '../../../../utils/helpers/themhelper.dart';
 import '../../../../utils/internetcheckdialog.dart';
 import '../../../../utils/movestageutils.dart';
+import '../../../../utils/singlebuttondialog.dart';
 import '../../../../utils/strings/strings.dart';
 import '../../profile/ui/newprofile.dart';
 import '../../transactions/ui/transactionscreen.dart';
@@ -361,7 +362,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
               SizedBox(
                 height: 12.h,
               ),
-              recentTransactionList()
+              if (!isRecentTransactionEmpty) recentTransactionList()
             ],
           ),
         ));
@@ -1033,115 +1034,96 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
   }
 
   buildCardImg() {
-    return GestureDetector(
-      onTap: () {
-        // if (isOngoingJounery == true) {
-        //   DialogUtils.showCustomDialog(context,
-        //       title:
-        //           "Other eligible invoices cannot be financed due to an ongoing application is already there.",
-        //       okBtnText: "OK");
-        // } else {
-        //   TGSharedPreferences.getInstance().remove(PREF_AAID);
-        //   TGSharedPreferences.getInstance().remove(PREF_AACODE);
-        //   TGSharedPreferences.getInstance().remove(PREF_LOANAPPREFID);
-        //   TGSharedPreferences.getInstance().remove(PREF_LOANOFFER);
-        //   TGSharedPreferences.getInstance().remove(GET_ALLLIST);
-        //   TGSharedPreferences.getInstance().remove(PREF_AAURL);
-        //   TGSharedPreferences.getInstance().remove(PREF_AACALLBACKURL);
-        //   TGSharedPreferences.getInstance().remove(PREF_CONSENTTYPE);
-        //   TGSharedPreferences.getInstance().remove(PREF_CONSENT_AAID);
-        //   TGSharedPreferences.getInstance().remove(PREF_OFFERID);
-        //   TGSharedPreferences.getInstance().remove(PREF_LOANAPPID);
-        //   TGSharedPreferences.getInstance().remove(PREF_REPAYMENTPLANID);
-        //   TGSharedPreferences.getInstance().remove(PREF_CURRENT_STAGE);
-        //
-        //   Navigator.pushAndRemoveUntil(
-        //     context,
-        //     MaterialPageRoute(
-        //       builder: (BuildContext context) => GSTInvoicesList(),
-        //     ),
-        //     (route) => false, //if you want to disable back feature set to false
-        //   );
-        //}
-      },
-      child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(8.r),
-            ),
-            color: ThemeHelper.getInstance()!.backgroundColor,
+    return Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(
+            Radius.circular(8.r),
           ),
-          height: 140.h,
-          child: Padding(
-            padding: EdgeInsets.only(top: 18.h),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Flexible(
-                  flex: 6,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Finance other eligible invoice",
-                        style: ThemeHelper.getInstance()!.textTheme.headline2!.copyWith(fontSize: 14.sp),
-                        maxLines: 3,
-                        softWrap: true,
-                      ),
-                      Text(
-                        str_Shareothereligibleinvoicesandgetloanoffers,
-                        style: ThemeHelper.getInstance()!.textTheme.bodyText2!,
-                        maxLines: 3,
-                        softWrap: true,
-                      ),
-                      SizedBox(height: 18.h),
-                      GestureDetector(
-                        onTap: () {
+          color: ThemeHelper.getInstance()!.backgroundColor,
+        ),
+        // height: 140.h,
+        child: Padding(
+          padding: EdgeInsets.only(top: 20.h, bottom: 20.h),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Flexible(
+                flex: 6,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Finance other eligible invoice",
+                      style: ThemeHelper.getInstance()!.textTheme.headline2!.copyWith(fontSize: 14.sp),
+                      maxLines: 3,
+                      softWrap: true,
+                    ),
+                    Text(
+                      str_Shareothereligibleinvoicesandgetloanoffers,
+                      style: ThemeHelper.getInstance()!.textTheme.bodyText2!,
+                      maxLines: 3,
+                      softWrap: true,
+                    ),
+                    SizedBox(height: 18.h),
+                    GestureDetector(
+                      onTap: () {
+                          TGSharedPreferences.getInstance().remove(PREF_AAID);
+                          TGSharedPreferences.getInstance().remove(PREF_AACODE);
+                          TGSharedPreferences.getInstance().remove(PREF_LOANAPPREFID);
+                          TGSharedPreferences.getInstance().remove(PREF_LOANOFFER);
+                          TGSharedPreferences.getInstance().remove(GET_ALLLIST);
+                          TGSharedPreferences.getInstance().remove(PREF_AAURL);
+                          TGSharedPreferences.getInstance().remove(PREF_AACALLBACKURL);
+                          TGSharedPreferences.getInstance().remove(PREF_CONSENTTYPE);
+                          TGSharedPreferences.getInstance().remove(PREF_CONSENT_AAID);
+                          TGSharedPreferences.getInstance().remove(PREF_OFFERID);
+                          TGSharedPreferences.getInstance().remove(PREF_LOANAPPID);
+                          TGSharedPreferences.getInstance().remove(PREF_REPAYMENTPLANID);
+                          TGSharedPreferences.getInstance().remove(PREF_CURRENT_STAGE);
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                              builder: (BuildContext context) => const GSTInvoicesList(),
+                              builder: (BuildContext context) => GSTInvoicesList(),
                             ),
                             (route) => false, //if you want to disable back feature set to false
                           );
-                        },
-                        child: Container(
-                          width: 165.w,
-                          height: 30.h,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(4.r),
-                            ),
-                            color: ThemeHelper.getInstance()!.primaryColor,
+                      },
+                      child: Container(
+                        width: 165.w,
+                        height: 30.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(4.r),
                           ),
-                          child: Center(
-                            child: Text("Finance Another Invoice",
-                                style: ThemeHelper.getInstance()!
-                                    .textTheme
-                                    .headline2!
-                                    .copyWith(fontSize: 14.sp, color: Colors.white)),
-                          ),
+                          color: ThemeHelper.getInstance()!.primaryColor,
                         ),
-                      )
-                    ],
-                  ),
+                        child: Center(
+                          child: Text("Finance Another Invoice",
+                              style: ThemeHelper.getInstance()!
+                                  .textTheme
+                                  .headline2!
+                                  .copyWith(fontSize: 14.sp, color: Colors.white)),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-                //Spacer(),
-                Flexible(
-                  flex: 4,
-                  child: SvgPicture.asset(
-                    Utils.path(MOBILETDASHBOARDWITHGSTINVOICE_OTHER_SERVICES),
-                    height: 88.h,
-                    width: 88.w,
-                  ),
-                )
-              ],
-            ),
-          )),
-    );
+              ),
+              //Spacer(),
+              Flexible(
+                flex: 4,
+                child: SvgPicture.asset(
+                  Utils.path(MOBILETDASHBOARDWITHGSTINVOICE_OTHER_SERVICES),
+                  height: 88.h,
+                  width: 88.w,
+                ),
+              )
+            ],
+          ),
+        ));
   }
 
   _buildList() {

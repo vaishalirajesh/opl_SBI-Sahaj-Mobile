@@ -595,6 +595,9 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
   }
 
   _onErrorPostLoanAgreement(TGResponse errorResponse) {
+    setState(() {
+      isAgreeLoaderStart = false;
+    });
     TGLog.d("RegisterResponse : onError()");
     handleServiceFailError(context, errorResponse.error);
   }
