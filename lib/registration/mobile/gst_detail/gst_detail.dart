@@ -172,30 +172,32 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
               controller: gstUsernameController,
               cursorColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
               decoration: InputDecoration(
-                  labelStyle: TextStyle(color: MyColors.lightGraySmallText),
-                  labelText: str_GST_User_Name,
-                  suffixIcon: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.info_outline,
-                        color: MyColors.lightGraySmallText,
-                      )),
-                  //hintText: str_GST_User_Name,
-                  enabledBorder: UnderlineInputBorder(
-                    // borderRadius: BorderRadius.all(Radius.circular(6.r)),
-                    borderSide: BorderSide(width: 1, color: ThemeHelper.getInstance()!.colorScheme.onSurface),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: ThemeHelper.getInstance()!.colorScheme.onSurface, width: 1.0),
-                    // borderRadius: BorderRadius.circular(6.0.r),
-                  ),
-                  // focusColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
-                  // fillColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
-                  border: UnderlineInputBorder(
-                    borderSide: BorderSide(width: 1, color: ThemeHelper.getInstance()!.colorScheme.onSurface),
-                    //borderRadius: BorderRadius.all(Radius.circular(6.r))
-                  ),
-                  counterText: ''),
+                labelStyle: TextStyle(color: MyColors.lightGraySmallText),
+                labelText: str_GST_User_Name,
+                suffixIcon: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.info_outline,
+                      color: MyColors.lightGraySmallText,
+                    )),
+                //hintText: str_GST_User_Name,
+                enabledBorder: UnderlineInputBorder(
+                  // borderRadius: BorderRadius.all(Radius.circular(6.r)),
+                  borderSide: BorderSide(width: 1, color: ThemeHelper.getInstance()!.colorScheme.onSurface),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: ThemeHelper.getInstance()!.colorScheme.onSurface, width: 1.0),
+                  // borderRadius: BorderRadius.circular(6.0.r),
+                ),
+                // focusColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
+                // fillColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
+                border: UnderlineInputBorder(
+                  borderSide: BorderSide(width: 1, color: ThemeHelper.getInstance()!.colorScheme.onSurface),
+                  //borderRadius: BorderRadius.all(Radius.circular(6.r))
+                ),
+                counterText: '',
+                contentPadding: EdgeInsets.only(top: 5.h),
+              ),
               keyboardType: TextInputType.text,
               maxLength: 15,
               validator: (value) {
@@ -233,6 +235,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
               labelStyle: TextStyle(color: MyColors.lightGraySmallText),
               labelText: str_15_Digit_GSTIN,
               // hintText: str_15_Digit_GSTIN,
+              contentPadding: EdgeInsets.only(top: 5.h),
               enabledBorder: UnderlineInputBorder(
                 //borderRadius: BorderRadius.all(Radius.circular(6.r)),
                 borderSide: BorderSide(width: 1, color: ThemeHelper.getInstance()!.colorScheme.onSurface),
