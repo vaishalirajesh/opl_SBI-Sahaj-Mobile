@@ -20,7 +20,6 @@ import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/data_format_utils.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:intl/intl.dart';
-import 'package:sbi_sahay_1_0/loanprocess/mobile/congatulation/ui/congratulations.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/gstinvoiceslist/ui/gstinvoicelist.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
@@ -786,7 +785,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
               Radius.circular(12.r),
             ),
           ),
-          padding: EdgeInsets.only(left: 15.r, right: 15.r, bottom: 15.r),
+          padding: EdgeInsets.only(left: 15.r, right: 15.r, bottom: 15.r, top: 15.r),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

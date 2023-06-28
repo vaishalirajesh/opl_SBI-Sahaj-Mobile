@@ -122,7 +122,7 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
                     Text(str_hello + name!, style: ThemeHelper.getInstance()?.textTheme.button),
                     SizedBox(height: 5.h),
                     Text(
-                      str_pan +  pan!,
+                      str_pan + pan!,
                       style: ThemeHelper.getInstance()!.textTheme.headline5!.copyWith(color: MyColors.white),
                     ),
                   ],
@@ -140,7 +140,7 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              height: 39.h,
+              height: 30.h,
             ),
             Text(
               str_Get_Invoice_based_financein,
@@ -159,10 +159,7 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
             ),
             Text(
               str_notodler_than_60,
-              style: ThemeHelper.getInstance()!
-                  .textTheme
-                  .headline3!
-                  .copyWith(fontSize: 14.sp, fontFamily: MyFont.Roboto_Italic),
+              style: ThemeHelper.getInstance()!.textTheme.subtitle1?.copyWith(fontFamily: MyFont.Roboto_Italic),
             ),
           ],
         ),
@@ -256,7 +253,7 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
       width: MediaQuery.of(context).size.width,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
             padding: EdgeInsets.only(top: 3.h), //right_arrow_brown_ic.svg

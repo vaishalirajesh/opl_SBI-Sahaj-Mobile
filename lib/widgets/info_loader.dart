@@ -35,7 +35,7 @@ class ShowInfoLoader extends StatelessWidget {
                     CircularProgressIndicator(
                       backgroundColor: MyColors.pnbcolorPrimary,
                       strokeWidth: 4.w,
-                      color: MyColors.pnblogocolor,
+                      color: MyColorsSBI.sbicolorDisableColor,
                     ),
                   ],
                 ),

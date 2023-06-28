@@ -7,8 +7,6 @@ import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 
 import '../loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'colorutils/mycolors.dart';
-import 'helpers/myfonts.dart';
-import 'helpers/texthelper.dart';
 import 'helpers/themhelper.dart';
 
 class LoaderUtils {
@@ -29,7 +27,7 @@ class LoaderUtils {
               return false;
             },
             child: Scaffold(
-              backgroundColor: Colors.white,
+              backgroundColor: MyColors.darkblack,
               body: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -43,7 +41,7 @@ class LoaderUtils {
                           CircularProgressIndicator(
                             backgroundColor: MyColors.pnbcolorPrimary,
                             strokeWidth: 4.w,
-                            color: MyColors.pnblogocolor,
+                            color: MyColorsSBI.sbicolorDisableColor,
                           ),
                         ],
                       ),
@@ -54,11 +52,9 @@ class LoaderUtils {
                         child: Text(
                           msg,
                           textAlign: TextAlign.center,
-                          style: TextUtils.getFontStyle(
-                            MyColors.pnbcolorPrimary,
-                            20.sp,
-                            MyFont.Nunito_Sans_Bold,
-                          ),
+                          style: ThemeHelper.getInstance()?.textTheme.button?.copyWith(
+                                color: ThemeHelper.getInstance()?.colorScheme.background,
+                              ),
                         ),
                       ),
                     )

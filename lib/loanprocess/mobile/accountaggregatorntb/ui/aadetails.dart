@@ -36,8 +36,7 @@ class AccountAggregatorScreen extends StatefulWidget {
   const AccountAggregatorScreen({Key? key}) : super(key: key);
 
   @override
-  State<AccountAggregatorScreen> createState() =>
-      _AccountAggregatorScreenState();
+  State<AccountAggregatorScreen> createState() => _AccountAggregatorScreenState();
 }
 
 class _AccountAggregatorScreenState extends State<AccountAggregatorScreen> {
@@ -61,11 +60,9 @@ class _AccountAggregatorScreenState extends State<AccountAggregatorScreen> {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          const DashboardWithGST(),
+                      builder: (BuildContext context) => const DashboardWithGST(),
                     ),
-                    (route) =>
-                        false, //if you want to disable back feature set to false
+                    (route) => false, //if you want to disable back feature set to false
                   )
                 }),
         body: Stack(
@@ -109,10 +106,7 @@ Widget buildHeaderDisceContainer(String text) => Padding(
           padding: const EdgeInsets.all(15.0).w,
           child: Text(
             str_header_discr,
-            style: ThemeHelper.getInstance()!
-                .textTheme
-                .headline3!
-                .copyWith(fontSize: 14.sp),
+            style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
           ),
         ),
       ),
@@ -131,10 +125,7 @@ Widget buildANewWaytoShareBankText(String text) => Padding(
       padding: EdgeInsets.only(left: 0.w, right: 0.w, top: 12.h, bottom: 10.h),
       child: Text(
         text,
-        style: ThemeHelper.getInstance()!
-            .textTheme
-            .headline3!
-            .copyWith(fontSize: 16.sp),
+        style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 16.sp, color: MyColors.darkblack),
         //textAlign: TextAlign.center,
       ),
     );
@@ -143,10 +134,7 @@ Widget buildBeforeProceedingDescrText(String text) => Padding(
       padding: EdgeInsets.only(top: 20.h, bottom: 25.h),
       child: Text(
         text,
-        style: ThemeHelper.getInstance()!
-            .textTheme
-            .headline3!
-            .copyWith(fontSize: 14.sp),
+        style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
         textAlign: TextAlign.center,
       ),
     );
@@ -155,8 +143,7 @@ Widget buildImageWidget(String path) => Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
       child: Align(
         alignment: Alignment.center,
-        child: SvgPicture.asset(Utils.path(path),
-            height: 350.h, width: 1.sw, allowDrawingOutsideViewBox: false),
+        child: SvgPicture.asset(Utils.path(path), height: 350.h, width: 1.sw, allowDrawingOutsideViewBox: false),
       ),
     );
 
@@ -181,14 +168,9 @@ Widget buildRowWidget(String text) => Padding(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SvgPicture.asset(Utils.path(IMG_GREENTICK_AA),
-              height: 18.h, width: 18.w),
+          SvgPicture.asset(Utils.path(IMG_GREENTICK_AA), height: 18.h, width: 18.w),
           SizedBox(width: 5.w),
-          Text(" $text",
-              style: ThemeHelper.getInstance()!
-                  .textTheme
-                  .headline3!
-                  .copyWith(fontSize: 14.sp)),
+          Text(" $text", style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp)),
         ],
       ),
     );
@@ -196,11 +178,7 @@ Widget buildRowWidget(String text) => Padding(
 Widget buildRevokeconsetAtAnytimeRow(String title) => Row(children: [
       SvgPicture.asset(Utils.path(IMG_GREENTICK_AA), height: 15.h, width: 15.w),
       SizedBox(width: 11.w),
-      Text(" $title",
-          style: ThemeHelper.getInstance()!
-              .textTheme
-              .headline3!
-              .copyWith(fontSize: 14.sp))
+      Text(" $title", style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp))
     ]);
 
 Widget buildSetupHyperText() {
@@ -211,66 +189,49 @@ Widget buildSetupHyperText() {
         children: [
           TextSpan(
             text: str_visit,
-            style: ThemeHelper.getInstance()!
-                .textTheme
-                .headline3!
-                .copyWith(fontSize: 14.sp),
+            style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
           ),
           TextSpan(
             text: str_rbi,
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                launchUrl(Uri.parse(
-                    "https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=10598"));
+                _launchUrl("https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=10598");
               },
-            style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
-                color: MyColors.hyperlinkcolornew,
-                fontSize: 14.sp,
-                decoration: TextDecoration.underline),
+            style: ThemeHelper.getInstance()!
+                .textTheme
+                .headline3!
+                .copyWith(color: MyColors.hyperlinkcolornew, fontSize: 14.sp, decoration: TextDecoration.underline),
           ),
-          TextSpan(
-              text: str_or,
-              style: ThemeHelper.getInstance()!
-                  .textTheme
-                  .headline3!
-                  .copyWith(fontSize: 14.sp)),
+          TextSpan(text: str_or, style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp)),
           TextSpan(
             text: str_sahmati,
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                launchUrl(Uri.parse(
-                    "https://sahamati.org.in/what-is-account-aggregator/"));
+                _launchUrl('https://sahamati.org.in/what-is-account-aggregator/');
               },
-            style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
-                color: MyColors.hyperlinkcolornew,
-                fontSize: 14.sp,
-                decoration: TextDecoration.underline),
-          ),
-          TextSpan(
-            text: str_website_to_know_more_one,
             style: ThemeHelper.getInstance()!
                 .textTheme
                 .headline3!
-                .copyWith(fontSize: 14.sp),
+                .copyWith(color: MyColors.hyperlinkcolornew, fontSize: 14.sp, decoration: TextDecoration.underline),
+          ),
+          TextSpan(
+            text: str_website_to_know_more_one,
+            style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
           ),
           TextSpan(
             text: str_website_to_know_more_two,
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                launchUrl(Uri.parse(
-                    "https://sahamati.org.in/what-is-account-aggregator/"));
+                _launchUrl('https://sahamati.org.in/what-is-account-aggregator/');
               },
-            style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
-                color: MyColors.hyperlinkcolornew,
-                fontSize: 14.sp,
-                decoration: TextDecoration.underline),
-          ),
-          TextSpan(
-            text: str_website_to_know_more_three,
             style: ThemeHelper.getInstance()!
                 .textTheme
                 .headline3!
-                .copyWith(fontSize: 14.sp),
+                .copyWith(color: MyColors.hyperlinkcolornew, fontSize: 14.sp, decoration: TextDecoration.underline),
+          ),
+          TextSpan(
+            text: str_website_to_know_more_three,
+            style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
           ),
         ],
       ),
@@ -290,4 +251,16 @@ Widget buildBtnNextAcc(BuildContext context) {
           title: str_next),
     ),
   );
+}
+
+Future<void> _launchUrl(String url) async {
+  if (await canLaunchUrl(Uri.parse(url))) {
+    await launchUrl(
+      Uri.parse(url),
+      mode: LaunchMode.externalApplication,
+      webOnlyWindowName: '_blank',
+    );
+  } else {
+    throw 'Could not launch $url';
+  }
 }

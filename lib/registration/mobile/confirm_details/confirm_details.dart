@@ -69,8 +69,6 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
 
   @override
   void initState() {
-
-
     getGstDetailStatus();
     super.initState();
   }
@@ -273,7 +271,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
               Expanded(
                 child: Text(
                   checkboxText,
-                  style: ThemeHelper.getInstance()?.textTheme.displayMedium?.copyWith(fontSize: 14.sp),
+                  style: ThemeHelper.getInstance()?.textTheme.overline?.copyWith(fontSize: 14.sp),
                   maxLines: 5,
                 ),
               ),
@@ -300,7 +298,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
           width: 148.w,
           child: Text(
             subTitle ?? "",
-            style: ThemeHelper.getInstance()!.textTheme.displayMedium?.copyWith(color: MyColors.darkblack),
+            style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(color: MyColors.darkblack),
           ),
         ),
       ],
@@ -315,7 +313,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
             width: 200.w,
             child: Text(
               "Personal Details",
-              style: ThemeHelper.getInstance()!.textTheme.headline2,
+              style: ThemeHelper.getInstance()!.textTheme.headline2?.copyWith(fontSize: 16.sp),
             )),
         const Spacer(),
         SvgPicture.asset(
@@ -363,7 +361,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SizedBox(height: 35.h), //40
+                SizedBox(height: 40.h), //40
                 Center(
                   child: SvgPicture.asset(Utils.path(GREENCONFORMTICKREGISTRATIONCOMPLETED),
                       height: 52.h, //,
@@ -381,7 +379,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                       ),
                       SizedBox(height: 12.h),
                       Padding(
-                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        padding: const EdgeInsets.only(left: 40, right: 40),
                         child: Text(
                           "Welcome, ${_gstBasicDataResMain?.data?.tradeNam.toString()}. Let’s start the journey",
                           textAlign: TextAlign.center,
@@ -396,9 +394,14 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                 ),
                 //38
                 SizedBox(height: 30.h),
-                Padding(
-                  padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                  child: btnProceed(),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
+                      child: btnProceed(),
+                    ),
+                  ),
                 )
               ],
             ),

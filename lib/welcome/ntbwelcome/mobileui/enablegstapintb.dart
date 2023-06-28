@@ -64,27 +64,17 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
       },
       child: Scaffold(
         appBar: getAppBarWithBackBtn(
-            onClickAction: () => {
-                  Navigator.pop(context, false),
-                  SystemNavigator.pop(animated: true)
-                }),
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              primary: true,
-              child: SizedBox(
-                height: 700.h,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    buildSetupView(),
-                    buildBottomView(),
-                  ],
-                ),
-              ),
-            ),
-          ],
+            onClickAction: () => {Navigator.pop(context, false), SystemNavigator.pop(animated: true)}),
+        body: SingleChildScrollView(
+          primary: true,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildSetupView(),
+            ],
+          ),
         ),
+        bottomNavigationBar: buildBottomView(),
       ),
     );
   }
@@ -101,7 +91,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
           children: [
             const Divider(),
             SizedBox(
-              height: 30.h,
+              height: 20.h,
             ),
             buildConfirmViewBottomText(),
             SizedBox(
@@ -116,7 +106,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
 
   Widget buildSetupView() {
     return Padding(
-      padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
+      padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -134,29 +124,26 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
         padding: EdgeInsets.only(top: 15.h, bottom: 70.h),
         child: Text(
           text,
-          style: ThemeHelper.getInstance()!
-              .textTheme
-              .headline1!
-              .copyWith(fontSize: 16.sp, color: MyColors.darkblack),
+          style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 16.sp, color: MyColors.darkblack),
           // textAlign: TextAlign.left,
         ),
       );
 
   buildImageContainer(String path) => Padding(
-        padding: EdgeInsets.only(bottom: 70.h),
+        padding: EdgeInsets.only(bottom: 70.h, top: 10.h),
         child: Align(
           alignment: Alignment.center,
           child: Container(
-            height: 225.h,
-            width: 245.w,
+            // height: 240.h,
+            // width: 230.w,
             decoration: BoxDecoration(
               color: ThemeHelper.getInstance()!.cardColor,
               shape: BoxShape.circle,
             ),
             child: SvgPicture.asset(
               Utils.path(IMG_TWO_PERSON),
-              width: 100.w,
-              height: 80.h,
+              // width: 100.w,
+              // height: 80.h,
             ),
           ),
         ),
@@ -205,15 +192,15 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
             Expanded(
               child: GestureDetector(
                 onTap: () {
-                  changestateConfirmViewFirstCheckBox(isCheckFirst);
+                  changestateConfirmViewFirstCheckBox(!isCheckFirst);
+                  setState(() {});
                 },
                 child: Text(
                   str_confirm_check1,
                   style: ThemeHelper.getInstance()!
                       .textTheme
                       .titleMedium!
-                      .copyWith(
-                          fontSize: 14.sp, color: MyColors.lightBlackText),
+                      .copyWith(fontSize: 14.sp, color: MyColors.lightBlackText),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 3,
                 ),
@@ -222,7 +209,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
           ],
         ),
         SizedBox(
-          height: 10.h,
+          height: 15.h,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -266,8 +253,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                     style: ThemeHelper.getInstance()!
                         .textTheme
                         .titleMedium!
-                        .copyWith(
-                            fontSize: 14.sp, color: MyColors.lightBlackText),
+                        .copyWith(fontSize: 14.sp, color: MyColors.lightBlackText),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3),
               ),
@@ -286,17 +272,14 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
           children: [
             TextSpan(
               text: str_confirm_bottom1,
-              style: ThemeHelper.getInstance()!
-                  .textTheme
-                  .headline3!
-                  .copyWith(fontSize: 14.sp, color: MyColors.black),
+              style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp, color: MyColors.black),
             ),
             TextSpan(
                 text: str_confirm_bottom2,
-                style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
-                    fontSize: 14.sp,
-                    color: MyColors.hyperlinkcolornew,
-                    decoration: TextDecoration.underline),
+                style: ThemeHelper.getInstance()!
+                    .textTheme
+                    .headline3!
+                    .copyWith(fontSize: 14.sp, color: MyColors.hyperlinkcolornew, decoration: TextDecoration.underline),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     showGeneralDialog(
@@ -312,44 +295,36 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
                   }),
             TextSpan(
                 text: str_confirm_bottom3,
+                style:
+                    ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp, color: MyColors.black)),
+            TextSpan(
+                text: str_confirm_bottom4,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(fontSize: 14.sp, color: MyColors.black)),
-            TextSpan(
-                text: str_confirm_bottom4,
-                style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
-                    fontSize: 14.sp,
-                    color: MyColors.hyperlinkcolornew,
-                    decoration: TextDecoration.underline),
+                    .copyWith(fontSize: 14.sp, color: MyColors.hyperlinkcolornew, decoration: TextDecoration.underline),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
-                    launchUrl(Uri.parse(
-                        "https://www.youtube.com/watch?v=vcxK5Ppd4R4"));
+                    launchUrl(Uri.parse("https://www.youtube.com/watch?v=vcxK5Ppd4R4"));
                   }),
             TextSpan(
                 text: str_confirm_bottom5,
+                style:
+                    ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp, color: MyColors.black)),
+            TextSpan(
+                text: str_confirm_bottom6,
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .headline3!
-                    .copyWith(fontSize: 14.sp, color: MyColors.black)),
-            TextSpan(
-                text: str_confirm_bottom6,
-                style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
-                    fontSize: 14.sp,
-                    color: MyColors.hyperlinkcolornew,
-                    decoration: TextDecoration.underline),
+                    .copyWith(fontSize: 14.sp, color: MyColors.hyperlinkcolornew, decoration: TextDecoration.underline),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
-                    launchUrl(Uri.parse(
-                        "https://services.gst.gov.in/services/login"));
+                    launchUrl(Uri.parse("https://services.gst.gov.in/services/login"));
                   }),
             TextSpan(
                 text: str_confirm_bottom7,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline3!
-                    .copyWith(fontSize: 14.sp, color: MyColors.black)),
+                style:
+                    ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp, color: MyColors.black)),
           ],
         ),
       ),
@@ -395,15 +370,13 @@ class _GstApiStepsState extends State<GstApiSteps> {
           preferredSize: Size.fromHeight(80.h),
           child: Container(
             height: 80.h,
-            decoration: BoxDecoration(
-                color: ThemeHelper.getInstance()!.colorScheme.background,
-                boxShadow: [
-                  BoxShadow(
-                    color: ThemeHelper.getInstance()!.dividerColor,
-                    offset: const Offset(0, 2.0),
-                    blurRadius: 4.0,
-                  )
-                ]),
+            decoration: BoxDecoration(color: ThemeHelper.getInstance()!.colorScheme.background, boxShadow: [
+              BoxShadow(
+                color: ThemeHelper.getInstance()!.dividerColor,
+                offset: const Offset(0, 2.0),
+                blurRadius: 4.0,
+              )
+            ]),
             child: GestureDetector(
               onTap: () {
                 Navigator.pop(context);
@@ -425,10 +398,7 @@ class _GstApiStepsState extends State<GstApiSteps> {
                   ),
                   Text(
                     "Steps",
-                    style: ThemeHelper.getInstance()
-                        ?.textTheme
-                        .displayLarge
-                        ?.copyWith(color: MyColors.black),
+                    style: ThemeHelper.getInstance()?.textTheme.displayLarge?.copyWith(color: MyColors.black),
                   )
                 ],
               ),
@@ -442,8 +412,7 @@ class _GstApiStepsState extends State<GstApiSteps> {
                 width: MediaQuery.of(context).size.width,
                 color: ThemeHelper.getInstance()!.colorScheme.background,
                 child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -508,14 +477,13 @@ class _GstApiStepsState extends State<GstApiSteps> {
 
   String str_gst_api_step1 =
       'Visit www.gst.gov.in, click on the "login" button and insert your credential to log in to your GST account.';
-  String str_gst_api_step2 =
-      'After logging in, click on the "View Profile" link located on the right side.';
-  String str_gst_api_step3 =
-      'Under Quick links, click on the "Manage API Access" link.';
+  String str_gst_api_step2 = 'After logging in, click on the "View Profile" link located on the right side.';
+  String str_gst_api_step3 = 'Under Quick links, click on the "Manage API Access" link.';
   String str_gst_api_step4 =
       'Click on the "Yes" button next to the "Enable API Request", select "Duration" from the dropdown provided and click on "Confirm" button.';
   String str_gst_api_step5 =
       'Insert your GST Number and Username, you will receive OTP on the mobile number registered with GST Account.';
+
   Widget _apiStepUi(String step) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,

@@ -118,11 +118,9 @@ class _AAListViewState extends State<AAListView> {
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              const DashboardWithGst(),
+                          builder: (BuildContext context) => const DashboardWithGst(),
                         ),
-                        (route) =>
-                            false, //if you want to disable back feature set to false
+                        (route) => false, //if you want to disable back feature set to false
                       )
                     }),
             body: AbsorbPointer(
@@ -133,8 +131,7 @@ class _AAListViewState extends State<AAListView> {
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Padding(
-                      padding: EdgeInsets.only(
-                          left: 20.w, right: 20.w, bottom: 20.h),
+                      padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
                       child: buildBtnNextAcc(context),
                     ),
                   )
@@ -168,8 +165,7 @@ class _AAListViewState extends State<AAListView> {
           Container(
             child: isLoaderStart
                 ? JumpingDots(
-                    color: ThemeHelper.getInstance()?.primaryColor ??
-                        MyColors.pnbcolorPrimary,
+                    color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
                     radius: 10,
                   )
                 : buildListOfAA(),
@@ -192,9 +188,7 @@ class _AAListViewState extends State<AAListView> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              decoration: BoxDecoration(
-                  color: ThemeHelper.getInstance()!.backgroundColor,
-                  shape: BoxShape.circle),
+              decoration: BoxDecoration(color: ThemeHelper.getInstance()!.backgroundColor, shape: BoxShape.circle),
               width: 40.w,
               height: 40.h,
               child: Align(
@@ -230,55 +224,35 @@ class _AAListViewState extends State<AAListView> {
           children: [
             Row(children: [
               Text(str_aa_steps_txt,
-                  style: ThemeHelper.getInstance()!.textTheme.headline2!,
-                  textAlign: TextAlign.start),
+                  style: ThemeHelper.getInstance()!.textTheme.headline2!, textAlign: TextAlign.start),
             ]),
             SizedBox(height: 15.h),
             Text(str_aa_step_one,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline3!
-                    .copyWith(fontSize: 14.sp),
+                style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
                 textAlign: TextAlign.start),
             SizedBox(height: 10.h),
             Text(str_aa_step_two,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline3!
-                    .copyWith(fontSize: 14.sp),
+                style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
                 textAlign: TextAlign.start),
             SizedBox(height: 10.h),
             Text(str_aa_step_three,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline3!
-                    .copyWith(fontSize: 14.sp),
+                style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
                 textAlign: TextAlign.start),
             SizedBox(height: 10.h),
             Text(str_aa_step_four,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline3!
-                    .copyWith(fontSize: 14.sp),
+                style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
                 textAlign: TextAlign.start),
             SizedBox(height: 10.h),
             Text(str_aa_step_five,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline3!
-                    .copyWith(fontSize: 14.sp),
+                style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
                 textAlign: TextAlign.start),
             SizedBox(height: 36.h),
-            Text(str_select_aa,
-                style: ThemeHelper.getInstance()!.textTheme.headline2!,
-                textAlign: TextAlign.start),
+            Text(str_select_aa, style: ThemeHelper.getInstance()!.textTheme.headline2!, textAlign: TextAlign.start),
             SizedBox(height: 10.h),
-            Text(str_select_aa_txt,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline3!
-                    .copyWith(fontSize: 12.sp),
-                textAlign: TextAlign.start),
+            Text(
+              str_select_aa_txt,
+              style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
+            ),
             SizedBox(height: 20.h),
             buildSearchBar(),
             SizedBox(height: 20.h),
@@ -292,21 +266,14 @@ class _AAListViewState extends State<AAListView> {
     return SizedBox(
       height: 35.h,
       child: TextField(
-        style: ThemeHelper.getInstance()!
-            .textTheme
-            .button
-            ?.copyWith(color: MyColors.black),
+        style: ThemeHelper.getInstance()!.textTheme.button?.copyWith(color: MyColors.black),
         controller: _searchController,
         onChanged: (_) {
           setState(() {
             _searchResult = _aaListObj
                 .where((bankList) =>
-                    bankList.name
-                            ?.toLowerCase()
-                            .contains(_searchController.text.toLowerCase()) ==
-                        true ||
-                    bankList.code?.toString().toLowerCase().contains(
-                            _searchController.text.toString().toLowerCase()) ==
+                    bankList.name?.toLowerCase().contains(_searchController.text.toLowerCase()) == true ||
+                    bankList.code?.toString().toLowerCase().contains(_searchController.text.toString().toLowerCase()) ==
                         true)
                 .toList();
           });
@@ -314,20 +281,15 @@ class _AAListViewState extends State<AAListView> {
         decoration: InputDecoration(
           fillColor: ThemeHelper.getInstance()!.backgroundColor,
           focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-                color: ThemeHelper.getInstance()!.colorScheme.onSurface,
-                width: 1.0),
+            borderSide: BorderSide(color: ThemeHelper.getInstance()!.colorScheme.onSurface, width: 1.0),
             // borderRadius: BorderRadius.all(Radius.circular(7.r))
           ),
           enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-                color: ThemeHelper.getInstance()!.colorScheme.onSurface,
-                width: 1.0),
+            borderSide: BorderSide(color: ThemeHelper.getInstance()!.colorScheme.onSurface, width: 1.0),
             // borderRadius: BorderRadius.all(Radius.circular(7.r))
           ),
           contentPadding: EdgeInsets.symmetric(vertical: 10.h),
-          prefixIcon: Icon(Icons.search,
-              color: MyColors.lightGraySmallText.withOpacity(0.3)),
+          prefixIcon: Icon(Icons.search, color: MyColors.lightGraySmallText.withOpacity(0.3)),
           // hintText: "Search...",
           labelText: str_Search,
           floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -339,9 +301,7 @@ class _AAListViewState extends State<AAListView> {
               .copyWith(color: MyColors.lightGraySmallText.withOpacity(0.3)),
           //    fillColor: searchbarBGColor.withOpacity(0.37),
           border: UnderlineInputBorder(
-            borderSide: BorderSide(
-                color: ThemeHelper.getInstance()!.colorScheme.onSurface,
-                width: 1.0),
+            borderSide: BorderSide(color: ThemeHelper.getInstance()!.colorScheme.onSurface, width: 1.0),
             // borderRadius: BorderRadius.all(
             //   Radius.circular(7.r),
             // ),
@@ -361,10 +321,8 @@ class _AAListViewState extends State<AAListView> {
                 return InkWell(
                   onTap: () {
                     changeState(index);
-                    TGSharedPreferences.getInstance()
-                        .set(PREF_AAID, _searchResult[index].aaId);
-                    TGSharedPreferences.getInstance()
-                        .set(PREF_AACODE, _searchResult[index].code);
+                    TGSharedPreferences.getInstance().set(PREF_AAID, _searchResult[index].aaId);
+                    TGSharedPreferences.getInstance().set(PREF_AACODE, _searchResult[index].code);
                   },
                   child: Column(
                     children: [
@@ -379,13 +337,9 @@ class _AAListViewState extends State<AAListView> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Image.asset(Utils.path(IMG_NADL),
-                                  height: 21.h, width: 60.w),
+                              Image.asset(Utils.path(IMG_NADL), height: 21.h, width: 60.w),
                               Text("${_searchResult?[index].name}",
-                                  style: ThemeHelper.getInstance()!
-                                      .textTheme
-                                      .displayMedium!
-                                      .copyWith(fontSize: 12.sp)),
+                                  style: ThemeHelper.getInstance()!.textTheme.displayMedium!.copyWith(fontSize: 12.sp)),
                             ],
                           ),
                         ),
@@ -418,10 +372,8 @@ class _AAListViewState extends State<AAListView> {
               setState(() {
                 selectedValue = index;
               });
-              TGSharedPreferences.getInstance()
-                  .set(PREF_AAID, _aaListObj[index].aaId);
-              TGSharedPreferences.getInstance()
-                  .set(PREF_AACODE, _aaListObj[index].code);
+              TGSharedPreferences.getInstance().set(PREF_AAID, _aaListObj[index].aaId);
+              TGSharedPreferences.getInstance().set(PREF_AACODE, _aaListObj[index].code);
             },
             child: Column(
               children: [
@@ -438,10 +390,7 @@ class _AAListViewState extends State<AAListView> {
                       children: [
                         //Image.asset(Utils.path(IMG_NADL), height: 21.h, width: 60.w),
                         Text("${_aaListObj?[index].name}",
-                            style: ThemeHelper.getInstance()!
-                                .textTheme
-                                .displayMedium!
-                                .copyWith(fontSize: 12.sp)),
+                            style: ThemeHelper.getInstance()!.textTheme.displayMedium!.copyWith(fontSize: 12.sp)),
                       ],
                     ),
                   ),
@@ -488,9 +437,7 @@ class _AAListViewState extends State<AAListView> {
 
   Future<void> onPressProceed() async {
     if (selectedValue == -1) {
-      TGView.showSnackBar(
-          context: context,
-          message: 'Please select Account Aggregator to continue');
+      TGView.showSnackBar(context: context, message: 'Please select Account Aggregator to continue');
     } else {
       setState(() {
         isShowLoader = true;
@@ -534,10 +481,7 @@ class _AAListViewState extends State<AAListView> {
       isLoaderStart = false;
 
       LoaderUtils.handleErrorResponse(
-          context,
-          response?.getAAListResObj().status,
-          response?.getAAListResObj().message,
-          null);
+          context, response?.getAAListResObj().status, response?.getAAListResObj().message, null);
 
       // TGView.showSnackBar(context: context, message: response?.getAAListResObj().message ?? "No Data Found");
       // setState(() {
@@ -555,12 +499,9 @@ class _AAListViewState extends State<AAListView> {
   }
 
   Future<void> _postConsentHandleRequest() async {
-    String loanAppRefId =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
-    TGSharedPreferences.getInstance()
-        .set(PREF_AACODE, _aaListObj[selectedValue].code.toString());
-    TGSharedPreferences.getInstance()
-        .set(PREF_AAID, _aaListObj[selectedValue].aaId.toString());
+    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    TGSharedPreferences.getInstance().set(PREF_AACODE, _aaListObj[selectedValue].code.toString());
+    TGSharedPreferences.getInstance().set(PREF_AAID, _aaListObj[selectedValue].aaId.toString());
 
     ConsentHandleRequest consentHandleRequest = ConsentHandleRequest(
         loanApplicationRefId: loanAppRefId,
@@ -580,8 +521,7 @@ class _AAListViewState extends State<AAListView> {
   _onSuccessConsentHandle(ConsentHandleResponse? response) async {
     TGLog.d("ConsentHandleResponse : onSuccess()");
     if (response?.getConsentHandleResObj().status == RES_SUCCESS) {
-      TGSharedPreferences.getInstance().set(PREF_CONSENT_AAID,
-          response?.getConsentHandleResObj().data?.consentAggId);
+      TGSharedPreferences.getInstance().set(PREF_CONSENT_AAID, response?.getConsentHandleResObj().data?.consentAggId);
       if (await TGNetUtil.isInternetAvailable()) {
         _getConsentHandleUrl();
       } else {
@@ -593,10 +533,7 @@ class _AAListViewState extends State<AAListView> {
       });
       Navigator.pop(context);
       LoaderUtils.handleErrorResponse(
-          context,
-          response?.getConsentHandleResObj().status,
-          response?.getConsentHandleResObj().message,
-          null);
+          context, response?.getConsentHandleResObj().status, response?.getConsentHandleResObj().message, null);
     }
   }
 
@@ -609,16 +546,13 @@ class _AAListViewState extends State<AAListView> {
   }
 
   Future<void> _getConsentHandleUrl() async {
-    String loanAppRefId =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
-    String consentAggId =
-        await TGSharedPreferences.getInstance().get(PREF_CONSENT_AAID) ?? '';
-    GetConsentHandleUrlReq getConsentHandleUrlReq = GetConsentHandleUrlReq(
-        loanApplicationRefId: loanAppRefId, consentAggId: consentAggId);
+    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    String consentAggId = await TGSharedPreferences.getInstance().get(PREF_CONSENT_AAID) ?? '';
+    GetConsentHandleUrlReq getConsentHandleUrlReq =
+        GetConsentHandleUrlReq(loanApplicationRefId: loanAppRefId, consentAggId: consentAggId);
 
     var jsonReq = jsonEncode(getConsentHandleUrlReq.toJson());
-    TGPostRequest tgPostRequest =
-        await getPayLoad(jsonReq, URI_GET_CONSENT_URL);
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GET_CONSENT_URL);
 
     ServiceManager.getInstance().consentHandleUrl(
         request: tgPostRequest,
@@ -629,8 +563,7 @@ class _AAListViewState extends State<AAListView> {
   _onSuccessGetConsentHandleUrl(GetConsentHandleUrlResponse? response) async {
     TGLog.d("GetConsentHandleUrl : onSuccess()");
     if (response?.getConsentHandleUrlObj().status == RES_SUCCESS) {
-      TGLog.d(
-          "GetConsentHandleUrl : on launch URL --${response?.getConsentHandleUrlObj().data?.url}()");
+      TGLog.d("GetConsentHandleUrl : on launch URL --${response?.getConsentHandleUrlObj().data?.url}()");
 
       String url = response?.getConsentHandleUrlObj().data?.url ?? "";
       // // TODO : Remove navigation and add URL lunch
@@ -660,10 +593,7 @@ class _AAListViewState extends State<AAListView> {
     } else {
       Navigator.pop(context);
       LoaderUtils.handleErrorResponse(
-          context,
-          response?.getConsentHandleUrlObj().status,
-          response?.getConsentHandleUrlObj().message,
-          null);
+          context, response?.getConsentHandleUrlObj().status, response?.getConsentHandleUrlObj().message, null);
     }
     setState(() {
       isShowLoader = false;

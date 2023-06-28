@@ -13,17 +13,9 @@ Widget TitleBarView(BuildContext context) {
   return Padding(
     padding: EdgeInsets.symmetric(
         vertical: MyDimension.setHeight(
-            context: context,
-            largerScreen: 0.022,
-            mediumlargeScreen: 0.022,
-            tabletScreen: 0.022,
-            mobileScreen: 0.022),
+            context: context, largerScreen: 0.022, mediumlargeScreen: 0.022, tabletScreen: 0.022, mobileScreen: 0.022),
         horizontal: MyDimension.setWidthScale(
-            context: context,
-            largerScreen: 0.051,
-            mediumlargeScreen: 0.051,
-            tabletScreen: 0.051,
-            mobileScreen: 0.051)),
+            context: context, largerScreen: 0.051, mediumlargeScreen: 0.051, tabletScreen: 0.051, mobileScreen: 0.051)),
     child: Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -104,8 +96,7 @@ Widget TitleBarView(BuildContext context) {
   );
 }
 
-AppBar getAppBarWithTitle(String appbarTitle,
-    {required Function onClickAction}) {
+AppBar getAppBarWithTitle(String appbarTitle, {required Function onClickAction}) {
   return AppBar(
     centerTitle: true,
     automaticallyImplyLeading: false,
@@ -127,10 +118,7 @@ AppBar getAppBarWithTitle(String appbarTitle,
             child: Center(
               child: Text(
                 appbarTitle,
-                style: ThemeHelper.getInstance()
-                    ?.textTheme
-                    .caption
-                    ?.copyWith(fontFamily: MyFont.Nunito_Sans_Regular),
+                style: ThemeHelper.getInstance()?.textTheme.caption?.copyWith(fontFamily: MyFont.Nunito_Sans_Regular),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -170,11 +158,8 @@ AppBar getAppBarWithBackBtn({required Function onClickAction}) {
       child: Container(
           height: 1.h,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(0.r),
-                bottomLeft: Radius.circular(0.r)),
-            border: Border.all(
-                width: 1, color: ThemeHelper.getInstance()!.primaryColor),
+            borderRadius: BorderRadius.only(bottomRight: Radius.circular(0.r), bottomLeft: Radius.circular(0.r)),
+            border: Border.all(width: 1.5, color: ThemeHelper.getInstance()!.primaryColor),
             //color: ThemeHelper.getInstance()!.primaryColor,
             gradient: LinearGradient(
               colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
@@ -194,8 +179,7 @@ AppBar getAppBarWithBackBtn({required Function onClickAction}) {
   );
 }
 
-AppBar getAppBarWithStep(String step, String appBarTitle, double progress,
-    {required Function onClickAction}) {
+AppBar getAppBarWithStep(String step, String appBarTitle, double progress, {required Function onClickAction}) {
   return AppBar(
     title: Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -255,8 +239,7 @@ AppBar getAppBarWithStep(String step, String appBarTitle, double progress,
         ],
       ),
     ),
-    iconTheme: IconThemeData(
-        color: ThemeHelper.getInstance()!.colorScheme.primary, size: 28),
+    iconTheme: IconThemeData(color: ThemeHelper.getInstance()!.colorScheme.primary, size: 28),
     automaticallyImplyLeading: false,
     bottom: PreferredSize(
       preferredSize: Size(MyDimension.width, 3.h),
@@ -270,8 +253,7 @@ AppBar getAppBarWithStep(String step, String appBarTitle, double progress,
   );
 }
 
-AppBar getAppBarWithStepDone(String step, String appBarTitle, double progress,
-    {required Function onClickAction}) {
+AppBar getAppBarWithStepDone(String step, String appBarTitle, double progress, {required Function onClickAction}) {
   return AppBar(
     title: Column(
       children: [
@@ -304,8 +286,7 @@ AppBar getAppBarWithStepDone(String step, String appBarTitle, double progress,
                     padding: EdgeInsets.only(left: 20.w, right: 3.w),
                     child: Text(
                       appBarTitle,
-                      style:
-                          ThemeHelper.getInstance()?.appBarTheme.titleTextStyle,
+                      style: ThemeHelper.getInstance()?.appBarTheme.titleTextStyle,
                     ),
                   ),
                   // Icon(Icons.arrow_drop_down_sharp,color: ThemeHelper.getInstance()?.primaryColor,)
@@ -338,8 +319,7 @@ AppBar getAppBarWithStepDone(String step, String appBarTitle, double progress,
   );
 }
 
-AppBar getAppBarMainDashboard(String step, String appBarTitle, double progress,
-    {required Function onClickAction}) {
+AppBar getAppBarMainDashboard(String step, String appBarTitle, double progress, {required Function onClickAction}) {
   return AppBar(
     title: Column(
       children: [
@@ -375,13 +355,11 @@ AppBar getAppBarMainDashboard(String step, String appBarTitle, double progress,
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(Utils.path(NOTIFICATIONICON),
-                      height: 20.h, width: 20.w),
+                  SvgPicture.asset(Utils.path(NOTIFICATIONICON), height: 20.h, width: 20.w),
                   SizedBox(
                     width: 8.w,
                   ),
-                  SvgPicture.asset(Utils.path(LOGOUT),
-                      height: 20.h, width: 20.w)
+                  SvgPicture.asset(Utils.path(LOGOUT), height: 20.h, width: 20.w)
                 ],
               )
             ],
@@ -403,8 +381,7 @@ AppBar getAppBarMainDashboard(String step, String appBarTitle, double progress,
   );
 }
 
-AppBar getAppBarMainDashboardWithBackButton(
-    String step, String appBarTitle, double progress,
+AppBar getAppBarMainDashboardWithBackButton(String step, String appBarTitle, double progress,
     {required Function onClickAction}) {
   return AppBar(
     title: Column(
@@ -450,13 +427,11 @@ AppBar getAppBarMainDashboardWithBackButton(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(Utils.path(NOTIFICATIONICON),
-                      height: 20.h, width: 20.w),
+                  SvgPicture.asset(Utils.path(NOTIFICATIONICON), height: 20.h, width: 20.w),
                   SizedBox(
                     width: 8.w,
                   ),
-                  SvgPicture.asset(Utils.path(LOGOUT),
-                      height: 20.h, width: 20.w)
+                  SvgPicture.asset(Utils.path(LOGOUT), height: 20.h, width: 20.w)
                 ],
               )
             ],

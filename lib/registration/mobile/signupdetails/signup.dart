@@ -36,6 +36,10 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   @override
   bool isCheck = false;
 
+  List<String> genders = ['Male', 'Female', 'Prefer not to say'];
+
+  String selectedGender = "Male";
+
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -48,10 +52,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             },
             child: Scaffold(
               appBar: getAppBarWithBackBtn(
-                  onClickAction: () => {
-                        Navigator.pop(context, false),
-                        SystemNavigator.pop(animated: true)
-                      }),
+                  onClickAction: () => {Navigator.pop(context, false), SystemNavigator.pop(animated: true)}),
               body: Stack(children: [
                 SingleChildScrollView(
                   primary: true,
@@ -95,6 +96,13 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               TextFieldUI("Last Name"),
               SizedBox(
                 height: 20.w,
+              ),
+              Text(
+                'Gender',
+                style: ThemeHelper.getInstance()
+                    ?.textTheme
+                    .headline3
+                    ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
               ),
               GenderTextField("Gender", context),
               SizedBox(
@@ -142,10 +150,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 ?.textTheme
                 .headline3
                 ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
-            enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: MyColors.pnbTextcolor)),
-            focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: MyColors.pnbDarkGreyTextColor))),
+            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
+            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor))),
         keyboardType: TextInputType.text,
         maxLines: 1,
         style: ThemeHelper.getInstance()?.textTheme.headline3,
@@ -163,8 +169,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
       child: AppButton(
         onPress: isCheck
             ? () async {
-                Navigator.pushReplacementNamed(
-                    context, MyRoutes.EnableGstApiRoutes);
+                Navigator.pushReplacementNamed(context, MyRoutes.EnableGstApiRoutes);
               }
             : () {},
         title: str_next,
@@ -201,8 +206,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                           isCheck = bool!;
                         });
                       },
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(2.r))),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(2.r))),
                       side: BorderSide(
                           width: 1,
                           color: isCheck
@@ -218,8 +222,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                     style: ThemeHelper.getInstance()
                         ?.textTheme
                         .headline3
-                        ?.copyWith(
-                            fontSize: 14.sp, color: MyColors.lightBlackText),
+                        ?.copyWith(fontSize: 14.sp, color: MyColors.lightBlackText),
                     maxLines: 5,
                   ),
                 ),
@@ -227,9 +230,6 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
     );
   }
 
-  List<String> genders = ['Male', 'Female', 'Prefer not to say'];
-
-  String gender = "Male";
   Widget GenderTextField(String label, BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 10.h),
@@ -242,45 +242,33 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
           canvasColor: Colors.white,
         ),
         child: DropdownButton<String>(
-          value: genders.elementAt(0),
+          value: selectedGender,
           items: genders.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Container(
-                  margin: EdgeInsets.all(3),
-                  color: Colors.white,
-                  width: MediaQuery.of(context).size.width - 86,
-                  child: Text(
-                    value,
-                    style: ThemeHelper.getInstance()!
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(fontSize: 12.sp),
-                  )),
+                margin: EdgeInsets.all(3.r),
+                color: Colors.white,
+                width: MediaQuery.of(context).size.width - 86,
+                child: Text(
+                  value,
+                  style: ThemeHelper.getInstance()!.textTheme.bodyMedium!.copyWith(fontSize: 12.sp),
+                ),
+              ),
             );
           }).toList(),
+          onChanged: (String? newValue) {
+            setState(() {
+              selectedGender = newValue!;
+            });
+          },
           icon: null,
           isDense: true,
           underline: Container(
             height: 1,
-            color: MyColors.pnbTextcolor,
+            color: MyColors.lightGreyDividerColor,
           ),
           isExpanded: true,
-          selectedItemBuilder: (context) {
-            return [
-              Container(
-                  margin: EdgeInsets.all(3.h),
-                  width: MediaQuery.of(context).size.width - 86,
-                  child: Text(
-                    "Male",
-                    style: ThemeHelper.getInstance()!
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(fontSize: 12.sp),
-                  ))
-            ];
-          },
-          onChanged: (_) {},
         ),
       ),
     );
@@ -323,21 +311,17 @@ class EmailIdWidgetState extends State<EmailIdWidget> {
               ?.textTheme
               .headline3
               ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
-          enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: MyColors.pnbTextcolor)),
-          focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: MyColors.pnbDarkGreyTextColor)),
+          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
+          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
           suffixIcon: IconButton(
             icon: hidePassword
                 ? Icon(
                     Icons.visibility_off_outlined,
-                    color:
-                        hidePassword ? MyColors.pnbTextcolor : MyColors.black,
+                    color: hidePassword ? MyColors.pnbTextcolor : MyColors.black,
                   )
                 : Icon(
                     Icons.visibility_outlined,
-                    color:
-                        hidePassword ? MyColors.pnbTextcolor : MyColors.black,
+                    color: hidePassword ? MyColors.pnbTextcolor : MyColors.black,
                   ),
             onPressed: () {
               setState(
@@ -390,21 +374,17 @@ class ContactNumberWidgetState extends State<ContactNumberWidget> {
               ?.textTheme
               .headline3
               ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
-          enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: MyColors.pnbTextcolor)),
-          focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: MyColors.pnbDarkGreyTextColor)),
+          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
+          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
           suffixIcon: IconButton(
             icon: hidePassword
                 ? Icon(
                     Icons.visibility_off_outlined,
-                    color:
-                        hidePassword ? MyColors.pnbTextcolor : MyColors.black,
+                    color: hidePassword ? MyColors.pnbTextcolor : MyColors.black,
                   )
                 : Icon(
                     Icons.visibility_outlined,
-                    color:
-                        hidePassword ? MyColors.pnbTextcolor : MyColors.black,
+                    color: hidePassword ? MyColors.pnbTextcolor : MyColors.black,
                   ),
             onPressed: () {
               setState(
@@ -426,9 +406,6 @@ class ContactNumberWidgetState extends State<ContactNumberWidget> {
           }
           return null;
         },
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(10),
-          FilteringTextInputFormatter.digitsOnly
-        ]);
+        inputFormatters: [LengthLimitingTextInputFormatter(10), FilteringTextInputFormatter.digitsOnly]);
   }
 }

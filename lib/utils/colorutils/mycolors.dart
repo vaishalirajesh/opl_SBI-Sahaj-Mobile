@@ -8,7 +8,7 @@ class MyColors {
   static final lightBlackText = HexColor("#3F3F3F");
 
   static final backBtnColorloginKeyboardNo = HexColor("#B5B5B5");
-
+  static final lightGreyDividerColor = HexColor("#E1E1E1");
   static final veryLightgreenbg = HexColor("#F7F7F7");
   static final pnbcolorPrimary = HexColor("#673391");
   static final pnbWelcomeDivider = HexColor("#B19AC7");

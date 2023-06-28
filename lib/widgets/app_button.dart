@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 
 // Common button widget
@@ -19,7 +20,12 @@ class AppButton extends StatelessWidget {
         style: isButtonEnable
             ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
             : ThemeHelper.setPinkDisableButtonBig(),
-        child: Text(title),
+        child: Text(
+          title,
+          style: isButtonEnable
+              ? ThemeHelper.getInstance()!.textTheme.button!.copyWith(color: MyColors.white)
+              : ThemeHelper.getInstance()!.textTheme.button!.copyWith(color: MyColors.white),
+        ),
       ),
     );
   }

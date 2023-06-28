@@ -21,10 +21,8 @@ import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/data_format_utils.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
-import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
-import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
@@ -325,8 +323,10 @@ class KfsScreenBody extends State<KfsScreens> {
               children: [
                 Text(
                   str_applicant_name + applicantName,
-                  style:
-                      ThemeHelper.getInstance()?.textTheme.displayMedium?.copyWith(color: MyColors.white, fontSize: 14.sp),
+                  style: ThemeHelper.getInstance()
+                      ?.textTheme
+                      .displayMedium
+                      ?.copyWith(color: MyColors.white, fontSize: 14.sp),
                   textAlign: TextAlign.center,
                 ),
                 // Expanded(
@@ -366,7 +366,7 @@ class KfsScreenBody extends State<KfsScreens> {
                                 ?.textTheme
                                 .headline3
                                 ?.copyWith(color: MyColors.lightGraySmallText, fontSize: 12.sp)),
-                        Text(loanOfferData?.offerDetails?.elementAt(0).availableLimit ?? "",
+                        Text(loanOfferData?.offerDetails?.elementAt(0).availableLimit ?? '0',
                             style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 14.sp)),
                       ],
                     )
@@ -1056,7 +1056,7 @@ class KfsScreenBody extends State<KfsScreens> {
                         "Congratulations",
                         style: ThemeHelper.getInstance()
                             ?.textTheme
-                            .headline2
+                            .button
                             ?.copyWith(fontSize: 20.sp, color: MyColors.lightGraySmallText),
                         textAlign: TextAlign.center,
                       ),
@@ -1066,10 +1066,9 @@ class KfsScreenBody extends State<KfsScreens> {
                         child: Text(
                           "You will now proceed to NeSL's Digital Document Execution journey",
                           textAlign: TextAlign.center,
-                          style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
-                              fontSize: 14.sp,
-                              color: MyColors.lightGraySmallText,
-                              fontFamily: MyFont.Nunito_Sans_Regular),
+                          style: ThemeHelper.getInstance()?.textTheme.subtitle1?.copyWith(
+                                color: MyColors.lightGraySmallText,
+                              ),
                         ),
                       ),
                     ],
@@ -1341,8 +1340,7 @@ class KfsScreenBody extends State<KfsScreens> {
           isDataLoaded = false;
         });
         Navigator.of(context, rootNavigator: true).pop();
-        MoveStage.navigateNextStage(
-            context, _getLoanStatusRes?.data?.currentStage);
+        MoveStage.navigateNextStage(context, _getLoanStatusRes?.data?.currentStage);
 
         //Navigator.pushReplacementNamed(context, MyRoutes.loanDepositeAccRoutes);
       } else if (_getLoanStatusRes?.data?.stageStatus == "HOLD") {
@@ -1359,7 +1357,6 @@ class KfsScreenBody extends State<KfsScreens> {
       LoaderUtils.handleErrorResponse(context, response?.getLoanStatusResObj().status,
           response?.getLoanStatusResObj().message, response?.getLoanStatusResObj().data?.stageStatus);
     }
-
   }
 
   _onErrorGetLoanAppStatus(TGResponse errorResponse) {

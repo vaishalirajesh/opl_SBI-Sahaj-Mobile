@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
@@ -22,7 +20,6 @@ import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
-import 'package:gstmobileservices/util/tg_view.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/constants/imageconstant.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
@@ -31,10 +28,8 @@ import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 
 import '../../../../loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
-import '../../../../routes.dart';
 import '../../../../utils/colorutils/mycolors.dart';
 import '../../../../utils/constants/prefrenceconstants.dart';
-import '../../../../utils/constants/stageconstants.dart';
 import '../../../../utils/constants/statusConstants.dart';
 import '../../../../utils/helpers/themhelper.dart';
 import '../../../../utils/internetcheckdialog.dart';
@@ -73,8 +68,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
     super.initState();
   }
 
-  Future<void> getDisbursedAccListApi() async
-  {
+  Future<void> getDisbursedAccListApi() async {
     if (await TGNetUtil.isInternetAvailable()) {
       getDisbursedAccList();
     } else {
@@ -107,8 +101,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
                   MaterialPageRoute(
                     builder: (BuildContext context) => DashboardWithGST(),
                   ),
-                  (route) =>
-                      false, //if you want to disable back feature set to false
+                  (route) => false, //if you want to disable back feature set to false
                 )
               }),
       body: SingleChildScrollView(
@@ -172,8 +165,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
               isListLoaded
                   ? loanDepositeAccList(context)
                   : JumpingDots(
-                      color: ThemeHelper.getInstance()?.primaryColor ??
-                          MyColors.pnbcolorPrimary,
+                      color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
                       radius: 10,
                     )
               //Container()
@@ -203,8 +195,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
 
   Widget loandepositAccountCard(BuildContext context, int index) {
     return Card(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusDirectional.all(Radius.circular(12.r))),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.all(Radius.circular(12.r))),
       shadowColor: ThemeHelper.getInstance()?.shadowColor,
       elevation: 2,
       child: Column(
@@ -219,9 +210,8 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
                 Container(
                     height: 40.h,
                     width: 40.w,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: ThemeHelper.getInstance()?.backgroundColor),
+                    decoration:
+                        BoxDecoration(shape: BoxShape.circle, color: ThemeHelper.getInstance()?.backgroundColor),
                     child: Center(
                         child: SvgPicture.asset(
                       Utils.path(SMALLBANKLOGO),
@@ -234,12 +224,8 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
                 Expanded(
                   child: Text(
                     _getDisbursedAccRes?.data?[index].data?.fipName ?? "",
-                    style: ThemeHelper.getInstance()
-                        ?.textTheme
-                        .bodyText2
-                        ?.copyWith(
-                            color: ThemeHelper.getInstance()?.indicatorColor,
-                            fontFamily: MyFont.Nunito_Sans_Bold),
+                    style: ThemeHelper.getInstance()?.textTheme.bodyText2?.copyWith(
+                        color: ThemeHelper.getInstance()?.indicatorColor, fontFamily: MyFont.Nunito_Sans_Bold),
                     maxLines: 3,
                     overflow: TextOverflow.visible,
                   ),
@@ -262,14 +248,11 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
                         .bodyText2
                         ?.copyWith(color: MyColors.pnbCardMediumTextColor)),
                 Text(
-                  _getDisbursedAccRes?.data?[index].data?.maskedAccountNumber ??
-                      "",
+                  _getDisbursedAccRes?.data?[index].data?.maskedAccountNumber ?? "",
                   style: ThemeHelper.getInstance()
                       ?.textTheme
                       .bodyText2
-                      ?.copyWith(
-                          color: MyColors.black,
-                          fontFamily: MyFont.Nunito_Sans_Bold),
+                      ?.copyWith(color: MyColors.black, fontFamily: MyFont.Nunito_Sans_Bold),
                 )
               ],
             ),
@@ -293,9 +276,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
                   style: ThemeHelper.getInstance()
                       ?.textTheme
                       .bodyText2
-                      ?.copyWith(
-                          color: MyColors.black,
-                          fontFamily: MyFont.Nunito_Sans_Bold),
+                      ?.copyWith(color: MyColors.black, fontFamily: MyFont.Nunito_Sans_Bold),
                 )
               ],
             ),
@@ -303,7 +284,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
           SizedBox(
             height: 20.h,
           ),
-          Container(
+          SizedBox(
             height: 33.h,
             child: proccedButton(context, index),
           )
@@ -318,9 +299,11 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
       foregroundColor: ThemeHelper.getInstance()?.primaryColor,
       backgroundColor: ThemeHelper.getInstance()?.primaryColor,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10))),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(10),
+          bottomRight: Radius.circular(10),
+        ),
+      ),
     );
 
     return ElevatedButton(
@@ -328,9 +311,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
         onPressed: () async {
           selectedAcc = _getDisbursedAccRes?.data?[index];
           WidgetsBinding.instance.addPostFrameCallback((_) async {
-            LoaderUtils.showLoaderwithmsg(context,
-                msg:
-                    "Please wait while we set the disbursement account detail");
+            LoaderUtils.showLoaderwithmsg(context, msg: "Please wait while we set the disbursement account detail");
           });
           if (await TGNetUtil.isInternetAvailable()) {
             setDisbursedAcc();
@@ -341,8 +322,10 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
         child: Center(
           child: Text(
             str_proceed,
-            style: ThemeHelper.getInstance()?.textTheme.button?.copyWith(
-                fontFamily: MyFont.Nunito_Sans_Regular, fontSize: 14.sp),
+            style: ThemeHelper.getInstance()
+                ?.textTheme
+                .button
+                ?.copyWith(fontFamily: MyFont.Nunito_Sans_Regular, fontSize: 14.sp),
             textAlign: TextAlign.center,
           ),
         ));
@@ -437,11 +420,9 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
   // }
 
   void isValidAccNo(StateSetter setModelState) {
-    if (accountNumber.text.isNotEmpty &&
-        selectedAcc?.data?.accountNumber?.isNotEmpty == true) {
+    if (accountNumber.text.isNotEmpty && selectedAcc?.data?.accountNumber?.isNotEmpty == true) {
       if (accountNumber.text.substring(accountNumber.text.length - 4) ==
-          selectedAcc?.data?.accountNumber
-              ?.substring(selectedAcc!.data!.accountNumber!.length - 4)) {
+          selectedAcc?.data?.accountNumber?.substring(selectedAcc!.data!.accountNumber!.length - 4)) {
         setModelState(() {
           isValidAccount = true;
         });
@@ -472,18 +453,15 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
         });
   }
 
-
   Future<void> getDisbursedAccList() async {
-    String loanAppRefId =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     String offerId = await TGSharedPreferences.getInstance().get(PREF_OFFERID);
     GetDisbursedAccRequest getDisbursedAccRequest = GetDisbursedAccRequest(
       loanApplicationRefId: loanAppRefId,
       offerId: offerId,
     );
     var jsonReq = jsonEncode(getDisbursedAccRequest.toJson());
-    TGPostRequest tgPostRequest =
-        await getPayLoad(jsonReq, URI_GET_DISBURSED_ACC_LIST);
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GET_DISBURSED_ACC_LIST);
     ServiceManager.getInstance().getLoanDisbursedAcc(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessGetDisbursedAcc(response),
@@ -499,17 +477,13 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
         _getDisbursedAccRes = response?.getDisbursedAccResObj();
         isListLoaded = true;
       });
-    } else if (response?.getDisbursedAccResObj()?.status ==
-        RES_DETAILS_NOT_FOUND) {
+    } else if (response?.getDisbursedAccResObj()?.status == RES_DETAILS_NOT_FOUND) {
       Future.delayed(Duration(seconds: 5), () {
         getDisbursedAccListApi();
       });
     } else {
       LoaderUtils.handleErrorResponse(
-          context,
-          response?.getDisbursedAccResObj()?.status,
-          response?.getDisbursedAccResObj()?.message,
-          null);
+          context, response?.getDisbursedAccResObj()?.status, response?.getDisbursedAccResObj()?.message, null);
     }
   }
 
@@ -519,11 +493,9 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
   }
 
   Future<void> setDisbursedAcc() async {
-    String loanAppRefId =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     String offerId = await TGSharedPreferences.getInstance().get(PREF_OFFERID);
-    String loanAppId =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
+    String loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
     SetDisbursedAccRequest setDisbursedAccRequest = SetDisbursedAccRequest(
         loanApplicationRefId: loanAppRefId,
         offerId: offerId,
@@ -531,8 +503,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
         accountNumber: selectedAcc?.data?.accountNumber,
         accountId: selectedAcc?.id);
     var jsonReq = jsonEncode(setDisbursedAccRequest.toJson());
-    TGPostRequest tgPostRequest =
-        await getPayLoad(jsonReq, URI_SET_DISBURSED_ACC);
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_SET_DISBURSED_ACC);
     ServiceManager.getInstance().setLoanDisbursedAcc(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessSetDisbursedAcc(response),
@@ -548,10 +519,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
     } else {
       Navigator.pop(context);
       LoaderUtils.handleErrorResponse(
-          context,
-          response?.getSetDisbAccObj().status,
-          response?.getSetDisbAccObj().message,
-          null);
+          context, response?.getSetDisbAccObj().status, response?.getSetDisbAccObj().message, null);
     }
   }
 
@@ -562,13 +530,10 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
   }
 
   Future<void> getLoanAppStatusAfterSetDisburseAcc() async {
-    String loanAppRefId =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
-    GetLoanStatusRequest getLoanStatusRequest =
-        GetLoanStatusRequest(loanApplicationRefId: loanAppRefId);
+    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    GetLoanStatusRequest getLoanStatusRequest = GetLoanStatusRequest(loanApplicationRefId: loanAppRefId);
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
-    TGPostRequest tgPostRequest =
-        await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('5'));
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('5'));
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessGetLoanAppStatus(response),
@@ -581,8 +546,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
     if (_getLoanStatusRes?.status == RES_SUCCESS) {
       if (_getLoanStatusRes?.data?.stageStatus == "PROCEED") {
         Navigator.pop(context);
-        MoveStage.navigateNextStage(
-            context, _getLoanStatusRes?.data?.currentStage);
+        MoveStage.navigateNextStage(context, _getLoanStatusRes?.data?.currentStage);
       } else if (_getLoanStatusRes?.data?.stageStatus == "HOLD") {
         Future.delayed(const Duration(seconds: 10), () {
           getLoanAppStatusAfterSetDisbAccApiCall();
@@ -592,11 +556,8 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
       }
     } else {
       Navigator.pop(context);
-      LoaderUtils.handleErrorResponse(
-          context,
-          response?.getLoanStatusResObj().status,
-          response?.getLoanStatusResObj().message,
-          response?.getLoanStatusResObj().data?.stageStatus);
+      LoaderUtils.handleErrorResponse(context, response?.getLoanStatusResObj().status,
+          response?.getLoanStatusResObj().message, response?.getLoanStatusResObj().data?.stageStatus);
     }
   }
 
@@ -610,8 +571,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
     if (await TGNetUtil.isInternetAvailable()) {
       getLoanAppStatusAfterSetDisburseAcc();
     } else {
-      showSnackBarForintenetConnection(
-          context, getLoanAppStatusAfterSetDisburseAcc);
+      showSnackBarForintenetConnection(context, getLoanAppStatusAfterSetDisburseAcc);
     }
   }
 }

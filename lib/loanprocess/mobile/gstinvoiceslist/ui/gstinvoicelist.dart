@@ -25,11 +25,9 @@ import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/gstinvoiceslist/ui/gstinvoicelistrefresh.dart';
-import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusconstants.dart';
-import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
@@ -226,7 +224,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
         ),
         Padding(
           padding: EdgeInsets.only(left: 20.w, right: 20.w),
-          child: Text(str_GST_Invoices_for_loan_offers, style: ThemeHelper.getInstance()!.textTheme.headline2!.copyWith(fontFamily: MyFont.Roboto_Bold)),
+          child: Text(str_GST_Invoices_for_loan_offers, style: ThemeHelper.getInstance()!.textTheme.headline2),
         ),
         SizedBox(
           height: 20.h,
@@ -262,10 +260,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
                 Expanded(
                   child: Text(
                     "$str_select_any_inovice (${arrInvoiceList.length})",
-                    style: ThemeHelper.getInstance()!
-                        .textTheme
-                        .headline1!
-                        .copyWith(color: MyColors.darkblack, fontSize: 20),
+                    style: ThemeHelper.getInstance()!.textTheme.headline2,
                   ),
                 ),
                 Expanded(
@@ -339,14 +334,15 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
             Expanded(
                 child: Text(
               _gstInvoceListResMain?.data?[index].buyerName.toString() ?? '',
-              style: ThemeHelper.getInstance()!.textTheme.displayMedium!,
+              style: ThemeHelper.getInstance()!.textTheme.headline3!,
               maxLines: 2,
             )),
             Text(
-              Utils.convertIndianCurrency('${_gstInvoceListResMain?.data?[index].invoiceData?.invValue.toString() ?? ''} '),
+              Utils.convertIndianCurrency(
+                  '${_gstInvoceListResMain?.data?[index].invoiceData?.invValue.toString() ?? ''} '),
               style: ThemeHelper.getInstance()!
                   .textTheme
-                  .bodyText1!
+                  .bodySmall!
                   .copyWith(fontSize: 16, color: MyColors.pnbcolorPrimary),
             )
           ],
@@ -358,10 +354,12 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
           children: [
             Text(
                 Utils.convertDateFormat(
-                    _gstInvoceListResMain?.data?[index].invoiceData?.invDate.toString() ?? "24-03-2023", "dd-MM-yyyy", 'd MMM'),
-                style: ThemeHelper.getInstance()!.textTheme.displayMedium?.copyWith(color: MyColors.lightGraySmallText)),
+                    _gstInvoceListResMain?.data?[index].invoiceData?.invDate.toString() ?? "24-03-2023",
+                    "dd-MM-yyyy",
+                    'd MMM'),
+                style: ThemeHelper.getInstance()!.textTheme.subtitle1?.copyWith(color: MyColors.lightGraySmallText)),
             Text(" | ${_gstInvoceListResMain?.data?[index].ctin}" ?? "",
-                style: ThemeHelper.getInstance()!.textTheme.displayMedium?.copyWith(color: MyColors.lightGraySmallText)),
+                style: ThemeHelper.getInstance()!.textTheme.subtitle1?.copyWith(color: MyColors.lightGraySmallText)),
           ],
         ),
       ]),
@@ -967,8 +965,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
           isLoadData = true;
           isShowTransparentBg = false;
         });
-        MoveStage.navigateNextStage(
-            context, _getLoanStatusResMain?.data?.currentStage);
+        MoveStage.navigateNextStage(context, _getLoanStatusResMain?.data?.currentStage);
         // Navigator.pop(context);
         //Navigator.pushReplacementNamed(context, MyRoutes.AccountAggregatorDetailsRoutes);
       } else if (_getLoanStatusResMain?.data?.stageStatus == "HOLD") {

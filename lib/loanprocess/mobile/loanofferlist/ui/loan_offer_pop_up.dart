@@ -17,6 +17,7 @@ import 'package:gstmobileservices/service/response/tg_response.dart';
 import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
+import 'package:gstmobileservices/util/jumpingdot_util.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
 import 'package:sbi_sahay_1_0/utils/constants/imageconstant.dart';
@@ -32,8 +33,6 @@ import '../../../../utils/movestageutils.dart';
 import '../../../../utils/progressLoader.dart';
 import '../../../../utils/strings/strings.dart';
 import '../../../../widgets/app_button.dart';
-import '../../../../widgets/info_loader.dart';
-import 'loanofferlistscreen.dart';
 
 class LoanOfferDialog extends StatefulWidget {
   const LoanOfferDialog({Key? key}) : super(key: key);
@@ -47,8 +46,7 @@ class _LoanOfferDialogState extends State<LoanOfferDialog> {
   GetLoanStatusResMain? _getLoanStatusRes;
   late Timer timer;
   bool isStartTimer = true;
-
-
+  bool isLoanDataFeched = false;
 
   @override
   Widget build(BuildContext context) {
@@ -113,39 +111,44 @@ class _LoanOfferDialogState extends State<LoanOfferDialog> {
   }
 
   Widget BtnCheckOut() {
-    return AppButton(
-      onPress: () async {
+    return isLoanDataFeched
+        ? JumpingDots(
+            color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
+            radius: 10,
+          )
+        : AppButton(
+            onPress: () async {
+              // WidgetsBinding.instance.addPostFrameCallback((_) async {
+              //   const ShowInfoLoader(
+              //     msg: str_get_best_offer,
+              //     isTransparentColor: false,
+              //   );
+              //   // LoaderUtils.showLoaderwithmsg(context, GETLOANOFFER, str_fetch_loan_offer_from_lender, msg: str_get_best_offer);
+              // });
 
-        WidgetsBinding.instance.addPostFrameCallback((_) async {
-          ShowInfoLoader(
-            msg: str_get_best_offer,
-            isTransparentColor: false,
+              if (await TGNetUtil.isInternetAvailable()) {
+                _generateLoanOffer();
+              } else {
+                if (context.mounted) {
+                  showSnackBarForintenetConnection(context, _generateLoanOffer);
+                }
+              }
+
+              // Navigator.pushAndRemoveUntil(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => LoanOfferList(),
+              //   ),
+              //   (route) => false,
+              // );
+            },
+            title: str_Checkit_out,
           );
-         // LoaderUtils.showLoaderwithmsg(context, GETLOANOFFER, str_fetch_loan_offer_from_lender, msg: str_get_best_offer);
-        });
-
-        if (await TGNetUtil.isInternetAvailable()) {
-          _generateLoanOffer();
-        } else {
-          if (context.mounted) {
-            showSnackBarForintenetConnection(context, _generateLoanOffer);
-          }
-        }
-
-        // Navigator.pushAndRemoveUntil(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => LoanOfferList(),
-        //   ),
-        //   (route) => false,
-        // );
-      },
-      title: str_Checkit_out,
-    );
   }
 
-
   Future<void> _generateLoanOffer() async {
+    isLoanDataFeched = true;
+    setState(() {});
     String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     GenerateLoanOfferRequest generateLoanOfferRequest = GenerateLoanOfferRequest(loanApplicationRefId: loanAppRefId);
     var jsonReq = jsonEncode(
@@ -237,7 +240,6 @@ class _LoanOfferDialogState extends State<LoanOfferDialog> {
       }
     }
   }
-
 
   void startTimer() {
     isStartTimer = false;

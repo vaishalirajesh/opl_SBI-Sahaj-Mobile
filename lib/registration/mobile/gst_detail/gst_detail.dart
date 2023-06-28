@@ -22,6 +22,7 @@ import 'package:sbi_sahay_1_0/registration/mobile/gst_detail/gstotpverify.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusconstants.dart';
+import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
 import 'package:sbi_sahay_1_0/utils/internetcheckdialog.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
@@ -161,7 +162,10 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
             display();
           },
           child: TextFormField(
-              style: ThemeHelper.getInstance()!.textTheme.displayMedium!.copyWith(fontSize: 14.sp),
+              style: ThemeHelper.getInstance()!
+                  .textTheme
+                  .displayMedium!
+                  .copyWith(fontSize: 16.sp, fontFamily: MyFont.Roboto_Regular),
               onChanged: (content) {
                 CheckValidGSTUserName();
               },
@@ -216,7 +220,10 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
         height: 10.h,
       ),
       TextFormField(
-          style: ThemeHelper.getInstance()!.textTheme.displayMedium!.copyWith(fontSize: 16.sp),
+          style: ThemeHelper.getInstance()!
+              .textTheme
+              .displayMedium!
+              .copyWith(fontSize: 16.sp, fontFamily: MyFont.Roboto_Regular),
           onChanged: (content) {
             CheckValidGSTInNumber();
           },

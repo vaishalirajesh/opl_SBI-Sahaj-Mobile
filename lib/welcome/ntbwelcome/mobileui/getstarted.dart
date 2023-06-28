@@ -67,7 +67,7 @@ class _GetStartedState extends State<GetStarted> {
               ),
               getStartedBTN(context),
               SizedBox(
-                height: 5.h,
+                height: 10.h,
               ),
               loginButton(context),
               SizedBox(
@@ -82,13 +82,15 @@ class _GetStartedState extends State<GetStarted> {
 
   Widget getStartedBTN(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 5.h),
+      padding: EdgeInsets.only(
+        left: 20.w,
+        right: 20.w,
+      ),
       child: isLoaderStart
           ? SizedBox(
               height: 50.h,
               child: JumpingDots(
-                color: ThemeHelper.getInstance()?.primaryColor ??
-                    MyColors.pnbcolorPrimary,
+                color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
                 radius: 10,
               ),
             )
@@ -135,12 +137,12 @@ Widget sahayLogo() {
 
 Widget pNBLogo() {
   return Padding(
-    padding: EdgeInsets.only(top: 60.h, bottom: 40.h),
+    padding: EdgeInsets.only(top: 50.h, bottom: 60.h),
     child: Center(
       child: SvgPicture.asset(
         Utils.path(BANKLOGOSQUARE),
         width: 180.w,
-        height: 35.h,
+        height: 50.h,
       ),
     ),
   );
@@ -149,7 +151,7 @@ Widget pNBLogo() {
 Widget cardViewSetup() {
   return Container(
     // height: 200.h,
-    padding: EdgeInsets.symmetric(horizontal: 10.r, vertical: 20.r),
+    padding: EdgeInsets.symmetric(vertical: 20.r),
     margin: EdgeInsets.only(bottom: 50.h, left: 20.w, right: 20.w),
     decoration: BoxDecoration(
       color: ThemeHelper.getInstance()!.cardColor,
@@ -164,38 +166,24 @@ Widget cardViewSetup() {
             children: [
               TextSpan(
                 text: str_gst_sahay,
-                style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(
-                    fontSize: 16.sp, color: MyColors.pnbsmallbodyTextColor),
+                style: ThemeHelper.getInstance()!.textTheme.button!.copyWith(color: MyColors.pnbsmallbodyTextColor),
               ),
               TextSpan(
                 text: str_disc,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .displayMedium!
-                    .copyWith(fontSize: 16.sp),
+                style: ThemeHelper.getInstance()!.textTheme.headline3!,
               ),
               TextSpan(
-                recognizer: new TapGestureRecognizer()
+                recognizer: TapGestureRecognizer()
                   ..onTap = () {
-                    launchUrl(Uri.parse(
-                        "https://www.youtube.com/watch?v=vcxK5Ppd4R4"));
+                    launchUrl(Uri.parse("https://www.youtube.com/watch?v=vcxK5Ppd4R4"));
                   },
                 text: strVideo,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .displayMedium!
-                    .copyWith(
-                        color: MyColors.hyperlinkcolornew,
-                        decoration: TextDecoration.underline,
-                        fontSize: 16.sp),
+                style: ThemeHelper.getInstance()!.textTheme.button!.copyWith(
+                      color: MyColors.hyperlinkcolornew,
+                      decoration: TextDecoration.underline,
+                    ),
               ),
-              TextSpan(
-                text: strLast,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .displayMedium!
-                    .copyWith(fontSize: 16.sp),
-              ),
+              TextSpan(text: strLast, style: ThemeHelper.getInstance()!.textTheme.headline3!),
             ],
           ),
         ),
@@ -214,13 +202,17 @@ Widget loginButton(BuildContext context) {
       text: TextSpan(
         children: [
           TextSpan(
-              text: str_all_have_acc,
-              style: ThemeHelper.getInstance()!.textTheme.headline3),
+            text: str_all_have_acc,
+            style: ThemeHelper.getInstance()!
+                .textTheme
+                .headline3!
+                .copyWith(fontSize: 14.sp, color: MyColors.lightBlackText),
+          ),
           TextSpan(
               text: str_logintc,
               style: ThemeHelper.getInstance()!
                   .textTheme
-                  .displayMedium!
+                  .headline3!
                   .copyWith(fontSize: 14.sp, color: MyColors.hyperlinkcolornew),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {

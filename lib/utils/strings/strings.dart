@@ -3,8 +3,7 @@ const str_give_constent_for_gst = 'Give Consent for GST';
 
 const str_gst_data_consent_gst = 'Give Consent';
 const str_gst_data_consent = 'GST Data Consent';
-const str_Allow_Sahay_to_fetch_your_GST_Data =
-    'Allow Sahay to fetch your GST Data';
+const str_Allow_Sahay_to_fetch_your_GST_Data = 'Allow Sahay to fetch your GST Data';
 const str_gst_data_consent_long_sentence =
     '"You hereby undertake and confirm that you have permitted and allowed SAHAY GST application to pull your GST records -GSTR1, GSTR2A and GSTR3B - for the last 12 months from the date of providing consent. You acknowledge and confirm that you have consented to the sharing of your GST Data with lenders on the platform (and their service providers, if any) for the purpose of generating credit offers."';
 
@@ -15,15 +14,13 @@ const str_keep_data_ready =
 const str_gst_login_detail = 'GST login details';
 const str_cur_acc_with_pnb = 'Operative Current Account no. with PNB';
 const str_mobile_with_otp = 'Mobile number on which OTP will be received';
-const str_email_updated_kyc =
-    'E-Mail ID & KYC should be updated in the current account';
+const str_email_updated_kyc = 'E-Mail ID & KYC should be updated in the current account';
 const str_undertaking = 'Undertaking';
 const str_undertaking_text1 =
     'My application is subject to eligibility criterion as per the Bank’s guidelines under PNB GST Sahay scheme.';
 const str_undertaking_text2 =
     'I provide my consent to fetch my GST Return data, Account statement and other KYC details from the available sources.';
-const str_undertaking_text3 =
-    'I also provide consent for fetching the GST details of my Buyer.';
+const str_undertaking_text3 = 'I also provide consent for fetching the GST details of my Buyer.';
 const str_undertaking_text4 =
     'I provide my consent for using my KYC details and other details for Drawing my CIR from any of the CIC.';
 const str_continue = 'Continue';
@@ -39,8 +36,7 @@ const str_select_current_acc = 'Select Current A/c No.';
 const str_kindly_select_curr_acc = 'Kindly select your Current A/c No.';
 const str_verify = 'Verify';
 const str_verify_current_acc = 'Verify Current A/c No.';
-const str_current_acc_otp_txt =
-    'OTP sent to Mobile number and Email linked to ';
+const str_current_acc_otp_txt = 'OTP sent to Mobile number and Email linked to ';
 const str_enter_6_digit_otp = 'Enter 6 Digit OTP received';
 const str_did_not_receive_otp = "Didn't received OTP yet ?";
 const str_resend_otp = 'Resend OTP';
@@ -53,19 +49,16 @@ const str_get_loan_offers = 'Get Loan Offers';
 
 //Loan Offer Loader
 const str_regain_figure = 'Regain your figure';
-const str_fetch_loan_offer_from_lender =
-    'While we figure out the loan offers \nfrom the lender';
+const str_fetch_loan_offer_from_lender = 'While we figure out the loan offers \nfrom the lender';
 
 //Loan Offer List
 const str_loan_offers = 'Loan Offers';
-const str_select_invoice_below =
-    'Select an invoice from the below list to check the loan offers';
+const str_select_invoice_below = 'Select an invoice from the below list to check the loan offers';
 const str_invoice_amt = 'Invoice Amount';
 const str_loan_offer = 'Loan Offer';
 const str_invoice = 'Invoice: ';
 const str_due_date = 'Due Date';
-const str_no_available_offer =
-    'There is no loan offer \navailable at this moment.';
+const str_no_available_offer = 'There is no loan offer \navailable at this moment.';
 
 //Loan Detail
 const str_offer_detail = 'Offer Details';
@@ -75,8 +68,7 @@ const str_interest = 'Interest';
 const str_tenure = 'Tenure';
 const str_repayment = 'Repayment';
 const str_ol = '\u2022';
-const str_reduce_interest =
-    'You may reduce the interest by repaying before the due date';
+const str_reduce_interest = 'You may reduce the interest by repaying before the due date';
 const str_late_repay_penalty = 'Late repayment will lead to penalty';
 const str_loan_details = 'Loan Details';
 const str_processing_charge = 'Processing Charge';
@@ -98,12 +90,10 @@ const str_available_limit = 'Available Limit';
 const str_loan_amt = 'Loan Amount';
 const str_loan_amt_tooltip = "Loan amount offered by the lender";
 const str_total_interest = 'Total Interest';
-const str_total_interest_tooltip =
-    "Interest on the loan amount \noffered(for the entire tenor)";
+const str_total_interest_tooltip = "Interest on the loan amount \noffered(for the entire tenor)";
 const str_net_disb_amt = 'Net Disbursement Amount';
 const str_total_repay_amt = 'Total Repayment Amount';
-const str_total_repay_amt_tooltip =
-    "Sum of loan amount, interest \namount and other upfront charges";
+const str_total_repay_amt_tooltip = "Sum of loan amount, interest \namount and other upfront charges";
 const str_anum_per_rate = 'Annual Percentage Rate';
 const str_per_rate_tooltip =
     "Effective annualized interest rate \nafter considering the interest and \nother upfront charges";
@@ -123,13 +113,11 @@ const str_cooling_period_tooltip =
     "Cooling off/look-up period during which \nborrower can exit digital loans by paying \nprincipal + proportionate Annual Percentage \nRate without any prepayment penalty";
 const str_lsp_detail = 'Details of LSP acting as recovery agent';
 const str_lsp_detail_tooltip = 'Authorized to approach the borrower';
-const str_grievance_contact =
-    'Contact details for Nodal Grievance Redressal Officer';
+const str_grievance_contact = 'Contact details for Nodal Grievance Redressal Officer';
 
 //Review Loan Deposite Acc
 const str_review_loan_deposite_acc = 'Review Loan Deposit A/c';
-const str_review_acc_txt_one =
-    'The loan would be disbursed in this account. kindly proceed for documentation.';
+const str_review_acc_txt_one = 'The loan would be disbursed in this account. kindly proceed for documentation.';
 const str_review_acc_txt_two =
     'Please note the same account will be used for standing instruction to auto-debit repayment.';
 const str_ac_no = 'A/c No';
@@ -151,8 +139,7 @@ const str_check_status = 'Check Status';
 //Proceed To Disbursed
 const str_congrats = 'Congratulations...!\n';
 const str_congratulation = 'Congratulations';
-const str_doc_process_complete =
-    ' on completing your documentation process. You can now proceed for disbursement.';
+const str_doc_process_complete = ' on completing your documentation process. You can now proceed for disbursement.';
 const str_proceed_to_disb = 'Proceed for Disbursement';
 const str_the_loan_amt = 'The loan amount of ';
 const str_disb_amt = ' will be disbursed in the below mentioned bank account.​';
@@ -163,8 +150,7 @@ const str_req_for_disb = 'Request for disbursement';
 //Loan Review
 const str_loan_disbursed_txt =
     'Your disbursement request has been submitted successfully. The disbursement through NEFT process could take around 30-60 minutes. In the meanwhile you can go and finance other invoice.';
-const str_overall_experiance =
-    'How was your overall experience with PNB GST Sahay Mobile Application ?';
+const str_overall_experiance = 'How was your overall experience with PNB GST Sahay Mobile Application ?';
 const str_submit = 'Submit';
 const str_back_home = "Back to Home";
 
@@ -173,15 +159,13 @@ const str_You_cannot_procced_further_as_bureau_data_is_adverse =
     'You cannot procced further as\nbureau data is adverse.';
 //..Give Conntest
 const str_Allow_Lenders_to_fetch_CIC_data = 'Allow Lenders to fetch CIC data';
-const str_Credit_Information_Company_Consent =
-    'Credit Information Company Consent';
+const str_Credit_Information_Company_Consent = 'Credit Information Company Consent';
 const str_give_consent_long_sentence =
     '"You hereby undertake and confirm that the information and data furnished by you to the platform is true and correct. The platform has been integrated with lenders who use Credit Information Companies (CIC) to conduct credit checks on body corporates and Individuals. You acknowledge and confirm that you have consented to the sharing of sensitive data provided by you with such lenders and CICs for the purposes of obtaining the name and account number of banks with whom you have an open cash credit or overdraft account. In addition, you consent to the data being used to facilitate the creation of a credit offer which may include the account to which the funds may be disbursed as per prevailing RBI norms."';
 
 //..comon
 const str_ok = 'OK';
-const str_i_understand_and_agree_to_sahays_terms =
-    'I understand and agree to Sahay’s Terms';
+const str_i_understand_and_agree_to_sahays_terms = 'I understand and agree to Sahay’s Terms';
 const str_i_login_check_part1 = 'I accept the ';
 const str_i_login_checkpart2 = 'Privacy policy, Terms & conditions ';
 const str_i_login_checkpart3 = 'and ';
@@ -199,8 +183,7 @@ const str_Enter_GST_Details = 'Enter GST Details';
 const str_Enter_your_mobile_Details = 'Enter your mobile number';
 const str_Kindly_enter_your_GST_Username_GSTIN_to_link_with_Sahay_GST_Account =
     'Kindly enter your GST Username & GSTIN to link with Sahay GST Account';
-const str_we_will_send_you_otp_for_confirmation =
-    'We will send you OTP for confirmation';
+const str_we_will_send_you_otp_for_confirmation = 'We will send you OTP for confirmation';
 const str_GST_User_Name = 'GST User Name';
 const str_Mobile_number = 'Enter your mobile number';
 const str_15_Digit_GSTIN = '15-Digit GSTIN';
@@ -218,30 +201,25 @@ const str_Resend_OTP = 'Resend OTP';
 const str_Verify = 'Verify OTP';
 
 //..loader
-const str_Fetching_your_GST_business_details =
-    'Fetching your\nGST business details...';
+const str_Fetching_your_GST_business_details = 'Fetching your\nGST business details...';
 const str_Kindly_wait_for_60s = 'Kindly wait for 60s';
 const str_wait_for_gst_invoice = 'Please wait while we find your GST invoices';
 const str_sharing_invoice = 'Sharing Your Invoices';
 const str_loan_process = 'Please wait while we process your loan...';
 const str_agreement_loading_txt = "Please wait while Aggrement Loading..";
-const str_laon_offer_from_lender =
-    "Please wait while we figure out the loan offers from the lender";
+const str_laon_offer_from_lender = "Please wait while we figure out the loan offers from the lender";
 const str_aa_redirect = "Redirecting to Account Aggregator... NADL...";
 const str_aa_redirect_sub = "for providing consent for account monitoring.";
 const str_consent_monitering = "Consent for monitoring getting generated";
-const str_request_disbursedment =
-    "Your request for disbursement is in process.";
+const str_request_disbursedment = "Your request for disbursement is in process.";
 const str_share_feedback = "Please share your valuable feedback.";
 const str_getting_user_detail = "Getting User Details...";
 const str_wait_a_moment = "Wait a Moment...";
 const str_no_account = "No account found";
 const str_no_search = "No Search result";
 const str_fetching_bank_account_details = "Fetching Bank Account Details";
-const str_disb_acc_detail_loading =
-    "Please Wait While Disbursement Account Details are Loading..";
-const str_digital_document_process =
-    'Waiting for Digital Document Execution Status';
+const str_disb_acc_detail_loading = "Please Wait While Disbursement Account Details are Loading..";
+const str_digital_document_process = 'Waiting for Digital Document Execution Status';
 
 //..Confirm Details
 const str_Confirm_Details = 'Confirm Details';
@@ -256,8 +234,7 @@ const str_Taxpayer_Type = 'Taxpayer Type:';
 const str_Business_Activity = 'Business Activity:';
 const str_Place_of_Business = 'Place of Business:';
 
-const checkboxText =
-    'I confirm that all above details fetched from GST Portal are correct.';
+const checkboxText = 'I confirm that all above details fetched from GST Portal are correct.';
 
 //..Registration completed
 const str_Registration_completed = 'Registration completed';
@@ -266,11 +243,9 @@ const str_start_journey = ' \nLet’s start the journey';
 
 //..Congratulations
 const str_Congratulations = 'You have accepted the loan offer from PNB\n';
-const str_congratulation_sen =
-    'You will now proceed to NeSL\'s Digital\nDocument Execution journey';
+const str_congratulation_sen = 'You will now proceed to NeSL\'s Digital\nDocument Execution journey';
 const str_Practise_the_art_of_patience = 'Practise the art of patience';
-const str_while_we_process_your_loan =
-    'Please wait while we process your loan...';
+const str_while_we_process_your_loan = 'Please wait while we process your loan...';
 const str_loan_disbursed_process = 'Loan Disbursement Details';
 const str_congratulation_txt =
     "The loan disbursement has been initiated by the lender through NEFT. Please note that NEFT is processed in half-hourly intervals.";
@@ -285,8 +260,7 @@ const str_faq_ans_two =
     '\u2022 Borrower is a regular GST taxpayer and not falling under presumptive GST scheme and having enabled GST API access \n '
     '\u2022 The borrower who has a current bank account with the banks under Account aggregator network. [List of the banks present in AA Network has been listed below. \n '
     '\u2022 Borrower has no Cash Credit Account \n';
-const str_faq_three =
-    "What is the List of things borrower shall keep ready for a faster and smoother process?";
+const str_faq_three = "What is the List of things borrower shall keep ready for a faster and smoother process?";
 const str_faq_ans_three = 'Internet access throughout the loan process \n '
     '\u2022 Keep your mobile number registered with GST, with Bank account and with Aadhaar handy. \n '
     '\u2022 Enable GST API access on the GSTN website (watch video) \n '
@@ -297,8 +271,7 @@ const str_faq_four = 'What is Account Aggregator?';
 const str_faq_ans_four =
     'Account Aggregators are RBI regulated entities that help facilitate the digital and secure transfer of your information such as bank statements from the source bank to another financial institution where you are applying for a loan. The Account Aggregator framework was launched in September 2021. There are multiple Account Aggregator options available in SIDBI GST Sahay. You will need to create a “consent handle” and then link your bank accounts to this consent handle. Do not worry, it is simple to do and the app will guide you through the process.\n Kindly note: Data cannot be shared without the consent of the individual/ borrower.';
 const str_faq_five = 'Which Banks are currently present in the AA network?';
-const str_faq_ans_five =
-    'Currently the following banks are part of AA network: \n'
+const str_faq_ans_five = 'Currently the following banks are part of AA network: \n'
     '\u2022 Axis Bank Ltd. \n'
     '\u2022 IndusInd Bank Ltd. \n'
     '\u2022 HDFC Bank Ltd. \n'
@@ -329,11 +302,9 @@ const str_upload = 'Upload';
 const str_select_app = 'Select Application';
 const str_select_app_id = 'Select Application ID';
 const str_dispute_submit = 'Dispute Submitted';
-const str_dispute_req_sent =
-    'Your request for dispute has been sent to the support team.';
+const str_dispute_req_sent = 'Your request for dispute has been sent to the support team.';
 const str_dispute_date = 'Date';
-const str_further_equiry_contact =
-    'For further enquiry please contact support.';
+const str_further_equiry_contact = 'For further enquiry please contact support.';
 const str_dispute_tracker = 'Dispute Tracker';
 const str_open = 'OPEN';
 const str_closed = 'CLOSED';
@@ -341,11 +312,9 @@ const str_paste_loan_appid = 'Paste Loan Application ID';
 const str_dispute_history = 'Dispute History';
 const str_track = 'Track';
 const str_dispute_progress = 'Dispute In-Progress';
-const str_dispute_progress_txt =
-    'Your dispute is in-progress please wait while the support team is working on it.';
+const str_dispute_progress_txt = 'Your dispute is in-progress please wait while the support team is working on it.';
 const str_dispute_resolved = 'Dispute Resolved';
-const str_dispute_resolved_txt =
-    'Your dispute has been resolved by the support team.';
+const str_dispute_resolved_txt = 'Your dispute has been resolved by the support team.';
 const str_date_added = 'Date Added';
 const str_oldest = 'Oldest';
 const str_latest = 'Latest';
@@ -367,8 +336,7 @@ const String unknownError = 'Unknow Error. Please contact Support.';
 
 //thanks gst confirm
 const str_Thanks_for_confirming = "Thanks for confirming!!";
-const str_gst_confirm_disc =
-    "You can proceed for registration \n for GST-Sahay";
+const str_gst_confirm_disc = "You can proceed for registration \n for GST-Sahay";
 
 const str_Start_Registration = "Start Registration";
 
@@ -380,18 +348,16 @@ const str_AGREE = "Agree";
 
 //POP up dialog
 
-const CANNOTPROCEEDGSTSAHAY =
-    'Since you have existing working capital limit, you cannot proceed for GST Sahay.';
+const CANNOTPROCEEDGSTSAHAY = 'Since you have existing working capital limit, you cannot proceed for GST Sahay.';
 const OK = "OK";
 
 //dashboard
 const str_Fetching_Eligible_Invoices = "Fetching Eligible Invoices";
 const str_Get_Invoice_based_financein = "Get Invoice based finance in";
-const str_3SIMPLESTEP = "4 SIMPLE STEPS";
+const str_3SIMPLESTEP = "4 Simple Steps";
 
 const str_step1_gstWithout = 'Share bank statement';
-const str_step1_gstWithout_disc =
-    'Authorise Account Aggregator (AA) to fetch your Bank details ';
+const str_step1_gstWithout_disc = 'Authorise Account Aggregator (AA) to fetch your Bank details ';
 
 const str_step2_gstWithout = 'Accept Loan offer';
 const str_step2_gstWithout_disc =
@@ -401,8 +367,7 @@ const str_step3_gstWithout = 'Sign documents digitally';
 const str_step3_gstWithout_disc = 'E-sign loan agreement';
 
 const str_step4_gstWithout = 'Get disbursement';
-const str_step4_gstWithout_disc =
-    'Request for disbursement and receive the loan amount in your bank account';
+const str_step4_gstWithout_disc = 'Request for disbursement and receive the loan amount in your bank account';
 
 const str_notodler_than_60 = "* Eligible invoices : not older than 60 days";
 
@@ -415,8 +380,7 @@ const str_Search = "Search";
 const str_Sort = "  Sort by";
 const str_select_any_inovice = "Invoices";
 const str_All_the_invoicesgenerated = "All the invoices generated";
-const str_invoice_disc =
-    "during the last 2 months would be eligible for financing";
+const str_invoice_disc = "during the last 2 months would be eligible for financing";
 const str_share_invoice = 'Sharing Eligible Invoices';
 
 const str_refresh_gst = "Kindly refresh to fetch latest GST invoices";
@@ -461,8 +425,7 @@ const strOngoingapplication = 'Ongoing Application ';
 const str_o1 = '(Loan process is pending at some stage)';
 const str_Finance = 'Finance';
 const str_other_Eligible_Invoice = 'other Eligible Invoice';
-const str_Shareothereligibleinvoicesandgetloanoffers =
-    '(Share other eligible invoices and get loan offers)';
+const str_Shareothereligibleinvoicesandgetloanoffers = '(Share other eligible invoices and get loan offers)';
 const str_Recent_Transactions = 'Recent Transactions';
 const str_seeAll = 'See all';
 const str_Flipcart_Pvt_Ltd = 'Flipcart Pvt. Ltd.';
@@ -601,8 +564,7 @@ const str_logintc = "Log in ";
 
 //NTB enable gst api screen
 const str_confirmView_title = "Please confirm the following:";
-const str_confirm_check1 =
-    "Constitution of my business is Properitorship        ";
+const str_confirm_check1 = "Constitution of my business is Properitorship        ";
 const str_confirm_check2 = "I have enabled GST API access on GST website*  ";
 const str_confirm_bottom1 = "*If not done, ";
 const str_confirm_bottom2 = "read the steps";
@@ -614,20 +576,17 @@ const str_confirm_bottom7 = " and enable the same. ";
 
 //NTB Start registration
 
-const str_gst_confirm_NTBdisc =
-    "You can now Register on Sahaj in 3 simple steps​";
+const str_gst_confirm_NTBdisc = "You can now Register on Sahaj in 3 simple steps​";
 const str_Verify_Mobile_Number = "Verify Mobile Number";
 const str_Verify_gst_details = "Verify GST Details";
 const str_accept_tc = "Accept Terms & Conditions";
 
 //NTB AA detais
 
-const str_header_discr =
-    "You would now be required to share your bank statement digitally through Account Aggregator";
+const str_header_discr = "You would now be required to share your bank statement digitally through Account Aggregator";
 //"Now, you need to Register / Log in with the Account Aggregator(s), with which your Current Account Bank is integrated with and provide consent to fetch your Bank account information to help us decide your loan eligibility";
 const str_acount_aggregator = "Account Aggregator";
-const str_a_new_way_toshare_bank =
-    "A new way to share bank account statements digitally";
+const str_a_new_way_toshare_bank = "A new way to share bank account statements digitally";
 
 const str_before_proceeding_discr =
     "Before proceeding check whether your Current A/c Bank is within the list of Banks associated with Account Aggregator";
@@ -638,11 +597,9 @@ const str_or = " or ";
 const str_rbi = "RBI";
 const str_website_to_know_more_one = " website to know more & Watch the ";
 const str_website_to_know_more_two = "Video";
-const str_website_to_know_more_three =
-    " to understand the Account Aggregator process";
+const str_website_to_know_more_three = " to understand the Account Aggregator process";
 
-const str_share_bank_statement =
-    "Share bank statements digitally, securely\n   and instantly";
+const str_share_bank_statement = "Share bank statements digitally, securely\n   and instantly";
 const str_no_branch_visit_needed = "No branch visits needed";
 const str_rbi_licensed_entites = "RBI licensed entities";
 
@@ -658,18 +615,15 @@ const str_aa_step_three = "3. Select account/s to be linked";
 const str_aa_step_four = "4. Verify through OTP";
 const str_aa_step_five = "5. Give consent to share linked bank account data";
 const str_select_aa = "Account Aggregator linked to your bank";
-const str_select_aa_txt =
-    "Choose one of the RBI approved Account Aggregators to share your financial information";
+const str_select_aa_txt = "Choose one of the RBI approved Account Aggregators to share your financial information";
 const str_no_data_found = "No Data Found!";
 
 //Set up Emandate
-const str_complete_loan_agree =
-    "Loan Agreement has been successfully completed";
+const str_complete_loan_agree = "Loan Agreement has been successfully completed";
 const str_setup_emandate = "Set up Standing Instruction";
 const str_emandate_txt = "Allow lender to auto-deduct repayment from your ";
 const str_emandate_txt1 = " account ending ****";
-const str_eNach_redirect_txt =
-    "You will be redirected to lender specific page for authorising through e-NACH";
+const str_eNach_redirect_txt = "You will be redirected to lender specific page for authorising through e-NACH";
 const str_details = "Details";
 const str_bank = "Bank";
 const str_state_Bank_of_India = "State Bank of India";
@@ -682,12 +636,9 @@ const str_repayment_amt = "Repayment amount";
 const str_Select_your_Bank = 'Select your Bank';
 const strSelectYouDescr = 'Select the bank where you have your current account';
 const strPunjabBankIndia = 'Punjab National Bank';
-const strDescFindingAccountAggregator =
-    'Finding Account Aggregator linked to your bank account..';
-const strMoneyTitleString =
-    '      Redirecting to...\nAccount Aggregator...\n      One Money';
-const strVerifyTitle =
-    '      Verifying to...\nAccount Aggregator...\n      One Money';
+const strDescFindingAccountAggregator = 'Finding Account Aggregator linked to your bank account..';
+const strMoneyTitleString = '      Redirecting to...\nAccount Aggregator...\n      One Money';
+const strVerifyTitle = '      Verifying to...\nAccount Aggregator...\n      One Money';
 const strEmptyString = '';
 const strWhatisSahayApp = 'What is Sahay App?';
 const strPushnotifications = 'Push notifications';
@@ -706,11 +657,9 @@ const strFetchedInvoices = 'Fetched Invoices';
 const strCancel = 'Cancel';
 const strAll = 'All';
 const str_outstanding = 'Outstanding';
-const strConsent_for_monitoring_getting_generated =
-    "Consent for monitoring getting generated";
+const strConsent_for_monitoring_getting_generated = "Consent for monitoring getting generated";
 const str_NO_Offer_found = 'No offer Found';
-const str_back_press_alert_msg =
-    "You cannot back press while data is loading...";
+const str_back_press_alert_msg = "You cannot back press while data is loading...";
 
 const str_hello = "Hello, ";
 const str_pan = "PAN: ";
