@@ -78,20 +78,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
 
   TextEditingController mobileTextController = TextEditingController();
 
-  List<String> buttonList = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '',
-    '0',
-    '/'
-  ];
+  List<String> buttonList = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', '/'];
 
   int counter = 0;
   bool isValidOTP = false;
@@ -107,8 +94,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
       mobileTextController.text = mobileTextController.text + text;
     } else if (counter > 0 && text == '/') {
       if (mobileTextController.text != null && counter > 0) {
-        mobileTextController.text =
-            mobileTextController.text.substring(0, counter - 1);
+        mobileTextController.text = mobileTextController.text.substring(0, counter - 1);
         counter--;
       }
     } else {
@@ -133,10 +119,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
         key: scaffoldKey,
         resizeToAvoidBottomInset: false,
         appBar: getAppBarWithStepDone('1', str_registration, 0.25,
-            onClickAction: () => {
-                  Navigator.pop(context, false),
-                  SystemNavigator.pop(animated: true)
-                }),
+            onClickAction: () => {Navigator.pop(context, false), SystemNavigator.pop(animated: true)}),
         body: AbsorbPointer(
           absorbing: _isGetOTPLoaderStart,
           child: Stack(
@@ -145,114 +128,89 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: SizedBox(
                     height: MediaQuery.of(context).size.height,
-                    child: Column(
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 30.0.h, bottom: 9.h),
+                        child: Text(
+                          str_Enter_your_mobile_Details,
+                          style: ThemeHelper.getInstance()!.textTheme.headline2,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: 20.0.h,
+                        ),
+                        child: Text(
+                          str_we_will_send_you_otp_for_confirmation,
+                          style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(fontSize: 14.sp),
+                        ),
+                      ),
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: 30.0.h, bottom: 9.h),
-                            child: Text(
-                              str_Enter_your_mobile_Details,
-                              style: ThemeHelper.getInstance()!
-                                  .textTheme
-                                  .headline2,
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              bottom: 20.0.h,
-                            ),
-                            child: Text(
-                              str_we_will_send_you_otp_for_confirmation,
-                              style: ThemeHelper.getInstance()!
-                                  .textTheme
-                                  .headline3
-                                  ?.copyWith(fontSize: 14.sp),
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  //  viewModel.display();
+                          GestureDetector(
+                            onTap: () {
+                              //  viewModel.display();
+                            },
+                            child: TextFormField(
+                                readOnly: true,
+                                maxLength: 5,
+                                maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                                controller: mobileTextController,
+                                style:
+                                    ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(color: MyColors.darkblack),
+                                onChanged: (String newVal) {
+                                  setState(() {
+                                    if (newVal.length <= maxLength) {
+                                      text = newVal;
+                                    } else {
+                                      mobileTextController.text = text;
+                                    }
+                                  });
                                 },
-                                child: TextFormField(
-                                    readOnly: true,
-                                    maxLength: 5,
-                                    maxLengthEnforcement:
-                                        MaxLengthEnforcement.enforced,
-                                    controller: mobileTextController,
-                                    style: ThemeHelper.getInstance()!
+                                cursorColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
+                                decoration: InputDecoration(
+                                    labelText: "Enter your Mobile Number",
+                                    labelStyle: ThemeHelper.getInstance()!
                                         .textTheme
                                         .headline3!
-                                        .copyWith(color: MyColors.darkblack),
-                                    onChanged: (String newVal) {
-                                      setState(() {
-                                        if (newVal.length <= maxLength) {
-                                          text = newVal;
-                                        } else {
-                                          mobileTextController.text = text;
-                                        }
-                                      });
-                                    },
-                                    cursorColor: ThemeHelper.getInstance()!
-                                        .colorScheme
-                                        .onSurface,
-                                    decoration: InputDecoration(
-                                        labelText: "Enter your Mobile Number",
-                                        labelStyle: ThemeHelper.getInstance()!
-                                            .textTheme
-                                            .headline3!
-                                            .copyWith(
-                                                color: MyColors
-                                                    .verylightGrayColor),
-                                        contentPadding:
-                                            EdgeInsets.only(top: 5.h),
-                                        enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              width: 1,
-                                              color: ThemeHelper.getInstance()!
-                                                  .colorScheme
-                                                  .onSurface),
-                                        ),
-                                        focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: ThemeHelper.getInstance()!
-                                                  .colorScheme
-                                                  .onSurface,
-                                              width: 1.0),
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              width: 1,
-                                              color: ThemeHelper.getInstance()!
-                                                  .colorScheme
-                                                  .onSurface),
-                                        ),
-                                        counterText: ''),
-                                    keyboardType: TextInputType.text,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please Enter Mobile Number';
-                                      }
-                                      return null;
-                                    }),
-                              ),
-                              SizedBox(
-                                height: 30.h,
-                              ),
-                              keyboardColumn(),
-                            ],
+                                        .copyWith(color: MyColors.verylightGrayColor),
+                                    contentPadding: EdgeInsets.only(top: 5.h),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(width: 1, color: ThemeHelper.getInstance()!.colorScheme.onSurface),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: ThemeHelper.getInstance()!.colorScheme.onSurface, width: 1.0),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(width: 1, color: ThemeHelper.getInstance()!.colorScheme.onSurface),
+                                    ),
+                                    counterText: ''),
+                                keyboardType: TextInputType.text,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please Enter Mobile Number';
+                                  }
+                                  return null;
+                                }),
                           ),
-                        ])),
+                          SizedBox(
+                            height: 30.h,
+                          ),
+                          keyboardColumn(),
+                        ],
+                      ),
+                    ])),
               ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: SizedBox(
                   child: Padding(
-                    padding:
-                        EdgeInsets.only(top: 20.h, left: 20.w, right: 20.w),
+                    padding: EdgeInsets.only(top: 20.h, left: 20.w, right: 20.w),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -267,8 +225,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                                 data: ThemeData(useMaterial3: true),
                                 child: Checkbox(
                                   // checkColor: MyColors.colorAccent,
-                                  activeColor:
-                                      ThemeHelper.getInstance()?.primaryColor,
+                                  activeColor: ThemeHelper.getInstance()?.primaryColor,
                                   value: isCheckedFirst,
                                   onChanged: (isCheck) {
                                     setState(() {
@@ -283,10 +240,8 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                                   side: BorderSide(
                                       width: 1,
                                       color: isCheckedFirst
-                                          ? ThemeHelper.getInstance()!
-                                              .primaryColor
-                                          : ThemeHelper.getInstance()!
-                                              .primaryColor),
+                                          ? ThemeHelper.getInstance()!.primaryColor
+                                          : ThemeHelper.getInstance()!.primaryColor),
                                 ),
                               ),
                             ),
@@ -301,42 +256,28 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                                   child: Text.rich(
                                     TextSpan(
                                       text: str_i_login_check_part1,
-                                      style: ThemeHelper.getInstance()!
-                                          .textTheme
-                                          .headline3!
-                                          .copyWith(
+                                      style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
                                             fontSize: 14.sp,
                                           ),
                                       children: <InlineSpan>[
                                         TextSpan(
                                           text: str_i_login_checkpart2,
-                                          style: ThemeHelper.getInstance()!
-                                              .textTheme
-                                              .headline3!
-                                              .copyWith(
+                                          style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
                                                 fontSize: 14.sp,
-                                                color:
-                                                    MyColors.hyperlinkcolornew,
+                                                color: MyColors.hyperlinkcolornew,
                                               ),
                                         ),
                                         TextSpan(
                                           text: str_i_login_checkpart3,
-                                          style: ThemeHelper.getInstance()!
-                                              .textTheme
-                                              .headline3!
-                                              .copyWith(
+                                          style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
                                                 fontSize: 14.sp,
                                               ),
                                         ),
                                         TextSpan(
                                           text: str_i_login_checkpart4,
-                                          style: ThemeHelper.getInstance()!
-                                              .textTheme
-                                              .headline3!
-                                              .copyWith(
+                                          style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(
                                                 fontSize: 14.sp,
-                                                color:
-                                                    MyColors.hyperlinkcolornew,
+                                                color: MyColors.hyperlinkcolornew,
                                               ),
                                         )
                                       ],
@@ -351,16 +292,13 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                           padding: EdgeInsets.only(bottom: 20.h, top: 20.h),
                           child: _isGetOTPLoaderStart
                               ? JumpingDots(
-                                  color:
-                                      ThemeHelper.getInstance()?.primaryColor ??
-                                          MyColors.pnbcolorPrimary,
+                                  color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
                                   radius: 10,
                                 )
                               : AppButton(
                                   onPress: onPressNextButton,
                                   title: str_next,
-                                  isButtonEnable: isCheckedFirst &&
-                                      mobileTextController.text.length == 10,
+                                  isButtonEnable: isCheckedFirst && mobileTextController.text.length == 10,
                                 ),
                         )
                       ],
@@ -394,8 +332,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
   }
 
   Future<void> _autoLoginRequest() async {
-    TGSession.getInstance()
-        .set(SESSION_MOBILENUMBER, mobileTextController.text);
+    TGSession.getInstance().set(SESSION_MOBILENUMBER, mobileTextController.text);
     String uuid = Uuid().v1().replaceAll("-", "").substring(0, 16);
 
     AutoLoginRequest autoLoginRequest = AutoLoginRequest(
@@ -422,10 +359,8 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
     TGLog.d("AutoLoginResponse : onSuccess()");
 
     if (response?.getOtpReponseObj()?.status == RES_SUCCESS) {
-      Utils.setAccessToken(TGFlavor.param("bankName"),
-          response?.getOtpReponseObj().data?.accessToken);
-      TGSharedPreferences.getInstance()
-          .set(PREF_MOBILE, mobileTextController.text);
+      Utils.setAccessToken(TGFlavor.param("bankName"), response?.getOtpReponseObj().data?.accessToken);
+      TGSharedPreferences.getInstance().set(PREF_MOBILE, mobileTextController.text);
       setAccessTokenInRequestHeader();
 
       if (await TGNetUtil.isInternetAvailable()) {
@@ -440,10 +375,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
         _isGetOTPLoaderStart = false;
       });
       LoaderUtils.handleErrorResponse(
-          context,
-          response?.getOtpReponseObj().status ?? 0,
-          response?.getOtpReponseObj()?.message ?? "",
-          null);
+          context, response?.getOtpReponseObj().status ?? 0, response?.getOtpReponseObj()?.message ?? "", null);
     }
   }
 
@@ -476,27 +408,31 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
           if (_basicdetailsResponse?.data?[0]?.gstin?.isNotEmpty == true) {
             var gstin = _basicdetailsResponse!.data![0].gstin!;
             if (_basicdetailsResponse!.data![0].gstin!.length >= 12) {
-              TGSharedPreferences.getInstance().set(PREF_BUSINESSNAME,
-                  _basicdetailsResponse?.data?[0].gstBasicDetails?.tradeNam);
               TGSharedPreferences.getInstance()
-                  .set(PREF_GSTIN, _basicdetailsResponse?.data?[0].gstin);
-              TGSharedPreferences.getInstance().set(PREF_USERNAME,
-                  _basicdetailsResponse?.data?[0].username.toString());
-              TGSharedPreferences.getInstance().set(PREF_PANNO,
-                  _basicdetailsResponse?.data?[0].gstin?.substring(2, 12));
+                  .set(PREF_BUSINESSNAME, _basicdetailsResponse?.data?[0].gstBasicDetails?.tradeNam);
+              TGSharedPreferences.getInstance().set(PREF_GSTIN, _basicdetailsResponse?.data?[0].gstin);
+              TGSharedPreferences.getInstance().set(PREF_USERNAME, _basicdetailsResponse?.data?[0].username.toString());
+              TGSharedPreferences.getInstance()
+                  .set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin?.substring(2, 12));
             } else {
-              TGSharedPreferences.getInstance()
-                  .set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin);
+              TGSharedPreferences.getInstance().set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin);
             }
+            TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
+            TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => const DashboardWithGST(),
+                ),
+                (route) => false);
+          } else {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => GstConsent(),
+                ),
+                (route) => false);
           }
-          TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
-          TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => const DashboardWithGST(),
-              ),
-              (route) => false);
         } else {
           Navigator.pushAndRemoveUntil(
               context,
@@ -519,10 +455,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
     } else {
       setState(() {});
       LoaderUtils.handleErrorResponse(
-          context,
-          response?.getGstBasicDetailsRes().status,
-          response?.getGstBasicDetailsRes().message,
-          null);
+          context, response?.getGstBasicDetailsRes().status, response?.getGstBasicDetailsRes().message, null);
     }
   }
 
@@ -542,27 +475,15 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildButton(buttonList[0], 0),
-              _buildButton(buttonList[1], 1),
-              _buildButton(buttonList[2], 2)
-            ],
+            children: [_buildButton(buttonList[0], 0), _buildButton(buttonList[1], 1), _buildButton(buttonList[2], 2)],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildButton(buttonList[3], 3),
-              _buildButton(buttonList[4], 4),
-              _buildButton(buttonList[5], 5)
-            ],
+            children: [_buildButton(buttonList[3], 3), _buildButton(buttonList[4], 4), _buildButton(buttonList[5], 5)],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildButton(buttonList[6], 6),
-              _buildButton(buttonList[7], 7),
-              _buildButton(buttonList[8], 8)
-            ],
+            children: [_buildButton(buttonList[6], 6), _buildButton(buttonList[7], 7), _buildButton(buttonList[8], 8)],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -598,16 +519,11 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
             ),
             (route) => false);
       } else {
-        TGSharedPreferences.getInstance()
-            .set(PREF_GSTIN, _getAllLoanDetailRes?.data?[0].gstin);
-        TGSharedPreferences.getInstance().set(
-            PREF_PANNO, _getAllLoanDetailRes?.data?[0].gstin?.substring(2, 12));
-        TGSession.getInstance()
-            .set(SESSION_GSTIN, _getAllLoanDetailRes?.data?[0].gstin);
-        TGSession.getInstance().set(SESSION_PANNO,
-            _getAllLoanDetailRes?.data?[0].gstin?.substring(2, 12));
-        TGSession.getInstance()
-            .set(SESSION_BUSINESSNAME, _getAllLoanDetailRes?.data?[0].tradeNam);
+        TGSharedPreferences.getInstance().set(PREF_GSTIN, _getAllLoanDetailRes?.data?[0].gstin);
+        TGSharedPreferences.getInstance().set(PREF_PANNO, _getAllLoanDetailRes?.data?[0].gstin?.substring(2, 12));
+        TGSession.getInstance().set(SESSION_GSTIN, _getAllLoanDetailRes?.data?[0].gstin);
+        TGSession.getInstance().set(SESSION_PANNO, _getAllLoanDetailRes?.data?[0].gstin?.substring(2, 12));
+        TGSession.getInstance().set(SESSION_BUSINESSNAME, _getAllLoanDetailRes?.data?[0].tradeNam);
         TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
         TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
 
@@ -624,10 +540,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
       });
 
       LoaderUtils.handleErrorResponse(
-          context,
-          response?.getAllLoanDetailObj().status,
-          response?.getAllLoanDetailObj().message,
-          null);
+          context, response?.getAllLoanDetailObj().status, response?.getAllLoanDetailObj().message, null);
     }
   }
 
@@ -653,10 +566,10 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
               )
             : Text(
                 text,
-                style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(
-                    fontSize: 25,
-                    color: Colors.black,
-                    fontFamily: MyFont.Nunito_Sans_Bold),
+                style: ThemeHelper.getInstance()!
+                    .textTheme
+                    .headline1!
+                    .copyWith(fontSize: 25, color: Colors.black, fontFamily: MyFont.Nunito_Sans_Bold),
               ),
       ),
     );
@@ -672,13 +585,10 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
 
   Future<void> getLoginOtp() async {
     String uuid = Uuid().v1().replaceAll("-", "").substring(0, 16);
-    CredBlock credBlock =
-        CredBlock(appToken: uuid, otp: "", otpSessionKey: "", status: "");
+    CredBlock credBlock = CredBlock(appToken: uuid, otp: "", otpSessionKey: "", status: "");
 
-    RequestAuthUser requestAuthUser = RequestAuthUser(
-        mobile: mobileTextController.text,
-        credBlock: credBlock,
-        deviceId: uuid);
+    RequestAuthUser requestAuthUser =
+        RequestAuthUser(mobile: mobileTextController.text, credBlock: credBlock, deviceId: uuid);
     var jsonReq = jsonEncode(requestAuthUser.toJson());
 
     TGLog.d("Get GST OTP Request : $jsonReq");
@@ -693,10 +603,8 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
 
   _onSuccessGetOTP(GetotpResponse? response) {
     TGLog.d("Get GST OTP : onSuccess()");
-    TGSession.getInstance()
-        .set(SESSION_MOBILENUMBER, mobileTextController.text);
-    TGSession.getInstance().set(SESSION_OTPSESSIONKEY,
-        response?.getOtpReponseObj().data?.credBlock?.otpSessionKey);
+    TGSession.getInstance().set(SESSION_MOBILENUMBER, mobileTextController.text);
+    TGSession.getInstance().set(SESSION_OTPSESSIONKEY, response?.getOtpReponseObj().data?.credBlock?.otpSessionKey);
     setState(() {
       getOtpRes = response?.getOtpReponseObj();
       _isGetOTPLoaderStart = false;

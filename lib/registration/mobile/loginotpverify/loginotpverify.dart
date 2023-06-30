@@ -270,21 +270,35 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
               ),
             ),
           ),
-          bottomNavigationBar: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.r, vertical: 25.r),
-            child: isVerifyOTPLoaderStart || isGetOTPLoaderStart
-                ? SizedBox(
-                    height: 100.h,
-                    child: JumpingDots(
-                      color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
-                      radius: 10,
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              border: Border(top: BorderSide(color: ThemeHelper.getInstance()!.cardColor, width: 1)),
+              color: ThemeHelper.getInstance()?.backgroundColor,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3), //color of shadow
+                  spreadRadius: 1, //spread radius
+                  blurRadius: 3, // blur radius
+                  offset: const Offset(0, 1), // changes position of shadow
+                )
+              ],
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.r, vertical: 25.r),
+              child: isVerifyOTPLoaderStart || isGetOTPLoaderStart
+                  ? SizedBox(
+                      height: 50.h,
+                      child: JumpingDots(
+                        color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
+                        radius: 10,
+                      ),
+                    )
+                  : AppButton(
+                      onPress: onPressVerifyButton,
+                      title: str_Verify,
+                      isButtonEnable: isValidOTP,
                     ),
-                  )
-                : AppButton(
-                    onPress: onPressVerifyButton,
-                    title: str_Verify,
-                    isButtonEnable: isValidOTP,
-                  ),
+            ),
           ),
         );
       }),

@@ -1,56 +1,44 @@
-
-
 //const IMAGEBASEPATH="assets/pnb/";
 
-const IMAGEBASEPATH="assets/sbi/";
-
+const IMAGEBASEPATH = "assets/sbi/";
 
 //for web APP
-const CIRCULARPROGRESSBAR ="lottie/circular_loader.json";
+const CIRCULARPROGRESSBAR = "lottie/circular_loader.json";
 const SAHAYLOGO = "images/sahay_logo.svg";
 const LOGO = "images/logo.svg";
 const SBISAHAJLOGO = "images/sbi_sahaj_logo.png";
 const SBISAHAJLOGOSVG = "images/sbi_sahaj_logo.svg";
 const NOTIFICATIONICON = "images/icon_notification.svg";
 const LOGOUT = "images/icon_logout.svg";
-const CIRCLEQUESTION ="images/icon_circle_question.svg";
+const CIRCLEQUESTION = "images/icon_circle_question.svg";
 const CONFORMVIEW = "images/ic_icon_confrmview.svg";
 const BACKBUTTON = "images/icon_back_btn.svg";
-const  SBILOGOWITHTEXT ="images/sbi_logo_without_txt.svg";
-const  SAHAJLOGOWITHOUTTEXT = "images/mobileapplogo.svg";
-const  STEPDONE = "images/icon_step_done.svg";
-const  PERSIONIMAGEFORPOPUP = "images/popperson_small.png";
-const  USERCONFORM = "images/user_confirm.svg";
-const  REDARROW = "images/red_arrow.svg";
-const  GREENCONFORMTICK = "images/green_tick_confirm.svg";
+const SBILOGOWITHTEXT = "images/sbi_logo_without_txt.svg";
+const SAHAJLOGOWITHOUTTEXT = "images/mobileapplogo.svg";
+const STEPDONE = "images/icon_step_done.svg";
+const PERSIONIMAGEFORPOPUP = "images/popperson_small.png";
+const USERCONFORM = "images/user_confirm.svg";
+const REDARROW = "images/red_arrow.svg";
+const GREENCONFORMTICK = "images/green_tick_confirm.svg";
 
-const  GREENCONFORMTICKREGISTRATIONCOMPLETED = "images/greentick_registration_completed.svg";
+const GREENCONFORMTICKREGISTRATIONCOMPLETED = "images/greentick_registration_completed.svg";
 
+const LEFTBACKGROUND = "images/img_webcomeleftback.png";
+const DIGIOD = "images/digi_od.svg";
+const PABL = "images/welcome_pabl.svg";
+const GOLDLOAN = "images/sme_gold_loan.svg";
 
-const  LEFTBACKGROUND = "images/img_webcomeleftback.png";
-const  DIGIOD = "images/digi_od.svg";
-const  PABL = "images/welcome_pabl.svg";
-const  GOLDLOAN = "images/sme_gold_loan.svg";
+const WELCOMELEFTLOGO = "images/leftLogo.svg";
 
+const FILLGREENCONFORMTICK = "images/fill_greenTick.svg";
 
-const WELCOMELEFTLOGO="images/leftLogo.svg";
+const KFSCONGRATULATIONBG = "images/congratulation_bg.png";
 
-const  FILLGREENCONFORMTICK = "images/fill_greenTick.svg";
-
-const  KFSCONGRATULATIONBG = "images/congratulation_bg.png";
-
-const  IMG_GSTENABLE_API = "images/api_enable.svg";
-
-
-
-
-
-
-
+const IMG_GSTENABLE_API = "images/api_enable.svg";
 
 //for ui App
 //..svg
-const MOBILEAPPLOGO="images/mobileapplogo.svg";
+const MOBILEAPPLOGO = "images/mobileapplogo.svg";
 const SMALLBANKLOGO = 'images/bank_logo_small.svg';
 const SMALLBANKLOGORED = 'images/bank_logo_red.svg';
 const MOBILE_GST_LOGIN = 'images/ic_icon_gst_login.svg';
@@ -69,44 +57,35 @@ const MOBILECONGRATULATION = 'images/congrulation_img.svg';
 const MOBILETIME = 'images/time_ic.svg';
 const MOBILEOVERDUE = 'images/overdue_ic.svg';
 const MOBILEMONEY = 'images/money.svg';
-const MOBILEHANDWITHMONEY= 'images/dash_disbursed.svg';
-const MOBILEDOWNARROWBORWN= 'images/ic_icon_round_arrow_down.svg';
-const MOBILEUPARROWBORWN= 'images/ic_icon_round_arrow_up.svg';
-const MOBILEDASBOARD= 'images/dasboard_duck_img.svg';
-const MOBILEDASBOARDPNG= 'images/ic_icon_finance_other_invoice.png';
-const MOBILEHOMEBROWN= 'images/home.svg';
-const MOBILEHOMEGREY= 'images/home_grey_ic.svg';
-const MOBILEPATHROWN= 'images/path_brown_ic.svg';
-const MOBILEPATHGREY= 'images/path_ic.svg';
-const MOBILEPROFFILEGREY= 'images/profile_grey_ic.svg';
-const MOBILEPROFFILEBROWN= 'images/profile_brown_ic.svg';
-const MOBILEDISPUTEPROGRESS= 'images/ic_icon_progress.svg';
-const MOBILERAISEDISPUTE= 'images/ic_icon_raise_dispute.svg';
-const MOBILETRACKDISPUTE= 'images/ic_icon_dispute_tracker.svg';
+const MOBILEHANDWITHMONEY = 'images/dash_disbursed.svg';
+const MOBILEDOWNARROWBORWN = 'images/ic_icon_round_arrow_down.svg';
+const MOBILEUPARROWBORWN = 'images/ic_icon_round_arrow_up.svg';
+const MOBILEDASBOARD = 'images/dasboard_duck_img.svg';
+const MOBILEDASBOARDPNG = 'images/ic_icon_finance_other_invoice.png';
+const MOBILEHOMEBROWN = 'images/home.svg';
+const MOBILEHOMEGREY = 'images/home_grey_ic.svg';
+const MOBILEPATHROWN = 'images/path_brown_ic.svg';
+const MOBILEPATHGREY = 'images/path_ic.svg';
+const MOBILEPROFFILEGREY = 'images/profile_grey_ic.svg';
+const MOBILEPROFFILEBROWN = 'images/profile_brown_ic.svg';
+const MOBILEDISPUTEPROGRESS = 'images/ic_icon_progress.svg';
+const MOBILERAISEDISPUTE = 'images/ic_icon_raise_dispute.svg';
+const MOBILETRACKDISPUTE = 'images/ic_icon_dispute_tracker.svg';
 
+const MOBILETDASHBOARDWITHGSTOUTSTANDING = 'images/outstanding.svg';
+const MOBILETDASHBOARDWITHGSTOVERDUE = 'images/overdue_time.svg';
 
-const MOBILETDASHBOARDWITHGSTOUTSTANDING= 'images/outstanding.svg';
-const MOBILETDASHBOARDWITHGSTOVERDUE= 'images/overdue_time.svg';
-
-const MOBILETDASHBOARDWITHGSTINVOICE_OTHER_SERVICES= 'images/invoice_other_services.svg';
-
+const MOBILETDASHBOARDWITHGSTINVOICE_OTHER_SERVICES = 'images/invoice_other_services.svg';
 
 const MOBILETDASHBOARDARROWFORWARD = 'images/arrow_forward_dash.svg';
 
-
-
-
-
 //dashboardwithout gst
 
-const MOBILEDASHWITOUTSTEP1= 'images/dashwithout_home_step1.svg';
-const MOBILEDASHWITOUTSTEP2= 'images/loanoffer_dashwithout_img.svg';
-const MOBILEDASHWITOUTSTEP3= 'images/signdoc_dashwithout_img.svg';
-const MOBILEDASHWITOUTSTEP4= 'images/funding.svg';
-const MOBILEMENUBAR= 'images/menu_img.svg';
-
-
-
+const MOBILEDASHWITOUTSTEP1 = 'images/dashwithout_home_step1.svg';
+const MOBILEDASHWITOUTSTEP2 = 'images/loanoffer_dashwithout_img.svg';
+const MOBILEDASHWITOUTSTEP3 = 'images/signdoc_dashwithout_img.svg';
+const MOBILEDASHWITOUTSTEP4 = 'images/funding.svg';
+const MOBILEMENUBAR = 'images/menu_img.svg';
 
 //..png
 const MOBILEGoodAndService = 'images/goodandservicetaxnetwork.png';
@@ -122,8 +101,6 @@ const EXPANDVIEW = 'images/ic_icon_round_plus.svg';
 const HIDEVIEW = 'images/ic_icon_round_minus.svg';
 const BANKLOGOSQUARE = 'images/state-bank-of-india-logo.svg';
 
-
-
 //..profile
 const PROFILE = 'images/profile_darkgrey_ic.svg';
 const PRIVACY = 'images/padlock_ic.svg';
@@ -136,10 +113,6 @@ const DOWNARROWIC = 'images/down_arrow_brown_ic.svg';
 const UPARROWIC = 'images/ic_icon_round_arrow_up.svg';
 
 //const DOWNARROWIC = 'images/down_arrow_grey_ic.svg';
-
-
-
-
 
 //ui lottie
 const INFOSHARELOADER1 = 'lottie/info_share.json';
@@ -175,16 +148,6 @@ const FINDING_AA_LINKBANK = 'jpg/bank_loader.jpg';
 const LOADING_STOP_WATCH1 = 'gif/loading_stop_watch.gif';
 const LOADING_STOP_WATCH = 'jpg/loading_stop_watch.jpg';
 
-
-
-
-
-
-
-
-
-
-
 const MAIL = 'images/mail.svg';
 
 //dashboar wihtout gst
@@ -193,8 +156,6 @@ const RIGHTARROWBROWNDASHWITHOUTGST = 'images/ic_icon_round_arrow_right.svg';
 const DASHBOARDGSTPROFILEWOHOUTGST = 'images/dashboradwithgst_profileicon.png';
 const PROFILE_IMG = 'images/ic_user.png';
 
-
-
 //Drawer
 
 const IMG_HOME_MENU = 'images/home_menu.svg';
@@ -202,80 +163,39 @@ const IMG_LINE_MENU = 'images/Line_menu.svg';
 const IMG_RAISE_DISPITE_MENU = 'images/raise_dispute_menu.svg';
 const IMG_USER_MENU = 'images/user_menu.svg';
 
-
-
-
-
-
-
-
-
 //invoice list
 const REFRESHGST = 'images/rfreshinvoicepopup_img.svg';
-const REFRESHIMG =  "images/refresh.svg";
-const IMG_FILTER_INVOICE    = "images/sorting.svg";
+const REFRESHIMG = "images/refresh.svg";
+const IMG_FILTER_INVOICE = "images/sorting.svg";
 
-const IMG_GREENTICK_AA    = "images/greentic_aa_img.svg";
+const IMG_GREENTICK_AA = "images/greentic_aa_img.svg";
 
+const IMG_CLOSE_X = "images/x.svg";
+const IMG_bg_lottefechinvoices = "images/img_bg_lottefechinvoices.svg";
 
-
-const IMG_CLOSE_X    = "images/x.svg";
-const IMG_bg_lottefechinvoices  = "images/img_bg_lottefechinvoices.svg";
-
-
-const IMG_PNB_BANK_NAME  = "images/pnb_loanAg_logo.svg";
-
+const IMG_PNB_BANK_NAME = "images/pnb_loanAg_logo.svg";
 
 //Manish
-const IMG_NADL  = "images/lajvyrj9.png";
+const IMG_NADL = "images/lajvyrj9.png";
 
-const IMG_kfs_coin_stack  = "images/coin_stack.svg";
-const IMG_kfs_bank  = "images/bank.svg";
+const IMG_kfs_coin_stack = "images/coin_stack.svg";
+const IMG_kfs_bank = "images/bank.svg";
 
-const IMG_DOWN_ARROW  = "images/down_arrow.svg";
-const IMG_UP_ARROW  = "images/up_arrow.svg";
-
-
-
+const IMG_DOWN_ARROW = "images/down_arrow.svg";
+const IMG_UP_ARROW = "images/up_arrow.svg";
 
 //payment success
 
-const IMG_SIGNDESK_LOGO  = "images/signdesk_logo.png";
+const IMG_SIGNDESK_LOGO = "images/signdesk_logo.png";
 const IMG_PENICL = "images/pencil_ic.svg";
-
-
-
-
 
 //ETB Get started
 const IMG_SAHAY_LOGO = "images/sahaj_withsbi_fullnam.svg";
 
-
 //NTB gst api enable
 const IMG_TWO_PERSON = "images/Confirmed-rafiki.svg";
-
 
 //aa details
 const IMG_AA_DETAILS = "images/pnb_aa_img_details.svg";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+const IMG_GOODS = 'images/gst_goods_logo.png';

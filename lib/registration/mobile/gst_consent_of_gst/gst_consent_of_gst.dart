@@ -126,78 +126,87 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
   }
 
   _buildBottomSheet() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          GestureDetector(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: ThemeHelper.getInstance()!.cardColor, width: 1),
+            color: MyColors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.3), //color of shadow
+                spreadRadius: 1, //spread radius
+                blurRadius: 3, // blur radius
+                offset: const Offset(0, 1), // changes position of shadow
+              )
+            ],
+          ),
+          padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
+          child: GestureDetector(
             onTap: () {
               setState(() {
                 isGstConsentGiven = !isGstConsentGiven;
               });
             },
-            child: Padding(
-              padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 20.h,
-                    width: 20.w,
-                    child: Theme(
-                      data: ThemeData(useMaterial3: true),
-                      child: Checkbox(
-                        // checkColor: MyColors.colorAccent,
-                        activeColor: ThemeHelper.getInstance()?.primaryColor,
-                        value: isGstConsentGiven,
-                        onChanged: (bool) {
-                          setState(() {
-                            isGstConsentGiven = bool!;
-                          });
-                        },
-                        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(2))),
-                        side: BorderSide(
-                            width: 1,
-                            color: isGstConsentGiven
-                                ? ThemeHelper.getInstance()!.primaryColor
-                                : ThemeHelper.getInstance()!.primaryColor),
-                      ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 20.h,
+                  width: 20.w,
+                  child: Theme(
+                    data: ThemeData(useMaterial3: true),
+                    child: Checkbox(
+                      // checkColor: MyColors.colorAccent,
+                      activeColor: ThemeHelper.getInstance()?.primaryColor,
+                      value: isGstConsentGiven,
+                      onChanged: (bool) {
+                        setState(() {
+                          isGstConsentGiven = bool!;
+                        });
+                      },
+                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(2))),
+                      side: BorderSide(
+                          width: 1,
+                          color: isGstConsentGiven
+                              ? ThemeHelper.getInstance()!.primaryColor
+                              : ThemeHelper.getInstance()!.primaryColor),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 3.h, left: 8.w),
-                    child: Text(
-                      str_i_understand_and_agree_to_sahays_terms,
-                      style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
-                    ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 3.h, left: 8.w),
+                  child: Text(
+                    str_i_understand_and_agree_to_sahays_terms,
+                    style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-          SizedBox(
-            height: 10.h,
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 40.h),
-            child: isLoaderStart
-                ? SizedBox(
-                    height: 60.h,
-                    child: JumpingDots(
-                      color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
-                      radius: 10,
-                    ),
-                  )
-                : AppButton(
-                    onPress: onPressGiveConsentButton,
-                    title: str_give_consent,
-                    isButtonEnable: isGstConsentGiven,
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: 20.h, left: 20.w, right: 20.w, top: 10.h),
+          child: isLoaderStart
+              ? SizedBox(
+                  height: 60.h,
+                  child: JumpingDots(
+                    color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
+                    radius: 10,
                   ),
-          ),
-        ],
-      ),
+                )
+              : AppButton(
+                  onPress: onPressGiveConsentButton,
+                  title: str_give_consent,
+                  isButtonEnable: isGstConsentGiven,
+                ),
+        ),
+      ],
     );
   }
 

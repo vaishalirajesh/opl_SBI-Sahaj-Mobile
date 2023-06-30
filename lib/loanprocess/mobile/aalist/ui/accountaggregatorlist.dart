@@ -255,7 +255,7 @@ class _AAListViewState extends State<AAListView> {
             ),
             SizedBox(height: 20.h),
             buildSearchBar(),
-            SizedBox(height: 20.h),
+            SizedBox(height: 10.h),
           ],
         ),
       ),
@@ -327,21 +327,15 @@ class _AAListViewState extends State<AAListView> {
                   child: Column(
                     children: [
                       ListTile(
-                        leading: Padding(
-                          padding: EdgeInsets.only(bottom: 10.h),
-                          child: buildCheckboxWidgetCustom1(index),
-                        ),
-                        title: Padding(
-                          padding: EdgeInsets.only(bottom: 10.h),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Image.asset(Utils.path(IMG_NADL), height: 21.h, width: 60.w),
-                              Text("${_searchResult?[index].name}",
-                                  style: ThemeHelper.getInstance()!.textTheme.displayMedium!.copyWith(fontSize: 12.sp)),
-                            ],
-                          ),
+                        leading: buildCheckboxWidgetCustom1(index),
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Image.asset(Utils.path(IMG_NADL), height: 21.h, width: 60.w),
+                            Text("${_searchResult?[index].name}",
+                                style: ThemeHelper.getInstance()!.textTheme.displayMedium!.copyWith(fontSize: 12.sp)),
+                          ],
                         ),
                       ),
                       Padding(
@@ -378,21 +372,15 @@ class _AAListViewState extends State<AAListView> {
             child: Column(
               children: [
                 ListTile(
-                  leading: Padding(
-                    padding: EdgeInsets.only(bottom: 10.h),
-                    child: buildCheckboxWidgetCustom1(index),
-                  ),
-                  title: Padding(
-                    padding: EdgeInsets.only(bottom: 10.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //Image.asset(Utils.path(IMG_NADL), height: 21.h, width: 60.w),
-                        Text("${_aaListObj?[index].name}",
-                            style: ThemeHelper.getInstance()!.textTheme.displayMedium!.copyWith(fontSize: 12.sp)),
-                      ],
-                    ),
+                  leading: buildCheckboxWidgetCustom1(index),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //Image.asset(Utils.path(IMG_NADL), height: 21.h, width: 60.w),
+                      Text("${_aaListObj?[index].name}",
+                          style: ThemeHelper.getInstance()!.textTheme.displayMedium!.copyWith(fontSize: 12.sp)),
+                    ],
                   ),
                 ),
                 Padding(
@@ -591,13 +579,13 @@ class _AAListViewState extends State<AAListView> {
         showSnackBarForintenetConnection(context, _getConsentHandleUrl);
       }
     } else {
+      setState(() {
+        isShowLoader = false;
+      });
       Navigator.pop(context);
       LoaderUtils.handleErrorResponse(
           context, response?.getConsentHandleUrlObj().status, response?.getConsentHandleUrlObj().message, null);
     }
-    setState(() {
-      isShowLoader = false;
-    });
   }
 
   _onErrorGetConsentHandleUrl(TGResponse errorResponse) {

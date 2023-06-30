@@ -25,9 +25,11 @@ import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/gstinvoiceslist/ui/gstinvoicelistrefresh.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/gstinvoiceslist/ui/searchinvoicelist.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusconstants.dart';
+import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
@@ -216,30 +218,32 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
 
   Widget gstInvoiceContent() {
     return SingleChildScrollView(
-        child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          height: 24.h,
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 20.w, right: 20.w),
-          child: Text(str_GST_Invoices_for_loan_offers, style: ThemeHelper.getInstance()!.textTheme.headline2),
-        ),
-        SizedBox(
-          height: 20.h,
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 20.w, right: 20.w),
-          child: invoiceSearchBarTextField(),
-        ),
-        SizedBox(
-          height: 30.h,
-        ),
-        eligibleInvoiceUi(),
-        // SizedBox(height: 10.h)
-      ],
-    ));
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 24.h,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 20.w, right: 20.w),
+            child: Text(str_GST_Invoices_for_loan_offers, style: ThemeHelper.getInstance()!.textTheme.headline2),
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          // Padding(
+          //   padding: EdgeInsets.only(left: 20.w, right: 20.w),
+          //   child: invoiceSearchBarTextField(),
+          // ),
+          buildSearchWidget(),
+          SizedBox(
+            height: 10.h,
+          ),
+          eligibleInvoiceUi(),
+          // SizedBox(height: 10.h)
+        ],
+      ),
+    );
   }
 
   Widget eligibleInvoiceUi() {
@@ -363,6 +367,48 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
           ],
         ),
       ]),
+    );
+  }
+
+  Widget buildSearchWidget() {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) => SearchInvoiceList(
+              arrInvoiceList: arrInvoiceList,
+            ),
+          ),
+        );
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.search,
+                  color: ThemeHelper.getInstance()!.colorScheme.onSurface,
+                ),
+                SizedBox(
+                  width: 5.w,
+                ),
+                Text(
+                  "Search",
+                  style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(
+                        color: ThemeHelper.getInstance()!.colorScheme.onSurface,
+                      ),
+                )
+              ],
+            ),
+            Divider(
+              thickness: 1,
+              color: ThemeHelper.getInstance()!.colorScheme.onSurface,
+            )
+          ],
+        ),
+      ),
     );
   }
 
@@ -503,7 +549,10 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
                 SizedBox(height: 27.h),
                 Text(
                   str_refresh_gst,
-                  style: ThemeHelper.getInstance()!.textTheme.headline2!,
+                  style: ThemeHelper.getInstance()!
+                      .textTheme
+                      .headline2!
+                      ?.copyWith(fontSize: 18.sp, fontFamily: MyFont.Roboto_Regular),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 40.h),
@@ -565,7 +614,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   Widget refreshNowButton() {
     return SizedBox(
       // width: 140.w,
-      height: 56.h, //38,
+      height: 50.h, //38,
       child: ElevatedButton(
         onPressed: () async {
           Navigator.pop(context);
@@ -597,7 +646,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
         ),
       ),
       // width: 140.w,
-      height: 56.h, //38,
+      height: 50.h, //38,
       child: ElevatedButton(
         onPressed: () {
           Navigator.pop(context);
@@ -806,7 +855,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
     TGLog.d("GetAppRefId : request --loanapplicationRefID---$loanapplicationRefID");
 
     if (loanapplicationRefID == null) {
-      String gstin = await TGSharedPreferences.getInstance().get(PREF_GSTIN);
+      String gstin = await TGSharedPreferences.getInstance().get(PREF_GSTIN) ?? '24AAGFV5271N1ZP';
       TGGetRequest tgGetRequest = GSTRefid(gstin: gstin, invoiceType: '');
       TGLog.d("GetAppRefId : request -- $tgGetRequest");
 

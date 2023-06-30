@@ -15,6 +15,7 @@ import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusconstants.dart';
@@ -29,7 +30,6 @@ import '../../../../utils/internetcheckdialog.dart';
 import '../../../../utils/progressLoader.dart';
 import '../../../../utils/strings/strings.dart';
 import '../../../../widgets/animation_routes/shimmer_widget.dart';
-import '../../dashboardwithgst/mobile/dashboardwithgst.dart';
 import '../../kfs/kfs_screen.dart';
 
 class LoanOfferList extends StatelessWidget {
@@ -103,7 +103,7 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                   style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp),
                 ),
                 Text(
-                  "11h 48m",
+                  "",
                   style: ThemeHelper.getInstance()
                       ?.textTheme
                       .headline2

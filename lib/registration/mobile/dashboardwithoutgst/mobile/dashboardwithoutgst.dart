@@ -104,36 +104,33 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
               end: Alignment.centerRight,
             ),
           ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Row(
-              children: [
-                SizedBox(width: 20.w),
-                Image(
-                  height: 44.h,
-                  width: 44.w,
-                  image: AssetImage(Utils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
-                ),
-                SizedBox(width: 15.w),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 20.h),
-                    Text(str_hello + name!, style: ThemeHelper.getInstance()?.textTheme.button),
-                    SizedBox(height: 5.h),
-                    Text(
-                      str_pan + pan!,
-                      style: ThemeHelper.getInstance()!.textTheme.headline5!.copyWith(color: MyColors.white),
-                    ),
-                  ],
-                ),
-                // const Spacer(),
-                // SvgPicture.asset(
-                //   Utils.path(MOBILEDASHWIHTOUTNOTIBELL),
-                //   //
-                // )
-              ],
-            ),
+          child: Row(
+            children: [
+              SizedBox(width: 20.w),
+              Image(
+                height: 44.h,
+                width: 44.w,
+                image: AssetImage(Utils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
+              ),
+              SizedBox(width: 15.w),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20.h),
+                  Text(str_hello + name!, style: ThemeHelper.getInstance()?.textTheme.button),
+                  SizedBox(height: 5.h),
+                  Text(
+                    str_pan + pan!,
+                    style: ThemeHelper.getInstance()!.textTheme.headline5!.copyWith(color: MyColors.white),
+                  ),
+                ],
+              ),
+              // const Spacer(),
+              // SvgPicture.asset(
+              //   Utils.path(MOBILEDASHWIHTOUTNOTIBELL),
+              //   //
+              // )
+            ],
           ),
         ),
         Column(

@@ -28,11 +28,11 @@ import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/erros_handle_util.dart';
 import 'package:gstmobileservices/util/jumpingdot_util.dart';
-import 'package:gstmobileservices/util/tg_flavor.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
+import 'package:sbi_sahay_1_0/registration/mobile/confirm_details/confirm_details.dart';
 import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
@@ -44,14 +44,12 @@ import 'package:uuid/uuid.dart';
 
 import '../../../utils/Utils.dart';
 import '../../../utils/constants/imageconstant.dart';
-import '../../../utils/constants/route_handler.dart';
 import '../../../utils/constants/session_keys.dart';
 import '../../../utils/helpers/myfonts.dart';
 import '../../../utils/helpers/themhelper.dart';
 import '../../../utils/internetcheckdialog.dart';
 import '../../../utils/strings/strings.dart';
 import '../../../widgets/otp_textfield_widget.dart';
-import '../confirm_details/confirm_details.dart';
 
 class OtpVerifyGST extends StatelessWidget {
   const OtpVerifyGST({super.key});
@@ -120,7 +118,8 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
 
   void getPopupValue() async {
     isOpenEnablePopUp = await TGSharedPreferences.getInstance().get(PREF_ENABLE_POPUP) ?? false;
-    gstin = await TGSharedPreferences.getInstance().get(PREF_GSTIN);;
+    gstin = await TGSharedPreferences.getInstance().get(PREF_GSTIN);
+    ;
   }
 
   void checkOtp() {
@@ -270,26 +269,37 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
                 ),
               ),
             ),
-            bottomNavigationBar: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.r, vertical: 25.r),
-              child: isVerifyOTPLoaderStart || isGetOTPLoaderStart
-                  ? SizedBox(
-                      height: 100.h,
-                      child: JumpingDots(
-                        color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
-                        radius: 10,
+            bottomNavigationBar: Container(
+              decoration: BoxDecoration(
+                border: Border(top: BorderSide(color: ThemeHelper.getInstance()!.cardColor, width: 1)),
+                color: ThemeHelper.getInstance()?.backgroundColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3), //color of shadow
+                    spreadRadius: 1, //spread radius
+                    blurRadius: 3, // blur radius
+                    offset: const Offset(0, 1), // changes position of shadow
+                  )
+                ],
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(top: 20.r, bottom: 20, left: 20.w, right: 20.w),
+                child: isVerifyOTPLoaderStart || isGetOTPLoaderStart
+                    ? SizedBox(
+                        height: 50.h,
+                        child: JumpingDots(
+                          color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
+                          radius: 10,
+                        ),
+                      )
+                    : AppButton(
+                        onPress: () {
+                          onPressVerifyButton();
+                        },
+                        title: str_Verify,
+                        isButtonEnable: isValidOTP,
                       ),
-                    )
-                  : AppButton(
-                      onPress: () {
-                        TGSharedPreferences.getInstance().set(PREF_ENABLE_POPUP, true);
-                        isOpenEnablePopUp
-                            ? onPressVerifyButton()
-                            : showDialog(context: context, builder: (_) => PopUpViewForEnableApi());
-                      },
-                      title: str_Verify,
-                      isButtonEnable: isValidOTP,
-                    ),
+              ),
             ),
           );
         }),
@@ -506,20 +516,12 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
       isVerifyOTPLoaderStart = true;
     });
 
-    // String uuid = const Uuid().v1().replaceAll("-", "").substring(0, 16);
-    // CredBlock credBlock = CredBlock(
-    //     appToken: uuid,
-    //     otp: otp,
-    //     otpSessionKey: getOtpRes != null ? getOtpRes?.data?.credBlock?.otpSessionKey : otpSessionKey,
-    //     status: "");
-
-
     String otpSessionKey = TGSession.getInstance().get(SESSION_OTPSESSIONKEY);
     String strGSTIN = TGSession.getInstance().get("otp_gstin");
     VerifyGstOtpRequest verifyGstOtpRequest =
-    VerifyGstOtpRequest(id: strGSTIN, otp: otp, sessionKey: getOtpRes?.data?.sessionKey ?? otpSessionKey);
+        VerifyGstOtpRequest(id: strGSTIN, otp: otp, sessionKey: getOtpRes?.data?.sessionKey ?? otpSessionKey);
 
-   // RequestAuthUser requestAuthUser = RequestAuthUser(mobile: strMobile, credBlock: credBlock, deviceId: uuid);
+    // RequestAuthUser requestAuthUser = RequestAuthUser(mobile: strMobile, credBlock: credBlock, deviceId: uuid);
     String jsonReq = jsonEncode(verifyGstOtpRequest.toJson());
 
     TGLog.d("Verify GST OTP Request : $jsonReq");
@@ -536,12 +538,9 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
     isGetOTPLoaderStart = false;
     verifyOtpResponse = response?.getOtpReponseObj();
 
-    //Navigator.pop(context);
     if (verifyOtpResponse?.status == RES_SUCCESS) {
       TGSharedPreferences.getInstance().set(PREF_ACCESS_TOKEN, verifyOtpResponse?.data?.accessToken);
-       setAccessTokenInRequestHeader();
-      // getGstBasicDetails();
-
+      setAccessTokenInRequestHeader();
       Navigator.of(context, rootNavigator: true).pop();
       Navigator.pushReplacement(
         context,
@@ -549,6 +548,12 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
           builder: (context) => GstBasicDetails(),
         ),
       );
+    } else if (verifyOtpResponse?.status == RES_SUCCESS) {
+      setState(() {
+        isVerifyOTPLoaderStart = false;
+      });
+      TGSharedPreferences.getInstance().set(PREF_ENABLE_POPUP, true);
+      showDialog(context: context, builder: (_) => PopUpViewForEnableApi());
     } else {
       setState(() {
         isVerifyOTPLoaderStart = false;

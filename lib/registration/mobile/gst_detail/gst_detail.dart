@@ -128,6 +128,16 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
             ),
           ),
         ),
+        bottomNavigationBar: Padding(
+          padding: EdgeInsets.only(bottom: 40.h),
+          child: SizedBox(
+            child: Image.asset(
+              Utils.path(IMG_GOODS),
+              height: 30.h,
+              width: 100.w,
+            ),
+          ),
+        ),
       ),
     );
     //}

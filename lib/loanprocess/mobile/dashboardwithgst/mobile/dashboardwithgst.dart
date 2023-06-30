@@ -166,17 +166,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
               drawer: MyDrawer(),
               appBar: getAppBarMainDashboard("2", str_loan_approve_process, 0.50,
                   onClickAction: () => {_scaffoldKey.currentState?.openDrawer()}),
-              // body: TabBarView(
-              //   controller: tabController,
-              //   physics: const NeverScrollableScrollPhysics(),
-              //   children: [
-              //     MainContainerView(),
-              //     TransactionsView(),
-              //     ProfileView(),
-              //   ],
-              // ),
               body: MainContainerView(),
-              //bottomNavigationBar: buildTabBar()
             ),
           );
   }
@@ -381,9 +371,9 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
       child: Column(children: [
         Padding(
           padding: EdgeInsets.only(
-            left: 20.0.w,
-            right: 20.w,
-            top: 19.h,
+            left: 10.0.w,
+            right: 10.w,
+            top: 15.h,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -392,7 +382,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                 fit: BoxFit.scaleDown,
                 child: Text(
                   str_Recent_Transactions,
-                  style: ThemeHelper.getInstance()!.textTheme.headline6!.copyWith(color: MyColors.black, fontSize: 14),
+                  style: ThemeHelper.getInstance()!.textTheme.button!.copyWith(color: MyColors.black),
                 ),
               ),
               GestureDetector(
@@ -426,7 +416,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(left: 20.w, right: 20.w),
+          padding: EdgeInsets.only(left: 10.w, right: 10.w),
           child: const Divider(),
         ),
         _buildList()
@@ -440,7 +430,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
   _buildTopContent() {
     return Container(
       alignment: Alignment.center,
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
       // height: 127.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -472,10 +462,8 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                     Text(name, style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 16.sp)),
                     SizedBox(height: 5.h),
                     Text('PAN: $pan',
-                        style: ThemeHelper.getInstance()!
-                            .textTheme
-                            .headline5!
-                            .copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText)),
+                        style: ThemeHelper.getInstance()!.textTheme.headline5!.copyWith(
+                            fontSize: 12.sp, color: MyColors.lightGraySmallText, fontFamily: MyFont.Roboto_Regular)),
                   ],
                 ),
               ),
@@ -491,7 +479,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
             ],
           ),
           SizedBox(
-            height: 10.h,
+            height: 5.h,
           ),
           const Divider(),
           SizedBox(
@@ -499,11 +487,35 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
           ),
           Row(
             children: [
-              Text("GSTIN: $gstin", style: ThemeHelper.getInstance()?.textTheme.bodyText2),
+              RichText(
+                text: TextSpan(children: [
+                  TextSpan(
+                    text: "GSTIN : ",
+                    style: ThemeHelper.getInstance()?.textTheme.bodyText2?.copyWith(color: MyColors.pnbTextcolor),
+                  ),
+                  TextSpan(
+                    text: gstin,
+                    style: ThemeHelper.getInstance()?.textTheme.bodyText2,
+                  )
+                ]),
+              ),
+              // Text("GSTIN: $gstin", style: ThemeHelper.getInstance()?.textTheme.bodyText2),
               const Spacer(),
-              Text("State: $state", style: ThemeHelper.getInstance()?.textTheme.bodyText2),
+              RichText(
+                text: TextSpan(children: [
+                  TextSpan(
+                    text: "State : ",
+                    style: ThemeHelper.getInstance()?.textTheme.bodyText2?.copyWith(color: MyColors.pnbTextcolor),
+                  ),
+                  TextSpan(
+                    text: state,
+                    style: ThemeHelper.getInstance()?.textTheme.bodyText2,
+                  )
+                ]),
+              ),
             ],
-          )
+          ),
+          SizedBox(height: 10.h),
         ],
       ),
     );
@@ -570,11 +582,6 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
   _buildCard(int index, String title, String imgString, String count, String price) {
     return GestureDetector(
       onTap: () {
-        // TGSession.getInstance().set("TabIndex", index);
-        // tabController.index = 1;
-        // setState(() {
-        //   tabIndex = 1;
-        // });
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -598,11 +605,12 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
           ],
         ),
         width: 162.w,
-        height: 110.h,
+        // height: 110.h,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 10.0.w, right: 10.w, top: 15.h, bottom: 14.h),
+              padding: EdgeInsets.only(left: 10.0.w, right: 10.w, top: 15.h, bottom: 10.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -632,9 +640,6 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                 ],
               ),
             ),
-            SizedBox(
-              height: 8.h,
-            ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0.w),
               child: Row(
@@ -646,7 +651,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                     children: [
                       Text(
                         title,
-                        style: ThemeHelper.getInstance()?.textTheme.headline4,
+                        style: ThemeHelper.getInstance()?.textTheme.headline4?.copyWith(fontSize: 12.sp),
                       ),
                       Text(
                         price,
@@ -662,6 +667,9 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                   )
                 ],
               ),
+            ),
+            SizedBox(
+              height: 15.h,
             )
           ],
         ),
@@ -671,12 +679,12 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
 
   _buildOnPendingCard(String title, String subTitle, Color backgroundColor) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 20.h),
+      padding: EdgeInsets.only(bottom: 12.h),
       child: Container(
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.all(
-            Radius.circular(4.r),
+            Radius.circular(8.r),
           ),
           boxShadow: [
             BoxShadow(
@@ -874,39 +882,29 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
 
   _buildCheckStatusButton(LoanDetailData? data) {
     return Container(
-        width: 109.w,
-        height: 27.h,
-        decoration: BoxDecoration(
-          border: Border.all(color: ThemeHelper.getInstance()!.primaryColor, width: 1),
-          //color: ThemeHelper.getInstance()?.backgroundColor,
-          borderRadius: BorderRadius.all(
-            Radius.circular(4.r),
-          ),
+      width: 109.w,
+      height: 30.h,
+      decoration: BoxDecoration(
+        border: Border.all(color: ThemeHelper.getInstance()!.primaryColor, width: 1),
+        //color: ThemeHelper.getInstance()?.backgroundColor,
+        borderRadius: BorderRadius.all(
+          Radius.circular(4.r),
         ),
-        child: ElevatedButton(
-          onPressed: () {
-            MoveStage.movetoStage(context, data);
-            // Navigator.pushAndRemoveUntil(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (BuildContext context) => const CongratulationsScreen(),
-            //   ),
-            //   (route) => false, //if you want to disable back feature set to false
-            // );
-          },
-          style: ThemeHelper.getInstance()!.elevatedButtonTheme.style!.copyWith(
-                foregroundColor: MaterialStateProperty.all(MyColors.pnbcolorPrimary),
-                backgroundColor: MaterialStateProperty.all(MyColors.pnbPinkColor),
-                textStyle: MaterialStateProperty.all(
-                  TextStyle(fontSize: 12.sp, fontFamily: MyFont.Nunito_Sans_Bold),
-                ),
-              )
-          /* : ThemeHelper.getInstance()!
-               .elevatedButtonTheme
-               .style*/
-          ,
-          child: const Text(str_checkstatus),
-        ));
+      ),
+      child: ElevatedButton(
+        onPressed: () {
+          MoveStage.movetoStage(context, data);
+        },
+        style: ThemeHelper.getInstance()!.elevatedButtonTheme.style!.copyWith(
+              foregroundColor: MaterialStateProperty.all(MyColors.pnbcolorPrimary),
+              backgroundColor: MaterialStateProperty.all(MyColors.pnbPinkColor),
+              textStyle: MaterialStateProperty.all(
+                TextStyle(fontSize: 12.sp, fontFamily: MyFont.Nunito_Sans_Bold),
+              ),
+            ),
+        child: const Text(str_checkstatus),
+      ),
+    );
   }
 
   _buildCustomProgressBar(String currentStage) {
@@ -971,12 +969,12 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
 
   buildOngingCard(String title, String subTitle, Color backgroundColor) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 20.h),
+      padding: EdgeInsets.only(bottom: 12.h),
       child: Container(
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.all(
-            Radius.circular(4.r),
+            Radius.circular(8.r),
           ),
           boxShadow: [
             BoxShadow(
@@ -1041,88 +1039,96 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
           ),
           color: ThemeHelper.getInstance()!.backgroundColor,
         ),
+        padding: EdgeInsets.only(
+          top: 20.h,
+          bottom: 20.h,
+        ),
         // height: 140.h,
-        child: Padding(
-          padding: EdgeInsets.only(top: 20.h, bottom: 20.h),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Flexible(
-                flex: 6,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Finance other eligible invoice",
-                      style: ThemeHelper.getInstance()!.textTheme.headline2!.copyWith(fontSize: 14.sp),
-                      maxLines: 3,
-                      softWrap: true,
-                    ),
-                    Text(
-                      str_Shareothereligibleinvoicesandgetloanoffers,
-                      style: ThemeHelper.getInstance()!.textTheme.bodyText2!,
-                      maxLines: 3,
-                      softWrap: true,
-                    ),
-                    SizedBox(height: 18.h),
-                    GestureDetector(
-                      onTap: () {
-                          TGSharedPreferences.getInstance().remove(PREF_AAID);
-                          TGSharedPreferences.getInstance().remove(PREF_AACODE);
-                          TGSharedPreferences.getInstance().remove(PREF_LOANAPPREFID);
-                          TGSharedPreferences.getInstance().remove(PREF_LOANOFFER);
-                          TGSharedPreferences.getInstance().remove(GET_ALLLIST);
-                          TGSharedPreferences.getInstance().remove(PREF_AAURL);
-                          TGSharedPreferences.getInstance().remove(PREF_AACALLBACKURL);
-                          TGSharedPreferences.getInstance().remove(PREF_CONSENTTYPE);
-                          TGSharedPreferences.getInstance().remove(PREF_CONSENT_AAID);
-                          TGSharedPreferences.getInstance().remove(PREF_OFFERID);
-                          TGSharedPreferences.getInstance().remove(PREF_LOANAPPID);
-                          TGSharedPreferences.getInstance().remove(PREF_REPAYMENTPLANID);
-                          TGSharedPreferences.getInstance().remove(PREF_CURRENT_STAGE);
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (BuildContext context) => GSTInvoicesList(),
-                            ),
-                            (route) => false, //if you want to disable back feature set to false
-                          );
-                      },
-                      child: Container(
-                        width: 165.w,
-                        height: 30.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(4.r),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Flexible(
+              flex: 6,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Finance other eligible invoice",
+                    style: ThemeHelper.getInstance()!.textTheme.headline2!.copyWith(fontSize: 14.sp),
+                    maxLines: 3,
+                    softWrap: true,
+                  ),
+                  Text(
+                    str_Shareothereligibleinvoicesandgetloanoffers,
+                    style: ThemeHelper.getInstance()!.textTheme.bodyText2!,
+                    maxLines: 3,
+                    softWrap: true,
+                  ),
+                  SizedBox(height: 18.h),
+                  GestureDetector(
+                    onTap: () {
+                      if (isOngoingJounery == true) {
+                        DialogUtils.showCustomDialog(context,
+                            title:
+                                "Other eligible invoices cannot be financed due to an ongoing application is already there.",
+                            okBtnText: "OK");
+                      } else {
+                        TGSharedPreferences.getInstance().remove(PREF_AAID);
+                        TGSharedPreferences.getInstance().remove(PREF_AACODE);
+                        TGSharedPreferences.getInstance().remove(PREF_LOANAPPREFID);
+                        TGSharedPreferences.getInstance().remove(PREF_LOANOFFER);
+                        TGSharedPreferences.getInstance().remove(GET_ALLLIST);
+                        TGSharedPreferences.getInstance().remove(PREF_AAURL);
+                        TGSharedPreferences.getInstance().remove(PREF_AACALLBACKURL);
+                        TGSharedPreferences.getInstance().remove(PREF_CONSENTTYPE);
+                        TGSharedPreferences.getInstance().remove(PREF_CONSENT_AAID);
+                        TGSharedPreferences.getInstance().remove(PREF_OFFERID);
+                        TGSharedPreferences.getInstance().remove(PREF_LOANAPPID);
+                        TGSharedPreferences.getInstance().remove(PREF_REPAYMENTPLANID);
+                        TGSharedPreferences.getInstance().remove(PREF_CURRENT_STAGE);
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => GSTInvoicesList(),
                           ),
-                          color: ThemeHelper.getInstance()!.primaryColor,
+                          (route) => false, //if you want to disable back feature set to false
+                        );
+                      }
+                    },
+                    child: Container(
+                      width: 165.w,
+                      height: 30.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(4.r),
                         ),
-                        child: Center(
-                          child: Text("Finance Another Invoice",
-                              style: ThemeHelper.getInstance()!
-                                  .textTheme
-                                  .headline2!
-                                  .copyWith(fontSize: 14.sp, color: Colors.white)),
-                        ),
+                        color: ThemeHelper.getInstance()!.primaryColor,
                       ),
-                    )
-                  ],
-                ),
+                      child: Center(
+                        child: Text("Finance Another Invoice",
+                            style: ThemeHelper.getInstance()!
+                                .textTheme
+                                .headline2!
+                                .copyWith(fontSize: 14.sp, color: Colors.white)),
+                      ),
+                    ),
+                  )
+                ],
               ),
-              //Spacer(),
-              Flexible(
-                flex: 4,
-                child: SvgPicture.asset(
-                  Utils.path(MOBILETDASHBOARDWITHGSTINVOICE_OTHER_SERVICES),
-                  height: 88.h,
-                  width: 88.w,
-                ),
-              )
-            ],
-          ),
+            ),
+            //Spacer(),
+            Flexible(
+              flex: 4,
+              child: SvgPicture.asset(
+                Utils.path(MOBILETDASHBOARDWITHGSTINVOICE_OTHER_SERVICES),
+                height: 88.h,
+                width: 88.w,
+              ),
+            )
+          ],
         ));
   }
 
@@ -1157,9 +1163,9 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                   companyName: tradename,
                   subtext: Utils.getCamelCase(status),
                   price: invoiceAmount,
-                  top: 21.h),
+                  top: 5.h),
               Padding(
-                padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                padding: EdgeInsets.only(left: 10.w, right: 10.w),
                 child: const Divider(),
               ),
             ]);
@@ -1242,9 +1248,9 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
       required String subtext,
       required String price,
       double top: 0,
-      double bottom: 0}) {
+      double bottom: 5}) {
     return Padding(
-      padding: EdgeInsets.only(left: 20.0.w, right: 20.w, bottom: bottom, top: top),
+      padding: EdgeInsets.only(left: 10.0.w, right: 10.w, bottom: bottom, top: top),
       child: Row(
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -1257,7 +1263,10 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                     style: ThemeHelper.getInstance()!
                         .textTheme
                         .headline1!
-                        .copyWith(color: MyColors.black, fontSize: 12.sp)),
+                        .copyWith(color: MyColors.black, fontSize: 14.sp, fontFamily: MyFont.Roboto_Regular)),
+                SizedBox(
+                  height: 2.h,
+                ),
                 Text(day, style: ThemeHelper.getInstance()!.textTheme.bodyText2!),
               ],
             ),

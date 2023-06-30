@@ -216,12 +216,16 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Expanded(child: Text(str_deposit_ac, style: ThemeHelper.getInstance()?.textTheme.headline3)),
-            DownloadAgreementBtnUI(context),
-          ],
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 5.h),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(child: Text(str_deposit_ac, style: ThemeHelper.getInstance()?.textTheme.headline3)),
+              // Remove button as per discussion with Hardik Sir
+              // DownloadAgreementBtnUI(context),
+            ],
+          ),
         ),
         SizedBox(
           height: 20.h,

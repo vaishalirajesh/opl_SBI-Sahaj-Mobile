@@ -142,19 +142,31 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
       mainAxisAlignment: MainAxisAlignment.end,
       mainAxisSize: MainAxisSize.min,
       children: [
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              isConsentGiven = !isConsentGiven;
-            });
-          },
-          child: Padding(
-            padding: EdgeInsets.only(top: 10.h, bottom: 10.h, left: 20.w, right: 20.w),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: ThemeHelper.getInstance()!.cardColor, width: 1),
+            color: MyColors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.3), //color of shadow
+                spreadRadius: 1, //spread radius
+                blurRadius: 3, // blur radius
+                offset: const Offset(0, 1), // changes position of shadow
+              )
+            ],
+          ),
+          padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                isConsentGiven = !isConsentGiven;
+              });
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(bottom: 10.h, right: 10.w),
+                  padding: EdgeInsets.only(right: 10.w),
                   child: SizedBox(
                     height: 20.h,
                     width: 20.w,
@@ -182,19 +194,16 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 8.h),
-                  child: Text(
-                    str_CIC_Terms,
-                    style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(fontSize: 14.sp),
-                  ),
+                Text(
+                  str_CIC_Terms,
+                  style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(fontSize: 14.sp),
                 ),
               ],
             ),
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
+          padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h, top: 20.h),
           child: isLoaderStart
               ? SizedBox(
                   height: 60.h,

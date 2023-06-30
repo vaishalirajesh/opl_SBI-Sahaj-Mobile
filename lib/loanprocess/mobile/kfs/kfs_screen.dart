@@ -20,7 +20,6 @@ import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/data_format_utils.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
-import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -81,12 +80,7 @@ class KfsScreenBody extends State<KfsScreens> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => KfsScreen(),
-          ),
-        );
+        Navigator.pop(context);
         return true;
       },
       child: kfsScreenMain(context),
@@ -100,13 +94,7 @@ class KfsScreenBody extends State<KfsScreens> {
           backgroundColor: ThemeHelper.getInstance()?.backgroundColor,
           appBar: getAppBarWithStepDone('2', str_loan_approve_process, 0.50,
               onClickAction: () => {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => const DashboardWithGST(),
-                      ),
-                      (route) => false, //if you want to disable back feature set to false
-                    )
+                    Navigator.pop(context),
                   }),
           body: SingleChildScrollView(
             child: Container(
@@ -160,24 +148,25 @@ class KfsScreenBody extends State<KfsScreens> {
                 str_kfs,
                 style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(color: MyColors.white),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(Utils.path(DOWNLOADKFS), height: 14.h, width: 16.w, color: MyColors.white),
-                  SizedBox(
-                    width: 6.w,
-                  ),
-                  Text(
-                    'Download',
-                    style: ThemeHelper.getInstance()
-                        ?.textTheme
-                        .headline6
-                        ?.copyWith(fontSize: 16.sp, color: MyColors.white),
-                    textAlign: TextAlign.right,
-                  )
-                ],
-              ),
+              // Remove button as per discussion with Hardik Sir
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   crossAxisAlignment: CrossAxisAlignment.center,
+              //   children: [
+              //     SvgPicture.asset(Utils.path(DOWNLOADKFS), height: 14.h, width: 16.w, color: MyColors.white),
+              //     SizedBox(
+              //       width: 6.w,
+              //     ),
+              //     Text(
+              //       'Download',
+              //       style: ThemeHelper.getInstance()
+              //           ?.textTheme
+              //           .headline6
+              //           ?.copyWith(fontSize: 16.sp, color: MyColors.white),
+              //       textAlign: TextAlign.right,
+              //     )
+              //   ],
+              // ),
             ],
           ),
           SizedBox(
