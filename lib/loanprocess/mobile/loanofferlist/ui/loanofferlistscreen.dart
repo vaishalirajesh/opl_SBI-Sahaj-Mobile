@@ -75,14 +75,18 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => const DashboardWithGST(),
-          ),
-          (route) => false, //if you want to disable back feature set to false
-        );
-        return true;
+        if (!isListLoaded) {
+          return false;
+        } else {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => const DashboardWithGST(),
+            ),
+            (route) => false, //if you want to disable back feature set to false
+          );
+          return true;
+        }
       },
       child: LoanOfferListScreenContent(context),
     );

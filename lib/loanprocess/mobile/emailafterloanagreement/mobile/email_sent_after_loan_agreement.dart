@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
@@ -16,16 +15,12 @@ import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
-import 'package:gstmobileservices/util/tg_view.dart';
-import 'package:lottie/lottie.dart';
-import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
 
 import '../../../../utils/Utils.dart';
 import '../../../../utils/colorutils/mycolors.dart';
 import '../../../../utils/constants/imageconstant.dart';
 import '../../../../utils/constants/prefrenceconstants.dart';
-import '../../../../utils/constants/stageconstants.dart';
 import '../../../../utils/constants/statusConstants.dart';
 import '../../../../utils/helpers/themhelper.dart';
 import '../../../../utils/internetcheckdialog.dart';
@@ -51,8 +46,7 @@ class EmailSentAfterLoanAgreementScreen extends StatefulWidget {
   State<StatefulWidget> createState() => _EmailSentAfterLoanAgreementScreen();
 }
 
-class _EmailSentAfterLoanAgreementScreen
-    extends State<EmailSentAfterLoanAgreementScreen> {
+class _EmailSentAfterLoanAgreementScreen extends State<EmailSentAfterLoanAgreementScreen> {
   bool isLoaderStart = false;
 
   @override
@@ -80,8 +74,8 @@ class _EmailSentAfterLoanAgreementScreen
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SvgPicture.asset(
-                  height: 80.h,
-                  width: 80.w,
+                  height: 100.h,
+                  width: 100.w,
                   Utils.path(MOBILESTEPDONE),
                   fit: BoxFit.fill,
                 ),
@@ -104,9 +98,7 @@ class _EmailSentAfterLoanAgreementScreen
                   height: 15.h,
                 ),
                 Text(str_lonaAgg_disc,
-                    style: ThemeHelper.getInstance()?.textTheme.headline3,
-                    textAlign: TextAlign.center,
-                    maxLines: 10),
+                    style: ThemeHelper.getInstance()?.textTheme.headline3, textAlign: TextAlign.center, maxLines: 10),
                 SizedBox(
                   height: 20.h,
                 ),
@@ -115,8 +107,7 @@ class _EmailSentAfterLoanAgreementScreen
                   height: 50.h,
                   child: isLoaderStart
                       ? JumpingDots(
-                          color: ThemeHelper.getInstance()?.primaryColor ??
-                              MyColors.pnbcolorPrimary,
+                          color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
                           radius: 10,
                         )
                       : ElevatedButton(
@@ -127,15 +118,13 @@ class _EmailSentAfterLoanAgreementScreen
                             if (await TGNetUtil.isInternetAvailable()) {
                               grantLoanRequest();
                             } else {
-                              showSnackBarForintenetConnection(
-                                  context, grantLoanRequest);
+                              showSnackBarForintenetConnection(context, grantLoanRequest);
                             }
                           },
                           child: Center(
                             child: Text(
                               str_Proceed,
-                              style:
-                                  ThemeHelper.getInstance()?.textTheme.button,
+                              style: ThemeHelper.getInstance()?.textTheme.button,
                             ),
                           )),
                 )
@@ -149,17 +138,14 @@ class _EmailSentAfterLoanAgreementScreen
 
   //Grant Loan
   Future<void> grantLoanRequest() async {
-    String loanAppRefId =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
-    String loanAppId =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
+    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    String loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
     GrantLoanRequest grantLoanRequest = GrantLoanRequest(
       loanApplicationRefId: loanAppRefId,
       loanApplicationId: loanAppId,
     );
     var jsonReq = jsonEncode(grantLoanRequest.toJson());
-    TGPostRequest tgPostRequest =
-        await getPayLoad(jsonReq, URI_GRANT_LOAN_REQUEST);
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GRANT_LOAN_REQUEST);
     ServiceManager.getInstance().grantLoanrequest(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessGrantLoan(response),
@@ -173,18 +159,14 @@ class _EmailSentAfterLoanAgreementScreen
       if (await TGNetUtil.isInternetAvailable()) {
         getLoanAppStatusAfterGrantLoan();
       } else {
-        showSnackBarForintenetConnection(
-            context, getLoanAppStatusAfterGrantLoan);
+        showSnackBarForintenetConnection(context, getLoanAppStatusAfterGrantLoan);
       }
     } else {
       setState(() {
         isLoaderStart = false;
       });
       LoaderUtils.handleErrorResponse(
-          context,
-          response?.getGrantLoanResObj().status,
-          response?.getGrantLoanResObj().message,
-          null);
+          context, response?.getGrantLoanResObj().status, response?.getGrantLoanResObj().message, null);
     }
   }
 
@@ -198,15 +180,12 @@ class _EmailSentAfterLoanAgreementScreen
 
   //LoanAppStatusAfterGrantLoan
   Future<void> getLoanAppStatusAfterGrantLoan() async {
-    String loanAppRefId =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
-    String loanAppId =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
-    GetLoanStatusRequest getLoanStatusRequest = GetLoanStatusRequest(
-        loanApplicationRefId: loanAppRefId, loanApplicationId: loanAppId);
+    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    String loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
+    GetLoanStatusRequest getLoanStatusRequest =
+        GetLoanStatusRequest(loanApplicationRefId: loanAppRefId, loanApplicationId: loanAppId);
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
-    TGPostRequest tgPostRequest =
-        await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('10'));
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('10'));
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessLoanAppStatusGrantLoan(response),
@@ -220,8 +199,7 @@ class _EmailSentAfterLoanAgreementScreen
         setState(() {
           isLoaderStart = false;
         });
-        MoveStage.navigateNextStage(
-            context, response?.getLoanStatusResObj().data?.currentStage);
+        MoveStage.navigateNextStage(context, response?.getLoanStatusResObj().data?.currentStage);
         /*if(response?.getLoanStatusResObj()?.data?.currentStage == STAGE_E_MANDATE)
       {
           Navigator.pushNamed(context, MyRoutes.SetupEmandateRoutes);
@@ -231,19 +209,15 @@ class _EmailSentAfterLoanAgreementScreen
         if (await TGNetUtil.isInternetAvailable()) {
           getLoanAppStatusAfterGrantLoan();
         } else {
-          showSnackBarForintenetConnection(
-              context, getLoanAppStatusAfterGrantLoan);
+          showSnackBarForintenetConnection(context, getLoanAppStatusAfterGrantLoan);
         }
       }
     } else {
       setState(() {
         isLoaderStart = false;
       });
-      LoaderUtils.handleErrorResponse(
-          context,
-          response?.getLoanStatusResObj().status,
-          response?.getLoanStatusResObj().message,
-          response?.getLoanStatusResObj().data?.stageStatus);
+      LoaderUtils.handleErrorResponse(context, response?.getLoanStatusResObj().status,
+          response?.getLoanStatusResObj().message, response?.getLoanStatusResObj().data?.stageStatus);
     }
   }
 

@@ -90,15 +90,18 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
             return SafeArea(
               child: WillPopScope(
                 onWillPop: () async {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => const DashboardWithGST(),
-                    ),
-                    (route) => false, //if you want to disable back feature set to false
-                  );
-
-                  return true;
+                  if (!isLoadData) {
+                    return false;
+                  } else {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const DashboardWithGST(),
+                      ),
+                      (route) => false, //if you want to disable back feature set to false
+                    );
+                    return true;
+                  }
                 },
                 child: SetContent(context),
               ),

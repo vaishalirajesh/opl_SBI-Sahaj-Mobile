@@ -86,14 +86,18 @@ class ESignCompleted extends State<ESignCompletedMains> {
             return SafeArea(
               child: WillPopScope(
                 onWillPop: () async {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => DashboardWithGst(),
-                    ),
-                    (route) => false, //if you want to disable back feature set to false
-                  );
-                  return true;
+                  if (!isLoadData) {
+                    return false;
+                  } else {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const DashboardWithGst(),
+                      ),
+                      (route) => false, //if you want to disable back feature set to false
+                    );
+                    return true;
+                  }
                 },
                 child: Container(),
               ),

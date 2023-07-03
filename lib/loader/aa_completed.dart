@@ -79,14 +79,18 @@ class _AaCompletedState extends State<AaCompletedPage> {
     return SafeArea(
       child: WillPopScope(
         onWillPop: () async {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => const DashboardWithGst(),
-            ),
-            (route) => false, //if you want to disable back feature set to false
-          );
-          return true;
+          if (loanAppId == "" || loanAppId == null) {
+            return false;
+          } else {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => const DashboardWithGst(),
+              ),
+              (route) => false, //if you want to disable back feature set to false
+            );
+            return true;
+          }
         },
         child: Scaffold(
           body: loanAppId == "" || loanAppId == null

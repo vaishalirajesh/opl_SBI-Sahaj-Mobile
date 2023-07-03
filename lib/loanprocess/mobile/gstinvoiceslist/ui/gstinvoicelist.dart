@@ -168,14 +168,18 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
     isFetchInvoiceClick = true;
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => const DashboardWithGST(),
-          ),
-          (route) => false, //if you want to disable back feature set to false
-        );
-        return true;
+        if (!isLoadData) {
+          return false;
+        } else {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => const DashboardWithGST(),
+            ),
+            (route) => false, //if you want to disable back feature set to false
+          );
+          return true;
+        }
       },
       child: bodyScaffold(),
     );
@@ -283,11 +287,11 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
                     .textTheme
                     .headline3!
                     .copyWith(color: MyColors.darkblack, fontSize: 14.sp)),
-            Text(str_invoice_disc,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline3!
-                    .copyWith(color: MyColors.darkblack, fontSize: 14.sp)),
+            // Text(str_invoice_disc,
+            //     style: ThemeHelper.getInstance()!
+            //         .textTheme
+            //         .headline3!
+            //         .copyWith(color: MyColors.darkblack, fontSize: 14.sp)),
             SizedBox(height: 10.h),
             const Divider(),
             SizedBox(

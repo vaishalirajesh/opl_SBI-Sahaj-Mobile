@@ -105,14 +105,18 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
         return SafeArea(
           child: WillPopScope(
             onWillPop: () async {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => const SetupEmandate(),
-                ),
-                (route) => false, //if you want to disable back feature set to false
-              );
-              return true;
+              if (!isRepaymentDataLoaded) {
+                return false;
+              } else {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => const SetupEmandate(),
+                  ),
+                  (route) => false, //if you want to disable back feature set to false
+                );
+                return true;
+              }
             },
             child: isLoadWebView
                 ? LoadSetupEmandateURLInWeb(context)

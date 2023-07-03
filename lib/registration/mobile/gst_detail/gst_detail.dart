@@ -525,7 +525,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
         ),
       );
       //_modalBottomSheetMenu();
-    } else if (_gstOtpResponse?.status == RES_GST_APIDENIED) {
+    } else if (_gstOtpResponse?.status == RES_GST_APIDENIED || _gstOtpResponse?.status == RES_GST_API_UNAUTHORISE) {
       TGView.showSnackBar(context: context, message: "Please enable GST API");
       setState(() {
         isLoader = false;

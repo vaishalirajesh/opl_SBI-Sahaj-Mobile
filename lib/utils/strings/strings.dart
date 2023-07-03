@@ -379,7 +379,8 @@ const str_GST_Invoices_for_loan_offers = "GST Invoices for loan offers";
 const str_Search = "Search";
 const str_Sort = "  Sort by";
 const str_select_any_inovice = "Invoices";
-const str_All_the_invoicesgenerated = "All the invoices generated";
+const str_All_the_invoicesgenerated =
+    "All the invoices generated during the last 2 months would be eligible for financing";
 const str_invoice_disc = "during the last 2 months would be eligible for financing";
 const str_share_invoice = 'Sharing Eligible Invoices';
 

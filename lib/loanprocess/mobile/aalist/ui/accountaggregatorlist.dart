@@ -164,9 +164,12 @@ class _AAListViewState extends State<AAListView> {
           buildMainScreenContent(),
           Container(
             child: isLoaderStart
-                ? JumpingDots(
-                    color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
-                    radius: 10,
+                ? SizedBox(
+                    height: 50.h,
+                    child: JumpingDots(
+                      color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
+                      radius: 10,
+                    ),
                   )
                 : buildListOfAA(),
           ),
