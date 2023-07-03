@@ -394,11 +394,13 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
                 SizedBox(
                   width: 5.w,
                 ),
-                Text(
-                  "Search",
-                  style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(
-                        color: ThemeHelper.getInstance()!.colorScheme.onSurface,
-                      ),
+                Expanded(
+                  child: Text(
+                    "Search",
+                    style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(
+                          color: ThemeHelper.getInstance()!.colorScheme.onSurface,
+                        ),
+                  ),
                 )
               ],
             ),
