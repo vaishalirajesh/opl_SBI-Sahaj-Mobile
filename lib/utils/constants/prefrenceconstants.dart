@@ -40,3 +40,4 @@ const PREF_ACCESS_TOKEN = "accessToken";
 const PREF_ENABLE_POPUP = "enablePopup";
 const String CONSENT_TYPE_USR_TYP_CONFIRM = 'USR_TYP_CONFM';
 const String CONSENT_TYPE_GST_API_ACCESS = 'GST_API_ACCESS';
+const String CONSENT_TYPE_T_AND_C = 'T_AND_C';

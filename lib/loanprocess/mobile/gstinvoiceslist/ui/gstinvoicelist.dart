@@ -861,7 +861,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
     TGLog.d("GetAppRefId : request --loanapplicationRefID---$loanapplicationRefID");
 
     if (loanapplicationRefID == null) {
-      String gstin = await TGSharedPreferences.getInstance().get(PREF_GSTIN) ?? '24AAGFV5271N1ZP';
+      String gstin = await TGSharedPreferences.getInstance().get(PREF_GSTIN);
       TGGetRequest tgGetRequest = GSTRefid(gstin: gstin, invoiceType: '');
       TGLog.d("GetAppRefId : request -- $tgGetRequest");
 
