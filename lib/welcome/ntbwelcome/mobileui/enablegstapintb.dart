@@ -1,18 +1,34 @@
+import 'dart:convert';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gstmobileservices/common/tg_log.dart';
+import 'package:gstmobileservices/model/requestmodel/save_consent_request.dart';
+import 'package:gstmobileservices/model/responsemodel/save_consent_response.dart';
+import 'package:gstmobileservices/service/request/tg_post_request.dart';
+import 'package:gstmobileservices/service/requtilization.dart';
+import 'package:gstmobileservices/service/response/tg_response.dart';
+import 'package:gstmobileservices/service/service_managers.dart';
+import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
+import 'package:gstmobileservices/util/jumpingdot_util.dart';
+import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
+import 'package:sbi_sahay_1_0/utils/internetcheckdialog.dart';
 import 'package:sbi_sahay_1_0/welcome/ntbwelcome/mobileui/startregistration.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../utils/Utils.dart';
 import '../../../utils/constants/imageconstant.dart';
+import '../../../utils/constants/statusconstants.dart';
+import '../../../utils/progressLoader.dart';
 import '../../../utils/strings/strings.dart';
 import '../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 
@@ -41,6 +57,8 @@ class EnableGstApiScreen extends StatefulWidget {
 class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
   bool isCheckFirst = false;
   bool isCheckSecond = false;
+  String uuid = Uuid().v1().replaceAll("-", "").substring(0, 16);
+  bool isLoaderStart = false;
 
   void changestateConfirmViewSecondCheckBox(bool value) {
     setState(() {
@@ -53,6 +71,14 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
       isCheckFirst = value;
     });
   }
+
+  @override
+  void initState() {
+    getDeviceInfo();
+    super.initState();
+  }
+
+  Future<void> getDeviceInfo() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -332,21 +358,127 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
   }
 
   Widget buildConfirmButton(BuildContext context) {
-    return AppButton(
-      onPress: () {
-        if (isCheckFirst && isCheckSecond) {
-          TGSharedPreferences.getInstance().set(PREF_ISTC_DONE, true);
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const StartRegistrationNtb(),
+    return isLoaderStart
+        ? SizedBox(
+            height: 50.h,
+            child: JumpingDots(
+              color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
+              radius: 10,
             ),
+          )
+        : AppButton(
+            onPress: () {
+              if (isCheckFirst && isCheckSecond) {
+                onPressConfirm();
+              }
+            },
+            title: str_Confirm,
+            isButtonEnable: isCheckFirst && isCheckSecond,
           );
-        }
-      },
-      title: str_Confirm,
-      isButtonEnable: isCheckFirst && isCheckSecond,
+  }
+
+  void onPressConfirm() async {
+    setState(() {
+      isLoaderStart = true;
+    });
+    if (isCheckFirst && isCheckSecond) {
+      if (await TGNetUtil.isInternetAvailable()) {
+        onUpdateConstitutionChecked();
+      } else {
+        showSnackBarForintenetConnection(context, onUpdateConstitutionChecked);
+      }
+    }
+  }
+
+  Future<void> onUpdateConstitutionChecked() async {
+    RequestSaveConsent requestSaveConsent = RequestSaveConsent(
+      appVersion: "1.0",
+      consentApprovalType: CONSENT_TYPE_USR_TYP_CONFIRM,
+      isConsentApproval: true,
+      mobileFcmToken: "",
+      device: '',
+      deviceId: uuid,
+      deviceOs: '',
+      deviceOsVersion: '',
+      deviceType: '',
     );
+    var jsonRequest = jsonEncode(requestSaveConsent.toJson());
+    TGPostRequest tgPostRequest = await getPayLoad(jsonRequest, URI_CONSENT_APPROVAL);
+    ServiceManager.getInstance().saveConsent(
+        request: tgPostRequest,
+        onSuccess: (response) => _onSuccessSaveConsent(response),
+        onError: (errorResponse) => _onErrorSaveConsent(errorResponse));
+  }
+
+  _onSuccessSaveConsent(SaveConsentApprovalResponse response) async {
+    TGLog.d("SaveConstitutionConsent() : Success");
+    if (response.saveConsentMainObj().status == RES_SUCCESS) {
+      if (await TGNetUtil.isInternetAvailable()) {
+        onUpdateGstCheckBox();
+      } else {
+        showSnackBarForintenetConnection(context, onUpdateGstCheckBox);
+      }
+    } else {
+      // isButtonChecked.value = false;
+      LoaderUtils.handleErrorResponse(
+          context, response.saveConsentMainObj().status, response.saveConsentMainObj().message, null);
+      setState(() {
+        isLoaderStart = false;
+      });
+    }
+  }
+
+  _onErrorSaveConsent(TGResponse errorResponse) {
+    isCheckSecond = false;
+    setState(() {
+      isLoaderStart = false;
+    });
+    TGLog.d("SaveConstitutionConsent() : Error");
+  }
+
+  Future<void> onUpdateGstCheckBox() async {
+    RequestSaveConsent requestSaveConsent = RequestSaveConsent(
+      appVersion: "1.0",
+      consentApprovalType: CONSENT_TYPE_GST_API_ACCESS,
+      deviceId: uuid,
+      deviceOs: '',
+      deviceOsVersion: '',
+      deviceType: '',
+      isConsentApproval: true,
+      mobileFcmToken: "",
+    );
+    var payload = await getPayLoad(jsonEncode(requestSaveConsent.toJson()), URI_CONSENT_APPROVAL);
+    ServiceManager.getInstance().saveConsent(
+        request: payload,
+        onSuccess: (response) => _onSuccessSaveConsentForGST(response),
+        onError: (errorResponse) => _onErrorSaveConsent2(errorResponse));
+  }
+
+  _onSuccessSaveConsentForGST(SaveConsentApprovalResponse response) {
+    TGLog.d("SaveGSTConsent() : Success");
+    if (response.saveConsentMainObj().status == RES_SUCCESS) {
+      TGSharedPreferences.getInstance().set(PREF_ISTC_DONE, true);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const StartRegistrationNtb(),
+        ),
+      );
+    } else {
+      LoaderUtils.handleErrorResponse(
+          context, response.saveConsentMainObj().status, response.saveConsentMainObj().message, null);
+      setState(() {
+        isLoaderStart = false;
+      });
+    }
+  }
+
+  _onErrorSaveConsent2(TGResponse errorResponse) {
+    isCheckFirst = false;
+    setState(() {
+      isLoaderStart = false;
+    });
+    TGLog.d("SaveGSTConsent() : Error");
   }
 }
 

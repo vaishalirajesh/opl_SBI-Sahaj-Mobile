@@ -142,24 +142,6 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
             onWillPop: () async {
               final shouldPop = await _showFirstWaring(context);
               return shouldPop ?? false;
-              // if (tabController.index == 0) {
-              //   final shoulpop = await showFirstWaring(context);
-              //   return shoulpop ?? false;
-              // } else if (tabController.index == 1) {
-              //   tabController.index = 0;
-              //   setState(() {
-              //     tabIndex = 0;
-              //   });
-              //   return false;
-              // } else if (tabController.index == 2) {
-              //   tabController.index = 0;
-              //   setState(() {
-              //     tabIndex = 0;
-              //   });
-              //   return false;
-              // } else {
-              return false;
-              //}
             },
             child: Scaffold(
               key: _scaffoldKey,

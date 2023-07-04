@@ -199,3 +199,4 @@ const IMG_TWO_PERSON = "images/Confirmed-rafiki.svg";
 const IMG_AA_DETAILS = "images/pnb_aa_img_details.svg";
 
 const IMG_GOODS = 'images/gst_goods_logo.png';
+const AAFAIL = 'images/aa_fail.png';

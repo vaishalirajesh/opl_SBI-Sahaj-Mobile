@@ -10,6 +10,8 @@ import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/welcome/ntbwelcome/mobileui/enablegstapintb.dart';
 import 'package:sbi_sahay_1_0/welcome/ntbwelcome/mobileui/getstarted.dart';
 
+import '../../loanprocess/mobile/aalist/ui/aa_error_screen.dart';
+
 class StringAssets {
   // Bank name
   static const String pnbBank = 'PNB';
@@ -95,9 +97,7 @@ Future<void> navigationHandler({
   TGLog.d("IN Navigation Handler------BankName: $bankName -------CurrentScreen: $currentScreen");
 
   if (isCommon) {
-    switch (currentScreen) {
-
-    }
+    switch (currentScreen) {}
   } else {
     switch (bankName) {
       case StringAssets.sbiBank:
@@ -167,6 +167,15 @@ Future<void> navigationHandler({
               }
             }
 
+            break;
+          case StringAssets.aaCompleted:
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => const AAErrorScreen(),
+              ),
+              (route) => false, //if you want to disable back feature set to false
+            );
             break;
           // case StringAssets.registrationCompleted:
           //   Navigator.pushAndRemoveUntil(

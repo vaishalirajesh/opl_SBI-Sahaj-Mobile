@@ -1,5 +1,6 @@
 class MyRoutes {
   static String loginRoutes = "/LoginMain";
+  static String autologin = "/autologin";
   static String dashboardRoutes = '/dashboardwithgst';
   static String dashboardwithoutRoutes = '/dashboardwithoutgst';
   static String finanaceOptionRouted = "/FinanceOption";

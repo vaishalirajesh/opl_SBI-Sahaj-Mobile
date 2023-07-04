@@ -207,12 +207,7 @@ class RouteGenerator {
     if (settings.name != null) {
       var uriData = Uri.parse(settings.name!);
       route = uriData.path;
-      if (route == MyRoutes.AAWebViewCallBack) {
-        //converts string to a uri
-        queryParameters = uriData.queryParameters; // query parameters automatically populated
-        TGLog.d("Query Param $queryParameters");
-      }
-      if (route == MyRoutes.AAWebViewCallBack) {
+      if (route == MyRoutes.autologin || route == MyRoutes.AAWebViewCallBack) {
         //converts string to a uri
         queryParameters = uriData.queryParameters; // query parameters automatically populated
         TGLog.d("Query Param $queryParameters");
@@ -226,11 +221,9 @@ class RouteGenerator {
           return ESignCompletedMain();
         } else if (route == MyRoutes.AAWebViewCallBack) {
           return AaCompletedPage(str: queryParameters!);
-        }
-        // else if (route == MyRoutes.autologin) {
-        //   return AutoLogin(str: queryParameters!);
-        // }
-        else {
+          // } else if (route == MyRoutes.autologin) {
+          //   return LoginWithMobileNumber(str: queryParameters!);
+        } else {
           return Container(
             child: Center(
               child: Text("You are Unthorised", textAlign: TextAlign.center),

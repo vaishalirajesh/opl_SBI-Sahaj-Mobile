@@ -666,3 +666,9 @@ const str_hello = "Hello, ";
 const str_pan = "PAN: ";
 
 const str_get_best_offer = 'Getting Best Offers';
+const str_try_again = 'Try Again';
+const str_sorry = 'Sorry!';
+const no_data_found = 'No user detail found';
+const consent_fail = 'Seems You have not linked the Current A/c. Kindly provide your consent to fetch bank data.';
+const aa_error_txt =
+    'Seems You have Linked a Wrong Current A/c. Link Your Correct Current A/c or Retry with another Account Aggregator.';

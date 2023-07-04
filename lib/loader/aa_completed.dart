@@ -28,6 +28,7 @@ import '../../../utils/constants/prefrenceconstants.dart';
 import '../../../utils/constants/statusConstants.dart';
 import '../../../utils/internetcheckdialog.dart';
 import '../../../utils/progressLoader.dart';
+import '../utils/constants/route_handler.dart';
 
 class AaCompletedPage extends StatefulWidget {
   const AaCompletedPage({required this.str, Key? key}) : super(key: key);
@@ -184,12 +185,12 @@ class _AaCompletedState extends State<AaCompletedPage> {
         LoaderUtils.handleErrorResponse(context, consentStatus, response?.getConsentStatusResObj().message, null);
       } else {
         // TODO : Add showing error popup for account aggregator fail
-        // navigationHandler(
-        //   bankName: TGFlavor.param("bankName"),
-        //   currentScreen: StringAssets.aaCompleted,
-        //   context: context,
-        //   isCommon: false,
-        // );
+        navigationHandler(
+          bankName: TGFlavor.param("bankName"),
+          currentScreen: StringAssets.aaCompleted,
+          context: context,
+          isCommon: false,
+        );
       }
     } else {
       LoaderUtils.handleErrorResponse(
