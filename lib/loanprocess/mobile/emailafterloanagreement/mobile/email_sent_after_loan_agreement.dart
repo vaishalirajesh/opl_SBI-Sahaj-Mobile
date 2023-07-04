@@ -76,7 +76,7 @@ class _EmailSentAfterLoanAgreementScreen extends State<EmailSentAfterLoanAgreeme
                 SvgPicture.asset(
                   height: 100.h,
                   width: 100.w,
-                  Utils.path(MOBILESTEPDONE),
+                  Utils.path(CONGRATULATION),
                   fit: BoxFit.fill,
                 ),
                 // Lottie.asset(Utils.path(EMAILSEND),

@@ -394,7 +394,7 @@ class MoveStage {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => const SetupEmandate(),
+          builder: (BuildContext context) => const RedirectedLoader(),
         ),
         (route) => false, //if you want to disable back feature set to false
       );

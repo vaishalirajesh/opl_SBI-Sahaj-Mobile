@@ -466,7 +466,9 @@ const str_s4 = 'PNB ****7564';
 const str_s5 = 'Rs. 30,740';
 const str_s6 = '12 Apr\'21 (90 days)';
 const str_s7 = 'LON2345678434';
-const str_Congratulations_with_extre = 'Congratulations!';
+const str_Congratulations_with_extre = 'Congratulations';
+const str_Congratulations_des =
+    'The loan disbursement has been initiated by the lender through NEFT. Please note that NEFT is processed in half-hourly intervals.';
 const str_const_long_sentence =
     'The loan disbursement has been initiated by the Lender\nthrough NEFT. Please note that NEFT is processed in\nhalf-hourly intervals.';
 

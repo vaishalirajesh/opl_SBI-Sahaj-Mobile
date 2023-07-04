@@ -200,3 +200,5 @@ const IMG_AA_DETAILS = "images/pnb_aa_img_details.svg";
 
 const IMG_GOODS = 'images/gst_goods_logo.png';
 const AAFAIL = 'images/aa_fail.png';
+const CONGRATULATION_BG = 'images/congratulations_new.png';
+const CONGRATULATION = 'images/congartulations.svg';

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
 import 'package:gstmobileservices/model/models/get_disbursement_detail_res_main.dart';
 import 'package:gstmobileservices/model/requestmodel/get_disbursed_acc_detail_request.dart';
@@ -16,7 +17,9 @@ import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
+import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
+import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 
 import '../../../../utils/constants/imageconstant.dart';
 import '../../../../utils/constants/prefrenceconstants.dart';
@@ -88,36 +91,45 @@ class CongratulationsFinalMainBody extends State<CongratulationsFinalMains> {
 
   Widget CongratulationsFinalScreenContent(BuildContext context) {
     return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 19.0.w),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 20.0.h),
-                child: Image.asset(
-                  height: 127.h,
-                  width: 166.w,
-                  Utils.path(RUPEELOADE),
-                  fit: BoxFit.fitHeight,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(8.r)),
+          image: DecorationImage(image: AssetImage(Utils.path(CONGRATULATION_BG)), alignment: Alignment.topCenter),
+          color: Colors.white,
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 19.0.w),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 80.h),
+                Padding(
+                  padding: EdgeInsets.only(top: 20.0.h),
+                  child: SvgPicture.asset(
+                    height: 60.h,
+                    width: 60.w,
+                    Utils.path(CONGRATULATION),
+                    fit: BoxFit.fitHeight,
+                  ),
                 ),
-              ),
-              // Lottie.asset(Utils.path(RUPEELOADE),
-              //     height: 127.h,
-              //     //80.w,
-              //     width: 166.w,
-              //     //80.w,
-              //     repeat: true,
-              //     reverse: false,
-              //     animate: true,
-              //     frameRate: FrameRate.max,
-              //     fit: BoxFit.cover
-              // ),
-              _buildTopContent(context),
+                SizedBox(height: 25.h),
+                // Lottie.asset(Utils.path(RUPEELOADE),
+                //     height: 127.h,
+                //     //80.w,
+                //     width: 166.w,
+                //     //80.w,
+                //     repeat: true,
+                //     reverse: false,
+                //     animate: true,
+                //     frameRate: FrameRate.max,
+                //     fit: BoxFit.cover
+                // ),
+                _buildTopContent(context),
 
-              ..._buildTableData(context)
-            ]),
+                ..._buildTableData(context)
+              ]),
+        ),
       ),
     );
   }
@@ -127,10 +139,23 @@ class CongratulationsFinalMainBody extends State<CongratulationsFinalMains> {
       children: [
         Text(
           str_Congratulations_with_extre,
-          style: ThemeHelper.getInstance()!.textTheme.headline1,
+          style: ThemeHelper.getInstance()!
+              .textTheme
+              .headline1
+              ?.copyWith(color: MyColors.darkblack, fontFamily: MyFont.Roboto_Medium),
         ),
         SizedBox(
           height: 10.h,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
+          child: Text(
+            str_Congratulations_des,
+            style: ThemeHelper.getInstance()!.textTheme.subtitle1?.copyWith(
+                  color: MyColors.darkblack,
+                ),
+            textAlign: TextAlign.center,
+          ),
         ),
         /*Text(
         str_const_long_sentence, textAlign: TextAlign.center, style: ThemeHelper
@@ -198,28 +223,30 @@ class CongratulationsFinalMainBody extends State<CongratulationsFinalMains> {
   _bottomSheet(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: 20.w, right: 20.w),
-      child: Container(
-          height: 94.h,
-          width: 367.w,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ElevatedButton(
-                  onPressed: () {
-                    //    Navigator.pushNamed(context, MyRoutes.DashboardWithGSTRoutes);
-                    //   Navigator.of(context).push(CustomRightToLeftPageRoute(child: DashboardWithGST(), ));
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => DashboardWithGST(),
-                      ),
-                      (route) => false, //if you want to disable back feature set to false
-                    );
-                  },
-                  child: Text(str_Finance_other_Invoice))
-            ],
-          )),
+      child: SizedBox(
+        height: 80.h,
+        width: 367.w,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppButton(
+              onPress: () {
+                //    Navigator.pushNamed(context, MyRoutes.DashboardWithGSTRoutes);
+                //   Navigator.of(context).push(CustomRightToLeftPageRoute(child: DashboardWithGST(), ));
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => const DashboardWithGST(),
+                  ),
+                  (route) => false, //if you want to disable back feature set to false
+                );
+              },
+              title: str_Finance_other_Invoice,
+            )
+          ],
+        ),
+      ),
     );
   }
 

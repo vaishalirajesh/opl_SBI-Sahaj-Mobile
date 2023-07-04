@@ -76,10 +76,10 @@ class _RedirectedLoaderState extends State<RedirectedLoader> {
         child: Scaffold(
           body: Container(
             decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [
-              MyColors.pnbPinkColor,
-              ThemeHelper.getInstance()!.backgroundColor
-            ], begin: Alignment.bottomCenter, end: Alignment.centerLeft)),
+                gradient: LinearGradient(
+                    colors: [MyColors.pnbPinkColor, ThemeHelper.getInstance()!.backgroundColor],
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.centerLeft)),
             height: MyDimension.getFullScreenHeight(),
             width: MyDimension.getFullScreenWidth(),
             child: Padding(
@@ -102,9 +102,7 @@ class _RedirectedLoaderState extends State<RedirectedLoader> {
                       //      fit: BoxFit.fill
                       // ),
                       SizedBox(height: 10.h),
-                      Text(strMoneyTitleString,
-                          style:
-                              ThemeHelper.getInstance()?.textTheme.headline1),
+                      Text(strMoneyTitleString, style: ThemeHelper.getInstance()?.textTheme.headline1),
                       SizedBox(height: 10.h),
                       Text(
                         strEmptyString,
@@ -122,9 +120,7 @@ class _RedirectedLoaderState extends State<RedirectedLoader> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("Processing...",
-                            textAlign: TextAlign.start,
-                            style:
-                                ThemeHelper.getInstance()?.textTheme.headline6),
+                            textAlign: TextAlign.start, style: ThemeHelper.getInstance()?.textTheme.headline6),
                         SizedBox(height: 10.h),
                         ClipRRect(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -132,9 +128,7 @@ class _RedirectedLoaderState extends State<RedirectedLoader> {
                             semanticsLabel: 'Processing...',
                             minHeight: 8.h,
                             color: ThemeHelper.getInstance()?.primaryColor,
-                            backgroundColor: ThemeHelper.getInstance()
-                                ?.colorScheme
-                                .secondary,
+                            backgroundColor: ThemeHelper.getInstance()?.colorScheme.secondary,
                           ),
                         )
                       ],
@@ -159,23 +153,19 @@ class _RedirectedLoaderState extends State<RedirectedLoader> {
   Future<void> consentHandleRequestApi() async {
     TGLog.d("Enter : consentHandleRequestApi()");
 
-    String currentStage =
-        await TGSharedPreferences.getInstance().get(PREF_CURRENT_STAGE);
+    String currentStage = await TGSharedPreferences.getInstance().get(PREF_CURRENT_STAGE);
 
-    if (currentStage == STAGE_CONSENT_MONITORING ||
-        currentStage == STAGE_E_MANDATE_STATUS) {
+    if (currentStage == STAGE_CONSENT_MONITORING || currentStage == STAGE_E_MANDATE_STATUS) {
       TGSharedPreferences.getInstance().set(PREF_CONSENTTYPE, "PERIODIC");
     } else {
       TGSharedPreferences.getInstance().set(PREF_CONSENTTYPE, "ONE_TIME");
     }
 
-    String loanApplicationReferenceID =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    String loanApplicationReferenceID = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     String aaCode = await TGSharedPreferences.getInstance().get(PREF_AACODE);
     String aaId = await TGSharedPreferences.getInstance().get(PREF_AAID);
 
-    String consentFetchType =
-        await TGSharedPreferences.getInstance().get(PREF_CONSENTTYPE);
+    String consentFetchType = await TGSharedPreferences.getInstance().get(PREF_CONSENTTYPE);
 
     ConsentHandleRequest consentHandleRequest = ConsentHandleRequest(
         loanApplicationRefId: loanApplicationReferenceID,
@@ -198,8 +188,7 @@ class _RedirectedLoaderState extends State<RedirectedLoader> {
 
     if (response?.getConsentHandleResObj().status == RES_SUCCESS) {
       consentHandleResobject = response?.getConsentHandleResObj();
-      TGSharedPreferences.getInstance()
-          .set(PREF_CONSENT_AAID, consentHandleResobject?.data?.consentAggId);
+      TGSharedPreferences.getInstance().set(PREF_CONSENT_AAID, consentHandleResobject?.data?.consentAggId);
       if (await TGNetUtil.isInternetAvailable()) {
         getConsentUrlApi();
       } else {
@@ -209,10 +198,7 @@ class _RedirectedLoaderState extends State<RedirectedLoader> {
       hideLoader();
       Navigator.pop(context);
       LoaderUtils.handleErrorResponse(
-          context,
-          response?.getConsentHandleResObj().status,
-          response?.getConsentHandleResObj().message,
-          null);
+          context, response?.getConsentHandleResObj().status, response?.getConsentHandleResObj().message, null);
     }
   }
 
@@ -222,25 +208,22 @@ class _RedirectedLoaderState extends State<RedirectedLoader> {
     hideLoader();
     Navigator.pop(context);
   }
+
 //..24) Get Consent Handle Api
 
   Future<void> getConsentUrlApi() async {
     TGLog.d("Enter : ConsentUrlApi()");
 
-    String consentAggId =
-        await TGSharedPreferences.getInstance().get(PREF_CONSENT_AAID);
-    String loanApplicationReferenceID =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    String consentAggId = await TGSharedPreferences.getInstance().get(PREF_CONSENT_AAID);
+    String loanApplicationReferenceID = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
 
-    GetConsentHandleUrlReq getConsentHandleUrlReq = GetConsentHandleUrlReq(
-        loanApplicationRefId: loanApplicationReferenceID,
-        consentAggId: consentAggId);
+    GetConsentHandleUrlReq getConsentHandleUrlReq =
+        GetConsentHandleUrlReq(loanApplicationRefId: loanApplicationReferenceID, consentAggId: consentAggId);
     var jsonReq = jsonEncode(getConsentHandleUrlReq.toJson());
 
     TGLog.d("ConsentUrl : $jsonReq");
 
-    TGPostRequest tgPostRequest =
-        await getPayLoad(jsonReq, URI_GET_CONSENT_URL);
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GET_CONSENT_URL);
     ServiceManager.getInstance().consentHandleUrl(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessGetConsentHandleUrl(response),
@@ -279,10 +262,7 @@ class _RedirectedLoaderState extends State<RedirectedLoader> {
       hideLoader();
       Navigator.pop(context);
       LoaderUtils.handleErrorResponse(
-          context,
-          response?.getConsentHandleUrlObj().status,
-          response?.getConsentHandleUrlObj().message,
-          null);
+          context, response?.getConsentHandleUrlObj().status, response?.getConsentHandleUrlObj().message, null);
     }
   }
 
@@ -295,27 +275,25 @@ class _RedirectedLoaderState extends State<RedirectedLoader> {
 
   //..6) Get Redirection Url
   Future<void> getRedirectionalURLApi() async {
-    String loanApplicationReferenceID =
-        TGSession.getInstance().get(SESSION_LOANAPPLICATIONREFID);
+    String loanApplicationReferenceID = TGSession.getInstance().get(SESSION_LOANAPPLICATIONREFID);
     String consentAggId = TGSession.getInstance().get(SESSION_CONSENTAGGID);
-    String consentFetchType =
-        TGSession.getInstance().get(SESSION_CONSENTFETCHTYPE);
+    String consentFetchType = TGSession.getInstance().get(SESSION_CONSENTFETCHTYPE);
     String url = TGSession.getInstance().get(SESSION_URL);
 
-    GetRedirectionalUrlRequest getRedirectionalUrlRequest =
-        GetRedirectionalUrlRequest(
-            loanApplicationRefId: loanApplicationReferenceID,
-            consentAggId: consentAggId,
-            consentFetchType: 'ONE_TIME',
-            aaRedirectionDecReq: GetRedirectionalUrlObj(
-                webRedirectionURL: WebRedirectionURL(
-                    ecres:
-                        'lOK3S9YDrKZKHAmiJ9m1k88q4yp0dN4ShuxRyvq3Fy_gnFTMjsG0Rib-R9CbyHoY49JkrBw6wo-Tn_b63fLuRF6s6PR2rfSImbfvt-eQI5xwh0OcQN8tYa143qBv4kGQY4cxTfivoxZMAHM2E-hQ4WzU7hgWYisOSF2hsZc2xVOf7_WQsDwMfwMA6liJUez-49lxE5pTlrMZdDnX3iDh-kLJmpKdSFipHvoUra2sjKmXlme0YcUahxKh3_w-rW8laz16sdb4JEzVRbPsxrGCAPdu7OmejYPGqLrqPIiDQ8u-rgi0YefwBXBm_hsnP0pxbZkW6EPoUsO7Irg3g1y6ww',
-                    resdate: '240220221142285',
-                    fi: 'XVpVX11eV0s')));
+    GetRedirectionalUrlRequest getRedirectionalUrlRequest = GetRedirectionalUrlRequest(
+      loanApplicationRefId: loanApplicationReferenceID,
+      consentAggId: consentAggId,
+      consentFetchType: 'ONE_TIME',
+      aaRedirectionDecReq: GetRedirectionalUrlObj(
+        webRedirectionURL: WebRedirectionURL(
+            ecres:
+                'lOK3S9YDrKZKHAmiJ9m1k88q4yp0dN4ShuxRyvq3Fy_gnFTMjsG0Rib-R9CbyHoY49JkrBw6wo-Tn_b63fLuRF6s6PR2rfSImbfvt-eQI5xwh0OcQN8tYa143qBv4kGQY4cxTfivoxZMAHM2E-hQ4WzU7hgWYisOSF2hsZc2xVOf7_WQsDwMfwMA6liJUez-49lxE5pTlrMZdDnX3iDh-kLJmpKdSFipHvoUra2sjKmXlme0YcUahxKh3_w-rW8laz16sdb4JEzVRbPsxrGCAPdu7OmejYPGqLrqPIiDQ8u-rgi0YefwBXBm_hsnP0pxbZkW6EPoUsO7Irg3g1y6ww',
+            resdate: '240220221142285',
+            fi: 'XVpVX11eV0s'),
+      ),
+    );
     var jsonReq = jsonEncode(getRedirectionalUrlRequest.toJson());
-    TGPostRequest tgPostRequest =
-        await getPayLoad(jsonReq, URI_GET_REDIRECTIONAL_URL);
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GET_REDIRECTIONAL_URL);
     ServiceManager.getInstance().getRedirectionalUrl(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessGetRedirectionUrl(response),
@@ -328,15 +306,11 @@ class _RedirectedLoaderState extends State<RedirectedLoader> {
     if (response?.getRedirectionalUrlResObj().status == RES_SUCCESS) {
       Navigator.pushNamed(context, MyRoutes.infoShareRoutes);
     } else if (response?.getRedirectionalUrlResObj().status == RES_RETRY_URL) {
-    } else if (response?.getRedirectionalUrlResObj().status ==
-        CONSENT_REJECTION) {
+    } else if (response?.getRedirectionalUrlResObj().status == CONSENT_REJECTION) {
       Navigator.pushNamed(context, MyRoutes.infoShareRoutes);
     } else {
       LoaderUtils.handleErrorResponse(
-          context,
-          response?.getRedirectionalUrlResObj().status,
-          response?.getRedirectionalUrlResObj().message,
-          null);
+          context, response?.getRedirectionalUrlResObj().status, response?.getRedirectionalUrlResObj().message, null);
     }
   }
 
