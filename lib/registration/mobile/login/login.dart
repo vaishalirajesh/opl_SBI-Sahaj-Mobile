@@ -13,9 +13,11 @@ import 'package:gstmobileservices/model/requestmodel/autologin_request.dart';
 import 'package:gstmobileservices/model/requestmodel/get_all_loan_detail_by_refid_request.dart';
 import 'package:gstmobileservices/model/requestmodel/get_gst_basic_details_request.dart';
 import 'package:gstmobileservices/model/requestmodel/get_otp_request.dart';
+import 'package:gstmobileservices/model/requestmodel/save_consent_request.dart';
 import 'package:gstmobileservices/model/responsemodel/get_all_loan_detail_by_refid_response.dart';
 import 'package:gstmobileservices/model/responsemodel/get_gst_basic_details_response.dart';
 import 'package:gstmobileservices/model/responsemodel/get_otp_response.dart';
+import 'package:gstmobileservices/model/responsemodel/save_consent_response.dart';
 import 'package:gstmobileservices/model/responsemodel/verify_otp_response.dart';
 import 'package:gstmobileservices/service/request/tg_get_request.dart';
 import 'package:gstmobileservices/service/request/tg_post_request.dart';
@@ -87,6 +89,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
   bool _isGetOTPLoaderStart = false;
 
   String text = "";
+  String uuid = Uuid().v1().replaceAll("-", "").substring(0, 16);
 
   onPressed(String text) {
     if (counter <= maxLength - 1 && text != '/') {
@@ -319,29 +322,70 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
         _isGetOTPLoaderStart = true;
       });
       if (await TGNetUtil.isInternetAvailable()) {
+        onUpdateTAndCChecked();
+      } else {
+        showSnackBarForintenetConnection(context, onUpdateTAndCChecked);
+      }
+    }
+  }
+
+  Future<void> onUpdateTAndCChecked() async {
+    RequestSaveConsent requestSaveConsent = RequestSaveConsent(
+      appVersion: "1.0",
+      consentApprovalType: CONSENT_TYPE_T_AND_C,
+      isConsentApproval: true,
+      mobileFcmToken: "",
+      device: '',
+      deviceId: uuid,
+      deviceOs: '',
+      deviceOsVersion: '',
+      deviceType: '',
+    );
+    var jsonRequest = jsonEncode(requestSaveConsent.toJson());
+    TGPostRequest tgPostRequest = await getPayLoad(jsonRequest, URI_CONSENT_APPROVAL);
+    ServiceManager.getInstance().saveConsent(
+        request: tgPostRequest,
+        onSuccess: (response) => _onSuccessSaveConsent(response),
+        onError: (errorResponse) => _onErrorSaveConsent(errorResponse));
+  }
+
+  _onSuccessSaveConsent(SaveConsentApprovalResponse response) async {
+    TGLog.d("SaveTAndCConsent() : Success");
+    if (response.saveConsentMainObj().status == RES_SUCCESS) {
+      if (await TGNetUtil.isInternetAvailable()) {
         _autoLoginRequest();
       } else {
         if (context.mounted) {
           showSnackBarForintenetConnection(context, getLoginOtp);
         }
       }
-      // setState(() {
-      //   Navigator.pushReplacementNamed(context, MyRoutes.OtpVerifyLoginRoutes);
-      // });
+    } else {
+      // isButtonChecked.value = false;
+      LoaderUtils.handleErrorResponse(
+          context, response.saveConsentMainObj().status, response.saveConsentMainObj().message, null);
+      setState(() {
+        _isGetOTPLoaderStart = false;
+      });
     }
+  }
+
+  _onErrorSaveConsent(TGResponse errorResponse) {
+    setState(() {
+      _isGetOTPLoaderStart = false;
+    });
+    TGLog.d("SaveTAndCConsent() : Error");
   }
 
   Future<void> _autoLoginRequest() async {
     TGSession.getInstance().set(SESSION_MOBILENUMBER, mobileTextController.text);
-    String uuid = Uuid().v1().replaceAll("-", "").substring(0, 16);
-
     AutoLoginRequest autoLoginRequest = AutoLoginRequest(
-        mobile: mobileTextController.text,
-        cifNo: "testingCIFNo",
-        email: "w@c.com",
-        deviceId: uuid,
-        address: "address",
-        pan: "");
+      mobile: mobileTextController.text,
+      cifNo: "testingCIFNo",
+      email: "w@c.com",
+      deviceId: uuid,
+      address: "address",
+      pan: "",
+    );
 
     var jsonRequest = jsonEncode(autoLoginRequest.toJson());
 
