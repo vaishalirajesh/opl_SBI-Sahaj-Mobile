@@ -10,6 +10,7 @@ import 'package:gstmobileservices/service/request/tg_get_request.dart';
 import 'package:gstmobileservices/service/response/tg_response.dart';
 import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
+import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/transactions/common_card/disbursed/disbursed_transaction.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/transactions/common_card/outstanding/outstanding_transaction.dart';
@@ -17,6 +18,7 @@ import 'package:sbi_sahay_1_0/loanprocess/mobile/transactions/common_card/overdu
 import 'package:sbi_sahay_1_0/loanprocess/mobile/transactions/common_card/repaid/repaid_transaction.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
+import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusConstants.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/utils/progressLoader.dart';
@@ -462,7 +464,8 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
 
   //Api call
   Future<void> getAllLoansByReferenceId() async {
-    TGGetRequest tgGetRequest = GetAllInvoiceLoanDetailByRefIdReq(gstin: '24AAGFV5271N1ZP');
+    String gstin = await TGSharedPreferences.getInstance().get(PREF_GSTIN);
+    TGGetRequest tgGetRequest = GetAllInvoiceLoanDetailByRefIdReq(gstin: gstin);
     TGLog.d("getAllLoansByReferenceId request: $tgGetRequest");
     ServiceManager.getInstance().getAllInvoiceLoanDetailByRefId(
         request: tgGetRequest,
