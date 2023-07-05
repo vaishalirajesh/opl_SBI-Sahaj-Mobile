@@ -46,6 +46,7 @@ import '../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 import '../ui/launchURL/ddelaunchurlmain.dart'
     if (dart.library.html) '../ui/launchURL/ddelaunchweb.dart'
     if (dart.library.io) '../ui/launchURL/ddelaunchmobile.dart';
+import 'loan_aggreement_dialog.dart';
 
 class LoanAgreementMain extends StatelessWidget {
   @override
@@ -104,12 +105,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
 
         return true;
       },
-      child: Stack(
-        children: [
-          bodyScaffold(context),
-          if (isShowDialog) PopUpViewInstructionRegister(),
-        ],
-      ),
+      child: bodyScaffold(context),
     );
   }
 
@@ -364,9 +360,9 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
   }
 
   Widget PopUpViewInstructionRegister() {
-    return Container(
-      color: Colors.black.withOpacity(0.5),
-      child: Center(
+    return Scaffold(
+      backgroundColor: Colors.black.withOpacity(0.5),
+      body: Center(
         child: Container(
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -432,8 +428,13 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
     if (isAgreementLoaded) {
       if (isAgreementRead) {
         setState(() {
-          isAgreeLoaderStart = true;
-          isShowDialog = false;
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => LoanAgreementDialog(),
+            ),
+            (route) => false, //if you want to disable back feature set to false
+          );
         });
 
         if (await TGNetUtil.isInternetAvailable()) {
@@ -461,9 +462,14 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
         : AppButton(
             onPress: isAgreementRead
                 ? () async {
-                    isShowDialog = true;
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => LoanAgreementDialog(),
+                      ),
+                      (route) => false, //if you want to disable back feature set to false
+                    );
                     setState(() {});
-                    // showDialog(context: context, builder: (_) => PopUpViewInstructionRegister());
                   }
                 : () {},
             title: str_agree,

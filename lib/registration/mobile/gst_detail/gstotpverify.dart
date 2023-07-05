@@ -119,7 +119,9 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
   void getPopupValue() async {
     isOpenEnablePopUp = await TGSharedPreferences.getInstance().get(PREF_ENABLE_POPUP) ?? false;
     gstin = await TGSharedPreferences.getInstance().get(PREF_GSTIN);
-    ;
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   void checkOtp() {
@@ -179,7 +181,7 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
                       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
                       child: Text(
                         "OTP sent to Mobile number and Email linked to GSTIN: " + gstin,
-                        style: ThemeHelper.getInstance()!.textTheme.displayMedium!.copyWith(fontSize: 14.sp),
+                        style: ThemeHelper.getInstance()!.textTheme.subtitle1!,
                       ),
                     ),
                     SizedBox(
