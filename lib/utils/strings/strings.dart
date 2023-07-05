@@ -567,7 +567,7 @@ const str_logintc = "Log in ";
 
 //NTB enable gst api screen
 const str_confirmView_title = "Please confirm the following:";
-const str_confirm_check1 = "Constitution of my business is Properitorship        ";
+const str_confirm_check1 = "Constitution of my business is Properitorship";
 const str_confirm_check2 = "I have enabled GST API access on GST website*  ";
 const str_confirm_bottom1 = "*If not done, ";
 const str_confirm_bottom2 = "read the steps";

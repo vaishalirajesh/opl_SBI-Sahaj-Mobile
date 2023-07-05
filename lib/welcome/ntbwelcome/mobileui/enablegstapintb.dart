@@ -16,6 +16,7 @@ import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/jumpingdot_util.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
+import 'package:gstmobileservices/util/tg_view.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -418,6 +419,8 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
       } else {
         showSnackBarForintenetConnection(context, onUpdateGstCheckBox);
       }
+    } else if (response.saveConsentMainObj().status == RES_UNAUTHORISED) {
+      TGView.showSnackBar(context: context, message: response.saveConsentMainObj().message ?? "");
     } else {
       // isButtonChecked.value = false;
       LoaderUtils.handleErrorResponse(
@@ -464,6 +467,8 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
           builder: (context) => const StartRegistrationNtb(),
         ),
       );
+    } else if (response.saveConsentMainObj().status == RES_UNAUTHORISED) {
+      TGView.showSnackBar(context: context, message: response.saveConsentMainObj().message ?? "");
     } else {
       LoaderUtils.handleErrorResponse(
           context, response.saveConsentMainObj().status, response.saveConsentMainObj().message, null);

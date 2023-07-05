@@ -169,7 +169,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
       child: AppButton(
         onPress: isCheck
             ? () async {
-                Navigator.pushReplacementNamed(context, MyRoutes.EnableGstApiRoutes);
+                await Navigator.pushReplacementNamed(context, MyRoutes.EnableGstApiRoutes);
               }
             : () {},
         title: str_next,

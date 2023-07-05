@@ -31,6 +31,7 @@ import 'package:gstmobileservices/util/erros_handle_util.dart';
 import 'package:gstmobileservices/util/tg_flavor.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_util.dart';
+import 'package:gstmobileservices/util/tg_view.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/gst_consent_of_gst/gst_consent_of_gst.dart';
 import 'package:sbi_sahay_1_0/routes.dart';
@@ -213,7 +214,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                 alignment: Alignment.bottomCenter,
                 child: SizedBox(
                   child: Padding(
-                    padding: EdgeInsets.only(top: 20.h, left: 20.w, right: 20.w),
+                    padding: EdgeInsets.only(top: 20.h, left: 10.w, right: 20.w),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -250,7 +251,9 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                             ),
                             Expanded(
                               child: Padding(
-                                padding: EdgeInsets.only(top: 10.h),
+                                padding: EdgeInsets.only(
+                                  top: 10.h,
+                                ),
                                 child: GestureDetector(
                                   onTap: () {
                                     isCheckedFirst = !isCheckedFirst;
@@ -292,7 +295,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsets.only(bottom: 20.h, top: 20.h),
+                          padding: EdgeInsets.only(bottom: 20.h, top: 20.h, left: 10.w),
                           child: _isGetOTPLoaderStart
                               ? JumpingDots(
                                   color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
@@ -322,9 +325,11 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
         _isGetOTPLoaderStart = true;
       });
       if (await TGNetUtil.isInternetAvailable()) {
-        onUpdateTAndCChecked();
+        _autoLoginRequest();
       } else {
-        showSnackBarForintenetConnection(context, onUpdateTAndCChecked);
+        if (context.mounted) {
+          showSnackBarForintenetConnection(context, getLoginOtp);
+        }
       }
     }
   }
@@ -353,12 +358,14 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
     TGLog.d("SaveTAndCConsent() : Success");
     if (response.saveConsentMainObj().status == RES_SUCCESS) {
       if (await TGNetUtil.isInternetAvailable()) {
-        _autoLoginRequest();
+        _getGstBasicDetails();
       } else {
         if (context.mounted) {
-          showSnackBarForintenetConnection(context, getLoginOtp);
+          showSnackBarForintenetConnection(context, _getGstBasicDetails);
         }
       }
+    } else if (response.saveConsentMainObj().status == RES_UNAUTHORISED) {
+      TGView.showSnackBar(context: context, message: response.saveConsentMainObj().message ?? "");
     } else {
       // isButtonChecked.value = false;
       LoaderUtils.handleErrorResponse(
@@ -406,13 +413,10 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
       Utils.setAccessToken(TGFlavor.param("bankName"), response?.getOtpReponseObj().data?.accessToken);
       TGSharedPreferences.getInstance().set(PREF_MOBILE, mobileTextController.text);
       setAccessTokenInRequestHeader();
-
       if (await TGNetUtil.isInternetAvailable()) {
-        _getGstBasicDetails();
+        onUpdateTAndCChecked();
       } else {
-        if (context.mounted) {
-          showSnackBarForintenetConnection(context, _getGstBasicDetails);
-        }
+        showSnackBarForintenetConnection(context, onUpdateTAndCChecked);
       }
     } else {
       setState(() {

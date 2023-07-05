@@ -246,7 +246,7 @@ Widget buildBtnNextAcc(BuildContext context) {
       padding: const EdgeInsets.all(20.0).w,
       child: AppButton(
           onPress: () {
-            Navigator.pushReplacementNamed(context, MyRoutes.AAListRoutes);
+            Navigator.pushNamed(context, MyRoutes.AAListRoutes);
           },
           title: str_next),
     ),

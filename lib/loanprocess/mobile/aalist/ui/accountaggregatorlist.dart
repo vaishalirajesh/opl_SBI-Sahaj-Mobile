@@ -101,13 +101,7 @@ class _AAListViewState extends State<AAListView> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => const DashboardWithGst(),
-          ),
-          (route) => false, //if you want to disable back feature set to false
-        );
+        Navigator.pop(context);
         return true;
       },
       child: Stack(
@@ -115,13 +109,7 @@ class _AAListViewState extends State<AAListView> {
           Scaffold(
             appBar: getAppBarWithStepDone("2", str_loan_approve_process, 0.50,
                 onClickAction: () => {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => const DashboardWithGst(),
-                        ),
-                        (route) => false, //if you want to disable back feature set to false
-                      )
+                      Navigator.pop(context)
                     }),
             body: AbsorbPointer(
               absorbing: isLoaderStart,

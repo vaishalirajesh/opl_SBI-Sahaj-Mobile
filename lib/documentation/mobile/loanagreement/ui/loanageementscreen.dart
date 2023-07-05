@@ -69,6 +69,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
   GetLoanStatusResMain? _getLoanStatusRes;
   bool isAgreementLoaded = false;
   bool isAgreementRead = false;
+  bool isShowDialog = false;
   bool isWebview = false;
 
   bool isAgreeLoaderStart = false;
@@ -103,7 +104,12 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
 
         return true;
       },
-      child: bodyScaffold(context),
+      child: Stack(
+        children: [
+          bodyScaffold(context),
+          if (isShowDialog) PopUpViewInstructionRegister(),
+        ],
+      ),
     );
   }
 
@@ -319,6 +325,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
             const BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(5.0))),
         child: WebViewX(
           javascriptMode: JavascriptMode.unrestricted,
+          ignoreAllGestures: isShowDialog,
           key: const ValueKey('webviewx'),
           initialContent: utf8.decode(base64Decode(_getLoanAgreementRes?.data?.loanAgreementModel?.data ?? "")),
           initialSourceType:
@@ -421,12 +428,12 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
   }
 
   void onPressIAgreeButton() async {
-    Navigator.pop(context);
-    // Navigator.pushReplacementNamed(context, MyRoutes.SetupEmandateRoutes);
+    TGLog.d('isAgreementLoaded-$isAgreementLoaded, isAgreementRead  $isAgreementRead');
     if (isAgreementLoaded) {
       if (isAgreementRead) {
         setState(() {
           isAgreeLoaderStart = true;
+          isShowDialog = false;
         });
 
         if (await TGNetUtil.isInternetAvailable()) {
@@ -454,7 +461,9 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
         : AppButton(
             onPress: isAgreementRead
                 ? () async {
-                    showDialog(context: context, builder: (_) => PopUpViewInstructionRegister());
+                    isShowDialog = true;
+                    setState(() {});
+                    // showDialog(context: context, builder: (_) => PopUpViewInstructionRegister());
                   }
                 : () {},
             title: str_agree,

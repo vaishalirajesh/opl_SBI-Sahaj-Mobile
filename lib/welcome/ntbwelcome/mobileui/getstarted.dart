@@ -107,12 +107,7 @@ class _GetStartedState extends State<GetStarted> {
                       builder: (context) => const SignUpView(),
                     ),
                   );
-                  setState(() {
-                    isLoaderStart = false;
-                  });
                 });
-
-                // Navigator.pushNamed(context, MyRoutes.EnableGstApiRoutes);
               },
               title: str_get_started,
             ),
