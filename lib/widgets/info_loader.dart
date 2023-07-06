@@ -21,51 +21,54 @@ class ShowInfoLoader extends StatelessWidget {
       },
       child: Scaffold(
         backgroundColor: isTransparentColor ? MyColors.darkblack.withOpacity(0.9) : MyColors.darkblack,
-        body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 80,
-                height: 80,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    CircularProgressIndicator(
-                      backgroundColor: MyColors.pnbcolorPrimary,
-                      strokeWidth: 4.w,
-                      color: MyColorsSBI.sbicolorDisableColor,
+        body: AbsorbPointer(
+          absorbing: true,
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 80,
+                  height: 80,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      CircularProgressIndicator(
+                        backgroundColor: MyColors.pnbcolorPrimary,
+                        strokeWidth: 4.w,
+                        color: MyColorsSBI.sbicolorDisableColor,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 50.w, top: 10.h, right: 50.w),
+                  child: Center(
+                    child: Text(
+                      msg,
+                      textAlign: TextAlign.center,
+                      style: ThemeHelper.getInstance()?.textTheme.button?.copyWith(
+                            color: ThemeHelper.getInstance()?.colorScheme.background,
+                          ),
                     ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 50.w, top: 10.h, right: 50.w),
-                child: Center(
-                  child: Text(
-                    msg,
-                    textAlign: TextAlign.center,
-                    style: ThemeHelper.getInstance()?.textTheme.button?.copyWith(
-                          color: ThemeHelper.getInstance()?.colorScheme.background,
-                        ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 30, top: 10, right: 30),
-                child: Center(
-                  child: Text(
-                    subMsg,
-                    textAlign: TextAlign.center,
-                    style: ThemeHelper.getInstance()
-                        ?.textTheme
-                        .headlineMedium
-                        ?.copyWith(color: ThemeHelper.getInstance()?.colorScheme.background, fontSize: 14.sp),
+                Padding(
+                  padding: const EdgeInsets.only(left: 30, top: 10, right: 30),
+                  child: Center(
+                    child: Text(
+                      subMsg,
+                      textAlign: TextAlign.center,
+                      style: ThemeHelper.getInstance()
+                          ?.textTheme
+                          .headlineMedium
+                          ?.copyWith(color: ThemeHelper.getInstance()?.colorScheme.background, fontSize: 14.sp),
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

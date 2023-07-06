@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_util.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/accountaggregatorntb/ui/aadetails.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/gst_consent_of_gst/gst_consent_of_gst.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/gst_detail/gst_detail.dart';
@@ -177,6 +178,15 @@ Future<void> navigationHandler({
               (route) => false, //if you want to disable back feature set to false
             );
             break;
+          case StringAssets.aaPage:
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => const AccountAggregatorDetails(),
+              ),
+              (route) => false, //if you want to disable back feature set to false
+            );
+            break;
           // case StringAssets.registrationCompleted:
           //   Navigator.pushAndRemoveUntil(
           //     context,
@@ -253,97 +263,3 @@ Future<void> navigationHandler({
     }
   }
 }
-// On back press
-
-// case StringAssets.moveNextStage:
-//   TGSharedPreferences.getInstance().set(PREF_CURRENT_STAGE, currentAppStage);
-//
-//   if (currentAppStage == STAGE_INITIATED) {
-//     Navigator.pushAndRemoveUntil(
-//       context,
-//       MaterialPageRoute(
-//         builder: (BuildContext context) => const GSTInvoicesListPage(),
-//       ),
-//       (route) => false, //if you want to disable back feature set to false
-//     );
-//   } else if (currentAppStage == STAGE_SHARE_INVOICE) {
-//     Navigator.pushAndRemoveUntil(
-//       context,
-//       MaterialPageRoute(
-//         builder: (BuildContext context) => const GSTInvoicesListPage(),
-//       ),
-//       (route) => false, //if you want to disable back feature set to false
-//     );
-//   } else if (currentAppStage == STAGE_CONSENT) {
-//     Navigator.pushAndRemoveUntil(
-//       context,
-//       MaterialPageRoute(
-//         builder: (BuildContext context) => const AccountAggregatorDetailsPage(),
-//       ),
-//       (route) => false, //if you want to disable back feature set to false
-//     );
-//   } else if (currentAppStage == STAGE_LIST_OFFER) {
-//     Navigator.pushAndRemoveUntil(
-//       context,
-//       MaterialPageRoute(
-//         builder: (BuildContext context) => const LoanOfferListPage(),
-//       ),
-//       (route) => false, //if you want to disable back feature set to false
-//     );
-//   } else if (currentAppStage == STAGE_LOAN_OFFER) {
-//     Navigator.pushAndRemoveUntil(
-//       context,
-//       MaterialPageRoute(
-//         builder: (BuildContext context) => const InfoSharePage(),
-//       ),
-//       (route) => false, //if you want to disable back feature set to false
-//     );
-//   } else if (currentAppStage == STAGE_SET_DISBURSEMENT_ACC) {
-//     Navigator.pushAndRemoveUntil(
-//       context,
-//       MaterialPageRoute(
-//         builder: (BuildContext context) => const ReviewDisbursedAcPage(),
-//       ),
-//       (route) => false, //if you want to disable back feature set to false
-//     );
-//   } else if (currentAppStage == STAGE_SIGN_AGGREEMENT) {
-//     Navigator.pushAndRemoveUntil(
-//       context,
-//       MaterialPageRoute(
-//         builder: (BuildContext context) => const LoanAgreementPage(),
-//       ),
-//       (route) => false, //if you want to disable back feature set to false
-//     );
-//   } else if (currentAppStage == STAGE_SIGN_AGGREEMENT_STATUS) {
-//     Navigator.pushAndRemoveUntil(
-//       context,
-//       MaterialPageRoute(
-//         builder: (BuildContext context) => const LoanAgreementPage(),
-//       ),
-//       (route) => false, //if you want to disable back feature set to false
-//     );
-//   } else if (currentAppStage == STAGE_GRANT_LOAN) {
-//     Navigator.pushAndRemoveUntil(
-//       context,
-//       MaterialPageRoute(
-//         builder: (BuildContext context) => const LoanAgreementCompletedPage(),
-//       ),
-//       (route) => false, //if you want to disable back feature set to false
-//     );
-//   } else if (currentAppStage == STAGE_DISBURSEMENT) {
-//     Navigator.pushAndRemoveUntil(
-//       context,
-//       MaterialPageRoute(
-//         builder: (BuildContext context) => const ProceedToDisbursedPage(),
-//       ),
-//       (route) => false, //if you want to disable back feature set to false
-//     );
-//   } else {
-//     Navigator.pushAndRemoveUntil(
-//       context,
-//       MaterialPageRoute(
-//         builder: (BuildContext context) => const CongratulationsPage(),
-//       ),
-//       (route) => false, //if you want to disable back feature set to false
-//     );
-//   }

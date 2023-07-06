@@ -50,7 +50,13 @@ class SetupEmandate extends StatelessWidget {
         return SafeArea(
           child: WillPopScope(
             onWillPop: () async {
-              Navigator.pushReplacementNamed(context, MyRoutes.SetupEmandateRoutes);
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => const DashboardWithGst(),
+                ),
+                (route) => false, //if you want to disable back feature set to false
+              );
               return true;
             },
             child: const SetupEmandateViewScreen(),
@@ -111,7 +117,7 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) => const SetupEmandate(),
+                    builder: (BuildContext context) => const DashboardWithGst(),
                   ),
                   (route) => false, //if you want to disable back feature set to false
                 );

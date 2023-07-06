@@ -88,9 +88,13 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
     return SafeArea(
       child: WillPopScope(
         onWillPop: () async {
-          Navigator.pop(context, false);
-          SystemNavigator.pop(animated: true);
-          return true;
+          if (!isLoadData) {
+            return false;
+          } else {
+            Navigator.pop(context, false);
+            SystemNavigator.pop(animated: true);
+            return true;
+          }
         },
         child: !isLoadData
             ? const ShowInfoLoader(

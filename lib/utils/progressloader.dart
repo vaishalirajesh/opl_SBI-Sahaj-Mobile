@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/aalist/ui/aa_error_screen.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/login/login.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusConstants.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
@@ -295,6 +296,14 @@ class LoaderUtils {
         context,
         MaterialPageRoute(
           builder: (BuildContext context) => LoginWithMobileNumber(),
+        ),
+        (route) => false, //if you want to disable back feature set to false
+      );
+    } else if (status == CONSENT_REJECTION) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => const AAErrorScreen(msg: consent_fail),
         ),
         (route) => false, //if you want to disable back feature set to false
       );

@@ -420,6 +420,9 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
         showSnackBarForintenetConnection(context, onUpdateGstCheckBox);
       }
     } else if (response.saveConsentMainObj().status == RES_UNAUTHORISED) {
+      setState(() {
+        isLoaderStart = false;
+      });
       TGView.showSnackBar(context: context, message: response.saveConsentMainObj().message ?? "");
     } else {
       // isButtonChecked.value = false;
@@ -468,6 +471,9 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
         ),
       );
     } else if (response.saveConsentMainObj().status == RES_UNAUTHORISED) {
+      setState(() {
+        isLoaderStart = false;
+      });
       TGView.showSnackBar(context: context, message: response.saveConsentMainObj().message ?? "");
     } else {
       LoaderUtils.handleErrorResponse(

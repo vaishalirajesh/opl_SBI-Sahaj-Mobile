@@ -11,6 +11,7 @@ import 'package:gstmobileservices/service/response/tg_response.dart';
 import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
+import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/transactions/common_card/disbursed/disbursed_transaction.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/transactions/common_card/outstanding/outstanding_transaction.dart';
@@ -21,6 +22,7 @@ import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusConstants.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
+import 'package:sbi_sahay_1_0/utils/internetcheckdialog.dart';
 import 'package:sbi_sahay_1_0/utils/progressLoader.dart';
 import 'package:sbi_sahay_1_0/widgets/animation_routes/shimmer_widget.dart';
 
@@ -91,8 +93,16 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
   void initState() {
     tabController = TabController(vsync: this, length: 4);
     tabController.index = TGSession.getInstance().get("TabIndex") ?? 0;
-    getAllLoansByReferenceId();
+    getLoansByReferenceId();
     super.initState();
+  }
+
+  Future<void> getLoansByReferenceId() async {
+    if (await TGNetUtil.isInternetAvailable()) {
+      getAllLoansByReferenceId();
+    } else {
+      showSnackBarForintenetConnection(context, getAllLoansByReferenceId);
+    }
   }
 
   @override

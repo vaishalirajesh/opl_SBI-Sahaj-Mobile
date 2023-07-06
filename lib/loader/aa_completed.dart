@@ -184,7 +184,6 @@ class _AaCompletedState extends State<AaCompletedPage> {
       } else if (consentStatus == CONSENT_REJECTION) {
         LoaderUtils.handleErrorResponse(context, consentStatus, response?.getConsentStatusResObj().message, null);
       } else {
-        // TODO : Add showing error popup for account aggregator fail
         navigationHandler(
           bankName: TGFlavor.param("bankName"),
           currentScreen: StringAssets.aaCompleted,
