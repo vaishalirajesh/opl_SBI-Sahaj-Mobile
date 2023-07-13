@@ -310,11 +310,14 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: 20.w,
               height: 20.h,
               child: Theme(
-                data: ThemeData(useMaterial3: true),
+                data: ThemeData(
+                  useMaterial3: true,
+                  primaryColor: ThemeHelper.getInstance()!.primaryColor,
+                ),
                 child: Checkbox(
                   checkColor: ThemeHelper.getInstance()!.backgroundColor,
                   activeColor: ThemeHelper.getInstance()!.primaryColor,

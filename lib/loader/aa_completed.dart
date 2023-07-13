@@ -55,7 +55,8 @@ class _AaCompletedState extends State<AaCompletedPage> {
     fi = widget.str['fi'];
     _init();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      // loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
+      // var url = window.location.href;
+      // js.context.callMethod('open', ['https://stackoverflow.com/questions/ask']);
       if (mounted) {
         loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
         setState(() {});
@@ -93,13 +94,10 @@ class _AaCompletedState extends State<AaCompletedPage> {
             return true;
           }
         },
-        child: Scaffold(
-          body: loanAppId == "" || loanAppId == null
-              ? const ShowInfoLoader(
-                  msg: str_fetching_bank_account_details,
-                )
-              : Container(),
-        ),
+        child: const Scaffold(
+            body: ShowInfoLoader(
+          msg: str_fetching_bank_account_details,
+        )),
       ),
     );
   }
