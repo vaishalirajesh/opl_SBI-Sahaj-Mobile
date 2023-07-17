@@ -445,7 +445,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
         onError: (error) => _onErrorGetGstBasicDetails(error));
   }
 
-  _onSuccessGetGstBasicDetails(GetGstBasicDetailsResponse? response) {
+  _onSuccessGetGstBasicDetails(GetGstBasicDetailsResponse? response) async {
     TGLog.d("GetGstBasicDetailsResponse : onSuccess()");
     setState(() {
       _basicdetailsResponse = response?.getGstBasicDetailsRes();
@@ -490,7 +490,13 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
               (route) => false);
         }
       } else {
-        _getUserLoanDetails();
+        if (await TGNetUtil.isInternetAvailable()) {
+          _getUserLoanDetails();
+        } else {
+          if (context.mounted) {
+            showSnackBarForintenetConnection(context, _getUserLoanDetails);
+          }
+        }
       }
     } else if (_basicdetailsResponse?.status == RES_DETAILS_NOT_FOUND) {
       setState(() {});

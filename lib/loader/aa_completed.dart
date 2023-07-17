@@ -18,7 +18,6 @@ import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/erros_handle_util.dart';
 import 'package:gstmobileservices/util/tg_flavor.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
-import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/utils/movestageutils.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
@@ -81,18 +80,7 @@ class _AaCompletedState extends State<AaCompletedPage> {
     return SafeArea(
       child: WillPopScope(
         onWillPop: () async {
-          if (loanAppId == "" || loanAppId == null) {
-            return false;
-          } else {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => const DashboardWithGst(),
-              ),
-              (route) => false, //if you want to disable back feature set to false
-            );
-            return true;
-          }
+          return false;
         },
         child: const Scaffold(
             body: ShowInfoLoader(

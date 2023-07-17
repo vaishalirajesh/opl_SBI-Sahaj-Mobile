@@ -339,11 +339,11 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
 
     ServiceManager.getInstance().saveConsent(
         request: tgPostRequest,
-        onSuccess: (response) => _onSuccessSaveConsent(response),
-        onError: (errorResponse) => _onErrorSaveConsent(errorResponse));
+        onSuccess: (response) => _onSuccessSaveCICConsent(response),
+        onError: (errorResponse) => _onErrorSaveCICConsent(errorResponse));
   }
 
-  _onSuccessSaveConsent(SaveConsentApprovalResponse response) {
+  _onSuccessSaveCICConsent(SaveConsentApprovalResponse response) {
     TGLog.d("SaveConsent() : Success");
     var saveConsentRes = response.saveConsentMainObj();
     if (saveConsentRes?.status == RES_SUCCESS) {
@@ -367,7 +367,7 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
     }
   }
 
-  _onErrorSaveConsent(TGResponse errorResponse) {
+  _onErrorSaveCICConsent(TGResponse errorResponse) {
     TGLog.d("SaveConsent() : Error");
     setState(() {
       _modalBottomSheetMenu();

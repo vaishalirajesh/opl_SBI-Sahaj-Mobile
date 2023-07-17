@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gstmobileservices/model/models/get_loandetail_by_refid_res_main.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/loanofferlist/ui/loan_offer_pop_up.dart';
+import 'package:sbi_sahay_1_0/registration/mobile/gst_consent_of_gst/gst_consent_of_gst.dart';
 
 import '../disbursed/mobile/loanreview/ui/loanreviewscreen.dart';
 import '../disbursed/mobile/proceedtodisbursed/ui/proceedtodisbscreen.dart';
@@ -14,7 +15,6 @@ import '../loanprocess/mobile/congratulations_final/ui/congratulationfinalscreen
 import '../loanprocess/mobile/emailafterloanagreement/mobile/email_sent_after_loan_agreement.dart';
 import '../loanprocess/mobile/gstinvoiceslist/ui/gstinvoicelist.dart';
 import '../loanprocess/mobile/loanofferlist/ui/loanofferlistscreen.dart';
-import '../registration/mobile/cic_consent/cic_consent.dart';
 import 'constants/prefrenceconstants.dart';
 import 'constants/stageconstants.dart';
 
@@ -33,7 +33,7 @@ class MoveStage {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context) => CicConsent(),
+              builder: (BuildContext context) => GstConsent(),
             ),
             (route) => false, //if you want to disable back feature set to false
           );
@@ -53,7 +53,7 @@ class MoveStage {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context) => CicConsent(),
+              builder: (BuildContext context) => GstConsent(),
             ),
             (route) => false, //if you want to disable back feature set to false
           );
@@ -73,7 +73,7 @@ class MoveStage {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context) => CicConsent(),
+              builder: (BuildContext context) => GstConsent(),
             ),
             (route) => false, //if you want to disable back feature set to false
           );

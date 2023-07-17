@@ -3,12 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
+import 'package:gstmobileservices/model/models/get_gst_basic_details_res_main.dart';
+import 'package:gstmobileservices/model/models/get_loandetail_by_refid_res_main.dart';
+import 'package:gstmobileservices/model/requestmodel/get_all_loan_detail_by_refid_request.dart';
+import 'package:gstmobileservices/model/requestmodel/get_gst_basic_details_request.dart';
+import 'package:gstmobileservices/model/responsemodel/get_all_loan_detail_by_refid_response.dart';
+import 'package:gstmobileservices/model/responsemodel/get_gst_basic_details_response.dart';
+import 'package:gstmobileservices/service/request/tg_get_request.dart';
+import 'package:gstmobileservices/service/response/tg_response.dart';
+import 'package:gstmobileservices/service/service_managers.dart';
+import 'package:gstmobileservices/singleton/tg_session.dart';
+import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
+import 'package:gstmobileservices/util/erros_handle_util.dart';
 import 'package:gstmobileservices/util/jumpingdot_util.dart';
 import 'package:gstmobileservices/util/tg_flavor.dart';
+import 'package:gstmobileservices/util/tg_net_util.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
+import 'package:sbi_sahay_1_0/registration/mobile/gst_consent_of_gst/gst_consent_of_gst.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/login/login.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/signupdetails/signup.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
+import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
+import 'package:sbi_sahay_1_0/utils/constants/session_keys.dart';
+import 'package:sbi_sahay_1_0/utils/constants/statusConstants.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
+import 'package:sbi_sahay_1_0/utils/internetcheckdialog.dart';
+import 'package:sbi_sahay_1_0/utils/progressLoader.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -38,6 +58,8 @@ class GetStarted extends StatefulWidget {
 
 class _GetStartedState extends State<GetStarted> {
   bool isLoaderStart = false;
+  GetGstBasicdetailsResMain? _basicdetailsResponse;
+  GetAllLoanDetailByRefIdResMain? _getAllLoanDetailRes;
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +121,7 @@ class _GetStartedState extends State<GetStarted> {
                 setState(() {
                   isLoaderStart = true;
                 });
+                // getUserData();
                 Future.delayed(const Duration(seconds: 2), () {
                   TGLog.d('Bank name--${TGFlavor.param("bankName")}');
                   Navigator.pushReplacement(
@@ -112,6 +135,157 @@ class _GetStartedState extends State<GetStarted> {
               title: str_get_started,
             ),
     );
+  }
+
+  void getUserData() async {
+    if (await TGNetUtil.isInternetAvailable()) {
+      _getGstBasicDetails();
+    } else {
+      if (context.mounted) {
+        showSnackBarForintenetConnection(context, _getGstBasicDetails);
+      }
+    }
+  }
+
+  //Get GST Basic Detail API Call
+  Future<void> _getGstBasicDetails() async {
+    await Future.delayed(const Duration(seconds: 2));
+    TGGetRequest tgGetRequest = GetGstBasicDetailsRequest();
+    ServiceManager.getInstance().getGstBasicDetails(
+        request: tgGetRequest,
+        onSuccess: (response) => _onSuccessGetGstBasicDetails(response),
+        onError: (error) => _onErrorGetGstBasicDetails(error));
+  }
+
+  _onSuccessGetGstBasicDetails(GetGstBasicDetailsResponse? response) async {
+    TGLog.d("GetGstBasicDetailsResponse : onSuccess()");
+    setState(() {
+      _basicdetailsResponse = response?.getGstBasicDetailsRes();
+    });
+    if (_basicdetailsResponse?.status == RES_DETAILS_FOUND) {
+      if (_basicdetailsResponse?.data?.isNotEmpty == true) {
+        if (_basicdetailsResponse?.data?[0].isOtpVerified == true) {
+          if (_basicdetailsResponse?.data?[0]?.gstin?.isNotEmpty == true) {
+            var gstin = _basicdetailsResponse!.data![0].gstin!;
+            if (_basicdetailsResponse!.data![0].gstin!.length >= 12) {
+              TGSharedPreferences.getInstance()
+                  .set(PREF_BUSINESSNAME, _basicdetailsResponse?.data?[0].gstBasicDetails?.tradeNam);
+              TGSharedPreferences.getInstance().set(PREF_GSTIN, _basicdetailsResponse?.data?[0].gstin);
+              TGSharedPreferences.getInstance().set(PREF_USERNAME, _basicdetailsResponse?.data?[0].username.toString());
+              TGSharedPreferences.getInstance()
+                  .set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin?.substring(2, 12));
+            } else {
+              TGSharedPreferences.getInstance().set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin);
+            }
+            TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
+            TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => const DashboardWithGST(),
+                ),
+                (route) => false);
+          } else {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => GstConsent(),
+                ),
+                (route) => false);
+          }
+        } else {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => GstConsent(),
+              ),
+              (route) => false);
+        }
+      } else {
+        if (await TGNetUtil.isInternetAvailable()) {
+          _getUserLoanDetails();
+        } else {
+          if (context.mounted) {
+            showSnackBarForintenetConnection(context, _getUserLoanDetails);
+          }
+        }
+      }
+    } else if (_basicdetailsResponse?.status == RES_DETAILS_NOT_FOUND) {
+      setState(() {});
+      TGLog.d('Bank name--${TGFlavor.param("bankName")}');
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const SignUpView(),
+        ),
+      );
+    } else {
+      setState(() {});
+      LoaderUtils.handleErrorResponse(
+          context, response?.getGstBasicDetailsRes().status, response?.getGstBasicDetailsRes().message, null);
+    }
+  }
+
+  _onErrorGetGstBasicDetails(TGResponse errorResponse) {
+    setState(() {
+      isLoaderStart = false;
+    });
+    TGLog.d("GetGstBasicDetailsResponse : onError()");
+    handleServiceFailError(context, errorResponse.error);
+  }
+
+  Future<void> _getUserLoanDetails() async {
+    TGGetRequest tgGetRequest = GetLoanDetailByRefIdReq();
+    ServiceManager.getInstance().getAllLoanDetailByRefId(
+        request: tgGetRequest,
+        onSuccess: (response) => _onSuccessGetAllLoanDetailByRefId(response),
+        onError: (error) => _onErrorGetAllLoanDetailByRefId(error));
+  }
+
+  _onSuccessGetAllLoanDetailByRefId(GetAllLoanDetailByRefIdResponse? response) {
+    TGLog.d("UserLoanDetailsResponse : onSuccess()");
+    _getAllLoanDetailRes = response?.getAllLoanDetailObj();
+
+    if (_getAllLoanDetailRes?.status == RES_SUCCESS) {
+      if (_getAllLoanDetailRes?.data?.isEmpty == true) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => GstConsent(),
+            ),
+            (route) => false);
+      } else {
+        TGSharedPreferences.getInstance().set(PREF_GSTIN, _getAllLoanDetailRes?.data?[0].gstin);
+        TGSharedPreferences.getInstance().set(PREF_PANNO, _getAllLoanDetailRes?.data?[0].gstin?.substring(2, 12));
+        TGSession.getInstance().set(SESSION_GSTIN, _getAllLoanDetailRes?.data?[0].gstin);
+        TGSession.getInstance().set(SESSION_PANNO, _getAllLoanDetailRes?.data?[0].gstin?.substring(2, 12));
+        TGSession.getInstance().set(SESSION_BUSINESSNAME, _getAllLoanDetailRes?.data?[0].tradeNam);
+        TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
+        TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
+
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => const DashboardWithGst(),
+            ),
+            (route) => false);
+      }
+    } else {
+      setState(() {
+        isLoaderStart = false;
+      });
+
+      LoaderUtils.handleErrorResponse(
+          context, response?.getAllLoanDetailObj().status, response?.getAllLoanDetailObj().message, null);
+    }
+  }
+
+  _onErrorGetAllLoanDetailByRefId(TGResponse errorResponse) {
+    TGLog.d("UserLoanDetailsResponse : onError()");
+    handleServiceFailError(context, errorResponse.error);
+    setState(() {
+      isLoaderStart = false;
+    });
   }
 }
 

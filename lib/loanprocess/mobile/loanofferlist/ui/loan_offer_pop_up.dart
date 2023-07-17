@@ -51,13 +51,11 @@ class _LoanOfferDialogState extends State<LoanOfferDialog> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Colors.black.withOpacity(0.5),
-        child: Center(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
+      body: AbsorbPointer(
+        absorbing: isLoanDataFeched,
+        child: Container(
+          color: Colors.black.withOpacity(0.5),
+          child: Center(
             child: Container(
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
