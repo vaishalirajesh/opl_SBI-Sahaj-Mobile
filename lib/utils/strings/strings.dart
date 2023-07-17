@@ -2,10 +2,11 @@ const str_login = "Testing Current AC";
 const str_give_constent_for_gst = 'Give Consent for GST';
 
 const str_gst_data_consent_gst = 'Give Consent';
-const str_gst_data_consent = 'GST Data Consent';
-const str_Allow_Sahay_to_fetch_your_GST_Data = 'Allow Sahay to fetch your GST Data';
+const str_gst_data_consent_gst_cic = 'Give Consent for GST & CIC Data';
+const str_gst_data_consent = 'GST Data & Credit Information Company Consent';
+const str_Allow_Sahay_to_fetch_your_GST_Data = 'Allow Sahaj to fetch your GST & CIC data';
 const str_gst_data_consent_long_sentence =
-    '"You hereby undertake and confirm that you have permitted and allowed SAHAY GST application to pull your GST records -GSTR1, GSTR2A and GSTR3B - for the last 12 months from the date of providing consent. You acknowledge and confirm that you have consented to the sharing of your GST Data with lenders on the platform (and their service providers, if any) for the purpose of generating credit offers."';
+    'I/We hereby agree and give consent for the disclosure or obtention by the Bank of all or any such; (a) information and data (including personal data) relating to me/us(b)consent to yono Business Mobile/Desktop Application of State Bank of India to pull my/our GST records including but not limited toGSTR1, GSTR2A and GSTR3B - for the last 12 months from the date of providing consent for the purpose of generating credit offers (c) the information or data relating to any credit facility availed of/to be availed of by me/us and (d) default, if any, committed by me/us in discharge of my/our such obligation, as the Bank may deem appropriate and necessary, to Credit Information Companies, Information Utilities, and/or any other agency authorised in this behalf by Government of India/Reserve bank of India /any other statutory or regulatory authority for purposes of credit decision, prevention of fraud and money laundering, reporting obligations or any other related and ancillary matters. I/We shall not hold the Bank liable for use of this information. I/We understand and agree that such Credit Information Companies, Information Utilities, and/or other agencies may use or process the said information and data disclosed by the Bank; and/or furnish, such information and data (including the processed information/ data) or products thereof prepared by them to banks/financial institutions and other entities, as may be specified by the concerned statutory/regulatory authority in this behalf';
 
 //welcome screen
 const str_welcome_pnb = 'Welcome to Punjab National Bank';
@@ -165,7 +166,7 @@ const str_give_consent_long_sentence =
 
 //..comon
 const str_ok = 'OK';
-const str_i_understand_and_agree_to_sahays_terms = 'I understand and agree to Sahay’s Terms';
+const str_i_understand_and_agree_to_sahays_terms = 'I understand and agree to give consent';
 const str_i_login_check_part1 = 'I accept the ';
 const str_i_login_checkpart2 = 'Privacy policy, Terms & conditions ';
 const str_i_login_checkpart3 = 'and ';
@@ -322,7 +323,7 @@ const str_apply = 'Apply';
 
 //contact support
 const str_contact_support = 'Contact Support';
-const str_contact_sahay_support = 'Contact PNB Sahay App Support team';
+const str_contact_sahay_support = 'Contact SBI Sahay App Support team';
 const str_contact_lender_support = 'Contact Lender Support team';
 const str_raise_grievance = 'Raise Grievances';
 const str_raise_dispute = 'Raise A Dispute';
