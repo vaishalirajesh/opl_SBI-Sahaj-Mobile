@@ -21,7 +21,6 @@ import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
-import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
@@ -108,9 +107,7 @@ class _AAListViewState extends State<AAListView> {
         children: [
           Scaffold(
             appBar: getAppBarWithStepDone("2", str_loan_approve_process, 0.50,
-                onClickAction: () => {
-                      Navigator.pop(context)
-                    }),
+                onClickAction: () => {Navigator.pop(context)}),
             body: AbsorbPointer(
               absorbing: isLoaderStart,
               child: Stack(
@@ -185,7 +182,7 @@ class _AAListViewState extends State<AAListView> {
               child: Align(
                 alignment: Alignment.center,
                 child: SvgPicture.asset(
-                  Utils.path(SMALLBANKLOGO),
+                  AppUtils.path(SMALLBANKLOGO),
                   height: 15.h,
                   width: 15.h,
                 ),
@@ -323,7 +320,7 @@ class _AAListViewState extends State<AAListView> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Image.asset(Utils.path(IMG_NADL), height: 21.h, width: 60.w),
+                            Image.asset(AppUtils.path(IMG_NADL), height: 21.h, width: 60.w),
                             Text("${_searchResult?[index].name}",
                                 style: ThemeHelper.getInstance()!.textTheme.displayMedium!.copyWith(fontSize: 12.sp)),
                           ],

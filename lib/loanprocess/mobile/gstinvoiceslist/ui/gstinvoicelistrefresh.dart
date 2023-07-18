@@ -64,7 +64,7 @@ class GSTInvoiceListRefreshScreenState extends State<GSTInvoiceListRefreshScreen
                 child: Column(
                   children: [
                     SizedBox(height: 40.h),
-                    SvgPicture.asset(Utils.path(REFRESHGST), height: 160.h, width: 154.w),
+                    SvgPicture.asset(AppUtils.path(REFRESHGST), height: 160.h, width: 154.w),
                     SizedBox(height: 27.h),
                     Text(
                       str_refresh_gst,

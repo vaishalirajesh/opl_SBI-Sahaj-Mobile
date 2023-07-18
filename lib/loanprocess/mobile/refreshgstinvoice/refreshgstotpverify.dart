@@ -172,7 +172,7 @@ class VerifyGstOtpScreenState extends State<VerifyGstOtpScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SvgPicture.asset(
-                          Utils.path(MOBILEResend),
+                          AppUtils.path(MOBILEResend),
                           height: 16.h,
                           width: 16.w,
                         ),

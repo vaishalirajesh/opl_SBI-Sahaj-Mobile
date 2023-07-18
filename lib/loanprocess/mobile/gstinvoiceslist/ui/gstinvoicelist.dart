@@ -97,8 +97,8 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
       case 0:
         setState(() {
           arrInvoiceList.sort((a, b) {
-            return Utils.convertDateFormat(a.invoiceData?.invDate, "dd-mm-yyyy", "yyyy-mm-dd")
-                .compareTo(Utils.convertDateFormat(b.invoiceData?.invDate, "dd-mm-yyyy", "yyyy-mm-dd"));
+            return AppUtils.convertDateFormat(a.invoiceData?.invDate, "dd-mm-yyyy", "yyyy-mm-dd")
+                .compareTo(AppUtils.convertDateFormat(b.invoiceData?.invDate, "dd-mm-yyyy", "yyyy-mm-dd"));
           });
         });
         break;
@@ -106,8 +106,8 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
       case 1:
         setState(() {
           arrInvoiceList.sort((a, b) {
-            return Utils.convertDateFormat(b.invoiceData?.invDate, "dd-mm-yyyy", "yyyy-mm-dd")
-                .compareTo(Utils.convertDateFormat(a.invoiceData?.invDate, "dd-mm-yyyy", "yyyy-mm-dd"));
+            return AppUtils.convertDateFormat(b.invoiceData?.invDate, "dd-mm-yyyy", "yyyy-mm-dd")
+                .compareTo(AppUtils.convertDateFormat(a.invoiceData?.invDate, "dd-mm-yyyy", "yyyy-mm-dd"));
           });
         });
         break;
@@ -346,7 +346,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
               maxLines: 2,
             )),
             Text(
-              Utils.convertIndianCurrency(
+              AppUtils.convertIndianCurrency(
                   '${_gstInvoceListResMain?.data?[index].invoiceData?.invValue.toString() ?? ''} '),
               style: ThemeHelper.getInstance()!
                   .textTheme
@@ -361,7 +361,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
         Row(
           children: [
             Text(
-                Utils.convertDateFormat(
+                AppUtils.convertDateFormat(
                     _gstInvoceListResMain?.data?[index].invoiceData?.invDate.toString() ?? "24-03-2023",
                     "dd-MM-yyyy",
                     'd MMM'),
@@ -551,7 +551,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
             child: Column(
               children: [
                 SizedBox(height: 40.h),
-                SvgPicture.asset(Utils.path(REFRESHGST), height: 200.h, width: 154.w),
+                SvgPicture.asset(AppUtils.path(REFRESHGST), height: 200.h, width: 154.w),
                 SizedBox(height: 27.h),
                 Text(
                   str_refresh_gst,
@@ -599,7 +599,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
             GestureDetector(
               child: Padding(
                   padding: EdgeInsets.only(right: 20.w),
-                  child: SvgPicture.asset(Utils.path(IMG_CLOSE_X), height: 10.h, width: 10.w)),
+                  child: SvgPicture.asset(AppUtils.path(IMG_CLOSE_X), height: 10.h, width: 10.w)),
               onTap: () {
                 Navigator.pop(context);
               },
@@ -696,7 +696,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            SvgPicture.asset(Utils.path(REFRESHIMG), height: 15.h, width: 15.w),
+            SvgPicture.asset(AppUtils.path(REFRESHIMG), height: 15.h, width: 15.w),
             SizedBox(
               width: 8.w,
             ),
@@ -717,7 +717,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          SvgPicture.asset(Utils.path(IMG_FILTER_INVOICE), height: 15.h, width: 15.w),
+          SvgPicture.asset(AppUtils.path(IMG_FILTER_INVOICE), height: 15.h, width: 15.w),
           SizedBox(
             width: 4.w,
           ),
@@ -831,7 +831,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
           Image.asset(
             height: 159.h,
             width: 250.w,
-            Utils.path(FETCHGSTLOADER),
+            AppUtils.path(FETCHGSTLOADER),
             fit: BoxFit.fill,
           ),
           // Lottie.asset(Utils.path(FETCHGSTLOADER),
@@ -1002,7 +1002,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   Future<void> getLoanApplicaionStatusAPI() async {
     GetLoanStatusRequest getLoanStatusRequest = GetLoanStatusRequest(loanApplicationRefId: loanApplicationReferenceID);
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('1'));
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, AppUtils.getManageLoanAppStatusParam('1'));
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessGetLoanAppStatus(response),

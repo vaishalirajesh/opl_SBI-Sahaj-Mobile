@@ -1,45 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gstmobileservices/common/tg_log.dart';
 import 'package:gstmobileservices/model/models/get_gst_basic_details_res_main.dart';
 import 'package:gstmobileservices/model/models/get_loandetail_by_refid_res_main.dart';
 import 'package:gstmobileservices/model/models/get_recent_transaction_res_main.dart';
-import 'package:gstmobileservices/model/requestmodel/get_all_loan_detail_by_refid_request.dart';
-import 'package:gstmobileservices/model/requestmodel/get_gst_basic_details_request.dart';
-import 'package:gstmobileservices/model/requestmodel/get_recent_transaction_request.dart';
-import 'package:gstmobileservices/model/responsemodel/get_all_loan_detail_by_refid_response.dart';
-import 'package:gstmobileservices/model/responsemodel/get_gst_basic_details_response.dart';
-import 'package:gstmobileservices/model/responsemodel/get_recent_transaction_response.dart';
-import 'package:gstmobileservices/service/request/tg_get_request.dart';
-import 'package:gstmobileservices/service/response/tg_response.dart';
-import 'package:gstmobileservices/service/service_managers.dart';
-import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
-import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:intl/intl.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
-import 'package:sbi_sahay_1_0/utils/movestageutils.dart';
 
 import '../../../../notificationprefrence/ui/notificationprefrence.dart';
 import '../../../../personalinfo/ui/personalinfo.dart';
 import '../../../../utils/Utils.dart';
 import '../../../../utils/constants/imageconstant.dart';
 import '../../../../utils/constants/prefrenceconstants.dart';
-import '../../../../utils/constants/stageconstants.dart';
-import '../../../../utils/constants/statusConstants.dart';
 import '../../../../utils/helpers/themhelper.dart';
-import '../../../../utils/internetcheckdialog.dart';
-import '../../../../utils/progressLoader.dart';
-import '../../../../utils/singlebuttondialog.dart';
 import '../../../../utils/strings/strings.dart';
 import '../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 import '../../dashboardwithgst/mobile/dashboardwithgst.dart';
-import '../../gstinvoiceslist/ui/gstinvoicelist.dart';
-import '../../profile/ui/profilescreen.dart';
-import '../../transactions/ui/transactionscreen.dart';
 import 'contactsupport/ui/contactsupportscreen.dart';
 import 'faq/ui/faq.dart';
 
@@ -65,14 +43,8 @@ class NewProfileViewBody extends StatefulWidget {
   State<NewProfileViewBody> createState() => _NewProfileViewBodyState();
 }
 
-class _NewProfileViewBodyState extends State<NewProfileViewBody>
-
-
-
-    with SingleTickerProviderStateMixin {
-
+class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
 
   late TabController tabController;
   GetGstBasicdetailsResMain? _basicdetailsResponse;
@@ -93,6 +65,7 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody>
   /*String expanded1 = 'Pending';*/
   int count = 0;
   bool isOngoingJounery = false;
+
   setExpanded1() {
     setState(() {
       isExpanded1 = !isExpanded1;
@@ -112,8 +85,7 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody>
   //showDialog(context: context, builder: (BuildContext context) => errorDialog);}
 
   void setUserData() async {
-    String? text =
-    await TGSharedPreferences.getInstance().get(PREF_BUSINESSNAME);
+    String? text = await TGSharedPreferences.getInstance().get(PREF_BUSINESSNAME);
     String? text1 = await TGSharedPreferences.getInstance().get(PREF_PANNO);
     String? text2 = await TGSharedPreferences.getInstance().get(PREF_GSTIN);
     String? text3 = await TGSharedPreferences.getInstance().get(PREF_USERSTATE);
@@ -138,8 +110,6 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody>
     // getBasicDetailApiCall();
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -168,31 +138,25 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody>
         key: _scaffoldKey,
         drawer: MyDrawer(),
         appBar: getAppBarMainDashboard("2", str_loan_approve_process, 0.50,
-            onClickAction: () => {
-              _scaffoldKey.currentState?.openDrawer()
-            }),
+            onClickAction: () => {_scaffoldKey.currentState?.openDrawer()}),
         body: MainContainerView(),
         //bottomNavigationBar: buildTabBar()
       ),
     );
   }
 
-
-
-  bool activeChecker(int currentIndex) =>
-      tabIndex == currentIndex ? true : false;
-
+  bool activeChecker(int currentIndex) => tabIndex == currentIndex ? true : false;
 
   Widget MainContainerView() {
     return Container(
-      // alignment: Alignment.center,
+        // alignment: Alignment.center,
         decoration: BoxDecoration(
-          // borderRadius: BorderRadius.only(
-          //     bottomRight: Radius.circular(0.r),
-          //     bottomLeft: Radius.circular(0.r)),
-          // border: Border.all(
-          //     width: 1, color: ThemeHelper.getInstance()!.primaryColor),
-          // //color: ThemeHelper.getInstance()!.primaryColor,
+            // borderRadius: BorderRadius.only(
+            //     bottomRight: Radius.circular(0.r),
+            //     bottomLeft: Radius.circular(0.r)),
+            // border: Border.all(
+            //     width: 1, color: ThemeHelper.getInstance()!.primaryColor),
+            // //color: ThemeHelper.getInstance()!.primaryColor,
 
             gradient: LinearGradient(
                 colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
@@ -213,7 +177,6 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody>
           ),
         ));
   }
-
 
   _buildTopContent() {
     return Container(
@@ -236,15 +199,14 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody>
                 Image(
                   height: 44.h,
                   width: 44.w,
-                  image: AssetImage(Utils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
+                  image: AssetImage(AppUtils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
                 ),
                 SizedBox(width: 15.w),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 20.h),
-                    Text("Hello, Indo International!, $name",
-                        style: ThemeHelper.getInstance()?.textTheme.headline2),
+                    Text("Hello, Indo International!, $name", style: ThemeHelper.getInstance()?.textTheme.headline2),
                     SizedBox(height: 5.h),
                     Text("PAN: ABCDE1234F $pan",
                         style: ThemeHelper.getInstance()!
@@ -259,16 +221,20 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody>
                 )*/
               ],
             ),
-            SizedBox(height: 10.h,),
+            SizedBox(
+              height: 10.h,
+            ),
             Divider(),
-            SizedBox(height: 10.h,),
-            Row(children: [
-              Text("GSTIN: 29ABCDE1234F3Z6",
-                  style: ThemeHelper.getInstance()?.textTheme.bodyText2),
-              Spacer(),
-              Text("State: Gujarat",
-                  style: ThemeHelper.getInstance()?.textTheme.bodyText2),
-            ],)
+            SizedBox(
+              height: 10.h,
+            ),
+            Row(
+              children: [
+                Text("GSTIN: 29ABCDE1234F3Z6", style: ThemeHelper.getInstance()?.textTheme.bodyText2),
+                Spacer(),
+                Text("State: Gujarat", style: ThemeHelper.getInstance()?.textTheme.bodyText2),
+              ],
+            )
           ],
         ),
       ),
@@ -280,77 +246,53 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody>
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         SizedBox(height: 12.h),
-        Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildCard(
-                  0,
-                  "Personal Information",
-                  MOBILETDASHBOARDWITHGSTOUTSTANDING,
-                  _basicdetailsResponse
-                      ?.data?[0].loanDetails?.outstanding?.count ??
-                      "",
-                  Utils.convertIndianCurrency(_basicdetailsResponse
-                      ?.data?[0].loanDetails?.outstanding?.amount)),
-              _buildCard(
-                  1,
-                  "Notification Preferences",
-                  MOBILETDASHBOARDWITHGSTOVERDUE,
-                  _basicdetailsResponse
-                      ?.data?[0].loanDetails?.overdue?.count ??
-                      "",
-                  Utils.convertIndianCurrency(_basicdetailsResponse
-                      ?.data?[0].loanDetails?.overdue?.amount)),
-            ]),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+          _buildCard(
+              0,
+              "Personal Information",
+              MOBILETDASHBOARDWITHGSTOUTSTANDING,
+              _basicdetailsResponse?.data?[0].loanDetails?.outstanding?.count ?? "",
+              AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.outstanding?.amount)),
+          _buildCard(
+              1,
+              "Notification Preferences",
+              MOBILETDASHBOARDWITHGSTOVERDUE,
+              _basicdetailsResponse?.data?[0].loanDetails?.overdue?.count ?? "",
+              AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.overdue?.amount)),
+        ]),
         Padding(
           padding: EdgeInsets.only(top: 16.h, bottom: 16.h),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildCard(
-                    2,
-                    "Privacy & Security",
-                    IMG_kfs_coin_stack,
-                    _basicdetailsResponse
-                        ?.data?[0].loanDetails?.repaid?.count ??
-                        "",
-                    Utils.convertIndianCurrency(_basicdetailsResponse
-                        ?.data?[0].loanDetails?.repaid?.amount)),
-                _buildCard(
-                    3,
-                    "About",
-                    MOBILEHANDWITHMONEY,
-                    _basicdetailsResponse
-                        ?.data?[0].loanDetails?.disbursed?.count ??
-                        "",
-                    Utils.convertIndianCurrency(_basicdetailsResponse
-                        ?.data?[0].loanDetails?.disbursed?.amount))
-              ]),
+          child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+            _buildCard(
+                2,
+                "Privacy & Security",
+                IMG_kfs_coin_stack,
+                _basicdetailsResponse?.data?[0].loanDetails?.repaid?.count ?? "",
+                AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.repaid?.amount)),
+            _buildCard(
+                3,
+                "About",
+                MOBILEHANDWITHMONEY,
+                _basicdetailsResponse?.data?[0].loanDetails?.disbursed?.count ?? "",
+                AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.disbursed?.amount))
+          ]),
         ),
         Padding(
           padding: EdgeInsets.only(top: 0.h, bottom: 0.h),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildCard(
-                    4,
-                    "Contact Support",
-                    IMG_kfs_coin_stack,
-                    _basicdetailsResponse
-                        ?.data?[0].loanDetails?.repaid?.count ??
-                        "",
-                    Utils.convertIndianCurrency(_basicdetailsResponse
-                        ?.data?[0].loanDetails?.repaid?.amount)),
-                _buildCard(
-                    5,
-                    "FAQs",
-                    MOBILEHANDWITHMONEY,
-                    _basicdetailsResponse
-                        ?.data?[0].loanDetails?.disbursed?.count ??
-                        "",
-                    Utils.convertIndianCurrency(_basicdetailsResponse
-                        ?.data?[0].loanDetails?.disbursed?.amount))
-              ]),
+          child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+            _buildCard(
+                4,
+                "Contact Support",
+                IMG_kfs_coin_stack,
+                _basicdetailsResponse?.data?[0].loanDetails?.repaid?.count ?? "",
+                AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.repaid?.amount)),
+            _buildCard(
+                5,
+                "FAQs",
+                MOBILEHANDWITHMONEY,
+                _basicdetailsResponse?.data?[0].loanDetails?.disbursed?.count ?? "",
+                AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.disbursed?.amount))
+          ]),
         ),
       ],
     );
@@ -365,36 +307,29 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody>
         ),
         Text(value,
             style: TextStyle(
-                color: ThemeHelper.getInstance()!.indicatorColor,
-                fontSize: 13.sp,
-                fontFamily: MyFont.Nunito_Sans_Bold))
+                color: ThemeHelper.getInstance()!.indicatorColor, fontSize: 13.sp, fontFamily: MyFont.Nunito_Sans_Bold))
       ],
     );
   }
 
-  _buildCard(
-      int index, String title, String imgString, String count, String price) {
+  _buildCard(int index, String title, String imgString, String count, String price) {
     return GestureDetector(
       onTap: () {
-
-        if(index == 0){
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext context) => PersonalInfoDetails()));
-        }else if (index == 1){
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext context) => NotiPrefrences()));
-        }else if (index == 2){//privacy policy
-
-        }else if (index == 3){//about
-
-        }else if (index == 4){//contact support
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext context) => ContactSupportMain()));
-        }else if (index == 5){//FAQ
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext context) => FAQMain()));
+        if (index == 0) {
+          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => PersonalInfoDetails()));
+        } else if (index == 1) {
+          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => NotiPrefrences()));
+        } else if (index == 2) {
+          //privacy policy
+        } else if (index == 3) {
+          //about
+        } else if (index == 4) {
+          //contact support
+          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => ContactSupportMain()));
+        } else if (index == 5) {
+          //FAQ
+          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => FAQMain()));
         }
-
 
         // TGSession.getInstance().set("TabIndex", index);
         // tabController.index = 1;
@@ -422,13 +357,12 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody>
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(
-                  left: 10.0.w, right: 10.w, top: 15.h, bottom: 14.h),
+              padding: EdgeInsets.only(left: 10.0.w, right: 10.w, top: 15.h, bottom: 14.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SvgPicture.asset(
-                    Utils.path(imgString),
+                    AppUtils.path(imgString),
                     height: 24.h,
                     width: 24.w,
                   ),
@@ -440,11 +374,12 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody>
                   //       .headline5
                   //       ?.copyWith(color: MyColors.pnbTextcolor),
                   // ),
-
                 ],
               ),
             ),
-            SizedBox(height: 8.h,),
+            SizedBox(
+              height: 8.h,
+            ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0.w),
               child: Row(
@@ -454,11 +389,14 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody>
                   Expanded(
                     child: Text(
                       title,
-                      style: ThemeHelper.getInstance()?.textTheme.headline4,maxLines: 3,
+                      style: ThemeHelper.getInstance()?.textTheme.headline4,
+                      maxLines: 3,
                     ),
                   ),
                   SvgPicture.asset(
-                    Utils.path(MOBILETDASHBOARDARROWFORWARD),height: 12.h,width: 6.w,
+                    AppUtils.path(MOBILETDASHBOARDARROWFORWARD),
+                    height: 12.h,
+                    width: 6.w,
                   )
                 ],
               ),
@@ -468,7 +406,6 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody>
       ),
     );
   }
-
 
   createDay(String date) {
     if (date.isNotEmpty) {
@@ -506,20 +443,19 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody>
   }
 
   Color setColor(String type) =>
-      type == strDisbursed ? MyColors.pnbGreenColor : MyColors.pnbGreenColor;//MyColors.pnbRedColor;
+      type == strDisbursed ? MyColors.pnbGreenColor : MyColors.pnbGreenColor; //MyColors.pnbRedColor;
 
   _buildListCard(
       {required String day,
-        required String month,
-        required Color background,
-        required String companyName,
-        required String subtext,
-        required String price,
-        double top: 0,
-        double bottom: 0}) {
+      required String month,
+      required Color background,
+      required String companyName,
+      required String subtext,
+      required String price,
+      double top: 0,
+      double bottom: 0}) {
     return Padding(
-      padding:
-      EdgeInsets.only(left: 20.0.w, right: 20.w, bottom: bottom, top: top),
+      padding: EdgeInsets.only(left: 20.0.w, right: 20.w, bottom: bottom, top: top),
       child: Row(
         ///mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -559,11 +495,7 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody>
                           .textTheme
                           .headline1!
                           .copyWith(color: MyColors.black, fontSize: 12.sp)),
-                  Text("19 Aug, 2022",
-                      style: ThemeHelper.getInstance()!
-                          .textTheme
-                          .bodyText2!
-                  ),
+                  Text("19 Aug, 2022", style: ThemeHelper.getInstance()!.textTheme.bodyText2!),
                 ],
               ),
             ],
@@ -572,19 +504,14 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody>
           Column(
             children: [
               Text(
-                Utils.convertIndianCurrency(price),
+                AppUtils.convertIndianCurrency(price),
                 // NumberFormat.simpleCurrency(locale: 'hi-In').format(int.parse(price.toString())).toString(),
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline1!
-                    .copyWith(fontSize: 13.sp),
+                style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 13.sp),
               ),
               Text(
                 subtext,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline3!
-                    .copyWith(color: setColor(subtext), fontSize: 11.sp),
+                style:
+                    ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(color: setColor(subtext), fontSize: 11.sp),
               )
             ],
           ),
@@ -592,6 +519,4 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody>
       ),
     );
   }
-
-
 }

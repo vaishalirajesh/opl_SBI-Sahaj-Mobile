@@ -249,7 +249,7 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
         children: [
           SizedBox(width: 20.w),
           SvgPicture.asset(
-            Utils.path(FILLGREENCONFORMTICK), height: 17.h, width: 17.w,
+            AppUtils.path(FILLGREENCONFORMTICK), height: 17.h, width: 17.w,
             //
           ),
           SizedBox(width: 6.w),
@@ -338,7 +338,7 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
         sizebox(height: 20.h),
         buildCommonRow(titletext: str_due_date, titleValue: _getRepaymentPlanResMain?.data?.dueDate ?? "12 Aug, 2022"),
         sizebox(height: 20.h),
-        buildCommonRow(titletext: str_repayment_amt, titleValue: Utils.convertIndianCurrency("26240")),
+        buildCommonRow(titletext: str_repayment_amt, titleValue: AppUtils.convertIndianCurrency("26240")),
       ],
     );
   }
@@ -394,7 +394,7 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
             )),
         const Spacer(),
         SvgPicture.asset(
-          isOpenDetails ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+          isOpenDetails ? AppUtils.path(IMG_UP_ARROW) : AppUtils.path(IMG_DOWN_ARROW),
           height: 20.h,
           width: 20.w,
           // color: MyColors.lightBlackText,
@@ -558,7 +558,7 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
 
     TGLog.d("Before Status API Requst : $jsonReq");
 
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('8'));
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, AppUtils.getManageLoanAppStatusParam('8'));
 
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,
@@ -623,7 +623,7 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
 
     TGLog.d("Before Status API Requst : $jsonReq");
 
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('8'));
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, AppUtils.getManageLoanAppStatusParam('8'));
 
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,

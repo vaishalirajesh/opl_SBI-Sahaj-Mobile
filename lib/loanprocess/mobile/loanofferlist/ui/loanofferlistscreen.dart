@@ -235,7 +235,7 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                     width: 10.w,
                   ),
                   SvgPicture.asset(
-                    Utils.path(MOBILETDASHBOARDARROWFORWARD),
+                    AppUtils.path(MOBILETDASHBOARDARROWFORWARD),
                     height: 12.h,
                     width: 6.w,
                   ),
@@ -275,7 +275,7 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                       FittedBox(
                         fit: BoxFit.fill,
                         child: Text(
-                          Utils.convertIndianCurrency(
+                          AppUtils.convertIndianCurrency(
                               _getLoanOfferRes?.data?.offers?[index].offerDetails?[0].termsSanctionedAmount),
                           style: ThemeHelper.getInstance()?.textTheme.headline6?.copyWith(fontSize: 14.sp),
                         ),
@@ -299,7 +299,7 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                       FittedBox(
                         fit: BoxFit.fill,
                         child: Text(
-                          Utils.convertIndianCurrency(
+                          AppUtils.convertIndianCurrency(
                               _getLoanOfferRes?.data?.offers?[index].offerDetails?[0].termsRequestedAmount),
                           style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 14.sp),
                         ),
@@ -321,7 +321,7 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
                         height: 5.h,
                       ),
                       Text(
-                        Utils.convertDateFormat(
+                        AppUtils.convertDateFormat(
                           _getLoanOfferRes?.data?.offers?.elementAt(index).offerDetails?.elementAt(0).repayDate ?? "",
                           'dd MMM yyyy',
                           'dd MMM, yyyy',

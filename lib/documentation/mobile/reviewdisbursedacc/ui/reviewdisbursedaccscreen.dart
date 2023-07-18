@@ -214,7 +214,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
                         BoxDecoration(shape: BoxShape.circle, color: ThemeHelper.getInstance()?.backgroundColor),
                     child: Center(
                         child: SvgPicture.asset(
-                      Utils.path(SMALLBANKLOGO),
+                      AppUtils.path(SMALLBANKLOGO),
                       height: 15.h,
                       width: 15.h,
                     ))),
@@ -533,7 +533,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
     String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     GetLoanStatusRequest getLoanStatusRequest = GetLoanStatusRequest(loanApplicationRefId: loanAppRefId);
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('5'));
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, AppUtils.getManageLoanAppStatusParam('5'));
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessGetLoanAppStatus(response),

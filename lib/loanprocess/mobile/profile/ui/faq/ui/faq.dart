@@ -42,9 +42,7 @@ class _FAQScreenState extends State<FAQScreen> {
       },
       child: Scaffold(
         appBar: getAppBarMainDashboardWithBackButton("2", str_loan_approve_process, 0.25,
-            onClickAction: () => {
-              Navigator.pop(context)
-            }),
+            onClickAction: () => {Navigator.pop(context)}),
         body: SingleChildScrollView(child: buildListData()),
       ),
     );
@@ -53,27 +51,23 @@ class _FAQScreenState extends State<FAQScreen> {
   Widget buildListData() {
     return Column(
       children: [
-        Container(height: 50.h,
-            width:MediaQuery.of(context).size.width,
+        Container(
+            height: 50.h,
+            width: MediaQuery.of(context).size.width,
             child: Padding(
-              padding:  EdgeInsets.only(left: 20.w,top: 10.h),
-              child: Text(
-                  "FAQs",
-                  style: ThemeHelper.getInstance()!
-                      .textTheme
-                      .headline3!
-                      .copyWith(color: MyColors.white)),
+              padding: EdgeInsets.only(left: 20.w, top: 10.h),
+              child:
+                  Text("FAQs", style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(color: MyColors.white)),
             ),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(0.r),
-                    bottomLeft: Radius.circular(0.r)),
-                border: Border.all(
-                    width: 1, color: ThemeHelper.getInstance()!.primaryColor),
+                borderRadius: BorderRadius.only(bottomRight: Radius.circular(0.r), bottomLeft: Radius.circular(0.r)),
+                border: Border.all(width: 1, color: ThemeHelper.getInstance()!.primaryColor),
                 //color: ThemeHelper.getInstance()!.primaryColor,
 
-                gradient: LinearGradient(colors: [MyColors.lightRedGradient,MyColors.lightBlueGradient],begin: Alignment.centerLeft,end: Alignment.centerRight )
-            )),
+                gradient: LinearGradient(
+                    colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight))),
         SizedBox(
           height: 30.h,
         ),
@@ -127,16 +121,12 @@ class _FAQScreenState extends State<FAQScreen> {
                 flex: 1,
                 child: Text(
                   question,
-                  style: ThemeHelper.getInstance()!
-                      .textTheme
-                      .headline2!
-                      .copyWith(fontSize: 16),
+                  style: ThemeHelper.getInstance()!.textTheme.headline2!.copyWith(fontSize: 16),
                   maxLines: 10,
                 ),
               ),
               SvgPicture.asset(
-                isShowing[index]
-                    ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+                isShowing[index] ? AppUtils.path(IMG_UP_ARROW) : AppUtils.path(IMG_DOWN_ARROW),
                 height: 15.h,
                 width: 15.w,
                 //color: ThemeHelper.getInstance()?.colorScheme.surface,
@@ -150,10 +140,7 @@ class _FAQScreenState extends State<FAQScreen> {
         isShowing[index]
             ? Text(
                 answer,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline2!
-                    .copyWith(fontSize: 14),
+                style: ThemeHelper.getInstance()!.textTheme.headline2!.copyWith(fontSize: 14),
                 maxLines: 15,
               )
             : SizedBox(

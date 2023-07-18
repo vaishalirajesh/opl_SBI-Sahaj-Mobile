@@ -144,7 +144,7 @@ class ESignCompleted extends State<ESignCompletedMains> {
     GetLoanStatusRequest getLoanStatusRequest =
         GetLoanStatusRequest(loanApplicationRefId: loanAppRefId, loanApplicationId: loanAppId);
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('13'));
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, AppUtils.getManageLoanAppStatusParam('13'));
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessGetLoanAppStatus1(response),

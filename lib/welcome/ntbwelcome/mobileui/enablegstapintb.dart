@@ -168,7 +168,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
               shape: BoxShape.circle,
             ),
             child: SvgPicture.asset(
-              Utils.path(IMG_TWO_PERSON),
+              AppUtils.path(IMG_TWO_PERSON),
               // width: 100.w,
               // height: 80.h,
             ),
@@ -463,7 +463,7 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
   _onSuccessSaveConsentForGST(SaveConsentApprovalResponse response) {
     TGLog.d("SaveGSTConsent() : Success");
     if (response.saveConsentMainObj().status == RES_SUCCESS) {
-      TGSharedPreferences.getInstance().set(PREF_ISTC_DONE, true);
+      TGSharedPreferences.getInstance().set(CONSENT_TYPE_GST_API_ACCESS, true);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -562,7 +562,7 @@ class _GstApiStepsState extends State<GstApiSteps> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SvgPicture.asset(
-                        Utils.path(SAHAYLOGO),
+                        AppUtils.path(SAHAYLOGO),
                         height: 50.h,
                         width: 90.w,
                       ),

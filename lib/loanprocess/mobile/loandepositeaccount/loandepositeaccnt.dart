@@ -154,7 +154,7 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
               child: Align(
                 alignment: Alignment.center,
                 child: SvgPicture.asset(
-                  Utils.path(SMALLBANKLOGO),
+                  AppUtils.path(SMALLBANKLOGO),
                   height: 15.h,
                   width: 15.h,
                 ),
@@ -319,7 +319,7 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SvgPicture.asset(Utils.path(IMG_GREENTICK_AA), height: 18.r, width: 18.r),
+            SvgPicture.asset(AppUtils.path(IMG_GREENTICK_AA), height: 18.r, width: 18.r),
             SizedBox(width: 8.w),
             Expanded(
                 child: Text(
@@ -414,7 +414,7 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
     String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     GetLoanStatusRequest getLoanStatusRequest = GetLoanStatusRequest(loanApplicationRefId: loanAppRefId);
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('5'));
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, AppUtils.getManageLoanAppStatusParam('5'));
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessGetLoanAppStatus(response),

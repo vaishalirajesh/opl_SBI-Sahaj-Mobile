@@ -132,7 +132,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
           padding: EdgeInsets.only(bottom: 40.h),
           child: SizedBox(
             child: Image.asset(
-              Utils.path(IMG_GOODS),
+              AppUtils.path(IMG_GOODS),
               height: 30.h,
               width: 100.w,
             ),
@@ -306,7 +306,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
         height: 23.h,
         alignment: Alignment.center,
         child: Image.asset(
-          Utils.path(MOBILEGoodAndService),
+          AppUtils.path(MOBILEGoodAndService),
           height: 23.h,
           width: 133.w,
         ),

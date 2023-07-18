@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,9 +40,7 @@ class _PrivacypolicyScreenState extends State<PrivacypolicyScreen> {
           appBar: getAppBarWithTitle("Privacy Policy", onClickAction: () {
             Navigator.pop(context);
           }),
-          body: policyContent.isNotEmpty
-              ? policyContainerUI(context)
-              : Container(),
+          body: policyContent.isNotEmpty ? policyContainerUI(context) : Container(),
           bottomNavigationBar: Padding(
             padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
             child: SizedBox(
@@ -74,9 +71,8 @@ class _PrivacypolicyScreenState extends State<PrivacypolicyScreen> {
       child: Container(
           height: MediaQuery.of(context).size.height * 0.85,
           width: MediaQuery.of(context).size.width,
-          decoration: const BoxDecoration(
-              color: Colors.transparent,
-              borderRadius: BorderRadius.all(Radius.circular(5.0))),
+          decoration:
+              const BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(5.0))),
           child: WebViewX(
             /* javascriptMode: JavascriptMode.unrestricted,*/
             key: const ValueKey('webviewx'),
@@ -92,8 +88,7 @@ class _PrivacypolicyScreenState extends State<PrivacypolicyScreen> {
   }
 
   Future<void> setData() async {
-    final text =
-        await rootBundle.loadString(Utils.path('html/privacy_policy.html'));
+    final text = await rootBundle.loadString(AppUtils.path('html/privacy_policy.html'));
     setState(() {
       policyContent = text;
     });

@@ -243,7 +243,7 @@ class OtpVerifyLoginScreenState extends State<OtpVerifyLoginScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             SvgPicture.asset(
-                              Utils.path(MOBILEResend),
+                              AppUtils.path(MOBILEResend),
                               height: 16.h,
                               width: 16.w,
                               color: isVerifyOTPLoaderStart || isGetOTPLoaderStart

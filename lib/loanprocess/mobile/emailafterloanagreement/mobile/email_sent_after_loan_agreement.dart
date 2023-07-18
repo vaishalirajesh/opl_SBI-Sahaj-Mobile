@@ -76,7 +76,7 @@ class _EmailSentAfterLoanAgreementScreen extends State<EmailSentAfterLoanAgreeme
                 SvgPicture.asset(
                   height: 100.h,
                   width: 100.w,
-                  Utils.path(CONGRATULATION),
+                  AppUtils.path(CONGRATULATION),
                   fit: BoxFit.fill,
                 ),
                 // Lottie.asset(Utils.path(EMAILSEND),
@@ -185,7 +185,7 @@ class _EmailSentAfterLoanAgreementScreen extends State<EmailSentAfterLoanAgreeme
     GetLoanStatusRequest getLoanStatusRequest =
         GetLoanStatusRequest(loanApplicationRefId: loanAppRefId, loanApplicationId: loanAppId);
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('10'));
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, AppUtils.getManageLoanAppStatusParam('10'));
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessLoanAppStatusGrantLoan(response),

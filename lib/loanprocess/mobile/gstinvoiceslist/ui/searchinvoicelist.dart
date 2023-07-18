@@ -195,7 +195,7 @@ class _SearchInvoiceListScreenState extends State<SearchInvoiceListScreen> {
                 maxLines: 5,
               ),
             ),
-            Text(Utils.convertIndianCurrency(gstInvoiceDataObj?.invoiceData?.invValue?.toString()),
+            Text(AppUtils.convertIndianCurrency(gstInvoiceDataObj?.invoiceData?.invValue?.toString()),
                 style: ThemeHelper.getInstance()!
                     .textTheme
                     .bodyText1!
@@ -207,7 +207,7 @@ class _SearchInvoiceListScreenState extends State<SearchInvoiceListScreen> {
         ),
         Row(
           children: [
-            Text(Utils.convertDateFormat(gstInvoiceDataObj?.invoiceData!.invDate!.toString(), "dd-MM-yyyy", 'd MMM'),
+            Text(AppUtils.convertDateFormat(gstInvoiceDataObj?.invoiceData!.invDate!.toString(), "dd-MM-yyyy", 'd MMM'),
                 style: ThemeHelper.getInstance()!.textTheme.bodyText2),
             Text(" \u2022 ${gstInvoiceDataObj?.invoiceData?.invNum}" ?? "",
                 style: ThemeHelper.getInstance()!.textTheme.bodyText2),

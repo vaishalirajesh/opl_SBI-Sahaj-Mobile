@@ -19,3 +19,4 @@ const SESSION_SSOADDRESS = 'ssoaddress';
 const SESSION_SSOCIFNO = 'ssocifno';
 const SESSION_SSOPANNO = 'ssopanno';
 const SESSION_ISSSOAPPLY = 'isssoApply';
+const SESSION_EMAIL = 'email';

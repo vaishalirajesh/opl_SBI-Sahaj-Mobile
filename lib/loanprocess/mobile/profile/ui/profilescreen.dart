@@ -98,9 +98,7 @@ class ProfileViewScreenState extends State<ProfileViewScreen> {
                   width: 375.w,
                   decoration: BoxDecoration(
                       color: MyColors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(26.r),
-                          topRight: Radius.circular(26.r))),
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(26.r), topRight: Radius.circular(26.r))),
                   child: _buildProfileList(context),
                 ),
               ),
@@ -108,14 +106,14 @@ class ProfileViewScreenState extends State<ProfileViewScreen> {
                   top: 80.h,
                   left: 20.w,
                   child: Container(
-                    decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.white),
+                      decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
                       width: 101.w,
                       height: 101.w,
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: CircleAvatar(
                           backgroundColor: MyColors.white,
-                          backgroundImage: AssetImage(Utils.path(PROFILE_IMG)),
+                          backgroundImage: AssetImage(AppUtils.path(PROFILE_IMG)),
                         ),
                       )))
             ],
@@ -181,8 +179,7 @@ class ProfileViewScreenState extends State<ProfileViewScreen> {
                 height: 15.h,
               ),
               GestureDetector(
-                child:
-                    _buildProfileListRow(PRIVACY, str_Privacy_security, true),
+                child: _buildProfileListRow(PRIVACY, str_Privacy_security, true),
                 onTap: () {
                   Navigator.push(
                       context,
@@ -196,7 +193,7 @@ class ProfileViewScreenState extends State<ProfileViewScreen> {
               ),
               GestureDetector(
                 child: _buildProfileListRow(ABOUT, str_About, true),
-                onTap: (){
+                onTap: () {
                   TGView.showSnackBar(context: context, message: "Coming Soon...");
                 },
               ),
@@ -211,7 +208,6 @@ class ProfileViewScreenState extends State<ProfileViewScreen> {
                       MaterialPageRoute(
                         builder: (context) => FAQMain(),
                       ));
-
                 },
               ),
               SizedBox(
@@ -249,20 +245,15 @@ class ProfileViewScreenState extends State<ProfileViewScreen> {
         children: [
           Text(
             businessName ?? "",
-            style: ThemeHelper.getInstance()!
-                .textTheme
-                .headline1!
-                .copyWith(fontSize: 18.sp),
+            style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 18.sp),
           ),
           SizedBox(
             height: 5.h,
           ),
           Text(
             panNumber ?? "",
-            style: ThemeHelper.getInstance()!
-                .textTheme
-                .headline2!
-                .copyWith(fontSize: 12.sp, color: MyColors.pnbLogoColor),
+            style:
+                ThemeHelper.getInstance()!.textTheme.headline2!.copyWith(fontSize: 12.sp, color: MyColors.pnbLogoColor),
           )
         ],
       ),
@@ -283,7 +274,7 @@ class ProfileViewScreenState extends State<ProfileViewScreen> {
                   height: 15.h,
                   width: 20.w,
                   child: SvgPicture.asset(
-                    Utils.path(leadingImg),
+                    AppUtils.path(leadingImg),
                     //
                   ),
                 ),
@@ -295,11 +286,7 @@ class ProfileViewScreenState extends State<ProfileViewScreen> {
                   style: ThemeHelper.getInstance()!
                       .textTheme
                       .headline2!
-                      .copyWith(
-                          fontSize: 16.sp,
-                          color: flag
-                              ? MyColors.pnbGreyColor
-                              : MyColors.pnbOrganColor),
+                      .copyWith(fontSize: 16.sp, color: flag ? MyColors.pnbGreyColor : MyColors.pnbOrganColor),
                 )
               ],
             ),
@@ -307,7 +294,7 @@ class ProfileViewScreenState extends State<ProfileViewScreen> {
                 height: 15.h,
                 width: 20.w,
                 child: SvgPicture.asset(
-                  Utils.path(RIGHTARROWIC),
+                  AppUtils.path(RIGHTARROWIC),
                   //
                 ))
           ],

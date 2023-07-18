@@ -321,7 +321,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
             )),
         const Spacer(),
         SvgPicture.asset(
-          isOpenDetails ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+          isOpenDetails ? AppUtils.path(IMG_UP_ARROW) : AppUtils.path(IMG_DOWN_ARROW),
           height: 20.h,
           width: 20.w,
         ),
@@ -367,7 +367,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
               children: <Widget>[
                 SizedBox(height: 40.h), //40
                 Center(
-                  child: SvgPicture.asset(Utils.path(GREENCONFORMTICKREGISTRATIONCOMPLETED),
+                  child: SvgPicture.asset(AppUtils.path(GREENCONFORMTICKREGISTRATIONCOMPLETED),
                       height: 52.h, //,
                       width: 52.w, //134.8,
                       allowDrawingOutsideViewBox: true),

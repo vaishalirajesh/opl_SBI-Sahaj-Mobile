@@ -108,7 +108,7 @@ AppBar getAppBarWithTitle(String appbarTitle, {required Function onClickAction})
         children: [
           GestureDetector(
             child: SvgPicture.asset(
-              Utils.path(MOBILEBACKBTNWHITE),
+              AppUtils.path(MOBILEBACKBTNWHITE),
             ),
             onTap: () {
               onClickAction();
@@ -142,7 +142,7 @@ AppBar getAppBarWithBackBtn({required Function onClickAction}) {
             padding: EdgeInsets.all(10.r),
             child: GestureDetector(
               child: SvgPicture.asset(
-                Utils.path(MOBILEBACKBTN),
+                AppUtils.path(MOBILEBACKBTN),
               ),
               onTap: () {
                 onClickAction();
@@ -195,7 +195,7 @@ AppBar getAppBarWithStep(String step, String appBarTitle, double progress, {requ
                 padding: EdgeInsets.all(10.r),
                 child: GestureDetector(
                   child: SvgPicture.asset(
-                    Utils.path(MOBILEBACKBTN),
+                    AppUtils.path(MOBILEBACKBTN),
                   ),
                   onTap: () {
                     onClickAction();
@@ -271,7 +271,7 @@ AppBar getAppBarWithStepDone(String step, String appBarTitle, double progress, {
                     padding: EdgeInsets.all(10.r),
                     child: GestureDetector(
                       child: SvgPicture.asset(
-                        Utils.path(MOBILEBACKBTN),
+                        AppUtils.path(MOBILEBACKBTN),
                       ),
                       onTap: () {
                         onClickAction();
@@ -280,7 +280,7 @@ AppBar getAppBarWithStepDone(String step, String appBarTitle, double progress, {
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 22.w),
-                    child: SvgPicture.asset(Utils.path(MOBILEMENUBAR)),
+                    child: SvgPicture.asset(AppUtils.path(MOBILEMENUBAR)),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 20.w, right: 3.w),
@@ -335,7 +335,7 @@ AppBar getAppBarMainDashboard(String step, String appBarTitle, double progress, 
                 children: [
                   GestureDetector(
                     child: SvgPicture.asset(
-                      Utils.path(MOBILEMENUBAR),
+                      AppUtils.path(MOBILEMENUBAR),
                     ),
                     onTap: () {
                       onClickAction();
@@ -344,7 +344,7 @@ AppBar getAppBarMainDashboard(String step, String appBarTitle, double progress, 
                   Padding(
                     padding: EdgeInsets.only(left: 70.w),
                     child: SvgPicture.asset(
-                      Utils.path(SAHAJLOGOWITHOUTTEXT),
+                      AppUtils.path(SAHAJLOGOWITHOUTTEXT),
                       height: 30.h,
                       width: 130.w,
                     ),
@@ -355,11 +355,11 @@ AppBar getAppBarMainDashboard(String step, String appBarTitle, double progress, 
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(Utils.path(NOTIFICATIONICON), height: 20.h, width: 20.w),
+                  SvgPicture.asset(AppUtils.path(NOTIFICATIONICON), height: 20.h, width: 20.w),
                   SizedBox(
                     width: 8.w,
                   ),
-                  SvgPicture.asset(Utils.path(LOGOUT), height: 20.h, width: 20.w)
+                  SvgPicture.asset(AppUtils.path(LOGOUT), height: 20.h, width: 20.w)
                 ],
               )
             ],
@@ -398,7 +398,7 @@ AppBar getAppBarMainDashboardWithBackButton(String step, String appBarTitle, dou
                 children: [
                   GestureDetector(
                     child: SvgPicture.asset(
-                      Utils.path(MOBILEBACKBTN),
+                      AppUtils.path(MOBILEBACKBTN),
                     ),
                     onTap: () {
                       onClickAction();
@@ -407,7 +407,7 @@ AppBar getAppBarMainDashboardWithBackButton(String step, String appBarTitle, dou
                   SizedBox(width: 24.w),
                   GestureDetector(
                     child: SvgPicture.asset(
-                      Utils.path(MOBILEMENUBAR),
+                      AppUtils.path(MOBILEMENUBAR),
                     ),
                     onTap: () {
                       onClickAction();
@@ -416,7 +416,7 @@ AppBar getAppBarMainDashboardWithBackButton(String step, String appBarTitle, dou
                   Padding(
                     padding: EdgeInsets.only(left: 70.w),
                     child: SvgPicture.asset(
-                      Utils.path(SAHAJLOGOWITHOUTTEXT),
+                      AppUtils.path(SAHAJLOGOWITHOUTTEXT),
                       height: 30.h,
                       width: 130.w,
                     ),
@@ -427,11 +427,11 @@ AppBar getAppBarMainDashboardWithBackButton(String step, String appBarTitle, dou
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(Utils.path(NOTIFICATIONICON), height: 20.h, width: 20.w),
+                  SvgPicture.asset(AppUtils.path(NOTIFICATIONICON), height: 20.h, width: 20.w),
                   SizedBox(
                     width: 8.w,
                   ),
-                  SvgPicture.asset(Utils.path(LOGOUT), height: 20.h, width: 20.w)
+                  SvgPicture.asset(AppUtils.path(LOGOUT), height: 20.h, width: 20.w)
                 ],
               )
             ],

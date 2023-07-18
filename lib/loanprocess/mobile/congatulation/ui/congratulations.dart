@@ -25,7 +25,7 @@ class _CongratulationsScreenState extends State<CongratulationsScreen> {
         body: Stack(
           children: [
             Image.asset(
-              Utils.path(KFSCONGRATULATIONBG),
+              AppUtils.path(KFSCONGRATULATIONBG),
               fit: BoxFit.fill,
               height: 0.35.sh,
               width: 1.sw,
@@ -36,7 +36,7 @@ class _CongratulationsScreenState extends State<CongratulationsScreen> {
                 children: [
                   SizedBox(height: 100.h),
                   SvgPicture.asset(
-                    Utils.path(FILLGREENCONFORMTICK),
+                    AppUtils.path(FILLGREENCONFORMTICK),
                     height: 52.h, //,
                     width: 52.w, //134.8,
                     allowDrawingOutsideViewBox: true,

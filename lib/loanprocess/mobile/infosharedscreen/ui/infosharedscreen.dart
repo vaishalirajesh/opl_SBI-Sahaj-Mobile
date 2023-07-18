@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
 import 'package:gstmobileservices/model/models/get_loan_app_status_main.dart';
@@ -17,22 +16,18 @@ import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
-import 'package:gstmobileservices/util/tg_view.dart';
-import 'package:lottie/lottie.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusconstants.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
+import 'package:sbi_sahay_1_0/utils/progressloader.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 
-import '../../../../routes.dart';
 import '../../../../utils/constants/imageconstant.dart';
 import '../../../../utils/internetcheckdialog.dart';
 import '../../../../utils/movestageutils.dart';
-import '../../../../utils/progressLoader.dart';
-import '../../../../widgets/loaderscreen/mobileloader/loaderwithprogressbar.dart';
 import '../../dashboardwithgst/mobile/dashboardwithgst.dart';
 
 class InfoShare extends StatelessWidget {
@@ -54,7 +49,6 @@ class InfoSharedScreenUI extends StatefulWidget {
 class _InfoSharedScreenUIState extends State<InfoSharedScreenUI> {
   ShareGstInvoiceResMain? _shareGstInvoiceRes;
   GetLoanStatusResMain? _getLoanStatusRes;
-
 
   //bool setIsLoader = false;
   @override
@@ -83,8 +77,7 @@ class _InfoSharedScreenUIState extends State<InfoSharedScreenUI> {
               MaterialPageRoute(
                 builder: (BuildContext context) => DashboardWithGST(),
               ),
-              (route) =>
-                  false, //if you want to disable back feature set to false
+              (route) => false, //if you want to disable back feature set to false
             );
           }),
           body: Container(
@@ -99,7 +92,7 @@ class _InfoSharedScreenUIState extends State<InfoSharedScreenUI> {
                   Image.asset(
                     height: 159.h,
                     width: 250.w,
-                    Utils.path(INFOSHARELOADER),
+                    AppUtils.path(INFOSHARELOADER),
                     fit: BoxFit.fitHeight,
                   ),
                   // Lottie.asset(Utils.path(INFOSHARELOADER),
@@ -113,10 +106,7 @@ class _InfoSharedScreenUIState extends State<InfoSharedScreenUI> {
                   // ),
                   Text(
                     str_info_share,
-                    style: ThemeHelper.getInstance()
-                        ?.textTheme
-                        .headline1
-                        ?.copyWith(fontSize: 32.sp),
+                    style: ThemeHelper.getInstance()?.textTheme.headline1?.copyWith(fontSize: 32.sp),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
@@ -145,8 +135,7 @@ class _InfoSharedScreenUIState extends State<InfoSharedScreenUI> {
       child: ElevatedButton(
           onPressed: () async {
             WidgetsBinding.instance.addPostFrameCallback((_) async {
-              LoaderUtils.showLoaderwithmsg(context,
-                  msg: "Please Wait....\n$str_fetch_loan_offer_from_lender");
+              LoaderUtils.showLoaderwithmsg(context, msg: "Please Wait....\n$str_fetch_loan_offer_from_lender");
             });
 
             if (await TGNetUtil.isInternetAvailable()) {
@@ -164,23 +153,18 @@ class _InfoSharedScreenUIState extends State<InfoSharedScreenUI> {
     );
   }
 
-
-
   Future<void> generateLoanOffer() async {
-    String loanAppRefId =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
-    GenerateLoanOfferRequest generateLoanOfferRequest =
-        GenerateLoanOfferRequest(loanApplicationRefId: loanAppRefId);
+    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    GenerateLoanOfferRequest generateLoanOfferRequest = GenerateLoanOfferRequest(loanApplicationRefId: loanAppRefId);
     var jsonReq = jsonEncode(generateLoanOfferRequest.toJson());
-    TGPostRequest tgPostRequest =
-        await getPayLoad(jsonReq, URI_GENERATE_LOAN_OFFERS);
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GENERATE_LOAN_OFFERS);
     ServiceManager.getInstance().generateLoanOffer(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessGenerateLoanOffer(response),
         onError: (error) => _onErrorGenerateLoanOffer(error));
   }
 
-  _onSuccessGenerateLoanOffer(GenerateLoanOfferResponse? response)  {
+  _onSuccessGenerateLoanOffer(GenerateLoanOfferResponse? response) {
     TGLog.d("GenerateLoanOfferResponse : onSuccess()");
     _shareGstInvoiceRes = response?.getGenerateOfferResObj();
     if (_shareGstInvoiceRes?.status == RES_SUCCESS) {
@@ -188,10 +172,7 @@ class _InfoSharedScreenUIState extends State<InfoSharedScreenUI> {
     } else {
       Navigator.pop(context);
       LoaderUtils.handleErrorResponse(
-          context,
-          response?.getGenerateOfferResObj().status,
-          response?.getGenerateOfferResObj().message,
-          null);
+          context, response?.getGenerateOfferResObj().status, response?.getGenerateOfferResObj().message, null);
     }
   }
 
@@ -201,31 +182,27 @@ class _InfoSharedScreenUIState extends State<InfoSharedScreenUI> {
   }
 
   Future<void> getLoanAppStatusAfterGenerateOffer() async {
-    String loanAppRefId =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
-    GetLoanStatusRequest getLoanStatusRequest =
-        GetLoanStatusRequest(loanApplicationRefId: loanAppRefId);
+    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    GetLoanStatusRequest getLoanStatusRequest = GetLoanStatusRequest(loanApplicationRefId: loanAppRefId);
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
-    TGPostRequest tgPostRequest =
-        await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('3'));
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, AppUtils.getManageLoanAppStatusParam('3'));
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessGetLoanAppStatus(response),
         onError: (error) => _onErrorGetLoanAppStatus(error));
   }
 
-  _onSuccessGetLoanAppStatus(GetLoanStatusResponse? response)  {
+  _onSuccessGetLoanAppStatus(GetLoanStatusResponse? response) {
     TGLog.d("LoanAppStatusResponse : onSuccess()");
     _getLoanStatusRes = response?.getLoanStatusResObj();
 
     if (_getLoanStatusRes?.status == RES_SUCCESS) {
       if (_getLoanStatusRes?.data?.stageStatus == "PROCEED") {
         Navigator.pop(context);
-        MoveStage.navigateNextStage(
-            context, _getLoanStatusRes?.data?.currentStage);
+        MoveStage.navigateNextStage(context, _getLoanStatusRes?.data?.currentStage);
         //Navigator.pushNamed(context, MyRoutes.loanOfferListRoutes);
       } else if (_getLoanStatusRes?.data?.stageStatus == "HOLD") {
-        Future.delayed(const Duration(seconds: 10), ()  {
+        Future.delayed(const Duration(seconds: 10), () {
           getLoanAppStatusAfterGenerateOfferAPI();
         });
       } else {
@@ -233,11 +210,8 @@ class _InfoSharedScreenUIState extends State<InfoSharedScreenUI> {
       }
     } else {
       Navigator.pop(context);
-      LoaderUtils.handleErrorResponse(
-          context,
-          response?.getLoanStatusResObj().status,
-          response?.getLoanStatusResObj().message,
-          response?.getLoanStatusResObj().data?.stageStatus);
+      LoaderUtils.handleErrorResponse(context, response?.getLoanStatusResObj().status,
+          response?.getLoanStatusResObj().message, response?.getLoanStatusResObj().data?.stageStatus);
     }
   }
 
@@ -247,13 +221,11 @@ class _InfoSharedScreenUIState extends State<InfoSharedScreenUI> {
     handleServiceFailError(context, errorResponse.error);
   }
 
-  Future<void> getLoanAppStatusAfterGenerateOfferAPI() async
-  {
+  Future<void> getLoanAppStatusAfterGenerateOfferAPI() async {
     if (await TGNetUtil.isInternetAvailable()) {
       getLoanAppStatusAfterGenerateOffer();
     } else {
-      showSnackBarForintenetConnection(
-          context, getLoanAppStatusAfterGenerateOffer);
+      showSnackBarForintenetConnection(context, getLoanAppStatusAfterGenerateOffer);
     }
   }
 }

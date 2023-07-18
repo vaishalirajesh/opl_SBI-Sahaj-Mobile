@@ -43,7 +43,7 @@ class LoanAggCompeletedBody extends State<LoanAggCompeleteds> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(
-              Utils.path(MOBILESTEPDONE), height: 150.h, width: 150.w,
+              AppUtils.path(MOBILESTEPDONE), height: 150.h, width: 150.w,
               //
             ),
             SizedBox(height: 28.h),

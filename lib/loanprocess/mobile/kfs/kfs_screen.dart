@@ -213,7 +213,7 @@ class KfsScreenBody extends State<KfsScreens> {
                   SizedBox(
                     height: 5.h,
                   ),
-                  Text(Utils.convertIndianCurrency(loanOfferData?.offerDetails?.elementAt(0).termsRequestedAmount),
+                  Text(AppUtils.convertIndianCurrency(loanOfferData?.offerDetails?.elementAt(0).termsRequestedAmount),
                       style: ThemeHelper.getInstance()
                           ?.textTheme
                           .headline2
@@ -341,7 +341,7 @@ class KfsScreenBody extends State<KfsScreens> {
                 child: Row(
                   children: [
                     SvgPicture.asset(
-                      Utils.path(IMG_kfs_bank),
+                      AppUtils.path(IMG_kfs_bank),
                       height: 20.h,
                       width: 20.w,
                     ),
@@ -369,7 +369,7 @@ class KfsScreenBody extends State<KfsScreens> {
                 child: Row(
                   children: [
                     SvgPicture.asset(
-                      Utils.path(IMG_kfs_coin_stack),
+                      AppUtils.path(IMG_kfs_coin_stack),
                       height: 20.h,
                       width: 20.w,
                     ),
@@ -404,10 +404,10 @@ class KfsScreenBody extends State<KfsScreens> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          LoanAmtLimitUI(Utils.path(SANCTIONLIMIT), str_sanction_limit,
-              Utils.convertIndianCurrency(loanOfferData?.offerDetails?.elementAt(0).sanctionLimit)),
-          LoanAmtLimitUI(Utils.path(AVAILABLELIMIT), str_available_limit,
-              Utils.convertIndianCurrency(loanOfferData?.offerDetails?.elementAt(0).availableLimit)),
+          LoanAmtLimitUI(AppUtils.path(SANCTIONLIMIT), str_sanction_limit,
+              AppUtils.convertIndianCurrency(loanOfferData?.offerDetails?.elementAt(0).sanctionLimit)),
+          LoanAmtLimitUI(AppUtils.path(AVAILABLELIMIT), str_available_limit,
+              AppUtils.convertIndianCurrency(loanOfferData?.offerDetails?.elementAt(0).availableLimit)),
         ],
       ),
     );
@@ -477,7 +477,7 @@ class KfsScreenBody extends State<KfsScreens> {
                           flex: 4,
                           child: LoanDetailColumnWidget(
                               str_loan_amt,
-                              Utils.convertIndianCurrency(
+                              AppUtils.convertIndianCurrency(
                                   loanOfferData?.offerDetails?.elementAt(0).termsSanctionedAmount),
                               true,
                               str_loan_amt_tooltip)),
@@ -486,7 +486,7 @@ class KfsScreenBody extends State<KfsScreens> {
                           flex: 4,
                           child: LoanDetailColumnWidget(
                               str_total_interest,
-                              Utils.convertIndianCurrency(
+                              AppUtils.convertIndianCurrency(
                                   loanOfferData?.offerDetails?.elementAt(0).termsInterestAmount),
                               true,
                               str_total_interest_tooltip)),
@@ -508,7 +508,7 @@ class KfsScreenBody extends State<KfsScreens> {
                           flex: 4,
                           child: LoanDetailColumnWidget(
                               str_net_disb_amt,
-                              Utils.convertIndianCurrency(
+                              AppUtils.convertIndianCurrency(
                                   loanOfferData?.offerDetails?.elementAt(0).netDisbursementAmount),
                               false,
                               "")),
@@ -517,7 +517,7 @@ class KfsScreenBody extends State<KfsScreens> {
                         flex: 4,
                         child: LoanDetailColumnWidget(
                             str_total_repay_amt,
-                            Utils.convertIndianCurrency(loanOfferData?.offerDetails?.elementAt(0).termsTotalAmount),
+                            AppUtils.convertIndianCurrency(loanOfferData?.offerDetails?.elementAt(0).termsTotalAmount),
                             true,
                             str_total_repay_amt_tooltip),
                       ),
@@ -583,7 +583,7 @@ class KfsScreenBody extends State<KfsScreens> {
                       Flexible(
                           flex: 4,
                           child: LoanDetailColumnWidget(
-                              str_penal_charge, Utils.convertIndianCurrency(panelCharges.toString()), false, "")),
+                              str_penal_charge, AppUtils.convertIndianCurrency(panelCharges.toString()), false, "")),
                     ],
                   )
                 ],
@@ -761,7 +761,7 @@ class KfsScreenBody extends State<KfsScreens> {
                     Row(
                       children: [
                         Text(
-                          Utils.convertIndianCurrency(totalCharge.toString()),
+                          AppUtils.convertIndianCurrency(totalCharge.toString()),
                           style: ThemeHelper.getInstance()?.textTheme.bodyText1,
                         ),
                         SizedBox(
@@ -769,7 +769,7 @@ class KfsScreenBody extends State<KfsScreens> {
                         ),
                         GestureDetector(
                           child: SvgPicture.asset(
-                            isOtherUpFrontDetailCard ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+                            isOtherUpFrontDetailCard ? AppUtils.path(IMG_UP_ARROW) : AppUtils.path(IMG_DOWN_ARROW),
                             height: 20.h,
                             width: 20.w,
                           ),
@@ -795,11 +795,11 @@ class KfsScreenBody extends State<KfsScreens> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            OtherUpFrontRowWidget(str_stamp_duty, Utils.convertIndianCurrency("100")),
+                            OtherUpFrontRowWidget(str_stamp_duty, AppUtils.convertIndianCurrency("100")),
                             SizedBox(width: 90.w),
                             OtherUpFrontRowWidget(
                                 str_processing_fees,
-                                Utils.convertIndianCurrency(
+                                AppUtils.convertIndianCurrency(
                                     loanOfferData?.offerDetails?[0].processingChargesDetails?.amount)),
                           ],
                         ),
@@ -810,10 +810,10 @@ class KfsScreenBody extends State<KfsScreens> {
                           children: [
                             OtherUpFrontRowWidget(
                                 str_insurance_charges,
-                                Utils.convertIndianCurrency(
+                                AppUtils.convertIndianCurrency(
                                     loanOfferData?.offerDetails?[0].insuranceChargesDetails?.amount)),
                             SizedBox(width: 50.w),
-                            OtherUpFrontRowWidget(str_others, Utils.convertIndianCurrency(otherCharges.toString())),
+                            OtherUpFrontRowWidget(str_others, AppUtils.convertIndianCurrency(otherCharges.toString())),
                           ],
                         ),
                       ],
@@ -885,7 +885,7 @@ class KfsScreenBody extends State<KfsScreens> {
                             ?.copyWith(fontSize: 14.sp, color: MyColors.pnbcolorPrimary)),
                     GestureDetector(
                       child: SvgPicture.asset(
-                        isOtherDisclouserCard ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+                        isOtherDisclouserCard ? AppUtils.path(IMG_UP_ARROW) : AppUtils.path(IMG_DOWN_ARROW),
                         height: 20.h,
                         width: 20.w,
                       ),
@@ -1021,7 +1021,7 @@ class KfsScreenBody extends State<KfsScreens> {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(8.r)),
-              image: DecorationImage(image: AssetImage(Utils.path(KFSCONGRATULATIONBG)), fit: BoxFit.fill),
+              image: DecorationImage(image: AssetImage(AppUtils.path(KFSCONGRATULATIONBG)), fit: BoxFit.fill),
               color: Colors.white,
             ),
             height: 350.h,
@@ -1032,7 +1032,7 @@ class KfsScreenBody extends State<KfsScreens> {
               children: <Widget>[
                 SizedBox(height: 50.h), //40
                 Center(
-                  child: SvgPicture.asset(Utils.path(FILLGREENCONFORMTICK),
+                  child: SvgPicture.asset(AppUtils.path(FILLGREENCONFORMTICK),
                       height: 52.h, //,
                       width: 52.w, //134.8,
                       allowDrawingOutsideViewBox: true),
@@ -1313,7 +1313,7 @@ class KfsScreenBody extends State<KfsScreens> {
     String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     GetLoanStatusRequest getLoanStatusRequest = GetLoanStatusRequest(loanApplicationRefId: loanAppRefId);
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('4'));
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, AppUtils.getManageLoanAppStatusParam('4'));
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessGetLoanAppStatus(response),

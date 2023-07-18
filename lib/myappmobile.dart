@@ -114,7 +114,7 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: const GetStartedScreen(),
+          // home: const GetStartedScreen(),
           locale: LocaleHelper.currentLocale,
           theme: ThemeHelper.getInstance(),
           scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),
@@ -183,6 +183,7 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
             MyRoutes.newProfileViewRoutes: (context) => const NewProfileView(),
           },
           onGenerateRoute: RouteGenerator.generateRoute,
+          initialRoute: MyRoutes.GetStartedScrRoutes,
         );
       },
     );
@@ -194,8 +195,13 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
 
   Future<void> _init() async {
     TGLog.d("_init: Start");
-    await Future.delayed(const Duration(seconds: 2));
-    await initService();
+    await Future.delayed(const Duration(seconds: 1));
+    initService();
+    if (TGFlavor.applyMock() == true) {
+      await Future.delayed(const Duration(seconds: 7));
+    } else {
+      await Future.delayed(const Duration(seconds: 2));
+    }
     TGLog.d("_init: End");
   }
 }
@@ -207,26 +213,27 @@ class RouteGenerator {
     if (settings.name != null) {
       var uriData = Uri.parse(settings.name!);
       route = uriData.path;
-      if (route == MyRoutes.autologin || route == MyRoutes.AAWebViewCallBack) {
+      if (route == MyRoutes.autologin || route == MyRoutes.AAWebViewCallBack || route == MyRoutes.ddeResponse) {
         //converts string to a uri
         queryParameters = uriData.queryParameters; // query parameters automatically populated
         TGLog.d("Query Param $queryParameters");
       }
     }
-
     return MaterialPageRoute(
       builder: (context) {
+        // Call after Loan Agreement Process
         if (route == MyRoutes.ddeResponse) {
-          /* Call after Loan Agreement Process*/
           return ESignCompletedMain();
         } else if (route == MyRoutes.AAWebViewCallBack) {
           return AaCompletedPage(str: queryParameters!);
-          // } else if (route == MyRoutes.autologin) {
-          //   return LoginWithMobileNumber(str: queryParameters!);
+        } else if (route == MyRoutes.autologin) {
+          return LoginWithMobileNumber();
         } else {
-          return Container(
-            child: Center(
-              child: Text("You are Unthorised", textAlign: TextAlign.center),
+          return Scaffold(
+            body: Container(
+              child: Center(
+                child: Text("You are Unthorised", textAlign: TextAlign.center),
+              ),
             ),
           );
         }

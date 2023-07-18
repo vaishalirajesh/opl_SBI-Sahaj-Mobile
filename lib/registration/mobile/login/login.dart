@@ -328,7 +328,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
         _autoLoginRequest();
       } else {
         if (context.mounted) {
-          showSnackBarForintenetConnection(context, getLoginOtp);
+          showSnackBarForintenetConnection(context, _autoLoginRequest);
         }
       }
     }
@@ -357,6 +357,8 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
   _onSuccessSaveConsent(SaveConsentApprovalResponse response) async {
     TGLog.d("SaveTAndCConsent() : Success");
     if (response.saveConsentMainObj().status == RES_SUCCESS) {
+      TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
+
       if (await TGNetUtil.isInternetAvailable()) {
         _getGstBasicDetails();
       } else {

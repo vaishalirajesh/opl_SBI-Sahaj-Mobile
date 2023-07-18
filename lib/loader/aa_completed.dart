@@ -196,9 +196,9 @@ class _AaCompletedState extends State<AaCompletedPage> {
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
     TGPostRequest tgPostRequest;
     if (loanAppId == null || loanAppId == "") {
-      tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('2'));
+      tgPostRequest = await getPayLoad(jsonReq, AppUtils.getManageLoanAppStatusParam('2'));
     } else {
-      tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('7'));
+      tgPostRequest = await getPayLoad(jsonReq, AppUtils.getManageLoanAppStatusParam('7'));
     }
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,

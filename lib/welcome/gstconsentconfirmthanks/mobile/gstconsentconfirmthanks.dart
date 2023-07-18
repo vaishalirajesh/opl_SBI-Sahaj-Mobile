@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sbi_sahay_1_0/registration/mobile/gst_consent_of_gst/gst_consent_of_gst.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 
-import '../../../registration/mobile/login/login.dart';
 import '../../../utils/Utils.dart';
 import '../../../utils/constants/imageconstant.dart';
 import '../../../utils/strings/strings.dart';
@@ -61,7 +61,7 @@ class GstConsentConformState extends State<GstConsentConformScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(
-              Utils.path(MOBILESTEPDONE), height: 78.h, width: 78.w,
+              AppUtils.path(MOBILESTEPDONE), height: 78.h, width: 78.w,
               //
             ),
             SizedBox(height: 30.h),
@@ -100,7 +100,7 @@ class GstConsentConformState extends State<GstConsentConformScreen> {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => LoginWithMobileNumber(),
+            builder: (BuildContext context) => GstConsent(),
           ),
           (route) => false, //if you want to disable back feature set to false
         );

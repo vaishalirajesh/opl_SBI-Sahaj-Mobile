@@ -49,7 +49,7 @@ Widget setUpViewData(LoanAggVM viewModel) {
         children: [
           SizedBox(height: 35.h),
           SvgPicture.asset(
-            Utils.path(IMG_PNB_BANK_NAME),
+            AppUtils.path(IMG_PNB_BANK_NAME),
             height: 35.h,
             width: 180.w,
           ),
@@ -101,7 +101,7 @@ Widget smallPnbImg(LoanAggVM viewModel) {
         shape: BoxShape.circle,
       ),
       child: SvgPicture.asset(
-        Utils.path(SMALLBANKLOGO),
+        AppUtils.path(SMALLBANKLOGO),
         height: 15.h,
         width: 15.w,
       ));

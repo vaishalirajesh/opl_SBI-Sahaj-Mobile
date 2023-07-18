@@ -110,7 +110,7 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
               Image(
                 height: 44.h,
                 width: 44.w,
-                image: AssetImage(Utils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
+                image: AssetImage(AppUtils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
               ),
               SizedBox(width: 15.w),
               Column(
@@ -255,7 +255,7 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
           Padding(
             padding: EdgeInsets.only(top: 3.h), //right_arrow_brown_ic.svg
             child: SvgPicture.asset(
-              Utils.path(img), height: 40.h, width: 40.w,
+              AppUtils.path(img), height: 40.h, width: 40.w,
               //
             ),
           ),

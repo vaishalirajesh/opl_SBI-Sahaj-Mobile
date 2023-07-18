@@ -47,6 +47,7 @@ class MyColors {
   static final pnbDarkGreenColor = HexColor('#05CB5B');
   static final pnblogocolor = HexColor('#fbbc09');
   static final pnbPersonalDataColor = HexColor("#4B4B4B");
+  static final sbiSuccessGreenColor = HexColor("#51A037");
 
   static final pnbFilterbg = HexColor('#FFE4EC');
 

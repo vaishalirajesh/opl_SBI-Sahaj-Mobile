@@ -32,7 +32,7 @@ class AAErrorScreen extends StatelessWidget {
                   height: 100.h,
                 ),
                 Image.asset(
-                  Utils.path(AAFAIL),
+                  AppUtils.path(AAFAIL),
                   height: 200.h,
                   width: 200.w,
                 ),

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +14,6 @@ import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
-import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 
 import '../../../utils/Utils.dart';
@@ -24,11 +22,7 @@ import '../../../utils/constants/prefrenceconstants.dart';
 import '../../../utils/helpers/themhelper.dart';
 import '../../../utils/internetcheckdialog.dart';
 import '../../../utils/jumpingdott.dart';
-import '../../../utils/locale/locales.dart';
-import '../../../utils/locale/tg_locale.dart';
 import '../../../utils/strings/strings.dart';
-import '../../../widgets/animation_routes/page_animation.dart';
-import '../../../widgets/backbutton.dart';
 import '../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 import '../../gstconsentconfirmthanks/mobile/gstconsentconfirmthanks.dart';
 import '../../ntbwelcome/mobileui/getstarted.dart';
@@ -77,10 +71,7 @@ class TermsConditionState extends State<TermsConditionScreen> {
         },
         child: Scaffold(
           appBar: getAppBarWithTitle(str_tc,
-              onClickAction: () => {
-                    SystemNavigator.pop(animated: true),
-                    Navigator.pop(context, false)
-                  }),
+              onClickAction: () => {SystemNavigator.pop(animated: true), Navigator.pop(context, false)}),
           body: AbsorbPointer(
             absorbing: isLoaderStart,
             child: Stack(
@@ -93,9 +84,7 @@ class TermsConditionState extends State<TermsConditionScreen> {
                         children: [
                           TermsConditionText(),
                         ])),
-                Align(
-                    alignment: Alignment.bottomCenter,
-                    child: TermsConditionBottom())
+                Align(alignment: Alignment.bottomCenter, child: TermsConditionBottom())
               ],
             ),
           ),
@@ -117,10 +106,7 @@ class TermsConditionState extends State<TermsConditionScreen> {
             SizedBox(height: 20.h),
             Text(
               str_tc_txt,
-              style: ThemeHelper.getInstance()
-                  ?.textTheme
-                  .bodyText2
-                  ?.copyWith(fontWeight: FontWeight.w500),
+              style: ThemeHelper.getInstance()?.textTheme.bodyText2?.copyWith(fontWeight: FontWeight.w500),
             ),
             SizedBox(height: 150.h),
           ],
@@ -131,44 +117,44 @@ class TermsConditionState extends State<TermsConditionScreen> {
     return Container(
         color: ThemeHelper.getInstance()!.backgroundColor,
         height: 120.h,
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 10.h),
-              TermsConditionCheckbox(),
-              SizedBox(height: 20.h),
-              TermsAgreeButton(),
-              //SizedBox(height: 20.h)
-            ]));
+        child:
+            Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+          SizedBox(height: 10.h),
+          TermsConditionCheckbox(),
+          SizedBox(height: 20.h),
+          TermsAgreeButton(),
+          //SizedBox(height: 20.h)
+        ]));
   }
 
   Widget TermsAgreeButton() {
     return Padding(
         padding: EdgeInsets.only(left: 20.w, right: 20.w),
-        child:isLoaderStart ? JumpingDots(color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary, radius: 10,) : ElevatedButton(
-            style: isTermsConditionAgree
-                ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
-                : ThemeHelper.setPinkDisableButtonBig(),
-            onPressed: () async {
-              if (isTermsConditionAgree) {
-                setState(() {
-                  isLoaderStart = true;
-                });
+        child: isLoaderStart
+            ? JumpingDots(
+                color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
+                radius: 10,
+              )
+            : ElevatedButton(
+                style: isTermsConditionAgree
+                    ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
+                    : ThemeHelper.setPinkDisableButtonBig(),
+                onPressed: () async {
+                  if (isTermsConditionAgree) {
+                    setState(() {
+                      isLoaderStart = true;
+                    });
 
-
-                if( await TGNetUtil.isInternetAvailable()){
-                    saveGstConsentApi();
-                }else{
-                  showSnackBarForintenetConnection(context,saveGstConsentApi);
-                }
-
-
-              }
-            },
-            child:  Text(
-              str_AGREE,
-            )));
+                    if (await TGNetUtil.isInternetAvailable()) {
+                      saveGstConsentApi();
+                    } else {
+                      showSnackBarForintenetConnection(context, saveGstConsentApi);
+                    }
+                  }
+                },
+                child: Text(
+                  str_AGREE,
+                )));
   }
 
   Widget TermsConditionCheckbox() {
@@ -197,8 +183,7 @@ class TermsConditionState extends State<TermsConditionScreen> {
                         isTermsConditionAgree = bool!;
                       });
                     },
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(6))),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(6))),
                     side: BorderSide(
                         width: 1,
                         color: isTermsConditionAgree
@@ -228,7 +213,7 @@ class TermsConditionState extends State<TermsConditionScreen> {
           SizedBox(
             height: 52.h,
           ),
-          SvgPicture.asset(Utils.path(MAIL), height: 58.h, width: 58.w),
+          SvgPicture.asset(AppUtils.path(MAIL), height: 58.h, width: 58.w),
           SizedBox(
             height: 20.h,
           ),
@@ -255,8 +240,7 @@ class TermsConditionState extends State<TermsConditionScreen> {
       padding: EdgeInsets.all(20.h),
       child: ElevatedButton(
           onPressed: () {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => GetStartedScreen()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GetStartedScreen()));
           },
           child: Text(
             OK,
@@ -267,13 +251,11 @@ class TermsConditionState extends State<TermsConditionScreen> {
   }
 
   Future<void> saveGstConsentApi() async {
-    RequestSaveConsent requestSaveConsent =
-        RequestSaveConsent(isConsentApproval: true, consentApprovalType: 'GST');
+    RequestSaveConsent requestSaveConsent = RequestSaveConsent(isConsentApproval: true, consentApprovalType: 'GST');
 
     var jsonRequest = jsonEncode(requestSaveConsent.toJson());
 
-    TGPostRequest tgPostRequest =
-        await getPayLoad(jsonRequest, URI_CONSENT_APPROVAL);
+    TGPostRequest tgPostRequest = await getPayLoad(jsonRequest, URI_CONSENT_APPROVAL);
 
     ServiceManager.getInstance().saveConsent(
         request: tgPostRequest,
@@ -281,16 +263,14 @@ class TermsConditionState extends State<TermsConditionScreen> {
         onError: (errorResponse) => _onErrorSaveConsent(errorResponse));
   }
 
-  _onSuccessSaveConsent(SaveConsentApprovalResponse response)
-  {
-      TGLog.d("SaveConsent : Success()");
-      setState(() {
-          isLoaderStart = false;
-      });
+  _onSuccessSaveConsent(SaveConsentApprovalResponse response) {
+    TGLog.d("SaveConsent : Success()");
+    setState(() {
+      isLoaderStart = false;
+    });
 
     TGSharedPreferences.getInstance().set(PREF_ISTC_DONE, true);
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => GstConsentConform()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GstConsentConform()));
   }
 
   _onErrorSaveConsent(TGResponse errorResponse) {
@@ -304,8 +284,7 @@ class TermsConditionState extends State<TermsConditionScreen> {
           return Wrap(children: [SahayProceedBottomDialog()]);
         },
         shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25), topRight: Radius.circular(25))),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))),
         clipBehavior: Clip.antiAlias,
         isScrollControlled: true);
   }

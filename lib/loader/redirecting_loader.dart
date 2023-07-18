@@ -91,7 +91,7 @@ class _RedirectedLoaderState extends State<RedirectedLoader> {
                   Container(),
                   Column(
                     children: [
-                      Image.asset(Utils.path(RIDIRECT_AA_ONEMONEY)),
+                      Image.asset(AppUtils.path(RIDIRECT_AA_ONEMONEY)),
                       //  Lottie.asset(Utils.path(RIDIRECT_AA_ONEMONEY),
                       //      height: 250.h ,//80.w,
                       //      width: 250.w,//80.w,

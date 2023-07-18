@@ -3,8 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gstmobileservices/common/app_init.dart';
+import 'package:gstmobileservices/common/keys.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
-import 'package:gstmobileservices/service/request/tg_request.dart';
+import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 
 import '../../../utils/Utils.dart';
 import '../../../utils/constants/imageconstant.dart';
@@ -50,7 +51,7 @@ class SplashState extends State<SplashScreen> {
         color: ThemeHelper.getInstance()?.colorScheme.primary,
         child: Center(
           child: SvgPicture.asset(
-            Utils.path(SMALLBANKLOGO),
+            AppUtils.path(SMALLBANKLOGO),
             height: 50.h,
             width: 50.w,
           ),
@@ -98,7 +99,7 @@ class SplashState extends State<SplashScreen> {
     TGLog.d("_init: Start");
 
     await initService();
-    TGRequest.defaultHeaders!.remove('token');
+    await TGSharedPreferences.getInstance().remove(PREF_ACCESS_TOKEN_SBI);
     await Future.delayed(Duration(seconds: 5));
     TGLog.d("_init: End");
   }

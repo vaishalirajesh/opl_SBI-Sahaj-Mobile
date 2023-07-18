@@ -180,7 +180,7 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Text(
-            "$str_the_loan_amt${Utils.convertIndianCurrency(strAmount)}$str_disb_amt",
+            "$str_the_loan_amt${AppUtils.convertIndianCurrency(strAmount)}$str_disb_amt",
             style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp),
             maxLines: 5,
           ),
@@ -220,7 +220,7 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
                         BoxDecoration(shape: BoxShape.circle, color: ThemeHelper.getInstance()?.backgroundColor),
                     child: Center(
                         child: SvgPicture.asset(
-                      Utils.path(SMALLBANKLOGO),
+                      AppUtils.path(SMALLBANKLOGO),
                       height: 18.h,
                       width: 18.w,
                     ))),
@@ -440,7 +440,7 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
-                Utils.path(FILLGREENCONFORMTICK),
+                AppUtils.path(FILLGREENCONFORMTICK),
                 height: 18.h,
                 width: 18.w,
               ),
@@ -664,7 +664,7 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
 
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
 
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('11'));
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, AppUtils.getManageLoanAppStatusParam('11'));
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessGetLoanAppStatus(response),

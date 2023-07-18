@@ -70,7 +70,7 @@ class _LoanOfferDialogState extends State<LoanOfferDialog> {
                 children: <Widget>[
                   SizedBox(height: 40.h), //40
                   Center(
-                      child: SvgPicture.asset(Utils.path(GREENCONFORMTICK),
+                      child: SvgPicture.asset(AppUtils.path(GREENCONFORMTICK),
                           height: 52.h, //,
                           width: 52.w, //134.8,
                           allowDrawingOutsideViewBox: true)),
@@ -188,7 +188,7 @@ class _LoanOfferDialogState extends State<LoanOfferDialog> {
     );
     TGPostRequest tgPostRequest = await getPayLoad(
       jsonReq,
-      Utils.getManageLoanAppStatusParam('3'),
+      AppUtils.getManageLoanAppStatusParam('3'),
     );
     ServiceManager.getInstance().getLoanAppStatus(
       request: tgPostRequest,

@@ -193,7 +193,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                   Image(
                     height: 44.h,
                     width: 44.w,
-                    image: AssetImage(Utils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
+                    image: AssetImage(AppUtils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
                   ),
                   SizedBox(width: 15.w),
                   Column(
@@ -220,7 +220,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
           ),
           ListTile(
             leading: SvgPicture.asset(
-              Utils.path(IMG_HOME_MENU),
+              AppUtils.path(IMG_HOME_MENU),
               height: 24.h,
               width: 24.w,
             ),
@@ -236,7 +236,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
           const Divider(),
           ListTile(
             leading: SvgPicture.asset(
-              Utils.path(IMG_LINE_MENU),
+              AppUtils.path(IMG_LINE_MENU),
               height: 24.h,
               width: 24.w,
             ),
@@ -253,7 +253,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
           const Divider(),
           ListTile(
             leading: SvgPicture.asset(
-              Utils.path(IMG_USER_MENU),
+              AppUtils.path(IMG_USER_MENU),
               height: 24.h,
               width: 24.w,
             ),
@@ -263,7 +263,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
           const Divider(),
           ListTile(
             leading: SvgPicture.asset(
-              Utils.path(IMG_RAISE_DISPITE_MENU),
+              AppUtils.path(IMG_RAISE_DISPITE_MENU),
               height: 24.h,
               width: 24.w,
             ),
@@ -291,7 +291,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
           Padding(
             padding: EdgeInsets.only(bottom: 5.h),
             child: SvgPicture.asset(
-              Utils.path(activeChecker(currentIndex) ? activePath : inActivePath),
+              AppUtils.path(activeChecker(currentIndex) ? activePath : inActivePath),
             ),
           ),
           Text(title,
@@ -431,7 +431,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
               Image(
                 height: 44.h,
                 width: 44.w,
-                image: AssetImage(Utils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
+                image: AssetImage(AppUtils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
               ),
               SizedBox(width: 15.w),
               Expanded(
@@ -453,7 +453,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
               Align(
                 alignment: Alignment.centerRight,
                 child: SvgPicture.asset(
-                  Utils.path(MOBILETDASHBOARDARROWFORWARD),
+                  AppUtils.path(MOBILETDASHBOARDARROWFORWARD),
                   height: 15.h,
                   width: 10.w,
                 ),
@@ -515,14 +515,14 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
               str_Outstanding,
               MOBILETDASHBOARDWITHGSTOUTSTANDING,
               _basicdetailsResponse?.data?[0].loanDetails?.outstanding?.count ?? "01",
-              Utils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.outstanding?.amount)),
+              AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.outstanding?.amount)),
           const Spacer(),
           _buildCard(
               1,
               strOverdue,
               MOBILETDASHBOARDWITHGSTOVERDUE,
               _basicdetailsResponse?.data?[0].loanDetails?.overdue?.count ?? "03",
-              Utils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.overdue?.amount)),
+              AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.overdue?.amount)),
         ]),
         Padding(
           padding: EdgeInsets.only(top: 10.h, bottom: 12.h),
@@ -533,14 +533,14 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                 strRepaid,
                 IMG_kfs_coin_stack,
                 _basicdetailsResponse?.data?[0].loanDetails?.repaid?.count ?? "04",
-                Utils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.repaid?.amount)),
+                AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.repaid?.amount)),
             const Spacer(),
             _buildCard(
                 3,
                 strDisbursed,
                 MOBILEHANDWITHMONEY,
                 _basicdetailsResponse?.data?[0].loanDetails?.disbursed?.count ?? "06",
-                Utils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.disbursed?.amount))
+                AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.disbursed?.amount))
           ]),
         ),
       ],
@@ -597,7 +597,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SvgPicture.asset(
-                    Utils.path(imgString),
+                    AppUtils.path(imgString),
                     height: 24.h,
                     width: 24.w,
                   ),
@@ -643,7 +643,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                   ),
                   const Spacer(),
                   SvgPicture.asset(
-                    Utils.path(MOBILETDASHBOARDARROWFORWARD),
+                    AppUtils.path(MOBILETDASHBOARDARROWFORWARD),
                     height: 12.h,
                     width: 6.w,
                   )
@@ -701,7 +701,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                     ],
                   ),
                   SvgPicture.asset(
-                    isExpanded1 ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+                    isExpanded1 ? AppUtils.path(IMG_UP_ARROW) : AppUtils.path(IMG_DOWN_ARROW),
                     height: 20.h,
                     width: 20.w,
                   ),
@@ -925,7 +925,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         _buildBottomCardPartWidget(str_Lender, strSBI, true),
-        _buildBottomCardPartWidget(str_Loan_amount, Utils.convertIndianCurrency(data?.invoiceAmount), false)
+        _buildBottomCardPartWidget(str_Loan_amount, AppUtils.convertIndianCurrency(data?.invoiceAmount), false)
       ],
     );
   }
@@ -991,7 +991,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                     ],
                   ),
                   SvgPicture.asset(
-                    isExpanded2 ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+                    isExpanded2 ? AppUtils.path(IMG_UP_ARROW) : AppUtils.path(IMG_DOWN_ARROW),
                     height: 20.h,
                     width: 20.w,
                   ),
@@ -1105,7 +1105,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
             Flexible(
               flex: 4,
               child: SvgPicture.asset(
-                Utils.path(MOBILETDASHBOARDWITHGSTINVOICE_OTHER_SERVICES),
+                AppUtils.path(MOBILETDASHBOARDWITHGSTINVOICE_OTHER_SERVICES),
                 height: 88.h,
                 width: 88.w,
               ),
@@ -1139,11 +1139,11 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
             String invoiceAmount = translist?[index]?.disbursement_amt ?? '44000';
             return Column(children: [
               _buildListCard(
-                  day: Utils.convertDateFormat(createdDate, "dd-MM-yyyy", 'dd MMM, yyyy'),
+                  day: AppUtils.convertDateFormat(createdDate, "dd-MM-yyyy", 'dd MMM, yyyy'),
                   month: "Aug",
                   background: setBackgroundColor(index),
                   companyName: tradename,
-                  subtext: Utils.getCamelCase(status),
+                  subtext: AppUtils.getCamelCase(status),
                   price: invoiceAmount,
                   top: 5.h),
               Padding(
@@ -1257,7 +1257,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                Utils.convertIndianCurrency(price),
+                AppUtils.convertIndianCurrency(price),
                 // NumberFormat.simpleCurrency(locale: 'hi-In').format(int.parse(price.toString())).toString(),
                 style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 13.sp),
               ),
@@ -1498,7 +1498,7 @@ class MyDrawer extends StatelessWidget {
                   Image(
                     height: 44.h,
                     width: 44.w,
-                    image: AssetImage(Utils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
+                    image: AssetImage(AppUtils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
                   ),
                   SizedBox(width: 15.w),
                   Column(
@@ -1525,7 +1525,7 @@ class MyDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: SvgPicture.asset(
-              Utils.path(IMG_HOME_MENU),
+              AppUtils.path(IMG_HOME_MENU),
               height: 21.h,
               width: 24.w,
             ),
@@ -1542,7 +1542,7 @@ class MyDrawer extends StatelessWidget {
           const Divider(),
           ListTile(
             leading: SvgPicture.asset(
-              Utils.path(IMG_LINE_MENU),
+              AppUtils.path(IMG_LINE_MENU),
               height: 21.h,
               width: 24.w,
             ),
@@ -1556,7 +1556,7 @@ class MyDrawer extends StatelessWidget {
           const Divider(),
           ListTile(
             leading: SvgPicture.asset(
-              Utils.path(IMG_USER_MENU),
+              AppUtils.path(IMG_USER_MENU),
               height: 21.h,
               width: 24.w,
             ),
@@ -1569,7 +1569,7 @@ class MyDrawer extends StatelessWidget {
           const Divider(),
           ListTile(
             leading: SvgPicture.asset(
-              Utils.path(IMG_RAISE_DISPITE_MENU),
+              AppUtils.path(IMG_RAISE_DISPITE_MENU),
               height: 21.h,
               width: 24.w,
             ),

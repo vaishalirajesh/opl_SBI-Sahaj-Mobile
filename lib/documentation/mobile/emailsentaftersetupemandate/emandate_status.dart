@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
@@ -13,8 +12,8 @@ import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
+import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 
-import '../../../loader/redirecting_loader.dart';
 import '../../../utils/Utils.dart';
 import '../../../utils/colorutils/mycolors.dart';
 import '../../../utils/constants/imageconstant.dart';
@@ -25,8 +24,6 @@ import '../../../utils/helpers/themhelper.dart';
 import '../../../utils/internetcheckdialog.dart';
 import '../../../utils/jumpingdott.dart';
 import '../../../utils/movestageutils.dart';
-import '../../../utils/strings/strings.dart';
-import '../../../widgets/animation_routes/page_animation.dart';
 
 class EmandateStatus extends StatelessWidget {
   const EmandateStatus({super.key});
@@ -66,7 +63,7 @@ class _EmandateStatus extends State<EmandateStatusScreen> {
                 Image.asset(
                   height: 250.h,
                   width: 250.w,
-                  Utils.path(EMAILSEND),
+                  AppUtils.path(EMAILSEND),
                   fit: BoxFit.fill,
                 ),
                 SizedBox(height: 10.h),
@@ -91,8 +88,7 @@ class _EmandateStatus extends State<EmandateStatusScreen> {
                   height: 50.h,
                   child: isLoaderStart
                       ? JumpingDots(
-                          color: ThemeHelper.getInstance()?.primaryColor ??
-                              MyColors.pnbcolorPrimary,
+                          color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
                           radius: 10,
                         )
                       : ElevatedButton(
@@ -100,8 +96,7 @@ class _EmandateStatus extends State<EmandateStatusScreen> {
                             if (await TGNetUtil.isInternetAvailable()) {
                               getLoanApplicaionStatusAPI();
                             } else {
-                              showSnackBarForintenetConnection(
-                                  context, getLoanApplicaionStatusAPI);
+                              showSnackBarForintenetConnection(context, getLoanApplicaionStatusAPI);
                             }
                             setState(() {
                               isLoaderStart = true;
@@ -110,8 +105,7 @@ class _EmandateStatus extends State<EmandateStatusScreen> {
                           child: Center(
                             child: Text(
                               str_check_status,
-                              style:
-                                  ThemeHelper.getInstance()?.textTheme.button,
+                              style: ThemeHelper.getInstance()?.textTheme.button,
                             ),
                           )),
                 )
@@ -124,24 +118,18 @@ class _EmandateStatus extends State<EmandateStatusScreen> {
   }
 
   Future<void> getLoanApplicaionStatusAPI() async {
-    String loanAppRefId =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
-    String loanAppId =
-        await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
-    String repaymentPlanId =
-        await TGSharedPreferences.getInstance().get(PREF_REPAYMENTPLANID);
+    String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
+    String loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
+    String repaymentPlanId = await TGSharedPreferences.getInstance().get(PREF_REPAYMENTPLANID);
 
     GetLoanStatusRequest getLoanStatusRequest = GetLoanStatusRequest(
-        loanApplicationRefId: loanAppRefId,
-        loanApplicationId: loanAppId,
-        repaymentPlanId: repaymentPlanId);
+        loanApplicationRefId: loanAppRefId, loanApplicationId: loanAppId, repaymentPlanId: repaymentPlanId);
 
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
 
     TGLog.d("Before Status API Requst : $jsonReq");
 
-    TGPostRequest tgPostRequest =
-        await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('9'));
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, AppUtils.getManageLoanAppStatusParam('9'));
 
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,
@@ -155,22 +143,18 @@ class _EmandateStatus extends State<EmandateStatusScreen> {
     var _getLoanStatusResMain = response?.getLoanStatusResObj();
     if (_getLoanStatusResMain?.status == RES_SUCCESS) {
       if (_getLoanStatusResMain?.data?.stageStatus == "PROCEED") {
-        TGSharedPreferences.getInstance()
-            .set(PREF_CURRENT_STAGE, _getLoanStatusResMain?.data?.currentStage);
-        MoveStage.navigateNextStage(
-            context, response?.getLoanStatusResObj().data?.currentStage);
+        TGSharedPreferences.getInstance().set(PREF_CURRENT_STAGE, _getLoanStatusResMain?.data?.currentStage);
+        MoveStage.navigateNextStage(context, response?.getLoanStatusResObj().data?.currentStage);
       } else if (_getLoanStatusResMain?.data?.stageStatus == "HOLD") {
         await Future.delayed(Duration(seconds: 10));
         if (await TGNetUtil.isInternetAvailable()) {
           getLoanApplicaionStatusAPI();
         } else {
-          showSnackBarForintenetConnection(
-              context, getLoanApplicaionStatusAPI);
+          showSnackBarForintenetConnection(context, getLoanApplicaionStatusAPI);
         }
       }
     } else {
-      TGView.showSnackBar(
-          context: context, message: _getLoanStatusResMain?.message ?? "");
+      TGView.showSnackBar(context: context, message: _getLoanStatusResMain?.message ?? "");
     }
   }
 

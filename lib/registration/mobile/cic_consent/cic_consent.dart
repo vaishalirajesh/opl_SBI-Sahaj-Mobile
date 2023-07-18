@@ -283,7 +283,7 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
                 width: 58.w,
                 height: 58.h,
                 child: SvgPicture.asset(
-                  Utils.path(MOBILEMAIL),
+                  AppUtils.path(MOBILEMAIL),
                   height: 50.h,
                   width: 50.w,
                 ),

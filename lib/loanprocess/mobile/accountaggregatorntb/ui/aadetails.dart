@@ -143,7 +143,7 @@ Widget buildImageWidget(String path) => Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
       child: Align(
         alignment: Alignment.center,
-        child: SvgPicture.asset(Utils.path(path), height: 350.h, width: 1.sw, allowDrawingOutsideViewBox: false),
+        child: SvgPicture.asset(AppUtils.path(path), height: 350.h, width: 1.sw, allowDrawingOutsideViewBox: false),
       ),
     );
 
@@ -168,7 +168,7 @@ Widget buildRowWidget(String text) => Padding(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SvgPicture.asset(Utils.path(IMG_GREENTICK_AA), height: 18.h, width: 18.w),
+          SvgPicture.asset(AppUtils.path(IMG_GREENTICK_AA), height: 18.h, width: 18.w),
           SizedBox(width: 5.w),
           Text(" $text", style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp)),
         ],
@@ -176,7 +176,7 @@ Widget buildRowWidget(String text) => Padding(
     );
 
 Widget buildRevokeconsetAtAnytimeRow(String title) => Row(children: [
-      SvgPicture.asset(Utils.path(IMG_GREENTICK_AA), height: 15.h, width: 15.w),
+      SvgPicture.asset(AppUtils.path(IMG_GREENTICK_AA), height: 15.h, width: 15.w),
       SizedBox(width: 11.w),
       Text(" $title", style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp))
     ]);

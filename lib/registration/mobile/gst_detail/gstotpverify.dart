@@ -244,7 +244,7 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               SvgPicture.asset(
-                                Utils.path(MOBILEResend),
+                                AppUtils.path(MOBILEResend),
                                 height: 16.h,
                                 width: 16.w,
                                 color: isVerifyOTPLoaderStart || isGetOTPLoaderStart
@@ -421,7 +421,7 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
                 SizedBox(height: 30.h), //40
                 Center(
                   child: SvgPicture.asset(
-                    Utils.path(IMG_GSTENABLE_API),
+                    AppUtils.path(IMG_GSTENABLE_API),
                     height: 95.h, //,
                     width: 95.w, //134.8,
                     allowDrawingOutsideViewBox: true,

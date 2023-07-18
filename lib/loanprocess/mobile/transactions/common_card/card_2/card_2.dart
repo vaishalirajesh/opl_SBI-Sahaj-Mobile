@@ -143,7 +143,7 @@ class _Card2State extends State<Card2> {
                 width: 15.w,
                 height: 15.h,
                 child: SvgPicture.asset(
-                  Utils.path(flag ? UPARROWIC : DOWNARROWIC),
+                  AppUtils.path(flag ? UPARROWIC : DOWNARROWIC),
 //
                 ),
               ),

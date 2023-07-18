@@ -131,7 +131,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SvgPicture.asset(
-                Utils.path(BANKLOGOSQUARE),
+                AppUtils.path(BANKLOGOSQUARE),
                 width: 180.w,
                 height: 35.h,
               ),
@@ -196,7 +196,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SvgPicture.asset(Utils.path(IMG_GREENTICK_AA), height: 18.r, width: 18.r),
+            SvgPicture.asset(AppUtils.path(IMG_GREENTICK_AA), height: 18.r, width: 18.r),
             SizedBox(width: 5.w),
             Expanded(
               child: Text(
@@ -242,7 +242,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
                     shape: BoxShape.circle, color: ThemeHelper.getInstance()?.colorScheme.secondaryContainer),
                 child: Center(
                     child: SvgPicture.asset(
-                  Utils.path(SMALLBANKLOGO),
+                  AppUtils.path(SMALLBANKLOGO),
                   height: 15.h,
                   width: 15.h,
                 ))),
@@ -380,7 +380,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
               children: <Widget>[
                 SizedBox(height: 36.h), //40
                 Center(
-                    child: SvgPicture.asset(Utils.path(GREENCONFORMTICK),
+                    child: SvgPicture.asset(AppUtils.path(GREENCONFORMTICK),
                         height: 52.h, //,
                         width: 52.w, //134.8,
                         allowDrawingOutsideViewBox: true)),
@@ -638,7 +638,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
     GetLoanStatusRequest getLoanStatusRequest =
         GetLoanStatusRequest(loanApplicationRefId: loanAppRefId, loanApplicationId: loanAppId);
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('6'));
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, AppUtils.getManageLoanAppStatusParam('6'));
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessGetLoanAppStatus(response),
@@ -703,7 +703,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
     GetLoanStatusRequest getLoanStatusRequest =
         GetLoanStatusRequest(loanApplicationRefId: loanAppRefId, loanApplicationId: loanAppId);
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
-    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, Utils.getManageLoanAppStatusParam('6'));
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, AppUtils.getManageLoanAppStatusParam('6'));
     ServiceManager.getInstance().getLoanAppStatus(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessGetLoanAppStatus1(response),

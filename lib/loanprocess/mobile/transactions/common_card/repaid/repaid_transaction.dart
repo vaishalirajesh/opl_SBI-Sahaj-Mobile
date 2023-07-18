@@ -140,7 +140,7 @@ class _RepaidCardState extends State<RepaidCard> {
               width: 12.w,
               height: 12.h,
               child: SvgPicture.asset(
-                isCardHide ? Utils.path(DOWNARROWIC) : Utils.path(UPARROWIC),
+                isCardHide ? AppUtils.path(DOWNARROWIC) : AppUtils.path(UPARROWIC),
 //
               ),
             ),
@@ -187,7 +187,7 @@ class _RepaidCardState extends State<RepaidCard> {
                 ),
               ),
               SvgPicture.asset(
-                !isCardHide ? Utils.path(IMG_UP_ARROW) : Utils.path(IMG_DOWN_ARROW),
+                !isCardHide ? AppUtils.path(IMG_UP_ARROW) : AppUtils.path(IMG_DOWN_ARROW),
                 height: 20.h,
                 width: 20.w,
               ),
@@ -250,7 +250,7 @@ class _RepaidCardState extends State<RepaidCard> {
                         strRepaid,
                         style: ThemeHelper.getInstance()!.textTheme.headline4!.copyWith(
                               fontSize: 12.sp,
-                              color: Utils.getBgColorByTransactionStatus(strRepaid),
+                              color: AppUtils.getBgColorByTransactionStatus(strRepaid),
                             ),
                       ),
                     ],
@@ -519,8 +519,8 @@ class _RepaidCardState extends State<RepaidCard> {
     dueDate = createDueDate(disbursedInvoice?.dueDate ?? '');
     bankName = disbursedInvoice?.bankName;
     interestRate = disbursedInvoice?.interestRate.toString() ?? "" + " % p.a";
-    amountToPay = Utils.convertIndianCurrency(disbursedInvoice?.invoiceAmount?.toString());
-    interestAmount = Utils.convertIndianCurrency(disbursedInvoice?.interestAmount?.toString());
+    amountToPay = AppUtils.convertIndianCurrency(disbursedInvoice?.invoiceAmount?.toString());
+    interestAmount = AppUtils.convertIndianCurrency(disbursedInvoice?.interestAmount?.toString());
     buyerName = disbursedInvoice?.buyerName;
     disbursedOnDate = createDueDate(disbursedInvoice?.fetchedDate ?? '');
     loanId = disbursedInvoice?.loanId ?? '';
@@ -529,9 +529,9 @@ class _RepaidCardState extends State<RepaidCard> {
     gstin = TGSession.getInstance().get(PREF_GSTIN);
     dueDays = disbursedInvoice?.dueDays;
     tenure = disbursedInvoice?.tenure.toString();
-    latePaymentCharge = Utils.convertIndianCurrency(disbursedInvoice?.amountDue?.toString());
-    invoiceAmount = Utils.convertIndianCurrency(disbursedInvoice?.invoiceAmount?.toString());
-    loanAmount = Utils.convertIndianCurrency(disbursedInvoice?.loanAmount?.toString());
+    latePaymentCharge = AppUtils.convertIndianCurrency(disbursedInvoice?.amountDue?.toString());
+    invoiceAmount = AppUtils.convertIndianCurrency(disbursedInvoice?.invoiceAmount?.toString());
+    loanAmount = AppUtils.convertIndianCurrency(disbursedInvoice?.loanAmount?.toString());
   }
 
   String createDueDate(String date) {

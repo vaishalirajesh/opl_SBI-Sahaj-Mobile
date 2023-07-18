@@ -156,14 +156,14 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
               children: [
                 GestureDetector(
                   child: SvgPicture.asset(
-                    Utils.path(MOBILEMENUBAR),
+                    AppUtils.path(MOBILEMENUBAR),
                   ),
                   onTap: () {},
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 70.w),
                   child: SvgPicture.asset(
-                    Utils.path(SAHAJLOGOWITHOUTTEXT),
+                    AppUtils.path(SAHAJLOGOWITHOUTTEXT),
                     height: 30.h,
                     width: 130.w,
                   ),
@@ -174,11 +174,11 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SvgPicture.asset(Utils.path(NOTIFICATIONICON), height: 20.h, width: 20.w),
+                SvgPicture.asset(AppUtils.path(NOTIFICATIONICON), height: 20.h, width: 20.w),
                 SizedBox(
                   width: 8.w,
                 ),
-                SvgPicture.asset(Utils.path(LOGOUT), height: 20.h, width: 20.w)
+                SvgPicture.asset(AppUtils.path(LOGOUT), height: 20.h, width: 20.w)
               ],
             )
           ],
@@ -202,7 +202,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
         width: 20.w,
         height: 20.h,
         child: SvgPicture.asset(
-          Utils.path(path),
+          AppUtils.path(path),
           //
         ),
       );
@@ -287,7 +287,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
           ),
           child: Row(
             children: [
-              SvgPicture.asset(Utils.path(IMG_FILTER_INVOICE), height: 15.h, width: 15.w),
+              SvgPicture.asset(AppUtils.path(IMG_FILTER_INVOICE), height: 15.h, width: 15.w),
               SizedBox(
                 width: 8.w,
               ),

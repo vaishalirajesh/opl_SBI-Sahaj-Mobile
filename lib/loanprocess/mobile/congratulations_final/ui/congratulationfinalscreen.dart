@@ -94,7 +94,7 @@ class CongratulationsFinalMainBody extends State<CongratulationsFinalMains> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(8.r)),
-          image: DecorationImage(image: AssetImage(Utils.path(CONGRATULATION_BG)), alignment: Alignment.topCenter),
+          image: DecorationImage(image: AssetImage(AppUtils.path(CONGRATULATION_BG)), alignment: Alignment.topCenter),
           color: Colors.white,
         ),
         child: Padding(
@@ -109,7 +109,7 @@ class CongratulationsFinalMainBody extends State<CongratulationsFinalMains> {
                   child: SvgPicture.asset(
                     height: 60.h,
                     width: 60.w,
-                    Utils.path(CONGRATULATION),
+                    AppUtils.path(CONGRATULATION),
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -176,11 +176,11 @@ class CongratulationsFinalMainBody extends State<CongratulationsFinalMains> {
       Divider(),
       _buildTableRowData(str_Lender, dictDisbData?.lender ?? ""),
       Divider(),
-      _buildTableRowData(str_Total_Loan, Utils.convertIndianCurrency(dictDisbData?.totalLoan) ?? ""),
+      _buildTableRowData(str_Total_Loan, AppUtils.convertIndianCurrency(dictDisbData?.totalLoan) ?? ""),
       Divider(),
       _buildTableRowData(str_Deposit_Account, dictDisbData?.depositAccount ?? ""),
       Divider(),
-      _buildTableRowData(str_Total_Repayment, Utils.convertIndianCurrency(dictDisbData?.totalRepayment) ?? ""),
+      _buildTableRowData(str_Total_Repayment, AppUtils.convertIndianCurrency(dictDisbData?.totalRepayment) ?? ""),
       Divider(),
       _buildTableRowData(str_Due_Date, dictDisbData?.dueDate ?? ""),
       Divider(),
