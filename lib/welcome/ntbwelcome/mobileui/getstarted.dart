@@ -65,6 +65,7 @@ class _GetStartedState extends State<GetStarted> {
   bool isShowDialog = false;
   bool isValidMobile = false;
   String strMobile = '';
+  String ssomobileNumber = '';
 
   @override
   void initState() {
@@ -264,22 +265,30 @@ class _GetStartedState extends State<GetStarted> {
   }
 
   Future<void> _autoLoginRequest() async {
-    TGSession.getInstance().set(SESSION_MOBILENUMBER, strMobile);
+    String? actulssMobielMumber = await TGSession.getInstance().get(SESSION_SSOMOBILE) ?? '';
+    if (actulssMobielMumber!.isNotEmpty) {
+      ssomobileNumber = actulssMobielMumber!.substring(actulssMobielMumber.length - 10);
+    }
+    String? ssoemail = await TGSession.getInstance().get(SESSION_SSOEMAIL) ?? '';
+    String? ssoaddress = await TGSession.getInstance().get(SESSION_SSOADDRESS) ?? '';
+    String? ssocifnumber = await TGSession.getInstance().get(SESSION_SSOCIFNO) ?? '';
+    String? ssopannumber = await TGSession.getInstance().get(SESSION_SSOPANNO) ?? '';
+    TGLog.d(
+        "SSO data -------Mobile---'$ssomobileNumber'  Pan---'$ssopannumber'-----Address---'$ssoaddress' CIfNo---'$ssocifnumber'---email---'$ssoemail'-- ");
+    TGSession.getInstance().set(SESSION_MOBILENUMBER, ssomobileNumber.isNotEmpty ? ssomobileNumber : strMobile);
+
+    // If data will get from sso then call APi with that parameter else pass static user input
     AutoLoginRequest autoLoginRequest = AutoLoginRequest(
-      mobile: strMobile,
-      cifNo: "testingCIFNo",
-      email: "w@c.com",
+      mobile: ssomobileNumber.isNotEmpty ? ssomobileNumber : strMobile,
+      cifNo: ssocifnumber!.isNotEmpty ? ssocifnumber : "testingCIFNo",
+      email: ssoemail!.isNotEmpty ? ssoemail : "opltest@gamil.com",
       deviceId: uuid,
-      address: "address",
-      pan: "",
+      address: ssoaddress!.isNotEmpty ? ssoaddress : "address",
+      pan: ssopannumber!.isNotEmpty ? ssopannumber : '',
     );
-
     var jsonRequest = jsonEncode(autoLoginRequest.toJson());
-
     TGLog.d("Auto Login Request $jsonRequest");
-
     TGPostRequest tgPostRequest = await getPayLoad(jsonRequest, URI_AUTOLOGIN);
-
     ServiceManager.getInstance().autoLoginRequest(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessAutoLogin(response),
@@ -291,7 +300,7 @@ class _GetStartedState extends State<GetStarted> {
 
     if (response?.getOtpReponseObj()?.status == RES_SUCCESS) {
       Utils.setAccessToken(TGFlavor.param("bankName"), response?.getOtpReponseObj().data?.accessToken);
-      TGSharedPreferences.getInstance().set(PREF_MOBILE, "7069168115");
+      TGSharedPreferences.getInstance().set(PREF_MOBILE, ssomobileNumber.isNotEmpty ? ssomobileNumber : strMobile);
       setAccessTokenInRequestHeader();
       TGLog.d('Bank name--${TGFlavor.param("bankName")}');
       Navigator.pushReplacement(

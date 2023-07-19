@@ -30,6 +30,7 @@ import 'package:sbi_sahay_1_0/welcome/ntbwelcome/mobileui/getstarted.dart';
 import 'package:sbi_sahay_1_0/welcome/ntbwelcome/mobileui/startregistration.dart';
 import 'package:sbi_sahay_1_0/welcome/termscondition/mobile/termscondition.dart';
 
+import 'auto_login.dart';
 import 'disbursed/mobile/loanreview/ui/loanreviewscreen.dart';
 import 'disbursed/mobile/proceedtodisbursed/ui/loaderprepareloandisbursement.dart';
 import 'disbursed/mobile/proceedtodisbursed/ui/proceedtodisbscreen.dart';
@@ -221,19 +222,16 @@ class RouteGenerator {
     }
     return MaterialPageRoute(
       builder: (context) {
-        // Call after Loan Agreement Process
         if (route == MyRoutes.ddeResponse) {
           return ESignCompletedMain();
         } else if (route == MyRoutes.AAWebViewCallBack) {
           return AaCompletedPage(str: queryParameters!);
         } else if (route == MyRoutes.autologin) {
-          return LoginWithMobileNumber();
+          return AutoLogin(str: queryParameters!);
         } else {
-          return Scaffold(
-            body: Container(
-              child: Center(
-                child: Text("You are Unthorised", textAlign: TextAlign.center),
-              ),
+          return const Scaffold(
+            body: Center(
+              child: Text("You are Unthorised", textAlign: TextAlign.center),
             ),
           );
         }

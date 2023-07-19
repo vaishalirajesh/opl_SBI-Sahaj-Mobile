@@ -4,12 +4,14 @@ import 'package:convert/convert.dart';
 import 'package:encrypt/encrypt.dart' as enc;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gstmobileservices/common/app_functions.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_flavor.dart';
 import 'package:gstmobileservices/util/tg_util.dart';
+import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/utils/constants/session_keys.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -18,7 +20,6 @@ import 'package:sbi_sahay_1_0/welcome/ntbwelcome/mobileui/getstarted.dart';
 class AutoLogin extends StatefulWidget {
   const AutoLogin({required this.str, Key? key}) : super(key: key);
   final Map<dynamic, dynamic> str;
-
   @override
   State<AutoLogin> createState() => AutoLoginState();
 }
@@ -26,16 +27,29 @@ class AutoLogin extends StatefulWidget {
 class AutoLoginState extends State<AutoLogin> {
   @override
   Widget build(BuildContext context) {
-    return Container(color: ThemeHelper.getInstance()?.colorScheme.background);
+    return Container(
+      color: ThemeHelper.getInstance()?.colorScheme.background,
+      child: SizedBox(
+        width: 80,
+        height: 80,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            CircularProgressIndicator(
+              backgroundColor: MyColors.pnbcolorPrimary,
+              strokeWidth: 4.w,
+              color: MyColorsSBI.sbicolorDisableColor,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
   void initState() {
     TGLog.d(widget.str);
-    // WidgetsBinding.instance.addPostFrameCallback((_) async {
-    //   LoaderUtils.showLoaderwithmsg(context, LOADERSAMPLE, "Wait a Moment...", msg: "Getting Details...");
-    // });
-    String encryptedText = widget.str['encData'];
+    String encryptedText = widget.str['encData'] ?? '';
     TGLog.d("sso encrypted String : $encryptedText");
     decryptParameter(encryptedText);
   }
@@ -57,7 +71,6 @@ class AutoLoginState extends State<AutoLogin> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context);
                 SystemNavigator.pop(animated: true);
               },
               child: const Text('Exit'),
