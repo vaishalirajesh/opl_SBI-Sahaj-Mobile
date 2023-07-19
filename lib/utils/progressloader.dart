@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gstmobileservices/common/keys.dart';
+import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/aalist/ui/aa_error_screen.dart';
-import 'package:sbi_sahay_1_0/registration/mobile/login/login.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusConstants.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 
@@ -282,7 +284,8 @@ class LoaderUtils {
         });
   }
 
-  static void handleErrorResponse(BuildContext context, int? status, String? message, String? stageStatus) {
+  static Future<void> handleErrorResponse(
+      BuildContext context, int? status, String? message, String? stageStatus) async {
     if (status == RES_OFFER_EXPIRED) {
       showOfferExpired(context);
     } else if (status == RES_OFFER_INELIGIBLE) {
@@ -292,13 +295,8 @@ class LoaderUtils {
     } else if (stageStatus != null && stageStatus == "ACTION_REQUIRED") {
       showBureauFail(context, message);
     } else if (status == RES_UNAUTHORISED) {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => LoginWithMobileNumber(),
-        ),
-        (route) => false, //if you want to disable back feature set to false
-      );
+      await TGSharedPreferences.getInstance().remove(PREF_ACCESS_TOKEN_SBI);
+      SystemNavigator.pop(animated: true);
     } else if (status == CONSENT_REJECTION) {
       Navigator.pushAndRemoveUntil(
         context,
