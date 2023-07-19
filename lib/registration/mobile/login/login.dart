@@ -115,7 +115,6 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
   Widget loginContent() {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pop(context, false);
         SystemNavigator.pop(animated: true);
         return true;
       },

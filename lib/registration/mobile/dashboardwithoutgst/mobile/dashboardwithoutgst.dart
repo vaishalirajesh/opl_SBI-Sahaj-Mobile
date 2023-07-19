@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gstmobileservices/model/models/get_gst_basic_details_res_main.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
-import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 
@@ -154,10 +153,10 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: gstLoanFinanceStepsUi(),
             ),
-            Text(
-              str_notodler_than_60,
-              style: ThemeHelper.getInstance()!.textTheme.subtitle1?.copyWith(fontFamily: MyFont.Roboto_Italic),
-            ),
+            // Text(
+            //   str_notodler_than_60,
+            //   style: ThemeHelper.getInstance()!.textTheme.subtitle1?.copyWith(fontFamily: MyFont.Roboto_Italic),
+            // ),
           ],
         ),
         SizedBox(

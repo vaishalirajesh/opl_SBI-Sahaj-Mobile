@@ -158,7 +158,10 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
         ),
         child: Text(
           str_Kindly_enter_your_GST_Username_GSTIN_to_link_with_Sahay_GST_Account,
-          style: ThemeHelper.getInstance()!.textTheme.displayMedium?.copyWith(fontSize: 14.sp),
+          style: ThemeHelper.getInstance()!
+              .textTheme
+              .displayMedium
+              ?.copyWith(fontSize: 14.sp, fontFamily: MyFont.Roboto_Regular),
         ),
       )
     ];
@@ -184,13 +187,6 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
               decoration: InputDecoration(
                 labelStyle: TextStyle(color: MyColors.lightGraySmallText),
                 labelText: str_GST_User_Name,
-                suffixIcon: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.info_outline,
-                      color: MyColors.lightGraySmallText,
-                    )),
-                //hintText: str_GST_User_Name,
                 enabledBorder: UnderlineInputBorder(
                   // borderRadius: BorderRadius.all(Radius.circular(6.r)),
                   borderSide: BorderSide(width: 1, color: ThemeHelper.getInstance()!.colorScheme.onSurface),
@@ -417,14 +413,12 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
   }
 
   void navigateToGstDetailScreen() {
-    // Navigator.pushNamed(context, MyRoutes.LoaderFetchGstDetailsRoutes);
-//      Navigator.pushNamed(context, MyRoutes.confirmGSTDetailRoutes);
-    // Navigator.of(context).push(CustomRightToLeftPageRoute(child: GstBasicDetails(), ));
     Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => GstBasicDetails(),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => GstBasicDetails(),
+      ),
+    );
   }
 
   void CheckValidGSTUserName() {
@@ -513,7 +507,6 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
     _gstOtpResponse = response?.getOtpReponseObj();
 
     if (_gstOtpResponse?.status == RES_SUCCESS) {
-      //    Navigator.of(context).push(CustomRightToLeftPageRoute(child: OtpVerifyGST(), ));
       TGSession.getInstance().set(SESSION_OTPSESSIONKEY, _gstOtpResponse?.data?.sessionKey);
       setState(() {
         isLoader = false;

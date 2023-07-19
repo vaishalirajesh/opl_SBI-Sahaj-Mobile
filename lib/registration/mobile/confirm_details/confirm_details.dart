@@ -188,6 +188,8 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
 
   Widget ExpandedView() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         _buildRow(str_Legal_Name, _gstBasicDataResMain?.data?.lgnm ?? "Manish Patel"),
         SizedBox(
@@ -287,23 +289,18 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
   _buildRow(String title, String? subTitle) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(
-            width: 119.w,
-            child: Text(
-              title,
-              style: ThemeHelper.getInstance()!.textTheme.displayMedium?.copyWith(
-                    color: MyColors.lightGraySmallText,
-                    fontSize: 12.sp,
-                  ),
-            )),
+        Text(
+          title,
+          style: ThemeHelper.getInstance()!.textTheme.overline?.copyWith(
+                color: MyColors.lightGraySmallText,
+              ),
+        ),
         SizedBox(height: 2.h),
-        SizedBox(
-          width: 148.w,
-          child: Text(
-            subTitle ?? "",
-            style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(color: MyColors.darkblack),
-          ),
+        Text(
+          subTitle ?? "",
+          style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(color: MyColors.darkblack),
         ),
       ],
     );

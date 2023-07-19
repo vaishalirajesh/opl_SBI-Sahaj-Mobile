@@ -39,7 +39,7 @@ dependencies:
 
   gstmobileservices:
     git:
-      url: https://github.com/jaympatelopl/gstsahaymobileappservice
+      url: https://github.com/capitawrld/gstsahaymobileappservice.git
       ref: main
 
   #Encryption Dependency

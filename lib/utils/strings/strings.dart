@@ -183,9 +183,9 @@ const str_Checkit_out = 'Check it out';
 const str_Enter_GST_Details = 'Enter GST Details';
 const str_Enter_your_mobile_Details = 'Enter your mobile number';
 const str_Kindly_enter_your_GST_Username_GSTIN_to_link_with_Sahay_GST_Account =
-    'Kindly enter your GST Username & GSTIN to link with Sahay GST Account';
+    'Kindly enter your GST Username & GSTIN to link with Sahaj​';
 const str_we_will_send_you_otp_for_confirmation = 'We will send you OTP for confirmation';
-const str_GST_User_Name = 'GST User Name';
+const str_GST_User_Name = 'GST Username';
 const str_Mobile_number = 'Enter your mobile number';
 const str_15_Digit_GSTIN = '15-Digit GSTIN';
 const str_Sample_20AAAAAA1234AA1Z5 = 'Sample: 20AAAAAA1234AA1Z5';
@@ -225,15 +225,15 @@ const str_digital_document_process = 'Waiting for Digital Document Execution Sta
 //..Confirm Details
 const str_Confirm_Details = 'Confirm Details';
 const str_Add_Another_GSTIN = 'Add Another GSTIN';
-const str_Legal_Name = 'Legal Name:';
-const str_Trade_Name = 'Trade Name:';
-const str_Constitution = 'Constitution:';
-const str_Date_of_Registration = 'Date of Registration:';
-const str_GSTIN = 'GSTIN: ';
-const str_GSTIN_Status = 'GSTIN Status:';
-const str_Taxpayer_Type = 'Taxpayer Type:';
-const str_Business_Activity = 'Business Activity:';
-const str_Place_of_Business = 'Place of Business:';
+const str_Legal_Name = 'Legal Name';
+const str_Trade_Name = 'Trade Name';
+const str_Constitution = 'Constitution';
+const str_Date_of_Registration = 'Date of Registration';
+const str_GSTIN = 'GSTIN';
+const str_GSTIN_Status = 'GSTIN Status';
+const str_Taxpayer_Type = 'Taxpayer Type';
+const str_Business_Activity = 'Business Activity';
+const str_Place_of_Business = 'Place of Business';
 
 const checkboxText = 'I confirm that all above details fetched from GST Portal are correct.';
 
@@ -357,23 +357,23 @@ const str_Fetching_Eligible_Invoices = "Fetching Eligible Invoices";
 const str_Get_Invoice_based_financein = "Get Invoice based finance in";
 const str_3SIMPLESTEP = "4 Simple Steps";
 
-const str_step1_gstWithout = 'Share bank statement';
-const str_step1_gstWithout_disc = 'Authorise Account Aggregator (AA) to fetch your Bank details ';
+const str_step1_gstWithout = 'Share Bank Statement';
+const str_step1_gstWithout_disc = 'Authorise Account Aggregator (AA) to fetch your Bank details';
 
-const str_step2_gstWithout = 'Accept Loan offer';
+const str_step2_gstWithout = 'Accept Loan Offer';
 const str_step2_gstWithout_disc =
-    'Get loan offers against your eligible* invoices. \nAccept a loan offer from the choice of lenders';
+    'Get loan offers against your eligible invoices. Accept a loan offer from the choice of lenders';
 
-const str_step3_gstWithout = 'Sign documents digitally';
-const str_step3_gstWithout_disc = 'E-sign loan agreement';
+const str_step3_gstWithout = 'Sign Documents Digitally';
+const str_step3_gstWithout_disc =
+    'E-sign loan agreement and register​E-mandate to auto-debit your account for repayment';
 
-const str_step4_gstWithout = 'Get disbursement';
+const str_step4_gstWithout = 'Get Disbursement';
 const str_step4_gstWithout_disc = 'Request for disbursement and receive the loan amount in your bank account';
 
 const str_notodler_than_60 = "* Eligible invoices : not older than 60 days";
 
 const str_Start_Loan_Process = "Start Loan Process";
-
 //Invoice list
 
 const str_GST_Invoices_for_loan_offers = "GST Invoices for loan offers";

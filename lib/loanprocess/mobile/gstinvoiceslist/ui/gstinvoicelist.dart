@@ -281,12 +281,12 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
                 filterInvoiceButton()
               ],
             ),
-            SizedBox(height: 20.h),
-            Text(str_All_the_invoicesgenerated,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline3!
-                    .copyWith(color: MyColors.darkblack, fontSize: 14.sp)),
+            // SizedBox(height: 20.h),
+            // Text(str_All_the_invoicesgenerated,
+            //     style: ThemeHelper.getInstance()!
+            //         .textTheme
+            //         .headline3!
+            //         .copyWith(color: MyColors.darkblack, fontSize: 14.sp)),
             // Text(str_invoice_disc,
             //     style: ThemeHelper.getInstance()!
             //         .textTheme

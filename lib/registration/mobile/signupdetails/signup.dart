@@ -113,14 +113,26 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   )
                 : Scaffold(
                     appBar: getAppBarWithBackBtn(onClickAction: () => {Navigator.pop(context, false)}),
-                    body: Stack(children: [
-                      SingleChildScrollView(
-                        primary: true,
-                        child: Container(
-                          child: SignUpScreenContent(),
-                        ),
+                    body: SingleChildScrollView(
+                      primary: true,
+                      child: SignUpScreenContent(),
+                    ),
+                    bottomNavigationBar: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          confirmGstDetailCheck(),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          SignUpButtonUI()
+                        ],
                       ),
-                    ]),
+                    ),
                   ),
           ),
         );
@@ -248,11 +260,6 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             SizedBox(
               height: 20.h,
             ),
-            confirmGstDetailCheck(),
-            SizedBox(
-              height: 10.h,
-            ),
-            SignUpButtonUI()
           ],
         ),
       ),
@@ -385,16 +392,12 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 width: MediaQuery.of(context).size.width - 86,
                 child: Text(
                   value,
-                  style: ThemeHelper.getInstance()!.textTheme.bodyMedium!.copyWith(fontSize: 12.sp),
+                  style: ThemeHelper.getInstance()?.textTheme.headline3,
                 ),
               ),
             );
           }).toList(),
-          onChanged: (String? newValue) {
-            setState(() {
-              selectedGender = newValue!;
-            });
-          },
+          onChanged: null,
           icon: null,
           isDense: true,
           underline: Container(
@@ -412,7 +415,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         onChanged: (content) {
           String pattern =
               r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-          RegExp regex = new RegExp(pattern);
+          RegExp regex = RegExp(pattern);
           isValidEmail = regex.hasMatch(content);
           TGLog.d("Is Valid emial---------$isValidEmail");
           strEmail = content;
@@ -420,6 +423,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         },
         initialValue: strEmail ?? '',
         obscureText: hidePassword,
+        obscuringCharacter: 'X',
         cursorColor: Colors.grey,
         decoration: InputDecoration(
           labelText: "Email Id",
@@ -451,6 +455,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
           ),
           suffixIconColor: MyColors.black,
         ),
+        style: ThemeHelper.getInstance()?.textTheme.headline3,
         keyboardType: TextInputType.visiblePassword,
         maxLines: 1,
         validator: (value) {
@@ -652,11 +657,12 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
 
       RegExp regex = new RegExp(pattern);
       isValidEmail = regex.hasMatch(userBasicDetailResponseMain?.data?.email ?? '');
-      setState(() {});
       strUserName = userBasicDetailResponseMain?.data?.firtName ?? 'TestUser';
+      selectedGender = userBasicDetailResponseMain?.data?.gender ?? 'Female';
       TGSession.getInstance().set(SESSION_EMAIL, userBasicDetailResponseMain?.data?.email ?? '');
       TGSession.getInstance().set(SESSION_MOBILENUMBER, userBasicDetailResponseMain?.data?.email ?? strMobile);
       TGSession.getInstance().set(SESSION_USERNAME, userBasicDetailResponseMain?.data?.userName ?? 'TestUser');
+      setState(() {});
     } else {
       LoaderUtils.handleErrorResponse(
           context, response?.getBankListResObj().status, response?.getBankListResObj().message, null);
@@ -804,9 +810,11 @@ class ContactNumberWidgetState extends State<ContactNumberWidget> {
           setState(() {});
         },
         obscureText: hidePassword,
+        obscuringCharacter: 'X',
         initialValue: widget.username,
         enabled: false,
         cursorColor: Colors.grey,
+        style: ThemeHelper.getInstance()?.textTheme.headline3,
         decoration: InputDecoration(
           labelText: label,
           labelStyle: ThemeHelper.getInstance()

@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
 import 'package:gstmobileservices/model/models/get_email_otp_response_main.dart';
-import 'package:gstmobileservices/model/models/get_otp_main.dart';
 import 'package:gstmobileservices/model/models/verify_email_otp_response_main.dart';
 import 'package:gstmobileservices/model/requestmodel/get_email_otp_request.dart';
 import 'package:gstmobileservices/model/requestmodel/verify_email_otp_request.dart';
@@ -24,7 +23,6 @@ import 'package:gstmobileservices/util/showcustomesnackbar.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
 import 'package:otp_text_field/otp_field_style.dart';
-import 'package:pinput/pinput.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/imageconstant.dart';
@@ -72,17 +70,9 @@ class OTPVerifyEmailScreen extends StatefulWidget {
 }
 
 class OTPVerifyEmailScreenState extends State<OTPVerifyEmailScreen> {
-  GetOtpResponseMain? getOtpRes;
-
   int counter = 0;
   bool isValidOTP = false;
   String otp = '';
-  String firstletter = "";
-  String secondletter = "";
-  String thirdletter = "";
-  String forthletter = "";
-  String fifthletter = "";
-  String sixthletter = "";
   bool isClearOtp = false;
   bool isGetOTPLoaderStart = false;
   bool isVerifyOTPLoaderStart = false;
@@ -99,15 +89,6 @@ class OTPVerifyEmailScreenState extends State<OTPVerifyEmailScreen> {
   void initState() {
     strEmail = TGSession.getInstance().get(SESSION_EMAIL);
     super.initState();
-  }
-
-  void checkOtp() {
-    isValidOTP = firstletter.isNotEmpty &&
-        secondletter.isNotEmpty &&
-        thirdletter.isNotEmpty &&
-        forthletter.isNotEmpty &&
-        fifthletter.isNotEmpty &&
-        sixthletter.isNotEmpty;
   }
 
   @override
@@ -317,40 +298,6 @@ class OTPVerifyEmailScreenState extends State<OTPVerifyEmailScreen> {
     );
   }
 
-  Widget animatedBorders() {
-    final pinputController = TextEditingController();
-    final focusNode = FocusNode();
-    final defaultPinTheme = PinTheme(
-      width: 56,
-      height: 56,
-      textStyle: ThemeHelper.getInstance()?.textTheme.bodyText1,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        border: Border.all(color: ThemeHelper.getInstance()!.colorScheme.onSurface),
-      ),
-    );
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-      child: Pinput(
-        autofocus: true,
-        defaultPinTheme: defaultPinTheme,
-        length: 6,
-        focusNode: focusNode,
-        onSubmitted: (String pin) {
-          otp = pin;
-          setState(() {
-            if (otp.isNotEmpty) {
-              isValidOTP = true;
-            } else {
-              isValidOTP = false;
-            }
-          });
-        },
-        controller: pinputController,
-      ),
-    );
-  }
-
   Widget PopUpViewForEnableApi() {
     return GestureDetector(
       onTap: () {
@@ -482,7 +429,7 @@ class OTPVerifyEmailScreenState extends State<OTPVerifyEmailScreen> {
     otpSessionKey = await TGSession.getInstance().get(SESSION_OTPSESSIONKEY);
     VerifyEmailOTPRequest verifyEmailOTP = VerifyEmailOTPRequest(otp: otp, sessionKey: otpSessionKey);
     var jsonReq = jsonEncode(verifyEmailOTP.toJson());
-    TGLog.d("GST OTP Request : $jsonReq");
+    TGLog.d("verifyEmailOTP Request : $jsonReq");
     TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_SBI_VERIFY_EMAIL);
     ServiceManager.getInstance().verifyEmailOtp(
         request: tgPostRequest,
@@ -491,7 +438,7 @@ class OTPVerifyEmailScreenState extends State<OTPVerifyEmailScreen> {
   }
 
   _onSuccessVerifyOTP(VerifyEmailOtpResponse response) {
-    TGLog.d("SaveConsent() : Success---$response");
+    TGLog.d("verifyEmailOTP() : Success---$response");
     verifyEmailResponse = response.getOtpReponseObj();
     if (verifyEmailResponse?.status == RES_SUCCESS) {
       Navigator.pop(context, true);
@@ -502,7 +449,7 @@ class OTPVerifyEmailScreenState extends State<OTPVerifyEmailScreen> {
   }
 
   _onErrorVerifyOTP(TGResponse errorResponse) {
-    TGLog.d("SaveConsent() : Error");
+    TGLog.d("verifyEmailOTP() : Error");
     handleServiceFailError(context, errorResponse.error);
   }
 
@@ -520,7 +467,7 @@ class OTPVerifyEmailScreenState extends State<OTPVerifyEmailScreen> {
     var username = TGSession.getInstance().get(SESSION_USERNAME);
     GetEmailOTPRequest getEmailOTP = GetEmailOTPRequest(emailId: strEmail, customerName: username);
     var jsonReq = jsonEncode(getEmailOTP.toJson());
-    TGLog.d("GST OTP Request : $jsonReq");
+    TGLog.d("GetEmailOtp Request : $jsonReq");
     TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_SBI_GET_EMAIL_OTP);
     ServiceManager.getInstance().getEmailOtp(
         request: tgPostRequest,
@@ -529,22 +476,25 @@ class OTPVerifyEmailScreenState extends State<OTPVerifyEmailScreen> {
   }
 
   _onSuccessGetOTP(GetEmailOtpRespose response) {
-    TGLog.d("SaveConsent() : Success---$response");
+    TGLog.d("GetEmailOtp() : Success---$response");
     getOtpResponse = response.getOtpReponseObj();
     if (getOtpResponse?.status == RES_SUCCESS) {
+      sessionkey = getOtpResponse?.data;
       showSnackBar(context, "OTP resend successfully");
     } else {
       LoaderUtils.handleErrorResponse(
           context, response?.getOtpReponseObj().status, response?.getOtpReponseObj().message, null);
     }
     isGetOTPLoaderStart = false;
+    isClearOtp = false;
     setState(() {});
   }
 
   _onErrorGetOTP(TGResponse errorResponse) {
     isGetOTPLoaderStart = false;
+    isClearOtp = false;
     setState(() {});
-    TGLog.d("SaveConsent() : Error");
+    TGLog.d("GetEmailOtp() : Error");
     handleServiceFailError(context, errorResponse.error);
   }
 }
