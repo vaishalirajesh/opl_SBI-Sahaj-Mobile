@@ -20,6 +20,7 @@ import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/jumpingdot_util.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/utils/constants/imageconstant.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 
@@ -50,56 +51,68 @@ class _LoanOfferDialogState extends State<LoanOfferDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: AbsorbPointer(
-        absorbing: isLoanDataFeched,
-        child: Container(
-          color: Colors.black.withOpacity(0.5),
-          child: Center(
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                color: Colors.white,
-              ),
-              // height: 400.h,
-              width: 335.w,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  SizedBox(height: 40.h), //40
-                  Center(
-                      child: SvgPicture.asset(AppUtils.path(GREENCONFORMTICK),
-                          height: 52.h, //,
-                          width: 52.w, //134.8,
-                          allowDrawingOutsideViewBox: true)),
-                  SizedBox(height: 30.h), //40
-                  Center(
-                      child: Column(children: [
-                    Text(
-                      "Loan Offers are ready",
-                      style: ThemeHelper.getInstance()?.textTheme.headline1?.copyWith(color: MyColors.darkblack),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: 18.h),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30, right: 30),
-                      child: Text(
-                        "Information sharing to get loan offers from lender is completed. Initiate loan process with lender now.",
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => const DashboardWithGST(),
+          ),
+          (route) => false, //if you want to disable back feature set to false
+        );
+        return true;
+      },
+      child: Scaffold(
+        body: AbsorbPointer(
+          absorbing: isLoanDataFeched,
+          child: Container(
+            color: Colors.black.withOpacity(0.5),
+            child: Center(
+              child: Container(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  color: Colors.white,
+                ),
+                // height: 400.h,
+                width: 335.w,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    SizedBox(height: 40.h), //40
+                    Center(
+                        child: SvgPicture.asset(AppUtils.path(GREENCONFORMTICK),
+                            height: 52.h, //,
+                            width: 52.w, //134.8,
+                            allowDrawingOutsideViewBox: true)),
+                    SizedBox(height: 30.h), //40
+                    Center(
+                        child: Column(children: [
+                      Text(
+                        "Loan Offers are ready",
+                        style: ThemeHelper.getInstance()?.textTheme.headline1?.copyWith(color: MyColors.darkblack),
                         textAlign: TextAlign.center,
-                        style: ThemeHelper.getInstance()?.textTheme.bodyText2,
                       ),
+                      SizedBox(height: 18.h),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        child: Text(
+                          "Information sharing to get loan offers from lender is completed. Initiate loan process with lender now.",
+                          textAlign: TextAlign.center,
+                          style: ThemeHelper.getInstance()?.textTheme.bodyText2,
+                        ),
+                      ),
+                    ])),
+                    //38
+                    SizedBox(height: 20.h),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                      child: BtnCheckOut(),
                     ),
-                  ])),
-                  //38
-                  SizedBox(height: 20.h),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                    child: BtnCheckOut(),
-                  ),
-                  SizedBox(height: 30.h), //40
-                ],
+                    SizedBox(height: 30.h), //40
+                  ],
+                ),
               ),
             ),
           ),
@@ -169,7 +182,8 @@ class _LoanOfferDialogState extends State<LoanOfferDialog> {
       }
       _getLoanAppStatusAfterGenerateOfferAPI();
     } else {
-      Navigator.pop(context);
+      isLoanDataFeched = false;
+      setState(() {});
       LoaderUtils.handleErrorResponse(
           context, response?.getGenerateOfferResObj().status, response?.getGenerateOfferResObj().message, null);
     }
@@ -177,7 +191,8 @@ class _LoanOfferDialogState extends State<LoanOfferDialog> {
 
   _onErrorGenerateLoanOffer(TGResponse errorResponse) {
     TGLog.d("GenerateLoanOfferResponse : onError()");
-    Navigator.pop(context);
+    isLoanDataFeched = false;
+    setState(() {});
   }
 
   Future<void> _getLoanAppStatusAfterGenerateOffer() async {
@@ -200,10 +215,8 @@ class _LoanOfferDialogState extends State<LoanOfferDialog> {
   _onSuccessGetLoanAppStatus(GetLoanStatusResponse? response) {
     TGLog.d("LoanAppStatusResponse : onSuccess()");
     _getLoanStatusRes = response?.getLoanStatusResObj();
-
     if (_getLoanStatusRes?.status == RES_SUCCESS) {
       if (_getLoanStatusRes?.data?.stageStatus == "PROCEED") {
-        Navigator.of(context, rootNavigator: true).pop();
         MoveStage.navigateNextStage(context, _getLoanStatusRes?.data?.currentStage);
         timer.cancel();
         //Navigator.pushNamed(context, MyRoutes.loanOfferListRoutes);
@@ -216,7 +229,8 @@ class _LoanOfferDialogState extends State<LoanOfferDialog> {
       }
     } else {
       timer.cancel();
-      Navigator.of(context, rootNavigator: true).pop();
+      isLoanDataFeched = false;
+      setState(() {});
       LoaderUtils.handleErrorResponse(context, response?.getLoanStatusResObj().status,
           response?.getLoanStatusResObj().message, response?.getLoanStatusResObj().data?.stageStatus);
     }
@@ -224,8 +238,9 @@ class _LoanOfferDialogState extends State<LoanOfferDialog> {
 
   _onErrorGetLoanAppStatus(TGResponse errorResponse) {
     timer.cancel();
+    isLoanDataFeched = false;
+    setState(() {});
     TGLog.d("LoanAppStatusResponse : onError()");
-    Navigator.of(context, rootNavigator: true).pop();
     handleServiceFailError(context, errorResponse.error);
   }
 
