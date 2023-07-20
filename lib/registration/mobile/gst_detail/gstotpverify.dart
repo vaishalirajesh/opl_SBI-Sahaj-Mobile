@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gstmobileservices/common/app_functions.dart';
@@ -33,6 +33,7 @@ import 'package:otp_text_field/otp_field_style.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/confirm_details/confirm_details.dart';
+import 'package:sbi_sahay_1_0/registration/mobile/gst_api_steps/gst_api_steps.dart';
 import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
@@ -40,6 +41,7 @@ import 'package:sbi_sahay_1_0/utils/constants/statusConstants.dart';
 import 'package:sbi_sahay_1_0/utils/progressLoader.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../utils/Utils.dart';
@@ -61,15 +63,14 @@ class OtpVerifyGST extends StatelessWidget {
         return WillPopScope(
           onWillPop: () async {
             Navigator.pop(context);
-            SystemNavigator.pop(animated: true);
             return true;
           },
           child: Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: getAppBarWithStepDone('', str_registration, 1,
+                isRegistrationScreen: true,
                 onClickAction: () => {
                       Navigator.pop(context),
-                      SystemNavigator.pop(animated: true),
                     }),
             body: const OtpVerifyGSTScreen(),
           ),
@@ -462,6 +463,10 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
                                   fontSize: 16.sp,
                                   color: ThemeHelper.getInstance()?.primaryColor,
                                   fontFamily: MyFont.Roboto_Medium),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  launchUrl(Uri.parse("https://www.youtube.com/watch?v=vcxK5Ppd4R4"));
+                                },
                             ),
                             const TextSpan(
                               text: "      ",
@@ -475,6 +480,15 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
                                   fontSize: 16.sp,
                                   color: ThemeHelper.getInstance()?.primaryColor,
                                   fontFamily: MyFont.Roboto_Medium),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) => GstApiSteps(),
+                                    ),
+                                  );
+                                },
                             )
                           ],
                         ),
@@ -550,7 +564,7 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
           builder: (context) => GstBasicDetails(),
         ),
       );
-    } else if (verifyOtpResponse?.status == RES_SUCCESS) {
+    } else if (verifyOtpResponse?.status == RES_GST_APIDENIED) {
       setState(() {
         isVerifyOTPLoaderStart = false;
       });

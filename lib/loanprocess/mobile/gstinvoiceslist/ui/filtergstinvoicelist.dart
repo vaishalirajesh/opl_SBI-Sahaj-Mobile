@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sbi_sahay_1_0/widgets/app_drawer.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 
 import '../../../../utils/Utils.dart';
@@ -21,7 +22,7 @@ class GSTInvoiceListFilter extends StatelessWidget {
               return true;
             },
             child: Scaffold(
-                //resizeToAvoidBottomInset: false,
+                drawer: const AppDrawer(),
                 appBar: getAppBarWithStepDone("2", str_loan_approve_process, 0.30,
                     onClickAction: () => {Navigator.pop(context)}),
                 body: GSTInvoiceListFilterScreen()));

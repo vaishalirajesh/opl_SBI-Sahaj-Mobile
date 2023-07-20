@@ -30,6 +30,7 @@ import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/utils/progressLoader.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
+import 'package:sbi_sahay_1_0/widgets/app_drawer.dart';
 import 'package:webviewx/webviewx.dart';
 
 import '../../../../loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
@@ -114,6 +115,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
       return loadAgreementURLInWeb(context);
     } else {
       return Scaffold(
+        drawer: const AppDrawer(),
         appBar: getAppBarWithStepDone('3', str_documentation, 0.75,
             onClickAction: () => {
                   Navigator.pushAndRemoveUntil(

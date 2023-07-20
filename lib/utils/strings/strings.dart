@@ -675,3 +675,14 @@ const no_data_found = 'No user detail found';
 const consent_fail = 'Seems You have not linked the Current A/c. Kindly provide your consent to fetch bank data.';
 const aa_error_txt =
     'Seems You have Linked a Wrong Current A/c. Link Your Correct Current A/c or Retry with another Account Aggregator.';
+
+//GSt API Enable Steps
+const str_enable_gst_api = 'How to Enable API Access in Your GST Account?';
+const str_gst_api_step1 =
+    'Visit www.gst.gov.in, click on the "login" button and insert your credential to log in to your GST account.';
+const str_gst_api_step2 = 'After logging in, click on the "View Profile" link located on the right side.';
+const str_gst_api_step3 = 'Under Quick links, click on the "Manage API Access" link.';
+const str_gst_api_step4 =
+    'Click on the "Yes" button next to the "Enable API Request", select "Duration" from the dropdown provided and click on "Confirm" button.';
+const str_gst_api_step5 =
+    'Insert your GST Number and Username, you will receive OTP on the mobile number registered with GST Account.';

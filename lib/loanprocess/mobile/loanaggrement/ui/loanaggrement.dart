@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
+import 'package:sbi_sahay_1_0/widgets/app_drawer.dart';
 import 'package:webviewx/webviewx.dart';
 
 import '../../../../utils/Utils.dart';
@@ -26,6 +27,7 @@ Widget LoanAgreementView(LoanAggVM viewModel) {
       create: (BuildContext context) => viewModel,
       child: Consumer<LoanAggVM>(builder: (context, viewModel, _) {
         return Scaffold(
+            drawer: const AppDrawer(),
             appBar: getAppBarWithStepDone("3", "Documentation", 2.0, onClickAction: () => {Navigator.pop(context)}),
             body: Container(child: setUpViewData(viewModel)),
             bottomNavigationBar: BottomAppBar(

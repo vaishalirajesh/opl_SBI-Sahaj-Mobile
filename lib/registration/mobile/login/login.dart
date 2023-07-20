@@ -122,6 +122,7 @@ class LoignWithMobileState extends State<LoginWithMobileNumberScreen> {
         key: scaffoldKey,
         resizeToAvoidBottomInset: false,
         appBar: getAppBarWithStepDone('1', str_registration, 0.25,
+            isRegistrationScreen: true,
             onClickAction: () => {Navigator.pop(context, false), SystemNavigator.pop(animated: true)}),
         body: AbsorbPointer(
           absorbing: _isGetOTPLoaderStart,

@@ -7,6 +7,7 @@ import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
+import 'package:sbi_sahay_1_0/widgets/app_drawer.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -55,6 +56,7 @@ class _AccountAggregatorScreenState extends State<AccountAggregatorScreen> {
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
+        drawer: const AppDrawer(),
         appBar: getAppBarWithStepDone("2", str_loan_approve_process, 0.25,
             onClickAction: () => {
                   Navigator.pushAndRemoveUntil(

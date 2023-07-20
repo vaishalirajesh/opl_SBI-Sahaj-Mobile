@@ -28,6 +28,7 @@ import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/utils/jumpingdott.dart';
 import 'package:sbi_sahay_1_0/utils/progressLoader.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
+import 'package:sbi_sahay_1_0/widgets/app_drawer.dart';
 import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
 
 import '../../../../utils/Utils.dart';
@@ -100,12 +101,18 @@ class _AAListViewState extends State<AAListView> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pop(context);
-        return true;
+        if (isShowLoader) {
+          TGView.showSnackBar(context: context, message: str_back_press_alert_msg);
+          return true;
+        } else {
+          Navigator.pop(context);
+          return true;
+        }
       },
       child: Stack(
         children: [
           Scaffold(
+            drawer: const AppDrawer(),
             appBar: getAppBarWithStepDone("2", str_loan_approve_process, 0.50,
                 onClickAction: () => {Navigator.pop(context)}),
             body: AbsorbPointer(

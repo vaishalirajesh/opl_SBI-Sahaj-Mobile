@@ -253,59 +253,68 @@ AppBar getAppBarWithStep(String step, String appBarTitle, double progress, {requ
   );
 }
 
-AppBar getAppBarWithStepDone(String step, String appBarTitle, double progress, {required Function onClickAction}) {
+AppBar getAppBarWithStepDone(String step, String appBarTitle, double progress,
+    {required Function onClickAction, bool isRegistrationScreen = false}) {
   return AppBar(
-    title: Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(10.r),
-                    child: GestureDetector(
-                      child: SvgPicture.asset(
-                        AppUtils.path(MOBILEBACKBTN),
+    title: Builder(builder: (context) {
+      return Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(10.r),
+                      child: GestureDetector(
+                        child: SvgPicture.asset(
+                          AppUtils.path(MOBILEBACKBTN),
+                        ),
+                        onTap: () {
+                          onClickAction();
+                        },
                       ),
-                      onTap: () {
-                        onClickAction();
-                      },
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 22.w),
-                    child: SvgPicture.asset(AppUtils.path(MOBILEMENUBAR)),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20.w, right: 3.w),
-                    child: Text(
-                      appBarTitle,
-                      style: ThemeHelper.getInstance()?.appBarTheme.titleTextStyle,
+                    if (!isRegistrationScreen)
+                      GestureDetector(
+                        onTap: () {
+                          Scaffold.of(context).openDrawer();
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 22.w),
+                          child: SvgPicture.asset(AppUtils.path(MOBILEMENUBAR)),
+                        ),
+                      ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.w, right: 3.w),
+                      child: Text(
+                        appBarTitle,
+                        style: ThemeHelper.getInstance()?.appBarTheme.titleTextStyle,
+                      ),
                     ),
-                  ),
-                  // Icon(Icons.arrow_drop_down_sharp,color: ThemeHelper.getInstance()?.primaryColor,)
-                ],
-              ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.start,
-              //   crossAxisAlignment: CrossAxisAlignment.center,
-              //   children: [
-              //     SvgPicture.asset(Utils.path(SMALLBANKLOGO),height: 20.h,width: 20.w),
-              //     SizedBox(width: 5.w,),
-              //     SvgPicture.asset(Utils.path(MOBILESAHAYLOGO),height: 20.h,width: 20.w)
-              //   ],
-              // )
-            ],
+                    // Icon(Icons.arrow_drop_down_sharp,color: ThemeHelper.getInstance()?.primaryColor,)
+                  ],
+                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   crossAxisAlignment: CrossAxisAlignment.center,
+                //   children: [
+                //     SvgPicture.asset(Utils.path(SMALLBANKLOGO),height: 20.h,width: 20.w),
+                //     SizedBox(width: 5.w,),
+                //     SvgPicture.asset(Utils.path(MOBILESAHAYLOGO),height: 20.h,width: 20.w)
+                //   ],
+                // )
+              ],
+            ),
           ),
-        ),
-      ],
-    ),
+        ],
+      );
+    }),
     automaticallyImplyLeading: false,
     bottom: PreferredSize(
       preferredSize: Size(MyDimension.width, 3.h),

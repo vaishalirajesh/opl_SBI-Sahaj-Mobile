@@ -61,6 +61,7 @@ class _CicConsentScreenState extends State<CicConsentScreen> {
         },
         child: Scaffold(
           appBar: getAppBarWithStepDone('1', str_registration, 0.25,
+              isRegistrationScreen: true,
               onClickAction: () => {Navigator.pop(context, false), SystemNavigator.pop(animated: true)}),
           body: AbsorbPointer(
             absorbing: isLoaderStart,

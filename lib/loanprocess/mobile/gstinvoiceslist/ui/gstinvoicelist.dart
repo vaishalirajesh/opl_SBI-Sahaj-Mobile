@@ -33,6 +33,7 @@ import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
+import 'package:sbi_sahay_1_0/widgets/app_drawer.dart';
 import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
 
 import '../../../../utils/Utils.dart';
@@ -165,7 +166,6 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    isFetchInvoiceClick = true;
     return WillPopScope(
       onWillPop: () async {
         if (!isLoadData) {
@@ -194,6 +194,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
         : Stack(
             children: [
               Scaffold(
+                drawer: const AppDrawer(),
                 appBar: getAppBarWithStepDone("2", str_loan_approve_process, 0.50,
                     onClickAction: () => {
                           Navigator.pushAndRemoveUntil(

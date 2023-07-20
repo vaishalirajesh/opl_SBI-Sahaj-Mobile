@@ -78,6 +78,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
   List<SharedInvoice>? filter_repaidInvoice = [];
   List<SharedInvoice>? filter_overdueInvoice = [];
   bool isListLoaded = false;
+  String userName = '';
 
   // List of items in our dropdown menu
   var items = [
@@ -93,8 +94,13 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
   void initState() {
     tabController = TabController(vsync: this, length: 4);
     tabController.index = TGSession.getInstance().get("TabIndex") ?? 0;
+    getUserData();
     getLoansByReferenceId();
     super.initState();
+  }
+
+  void getUserData() async {
+    userName = await TGSharedPreferences.getInstance().get(PREF_BUSINESSNAME) ?? '';
   }
 
   Future<void> getLoansByReferenceId() async {
@@ -108,21 +114,34 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        key: _scaffoldKey,
-        drawer: MyDrawer(),
-        // backgroundColor: ThemeHelper.getInstance()?.colorScheme.primary,
-        appBar: buildAppBar(),
-        body: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: TabBarView(
-            controller: tabController,
-            children: [
-              buildTabView(fetchTranstaion()),
-              buildTabView(overDueTransaction()),
-              buildTabView(repaidTransaction()),
-              buildTabView(disbursedTransaction()),
-            ],
+      child: WillPopScope(
+        onWillPop: () async {
+          if (_scaffoldKey.currentState!.isDrawerOpen) {
+            _scaffoldKey.currentState!.closeDrawer();
+            return false;
+          } else {
+            Navigator.pop(context);
+            return true;
+          }
+        },
+        child: Scaffold(
+          key: _scaffoldKey,
+          drawer: MyDrawer(
+            userName: userName,
+          ),
+          // backgroundColor: ThemeHelper.getInstance()?.colorScheme.primary,
+          appBar: buildAppBar(),
+          body: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: TabBarView(
+              controller: tabController,
+              children: [
+                buildTabView(fetchTranstaion()),
+                buildTabView(overDueTransaction()),
+                buildTabView(repaidTransaction()),
+                buildTabView(disbursedTransaction()),
+              ],
+            ),
           ),
         ),
       ),

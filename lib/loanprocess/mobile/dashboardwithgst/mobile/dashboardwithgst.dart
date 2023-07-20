@@ -140,12 +140,17 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
           )
         : WillPopScope(
             onWillPop: () async {
-              final shouldPop = await _showFirstWaring(context);
-              return shouldPop ?? false;
+              if (_scaffoldKey.currentState!.isDrawerOpen) {
+                _scaffoldKey.currentState!.closeDrawer();
+                return false;
+              } else {
+                final shouldPop = await _showFirstWaring(context);
+                return shouldPop ?? false;
+              }
             },
             child: Scaffold(
               key: _scaffoldKey,
-              drawer: MyDrawer(),
+              drawer: MyDrawer(userName: name),
               appBar: getAppBarMainDashboard("2", str_loan_approve_process, 0.50,
                   onClickAction: () => {_scaffoldKey.currentState?.openDrawer()}),
               body: MainContainerView(),
@@ -169,115 +174,6 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
           _buildTab(str_Profile, MOBILEPROFFILEBROWN, MOBILEPROFFILEGREY, 2),
         ],
       );
-
-  Drawer CustomDrawer() {
-    return Drawer(
-      child: ListView(
-        // Important: Remove any padding from the ListView.
-        padding: EdgeInsets.zero,
-        children: [
-          SizedBox(
-            height: 100.h,
-            child: DrawerHeader(
-              decoration: BoxDecoration(
-                //  color: Colors.blue,
-                gradient: LinearGradient(
-                    colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image(
-                    height: 44.h,
-                    width: 44.w,
-                    image: AssetImage(AppUtils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
-                  ),
-                  SizedBox(width: 15.w),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Hello, 2Indo International!, $name",
-                          style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(color: MyColors.white)),
-                      // SizedBox(height: 5.h),
-                      // Text("PAN: ABCDE1234F $pan",
-                      //     style: ThemeHelper.getInstance()!
-                      //         .textTheme
-                      //         .headline5!
-                      //         .copyWith(fontSize: 12.sp, color: MyColors.white)),
-                    ],
-                  ),
-                  /*const Spacer(),
-                  SvgPicture.asset(
-                    Utils.path(MOBILEDASHWIHTOUTNOTIBELL),
-                  )*/
-                ],
-              ),
-            ),
-          ),
-          ListTile(
-            leading: SvgPicture.asset(
-              AppUtils.path(IMG_HOME_MENU),
-              height: 24.h,
-              width: 24.w,
-            ),
-            title: Text(
-              'Home',
-              style: ThemeHelper.getInstance()?.textTheme.headline3,
-            ),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
-          ),
-          const Divider(),
-          ListTile(
-            leading: SvgPicture.asset(
-              AppUtils.path(IMG_LINE_MENU),
-              height: 24.h,
-              width: 24.w,
-            ),
-            title: Text('Transactions', style: ThemeHelper.getInstance()?.textTheme.headline3),
-            onTap: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) => const TransactionsView(),
-                ),
-              );
-            },
-          ),
-          const Divider(),
-          ListTile(
-            leading: SvgPicture.asset(
-              AppUtils.path(IMG_USER_MENU),
-              height: 24.h,
-              width: 24.w,
-            ),
-            title: Text('Profile', style: ThemeHelper.getInstance()?.textTheme.headline3),
-            onTap: () {},
-          ),
-          const Divider(),
-          ListTile(
-            leading: SvgPicture.asset(
-              AppUtils.path(IMG_RAISE_DISPITE_MENU),
-              height: 24.h,
-              width: 24.w,
-            ),
-            title: Text('Raise Dispute', style: ThemeHelper.getInstance()?.textTheme.headline3),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
-          ),
-          const Divider(),
-        ],
-      ),
-    );
-  }
 
   bool activeChecker(int currentIndex) => tabIndex == currentIndex ? true : false;
 
@@ -428,10 +324,11 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Image(
-                height: 44.h,
-                width: 44.w,
-                image: AssetImage(AppUtils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
+              SvgPicture.asset(
+                AppUtils.path(DASHBOARDGSTPROFILEWOHOUTGST),
+                height: 35.h,
+                width: 35.w,
+                color: MyColors.lightRedGradient,
               ),
               SizedBox(width: 15.w),
               Expanded(
@@ -1320,9 +1217,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
       TGSharedPreferences.getInstance().set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin?.substring(2, 12));
       TGSharedPreferences.getInstance()
           .set(PREF_USERSTATE, _basicdetailsResponse?.data?[0].gstBasicDetails?.stcd.toString());
-
       setUserData();
-
       if (await TGNetUtil.isInternetAvailable()) {
         getUserLoanDetails();
       } else {
@@ -1332,9 +1227,6 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
       setState(() {
         isLoadData = true;
       });
-
-      // Navigator.pop(context);
-      //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardWithoutGST()));
     }
   }
 
@@ -1370,7 +1262,6 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
       isOngoingJounery = false;
     }
     setState(() {});
-
     if (await TGNetUtil.isInternetAvailable()) {
       getRecentTransactionDetail();
     } else {
@@ -1475,6 +1366,8 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
 }
 
 class MyDrawer extends StatelessWidget {
+  MyDrawer({super.key, required this.userName});
+  String userName = '';
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -1495,30 +1388,27 @@ class MyDrawer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image(
-                    height: 44.h,
-                    width: 44.w,
-                    image: AssetImage(AppUtils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
+                  SvgPicture.asset(
+                    AppUtils.path(DASHBOARDGSTPROFILEWOHOUTGST),
+                    height: 35.h,
+                    width: 35.w,
                   ),
                   SizedBox(width: 15.w),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Hello, 1",
-                          style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(color: MyColors.white)),
-                      // SizedBox(height: 5.h),
-                      // Text("PAN: ABCDE1234F $pan",
-                      //     style: ThemeHelper.getInstance()!
-                      //         .textTheme
-                      //         .headline5!
-                      //         .copyWith(fontSize: 12.sp, color: MyColors.white)),
-                    ],
-                  ),
-                  /*const Spacer(),
-                  SvgPicture.asset(
-                    Utils.path(MOBILEDASHWIHTOUTNOTIBELL),
-                  )*/
+                  Text(userName,
+                      style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(color: MyColors.white)),
+                  const Spacer(),
+                  GestureDetector(
+                    onTap: () {
+                      Scaffold.of(context).closeDrawer();
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 5.w, top: 5.h, bottom: 5.h),
+                      child: Icon(
+                        Icons.close,
+                        color: MyColors.white,
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),

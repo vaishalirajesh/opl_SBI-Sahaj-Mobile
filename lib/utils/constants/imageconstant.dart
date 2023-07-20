@@ -4,7 +4,7 @@ const IMAGEBASEPATH = "assets/sbi/";
 
 //for web APP
 const CIRCULARPROGRESSBAR = "lottie/circular_loader.json";
-const SAHAYLOGO = "images/sahay_logo.svg";
+const SAHAYLOGO = "images/sahay_logo_new.svg";
 const LOGO = "images/logo.svg";
 const SBISAHAJLOGO = "images/sbi_sahaj_logo.png";
 const SBISAHAJLOGOSVG = "images/sbi_sahaj_logo.svg";
@@ -153,7 +153,8 @@ const MAIL = 'images/mail.svg';
 //dashboar wihtout gst
 const MOBILEDASHWIHTOUTNOTIBELL = 'images/notification_bell_ic.svg';
 const RIGHTARROWBROWNDASHWITHOUTGST = 'images/ic_icon_round_arrow_right.svg';
-const DASHBOARDGSTPROFILEWOHOUTGST = 'images/dashboradwithgst_profileicon.png';
+// const DASHBOARDGSTPROFILEWOHOUTGST = 'images/dashboradwithgst_profileicon.png';
+const DASHBOARDGSTPROFILEWOHOUTGST = 'images/userPink.svg';
 const PROFILE_IMG = 'images/ic_user.png';
 
 //Drawer

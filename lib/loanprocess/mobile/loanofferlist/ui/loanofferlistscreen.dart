@@ -20,6 +20,7 @@ import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusconstants.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
+import 'package:sbi_sahay_1_0/widgets/app_drawer.dart';
 import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 
@@ -151,6 +152,7 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
           )
         : Scaffold(
             backgroundColor: ThemeHelper.getInstance()?.backgroundColor,
+            drawer: const AppDrawer(),
             appBar: getAppBarWithStepDone('2', str_loan_approve_process, 0.50,
                 onClickAction: () => {
                       Navigator.pushAndRemoveUntil(

@@ -120,10 +120,10 @@ class ProfileDataState extends State<ProfileData> {
                   height: 101.w,
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
-                    child: Image(
-                      height: 44.h,
-                      width: 44.w,
-                      image: AssetImage(AppUtils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
+                    child: SvgPicture.asset(
+                      AppUtils.path(DASHBOARDGSTPROFILEWOHOUTGST),
+                      height: 35.h,
+                      width: 35.w,
                     ),
                   )),
             ),

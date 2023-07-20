@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gstmobileservices/common/keys.dart';
+import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/aalist/ui/aa_error_screen.dart';
+import 'package:sbi_sahay_1_0/registration/mobile/login_restriction/login_restriction.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusConstants.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
+import 'package:sbi_sahay_1_0/widgets/gst_enable_dialog.dart';
 
 import '../loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'colorutils/mycolors.dart';
+import 'constants/session_keys.dart';
+import 'constants/statusconstants.dart' as LOCALCONST;
 import 'helpers/themhelper.dart';
 
 class LoaderUtils {
@@ -305,6 +310,17 @@ class LoaderUtils {
         ),
         (route) => false, //if you want to disable back feature set to false
       );
+    } else if (status == LOCALCONST.RES_RESTRICT_LOGIN) {
+      TGSession.getInstance().set(SESSION_ERROR_MSG, message);
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => const RestrictLogin(),
+        ),
+        (route) => false, //if you want to disable back feature set to false
+      );
+    } else if (status == LOCALCONST.RES_GST_APIDENIED) {
+      showDialog(context: context, builder: (_) => const GSTEnableDialog());
     } else {
       TGView.showSnackBar(context: context, message: message ?? "");
     }

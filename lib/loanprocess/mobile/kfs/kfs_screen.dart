@@ -25,6 +25,7 @@ import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
+import 'package:sbi_sahay_1_0/widgets/app_drawer.dart';
 import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
 
 import '../../../utils/colorutils/mycolors.dart';
@@ -91,6 +92,7 @@ class KfsScreenBody extends State<KfsScreens> {
     return Stack(
       children: [
         Scaffold(
+          drawer: const AppDrawer(),
           backgroundColor: ThemeHelper.getInstance()?.backgroundColor,
           appBar: getAppBarWithStepDone('2', str_loan_approve_process, 0.50,
               onClickAction: () => {

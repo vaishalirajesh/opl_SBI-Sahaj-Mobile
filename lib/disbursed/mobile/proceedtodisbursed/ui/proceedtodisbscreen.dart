@@ -25,6 +25,7 @@ import 'package:sbi_sahay_1_0/utils/constants/statusconstants.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
+import 'package:sbi_sahay_1_0/widgets/app_drawer.dart';
 import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
 
 import '../../../../loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
@@ -113,6 +114,7 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
     return Stack(
       children: [
         Scaffold(
+          drawer: const AppDrawer(),
           appBar: getAppBarWithStepDone('3', str_documentation, 0.75,
               onClickAction: () => {
                     Navigator.pushAndRemoveUntil(

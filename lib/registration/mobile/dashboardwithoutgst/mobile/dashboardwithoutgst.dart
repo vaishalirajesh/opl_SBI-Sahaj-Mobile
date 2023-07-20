@@ -66,6 +66,7 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
             "2",
             str_loan_approve_process,
             0.25,
+            isRegistrationScreen: true,
             onClickAction: () => {
               Navigator.pop(context, false),
               SystemNavigator.pop(animated: true),
@@ -106,10 +107,10 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
           child: Row(
             children: [
               SizedBox(width: 20.w),
-              Image(
-                height: 44.h,
-                width: 44.w,
-                image: AssetImage(AppUtils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
+              SvgPicture.asset(
+                AppUtils.path(DASHBOARDGSTPROFILEWOHOUTGST),
+                height: 35.h,
+                width: 35.w,
               ),
               SizedBox(width: 15.w),
               Column(

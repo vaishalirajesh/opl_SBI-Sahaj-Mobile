@@ -82,8 +82,6 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTick
     });
   }
 
-  //showDialog(context: context, builder: (BuildContext context) => errorDialog);}
-
   void setUserData() async {
     String? text = await TGSharedPreferences.getInstance().get(PREF_BUSINESSNAME);
     String? text1 = await TGSharedPreferences.getInstance().get(PREF_PANNO);
@@ -100,14 +98,7 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTick
 
   @override
   void initState() {
-    //tabController = TabController(vsync: this, length: 3);
-    //tabController.index = 0;
-
-    // WidgetsBinding.instance.addPostFrameCallback((_) async {
-    //   LoaderUtils.showLoaderwithmsg(context,
-    //       msg: "Getting User Details... \nWait a Moment...");
-    // });
-    // getBasicDetailApiCall();
+    setUserData();
     super.initState();
   }
 
@@ -115,28 +106,19 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTick
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        // if (tabController.index == 0) {
-        //   final shoulpop = await showFirstWaring(context);
-        //   return shoulpop ?? false;
-        // } else if (tabController.index == 1) {
-        //   tabController.index = 0;
-        //   setState(() {
-        //     tabIndex = 0;
-        //   });
-        //   return false;
-        // } else if (tabController.index == 2) {
-        //   tabController.index = 0;
-        //   setState(() {
-        //     tabIndex = 0;
-        //   });
-        //   return false;
-        // } else {
-        return false;
-        //}
+        if (_scaffoldKey.currentState!.isDrawerOpen) {
+          _scaffoldKey.currentState!.closeDrawer();
+          return false;
+        } else {
+          Navigator.pop(context);
+          return true;
+        }
       },
       child: Scaffold(
         key: _scaffoldKey,
-        drawer: MyDrawer(),
+        drawer: MyDrawer(
+          userName: name,
+        ),
         appBar: getAppBarMainDashboard("2", str_loan_approve_process, 0.50,
             onClickAction: () => {_scaffoldKey.currentState?.openDrawer()}),
         body: MainContainerView(),
@@ -195,20 +177,26 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTick
         child: Column(
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Image(
-                  height: 44.h,
-                  width: 44.w,
-                  image: AssetImage(AppUtils.path(DASHBOARDGSTPROFILEWOHOUTGST)),
+                Padding(
+                  padding: EdgeInsets.only(top: 20.h),
+                  child: SvgPicture.asset(
+                    AppUtils.path(DASHBOARDGSTPROFILEWOHOUTGST),
+                    height: 35.h,
+                    width: 35.w,
+                    color: MyColors.lightRedGradient,
+                  ),
                 ),
                 SizedBox(width: 15.w),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 20.h),
-                    Text("Hello, Indo International!, $name", style: ThemeHelper.getInstance()?.textTheme.headline2),
+                    Text("Hello, $name!", style: ThemeHelper.getInstance()?.textTheme.headline2),
                     SizedBox(height: 5.h),
-                    Text("PAN: ABCDE1234F $pan",
+                    Text("PAN: $pan",
                         style: ThemeHelper.getInstance()!
                             .textTheme
                             .headline5!
@@ -230,9 +218,9 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTick
             ),
             Row(
               children: [
-                Text("GSTIN: 29ABCDE1234F3Z6", style: ThemeHelper.getInstance()?.textTheme.bodyText2),
+                Text("GSTIN: $gstin", style: ThemeHelper.getInstance()?.textTheme.bodyText2),
                 Spacer(),
-                Text("State: Gujarat", style: ThemeHelper.getInstance()?.textTheme.bodyText2),
+                Text("State: $state", style: ThemeHelper.getInstance()?.textTheme.bodyText2),
               ],
             )
           ],

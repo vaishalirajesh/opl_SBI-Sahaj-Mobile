@@ -111,6 +111,7 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: getAppBarWithStepDone('1', str_registration, 0.25,
+            isRegistrationScreen: true,
             onClickAction: () => {Navigator.pop(context), SystemNavigator.pop(animated: true)}),
         body: AbsorbPointer(
           absorbing: isLoader,

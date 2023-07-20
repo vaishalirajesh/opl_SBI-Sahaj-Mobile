@@ -25,6 +25,7 @@ import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
+import 'package:sbi_sahay_1_0/widgets/app_drawer.dart';
 import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 import 'package:webviewx/webviewx.dart';
@@ -134,6 +135,7 @@ class _SetupEmandateViewScreenState extends State<SetupEmandateViewScreen> {
                     : Stack(
                         children: [
                           Scaffold(
+                            drawer: const AppDrawer(),
                             appBar: getAppBarWithStepDone("3", "Documentation", 0.75,
                                 onClickAction: () => {
                                       Navigator.pushAndRemoveUntil(

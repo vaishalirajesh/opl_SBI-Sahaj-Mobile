@@ -28,6 +28,7 @@ import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/utils/internetcheckdialog.dart';
 import 'package:sbi_sahay_1_0/utils/progressLoader.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
+import 'package:sbi_sahay_1_0/widgets/app_drawer.dart';
 
 import '../../../../utils/Utils.dart';
 import '../../../../utils/constants/imageconstant.dart';
@@ -92,6 +93,7 @@ class _LoanDepositeAccViewState extends State<LoanDepositeAccView> {
         return true;
       },
       child: Scaffold(
+        drawer: const AppDrawer(),
         appBar: getAppBarWithStepDone("2", str_documentation, 0.50,
             onClickAction: () => {
                   Navigator.pushAndRemoveUntil(

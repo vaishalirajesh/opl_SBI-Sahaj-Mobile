@@ -4,9 +4,8 @@ class MyColors {
   static final verylightGrayColor = HexColor("#D7D7D7");
   static final hyperlinkcolornew = HexColor("#5553AA");
   static final lightGraySmallText = HexColor("#747474");
-
   static final lightBlackText = HexColor("#3F3F3F");
-
+  static final greyBackground = HexColor("#F8F8F8");
   static final backBtnColorloginKeyboardNo = HexColor("#B5B5B5");
   static final lightGreyDividerColor = HexColor("#E1E1E1");
   static final veryLightgreenbg = HexColor("#F7F7F7");
