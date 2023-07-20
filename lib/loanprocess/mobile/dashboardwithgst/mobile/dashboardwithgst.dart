@@ -23,6 +23,7 @@ import 'package:intl/intl.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/gstinvoiceslist/ui/gstinvoicelist.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
+import 'package:sbi_sahay_1_0/utils/progressLoader.dart';
 import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 
@@ -1227,6 +1228,8 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
       setState(() {
         isLoadData = true;
       });
+      LoaderUtils.handleErrorResponse(
+          context, response?.getGstBasicDetailsRes().status, response?.getGstBasicDetailsRes().message, null);
     }
   }
 
@@ -1248,24 +1251,32 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
   _onSuccessGetAllLoanDetailByRefId(GetAllLoanDetailByRefIdResponse? response) async {
     TGLog.d("RegisterResponse : onSuccess()--${response?.getAllLoanDetailObj()}");
 
-    _getAllLoanDetailRes = response?.getAllLoanDetailObj();
-    if (_getAllLoanDetailRes?.data?.isNotEmpty == true) {
-      if (_getAllLoanDetailRes?.data?[0].currentApplicationStage != STAGE_DISBURSEMENT_STATUS) {
-        isOngoingJounery = true;
-      }
-      pendingLoan =
-          _getAllLoanDetailRes?.data?.where((i) => i.currentApplicationStage == STAGE_DISBURSEMENT_STATUS).toList();
+    if (response?.getAllLoanDetailObj().status == RES_DETAILS_FOUND) {
+      _getAllLoanDetailRes = response?.getAllLoanDetailObj();
+      if (_getAllLoanDetailRes?.data?.isNotEmpty == true) {
+        if (_getAllLoanDetailRes?.data?[0].currentApplicationStage != STAGE_DISBURSEMENT_STATUS) {
+          isOngoingJounery = true;
+        }
+        pendingLoan =
+            _getAllLoanDetailRes?.data?.where((i) => i.currentApplicationStage == STAGE_DISBURSEMENT_STATUS).toList();
 
-      ongoingLoan =
-          _getAllLoanDetailRes?.data?.where((i) => i.currentApplicationStage != STAGE_DISBURSEMENT_STATUS).toList();
+        ongoingLoan =
+            _getAllLoanDetailRes?.data?.where((i) => i.currentApplicationStage != STAGE_DISBURSEMENT_STATUS).toList();
+      } else {
+        isOngoingJounery = false;
+      }
+      setState(() {});
+      if (await TGNetUtil.isInternetAvailable()) {
+        getRecentTransactionDetail();
+      } else {
+        showSnackBarForintenetConnection(context, getRecentTransactionDetail);
+      }
     } else {
-      isOngoingJounery = false;
-    }
-    setState(() {});
-    if (await TGNetUtil.isInternetAvailable()) {
-      getRecentTransactionDetail();
-    } else {
-      showSnackBarForintenetConnection(context, getRecentTransactionDetail);
+      setState(() {
+        isLoadData = true;
+      });
+      LoaderUtils.handleErrorResponse(
+          context, response?.getAllLoanDetailObj().status, response?.getAllLoanDetailObj().message, null);
     }
   }
 
@@ -1287,18 +1298,23 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
   _onSuccessGetRecentTransaction(GetRecentTransactiobResponse? response) {
     TGLog.d("GetRecentTransactiResponse : onSuccess()");
     getrecenttransactionobj = response?.getRecentTransactionResObj();
-
-    setState(() {
-      if (getrecenttransactionobj?.data?.transactionList?.isNotEmpty == true) {
-        translist = getrecenttransactionobj?.data?.transactionList;
-        isRecentTransactionEmpty = false;
-      } else {
-        isRecentTransactionEmpty = true;
-      }
-    });
-    setState(() {
-      isLoadData = true;
-    });
+    if (response?.getRecentTransactionResObj().status == RES_DETAILS_FOUND) {
+      setState(() {
+        if (getrecenttransactionobj?.data?.transactionList?.isNotEmpty == true) {
+          translist = getrecenttransactionobj?.data?.transactionList;
+          isRecentTransactionEmpty = false;
+        } else {
+          isRecentTransactionEmpty = true;
+        }
+        isLoadData = true;
+      });
+    } else {
+      setState(() {
+        isLoadData = true;
+      });
+      LoaderUtils.handleErrorResponse(
+          context, response?.getRecentTransactionResObj().status, response?.getRecentTransactionResObj().message, null);
+    }
   }
 
   _onErrorGetRecentTransaction(TGResponse errorResponse) {
@@ -1367,7 +1383,9 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
 
 class MyDrawer extends StatelessWidget {
   MyDrawer({super.key, required this.userName});
+
   String userName = '';
+
   @override
   Widget build(BuildContext context) {
     return Drawer(

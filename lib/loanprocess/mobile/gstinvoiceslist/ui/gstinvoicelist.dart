@@ -69,7 +69,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   bool isShareInvoiceClick = false;
   List<bool> isSortByChecked = [false, false, false, false, false, false];
   int selectedSortOption = 0;
-  GstInvoceListResMain? _gstInvoceListResMain;
+  GstInvoceListResMain? _gstInvoceListResMain = GstInvoceListResMain();
   List<GstInvoiceDataObj> arrInvoiceList = [];
 
   ShareGstInvoiceResMain? _shareGstInvoiceResMain;
@@ -309,28 +309,38 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   }
 
   Widget invoiceListContainer() {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      scrollDirection: Axis.vertical,
-      itemCount: _gstInvoceListResMain?.data?.length ?? 0,
-      itemBuilder: (context, index) {
-        return Column(
-          children: [
-            Container(
-              key: ValueKey("${_gstInvoceListResMain?.data?[index].buyerName.toString()}"),
-              child: invoiceDataUI(index),
+    return _gstInvoceListResMain?.data == null || (_gstInvoceListResMain?.data?.length == 0)
+        ? SizedBox(
+            height: 0.5.sh,
+            child: Center(
+              child: Text(
+                str_invoice_data_found,
+                style: ThemeHelper.getInstance()!.textTheme.headline3!,
+              ),
             ),
-            SizedBox(
-              height: 5.h,
-            ),
-            Divider(
-              thickness: 1.h,
-            )
-          ],
-        );
-      },
-    );
+          )
+        : ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            itemCount: _gstInvoceListResMain?.data?.length ?? 0,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  Container(
+                    key: ValueKey("${_gstInvoceListResMain?.data?[index].buyerName.toString()}"),
+                    child: invoiceDataUI(index),
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  Divider(
+                    thickness: 1.h,
+                  )
+                ],
+              );
+            },
+          );
   }
 
   Widget invoiceDataUI(int index) {
@@ -925,7 +935,6 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
       });
       TGLog.d("Invoice List Request : onSuccess()---2");
     } else if (_gstInvoceListResMain?.status == REFRESH_GST_INVOICES) {
-    } else if (_gstInvoceListResMain?.status == REFRESH_GST_INVOICES) {
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -937,6 +946,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
     }
     isLoadData = true;
     isShowTransparentBg = false;
+    setState(() {});
   }
 
   _onErrorGstInvoiceList(TGResponse errorResponse) {

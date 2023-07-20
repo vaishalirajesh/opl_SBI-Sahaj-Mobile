@@ -621,6 +621,7 @@ const str_aa_step_five = "5. Give consent to share linked bank account data";
 const str_select_aa = "Account Aggregator linked to your bank";
 const str_select_aa_txt = "Choose one of the RBI approved Account Aggregators to share your financial information";
 const str_no_data_found = "No Data Found!";
+const str_invoice_data_found = "No invoices found!";
 
 //Set up Emandate
 const str_complete_loan_agree = "Loan Agreement has been successfully completed";
