@@ -654,11 +654,13 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
     if (response.getBankListResObj().status == RES_DETAILS_FOUND) {
       userBasicDetailResponseMain = response.getBankListResObj();
       strEmail = userBasicDetailResponseMain?.data?.email ?? '';
-
       RegExp regex = new RegExp(pattern);
       isValidEmail = regex.hasMatch(userBasicDetailResponseMain?.data?.email ?? '');
       strUserName = userBasicDetailResponseMain?.data?.firtName ?? 'TestUser';
-      selectedGender = userBasicDetailResponseMain?.data?.gender ?? 'Female';
+      selectedGender = userBasicDetailResponseMain?.data?.gender ?? 'Male';
+      if (userBasicDetailResponseMain?.data?.emailVerified == 1) {
+        isEmailVerified = true;
+      }
       TGSession.getInstance().set(SESSION_EMAIL, userBasicDetailResponseMain?.data?.email ?? '');
       TGSession.getInstance().set(SESSION_MOBILENUMBER, userBasicDetailResponseMain?.data?.email ?? strMobile);
       TGSession.getInstance().set(SESSION_USERNAME, userBasicDetailResponseMain?.data?.userName ?? 'TestUser');
