@@ -899,14 +899,16 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
         showSnackBarForintenetConnection(context, getGSTInvoicesListAPI);
       }
     } else {
-      // Navigator.pop(context);
+      isLoadData = true;
+      setState(() {});
       LoaderUtils.handleErrorResponse(context, response?.getAppRefId().status, response?.getAppRefId().message, null);
     }
   }
 
   _onErrorGetAppRefId(TGResponse errorResponse) {
     TGLog.d("GetAppRefId : onError()");
-    // Navigator.pop(context);
+    isLoadData = true;
+    setState(() {});
     handleServiceFailError(context, errorResponse.error);
   }
 
