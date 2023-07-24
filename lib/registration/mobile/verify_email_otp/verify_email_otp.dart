@@ -79,7 +79,6 @@ class OTPVerifyEmailScreenState extends State<OTPVerifyEmailScreen> {
   String gstin = "";
   var strEmail = ""; //"";
   var otpSessionKey = ""; //"";
-
   bool isOpenEnablePopUp = false;
   EmailOtpResponseMain? verifyEmailResponse;
   bool isOTPVerified = false;
@@ -426,7 +425,9 @@ class OTPVerifyEmailScreenState extends State<OTPVerifyEmailScreen> {
   }
 
   Future<void> verifyOTP() async {
-    otpSessionKey = await TGSession.getInstance().get(SESSION_OTPSESSIONKEY);
+    if (otpSessionKey.isEmpty) {
+      otpSessionKey = await TGSession.getInstance().get(SESSION_OTPSESSIONKEY);
+    }
     VerifyEmailOTPRequest verifyEmailOTP = VerifyEmailOTPRequest(otp: otp, sessionKey: otpSessionKey);
     var jsonReq = jsonEncode(verifyEmailOTP.toJson());
     TGLog.d("verifyEmailOTP Request : $jsonReq");
@@ -479,7 +480,7 @@ class OTPVerifyEmailScreenState extends State<OTPVerifyEmailScreen> {
     TGLog.d("GetEmailOtp() : Success---$response");
     getOtpResponse = response.getOtpReponseObj();
     if (getOtpResponse?.status == RES_SUCCESS) {
-      sessionkey = getOtpResponse?.data;
+      otpSessionKey = getOtpResponse?.data ?? '';
       showSnackBar(context, "OTP resend successfully");
     } else {
       LoaderUtils.handleErrorResponse(

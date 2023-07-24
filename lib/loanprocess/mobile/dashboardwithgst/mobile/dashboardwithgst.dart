@@ -412,14 +412,14 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
               0,
               str_Outstanding,
               MOBILETDASHBOARDWITHGSTOUTSTANDING,
-              _basicdetailsResponse?.data?[0].loanDetails?.outstanding?.count ?? "01",
+              _basicdetailsResponse?.data?[0].loanDetails?.outstanding?.count ?? "0",
               AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.outstanding?.amount)),
           const Spacer(),
           _buildCard(
               1,
               strOverdue,
               MOBILETDASHBOARDWITHGSTOVERDUE,
-              _basicdetailsResponse?.data?[0].loanDetails?.overdue?.count ?? "03",
+              _basicdetailsResponse?.data?[0].loanDetails?.overdue?.count ?? "0",
               AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.overdue?.amount)),
         ]),
         Padding(
@@ -430,14 +430,14 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                 2,
                 strRepaid,
                 IMG_kfs_coin_stack,
-                _basicdetailsResponse?.data?[0].loanDetails?.repaid?.count ?? "04",
+                _basicdetailsResponse?.data?[0].loanDetails?.repaid?.count ?? "0",
                 AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.repaid?.amount)),
             const Spacer(),
             _buildCard(
                 3,
                 strDisbursed,
                 MOBILEHANDWITHMONEY,
-                _basicdetailsResponse?.data?[0].loanDetails?.disbursed?.count ?? "06",
+                _basicdetailsResponse?.data?[0].loanDetails?.disbursed?.count ?? "0",
                 AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.disbursed?.amount))
           ]),
         ),
@@ -972,7 +972,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (BuildContext context) => GSTInvoicesList(),
+                            builder: (BuildContext context) => const GSTInvoicesList(),
                           ),
                           (route) => false, //if you want to disable back feature set to false
                         );
@@ -1196,6 +1196,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
 
   Future<void> getGstBasicDetails() async {
     TGGetRequest tgGetRequest = GetGstBasicDetailsRequest();
+    TGLog.d("GST basic deatil request-------${tgGetRequest.toString()}");
     ServiceManager.getInstance().getGstBasicDetails(
         request: tgGetRequest,
         onSuccess: (response) => _onSuccessGetGstBasicDetails(response),
@@ -1207,7 +1208,6 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
     setState(() {
       _basicdetailsResponse = response?.getGstBasicDetailsRes();
     });
-
     if (_basicdetailsResponse?.status == RES_DETAILS_FOUND) {
       TGSharedPreferences.getInstance()
           .set(PREF_BUSINESSNAME, _basicdetailsResponse?.data?[0].gstBasicDetails?.tradeNam);
@@ -1367,6 +1367,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                   onPressed: () {
                     Navigator.pop(context);
                     Navigator.of(context).popUntil((route) => false);
+                    SystemNavigator.pop(animated: true);
                   },
                   child: const Text('Exit'),
                 )

@@ -530,7 +530,7 @@ class _OutstandingCardState extends State<OutstandingCard> {
     utrNo = disbursedInvoice?.utrNumber ?? '';
     invoiceDate = disbursedInvoice?.invoiceDate ?? '';
     gstin = TGSession.getInstance().get(PREF_GSTIN);
-    dueDays = disbursedInvoice?.dueDays;
+    dueDays = disbursedInvoice?.dueDays.toString();
     tenure = disbursedInvoice?.tenure.toString();
     latePaymentCharge = AppUtils.convertIndianCurrency(disbursedInvoice?.amountDue?.toString());
     invoiceAmount = AppUtils.convertIndianCurrency(disbursedInvoice?.invoiceAmount?.toString());
