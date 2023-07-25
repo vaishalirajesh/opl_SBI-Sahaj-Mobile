@@ -88,6 +88,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   String strMobile = "";
   String strUserName = "";
   bool hidePassword = true;
+  bool hideMobile = true;
   String pattern =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 
@@ -197,7 +198,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             SizedBox(
               height: 20.h,
             ),
-            ContactNumberWidget(username: userBasicDetailResponseMain?.data?.userName ?? '', label: "Contact Number"),
+            buildMobileWidget(),
             SizedBox(
               height: 20.h,
             ),
@@ -464,6 +465,58 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
           }
           return null;
         });
+  }
+
+  Widget buildMobileWidget() {
+    return TextFormField(
+        onChanged: (content) {
+          setState(() {});
+        },
+        obscureText: hideMobile,
+        obscuringCharacter: 'X',
+        initialValue: userBasicDetailResponseMain?.data?.userName ?? '',
+        readOnly: true,
+        cursorColor: Colors.grey,
+        style: ThemeHelper.getInstance()?.textTheme.headline3,
+        decoration: InputDecoration(
+          labelText: "Contact Number",
+          labelStyle: ThemeHelper.getInstance()
+              ?.textTheme
+              .headline3
+              ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
+          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
+          suffixIcon: IconButton(
+            icon: hideMobile
+                ? Icon(
+                    Icons.visibility_off_outlined,
+                    color: hideMobile ? MyColors.pnbTextcolor : MyColors.black,
+                  )
+                : Icon(
+                    Icons.visibility_outlined,
+                    color: hideMobile ? MyColors.pnbTextcolor : MyColors.black,
+                  ),
+            onPressed: () {
+              setState(
+                () {
+                  hideMobile = !hideMobile;
+                },
+              );
+            },
+            focusColor: MyColors.black,
+            disabledColor: MyColors.pnbTextcolor,
+          ),
+          suffixIconColor: MyColors.black,
+        ),
+        keyboardType: TextInputType.visiblePassword,
+        maxLines: 1,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter mobile number';
+          }
+          return null;
+        },
+        inputFormatters: [LengthLimitingTextInputFormatter(10), FilteringTextInputFormatter.digitsOnly]);
   }
 
   void getGstBasicDetail() async {
@@ -793,16 +846,16 @@ class EmailIdWidgetState extends State<EmailIdWidget> {
 class ContactNumberWidget extends StatefulWidget {
   String label;
   String username;
+  bool hideMobile;
 
-  ContactNumberWidget({Key? key, required this.label, required this.username}) : super(key: key);
+  ContactNumberWidget({Key? key, required this.label, required this.username, required this.hideMobile})
+      : super(key: key);
 
   @override
   ContactNumberWidgetState createState() => ContactNumberWidgetState();
 }
 
 class ContactNumberWidgetState extends State<ContactNumberWidget> {
-  bool hidePassword = true;
-
   get label => widget.label;
 
   @override
@@ -811,7 +864,7 @@ class ContactNumberWidgetState extends State<ContactNumberWidget> {
         onChanged: (content) {
           setState(() {});
         },
-        obscureText: hidePassword,
+        obscureText: widget.hideMobile,
         obscuringCharacter: 'X',
         initialValue: widget.username,
         enabled: false,
@@ -826,19 +879,19 @@ class ContactNumberWidgetState extends State<ContactNumberWidget> {
           enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
           focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
           suffixIcon: IconButton(
-            icon: hidePassword
+            icon: widget.hideMobile
                 ? Icon(
                     Icons.visibility_off_outlined,
-                    color: hidePassword ? MyColors.pnbTextcolor : MyColors.black,
+                    color: widget.hideMobile ? MyColors.pnbTextcolor : MyColors.black,
                   )
                 : Icon(
                     Icons.visibility_outlined,
-                    color: hidePassword ? MyColors.pnbTextcolor : MyColors.black,
+                    color: widget.hideMobile ? MyColors.pnbTextcolor : MyColors.black,
                   ),
             onPressed: () {
               setState(
                 () {
-                  hidePassword = !hidePassword;
+                  widget.hideMobile = !widget.hideMobile;
                 },
               );
             },

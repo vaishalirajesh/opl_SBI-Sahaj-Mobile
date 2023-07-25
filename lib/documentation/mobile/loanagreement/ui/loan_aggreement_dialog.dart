@@ -368,7 +368,6 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
   _onSuccessPostLoanAgreement(PostLoanAgreementResponse? response) {
     TGLog.d("RegisterResponse : onSuccess()");
     _postLoanAppRequest = response?.getPostLoanAgreementResObj();
-
     if (response?.getPostLoanAgreementResObj()?.status == RES_SUCCESS) {
       loanAppStatusAfterPostAgg();
     } else {

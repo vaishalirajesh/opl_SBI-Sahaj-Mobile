@@ -545,28 +545,25 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
         ),
       );
     } else {
-      return Align(
-        alignment: Alignment.center,
-        child: ListView.builder(
-          shrinkWrap: true,
-          scrollDirection: Axis.vertical,
-          itemCount: !isListLoaded ? 3 : outstanding_invoice?.length ?? 0,
-          itemBuilder: (context, index) {
-            return !isListLoaded
-                ? shimmerLoader()
-                : Column(
-                    children: [
-                      OutstandingCard(
-                        sharedInvoice: outstanding_invoice?[index],
-                        bottomWidget: buildOutStandingBottomWidget(),
-                      ),
-                      SizedBox(
-                        height: 15.h,
-                      )
-                    ],
-                  );
-          },
-        ),
+      return ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        itemCount: !isListLoaded ? 3 : outstanding_invoice?.length ?? 0,
+        itemBuilder: (context, index) {
+          return !isListLoaded
+              ? shimmerLoader()
+              : Column(
+                  children: [
+                    OutstandingCard(
+                      sharedInvoice: outstanding_invoice?[index],
+                      bottomWidget: buildOutStandingBottomWidget(),
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    )
+                  ],
+                );
+        },
       );
     }
   }
@@ -678,28 +675,25 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
         ),
       );
     } else {
-      return Align(
-        alignment: Alignment.center,
-        child: ListView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemCount: !isListLoaded ? 3 : repaidInvoice?.length ?? 0,
-          itemBuilder: (context, index) {
-            return !isListLoaded
-                ? shimmerLoader()
-                : Column(
-                    children: [
-                      RepaidCard(
-                        sharedInvoice: repaidInvoice?[index],
-                        bottomWidget: buildRepaidBottomWidget(),
-                      ),
-                      SizedBox(
-                        height: 15.h,
-                      )
-                    ],
-                  );
-          },
-        ),
+      return ListView.builder(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemCount: !isListLoaded ? 3 : repaidInvoice?.length ?? 0,
+        itemBuilder: (context, index) {
+          return !isListLoaded
+              ? shimmerLoader()
+              : Column(
+                  children: [
+                    RepaidCard(
+                      sharedInvoice: repaidInvoice?[index],
+                      bottomWidget: buildRepaidBottomWidget(),
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    )
+                  ],
+                );
+        },
       );
     }
   }
@@ -717,28 +711,25 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
         ),
       );
     } else {
-      return Align(
-        alignment: Alignment.center,
-        child: ListView.builder(
-          shrinkWrap: true,
-          scrollDirection: Axis.vertical,
-          itemCount: !isListLoaded ? 3 : overdueInvoice?.length ?? 0,
-          itemBuilder: (context, index) {
-            return !isListLoaded
-                ? shimmerLoader()
-                : Column(
-                    children: [
-                      DisbursedCard(
-                        sharedInvoice: overdueInvoice?[index],
-                        bottomWidget: buildOutStandingBottomWidget(),
-                      ),
-                      SizedBox(
-                        height: 15.h,
-                      )
-                    ],
-                  );
-          },
-        ),
+      return ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        itemCount: !isListLoaded ? 3 : overdueInvoice?.length ?? 0,
+        itemBuilder: (context, index) {
+          return !isListLoaded
+              ? shimmerLoader()
+              : Column(
+                  children: [
+                    DisbursedCard(
+                      sharedInvoice: overdueInvoice?[index],
+                      bottomWidget: buildOutStandingBottomWidget(),
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    )
+                  ],
+                );
+        },
       );
     }
   }
@@ -755,28 +746,25 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
         textAlign: TextAlign.center,
       ));
     } else {
-      return Align(
-        alignment: Alignment.center,
-        child: ListView.builder(
-          shrinkWrap: true,
-          scrollDirection: Axis.vertical,
-          itemCount: !isListLoaded ? 3 : overdueInvoice?.length ?? 0,
-          itemBuilder: (context, index) {
-            return !isListLoaded
-                ? shimmerLoader()
-                : Column(
-                    children: [
-                      OverDueCard(
-                        sharedInvoice: overdueInvoice?[index],
-                        bottomWidget: buildOverDueBottomWidget(),
-                      ),
-                      SizedBox(
-                        height: 15.h,
-                      )
-                    ],
-                  );
-          },
-        ),
+      return ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        itemCount: !isListLoaded ? 3 : overdueInvoice?.length ?? 0,
+        itemBuilder: (context, index) {
+          return !isListLoaded
+              ? shimmerLoader()
+              : Column(
+                  children: [
+                    OverDueCard(
+                      sharedInvoice: overdueInvoice?[index],
+                      bottomWidget: buildOverDueBottomWidget(),
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    )
+                  ],
+                );
+        },
       );
     }
   }

@@ -127,6 +127,7 @@ class ESignCompleted extends State<ESignCompletedMains> {
       getLoanAppStatusAfterWebviewAPI();
     } else {
       isLoadData = true;
+      setState(() {});
       TGView.showSnackBar(context: context, message: response?.getLoanAgreementResObj().message ?? "");
     }
   }
@@ -134,6 +135,7 @@ class ESignCompleted extends State<ESignCompletedMains> {
   _onErrorLoanAgreementStatus(TGResponse errorResponse) {
     TGLog.d("LoanAgreementStatusResponse : onError()");
     isLoadData = true;
+    setState(() {});
     handleServiceFailError(context, errorResponse.error);
   }
 
@@ -183,14 +185,16 @@ class ESignCompleted extends State<ESignCompletedMains> {
     } else {
       TGLog.d('Current stage- else');
 
-      //   isLoadData = true;
+      isLoadData = true;
+      setState(() {});
       TGView.showSnackBar(context: context, message: _getLoanStatusRes?.message ?? "");
     }
   }
 
   _onErrorGetLoanAppStatus1(TGResponse errorResponse) {
     TGLog.d("LoanAppStatusResponseAfterLoanAgreeWebview : onError()");
-    // isLoadData = true;
+    isLoadData = true;
+    setState(() {});
     handleServiceFailError(context, errorResponse.error);
   }
 

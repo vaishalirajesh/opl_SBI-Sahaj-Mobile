@@ -16,6 +16,7 @@ import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:sbi_sahay_1_0/utils/erros_handle.dart';
+import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 
 import '../../../../utils/Utils.dart';
 import '../../../../utils/colorutils/mycolors.dart';
@@ -52,89 +53,128 @@ class _EmailSentAfterLoanAgreementScreen extends State<EmailSentAfterLoanAgreeme
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: WillPopScope(
-      onWillPop: () async {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => DashboardWithGST(),
-          ),
-          (route) => false, //if you want to disable back feature set to false
-        );
-
-        return true;
-      },
-      child: AbsorbPointer(
-        absorbing: isLoaderStart,
+      child: WillPopScope(
+        onWillPop: () async {
+          if (isLoaderStart) {
+            return false;
+          } else {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => const DashboardWithGST(),
+              ),
+              (route) => false, //if you want to disable back feature set to false
+            );
+            return true;
+          }
+        },
         child: Scaffold(
-          body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  height: 100.h,
-                  width: 100.w,
-                  AppUtils.path(CONGRATULATION),
-                  fit: BoxFit.fill,
+          body: AbsorbPointer(
+            absorbing: isLoaderStart,
+            child: Container(
+              color: Colors.black.withOpacity(0.5),
+              child: Center(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    color: Colors.white,
+                  ),
+                  // height: 400.h,
+                  width: 335.w,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      SizedBox(height: 40.h), //40
+                      Center(
+                          child: SvgPicture.asset(AppUtils.path(GREENCONFORMTICK),
+                              height: 52.h, //,
+                              width: 52.w, //134.8,
+                              allowDrawingOutsideViewBox: true)),
+                      SizedBox(height: 25.h), //40
+                      Center(
+                          child: Column(children: [
+                        Text(
+                          str_lonaAgg_titel,
+                          style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(color: MyColors.darkblack),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(height: 18.h),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30, right: 30),
+                          child: Text(
+                            str_lonaAgg_disc,
+                            textAlign: TextAlign.center,
+                            style: ThemeHelper.getInstance()?.textTheme.bodyText2,
+                          ),
+                        ),
+                      ])),
+                      //38
+                      SizedBox(height: 20.h),
+                      Padding(
+                        padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                        child: BtnCheckOut(),
+                      ),
+                      SizedBox(height: 30.h), //40
+                    ],
+                  ),
                 ),
-                // Lottie.asset(Utils.path(EMAILSEND),
-                //     height: 250.h ,//80.w,
-                //     width: 250.w,//80.w,
-                //     repeat: true,
-                //     reverse: false,
-                //     animate: true,
-                //     frameRate: FrameRate.max,
-                //     fit: BoxFit.fill
-                // ),
-                SizedBox(height: 10.h),
-                Text(
-                  str_lonaAgg_titel,
-                  style: ThemeHelper.getInstance()?.textTheme.headline1,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: 15.h,
-                ),
-                Text(str_lonaAgg_disc,
-                    style: ThemeHelper.getInstance()?.textTheme.headline3, textAlign: TextAlign.center, maxLines: 10),
-                SizedBox(
-                  height: 20.h,
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: 50.h,
-                  child: isLoaderStart
-                      ? JumpingDots(
-                          color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
-                          radius: 10,
-                        )
-                      : ElevatedButton(
-                          onPressed: () async {
-                            setState(() {
-                              isLoaderStart = true;
-                            });
-                            if (await TGNetUtil.isInternetAvailable()) {
-                              grantLoanRequest();
-                            } else {
-                              showSnackBarForintenetConnection(context, grantLoanRequest);
-                            }
-                          },
-                          child: Center(
-                            child: Text(
-                              str_Proceed,
-                              style: ThemeHelper.getInstance()?.textTheme.button,
-                            ),
-                          )),
-                )
-              ],
+              ),
             ),
           ),
         ),
       ),
-    ));
+    );
   }
+
+  Widget BtnCheckOut() {
+    return isLoaderStart
+        ? JumpingDots(
+            color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
+            radius: 10,
+          )
+        : AppButton(
+            onPress: () async {
+              setState(() {
+                isLoaderStart = true;
+              });
+              if (await TGNetUtil.isInternetAvailable()) {
+                grantLoanRequest();
+              } else {
+                showSnackBarForintenetConnection(context, grantLoanRequest);
+              }
+            },
+            title: str_Proceed,
+          );
+  }
+
+//   SizedBox(
+//   width: MediaQuery.of(context).size.width,
+//   height: 50.h,
+//   child: isLoaderStart
+//   ? JumpingDots(
+//   color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
+//   radius: 10,
+//   )
+//       : ElevatedButton(
+//   onPressed: () async {
+//   setState(() {
+//   isLoaderStart = true;
+//   });
+//   if (await TGNetUtil.isInternetAvailable()) {
+//   grantLoanRequest();
+//   } else {
+//   showSnackBarForintenetConnection(context, grantLoanRequest);
+//   }
+// },
+// child: Center(
+// child: Text(
+// str_Proceed,
+// style: ThemeHelper.getInstance()?.textTheme.button,
+// ),
+// )),
+// )
 
   //Grant Loan
   Future<void> grantLoanRequest() async {

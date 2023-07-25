@@ -547,6 +547,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(height: 30.h),
         Padding(
@@ -592,39 +593,98 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
     );
   }
 
-  Widget sortByBottomSheetDialog() {
-    return Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(height: 25.h),
-          Row(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
-            // const Spacer(),
-            Text(
-              str_SortBy,
-              style: ThemeHelper.getInstance()?.textTheme.headline2!.copyWith(color: MyColors.pnbcolorPrimary),
+  // Widget sortByBottomSheetDialog() {
+  //   return Material(
+  //     child: Center(
+  //       child: Column(
+  //         crossAxisAlignment: CrossAxisAlignment.center,
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         mainAxisSize: MainAxisSize.min,
+  //         children: [
+  //           SizedBox(height: 25.h),
+  //           Row(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
+  //             // const Spacer(),
+  //             Text(
+  //               str_SortBy,
+  //               style: ThemeHelper.getInstance()?.textTheme.headline2!.copyWith(color: MyColors.pnbcolorPrimary),
+  //             ),
+  //             const Spacer(),
+  //             GestureDetector(
+  //               child: Padding(
+  //                   padding: EdgeInsets.only(right: 20.w),
+  //                   child: SvgPicture.asset(AppUtils.path(IMG_CLOSE_X), height: 10.h, width: 10.w)),
+  //               onTap: () {
+  //                 Navigator.pop(context);
+  //               },
+  //             ),
+  //           ]),
+  //           SizedBox(height: 10.h),
+  //           const Divider(),
+  //           sortByDialogContent(),
+  //           Padding(
+  //             padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
+  //             child: applySortButton(),
+  //           )
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  Widget buildSortByWidget(StateSetter setModelState) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 20.w, right: 20.w),
+          child: Container(
+            padding: EdgeInsets.only(left: 20.w, right: 20.w),
+            decoration: BoxDecoration(
+              color: ThemeHelper.getInstance()!.cardColor,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(20),
+              ),
             ),
-            const Spacer(),
-            GestureDetector(
-              child: Padding(
-                  padding: EdgeInsets.only(right: 20.w),
-                  child: SvgPicture.asset(AppUtils.path(IMG_CLOSE_X), height: 10.h, width: 10.w)),
-              onTap: () {
-                Navigator.pop(context);
-              },
+            child: Material(
+              color: ThemeHelper.getInstance()!.cardColor,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 25.h),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // const Spacer(),
+                        Text(
+                          str_SortBy,
+                          style:
+                              ThemeHelper.getInstance()?.textTheme.headline2!.copyWith(color: MyColors.pnbcolorPrimary),
+                        ),
+                        // const Spacer(),
+                        GestureDetector(
+                          child: Padding(
+                              padding: EdgeInsets.only(right: 20.w),
+                              child: SvgPicture.asset(AppUtils.path(IMG_CLOSE_X), height: 10.h, width: 10.w)),
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ]),
+                  SizedBox(height: 10.h),
+                  const Divider(),
+                  sortByDialogContent(setModelState),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
+                    child: applySortButton(),
+                  ),
+                ],
+              ),
             ),
-          ]),
-          SizedBox(height: 10.h),
-          const Divider(),
-          sortByDialogContent(),
-          Padding(
-            padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
-            child: applySortButton(),
-          )
-        ],
-      ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -722,54 +782,65 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   }
 
   Widget filterInvoiceButton() {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 4.w),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          SvgPicture.asset(AppUtils.path(IMG_FILTER_INVOICE), height: 15.h, width: 15.w),
-          SizedBox(
-            width: 4.w,
-          ),
-          Text(
-            'Sort',
-            style: ThemeHelper.getInstance()?.textTheme.headline6?.copyWith(fontSize: 16.sp),
-            textAlign: TextAlign.right,
-          )
-        ],
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) {
+            return StatefulBuilder(builder: (BuildContext context, StateSetter setModelState) {
+              return Center(child: buildSortByWidget(setModelState));
+            });
+          },
+        );
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 4.w),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            SvgPicture.asset(AppUtils.path(IMG_FILTER_INVOICE), height: 15.h, width: 15.w),
+            SizedBox(
+              width: 4.w,
+            ),
+            Text(
+              'Sort',
+              style: ThemeHelper.getInstance()?.textTheme.headline6?.copyWith(fontSize: 16.sp),
+              textAlign: TextAlign.right,
+            )
+          ],
+        ),
       ),
     );
   }
 
-  Widget sortByDialogContent() {
-    return Container(
-      height: 230.h,
+  Widget sortByDialogContent(StateSetter setModelState) {
+    return SizedBox(
+      height: 0.4.sh,
       child: ListView.builder(
-        shrinkWrap: true,
+        // shrinkWrap: true,
         scrollDirection: Axis.vertical,
         itemCount: sortList.length,
         itemBuilder: (context, index) {
-          return SoryByListCardUI(index);
+          return SoryByListCardUI(index, setModelState);
         },
       ),
     );
   }
 
-  Widget SoryByListCardUI(
-    int index,
-  ) {
+  Widget SoryByListCardUI(int index, StateSetter setModelState) {
     return Padding(
       padding: EdgeInsets.only(bottom: 5.h, left: 20.w, right: 20.w),
       child: GestureDetector(
         onTap: () {
-          setState(() {
+          setModelState(() {
             for (int i = 0; i < isSortByChecked.length; i++) {
               isSortByChecked[i] = false;
             }
             isSortByChecked[index] = true;
           });
-          setState(() {
+          setModelState(() {
             selectedSortOption = index;
           });
         },
@@ -784,13 +855,13 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
             Radio(
               value: true,
               onChanged: (value) {
-                setState(() {
+                setModelState(() {
                   for (int i = 0; i < isSortByChecked.length; i++) {
                     isSortByChecked[i] = false;
                   }
                   isSortByChecked[index] = value!;
                 });
-                setState(() {
+                setModelState(() {
                   selectedSortOption = index;
                 });
               },

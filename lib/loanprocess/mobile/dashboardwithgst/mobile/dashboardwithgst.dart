@@ -286,8 +286,8 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                     str_seeAll,
                     style: ThemeHelper.getInstance()!
                         .textTheme
-                        .headline6!
-                        .copyWith(decoration: TextDecoration.underline, color: MyColors.pnbUnderLineColor),
+                        .subtitle1!
+                        .copyWith(color: MyColors.hyperlinkcolornew, fontFamily: MyFont.Roboto_Medium),
                   ),
                 ),
               )

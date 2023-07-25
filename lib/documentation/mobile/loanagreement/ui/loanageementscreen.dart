@@ -47,7 +47,6 @@ import '../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 import '../ui/launchURL/ddelaunchurlmain.dart'
     if (dart.library.html) '../ui/launchURL/ddelaunchweb.dart'
     if (dart.library.io) '../ui/launchURL/ddelaunchmobile.dart';
-import 'loan_aggreement_dialog.dart';
 
 class LoanAgreementMain extends StatelessWidget {
   @override
@@ -159,7 +158,6 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
               ),
               buildRowWidget("Aadhaar Number"),
               buildRowWidget("Mobile no. linked to your Aadhaar for OTP verification."),
-
               Text(
                 "Please read and scroll through the complete agreement before you provide your acceptance.",
                 style: ThemeHelper.getInstance()?.textTheme.headline4,
@@ -361,62 +359,6 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
     );
   }
 
-  Widget PopUpViewInstructionRegister() {
-    return Scaffold(
-      backgroundColor: Colors.black.withOpacity(0.5),
-      body: Center(
-        child: Container(
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-            //image: DecorationImage(image: AssetImage(Utils.path(KFSCONGRATULATIONBG)),fit: BoxFit.fill),
-            color: Colors.white,
-          ),
-          // height: 265.h,
-          width: 335.w,
-          child: Padding(
-            padding: EdgeInsets.only(left: 20.w, right: 20.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                SizedBox(height: 36.h), //40
-                Center(
-                    child: SvgPicture.asset(AppUtils.path(GREENCONFORMTICK),
-                        height: 52.h, //,
-                        width: 52.w, //134.8,
-                        allowDrawingOutsideViewBox: true)),
-                SizedBox(height: 20.h), //40
-                Center(
-                  child: Column(
-                    children: [
-                      Text(
-                        "Your Standing Instructions have been registered successfully",
-                        style:
-                            ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontFamily: MyFont.Roboto_Medium),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
-                //38
-                SizedBox(height: 40.h),
-                AppButton(
-                  onPress: () {
-                    onPressIAgreeButton();
-                  },
-                  title: str_proceed,
-                  isButtonEnable: isAgreementRead,
-                ),
-                SizedBox(height: 30.h),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   void setAgreementRead(dynamic isRead) {
     if (isRead != null && (isRead == true || isRead == "true")) {
       setState(() {
@@ -429,16 +371,8 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
     TGLog.d('isAgreementLoaded-$isAgreementLoaded, isAgreementRead  $isAgreementRead');
     if (isAgreementLoaded) {
       if (isAgreementRead) {
-        setState(() {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => LoanAgreementDialog(),
-            ),
-            (route) => false, //if you want to disable back feature set to false
-          );
-        });
-
+        isAgreeLoaderStart = true;
+        setState(() {});
         if (await TGNetUtil.isInternetAvailable()) {
           postLoanAgreementRequest();
         } else {
@@ -462,18 +396,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
             ),
           )
         : AppButton(
-            onPress: isAgreementRead
-                ? () async {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => LoanAgreementDialog(),
-                      ),
-                      (route) => false, //if you want to disable back feature set to false
-                    );
-                    setState(() {});
-                  }
-                : () {},
+            onPress: isAgreementRead ? onPressIAgreeButton : () {},
             title: str_agree,
             isButtonEnable: isAgreementRead,
           );
@@ -502,12 +425,16 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
           },
           onPageFinished: (src) => {
             debugPrint('The page has finished loading: $src\n'),
-            if (src.contains("Signed%20Successfully")) {loanAggStatusApi()} else {}
+            if (src.contains("Signed%20Successfully"))
+              {loanAggStatusApi(), TGLog.d("ON Loan agrreemnet successs-------")}
+            else
+              {TGLog.d("ON Loan agrreemnet error-------")}
           },
           onWebResourceError: (error) {
             setState(() {
               isWebview = false;
             });
+            TGLog.d("ON Loan agrreemnet error-------onWebResourceError");
           },
           jsContent: const {
             EmbeddedJsContent(
@@ -585,7 +512,6 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
 
   //Post Loan Agreement
   Future<void> postLoanAgreementRequest() async {
-    //jiuhiuhuihiuhiuhui
     String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     String loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
     PostLoanAgreementRequest postLoanAgreementRequest = PostLoanAgreementRequest(
@@ -603,7 +529,6 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
   _onSuccessPostLoanAgreement(PostLoanAgreementResponse? response) {
     TGLog.d("RegisterResponse : onSuccess()");
     _postLoanAppRequest = response?.getPostLoanAgreementResObj();
-
     if (response?.getPostLoanAgreementResObj()?.status == RES_SUCCESS) {
       loanAppStatusAfterPostAgg();
     } else {
@@ -624,7 +549,6 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
   }
 
   Future<void> loanAppStatusAfterPostAgg() async {
-    // /kbkbjkkjkjkj
     if (await TGNetUtil.isInternetAvailable()) {
       getLoanAppStatusAfterPostLoanAgreeReq();
     } else {
@@ -634,7 +558,6 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
 
   // Loan App Status After Post Loan Agreement Request
   Future<void> getLoanAppStatusAfterPostLoanAgreeReq() async {
-    //kjjkbkjbkjbjk
     String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     String loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
     GetLoanStatusRequest getLoanStatusRequest =
@@ -651,27 +574,10 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
     TGLog.d("LoanAppStatusResponsePostLoanAgreeReq : onSuccess()");
     _getLoanStatusRes = response?.getLoanStatusResObj();
     if (_getLoanStatusRes?.data?.stageStatus == "PROCEED") {
-      setState(() {
-        isAgreeLoaderStart = false;
-      });
       TGLog.d("Type :${_getLoanStatusRes!.data!.agreementType}");
-
       String url = utf8.decode(base64Decode(_getLoanStatusRes?.data?.agreementRedirectionData ?? ""));
-      // TODO: remove navigation and add/uncomment launch URL
-      // Navigator.pushReplacementNamed(context, MyRoutes.SetupEmandateRoutes);
-      // Navigator.pushAndRemoveUntil(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => ESignCompletedMain(),
-      //   ),
-      //   (route) => false,
-      // );
       launchdde(url);
-      // TGLog.d(url);
-      // js.context.callMethod('customAlertMessage', [url]);
-
-      // // this for internal app webview
-
+      // this for internal app webview
       if (!kIsWeb) {
         setState(() {
           isWebview = true;
@@ -694,8 +600,8 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
     TGLog.d("LoanAppStatusResponsePostLoanAgreeReq : onError()");
     setState(() {
       isAgreeLoaderStart = false;
-      handleServiceFailError(context, errorResponse.error);
     });
+    handleServiceFailError(context, errorResponse.error);
   }
 
   //Get Loan App Status After Webview

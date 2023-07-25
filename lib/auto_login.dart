@@ -85,9 +85,9 @@ class AutoLoginState extends State<AutoLogin> {
     await Future.delayed(const Duration(seconds: 5));
     String _key;
     if (TGFlavor.baseUrl() == "https://sbiuat-gstsahay.instantmseloans.in") {
-      _key = "GS+5@hayM0bi#PRO";
-    } else {
       _key = "GS+5@hayM0bi#UAT";
+    } else {
+      _key = "GS+5@hayM0bi#PRO";
     }
 
     if (encryptedText != null) {
@@ -138,7 +138,6 @@ class AutoLoginState extends State<AutoLogin> {
           String? token = await Utils.getAccessToken(TGFlavor.param("bankName"));
           TGLog.d("After Removed Token :${token ?? ""}");
           setAccessTokenInRequestHeader();
-
           TGSession.getInstance().set(SESSION_SSOMOBILE, parsedQueryParameters["mobileNo"]);
           TGSession.getInstance().set(SESSION_SSOEMAIL, parsedQueryParameters["emailId"]);
           TGSession.getInstance()

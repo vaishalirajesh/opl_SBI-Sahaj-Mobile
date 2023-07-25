@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sbi_sahay_1_0/logout/logout.dart';
 import 'package:sbi_sahay_1_0/utils/dimenutils/dimensutils.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
 
@@ -364,11 +365,11 @@ AppBar getAppBarMainDashboard(String step, String appBarTitle, double progress, 
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(AppUtils.path(NOTIFICATIONICON), height: 20.h, width: 20.w),
-                  SizedBox(
-                    width: 8.w,
-                  ),
-                  SvgPicture.asset(AppUtils.path(LOGOUT), height: 20.h, width: 20.w)
+                  // SvgPicture.asset(AppUtils.path(NOTIFICATIONICON), height: 20.h, width: 20.w),
+                  // SizedBox(
+                  //   width: 8.w,
+                  // ),
+                  const LogoutButton()
                 ],
               )
             ],
