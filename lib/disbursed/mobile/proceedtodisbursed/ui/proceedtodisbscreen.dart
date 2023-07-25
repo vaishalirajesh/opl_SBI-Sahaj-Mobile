@@ -227,7 +227,7 @@ class ProceedToDisburseMainBody extends State<ProceedToDisburseMains> {
                       width: 18.w,
                     ))),
                 Text(
-                  dictData?.data?.accountHolderName ?? "State Bank Of India",
+                  dictData?.data?.accountHolderName ?? "-",
                   style: ThemeHelper.getInstance()
                       ?.textTheme
                       .bodyText2
