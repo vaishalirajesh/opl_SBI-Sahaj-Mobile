@@ -698,14 +698,14 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
     GetUserBasicDetailRequest getUserBasicDetailRequest = GetUserBasicDetailRequest();
     ServiceManager.getInstance().getUserBasicDetail(
         request: getUserBasicDetailRequest,
-        onSuccess: (response) => _onSuccessSaveConsent(response),
-        onError: (errorResponse) => _onErrorSaveConsent(errorResponse));
+        onSuccess: (response) => _onSuccessGetBasicDetailConsent(response),
+        onError: (errorResponse) => _onErrorgetUserBasicDetailConsent(errorResponse));
   }
 
-  _onSuccessSaveConsent(GetBasicDetailResponse response) {
+  _onSuccessGetBasicDetailConsent(GetBasicDetailResponse response) {
     TGLog.d("getUserBasicDetail() : Success---$response");
-    if (response.getBankListResObj().status == RES_DETAILS_FOUND) {
-      userBasicDetailResponseMain = response.getBankListResObj();
+    if (response.getBasicDetailObj().status == RES_DETAILS_FOUND) {
+      userBasicDetailResponseMain = response.getBasicDetailObj();
       strEmail = userBasicDetailResponseMain?.data?.email ?? '';
       RegExp regex = new RegExp(pattern);
       isValidEmail = regex.hasMatch(userBasicDetailResponseMain?.data?.email ?? '');
@@ -720,13 +720,13 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
       setState(() {});
     } else {
       LoaderUtils.handleErrorResponse(
-          context, response?.getBankListResObj().status, response?.getBankListResObj().message, null);
+          context, response?.getBasicDetailObj().status, response?.getBasicDetailObj().message, null);
     }
     isUserDataLoaded = true;
     setState(() {});
   }
 
-  _onErrorSaveConsent(TGResponse errorResponse) {
+  _onErrorgetUserBasicDetailConsent(TGResponse errorResponse) {
     TGLog.d("getUserBasicDetail() : Error");
     isUserDataLoaded = true;
     setState(() {});
