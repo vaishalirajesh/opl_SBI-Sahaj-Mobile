@@ -68,16 +68,13 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
           absorbing: isLoaderStart,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: SingleChildScrollView(
-              physics: const ClampingScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ..._buildHeader(),
-                  _buildMiddler(),
-                ],
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ..._buildHeader(),
+                _buildMiddler(),
+              ],
             ),
           ),
         ),
@@ -101,34 +98,55 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
         ),
         child: Text(
           str_Allow_Sahay_to_fetch_your_GST_Data,
-          style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(fontSize: 14.sp),
+          style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(fontSize: 14.sp, color: MyColors.darkblack),
         ),
       )
     ];
   }
 
   _buildMiddler() {
-    return Container(
-      decoration: BoxDecoration(
-        color: ThemeHelper.getInstance()?.cardColor,
-        borderRadius: BorderRadius.all(
-          Radius.circular(16.r),
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          color: ThemeHelper.getInstance()?.cardColor,
+          borderRadius: BorderRadius.all(
+            Radius.circular(16.r),
+          ),
         ),
-      ),
-      margin: EdgeInsets.only(bottom: 20.h),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 20.h),
-        child: SingleChildScrollView(
+        margin: EdgeInsets.only(bottom: 30.h),
+        child: Padding(
+          padding: EdgeInsets.only(left: 20.0.w, right: 10.w, top: 20.h, bottom: 20.h),
           child: Column(
-            mainAxisSize: MainAxisSize.max,
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(str_gst_data_consent, style: ThemeHelper.getInstance()!.textTheme.bodyText1),
+              Padding(
+                padding: EdgeInsets.only(right: 10.w),
+                child: Text(str_gst_data_consent, style: ThemeHelper.getInstance()!.textTheme.bodyText1),
+              ),
               SizedBox(height: 10.h),
-              Text(
-                str_gst_data_consent_long_sentence,
-                style: ThemeHelper.getInstance()!.textTheme.displaySmall?.copyWith(fontSize: 14.sp),
+              Expanded(
+                child: RawScrollbar(
+                  trackColor: Colors.black12,
+                  trackBorderColor: Colors.black12,
+                  thumbVisibility: true,
+                  thumbColor: ThemeHelper.getInstance()!.primaryColor,
+                  thickness: 3.w,
+                  radius: Radius.circular(5.r),
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 10.w),
+                      child: Text(
+                        str_gst_data_consent_long_sentence,
+                        style: ThemeHelper.getInstance()!
+                            .textTheme
+                            .displaySmall
+                            ?.copyWith(fontSize: 14.sp, color: MyColors.lightBlackText),
+                      ),
+                    ),
+                  ),
+                ),
               )
             ],
           ),
@@ -192,7 +210,10 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
                   padding: EdgeInsets.only(top: 3.h, left: 8.w),
                   child: Text(
                     str_i_understand_and_agree_to_sahays_terms,
-                    style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 14.sp),
+                    style: ThemeHelper.getInstance()!
+                        .textTheme
+                        .headline3!
+                        .copyWith(fontSize: 14.sp, color: MyColors.lightGraySmallText),
                   ),
                 ),
               ],
