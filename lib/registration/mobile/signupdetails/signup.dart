@@ -85,10 +85,12 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   UserBasicDetailResponseMain? userBasicDetailResponseMain;
   bool isValidEmail = false;
   String strEmail = "";
+  String originalEmail = "";
   String strMobile = "";
   String strUserName = "";
   bool hidePassword = true;
   bool hideMobile = true;
+  bool isEmailAlreadyVerified = false;
   String pattern =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 
@@ -104,7 +106,11 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         return SafeArea(
           child: WillPopScope(
             onWillPop: () async {
-              SystemNavigator.pop(animated: true);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => const SignUpView(),
+                  ));
               return true;
             },
             child: !isUserDataLoaded
@@ -179,11 +185,25 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             SizedBox(
               height: 20.h,
             ),
-            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.firtName ?? '', label: "First Name"),
+            Text(
+              'First Name',
+              style: ThemeHelper.getInstance()
+                  ?.textTheme
+                  .headline3
+                  ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+            ),
+            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.firtName ?? '', label: ""),
             SizedBox(
               height: 20.h,
             ),
-            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.lastName ?? '', label: "Last Name"),
+            Text(
+              'Last Name',
+              style: ThemeHelper.getInstance()
+                  ?.textTheme
+                  .headline3
+                  ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+            ),
+            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.lastName ?? '', label: ""),
             SizedBox(
               height: 20.h,
             ),
@@ -198,11 +218,28 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             SizedBox(
               height: 20.h,
             ),
-            buildMobileWidget(),
+            Text(
+              'Contact Number',
+              style: ThemeHelper.getInstance()
+                  ?.textTheme
+                  .headline3
+                  ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+            ),
+            SizedBox(
+              child: buildMobileWidget(),
+              height: 35.h,
+            ),
             SizedBox(
               height: 20.h,
             ),
-            buildEmailWidget(),
+            Text(
+              'Email ID',
+              style: ThemeHelper.getInstance()
+                  ?.textTheme
+                  .headline3
+                  ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+            ),
+            SizedBox(child: buildEmailWidget(), height: 35.h),
             SizedBox(
               height: 5.h,
             ),
@@ -247,17 +284,36 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             SizedBox(
               height: 10.h,
             ),
-            TextFieldUI(
-                initialValue: userBasicDetailResponseMain?.data?.pinCode ?? '',
-                label: "PIN Code of Current Residential Address"),
+            Text(
+              'PIN Code of Current Residential Address',
+              style: ThemeHelper.getInstance()
+                  ?.textTheme
+                  .headline3
+                  ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+            ),
+            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.pinCode ?? '', label: ""),
             SizedBox(
               height: 20.h,
             ),
-            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.city ?? '', label: "City"),
+            Text(
+              'City',
+              style: ThemeHelper.getInstance()
+                  ?.textTheme
+                  .headline3
+                  ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+            ),
+            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.city ?? '', label: ""),
             SizedBox(
               height: 20.h,
             ),
-            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.branch ?? '', label: "Your Preferred Branch"),
+            Text(
+              'Your Preferred Branch',
+              style: ThemeHelper.getInstance()
+                  ?.textTheme
+                  .headline3
+                  ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+            ),
+            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.branch ?? '', label: ""),
             SizedBox(
               height: 20.h,
             ),
@@ -268,28 +324,32 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   }
 
   Widget TextFieldUI({required String label, String initialValue = ""}) {
-    return TextFormField(
-        onChanged: (content) {},
-        enabled: false,
-        initialValue: initialValue,
-        cursorColor: Colors.grey,
-        decoration: InputDecoration(
-            labelText: label,
-            labelStyle: ThemeHelper.getInstance()
-                ?.textTheme
-                .headline3
-                ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
-            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
-            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor))),
-        keyboardType: TextInputType.text,
-        maxLines: 1,
-        style: ThemeHelper.getInstance()?.textTheme.headline3,
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Please enter $label';
-          }
-          return null;
-        });
+    return SizedBox(
+      height: 35.h,
+      child: TextFormField(
+          onChanged: (content) {},
+          enabled: false,
+          initialValue: initialValue,
+          cursorColor: Colors.grey,
+          decoration: InputDecoration(
+              labelText: label,
+              floatingLabelBehavior: FloatingLabelBehavior.never,
+              labelStyle: ThemeHelper.getInstance()
+                  ?.textTheme
+                  .headline3
+                  ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
+              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor))),
+          keyboardType: TextInputType.text,
+          maxLines: 1,
+          style: ThemeHelper.getInstance()?.textTheme.headline3,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter $label';
+            }
+            return null;
+          }),
+    );
   }
 
   Widget SignUpButtonUI() {
@@ -420,6 +480,13 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
           isValidEmail = regex.hasMatch(content);
           TGLog.d("Is Valid emial---------$isValidEmail");
           strEmail = content;
+          if (strEmail != originalEmail) {
+            isEmailVerified = false;
+          } else {
+            if (isEmailAlreadyVerified) {
+              isEmailVerified = true;
+            }
+          }
           setState(() {});
         },
         initialValue: strEmail ?? '',
@@ -427,7 +494,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         obscuringCharacter: 'X',
         cursorColor: Colors.grey,
         decoration: InputDecoration(
-          labelText: "Email Id",
+          labelText: "",
           labelStyle: ThemeHelper.getInstance()
               ?.textTheme
               .headline3
@@ -479,7 +546,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         cursorColor: Colors.grey,
         style: ThemeHelper.getInstance()?.textTheme.headline3,
         decoration: InputDecoration(
-          labelText: "Contact Number",
+          labelText: "",
+          floatingLabelBehavior: FloatingLabelBehavior.never,
           labelStyle: ThemeHelper.getInstance()
               ?.textTheme
               .headline3
@@ -707,12 +775,14 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
     if (response.getBasicDetailObj().status == RES_DETAILS_FOUND) {
       userBasicDetailResponseMain = response.getBasicDetailObj();
       strEmail = userBasicDetailResponseMain?.data?.email ?? '';
+      originalEmail = userBasicDetailResponseMain?.data?.email ?? '';
       RegExp regex = new RegExp(pattern);
       isValidEmail = regex.hasMatch(userBasicDetailResponseMain?.data?.email ?? '');
       strUserName = userBasicDetailResponseMain?.data?.firtName ?? 'TestUser';
       selectedGender = userBasicDetailResponseMain?.data?.gender ?? 'Male';
       if (userBasicDetailResponseMain?.data?.emailVerified == 1) {
         isEmailVerified = true;
+        isEmailAlreadyVerified = true;
       }
       TGSession.getInstance().set(SESSION_EMAIL, userBasicDetailResponseMain?.data?.email ?? '');
       TGSession.getInstance().set(SESSION_MOBILENUMBER, userBasicDetailResponseMain?.data?.email ?? strMobile);

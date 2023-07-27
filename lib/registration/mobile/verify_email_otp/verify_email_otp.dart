@@ -16,7 +16,6 @@ import 'package:gstmobileservices/service/response/tg_response.dart';
 import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
-import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/erros_handle_util.dart';
 import 'package:gstmobileservices/util/jumpingdot_util.dart';
 import 'package:gstmobileservices/util/showcustomesnackbar.dart';
@@ -26,7 +25,6 @@ import 'package:otp_text_field/otp_field_style.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/imageconstant.dart';
-import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusConstants.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/utils/internetcheckdialog.dart';
@@ -36,7 +34,6 @@ import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 
 import '../../../utils/constants/session_keys.dart';
-import '../../../utils/helpers/myfonts.dart';
 import '../../../widgets/otp_textfield_widget.dart';
 
 class OTPVerifyEmail extends StatelessWidget {
@@ -48,7 +45,7 @@ class OTPVerifyEmail extends StatelessWidget {
       builder: (context, constraints) {
         return WillPopScope(
           onWillPop: () async {
-            Navigator.pop(context);
+            Navigator.pop(context, false);
             return true;
           },
           child: Scaffold(
@@ -136,10 +133,25 @@ class OTPVerifyEmailScreenState extends State<OTPVerifyEmailScreen> {
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                      child: Text(
-                        "OTP sent to $strEmail",
-                        style: ThemeHelper.getInstance()!.textTheme.subtitle1!,
+                      child: RichText(
+                        text: TextSpan(
+                          text: "OTP sent to ",
+                          style: ThemeHelper.getInstance()!.textTheme.subtitle1!,
+                          children: [
+                            TextSpan(
+                              text: strEmail,
+                              style: ThemeHelper.getInstance()
+                                  ?.textTheme
+                                  .subtitle1
+                                  ?.copyWith(fontSize: 14.sp, color: MyColors.hyperlinkcolornew),
+                            ),
+                          ],
+                        ),
                       ),
+                      // Text(
+                      //   "$strEmail",
+                      //   style: ThemeHelper.getInstance()!.textTheme.subtitle1!,
+                      // ),
                     ),
                     SizedBox(
                       height: 31.h,
@@ -175,6 +187,7 @@ class OTPVerifyEmailScreenState extends State<OTPVerifyEmailScreen> {
                                 otp = '';
                                 isClearOtp = true;
                                 isGetOTPLoaderStart = true;
+                                isValidOTP = false;
                               });
                               getEmailOtp();
                             },
@@ -200,7 +213,7 @@ class OTPVerifyEmailScreenState extends State<OTPVerifyEmailScreen> {
                               ),
                               Text(
                                 str_Resend_OTP,
-                                style: ThemeHelper.getInstance()!.textTheme.headline6?.copyWith(
+                                style: ThemeHelper.getInstance()!.textTheme.subtitle1?.copyWith(
                                       color: isVerifyOTPLoaderStart || isGetOTPLoaderStart
                                           ? MyColors.verylightGrayColor
                                           : MyColors.pnbcolorPrimary,
@@ -257,11 +270,9 @@ class OTPVerifyEmailScreenState extends State<OTPVerifyEmailScreen> {
     setState(() {
       if (isValidOTP) {
         isVerifyOTPLoaderStart = true;
+        verifyEmailOtp();
       }
     });
-    if (isValidOTP) {
-      verifyEmailOtp();
-    }
   }
 
   Widget otpTexFields() {
@@ -277,13 +288,15 @@ class OTPVerifyEmailScreenState extends State<OTPVerifyEmailScreen> {
         onChanged: (str) {
           // setModelState((){
           isValidOTP = false;
+          setState(() {});
           //});
         },
         onCompleted: (pin) {
           // setModelState((){
+          isClearOtp = false;
           otp = pin;
           setState(() {
-            if (otp.isNotEmpty) {
+            if (otp.isNotEmpty && otp.length >= 6) {
               isValidOTP = true;
             } else {
               isValidOTP = false;
@@ -293,123 +306,6 @@ class OTPVerifyEmailScreenState extends State<OTPVerifyEmailScreen> {
           // });
         },
         style: TextStyle(color: MyColors.darkblack),
-      ),
-    );
-  }
-
-  Widget PopUpViewForEnableApi() {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pop(context);
-        TGSharedPreferences.getInstance().set(PREF_ENABLE_POPUP, true);
-        setState(() {
-          isOpenEnablePopUp = true;
-        });
-      },
-      child: Container(
-        color: Colors.black.withOpacity(0.5),
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: Center(
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              color: ThemeHelper.getInstance()?.backgroundColor,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                SizedBox(
-                  height: 15.r,
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 15.r),
-                    child: GestureDetector(
-                      child: const Icon(Icons.close),
-                      onTap: () {
-                        Navigator.pop(context);
-                        TGSharedPreferences.getInstance().set(PREF_ENABLE_POPUP, true);
-                        setState(() {
-                          isOpenEnablePopUp = true;
-                        });
-                      },
-                    ),
-                  ),
-                ),
-                SizedBox(height: 30.h), //40
-                Center(
-                  child: SvgPicture.asset(
-                    AppUtils.path(IMG_GSTENABLE_API),
-                    height: 95.h, //,
-                    width: 95.w, //134.8,
-                    allowDrawingOutsideViewBox: true,
-                  ),
-                ),
-                SizedBox(height: 30.h), //40
-                Center(
-                  child: Column(
-                    children: [
-                      Text(
-                        "It seems you have not enabled GST API.",
-                        style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 16.sp),
-                        textAlign: TextAlign.center,
-                      ),
-                      Text(
-                        "To understand the process",
-                        style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 16.sp),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 28.h), //28
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "Click for video",
-                              style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: ThemeHelper.getInstance()?.primaryColor,
-                                  decorationThickness: 2,
-                                  fontSize: 16.sp,
-                                  color: ThemeHelper.getInstance()?.primaryColor,
-                                  fontFamily: MyFont.Roboto_Medium),
-                            ),
-                            const TextSpan(
-                              text: "      ",
-                            ),
-                            TextSpan(
-                              text: "Click for steps",
-                              style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: ThemeHelper.getInstance()?.primaryColor,
-                                  decorationThickness: 2,
-                                  fontSize: 16.sp,
-                                  color: ThemeHelper.getInstance()?.primaryColor,
-                                  fontFamily: MyFont.Roboto_Medium),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 30.r,
-                ),
-              ],
-            ),
-          ),
-        ),
       ),
     );
   }
@@ -425,6 +321,7 @@ class OTPVerifyEmailScreenState extends State<OTPVerifyEmailScreen> {
   }
 
   Future<void> verifyOTP() async {
+    isValidOTP = false;
     if (otpSessionKey.isEmpty) {
       otpSessionKey = await TGSession.getInstance().get(SESSION_OTPSESSIONKEY);
     }
@@ -444,13 +341,18 @@ class OTPVerifyEmailScreenState extends State<OTPVerifyEmailScreen> {
     if (verifyEmailResponse?.status == RES_SUCCESS) {
       Navigator.pop(context, true);
     } else {
-      Navigator.pop(context, false);
+      isVerifyOTPLoaderStart = false;
+      isClearOtp = true;
+      setState(() {});
       TGView.showSnackBar(context: context, message: response?.getOtpReponseObj().message ?? "");
     }
   }
 
   _onErrorVerifyOTP(TGResponse errorResponse) {
     TGLog.d("verifyEmailOTP() : Error");
+    isVerifyOTPLoaderStart = false;
+    isClearOtp = true;
+    setState(() {});
     handleServiceFailError(context, errorResponse.error);
   }
 
