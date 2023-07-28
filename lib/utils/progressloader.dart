@@ -10,6 +10,7 @@ import 'package:sbi_sahay_1_0/registration/mobile/login_restriction/login_restri
 import 'package:sbi_sahay_1_0/utils/constants/statusConstants.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 import 'package:sbi_sahay_1_0/widgets/gst_enable_dialog.dart';
+import 'package:sbi_sahay_1_0/widgets/offer_expire_dialog.dart';
 
 import '../loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'colorutils/mycolors.dart';
@@ -124,7 +125,7 @@ class LoaderUtils {
                           onPressed: () {
                             Navigator.pushAndRemoveUntil(
                               context,
-                              MaterialPageRoute(builder: (BuildContext context) => DashboardWithGST()),
+                              MaterialPageRoute(builder: (BuildContext context) => const DashboardWithGST()),
                               (route) => false, //if you want to disable back feature set to false
                             );
                           },
@@ -292,7 +293,12 @@ class LoaderUtils {
   static Future<void> handleErrorResponse(
       BuildContext context, int? status, String? message, String? stageStatus) async {
     if (status == RES_OFFER_EXPIRED) {
-      showOfferExpired(context);
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => const OfferExpireDialog(),
+          ),
+          (route) => false);
     } else if (status == RES_OFFER_INELIGIBLE) {
       showOfferIneligible(context);
     } else if (status == ACTION_REQUIRED) {

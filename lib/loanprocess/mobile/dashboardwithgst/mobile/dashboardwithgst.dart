@@ -687,7 +687,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        buildInvoiceText(data?.buyerName ?? ''),
+                        buildInvoiceText(data?.buyerName ?? '-'),
                         SizedBox(
                           height: 5.h,
                         ),
@@ -1476,19 +1476,19 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           const Divider(),
-          ListTile(
-            leading: SvgPicture.asset(
-              AppUtils.path(IMG_RAISE_DISPITE_MENU),
-              height: 21.h,
-              width: 24.w,
-            ),
-            title: Text('Raise Dispute', style: ThemeHelper.getInstance()?.textTheme.headline3),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
-          ),
-          const Divider(),
+          // ListTile(
+          //   leading: SvgPicture.asset(
+          //     AppUtils.path(IMG_RAISE_DISPITE_MENU),
+          //     height: 21.h,
+          //     width: 24.w,
+          //   ),
+          //   title: Text('Raise Dispute', style: ThemeHelper.getInstance()?.textTheme.headline3),
+          //   onTap: () {
+          //     // Update the state of the app.
+          //     // ...
+          //   },
+          // ),
+          // const Divider(),
         ],
       ),
     );

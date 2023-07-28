@@ -135,19 +135,19 @@ class _AppDrawerState extends State<AppDrawer> {
             },
           ),
           const Divider(),
-          ListTile(
-            leading: SvgPicture.asset(
-              AppUtils.path(IMG_RAISE_DISPITE_MENU),
-              height: 21.h,
-              width: 24.w,
-            ),
-            title: Text('Raise Dispute', style: ThemeHelper.getInstance()?.textTheme.headline3),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
-          ),
-          const Divider(),
+          // ListTile(
+          //   leading: SvgPicture.asset(
+          //     AppUtils.path(IMG_RAISE_DISPITE_MENU),
+          //     height: 21.h,
+          //     width: 24.w,
+          //   ),
+          //   title: Text('Raise Dispute', style: ThemeHelper.getInstance()?.textTheme.headline3),
+          //   onTap: () {
+          //     // Update the state of the app.
+          //     // ...
+          //   },
+          // ),
+          // const Divider(),
         ],
       ),
     );

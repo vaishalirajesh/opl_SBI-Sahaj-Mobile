@@ -114,7 +114,7 @@ class _GetStartedState extends State<GetStarted> {
                   SizedBox(
                     height: 10.h,
                   ),
-                  loginButton(context),
+                  // loginButton(context),
                   SizedBox(
                     height: 15.h,
                   ),
@@ -150,6 +150,13 @@ class _GetStartedState extends State<GetStarted> {
   }
 
   void showMobileDialog() {
+    // Navigator.pushAndRemoveUntil(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (BuildContext context) => const OfferExpireDialog(),
+    //     ),
+    //     (route) => false);
+    // return;
     isShowDialog = true;
     setState(() {});
   }

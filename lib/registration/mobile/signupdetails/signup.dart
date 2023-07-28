@@ -30,6 +30,7 @@ import 'package:gstmobileservices/util/jumpingdot_util.dart';
 import 'package:gstmobileservices/util/showcustomesnackbar.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
+import 'package:sbi_sahay_1_0/registration/mobile/dashboardwithoutgst/mobile/dashboardwithoutgst.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/gst_consent_of_gst/gst_consent_of_gst.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/verify_email_otp/verify_email_otp.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
@@ -106,11 +107,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         return SafeArea(
           child: WillPopScope(
             onWillPop: () async {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => const SignUpView(),
-                  ));
+              SystemNavigator.pop(animated: true);
               return true;
             },
             child: !isUserDataLoaded
@@ -119,7 +116,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                     msg: 'Getting user basic details',
                   )
                 : Scaffold(
-                    appBar: getAppBarWithBackBtn(onClickAction: () => {Navigator.pop(context, false)}),
+                    appBar: getAppBarWithBackBtn(onClickAction: () => {SystemNavigator.pop(animated: true)}),
                     body: SingleChildScrollView(
                       primary: true,
                       child: SignUpScreenContent(),
@@ -192,7 +189,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   .headline3
                   ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
             ),
-            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.firtName ?? '', label: ""),
+            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.firtName ?? '', label: "Vaishali"),
             SizedBox(
               height: 20.h,
             ),
@@ -203,7 +200,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   .headline3
                   ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
             ),
-            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.lastName ?? '', label: ""),
+            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.lastName ?? '', label: "Pate"),
             SizedBox(
               height: 20.h,
             ),
@@ -239,7 +236,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   .headline3
                   ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
             ),
-            SizedBox(child: buildEmailWidget(), height: 35.h),
+            SizedBox(height: 35.h, child: buildEmailWidget()),
             SizedBox(
               height: 5.h,
             ),
@@ -342,7 +339,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor))),
           keyboardType: TextInputType.text,
           maxLines: 1,
-          style: ThemeHelper.getInstance()?.textTheme.headline3,
+          style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 15.sp),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter $label';
@@ -433,9 +430,9 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
 
   Widget GenderTextField(String label, BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 10.h),
+      margin: EdgeInsets.only(top: 5.h),
       height: 30.h,
-      width: MediaQuery.of(context).size.width - 20,
+      // width: 1.sw - 20,
       padding: EdgeInsets.zero,
       color: Colors.white,
       child: Theme(
@@ -453,7 +450,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 width: MediaQuery.of(context).size.width - 86,
                 child: Text(
                   value,
-                  style: ThemeHelper.getInstance()?.textTheme.headline3,
+                  style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 15.sp),
                 ),
               ),
             );
@@ -523,9 +520,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
           ),
           suffixIconColor: MyColors.black,
         ),
-        style: ThemeHelper.getInstance()?.textTheme.headline3,
+        style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 15.sp),
         keyboardType: TextInputType.visiblePassword,
-        maxLines: 1,
         validator: (value) {
           if (value == null || value.isEmpty || isValidEmail) {
             return 'Please enter valid email';
@@ -544,7 +540,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         initialValue: userBasicDetailResponseMain?.data?.userName ?? '',
         readOnly: true,
         cursorColor: Colors.grey,
-        style: ThemeHelper.getInstance()?.textTheme.headline3,
+        style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 15.sp),
         decoration: InputDecoration(
           labelText: "",
           floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -629,12 +625,13 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             }
             TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
             TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => const DashboardWithGST(),
-                ),
-                (route) => false);
+            if (await TGNetUtil.isInternetAvailable()) {
+              _getUserLoanDetails();
+            } else {
+              if (context.mounted) {
+                showSnackBarForintenetConnection(context, _getUserLoanDetails);
+              }
+            }
           } else {
             Navigator.pushAndRemoveUntil(
                 context,
@@ -667,7 +664,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) => EnableGstApi(),
+                builder: (BuildContext context) => const EnableGstApi(),
               ),
               (route) => false);
         }
@@ -709,13 +706,12 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   _onSuccessGetAllLoanDetailByRefId(GetAllLoanDetailByRefIdResponse? response) {
     TGLog.d("UserLoanDetailsResponse : onSuccess()");
     _getAllLoanDetailRes = response?.getAllLoanDetailObj();
-
     if (_getAllLoanDetailRes?.status == RES_SUCCESS) {
       if (_getAllLoanDetailRes?.data?.isEmpty == true) {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context) => GstConsent(),
+              builder: (BuildContext context) => DashboardWithoutGST(),
             ),
             (route) => false);
       } else {
@@ -726,7 +722,6 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         TGSession.getInstance().set(SESSION_BUSINESSNAME, _getAllLoanDetailRes?.data?[0].tradeNam);
         TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
         TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
-
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
@@ -738,7 +733,6 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
       setState(() {
         isLoaderStart = false;
       });
-
       LoaderUtils.handleErrorResponse(
           context, response?.getAllLoanDetailObj().status, response?.getAllLoanDetailObj().message, null);
     }

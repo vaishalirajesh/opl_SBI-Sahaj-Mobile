@@ -257,7 +257,7 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
                               ),
                               Text(
                                 str_Resend_OTP,
-                                style: ThemeHelper.getInstance()!.textTheme.headline6?.copyWith(
+                                style: ThemeHelper.getInstance()!.textTheme.subtitle1?.copyWith(
                                       color: isVerifyOTPLoaderStart || isGetOTPLoaderStart
                                           ? MyColors.verylightGrayColor
                                           : MyColors.pnbcolorPrimary,

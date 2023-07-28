@@ -113,7 +113,10 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
             children: [
               Text(
                 str_review_loan_deposite_acc,
-                style: ThemeHelper.getInstance()?.textTheme.headline1,
+                style: ThemeHelper.getInstance()
+                    ?.textTheme
+                    .headline6
+                    ?.copyWith(fontSize: 20.sp, color: MyColors.darkblack),
               ),
               SizedBox(
                 height: 20.h,
