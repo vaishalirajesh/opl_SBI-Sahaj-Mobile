@@ -57,7 +57,6 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
     return SafeArea(
       child: WillPopScope(
         onWillPop: () async {
-          Navigator.pop(context, false);
           SystemNavigator.pop(animated: true);
           return true;
         },
@@ -68,7 +67,6 @@ class DashboardwithoutState extends State<DashboardWithourGStScreen> {
             0.25,
             isRegistrationScreen: true,
             onClickAction: () => {
-              Navigator.pop(context, false),
               SystemNavigator.pop(animated: true),
             },
           ),

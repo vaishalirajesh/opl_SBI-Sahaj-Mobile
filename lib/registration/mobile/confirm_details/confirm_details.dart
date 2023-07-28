@@ -91,7 +91,6 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
           if (!isLoadData) {
             return false;
           } else {
-            Navigator.pop(context, false);
             SystemNavigator.pop(animated: true);
             return true;
           }
@@ -104,7 +103,6 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
                 appBar: getAppBarWithStepDone('1', str_registration, 0.25,
                     isRegistrationScreen: true,
                     onClickAction: () => {
-                          Navigator.pop(context, false),
                           SystemNavigator.pop(animated: true),
                         }),
                 body: Padding(

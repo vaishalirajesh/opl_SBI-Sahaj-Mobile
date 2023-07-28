@@ -25,9 +25,7 @@ class RestrictLgoinState extends State<RestrictLoginScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pop(context);
         SystemNavigator.pop(animated: true);
-
         return true;
       },
       child: Scaffold(
@@ -52,7 +50,6 @@ class RestrictLgoinState extends State<RestrictLoginScreen> {
                 ElevatedButton(
                   onPressed: () {
                     SystemNavigator.pop(animated: true);
-                    Navigator.pop(context);
                   },
                   child: Center(
                     child: Text(str_back_home),

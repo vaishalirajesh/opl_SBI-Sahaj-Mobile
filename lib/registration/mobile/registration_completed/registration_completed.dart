@@ -49,14 +49,12 @@ class _RegistrationCompletedScreenState extends State<RegistrationCompletedScree
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async {
-          Navigator.pop(context, false);
           SystemNavigator.pop(animated: true);
-
           return true;
         },
         child: Scaffold(
           appBar: getAppBarWithBackBtn(onClickAction: () {
-            CustBackButton.showLogout(context);
+            SystemNavigator.pop(animated: true);
           }),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
