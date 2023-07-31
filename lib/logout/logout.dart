@@ -84,11 +84,11 @@ class _LogoutButtonState extends State<LogoutButton> {
     SBILogoutRequest sBILogoutRequest = SBILogoutRequest();
     ServiceManager.getInstance().sbiLogout(
         request: sBILogoutRequest,
-        onSuccess: (response) => _onSuccessSaveConsent(response),
-        onError: (errorResponse) => _onErrorSaveConsent(errorResponse));
+        onSuccess: (response) => _onSuccessLogout(response),
+        onError: (errorResponse) => _onErrorLogout(errorResponse));
   }
 
-  _onSuccessSaveConsent(SBILogoutResponse response) async {
+  _onSuccessLogout(SBILogoutResponse response) async {
     TGLog.d("sbiLogout() : Success---$response");
     Navigator.pop(context);
     if (response.getLogoutObj().status == RES_SUCCESS) {
@@ -98,7 +98,7 @@ class _LogoutButtonState extends State<LogoutButton> {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => GetStarted(),
+            builder: (BuildContext context) => const GetStarted(),
           ),
           (route) => false, //if you want to disable back feature set to false
         );
@@ -109,7 +109,7 @@ class _LogoutButtonState extends State<LogoutButton> {
     setState(() {});
   }
 
-  _onErrorSaveConsent(TGResponse errorResponse) {
+  _onErrorLogout(TGResponse errorResponse) {
     TGLog.d("sbiLogout() : Error");
     setState(() {});
     handleServiceFailError(context, errorResponse.error);

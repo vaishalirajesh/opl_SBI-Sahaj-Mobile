@@ -24,6 +24,7 @@ import 'package:sbi_sahay_1_0/loanprocess/mobile/gstinvoiceslist/ui/gstinvoiceli
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
 import 'package:sbi_sahay_1_0/utils/progressLoader.dart';
+import 'package:sbi_sahay_1_0/widgets/back_to_home_widget.dart';
 import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 
@@ -1475,6 +1476,8 @@ class MyDrawer extends StatelessWidget {
               Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => const NewProfileView()));
             },
           ),
+          const Divider(),
+          const BackToHome(),
           const Divider(),
           // ListTile(
           //   leading: SvgPicture.asset(

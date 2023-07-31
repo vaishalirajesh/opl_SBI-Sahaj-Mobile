@@ -77,7 +77,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   bool isCheck = false;
   List<String> genders = ['Male', 'Female', 'Prefer not to say'];
   String selectedGender = "Male";
-  bool isEmailVerified = false;
+  bool isEmailVerified = true;
   GetEmailOtpResponseMain? getOtpResponse;
   bool isLoaderStart = false;
   GetGstBasicdetailsResMain? _basicdetailsResponse;
@@ -704,9 +704,16 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   }
 
   _onSuccessGetAllLoanDetailByRefId(GetAllLoanDetailByRefIdResponse? response) {
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => DashboardWithoutGST(),
+        ),
+        (route) => false);
+    return;
     TGLog.d("UserLoanDetailsResponse : onSuccess()");
     _getAllLoanDetailRes = response?.getAllLoanDetailObj();
-    if (_getAllLoanDetailRes?.status == RES_SUCCESS) {
+    if (_getAllLoanDetailRes?.status == RES_DETAILS_FOUND) {
       if (_getAllLoanDetailRes?.data?.isEmpty == true) {
         Navigator.pushAndRemoveUntil(
             context,
@@ -825,7 +832,6 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
       TGSession.getInstance().set(SESSION_OTPSESSIONKEY, getOtpResponse?.data);
       showSnackBar(context, "OTP send to your register email address");
     } else {
-      Navigator.pop(context, false);
       showSnackBar(context, getOtpResponse?.message ?? 'Error in get otp');
     }
   }

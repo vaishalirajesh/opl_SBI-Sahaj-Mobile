@@ -61,7 +61,6 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
   bool confirmGstDetail = false;
   GstBasicDataResMain? _gstBasicDataResMain = GstBasicDataResMain();
   FetchGstDataResMain? _fetchGstDataResMain;
-  bool isLoader = true;
   String? strLegalName = "";
 
   bool isOpenDetails = true;
@@ -437,16 +436,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
     }
   }
 
-  void hideLoader() {
-    setState(() {
-      isLoader = false;
-    });
-  }
-
   Future<void> gstDetailsStatusAPI() async {
-    setState(() {
-      isLoader = true;
-    });
     String gstin = await TGSharedPreferences.getInstance().get(PREF_GSTIN);
     FetGstDataStatusRequest fetGstDataStatusRequest = FetGstDataStatusRequest(id: gstin);
     var jsonReq = jsonEncode(fetGstDataStatusRequest.toJson());
@@ -481,18 +471,20 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
         getGstDetailStatus();
       }
     } else {
-      Navigator.pop(context);
       LoaderUtils.handleErrorResponse(
           context, response?.getFetchGstDataObj().status, response?.getFetchGstDataObj().message, null);
-      hideLoader();
+      setState(() {
+        isLoadData = true;
+      });
     }
   }
 
   _onErrorFetchGstDataStatus(TGResponse errorResponse) {
     TGLog.d("FetchGstDataStatus : onError()");
-    Navigator.pop(context);
     handleServiceFailError(context, errorResponse.error);
-    hideLoader();
+    setState(() {
+      isLoadData = true;
+    });
   }
 
   Future<void> getGSTBasicsDetails() async {
@@ -516,24 +508,24 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
         TGSharedPreferences.getInstance().set(PREF_BUSINESSNAME, _gstBasicDataResMain?.data?.tradeNam);
         TGSharedPreferences.getInstance().set(PREF_USERNAME, _gstBasicDataResMain?.data?.lgnm.toString());
         TGSharedPreferences.getInstance().set(PREF_USERSTATE, _gstBasicDataResMain?.data?.stcd.toString());
-        hideLoader();
       });
     } else if (response?.getFetchGstDataObj().status == RES_DETAILS_NOT_FOUND) {
       LoaderUtils.handleErrorResponse(
           context, response?.getFetchGstDataObj().status, response?.getFetchGstDataObj().message, null);
-      hideLoader();
     } else {
       LoaderUtils.handleErrorResponse(
           context, response?.getFetchGstDataObj().status, response?.getFetchGstDataObj().message, null);
-      hideLoader();
     }
-    isLoadData = true;
+    setState(() {
+      isLoadData = true;
+    });
   }
 
   _onErrorGetBasicGstDetails(TGResponse errorResponse) {
     TGLog.d("GetGstBasicDetails : onError()");
     handleServiceFailError(context, errorResponse.error);
-    hideLoader();
-    isLoadData = true;
+    setState(() {
+      isLoadData = true;
+    });
   }
 }

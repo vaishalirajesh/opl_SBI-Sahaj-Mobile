@@ -11,6 +11,8 @@ import 'package:sbi_sahay_1_0/utils/constants/imageconstant.dart';
 import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 
+import 'back_to_home_widget.dart';
+
 class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
 
@@ -134,6 +136,8 @@ class _AppDrawerState extends State<AppDrawer> {
               Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => const NewProfileView()));
             },
           ),
+          const Divider(),
+          const BackToHome(),
           const Divider(),
           // ListTile(
           //   leading: SvgPicture.asset(
