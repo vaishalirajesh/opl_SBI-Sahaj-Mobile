@@ -189,7 +189,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   .headline3
                   ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
             ),
-            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.firtName ?? '', label: "Vaishali"),
+            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.firtName ?? '', label: ""),
             SizedBox(
               height: 20.h,
             ),
@@ -200,7 +200,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   .headline3
                   ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
             ),
-            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.lastName ?? '', label: "Pate"),
+            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.lastName ?? '', label: ""),
             SizedBox(
               height: 20.h,
             ),
