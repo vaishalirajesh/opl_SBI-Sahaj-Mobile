@@ -58,7 +58,8 @@ class KfsScreenBody extends State<KfsScreens> {
   var applicantName = '';
   num totalCharge = 0;
   num otherCharges = 0;
-  num panelCharges = 0;
+  String? panelCharges = "0";
+  String? behindPanelCharges = "";
 
   LoanOfferData? loanOfferData;
   ShareGstInvoiceResMain? _setLoanOfferRes;
@@ -69,12 +70,16 @@ class KfsScreenBody extends State<KfsScreens> {
 
   @override
   void initState() {
-    loanOfferData = TGSession.getInstance().get(PREF_LOANOFFER);
+    getLoanOfferData();
     getApplicantName();
     calculateOtherChanges("");
     calculatePanelCharges("Penal");
     setTotalCharge();
     super.initState();
+  }
+
+  Future<void> getLoanOfferData() async {
+    loanOfferData = await TGSession.getInstance().get(PREF_LOANOFFER);
   }
 
   @override
@@ -176,7 +181,7 @@ class KfsScreenBody extends State<KfsScreens> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -198,6 +203,26 @@ class KfsScreenBody extends State<KfsScreens> {
                         ?.textTheme
                         .headline2
                         ?.copyWith(fontSize: 14.sp, color: ThemeHelper.getInstance()?.colorScheme.background),
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Text(
+                    str_applicant_name,
+                    style: ThemeHelper.getInstance()
+                        ?.textTheme
+                        .headline3
+                        ?.copyWith(fontSize: 12.sp, color: ThemeHelper.getInstance()?.colorScheme.surface),
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  Text(
+                    applicantName,
+                    style: ThemeHelper.getInstance()
+                        ?.textTheme
+                        .headline2
+                        ?.copyWith(fontSize: 14.sp, color: ThemeHelper.getInstance()?.colorScheme.background),
                   )
                 ],
               ),
@@ -215,11 +240,33 @@ class KfsScreenBody extends State<KfsScreens> {
                   SizedBox(
                     height: 5.h,
                   ),
-                  Text(AppUtils.convertIndianCurrency(loanOfferData?.offerDetails?.elementAt(0).termsRequestedAmount),
-                      style: ThemeHelper.getInstance()
-                          ?.textTheme
-                          .headline2
-                          ?.copyWith(fontSize: 14.sp, color: ThemeHelper.getInstance()?.colorScheme.background))
+                  Text(
+                    AppUtils.convertIndianCurrency(loanOfferData?.offerDetails?.elementAt(0).termsRequestedAmount),
+                    style: ThemeHelper.getInstance()
+                        ?.textTheme
+                        .headline2
+                        ?.copyWith(fontSize: 14.sp, color: ThemeHelper.getInstance()?.colorScheme.background),
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Text(
+                    str_kfs_lender,
+                    style: ThemeHelper.getInstance()
+                        ?.textTheme
+                        .headline3
+                        ?.copyWith(fontSize: 12.sp, color: ThemeHelper.getInstance()?.colorScheme.surface),
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  Text(
+                    "State Bank of India",
+                    style: ThemeHelper.getInstance()
+                        ?.textTheme
+                        .headline2
+                        ?.copyWith(fontSize: 14.sp, color: ThemeHelper.getInstance()?.colorScheme.background),
+                  )
                 ],
               ),
               Column(
@@ -246,38 +293,6 @@ class KfsScreenBody extends State<KfsScreens> {
                   )
                 ],
               )
-            ],
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    str_kfs_lender,
-                    style: ThemeHelper.getInstance()
-                        ?.textTheme
-                        .headline3
-                        ?.copyWith(fontSize: 12.sp, color: ThemeHelper.getInstance()?.colorScheme.surface),
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Text(
-                    "State Bank of India",
-                    style: ThemeHelper.getInstance()
-                        ?.textTheme
-                        .headline2
-                        ?.copyWith(fontSize: 14.sp, color: ThemeHelper.getInstance()?.colorScheme.background),
-                  )
-                ],
-              ),
             ],
           ),
         ],
@@ -458,10 +473,10 @@ class KfsScreenBody extends State<KfsScreens> {
             SizedBox(
               height: 16.h,
             ),
-            ApplicantDataUI(context),
-            SizedBox(
-              height: 24.h,
-            ),
+            // ApplicantDataUI(context),
+            // SizedBox(
+            //   height: 24.h,
+            // ),
             Card(
               color: ThemeHelper.getInstance()?.backgroundColor,
               shape: RoundedRectangleBorder(
@@ -479,16 +494,18 @@ class KfsScreenBody extends State<KfsScreens> {
                           flex: 4,
                           child: LoanDetailColumnWidget(
                               str_loan_amt,
-                              AppUtils.convertIndianCurrency(
+                              DataFormatUtils.convertIndianCurrency(
                                   loanOfferData?.offerDetails?.elementAt(0).termsSanctionedAmount),
                               true,
                               str_loan_amt_tooltip)),
-                      Flexible(flex: 1, child: Container()),
+                      SizedBox(
+                        width: 10.w,
+                      ),
                       Flexible(
                           flex: 4,
                           child: LoanDetailColumnWidget(
                               str_total_interest,
-                              AppUtils.convertIndianCurrency(
+                              DataFormatUtils.convertIndianCurrency(
                                   loanOfferData?.offerDetails?.elementAt(0).termsInterestAmount),
                               true,
                               str_total_interest_tooltip)),
@@ -510,16 +527,21 @@ class KfsScreenBody extends State<KfsScreens> {
                           flex: 4,
                           child: LoanDetailColumnWidget(
                               str_net_disb_amt,
-                              AppUtils.convertIndianCurrency(
-                                  loanOfferData?.offerDetails?.elementAt(0).netDisbursementAmount),
+                              DataFormatUtils.convertIndianCurrency(
+                                loanOfferData?.offerDetails?.elementAt(0).netDisbursementAmount,
+                              ),
                               false,
                               "")),
-                      Flexible(flex: 1, child: Container()),
+                      SizedBox(
+                        width: 10.w,
+                      ),
                       Flexible(
                         flex: 4,
                         child: LoanDetailColumnWidget(
                             str_total_repay_amt,
-                            AppUtils.convertIndianCurrency(loanOfferData?.offerDetails?.elementAt(0).termsTotalAmount),
+                            DataFormatUtils.convertIndianCurrency(
+                              getRepaymentAmount(),
+                            ),
                             true,
                             str_total_repay_amt_tooltip),
                       ),
@@ -549,17 +571,26 @@ class KfsScreenBody extends State<KfsScreens> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Flexible(
-                          flex: 4,
-                          child: LoanDetailColumnWidget(
-                              str_anum_per_rate,
-                              ("${loanOfferData?.offerDetails?.elementAt(0).termsInterestRate ?? "- "}% p.a."),
-                              true,
-                              str_per_rate_tooltip)),
-                      Flexible(flex: 1, child: Container()),
+                        flex: 4,
+                        child: LoanDetailColumnWidget(
+                          str_anum_per_rate,
+                          "${loanOfferData?.offerDetails?.elementAt(0).apr ?? "- "}% p.a.",
+                          true,
+                          str_per_rate_tooltip,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
                       Flexible(
-                          flex: 4,
-                          child: LoanDetailColumnWidget(str_no_of_installment,
-                              loanOfferData?.offerDetails?.elementAt(0).noOfInstallments ?? "-", false, "")),
+                        flex: 4,
+                        child: LoanDetailColumnWidget(
+                          str_no_of_installment,
+                          loanOfferData?.offerDetails?.elementAt(0).noOfInstallments ?? "-",
+                          false,
+                          "",
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -575,17 +606,25 @@ class KfsScreenBody extends State<KfsScreens> {
                   Row(
                     children: [
                       Flexible(
-                          flex: 4,
-                          child: LoanDetailColumnWidget(
-                              str_loan_tenure,
-                              "${loanOfferData?.offerDetails?.elementAt(0).termsTenureDuration ?? ""} Days",
-                              false,
-                              "-")),
-                      Flexible(flex: 1, child: Container()),
+                        flex: 4,
+                        child: LoanDetailColumnWidget(
+                            str_loan_tenure,
+                            "${loanOfferData?.offerDetails?.elementAt(0).termsTenureDuration ?? ""} ${int.parse(loanOfferData?.offerDetails?.elementAt(0).termsTenureDuration ?? "0") < 1 ? "Day" : "Days"}",
+                            false,
+                            "-"),
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
                       Flexible(
-                          flex: 4,
-                          child: LoanDetailColumnWidget(
-                              str_penal_charge, AppUtils.convertIndianCurrency(panelCharges.toString()), false, "")),
+                        flex: 4,
+                        child: LoanDetailColumnWidget(
+                          str_penal_charge,
+                          "${panelCharges ?? ""} $behindPanelCharges",
+                          false,
+                          "",
+                        ),
+                      ),
                     ],
                   )
                 ],
@@ -606,6 +645,14 @@ class KfsScreenBody extends State<KfsScreens> {
         ),
       ),
     );
+  }
+
+  String getRepaymentAmount() {
+    num repaymentAmount = 0;
+    num totalLoanAmout = num.parse(loanOfferData?.offerDetails?.elementAt(0).termsSanctionedAmount ?? "0");
+    num interestAmount = num.parse(loanOfferData?.offerDetails?.elementAt(0).termsInterestAmount ?? "0");
+    repaymentAmount = totalLoanAmout + interestAmount + totalCharge;
+    return repaymentAmount.toString();
   }
 
   Widget LoanDetailColumnWidget(String title, String value, bool isOtherInfo, String toolTip) {
@@ -776,7 +823,6 @@ class KfsScreenBody extends State<KfsScreens> {
                             width: 20.w,
                           ),
                           onTap: () {
-                            //Manish
                             setState(() {
                               setIsOtherUpFrontCardShow();
                             });
@@ -843,16 +889,6 @@ class KfsScreenBody extends State<KfsScreens> {
         ),
         SizedBox(height: 5.h),
         Text(value, style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 14.sp)),
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   crossAxisAlignment: CrossAxisAlignment.center,
-        //   children: [
-        //     Text(value, style: ThemeHelper.getInstance()?.textTheme.bodyText1),
-        //     SizedBox(
-        //       width: 35.w,
-        //     ),
-        //   ],
-        // )
       ],
     );
   }
@@ -1217,13 +1253,14 @@ class KfsScreenBody extends State<KfsScreens> {
   void calculatePanelCharges(String chargeType) {
     if (loanOfferData?.offerDetails?[0].additionalCharges?.isNotEmpty == true) {
       for (int i = 0; i < loanOfferData!.offerDetails![0].additionalCharges!.length; i++) {
-        if ((loanOfferData!.offerDetails![0].additionalCharges?[i].description.toString().toLowerCase() ?? "")
-            .contains(chargeType.toLowerCase())) {
-          if (chargeType == "Penal") {
-            panelCharges =
-                panelCharges + num.parse(loanOfferData!.offerDetails![0].additionalCharges?[i].amount ?? "0");
+        if (loanOfferData!.offerDetails![0].additionalCharges?[i].description == "Penal Charges") {
+          if (loanOfferData!.offerDetails![0].additionalCharges?[i].rate != null) {
+            panelCharges = loanOfferData!.offerDetails![0].additionalCharges?[i].rate;
+            behindPanelCharges = "% p.a.";
           } else {
-            panelCharges = panelCharges + 0;
+            panelCharges =
+                DataFormatUtils.convertIndianCurrency(loanOfferData!.offerDetails![0].additionalCharges?[i].amount);
+            behindPanelCharges = "";
           }
         }
       }

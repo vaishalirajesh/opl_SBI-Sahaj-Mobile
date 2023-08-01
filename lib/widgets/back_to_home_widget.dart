@@ -10,6 +10,7 @@ import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/erros_handle_util.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
+import 'package:gstmobileservices/util/tg_view.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusConstants.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -34,7 +35,7 @@ class _BackToHomeState extends State<BackToHome> {
       ),
       title: Text('Back to Home', style: ThemeHelper.getInstance()?.textTheme.headline3),
       onTap: () {
-        onpPressGetURL();
+        TGView.showSnackBar(context: context, message: "Coming soon");
       },
     );
   }

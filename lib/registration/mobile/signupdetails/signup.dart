@@ -77,7 +77,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   bool isCheck = false;
   List<String> genders = ['Male', 'Female', 'Prefer not to say'];
   String selectedGender = "Male";
-  bool isEmailVerified = true;
+  bool isEmailVerified = false;
   GetEmailOtpResponseMain? getOtpResponse;
   bool isLoaderStart = false;
   GetGstBasicdetailsResMain? _basicdetailsResponse;
@@ -236,7 +236,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   .headline3
                   ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
             ),
-            SizedBox(height: 35.h, child: buildEmailWidget()),
+            buildEmailWidget(),
             SizedBox(
               height: 5.h,
             ),
@@ -704,13 +704,6 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   }
 
   _onSuccessGetAllLoanDetailByRefId(GetAllLoanDetailByRefIdResponse? response) {
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => DashboardWithoutGST(),
-        ),
-        (route) => false);
-    return;
     TGLog.d("UserLoanDetailsResponse : onSuccess()");
     _getAllLoanDetailRes = response?.getAllLoanDetailObj();
     if (_getAllLoanDetailRes?.status == RES_DETAILS_FOUND) {

@@ -129,14 +129,6 @@ class _LoanOfferDialogState extends State<LoanOfferDialog> {
           )
         : AppButton(
             onPress: () async {
-              // WidgetsBinding.instance.addPostFrameCallback((_) async {
-              //   const ShowInfoLoader(
-              //     msg: str_get_best_offer,
-              //     isTransparentColor: false,
-              //   );
-              //   // LoaderUtils.showLoaderwithmsg(context, GETLOANOFFER, str_fetch_loan_offer_from_lender, msg: str_get_best_offer);
-              // });
-
               if (await TGNetUtil.isInternetAvailable()) {
                 _generateLoanOffer();
               } else {
@@ -144,14 +136,6 @@ class _LoanOfferDialogState extends State<LoanOfferDialog> {
                   showSnackBarForintenetConnection(context, _generateLoanOffer);
                 }
               }
-
-              // Navigator.pushAndRemoveUntil(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => LoanOfferList(),
-              //   ),
-              //   (route) => false,
-              // );
             },
             title: str_Checkit_out,
           );
@@ -219,7 +203,6 @@ class _LoanOfferDialogState extends State<LoanOfferDialog> {
       if (_getLoanStatusRes?.data?.stageStatus == "PROCEED") {
         MoveStage.navigateNextStage(context, _getLoanStatusRes?.data?.currentStage);
         timer.cancel();
-        //Navigator.pushNamed(context, MyRoutes.loanOfferListRoutes);
       } else if (_getLoanStatusRes?.data?.stageStatus == "HOLD") {
         Future.delayed(const Duration(seconds: 10), () {
           _getLoanAppStatusAfterGenerateOfferAPI();

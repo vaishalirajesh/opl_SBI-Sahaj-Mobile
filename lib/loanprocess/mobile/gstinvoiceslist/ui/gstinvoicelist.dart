@@ -95,7 +95,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
 
   void sortListById() {
     switch (selectedSortOption) {
-      case 0:
+      case 1:
         setState(() {
           arrInvoiceList.sort((a, b) {
             return AppUtils.convertDateFormat(a.invoiceData?.invDate, "dd-mm-yyyy", "yyyy-mm-dd")
@@ -104,7 +104,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
         });
         break;
 
-      case 1:
+      case 0:
         setState(() {
           arrInvoiceList.sort((a, b) {
             return AppUtils.convertDateFormat(b.invoiceData?.invDate, "dd-mm-yyyy", "yyyy-mm-dd")
@@ -150,7 +150,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
 
   @override
   void initState() {
-    getLoanAppRefIdAPI();
+    getGSTInvoiceList();
     super.initState();
   }
 
@@ -160,6 +160,16 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
     } else {
       if (context.mounted) {
         showSnackBarForintenetConnection(context, getLoanApplicationRefrenceIDAPI);
+      }
+    }
+  }
+
+  Future<void> getGSTInvoiceList() async {
+    if (await TGNetUtil.isInternetAvailable()) {
+      getGSTInvoicesListAPI();
+    } else {
+      if (context.mounted) {
+        showSnackBarForintenetConnection(context, getGSTInvoicesListAPI);
       }
     }
   }
@@ -236,10 +246,6 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
           SizedBox(
             height: 10.h,
           ),
-          // Padding(
-          //   padding: EdgeInsets.only(left: 20.w, right: 20.w),
-          //   child: invoiceSearchBarTextField(),
-          // ),
           buildSearchWidget(),
           SizedBox(
             height: 10.h,
@@ -282,17 +288,6 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
                 filterInvoiceButton()
               ],
             ),
-            // SizedBox(height: 20.h),
-            // Text(str_All_the_invoicesgenerated,
-            //     style: ThemeHelper.getInstance()!
-            //         .textTheme
-            //         .headline3!
-            //         .copyWith(color: MyColors.darkblack, fontSize: 14.sp)),
-            // Text(str_invoice_disc,
-            //     style: ThemeHelper.getInstance()!
-            //         .textTheme
-            //         .headline3!
-            //         .copyWith(color: MyColors.darkblack, fontSize: 14.sp)),
             SizedBox(height: 10.h),
             const Divider(),
             SizedBox(
@@ -431,14 +426,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
 
   Widget invoiceSearchBarTextField() {
     return Container(
-      decoration: const BoxDecoration(
-          // borderRadius: BorderRadius.all(Radius.circular(8.r)),
-          // border: Border.all(
-          //   color: ThemeHelper.getInstance()!.colorScheme.shadow,
-          //   style: BorderStyle.solid,
-          //   width: 0.5,
-          // ),
-          ),
+      decoration: const BoxDecoration(),
       height: 35.h,
       child: TextField(
         style: ThemeHelper.getInstance()!.textTheme.button,
@@ -474,62 +462,6 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
         ),
       ),
     );
-    // return GestureDetector(
-    //   onTap: () {
-    //     Navigator.push(
-    //         context,
-    //         MaterialPageRoute(
-    //           builder: (context) => SearchInvoiceList(arrInvoiceList),
-    //         ));
-    //   },
-    //   child: SizedBox(
-    //       height: 45.h,
-    //       child: TextFormField(
-    //         onChanged: (value) => {},
-    //         style: ThemeHelper.getInstance()!
-    //             .textTheme
-    //             .bodyText1!
-    //             .copyWith(fontSize: 14.sp),
-    //         cursorColor: ThemeHelper.getInstance()!.primaryColor,
-    //         decoration: InputDecoration(
-    //             fillColor: ThemeHelper.getInstance()!.backgroundColor,
-    //             focusedBorder: UnderlineInputBorder(
-    //                 borderSide: BorderSide(
-    //                     color: ThemeHelper.getInstance()!.colorScheme.primary,
-    //                     width: 1.0),
-    //                 borderRadius: BorderRadius.all(Radius.circular(6.r))),
-    //             enabledBorder: UnderlineInputBorder(
-    //                 borderSide: BorderSide(
-    //                     color: ThemeHelper.getInstance()!.colorScheme.primary,
-    //                     width: 1.0),
-    //                 borderRadius: BorderRadius.all(Radius.circular(6.r))),
-    //             contentPadding: EdgeInsets.symmetric(vertical: 10.h),
-    //             prefixIcon: new Icon(Icons.search_rounded,
-    //                 color: ThemeHelper.getInstance()!
-    //                     .primaryColor
-    //                     .withOpacity(0.3)),
-    //             // hintText: "Search...",
-    //             labelText: str_Search,
-    //             floatingLabelBehavior: FloatingLabelBehavior.never,
-    //             hintStyle: ThemeHelper.getInstance()!
-    //                 .textTheme
-    //                 .bodyText1!
-    //                 .copyWith(fontSize: 14.sp),
-    //             filled: true,
-    //             enabled: false,
-    //             labelStyle: ThemeHelper.getInstance()!
-    //                 .textTheme
-    //                 .headline3!
-    //                 .copyWith(color: MyColors.pnbcolorPrimary.withOpacity(0.3)),
-    //             //    fillColor: searchbarBGColor.withOpacity(0.37),
-    //             border: UnderlineInputBorder(
-    //                 borderSide: BorderSide(
-    //                     color: ThemeHelper.getInstance()!.colorScheme.onSurface,
-    //                     width: 1.0),
-    //                 borderRadius: BorderRadius.all(Radius.circular(6.r)))
-    // ),
-    //       )),
-    // );
   }
 
   Widget shareInvoiceButton() {
@@ -592,44 +524,6 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
       ],
     );
   }
-
-  // Widget sortByBottomSheetDialog() {
-  //   return Material(
-  //     child: Center(
-  //       child: Column(
-  //         crossAxisAlignment: CrossAxisAlignment.center,
-  //         mainAxisAlignment: MainAxisAlignment.center,
-  //         mainAxisSize: MainAxisSize.min,
-  //         children: [
-  //           SizedBox(height: 25.h),
-  //           Row(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
-  //             // const Spacer(),
-  //             Text(
-  //               str_SortBy,
-  //               style: ThemeHelper.getInstance()?.textTheme.headline2!.copyWith(color: MyColors.pnbcolorPrimary),
-  //             ),
-  //             const Spacer(),
-  //             GestureDetector(
-  //               child: Padding(
-  //                   padding: EdgeInsets.only(right: 20.w),
-  //                   child: SvgPicture.asset(AppUtils.path(IMG_CLOSE_X), height: 10.h, width: 10.w)),
-  //               onTap: () {
-  //                 Navigator.pop(context);
-  //               },
-  //             ),
-  //           ]),
-  //           SizedBox(height: 10.h),
-  //           const Divider(),
-  //           sortByDialogContent(),
-  //           Padding(
-  //             padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
-  //             child: applySortButton(),
-  //           )
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 
   Widget buildSortByWidget(StateSetter setModelState) {
     return Column(
@@ -941,7 +835,6 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   Future<void> getLoanApplicationRefrenceIDAPI() async {
     String? loanapplicationRefID = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     TGLog.d("GetAppRefId : request --loanapplicationRefID---$loanapplicationRefID");
-
     if (loanapplicationRefID == null) {
       String gstin = await TGSharedPreferences.getInstance().get(PREF_GSTIN);
       TGGetRequest tgGetRequest = GSTRefid(gstin: gstin, invoiceType: '');
@@ -952,11 +845,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
           onSuccess: (response) => _onSuccessGetAppRefId(response),
           onError: (error) => _onErrorGetAppRefId(error));
     } else {
-      if (await TGNetUtil.isInternetAvailable()) {
-        getGSTInvoicesListAPI();
-      } else {
-        showSnackBarForintenetConnection(context, getGSTInvoicesListAPI);
-      }
+      shareInvoice();
     }
   }
 
@@ -964,13 +853,9 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
     TGLog.d("GetAppRefId : onSuccess()");
     if (response?.getAppRefId()?.status == RES_SUCCESS) {
       TGSharedPreferences.getInstance().set(PREF_LOANAPPREFID, response?.getAppRefId().data?.loanApplicationRefId);
-      if (await TGNetUtil.isInternetAvailable()) {
-        getGSTInvoicesListAPI();
-      } else {
-        showSnackBarForintenetConnection(context, getGSTInvoicesListAPI);
-      }
+      shareInvoice();
     } else {
-      isLoadData = true;
+      isShowTransparentBg = false;
       setState(() {});
       LoaderUtils.handleErrorResponse(context, response?.getAppRefId().status, response?.getAppRefId().message, null);
     }
@@ -978,7 +863,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
 
   _onErrorGetAppRefId(TGResponse errorResponse) {
     TGLog.d("GetAppRefId : onError()");
-    isLoadData = true;
+    isShowTransparentBg = false;
     setState(() {});
     handleServiceFailError(context, errorResponse.error);
   }
@@ -986,7 +871,6 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   Future<void> getGSTInvoicesListAPI() async {
     String gstin = await TGSharedPreferences.getInstance().get(PREF_GSTIN);
     GstBasicDataRequest gstInvoiceListRequest = GstBasicDataRequest(id: gstin);
-
     var jsonReq = jsonEncode(gstInvoiceListRequest.toJson());
     TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GST_INVOICE_LIST);
 
@@ -1000,13 +884,11 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   _onSuccessGstInvoiceList(GstInvoiceListResponse? response) {
     TGLog.d("Invoice List Request : onSuccess()");
     TGLog.d(response?.getAppRefIdObj().status ?? "");
-
     if (response?.getAppRefIdObj().status == RES_DETAILS_FOUND) {
       setState(() {
         _gstInvoceListResMain = response?.getAppRefIdObj();
         arrInvoiceList = _gstInvoceListResMain!.data!;
       });
-      TGLog.d("Invoice List Request : onSuccess()---2");
     } else if (_gstInvoceListResMain?.status == REFRESH_GST_INVOICES) {
       Navigator.push(
           context,
@@ -1031,10 +913,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
     });
   }
 
-  void onPressShareInvoiceButton() async {
-    setState(() {
-      isShowTransparentBg = true;
-    });
+  Future<void> shareInvoice() async {
     if (arrInvoiceList.isNotEmpty) {
       if (await TGNetUtil.isInternetAvailable()) {
         shareInvoicesListAPI();
@@ -1046,10 +925,16 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
     }
   }
 
+  void onPressShareInvoiceButton() async {
+    setState(() {
+      isShowTransparentBg = true;
+    });
+    getLoanAppRefIdAPI();
+  }
+
   Future<void> shareInvoicesListAPI() async {
     loanApplicationReferenceID = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     loanApplicationID = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
-
     ShareGstInvoiceRequest shareGstInvoiceRequest =
         ShareGstInvoiceRequest(loanApplicationRefId: loanApplicationReferenceID);
     var jsonReq = jsonEncode(shareGstInvoiceRequest.toJson());
@@ -1063,7 +948,6 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   _onSuccessShareGstInvoice(ShareGstInvoiceResponse? response) {
     TGLog.d("ShareGstInvoiceResponse : onSuccess()");
     _shareGstInvoiceResMain = response?.getShareGstInvoiceObj();
-
     if (_shareGstInvoiceResMain?.status == RES_SUCCESS) {
       if (loanApplicationID != null && loanApplicationReferenceID != null) {
         getLoanAppStatusAfterShareGstInvoiceAPI();
@@ -1071,7 +955,8 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
         getLoanAppStatusAfterShareGstInvoiceAPI();
       }
     } else {
-      // Navigator.pop(context);
+      isShowTransparentBg = false;
+      setState(() {});
       LoaderUtils.handleErrorResponse(
           context, response?.getShareGstInvoiceObj().status, response?.getShareGstInvoiceObj().message, null);
     }
@@ -1080,7 +965,8 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   _onErrorShareGstInvoice(TGResponse errorResponse) {
     TGLog.d("ShareGstInvoiceResponse : onError()");
     handleServiceFailError(context, errorResponse.error);
-    // Navigator.pop(context);
+    isShowTransparentBg = false;
+    setState(() {});
   }
 
   Future<void> getLoanApplicaionStatusAPI() async {
@@ -1101,12 +987,9 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
       if (_getLoanStatusResMain?.data?.stageStatus == "PROCEED") {
         TGLog.d("GetLoanAppStatusResponse : in proceed");
         setState(() {
-          isLoadData = true;
           isShowTransparentBg = false;
         });
         MoveStage.navigateNextStage(context, _getLoanStatusResMain?.data?.currentStage);
-        // Navigator.pop(context);
-        //Navigator.pushReplacementNamed(context, MyRoutes.AccountAggregatorDetailsRoutes);
       } else if (_getLoanStatusResMain?.data?.stageStatus == "HOLD") {
         Future.delayed(const Duration(seconds: 10), () {
           getLoanAppStatusAfterShareGstInvoiceAPI();
@@ -1115,17 +998,12 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
         getLoanAppStatusAfterShareGstInvoiceAPI();
       }
     } else {
-      // Navigator.pop(context);
       setState(() {
-        isLoadData = true;
         isShowTransparentBg = false;
       });
       LoaderUtils.handleErrorResponse(context, response?.getLoanStatusResObj().status,
           response?.getLoanStatusResObj().message, response?.getLoanStatusResObj().data?.stageStatus);
     }
-    // setState(() {
-    //   isShowTransparentBg = false;
-    // });
   }
 
   _onErrorGetLoanAppStatus(TGResponse errorResponse) {
@@ -1133,16 +1011,16 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
     handleServiceFailError(context, errorResponse.error);
     setState(() {
       isShowTransparentBg = false;
-      isLoadData = true;
     });
-    // Navigator.pop(context);
   }
 
   Future<void> getLoanAppStatusAfterShareGstInvoiceAPI() async {
     if (await TGNetUtil.isInternetAvailable()) {
       getLoanApplicaionStatusAPI();
     } else {
-      showSnackBarForintenetConnection(context, getLoanApplicaionStatusAPI);
+      if (context.mounted) {
+        showSnackBarForintenetConnection(context, getLoanApplicaionStatusAPI);
+      }
     }
   }
 }

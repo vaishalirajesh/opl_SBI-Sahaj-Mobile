@@ -454,23 +454,16 @@ class _AAListViewState extends State<AAListView> {
   _onSuccessGetAAList(GetAAListResponse? response) {
     TGLog.d("GetAppRefId : onSuccess()");
     if (response?.getAAListResObj().status == RES_DETAILS_FOUND) {
-      setState(() {
-        isLoaderStart = false;
-        if (response?.getAAListResObj().data?.isNotEmpty == true) {
-          _aaListObj = response?.getAAListResObj().data ?? [];
-        }
-      });
+      if (response?.getAAListResObj().data?.isNotEmpty == true) {
+        _aaListObj = response?.getAAListResObj().data ?? [];
+      }
     } else {
-      isLoaderStart = false;
-
       LoaderUtils.handleErrorResponse(
           context, response?.getAAListResObj().status, response?.getAAListResObj().message, null);
-
-      // TGView.showSnackBar(context: context, message: response?.getAAListResObj().message ?? "No Data Found");
-      // setState(() {
-      //   isLoaderStart = false;
-      // });
     }
+    setState(() {
+      isLoaderStart = false;
+    });
   }
 
   _onErrorGetAAList(TGResponse errorResponse) {
@@ -514,7 +507,6 @@ class _AAListViewState extends State<AAListView> {
       setState(() {
         isShowLoader = false;
       });
-      Navigator.pop(context);
       LoaderUtils.handleErrorResponse(
           context, response?.getConsentHandleResObj().status, response?.getConsentHandleResObj().message, null);
     }
@@ -547,26 +539,8 @@ class _AAListViewState extends State<AAListView> {
     TGLog.d("GetConsentHandleUrl : onSuccess()");
     if (response?.getConsentHandleUrlObj().status == RES_SUCCESS) {
       TGLog.d("GetConsentHandleUrl : on launch URL --${response?.getConsentHandleUrlObj().data?.url}()");
-
       String url = response?.getConsentHandleUrlObj().data?.url ?? "";
-      // // TODO : Remove navigation and add URL lunch
-      // Navigator.pushAndRemoveUntil(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => const AaCompletedPage(
-      //       str: {},
-      //     ),
-      //   ),
-      //   (route) => false,
-      // );
-      //redurectURL(url);
       launchAa(url);
-      // AppConstant.AAWEBREDIRCTIONURL = url;
-      // Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (BuildContext context) => AccountAggregatorWebview(),
-      //     ));
     } else if (response?.getConsentHandleUrlObj().status == RES_RETRY_URL) {
       if (await TGNetUtil.isInternetAvailable()) {
         _getConsentHandleUrl();
@@ -577,7 +551,6 @@ class _AAListViewState extends State<AAListView> {
       setState(() {
         isShowLoader = false;
       });
-      Navigator.pop(context);
       LoaderUtils.handleErrorResponse(
           context, response?.getConsentHandleUrlObj().status, response?.getConsentHandleUrlObj().message, null);
     }

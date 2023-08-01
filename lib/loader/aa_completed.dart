@@ -18,6 +18,7 @@ import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/erros_handle_util.dart';
 import 'package:gstmobileservices/util/tg_flavor.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/utils/movestageutils.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
@@ -128,6 +129,14 @@ class _AaCompletedState extends State<AaCompletedPage> {
     } else if (response?.getRedirectionalUrlResObj().status == CONSENT_REJECTION) {
       consentStatus = CONSENT_REJECTION;
       _callConsentStatusReq();
+    } else if (response?.getRedirectionalUrlResObj().status == UNKNOWN) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => const DashboardWithGST(),
+        ),
+        (route) => false, //if you want to disable back feature set to false
+      );
     } else {
       LoaderUtils.handleErrorResponse(
           context, response?.getRedirectionalUrlResObj().status, response?.getRedirectionalUrlResObj().message, null);
@@ -177,6 +186,14 @@ class _AaCompletedState extends State<AaCompletedPage> {
           isCommon: false,
         );
       }
+    } else if (response?.getConsentStatusResObj().status == UNKNOWN) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => const DashboardWithGST(),
+        ),
+        (route) => false, //if you want to disable back feature set to false
+      );
     } else {
       LoaderUtils.handleErrorResponse(
           context, response?.getConsentStatusResObj().status, response?.getConsentStatusResObj().message, null);
@@ -218,6 +235,14 @@ class _AaCompletedState extends State<AaCompletedPage> {
       } else {
         _loanAppStatusAfterConsentStatus();
       }
+    } else if (response?.getLoanStatusResObj().status == UNKNOWN) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => const DashboardWithGST(),
+        ),
+        (route) => false, //if you want to disable back feature set to false
+      );
     } else {
       LoaderUtils.handleErrorResponse(context, response?.getLoanStatusResObj().status,
           response?.getLoanStatusResObj().message, response?.getLoanStatusResObj().data?.stageStatus);

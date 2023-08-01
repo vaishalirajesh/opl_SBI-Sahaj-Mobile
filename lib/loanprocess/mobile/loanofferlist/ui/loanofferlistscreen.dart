@@ -101,28 +101,28 @@ class LoanOfferListBody extends State<LoanOfferListSc> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Text(
-                  "Valid for: ",
-                  style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp),
-                ),
-                Text(
-                  "",
-                  style: ThemeHelper.getInstance()
-                      ?.textTheme
-                      .headline2
-                      ?.copyWith(fontSize: 14.sp, color: MyColors.pnbcolorPrimary),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            const Divider(),
-            SizedBox(
-              height: 15.h,
-            ),
+            // Row(
+            //   children: [
+            //     Text(
+            //       "Valid for: ",
+            //       style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp),
+            //     ),
+            //     Text(
+            //       "",
+            //       style: ThemeHelper.getInstance()
+            //           ?.textTheme
+            //           .headline2
+            //           ?.copyWith(fontSize: 14.sp, color: MyColors.pnbcolorPrimary),
+            //     ),
+            //   ],
+            // ),
+            // SizedBox(
+            //   height: 10.h,
+            // ),
+            // const Divider(),
+            // SizedBox(
+            //   height: 10.h,
+            // ),
             Text(
               str_loan_offers,
               style: ThemeHelper.getInstance()?.textTheme.headline2,
