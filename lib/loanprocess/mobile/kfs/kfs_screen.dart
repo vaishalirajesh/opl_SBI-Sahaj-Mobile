@@ -78,8 +78,8 @@ class KfsScreenBody extends State<KfsScreens> {
     super.initState();
   }
 
-  Future<void> getLoanOfferData() async {
-    loanOfferData = await TGSession.getInstance().get(PREF_LOANOFFER);
+  void getLoanOfferData() {
+    loanOfferData = TGSession.getInstance().get(PREF_LOANOFFER);
   }
 
   @override
@@ -479,10 +479,10 @@ class KfsScreenBody extends State<KfsScreens> {
             // ),
             Card(
               color: ThemeHelper.getInstance()?.backgroundColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadiusDirectional.all(Radius.circular(12.r)),
-                  side: BorderSide(color: ThemeHelper.getInstance()!.backgroundColor)),
-              shadowColor: ThemeHelper.getInstance()?.shadowColor,
+              // shape: RoundedRectangleBorder(
+              //     borderRadius: BorderRadiusDirectional.all(Radius.circular(12.r)),
+              //     side: BorderSide(color: ThemeHelper.getInstance()!.backgroundColor)),
+              // shadowColor: ThemeHelper.getInstance()?.shadowColor,
               elevation: 2,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -559,10 +559,10 @@ class KfsScreenBody extends State<KfsScreens> {
             // ),
             Card(
               color: ThemeHelper.getInstance()?.backgroundColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadiusDirectional.all(Radius.circular(12.r)),
-                  side: BorderSide(color: ThemeHelper.getInstance()!.backgroundColor)),
-              shadowColor: ThemeHelper.getInstance()?.shadowColor,
+              // shape: RoundedRectangleBorder(
+              //     borderRadius: BorderRadiusDirectional.all(Radius.circular(12.r)),
+              //     side: BorderSide(color: ThemeHelper.getInstance()!.backgroundColor)),
+              // shadowColor: ThemeHelper.getInstance()?.shadowColor,
               elevation: 2,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
@@ -672,10 +672,9 @@ class KfsScreenBody extends State<KfsScreens> {
                 flex: 1,
                 child: Text(
                   title,
-                  style: ThemeHelper.getInstance()
-                      ?.textTheme
-                      .headline3
-                      ?.copyWith(color: MyColors.lightGraySmallText, fontSize: 12.sp),
+                  style: ThemeHelper.getInstance()?.textTheme.overline?.copyWith(
+                        color: MyColors.lightGraySmallText,
+                      ),
                   maxLines: 3,
                   softWrap: true,
                 ),
@@ -718,7 +717,6 @@ class KfsScreenBody extends State<KfsScreens> {
         Text(
           value,
           style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 14.sp),
-          textAlign: TextAlign.center,
         ),
       ],
     );
@@ -839,18 +837,7 @@ class KfsScreenBody extends State<KfsScreens> {
                         SizedBox(
                           height: 10.h,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            OtherUpFrontRowWidget(str_stamp_duty, AppUtils.convertIndianCurrency("100")),
-                            SizedBox(width: 90.w),
-                            OtherUpFrontRowWidget(
-                                str_processing_fees,
-                                AppUtils.convertIndianCurrency(
-                                    loanOfferData?.offerDetails?[0].processingChargesDetails?.amount)),
-                          ],
-                        ),
+                        _OtherUpFrontRowWidgetwithList(),
                         SizedBox(height: 14.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -861,7 +848,10 @@ class KfsScreenBody extends State<KfsScreens> {
                                 AppUtils.convertIndianCurrency(
                                     loanOfferData?.offerDetails?[0].insuranceChargesDetails?.amount)),
                             SizedBox(width: 50.w),
-                            OtherUpFrontRowWidget(str_others, AppUtils.convertIndianCurrency(otherCharges.toString())),
+                            OtherUpFrontRowWidget(
+                                str_others,
+                                AppUtils.convertIndianCurrency(
+                                    loanOfferData?.offerDetails?[0].otherChargesDetails?.amount)),
                           ],
                         ),
                       ],
@@ -965,7 +955,7 @@ class KfsScreenBody extends State<KfsScreens> {
 
                         LoanDetailColumnWidget(
                             str_cooling_period,
-                            "${loanOfferData?.offerDetails?.elementAt(0).coolingOffPeriod ?? "0 Days"}",
+                            loanOfferData?.offerDetails?.elementAt(0).coolingOffPeriod ?? "0 Days",
                             true,
                             str_cooling_period_tooltip),
                         SizedBox(height: 14.h),
@@ -1113,6 +1103,39 @@ class KfsScreenBody extends State<KfsScreens> {
         ),
       ),
     );
+  }
+
+  Widget _OtherUpFrontRowWidgetwithList() {
+    if (loanOfferData?.offerDetails?[0].additionalCharges?.isNotEmpty == true) {
+      TGLog.d("GetList");
+      return ListView.builder(
+        padding: EdgeInsets.zero,
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        itemCount: loanOfferData!.offerDetails![0].additionalCharges!.length,
+        itemBuilder: (context, i) {
+          TGLog.d("Description:${loanOfferData!.offerDetails![0].additionalCharges?[i].description}");
+          if (loanOfferData!.offerDetails![0].additionalCharges?[i].description == "Stamp Duty Charges") {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                OtherUpFrontRowWidget(str_stamp_duty,
+                    AppUtils.convertIndianCurrency(loanOfferData?.offerDetails![0].additionalCharges?[0].amount)),
+                SizedBox(width: 90.w),
+                OtherUpFrontRowWidget(str_processing_fees,
+                    AppUtils.convertIndianCurrency(loanOfferData?.offerDetails?[0].processingChargesDetails?.amount)),
+              ],
+            );
+          } else {
+            return Container();
+          }
+        },
+      );
+    } else {
+      return Container();
+    }
   }
 
   Widget btnProceed() {
@@ -1268,31 +1291,13 @@ class KfsScreenBody extends State<KfsScreens> {
   }
 
   void setTotalCharge() {
-    // if(loanOfferData?.offerDetails?[0].processingChargesDetails?.chargeType == "FIXED_AMOUNT")
-    // {
-    totalCharge = totalCharge + num.parse(loanOfferData?.offerDetails?[0].processingChargesDetails?.amount ?? "0");
-    // }
-    //  if(loanOfferData?.offerDetails?[0].insuranceChargesDetails?.chargeType == "FIXED_AMOUNT")
-    //  {
-    totalCharge = totalCharge + num.parse(loanOfferData?.offerDetails?[0].insuranceChargesDetails?.amount ?? "0");
-    // }
-    // if(getAdditionalCharge("Stamp")?.contains("%") == false)
-    // {
-
-    totalCharge = totalCharge + num.parse(loanOfferData?.offerDetails?[0].cicChargesDetails?.amount ?? "0");
-    if (loanOfferData?.offerDetails?[0].cgtmseChargesDetails?.amount != "0") {
-      totalCharge = totalCharge + num.parse(loanOfferData?.offerDetails?[0].cgtmseChargesDetails?.amount ?? "0");
-    }
-
-    if (loanOfferData?.offerDetails?[0].documentationChargesDetails?.amount != "0") {
-      totalCharge = totalCharge + num.parse(loanOfferData?.offerDetails?[0].documentationChargesDetails?.amount ?? "0");
-    }
-
-    totalCharge = totalCharge + num.parse(loanOfferData?.offerDetails?[0].otherChargesDetails?.amount ?? "0");
-
-    totalCharge = totalCharge + otherCharges;
-
-    //}
+    LatepaymentChargesDetails? data = loanOfferData!.offerDetails![0].additionalCharges
+        ?.firstWhere((element) => element.description == "Stamp Duty Charges");
+    totalCharge = totalCharge +
+        num.parse(loanOfferData?.offerDetails?[0].processingChargesDetails?.amount ?? "0") +
+        num.parse(loanOfferData?.offerDetails?[0].otherChargesDetails?.amount ?? "0") +
+        num.parse(loanOfferData?.offerDetails?[0].insuranceChargesDetails?.amount ?? "0") +
+        num.parse(data?.amount ?? '0');
   }
 
   void onPressSelectLoanOffersButton() async {
