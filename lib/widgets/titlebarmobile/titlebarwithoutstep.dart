@@ -102,7 +102,7 @@ AppBar getAppBarWithTitle(String appbarTitle, {required Function onClickAction})
     centerTitle: true,
     automaticallyImplyLeading: false,
     title: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      padding: EdgeInsets.only(top: 5.h, left: 20.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -344,8 +344,11 @@ AppBar getAppBarMainDashboard(String step, String appBarTitle, double progress, 
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   GestureDetector(
-                    child: SvgPicture.asset(
-                      AppUtils.path(MOBILEMENUBAR),
+                    child: Padding(
+                      padding: EdgeInsets.all(10.r),
+                      child: SvgPicture.asset(
+                        AppUtils.path(MOBILEMENUBAR),
+                      ),
                     ),
                     onTap: () {
                       onClickAction();
@@ -361,7 +364,7 @@ AppBar getAppBarMainDashboard(String step, String appBarTitle, double progress, 
                   )
                 ],
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -369,7 +372,7 @@ AppBar getAppBarMainDashboard(String step, String appBarTitle, double progress, 
                   // SizedBox(
                   //   width: 8.w,
                   // ),
-                  const LogoutButton()
+                  LogoutButton()
                 ],
               )
             ],
@@ -392,7 +395,7 @@ AppBar getAppBarMainDashboard(String step, String appBarTitle, double progress, 
 }
 
 AppBar getAppBarMainDashboardWithBackButton(String step, String appBarTitle, double progress,
-    {required Function onClickAction}) {
+    {required Function onClickAction, required Function onMenuClick}) {
   return AppBar(
     title: Column(
       children: [
@@ -420,7 +423,7 @@ AppBar getAppBarMainDashboardWithBackButton(String step, String appBarTitle, dou
                       AppUtils.path(MOBILEMENUBAR),
                     ),
                     onTap: () {
-                      onClickAction();
+                      onMenuClick();
                     },
                   ),
                   Padding(
@@ -437,11 +440,11 @@ AppBar getAppBarMainDashboardWithBackButton(String step, String appBarTitle, dou
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(AppUtils.path(NOTIFICATIONICON), height: 20.h, width: 20.w),
+                  // SvgPicture.asset(AppUtils.path(NOTIFICATIONICON), height: 20.h, width: 20.w),
                   SizedBox(
                     width: 8.w,
                   ),
-                  SvgPicture.asset(AppUtils.path(LOGOUT), height: 20.h, width: 20.w)
+                  const LogoutButton()
                 ],
               )
             ],

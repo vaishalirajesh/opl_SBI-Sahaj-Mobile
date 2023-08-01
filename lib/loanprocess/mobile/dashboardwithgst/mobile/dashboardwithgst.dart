@@ -152,7 +152,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
             },
             child: Scaffold(
               key: _scaffoldKey,
-              drawer: MyDrawer(userName: name),
+              drawer: MyDrawer(userName: name, screenName: "Dashbaord"),
               appBar: getAppBarMainDashboard("2", str_loan_approve_process, 0.50,
                   onClickAction: () => {_scaffoldKey.currentState?.openDrawer()}),
               body: MainContainerView(),
@@ -1384,9 +1384,10 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
 }
 
 class MyDrawer extends StatelessWidget {
-  MyDrawer({super.key, required this.userName});
+  MyDrawer({super.key, required this.userName, required this.screenName});
 
   String userName = '';
+  String screenName = '';
 
   @override
   Widget build(BuildContext context) {
@@ -1444,9 +1445,13 @@ class MyDrawer extends StatelessWidget {
               style: ThemeHelper.getInstance()?.textTheme.headline3,
             ),
             onTap: () {
-              Navigator.of(context).pop();
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (BuildContext context) => const DashboardWithGST()));
+              if (screenName == "Dashbaord") {
+                Scaffold.of(context).closeDrawer();
+              } else {
+                Navigator.of(context).pop();
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (BuildContext context) => const DashboardWithGST()));
+              }
             },
           ),
           const Divider(),
@@ -1458,9 +1463,13 @@ class MyDrawer extends StatelessWidget {
             ),
             title: Text('Transactions', style: ThemeHelper.getInstance()?.textTheme.headline3),
             onTap: () {
-              Navigator.of(context).pop();
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (BuildContext context) => const TransactionsView()));
+              if (screenName == "Transactions") {
+                Scaffold.of(context).closeDrawer();
+              } else {
+                Navigator.of(context).pop();
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (BuildContext context) => const TransactionsView()));
+              }
             },
           ),
           const Divider(),
@@ -1472,8 +1481,13 @@ class MyDrawer extends StatelessWidget {
             ),
             title: Text('Profile', style: ThemeHelper.getInstance()?.textTheme.headline3),
             onTap: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => const NewProfileView()));
+              if (screenName == "Profile") {
+                Scaffold.of(context).closeDrawer();
+              } else {
+                Navigator.of(context).pop();
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (BuildContext context) => const NewProfileView()));
+              }
             },
           ),
           const Divider(),

@@ -71,6 +71,12 @@ const MOBILEPROFFILEBROWN = 'images/profile_brown_ic.svg';
 const MOBILEDISPUTEPROGRESS = 'images/ic_icon_progress.svg';
 const MOBILERAISEDISPUTE = 'images/ic_icon_raise_dispute.svg';
 const MOBILETRACKDISPUTE = 'images/ic_icon_dispute_tracker.svg';
+const PROFILEBELL = 'images/notification_bell.svg';
+const PROFILEPRIVACY = 'images/privacy_lock.svg';
+const PROFILEFAQ = 'images/faq.svg';
+const PROFILEABOUT = 'images/about.svg';
+const PROFILECONTACT = 'images/contactsupport.svg';
+const PROFILEUSER = 'images/user_pink.svg';
 
 const MOBILETDASHBOARDWITHGSTOUTSTANDING = 'images/outstanding.svg';
 const MOBILETDASHBOARDWITHGSTOVERDUE = 'images/overdue_time.svg';

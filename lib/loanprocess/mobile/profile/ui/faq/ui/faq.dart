@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
+import 'package:sbi_sahay_1_0/widgets/app_drawer.dart';
 
 import '../../../../../../utils/Utils.dart';
 import '../../../../../../utils/colorutils/mycolors.dart';
@@ -17,7 +18,7 @@ class FAQMain extends StatelessWidget {
     return SafeArea(
       child: LayoutBuilder(
         builder: (context, constraints) {
-          return FAQScreen();
+          return const FAQScreen();
         },
       ),
     );
@@ -33,16 +34,35 @@ class FAQScreen extends StatefulWidget {
 
 class _FAQScreenState extends State<FAQScreen> {
   List<bool> isShowing = [false, false, false, false, false, false, false];
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pop(context);
-        return true;
+        if (_scaffoldKey.currentState!.isDrawerOpen) {
+          _scaffoldKey.currentState!.closeDrawer();
+          return false;
+        } else {
+          Navigator.pop(context);
+          return true;
+        }
       },
       child: Scaffold(
-        appBar: getAppBarMainDashboardWithBackButton("2", str_loan_approve_process, 0.25,
-            onClickAction: () => {Navigator.pop(context)}),
+        key: _scaffoldKey,
+        drawer: const AppDrawer(),
+        appBar: getAppBarMainDashboardWithBackButton(
+          "2",
+          str_loan_approve_process,
+          0.25,
+          onClickAction: () => {
+            if (_scaffoldKey.currentState!.isDrawerOpen)
+              {_scaffoldKey.currentState!.closeDrawer()}
+            else
+              {Navigator.pop(context)}
+          },
+          onMenuClick: () => {_scaffoldKey.currentState?.openDrawer()},
+        ),
         body: SingleChildScrollView(child: buildListData()),
       ),
     );
@@ -54,11 +74,6 @@ class _FAQScreenState extends State<FAQScreen> {
         Container(
             height: 50.h,
             width: MediaQuery.of(context).size.width,
-            child: Padding(
-              padding: EdgeInsets.only(left: 20.w, top: 10.h),
-              child:
-                  Text("FAQs", style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(color: MyColors.white)),
-            ),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(bottomRight: Radius.circular(0.r), bottomLeft: Radius.circular(0.r)),
                 border: Border.all(width: 1, color: ThemeHelper.getInstance()!.primaryColor),
@@ -67,7 +82,12 @@ class _FAQScreenState extends State<FAQScreen> {
                 gradient: LinearGradient(
                     colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
                     begin: Alignment.centerLeft,
-                    end: Alignment.centerRight))),
+                    end: Alignment.centerRight)),
+            child: Padding(
+              padding: EdgeInsets.only(left: 20.w, top: 15.h),
+              child:
+                  Text("FAQs", style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(color: MyColors.white)),
+            )),
         SizedBox(
           height: 30.h,
         ),
@@ -121,7 +141,7 @@ class _FAQScreenState extends State<FAQScreen> {
                 flex: 1,
                 child: Text(
                   question,
-                  style: ThemeHelper.getInstance()!.textTheme.headline2!.copyWith(fontSize: 16),
+                  style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(color: MyColors.pnbPersonalDataColor),
                   maxLines: 10,
                 ),
               ),
@@ -140,7 +160,7 @@ class _FAQScreenState extends State<FAQScreen> {
         isShowing[index]
             ? Text(
                 answer,
-                style: ThemeHelper.getInstance()!.textTheme.headline2!.copyWith(fontSize: 14),
+                style: ThemeHelper.getInstance()!.textTheme.subtitle1!.copyWith(color: MyColors.pnbPersonalDataColor),
                 maxLines: 15,
               )
             : SizedBox(

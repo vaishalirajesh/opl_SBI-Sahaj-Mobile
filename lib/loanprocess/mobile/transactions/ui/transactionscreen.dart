@@ -128,6 +128,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
           key: _scaffoldKey,
           drawer: MyDrawer(
             userName: userName,
+            screenName: "Transactions",
           ),
           // backgroundColor: ThemeHelper.getInstance()?.colorScheme.primary,
           appBar: buildAppBar(),

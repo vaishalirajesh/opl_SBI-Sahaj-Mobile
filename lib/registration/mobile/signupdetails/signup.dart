@@ -77,7 +77,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   bool isCheck = false;
   List<String> genders = ['Male', 'Female', 'Prefer not to say'];
   String selectedGender = "Male";
-  bool isEmailVerified = false;
+  bool isEmailVerified = true;
   GetEmailOtpResponseMain? getOtpResponse;
   bool isLoaderStart = false;
   GetGstBasicdetailsResMain? _basicdetailsResponse;
@@ -706,6 +706,15 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   _onSuccessGetAllLoanDetailByRefId(GetAllLoanDetailByRefIdResponse? response) {
     TGLog.d("UserLoanDetailsResponse : onSuccess()");
     _getAllLoanDetailRes = response?.getAllLoanDetailObj();
+
+    /// TODO: Remove static navigation while laon detail API issue fixed
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => DashboardWithGst(),
+        ),
+        (route) => false);
+    return;
     if (_getAllLoanDetailRes?.status == RES_DETAILS_FOUND) {
       if (_getAllLoanDetailRes?.data?.isEmpty == true) {
         Navigator.pushAndRemoveUntil(

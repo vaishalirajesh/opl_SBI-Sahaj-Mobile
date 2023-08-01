@@ -88,7 +88,7 @@ class _PrivacypolicyScreenState extends State<PrivacypolicyScreen> {
   }
 
   Future<void> setData() async {
-    final text = await rootBundle.loadString(AppUtils.path('html/privacy_policy.html'));
+    final text = await rootBundle.loadString(AppUtils.path('html/privacy-policy.html'));
     setState(() {
       policyContent = text;
     });

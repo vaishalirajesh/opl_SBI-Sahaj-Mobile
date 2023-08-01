@@ -6,6 +6,8 @@ import 'package:gstmobileservices/model/models/get_loandetail_by_refid_res_main.
 import 'package:gstmobileservices/model/models/get_recent_transaction_res_main.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:intl/intl.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/profile/ui/about.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/profile/ui/privacypolicy.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/myfonts.dart';
 
@@ -118,6 +120,7 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTick
         key: _scaffoldKey,
         drawer: MyDrawer(
           userName: name,
+          screenName: "Profile",
         ),
         appBar: getAppBarMainDashboard("2", str_loan_approve_process, 0.50,
             onClickAction: () => {_scaffoldKey.currentState?.openDrawer()}),
@@ -131,33 +134,27 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTick
 
   Widget MainContainerView() {
     return Container(
-        // alignment: Alignment.center,
-        decoration: BoxDecoration(
-            // borderRadius: BorderRadius.only(
-            //     bottomRight: Radius.circular(0.r),
-            //     bottomLeft: Radius.circular(0.r)),
-            // border: Border.all(
-            //     width: 1, color: ThemeHelper.getInstance()!.primaryColor),
-            // //color: ThemeHelper.getInstance()!.primaryColor,
-
-            gradient: LinearGradient(
-                colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight)),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: ListView(
-            children: [
-              Text(
-                "Profile",
-                style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(color: MyColors.white),
-              ),
-              SizedBox(height: 24.h),
-              _buildTopContent(),
-              _buildMiddleContent(),
-            ],
-          ),
-        ));
+      // alignment: Alignment.center,
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight)),
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: ListView(
+          children: [
+            Text(
+              "Profile",
+              style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(color: MyColors.white),
+            ),
+            SizedBox(height: 24.h),
+            _buildTopContent(),
+            _buildMiddleContent(),
+          ],
+        ),
+      ),
+    );
   }
 
   _buildTopContent() {
@@ -168,8 +165,6 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTick
         borderRadius: BorderRadius.all(
           Radius.circular(8.r),
         ),
-        // border: Border.all(
-        //     width: 1, color: ThemeHelper.getInstance()!.primaryColor),
         color: ThemeHelper.getInstance()!.backgroundColor,
       ),
       child: Padding(
@@ -194,13 +189,14 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTick
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 20.h),
-                    Text("Hello, $name!", style: ThemeHelper.getInstance()?.textTheme.headline2),
+                    Text("Hello, $name!",
+                        style: ThemeHelper.getInstance()?.textTheme.button?.copyWith(color: MyColors.lightBlackText)),
                     SizedBox(height: 5.h),
                     Text("PAN: $pan",
                         style: ThemeHelper.getInstance()!
                             .textTheme
-                            .headline5!
-                            .copyWith(fontSize: 12.sp, color: MyColors.black)),
+                            .subtitle1!
+                            .copyWith(color: MyColors.lightGraySmallText)),
                   ],
                 ),
                 /*const Spacer(),
@@ -212,15 +208,43 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTick
             SizedBox(
               height: 10.h,
             ),
-            Divider(),
+            const Divider(),
             SizedBox(
               height: 10.h,
             ),
             Row(
               children: [
-                Text("GSTIN: $gstin", style: ThemeHelper.getInstance()?.textTheme.bodyText2),
-                Spacer(),
-                Text("State: $state", style: ThemeHelper.getInstance()?.textTheme.bodyText2),
+                Row(
+                  children: [
+                    Text(
+                      "GSTIN: ",
+                      style: ThemeHelper.getInstance()!.textTheme.overline,
+                    ),
+                    Text(
+                      gstin,
+                      style: ThemeHelper.getInstance()
+                          ?.textTheme
+                          .overline
+                          ?.copyWith(fontFamily: MyFont.Roboto_Regular, color: MyColors.lightBlackText),
+                    )
+                  ],
+                ),
+                const Spacer(),
+                Row(
+                  children: [
+                    Text(
+                      "State: ",
+                      style: ThemeHelper.getInstance()!.textTheme.overline,
+                    ),
+                    Text(
+                      state,
+                      style: ThemeHelper.getInstance()
+                          ?.textTheme
+                          .overline
+                          ?.copyWith(fontFamily: MyFont.Roboto_Regular, color: MyColors.lightBlackText),
+                    )
+                  ],
+                ),
               ],
             )
           ],
@@ -238,13 +262,13 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTick
           _buildCard(
               0,
               "Personal Information",
-              MOBILETDASHBOARDWITHGSTOUTSTANDING,
+              PROFILEUSER,
               _basicdetailsResponse?.data?[0].loanDetails?.outstanding?.count ?? "",
               AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.outstanding?.amount)),
           _buildCard(
               1,
               "Notification Preferences",
-              MOBILETDASHBOARDWITHGSTOVERDUE,
+              PROFILEBELL,
               _basicdetailsResponse?.data?[0].loanDetails?.overdue?.count ?? "",
               AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.overdue?.amount)),
         ]),
@@ -254,14 +278,10 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTick
             _buildCard(
                 2,
                 "Privacy & Security",
-                IMG_kfs_coin_stack,
+                PROFILEPRIVACY,
                 _basicdetailsResponse?.data?[0].loanDetails?.repaid?.count ?? "",
                 AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.repaid?.amount)),
-            _buildCard(
-                3,
-                "About",
-                MOBILEHANDWITHMONEY,
-                _basicdetailsResponse?.data?[0].loanDetails?.disbursed?.count ?? "",
+            _buildCard(3, "About", PROFILEABOUT, _basicdetailsResponse?.data?[0].loanDetails?.disbursed?.count ?? "",
                 AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.disbursed?.amount))
           ]),
         ),
@@ -271,14 +291,10 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTick
             _buildCard(
                 4,
                 "Contact Support",
-                IMG_kfs_coin_stack,
+                PROFILECONTACT,
                 _basicdetailsResponse?.data?[0].loanDetails?.repaid?.count ?? "",
                 AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.repaid?.amount)),
-            _buildCard(
-                5,
-                "FAQs",
-                MOBILEHANDWITHMONEY,
-                _basicdetailsResponse?.data?[0].loanDetails?.disbursed?.count ?? "",
+            _buildCard(5, "FAQs", PROFILEFAQ, _basicdetailsResponse?.data?[0].loanDetails?.disbursed?.count ?? "",
                 AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.disbursed?.amount))
           ]),
         ),
@@ -304,19 +320,19 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTick
     return GestureDetector(
       onTap: () {
         if (index == 0) {
-          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => PersonalInfoDetails()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => const PersonalInfoDetails()));
         } else if (index == 1) {
           Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => NotiPrefrences()));
         } else if (index == 2) {
-          //privacy policy
+          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => PrivacyPolicy()));
         } else if (index == 3) {
-          //about
+          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => const AboutPage()));
         } else if (index == 4) {
           //contact support
           Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => ContactSupportMain()));
         } else if (index == 5) {
           //FAQ
-          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => FAQMain()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => const FAQMain()));
         }
 
         // TGSession.getInstance().set("TabIndex", index);
@@ -342,11 +358,12 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTick
         ),
         width: 162.w,
         height: 110.h,
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 10.0.w, right: 10.w, top: 15.h, bottom: 14.h),
-              child: Row(
+        child: Padding(
+          padding: EdgeInsets.all(15.r),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SvgPicture.asset(
@@ -354,42 +371,31 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTick
                     height: 24.h,
                     width: 24.w,
                   ),
-                  //Spacer(),
-                  // Text(
-                  //   count,
-                  //   style: ThemeHelper.getInstance()
-                  //       ?.textTheme
-                  //       .headline5
-                  //       ?.copyWith(color: MyColors.pnbTextcolor),
-                  // ),
                 ],
               ),
-            ),
-            SizedBox(
-              height: 8.h,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0.w),
-              child: Row(
+              SizedBox(
+                height: 8.h,
+              ),
+              Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
                     child: Text(
                       title,
-                      style: ThemeHelper.getInstance()?.textTheme.headline4,
+                      style: ThemeHelper.getInstance()?.textTheme.subtitle1?.copyWith(color: MyColors.lightBlackText),
                       maxLines: 3,
                     ),
                   ),
                   SvgPicture.asset(
                     AppUtils.path(MOBILETDASHBOARDARROWFORWARD),
-                    height: 12.h,
-                    width: 6.w,
+                    height: 13.h,
+                    width: 8.w,
                   )
                 ],
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );

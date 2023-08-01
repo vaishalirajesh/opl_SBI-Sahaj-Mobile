@@ -112,11 +112,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/sbi/images/
-    - assets/pnb/images/
-    - assets/pnb/lottie/
-    - assets/pnb/gif/
-    - assets/pnb/jpg/
-    - assets/pnb/html/
+    - assets/sbi/html/
     - assets/sbi/lottie/
     - assets/pem/
     - assets/fonts/
