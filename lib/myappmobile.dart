@@ -35,6 +35,7 @@ import 'disbursed/mobile/loanreview/ui/loanreviewscreen.dart';
 import 'disbursed/mobile/proceedtodisbursed/ui/loaderprepareloandisbursement.dart';
 import 'disbursed/mobile/proceedtodisbursed/ui/proceedtodisbscreen.dart';
 import 'documentation/mobile/emailsentaftersetupemandate/emandate_status.dart';
+import 'documentation/mobile/loanagreement/ui/esigncompleted.dart';
 import 'documentation/mobile/loanagreement/ui/loanageementscreen.dart';
 import 'documentation/mobile/reviewdisbursedacc/ui/reviewdisbursedaccscreen.dart';
 import 'documentation/mobile/setupemandate/ui/setupemandate.dart';
@@ -59,8 +60,6 @@ import 'loanprocess/mobile/gstinvoiceslist/ui/gstinvoicelistrefresh.dart';
 import 'loanprocess/mobile/important_sms/important_sms.dart';
 import 'loanprocess/mobile/infosharedscreen/ui/infosharedscreen.dart';
 import 'loanprocess/mobile/kfs/kfs_screen.dart';
-import 'loanprocess/mobile/loanaggrementcompleted/ui/esigncompleted.dart';
-import 'loanprocess/mobile/loanaggrementcompleted/ui/loanaggrementcompleted.dart';
 import 'loanprocess/mobile/loandepositeaccount/loandepositeaccnt.dart';
 import 'loanprocess/mobile/loanoffer/loanofferscreen.dart';
 import 'loanprocess/mobile/profile/ui/contactsupport/contactlendersupport/ui/lendersupportscreen.dart';
@@ -155,7 +154,6 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
             MyRoutes.loanReviewRoutes: (context) => LoanReviewMain(),
             MyRoutes.proceedToDisbursedRoutes: (context) => const ProceedToDisburseMain(),
             MyRoutes.DisbursementSuccessMessage: (context) => ImportantSMSMain(),
-            MyRoutes.LoanAggCompeletedRoutes: (context) => LoanAggCompeleted(),
             MyRoutes.LoanAgreementRoutes: (context) => LoanAgreementMain(),
             MyRoutes.EmailSentRoutes: (context) => const EmailSentAfterLoanAgreement(),
             MyRoutes.LoanDetailsRoutes: (context) => CongratulationsFinalMain(),

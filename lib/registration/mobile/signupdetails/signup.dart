@@ -211,7 +211,10 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   .headline3
                   ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
             ),
-            GenderTextField("Gender", context),
+            SizedBox(
+              height: 35.h,
+              child: GenderTextField("Gender", context),
+            ),
             SizedBox(
               height: 20.h,
             ),
@@ -223,8 +226,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
             ),
             SizedBox(
-              child: buildMobileWidget(),
               height: 35.h,
+              child: buildMobileWidget(),
             ),
             SizedBox(
               height: 20.h,
@@ -236,7 +239,10 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   .headline3
                   ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
             ),
-            buildEmailWidget(),
+            SizedBox(
+              height: 35.h,
+              child: buildEmailWidget(),
+            ),
             SizedBox(
               height: 5.h,
             ),
@@ -487,8 +493,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
           setState(() {});
         },
         initialValue: strEmail ?? '',
-        obscureText: hidePassword,
-        obscuringCharacter: 'X',
+        // obscureText: hidePassword,
+        // obscuringCharacter: 'X',
         cursorColor: Colors.grey,
         decoration: InputDecoration(
           labelText: "",
@@ -498,26 +504,26 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
           enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
           focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
-          suffixIcon: IconButton(
-            icon: hidePassword
-                ? Icon(
-                    Icons.visibility_off_outlined,
-                    color: hidePassword ? MyColors.pnbTextcolor : MyColors.black,
-                  )
-                : Icon(
-                    Icons.visibility_outlined,
-                    color: hidePassword ? MyColors.pnbTextcolor : MyColors.black,
-                  ),
-            onPressed: () {
-              setState(
-                () {
-                  hidePassword = !hidePassword;
-                },
-              );
-            },
-            focusColor: MyColors.black,
-            disabledColor: MyColors.pnbTextcolor,
-          ),
+          // suffixIcon: IconButton(
+          //   icon: hidePassword
+          //       ? Icon(
+          //           Icons.visibility_off_outlined,
+          //           color: hidePassword ? MyColors.pnbTextcolor : MyColors.black,
+          //         )
+          //       : Icon(
+          //           Icons.visibility_outlined,
+          //           color: hidePassword ? MyColors.pnbTextcolor : MyColors.black,
+          //         ),
+          //   onPressed: () {
+          //     setState(
+          //       () {
+          //         hidePassword = !hidePassword;
+          //       },
+          //     );
+          //   },
+          //   focusColor: MyColors.black,
+          //   disabledColor: MyColors.pnbTextcolor,
+          // ),
           suffixIconColor: MyColors.black,
         ),
         style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 15.sp),

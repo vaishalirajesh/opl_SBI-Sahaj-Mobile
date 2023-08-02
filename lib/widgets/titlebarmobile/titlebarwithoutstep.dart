@@ -101,31 +101,21 @@ AppBar getAppBarWithTitle(String appbarTitle, {required Function onClickAction})
   return AppBar(
     centerTitle: true,
     automaticallyImplyLeading: false,
-    title: Padding(
-      padding: EdgeInsets.only(top: 5.h, left: 20.w),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          GestureDetector(
-            child: SvgPicture.asset(
-              AppUtils.path(MOBILEBACKBTNWHITE),
-            ),
-            onTap: () {
-              onClickAction();
-            },
-          ),
-          Expanded(
-            child: Center(
-              child: Text(
-                appbarTitle,
-                style: ThemeHelper.getInstance()?.textTheme.caption?.copyWith(fontFamily: MyFont.Nunito_Sans_Regular),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ],
+    leading: GestureDetector(
+      child: Padding(
+        padding: EdgeInsets.all(15.r),
+        child: SvgPicture.asset(
+          AppUtils.path(MOBILEBACKBTNWHITE),
+        ),
       ),
+      onTap: () {
+        onClickAction();
+      },
+    ),
+    title: Text(
+      appbarTitle,
+      style: ThemeHelper.getInstance()?.textTheme.caption?.copyWith(fontFamily: MyFont.Nunito_Sans_Regular),
+      textAlign: TextAlign.center,
     ),
     backgroundColor: ThemeHelper.getInstance()?.primaryColor,
   );

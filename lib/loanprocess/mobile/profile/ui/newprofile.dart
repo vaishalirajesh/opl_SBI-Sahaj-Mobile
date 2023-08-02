@@ -59,7 +59,7 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTick
   var name = '';
   var gstin = '';
   var pan = '';
-  var state = '';
+  String state = '';
   int tabIndex = 0;
   bool isExpanded1 = false;
   bool isExpanded2 = false;
@@ -88,13 +88,13 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTick
     String? text = await TGSharedPreferences.getInstance().get(PREF_BUSINESSNAME);
     String? text1 = await TGSharedPreferences.getInstance().get(PREF_PANNO);
     String? text2 = await TGSharedPreferences.getInstance().get(PREF_GSTIN);
-    String? text3 = await TGSharedPreferences.getInstance().get(PREF_USERSTATE);
+    String text3 = await TGSharedPreferences.getInstance().get(PREF_USERSTATE) ?? '';
 
     setState(() {
       name = text ?? "";
       pan = text1 ?? "";
       gstin = text2 ?? "";
-      state = text3 ?? "";
+      state = text3;
     });
   }
 
@@ -237,7 +237,7 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTick
                       style: ThemeHelper.getInstance()!.textTheme.overline,
                     ),
                     Text(
-                      state,
+                      state.isEmpty || state == null || state == "null" ? '-' : state,
                       style: ThemeHelper.getInstance()
                           ?.textTheme
                           .overline
@@ -334,7 +334,6 @@ class _NewProfileViewBodyState extends State<NewProfileViewBody> with SingleTick
           //FAQ
           Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => const FAQMain()));
         }
-
         // TGSession.getInstance().set("TabIndex", index);
         // tabController.index = 1;
         // setState(() {

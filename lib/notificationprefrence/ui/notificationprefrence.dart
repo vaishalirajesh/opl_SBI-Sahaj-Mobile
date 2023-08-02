@@ -5,7 +5,6 @@ import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/widgets/app_drawer.dart';
 
 import '../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
-import '../../utils/helpers/myfonts.dart';
 import '../../utils/strings/strings.dart';
 import '../model/notiprefrencevm.dart';
 
@@ -98,7 +97,13 @@ class _NotiPrefrencesScreenState extends State<NotiPrefrencesScreen> {
                 )),
             buildPushNotificationText(strPushnotifications),
             buildLongSentencePushNotification(strLongSenterPushNotification),
-            Padding(padding: EdgeInsets.only(left: 20.w, right: 20.w), child: Divider()),
+            Padding(
+              padding: EdgeInsets.only(left: 20.w, right: 20.w),
+              child: Divider(
+                thickness: 2,
+                color: MyColors.lightGreyDividerColor,
+              ),
+            ),
             buildBodyContainer()
           ],
         ),
@@ -108,12 +113,13 @@ class _NotiPrefrencesScreenState extends State<NotiPrefrencesScreen> {
 
   Widget buildPushNotificationText(String text) => Padding(
         padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 30.h, bottom: 8.h),
-        child: Text(text, style: ThemeHelper.getInstance()?.textTheme.headline1?.copyWith(color: MyColors.darkblack)),
+        child: Text(text, style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(color: MyColors.darkblack)),
       );
 
   Widget buildLongSentencePushNotification(String text) => Padding(
       padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
-      child: Text(strLongSenterPushNotification, style: ThemeHelper.getInstance()?.textTheme.headline3));
+      child: Text(strLongSenterPushNotification,
+          style: ThemeHelper.getInstance()?.textTheme.subtitle1?.copyWith(color: MyColors.darkblack)));
 
   Widget buildBodyContainer() {
     return Container(
@@ -145,7 +151,7 @@ class _NotiPrefrencesScreenState extends State<NotiPrefrencesScreen> {
   Widget buildWellNotifyYoyWhenText(String text) => Padding(
         padding: EdgeInsets.only(top: 30.h, bottom: 20.h),
         child: Text(strWellnotifyyouwhenyou,
-            style: ThemeHelper.getInstance()?.textTheme.headline6!.copyWith(color: MyColors.pnbGreyColor)),
+            style: ThemeHelper.getInstance()?.textTheme.subtitle1!.copyWith(color: MyColors.lightGraySmallText)),
       );
 
   void setSwitchNotifcationState(bool mainbool, bool switchBool) {
@@ -169,24 +175,22 @@ class _NotiPrefrencesScreenState extends State<NotiPrefrencesScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: EdgeInsets.only(bottom: 10.h),
-          child: Row(
-            children: [
-              Text(
-                title,
-                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
-                    color: ThemeHelper.getInstance()?.indicatorColor, fontFamily: MyFont.Nunito_Sans_Semi_bold),
-              ),
-              const Spacer(),
-              Switch(
-                  activeColor: ThemeHelper.getInstance()!.primaryColor,
-                  value: stateBool,
-                  onChanged: (bool val) {
-                    interstate(val);
-                  })
-            ],
-          ),
+        Row(
+          children: [
+            Text(
+              title,
+              style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
+                    color: MyColors.lightBlackText,
+                  ),
+            ),
+            const Spacer(),
+            Switch(
+                activeColor: ThemeHelper.getInstance()!.primaryColor,
+                value: stateBool,
+                onChanged: (bool val) {
+                  interstate(val);
+                })
+          ],
         ),
         // isDivider
         //     ? Divider(

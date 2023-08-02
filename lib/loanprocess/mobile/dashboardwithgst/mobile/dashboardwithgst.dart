@@ -140,22 +140,24 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
             msg: str_getting_user_detail,
             subMsg: str_wait_a_moment,
           )
-        : WillPopScope(
-            onWillPop: () async {
-              if (_scaffoldKey.currentState!.isDrawerOpen) {
-                _scaffoldKey.currentState!.closeDrawer();
-                return false;
-              } else {
-                final shouldPop = await _showFirstWaring(context);
-                return shouldPop ?? false;
-              }
-            },
-            child: Scaffold(
-              key: _scaffoldKey,
-              drawer: MyDrawer(userName: name, screenName: "Dashbaord"),
-              appBar: getAppBarMainDashboard("2", str_loan_approve_process, 0.50,
-                  onClickAction: () => {_scaffoldKey.currentState?.openDrawer()}),
-              body: MainContainerView(),
+        : SafeArea(
+            child: WillPopScope(
+              onWillPop: () async {
+                if (_scaffoldKey.currentState!.isDrawerOpen) {
+                  _scaffoldKey.currentState!.closeDrawer();
+                  return false;
+                } else {
+                  final shouldPop = await _showFirstWaring(context);
+                  return shouldPop ?? false;
+                }
+              },
+              child: Scaffold(
+                key: _scaffoldKey,
+                drawer: MyDrawer(userName: name, screenName: "Dashbaord"),
+                appBar: getAppBarMainDashboard("2", str_loan_approve_process, 0.50,
+                    onClickAction: () => {_scaffoldKey.currentState?.openDrawer()}),
+                body: MainContainerView(),
+              ),
             ),
           );
   }

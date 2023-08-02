@@ -20,22 +20,15 @@ const PERSIONIMAGEFORPOPUP = "images/popperson_small.png";
 const USERCONFORM = "images/user_confirm.svg";
 const REDARROW = "images/red_arrow.svg";
 const GREENCONFORMTICK = "images/green_tick_confirm.svg";
-
 const GREENCONFORMTICKREGISTRATIONCOMPLETED = "images/greentick_registration_completed.svg";
-
 const LEFTBACKGROUND = "images/img_webcomeleftback.png";
 const DIGIOD = "images/digi_od.svg";
 const PABL = "images/welcome_pabl.svg";
 const GOLDLOAN = "images/sme_gold_loan.svg";
-
 const WELCOMELEFTLOGO = "images/leftLogo.svg";
-
 const FILLGREENCONFORMTICK = "images/fill_greenTick.svg";
-
 const KFSCONGRATULATIONBG = "images/congratulation_bg.png";
-
 const IMG_GSTENABLE_API = "images/api_enable.svg";
-
 //for ui App
 //..svg
 const MOBILEAPPLOGO = "images/mobileapplogo.svg";
@@ -77,14 +70,12 @@ const PROFILEFAQ = 'images/faq.svg';
 const PROFILEABOUT = 'images/about.svg';
 const PROFILECONTACT = 'images/contactsupport.svg';
 const PROFILEUSER = 'images/user_pink.svg';
-
+const PROFILEMOBILE = 'images/profile_mobile.svg';
+const PROFILEMAIL = 'images/profile_mail.svg';
 const MOBILETDASHBOARDWITHGSTOUTSTANDING = 'images/outstanding.svg';
 const MOBILETDASHBOARDWITHGSTOVERDUE = 'images/overdue_time.svg';
-
 const MOBILETDASHBOARDWITHGSTINVOICE_OTHER_SERVICES = 'images/invoice_other_services.svg';
-
 const MOBILETDASHBOARDARROWFORWARD = 'images/arrow_forward_dash.svg';
-
 //dashboardwithout gst
 
 const MOBILEDASHWITOUTSTEP1 = 'images/dashwithout_home_step1.svg';

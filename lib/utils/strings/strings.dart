@@ -330,6 +330,7 @@ const str_raise_dispute = 'Raise A Dispute';
 const str_sidbi_support = 'Contact SIDBI Support team';
 const str_axis_support = 'Contact Axis Support team';
 const str_icici_support = 'Contact ICICI Support team';
+const str_SBI_support = 'Contact SBI Support team';
 const String validOTPMsg = 'Please enter valid OTP';
 const String resendOTPMsg = 'OTP resend successfully on register mobile number';
 
@@ -365,6 +366,7 @@ const str_step2_gstWithout_disc =
     'Get loan offers against your eligible invoices. Accept a loan offer from the choice of lenders';
 
 const str_step3_gstWithout = 'Sign Documents Digitally';
+const esignin_error = 'Error occurred while processing e-sign document';
 const str_step3_gstWithout_disc =
     'E-sign loan agreement and register​E-mandate to auto-debit your account for repayment';
 

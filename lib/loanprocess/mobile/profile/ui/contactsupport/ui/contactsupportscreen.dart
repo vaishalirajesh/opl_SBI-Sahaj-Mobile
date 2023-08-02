@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sbi_sahay_1_0/loanprocess/mobile/profile/ui/contactsupport/contactlendersupport/ui/contact_support_sub.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/constants/imageconstant.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -25,7 +26,7 @@ class ContactSupportMains extends StatefulWidget {
 }
 
 class ContactSupportMainBody extends State<ContactSupportMains> {
-  bool isOpenDetails = true;
+  bool isOpenDetails = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -86,8 +87,8 @@ class ContactSupportMainBody extends State<ContactSupportMains> {
               ),
               SizedBox(height: 25.h),
               isOpenDetails ? _buildOnlySupportTeamContainer() : _buildBottomViewSupportTeam(),
-              SizedBox(height: 14.h),
-              _buildOnlyContactLenderContainer()
+              // SizedBox(height: 14.h),
+              // _buildOnlyContactLenderContainer()
             ],
           ),
         ),
@@ -145,7 +146,7 @@ class ContactSupportMainBody extends State<ContactSupportMains> {
         children: [
           SizedBox(
               child: Text(
-            "Contact GST Sahay App Support Team",
+            "Contact Lender Support Team",
             style: ThemeHelper.getInstance()!.textTheme.headline2?.copyWith(fontSize: 14.sp, color: MyColors.black),
           )),
           Spacer(),
@@ -195,34 +196,34 @@ class ContactSupportMainBody extends State<ContactSupportMains> {
                     height: 10.h,
                   ),
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SvgPicture.asset(
-                        AppUtils.path(MOBILETDASHBOARDWITHGSTOUTSTANDING),
-                        height: 20.h,
-                        width: 20.w,
+                        AppUtils.path(PROFILEMAIL),
+                        height: 24.h,
+                        width: 24.w,
                       ),
                       SizedBox(width: 12.w),
                       SizedBox(
                           child: Text(
-                        "support@psbloansin59minutes.com",
+                        "customercare@sbi.co.in",
                         style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(fontSize: 14.sp),
                       )),
                     ],
                   ),
                   SizedBox(height: 12.h),
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SvgPicture.asset(
-                        AppUtils.path(MOBILETDASHBOARDWITHGSTOUTSTANDING),
-                        height: 20.h,
-                        width: 20.w,
+                        AppUtils.path(PROFILEMOBILE),
+                        height: 24.h,
+                        width: 24.w,
                       ),
                       SizedBox(width: 12.w),
                       SizedBox(
                           child: Text(
-                        "079-41055999",
+                        "1800 1234",
                         style: ThemeHelper.getInstance()!.textTheme.headline3?.copyWith(fontSize: 14.sp),
                       )),
                     ],
@@ -275,23 +276,33 @@ class ContactSupportMainBody extends State<ContactSupportMains> {
   }
 
   _buildTopDetilssContactLender() {
-    return Padding(
-      padding: EdgeInsets.all(5.r),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-              child: Text(
-            "Contact Lender Support Team",
-            style: ThemeHelper.getInstance()!.textTheme.headline2?.copyWith(fontSize: 14.sp, color: MyColors.black),
-          )),
-          Spacer(),
-          SvgPicture.asset(
-            AppUtils.path(MOBILETDASHBOARDARROWFORWARD),
-            height: 12.h,
-            width: 6.w,
-          )
-        ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ContactSupportSubScreen(),
+          ),
+        );
+      },
+      child: Padding(
+        padding: EdgeInsets.all(5.r),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+                child: Text(
+              "Contact Lender Support Team",
+              style: ThemeHelper.getInstance()!.textTheme.headline2?.copyWith(fontSize: 14.sp, color: MyColors.black),
+            )),
+            Spacer(),
+            SvgPicture.asset(
+              AppUtils.path(MOBILETDASHBOARDARROWFORWARD),
+              height: 12.h,
+              width: 6.w,
+            )
+          ],
+        ),
       ),
     );
   }
