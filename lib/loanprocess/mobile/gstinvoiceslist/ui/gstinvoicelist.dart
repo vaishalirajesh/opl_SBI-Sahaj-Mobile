@@ -67,7 +67,7 @@ class GstInvoiceScreen extends StatefulWidget {
 class GstInvoceListState extends State<GstInvoiceScreen> {
   bool isFetchInvoiceClick = false;
   bool isShareInvoiceClick = false;
-  List<bool> isSortByChecked = [false, false, false, false, false, false];
+  List<bool> isSortByChecked = [true, false, false, false, false, false];
   int selectedSortOption = 0;
   GstInvoceListResMain? _gstInvoceListResMain = GstInvoceListResMain();
   List<GstInvoiceDataObj> arrInvoiceList = [];
@@ -544,29 +544,35 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(height: 25.h),
+                  SizedBox(height: 15.h),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         // const Spacer(),
-                        Text(
-                          str_SortBy,
-                          style:
-                              ThemeHelper.getInstance()?.textTheme.headline2!.copyWith(color: MyColors.pnbcolorPrimary),
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              str_SortBy,
+                              style: ThemeHelper.getInstance()
+                                  ?.textTheme
+                                  .headline2!
+                                  .copyWith(color: MyColors.pnbcolorPrimary),
+                            ),
+                          ),
                         ),
                         // const Spacer(),
                         GestureDetector(
                           child: Padding(
-                              padding: EdgeInsets.only(right: 20.w),
+                              padding: EdgeInsets.only(right: 10.w, top: 10.h, bottom: 10.h, left: 10.w),
                               child: SvgPicture.asset(AppUtils.path(IMG_CLOSE_X), height: 10.h, width: 10.w)),
                           onTap: () {
                             Navigator.pop(context);
                           },
                         ),
                       ]),
-                  SizedBox(height: 10.h),
                   const Divider(),
                   sortByDialogContent(setModelState),
                   Padding(
@@ -725,7 +731,10 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
 
   Widget SoryByListCardUI(int index, StateSetter setModelState) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 5.h, left: 20.w, right: 20.w),
+      padding: EdgeInsets.only(
+        bottom: 5.h,
+        left: 10.w,
+      ),
       child: GestureDetector(
         onTap: () {
           setModelState(() {
@@ -888,6 +897,10 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
       setState(() {
         _gstInvoceListResMain = response?.getAppRefIdObj();
         arrInvoiceList = _gstInvoceListResMain!.data!;
+        arrInvoiceList.sort((a, b) {
+          return AppUtils.convertDateFormat(b.invoiceData?.invDate, "dd-mm-yyyy", "yyyy-mm-dd")
+              .compareTo(AppUtils.convertDateFormat(a.invoiceData?.invDate, "dd-mm-yyyy", "yyyy-mm-dd"));
+        });
       });
     } else if (_gstInvoceListResMain?.status == REFRESH_GST_INVOICES) {
       Navigator.push(

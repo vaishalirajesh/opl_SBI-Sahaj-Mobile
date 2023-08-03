@@ -384,7 +384,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
                         ),
                         GestureDetector(
                           child: Padding(
-                              padding: EdgeInsets.only(right: 20.w),
+                              padding: EdgeInsets.only(right: 10.w),
                               child: SvgPicture.asset(AppUtils.path(IMG_CLOSE_X), height: 10.h, width: 10.w)),
                           onTap: () {
                             Navigator.pop(context);
@@ -518,7 +518,10 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
 
   Widget SoryByListCardUI(int index, StateSetter setModelState) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 5.h, left: 20.w, right: 20.w),
+      padding: EdgeInsets.only(
+        bottom: 5.h,
+        left: 10.w,
+      ),
       child: GestureDetector(
         onTap: () {
           setModelState(() {
