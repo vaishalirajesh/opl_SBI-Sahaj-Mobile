@@ -53,6 +53,7 @@ class _OverDueCardState extends State<OverDueCard> {
   String? tenure;
   String? interestAmount;
   String? dueDays;
+  String? amountDue;
 
   @override
   void initState() {
@@ -280,7 +281,7 @@ class _OverDueCardState extends State<OverDueCard> {
           height: 5.h,
         ),
         Text(
-          amountToPay ?? "",
+          amountDue ?? "",
           style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
                 fontSize: 14.sp,
                 color: MyColors.darkblack,
@@ -524,6 +525,7 @@ class _OverDueCardState extends State<OverDueCard> {
     bankName = disbursedInvoice?.bankName;
     interestRate = disbursedInvoice?.interestRate.toString() ?? "" + " % p.a";
     amountToPay = AppUtils.convertIndianCurrency(disbursedInvoice?.invoiceAmount?.toString());
+    amountDue = AppUtils.convertIndianCurrency(disbursedInvoice?.dueDate?.toString());
     interestAmount = AppUtils.convertIndianCurrency(disbursedInvoice?.interestAmount?.toString());
     buyerName = disbursedInvoice?.buyerName;
     disbursedOnDate = createDueDate(disbursedInvoice?.fetchedDate ?? '');

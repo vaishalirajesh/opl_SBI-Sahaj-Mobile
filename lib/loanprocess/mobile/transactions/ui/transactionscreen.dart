@@ -966,14 +966,14 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
       return ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
-        itemCount: !isListLoaded ? 3 : overdueInvoice?.length ?? 0,
+        itemCount: !isListLoaded ? 3 : disbursed_invoice?.length ?? 0,
         itemBuilder: (context, index) {
           return !isListLoaded
               ? shimmerLoader()
               : Column(
                   children: [
                     DisbursedCard(
-                      sharedInvoice: overdueInvoice?[index],
+                      sharedInvoice: disbursed_invoice?[index],
                       bottomWidget: buildOutStandingBottomWidget(),
                     ),
                     SizedBox(

@@ -53,6 +53,7 @@ class _OutstandingCardState extends State<OutstandingCard> {
   String? tenure;
   String? interestAmount;
   String? dueDays;
+  String? amoutDue;
 
   @override
   void initState() {
@@ -280,7 +281,7 @@ class _OutstandingCardState extends State<OutstandingCard> {
           height: 5.h,
         ),
         Text(
-          amountToPay ?? "",
+          amoutDue ?? "",
           style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
                 fontSize: 14.sp,
                 color: MyColors.darkblack,
@@ -523,6 +524,7 @@ class _OutstandingCardState extends State<OutstandingCard> {
     bankName = disbursedInvoice?.bankName;
     interestRate = disbursedInvoice?.interestRate.toString() ?? "" + " % p.a";
     amountToPay = AppUtils.convertIndianCurrency(disbursedInvoice?.invoiceAmount?.toString());
+    amoutDue = AppUtils.convertIndianCurrency(disbursedInvoice?.amountDue?.toString());
     interestAmount = AppUtils.convertIndianCurrency(disbursedInvoice?.interestAmount?.toString());
     buyerName = disbursedInvoice?.buyerName;
     disbursedOnDate = createDueDate(disbursedInvoice?.fetchedDate ?? '');

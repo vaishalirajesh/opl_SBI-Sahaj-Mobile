@@ -53,6 +53,7 @@ class _RepaidCardState extends State<RepaidCard> {
   String? tenure;
   String? interestAmount;
   String? dueDays;
+  String? amountDue;
 
   @override
   void initState() {
@@ -306,7 +307,7 @@ class _RepaidCardState extends State<RepaidCard> {
           setRowColumValueOpenCard("Invoice Date", invoiceDate ?? '-', "ROI", interestRate ?? '-'),
           setRowColumValueOpenCard("Loan Amount", loanAmount ?? '0', "Invoice Amount", invoiceAmount ?? '0'),
           setRowColumValueOpenCard("Tenure", tenure ?? '-', "Interest Amount", interestAmount ?? '0'),
-          setRowColumValueOpenCard(str_Due_Date, dueDate ?? '-', str_Amount_due, amountToPay ?? '0'),
+          setRowColumValueOpenCard(str_Due_Date, dueDate ?? '-', str_Amount_due, amountDue ?? '0'),
           widget.bottomWidget,
         ],
       ),
@@ -531,6 +532,7 @@ class _RepaidCardState extends State<RepaidCard> {
     tenure = disbursedInvoice?.tenure.toString();
     latePaymentCharge = AppUtils.convertIndianCurrency(disbursedInvoice?.amountDue?.toString());
     invoiceAmount = AppUtils.convertIndianCurrency(disbursedInvoice?.invoiceAmount?.toString());
+    amountDue = AppUtils.convertIndianCurrency(disbursedInvoice?.amountDue?.toString());
     loanAmount = AppUtils.convertIndianCurrency(disbursedInvoice?.loanAmount?.toString());
   }
 

@@ -53,6 +53,7 @@ class _DisbursedCardState extends State<DisbursedCard> {
   String? tenure;
   String? interestAmount;
   String? dueDays;
+  String? amountDue;
 
   @override
   void initState() {
@@ -305,7 +306,7 @@ class _DisbursedCardState extends State<DisbursedCard> {
           setRowColumValueOpenCard("Disbursed On", disbursedDate ?? '-', "Lender", bankName ?? '-'),
           setRowColumValueOpenCard("Tenure", tenure ?? '-', "ROI", interestRate ?? '-'),
           setRowColumValueOpenCard(str_Due_Date, dueDate ?? '-', "Invoice Amount", invoiceAmount ?? '0'),
-          setRowColumValueOpenCard(str_Amount_due, amountToPay ?? '0', "Interest Amount", interestAmount ?? '0'),
+          setRowColumValueOpenCard(str_Amount_due, amountDue ?? '0', "Interest Amount", interestAmount ?? '0'),
           // setRowColumValueOpenCard(str_Late_payment_charges, "2%", str_Days_past_due, "10 days"),
           // setRowColumValueOpenCard(str_Due_Date, "09/08/2022", str_Amount_due, "₹52,236"),
 
@@ -523,6 +524,7 @@ class _DisbursedCardState extends State<DisbursedCard> {
     bankName = disbursedInvoice?.bankName;
     interestRate = disbursedInvoice?.interestRate.toString() ?? "" + " % p.a";
     amountToPay = AppUtils.convertIndianCurrency(disbursedInvoice?.invoiceAmount?.toString());
+    amountDue = AppUtils.convertIndianCurrency(disbursedInvoice?.amountDue?.toString());
     interestAmount = AppUtils.convertIndianCurrency(disbursedInvoice?.interestAmount?.toString());
     buyerName = disbursedInvoice?.buyerName;
     disbursedOnDate = createDueDate(disbursedInvoice?.fetchedDate ?? '');
