@@ -16,7 +16,6 @@ import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
-import 'package:gstmobileservices/util/tg_view.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/gst_detail/gstotpverify.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
@@ -517,11 +516,6 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
         ),
       );
       //_modalBottomSheetMenu();
-    } else if (_gstOtpResponse?.status == RES_GST_APIDENIED || _gstOtpResponse?.status == RES_GST_API_UNAUTHORISE) {
-      TGView.showSnackBar(context: context, message: "Please enable GST API");
-      setState(() {
-        isLoader = false;
-      });
     } else {
       LoaderUtils.handleErrorResponse(
           context, response?.getOtpReponseObj().status, response?.getOtpReponseObj().message, null);

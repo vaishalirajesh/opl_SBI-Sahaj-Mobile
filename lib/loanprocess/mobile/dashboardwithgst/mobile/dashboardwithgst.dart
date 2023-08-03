@@ -270,7 +270,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
               GestureDetector(
                 onTap: () {
                   // setState(() {
-                  //   TGSession.getInstance().set("TabIndex", 0);
+                  TGSession.getInstance().set("TabIndex", 0);
                   //   tabController.index = 1;
                   //   setState(() {
                   //     tabIndex = 1;
@@ -465,6 +465,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
   _buildCard(int index, String title, String imgString, String count, String price) {
     return GestureDetector(
       onTap: () {
+        TGSession.getInstance().set("TabIndex", index);
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -1468,9 +1469,10 @@ class MyDrawer extends StatelessWidget {
               if (screenName == "Transactions") {
                 Scaffold.of(context).closeDrawer();
               } else {
+                TGSession.getInstance().set("TabIndex", 0);
                 Navigator.of(context).pop();
                 Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (BuildContext context) => const TransactionsView()));
+                    .push(MaterialPageRoute(builder: (BuildContext context) => const TransactionsMain()));
               }
             },
           ),

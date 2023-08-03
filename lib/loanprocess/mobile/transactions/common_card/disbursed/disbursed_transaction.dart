@@ -222,7 +222,7 @@ class _DisbursedCardState extends State<DisbursedCard> {
                       height: 5.h,
                     ),
                     Text(
-                      dueDate ?? '-',
+                      dueDate == null || dueDate == '' ? '-' : dueDate!,
                       style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
                             fontSize: 14.sp,
                             color: MyColors.darkblack,

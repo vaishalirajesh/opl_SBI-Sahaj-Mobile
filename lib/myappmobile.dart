@@ -145,7 +145,7 @@ class _MyAppForMobileAppState extends State<MyAppForMobileApp> {
             MyRoutes.loanOfferListRoutes: (context) => LoanOfferList(),
             // MyRoutes.accVerificationRoutes: (context) => AccVerification(),
             MyRoutes.DashboardWithGSTRoutes: (context) => const DashboardWithGST(),
-            MyRoutes.TransactionRoutes: (context) => const TransactionsView(),
+            MyRoutes.TransactionRoutes: (context) => const TransactionsMain(),
             // MyRoutes.loanOfferSelectedRoutes: (context) => CongratulationsMain(),
             MyRoutes.LoanOfferScreenRoutes: (context) => LoanOfferScreen(),
             MyRoutes.KfsScreenRoutes: (context) => KfsScreen(),

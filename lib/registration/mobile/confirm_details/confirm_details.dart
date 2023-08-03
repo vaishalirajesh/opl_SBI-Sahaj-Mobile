@@ -62,9 +62,9 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
   GstBasicDataResMain? _gstBasicDataResMain = GstBasicDataResMain();
   FetchGstDataResMain? _fetchGstDataResMain;
   String? strLegalName = "";
-
   bool isOpenDetails = true;
   bool isLoadData = false;
+  bool isFetchedDataSuccess = false;
 
   @override
   void initState() {
@@ -189,40 +189,39 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        _buildRow(str_Legal_Name, _gstBasicDataResMain?.data?.lgnm ?? "Manish Patel"),
+        _buildRow(str_Legal_Name, _gstBasicDataResMain?.data?.lgnm ?? "-"),
         SizedBox(
           height: 24.h,
         ),
-        _buildRow(str_Trade_Name, _gstBasicDataResMain?.data?.tradeNam ?? "Indo International"),
+        _buildRow(str_Trade_Name, _gstBasicDataResMain?.data?.tradeNam ?? "-"),
         SizedBox(
           height: 24.h,
         ),
-        _buildRow(str_Constitution, _gstBasicDataResMain?.data?.ctb ?? "Proprietorship"),
+        _buildRow(str_Constitution, _gstBasicDataResMain?.data?.ctb ?? "-"),
         SizedBox(
           height: 24.h,
         ),
-        _buildRow(str_Date_of_Registration, _gstBasicDataResMain?.data?.rgdt ?? "01/08/2018"),
+        _buildRow(str_Date_of_Registration, _gstBasicDataResMain?.data?.rgdt ?? "-"),
         SizedBox(
           height: 24.h,
         ),
-        _buildRow(str_GSTIN, _gstBasicDataResMain?.data?.gstin ?? "24ABCDE1234F3Z6"),
+        _buildRow(str_GSTIN, _gstBasicDataResMain?.data?.gstin ?? "-"),
         SizedBox(
           height: 24.h,
         ),
-        _buildRow(str_GSTIN_Status, _gstBasicDataResMain?.data?.sts ?? "Active"),
+        _buildRow(str_GSTIN_Status, _gstBasicDataResMain?.data?.sts ?? "-"),
         SizedBox(
           height: 24.h,
         ),
-        _buildRow(str_Taxpayer_Type, _gstBasicDataResMain?.data?.dty ?? "Regular"),
+        _buildRow(str_Taxpayer_Type, _gstBasicDataResMain?.data?.dty ?? "-"),
         SizedBox(
           height: 24.h,
         ),
-        _buildRow(str_Business_Activity, _gstBasicDataResMain?.data?.lgnm ?? "Service Provider and Others"),
+        _buildRow(str_Business_Activity, _gstBasicDataResMain?.data?.lgnm ?? "-"),
         SizedBox(
           height: 24.h,
         ),
-        _buildRow(str_Place_of_Business,
-            _gstBasicDataResMain?.data?.stj ?? "108, Near Datta Mandir, Radha Apartment, Bhavnagar, Gujarat, 364001"),
+        _buildRow(str_Place_of_Business, _gstBasicDataResMain?.data?.stj ?? "-"),
         SizedBox(
           height: 20.h,
         ),
@@ -334,7 +333,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
           AppButton(
             onPress: onPressConfirmButton,
             title: str_Confirm,
-            isButtonEnable: confirmGstDetail,
+            isButtonEnable: confirmGstDetail && isFetchedDataSuccess,
           ),
         ],
       ),
@@ -438,6 +437,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
 
   Future<void> gstDetailsStatusAPI() async {
     String gstin = await TGSharedPreferences.getInstance().get(PREF_GSTIN);
+    TGLog.d("GST detail---------$gstin");
     FetGstDataStatusRequest fetGstDataStatusRequest = FetGstDataStatusRequest(id: gstin);
     var jsonReq = jsonEncode(fetGstDataStatusRequest.toJson());
     TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_FETCH_GST_DATA_STATUS);
@@ -504,10 +504,12 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
     TGLog.d("GetGstBasicDetails : onSuccess()");
     if (response?.getFetchGstDataObj().status == RES_DETAILS_FOUND) {
       setState(() {
+        isFetchedDataSuccess = true;
         _gstBasicDataResMain = response?.getFetchGstDataObj();
         TGSharedPreferences.getInstance().set(PREF_BUSINESSNAME, _gstBasicDataResMain?.data?.tradeNam);
         TGSharedPreferences.getInstance().set(PREF_USERNAME, _gstBasicDataResMain?.data?.lgnm.toString());
         TGSharedPreferences.getInstance().set(PREF_USERSTATE, _gstBasicDataResMain?.data?.stcd.toString());
+        setState(() {});
       });
     } else if (response?.getFetchGstDataObj().status == RES_DETAILS_NOT_FOUND) {
       LoaderUtils.handleErrorResponse(

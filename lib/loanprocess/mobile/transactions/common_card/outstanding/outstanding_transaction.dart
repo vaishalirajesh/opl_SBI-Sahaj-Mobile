@@ -222,7 +222,7 @@ class _OutstandingCardState extends State<OutstandingCard> {
                       height: 5.h,
                     ),
                     Text(
-                      dueDate ?? '-',
+                      dueDate == null || dueDate == '' ? '-' : dueDate!,
                       style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
                             fontSize: 14.sp,
                             color: MyColors.darkblack,
@@ -247,7 +247,7 @@ class _OutstandingCardState extends State<OutstandingCard> {
                         height: 5.h,
                       ),
                       Text(
-                        str_Due_in_day_10,
+                        "Due in $dueDays ${int.parse(dueDays ?? "0") < 1 ? "Day" : "Days"}",
                         style: ThemeHelper.getInstance()!.textTheme.headline4!.copyWith(
                               fontSize: 12.sp,
                               color: AppUtils.getBgColorByTransactionStatus(str_Outstanding),
@@ -530,7 +530,7 @@ class _OutstandingCardState extends State<OutstandingCard> {
     utrNo = disbursedInvoice?.utrNumber ?? '';
     invoiceDate = disbursedInvoice?.invoiceDate ?? '';
     gstin = TGSession.getInstance().get(PREF_GSTIN);
-    dueDays = disbursedInvoice?.dueDays.toString();
+    dueDays = disbursedInvoice?.dueDays?.toString() ?? '0';
     tenure = disbursedInvoice?.tenure.toString();
     latePaymentCharge = AppUtils.convertIndianCurrency(disbursedInvoice?.amountDue?.toString());
     invoiceAmount = AppUtils.convertIndianCurrency(disbursedInvoice?.invoiceAmount?.toString());

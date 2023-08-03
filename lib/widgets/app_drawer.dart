@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/profile/ui/newprofile.dart';
@@ -118,9 +119,10 @@ class _AppDrawerState extends State<AppDrawer> {
             ),
             title: Text('Transactions', style: ThemeHelper.getInstance()?.textTheme.headline3),
             onTap: () {
+              TGSession.getInstance().set("TabIndex", 0);
               Navigator.of(context).pop();
               Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (BuildContext context) => const TransactionsView()));
+                  .push(MaterialPageRoute(builder: (BuildContext context) => const TransactionsMain()));
             },
           ),
           const Divider(),

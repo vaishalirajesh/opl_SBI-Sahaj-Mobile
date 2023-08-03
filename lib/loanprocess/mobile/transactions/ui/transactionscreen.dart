@@ -42,17 +42,6 @@ class TransactionsMain extends StatelessWidget {
   }
 }
 
-class TransactionsView extends StatelessWidget {
-  const TransactionsView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return TranscationTabBar();
-    });
-  }
-}
-
 class TranscationTabBar extends StatefulWidget {
   TranscationTabBar({Key? key}) : super(key: key);
 
@@ -73,22 +62,19 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
   List<SharedInvoice>? disbursed_invoice;
   List<SharedInvoice>? repaidInvoice;
   List<SharedInvoice>? overdueInvoice;
-  List<SharedInvoice>? filter_outstanding_invoice = [];
-  List<SharedInvoice>? filter_disbursed_invoice = [];
-  List<SharedInvoice>? filter_repaidInvoice = [];
-  List<SharedInvoice>? filter_overdueInvoice = [];
   bool isListLoaded = false;
   String userName = '';
-
-  // List of items in our dropdown menu
-  var items = [
-    'Invoice Date:Latest-Oldest(Default)',
-    'Invoice Date:Oldest-Latest',
-    'Buyer\'s Name: A-Z',
-    'Buyer\'s Name: Z-A',
-    'Amount:Low to High',
-    'Amount:High to Low',
+  var sortList = [
+    "Invoice Date: Latest - Oldest",
+    "Invoice Date: Oldest - Latest",
+    "Buyer's Name: A - Z",
+    "Buyer's Name: Z - A",
+    "Amount: Low to High",
+    "Amount: High to Low"
   ];
+  List<bool> isSortByChecked = [false, false, false, false, false, false];
+  int selectedSortOption = 0;
+  List<SharedInvoice> arrInvoiceList = [];
 
   @override
   void initState() {
@@ -96,7 +82,28 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
     tabController.index = TGSession.getInstance().get("TabIndex") ?? 0;
     getUserData();
     getLoansByReferenceId();
+    // tabController.addListener(() {
+    //   setIndexList();
+    //   TGLog.d("On tab chnage listner----inde: ${tabController.index}---");
+    // });
     super.initState();
+  }
+
+  void setIndexList() {
+    switch (tabController.index) {
+      case 0:
+        arrInvoiceList = outstanding_invoice ?? [];
+        break;
+      case 1:
+        arrInvoiceList = overdueInvoice ?? [];
+        break;
+      case 2:
+        arrInvoiceList = repaidInvoice ?? [];
+        break;
+      case 3:
+        arrInvoiceList = disbursed_invoice ?? [];
+        break;
+    }
   }
 
   void getUserData() async {
@@ -133,14 +140,21 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
           // backgroundColor: ThemeHelper.getInstance()?.colorScheme.primary,
           appBar: buildAppBar(),
           body: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: TabBarView(
-              controller: tabController,
+            height: 1.sh,
+            child: Column(
               children: [
-                buildTabView(fetchTranstaion()),
-                buildTabView(overDueTransaction()),
-                buildTabView(repaidTransaction()),
-                buildTabView(disbursedTransaction()),
+                buildBottomPartAppBar(),
+                Expanded(
+                  child: TabBarView(
+                    controller: tabController,
+                    children: [
+                      buildTabView(fetchTranstaion()),
+                      buildTabView(overDueTransaction()),
+                      buildTabView(repaidTransaction()),
+                      buildTabView(disbursedTransaction()),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -151,10 +165,11 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
 
   buildAppBar() => AppBar(
         elevation: 0,
-        backgroundColor: MyColors.white,
+        backgroundColor: ThemeHelper.getInstance()?.colorScheme.background,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(180.0.h),
+          preferredSize: Size.fromHeight(100.0.h),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               getAppBarMainDashboard("2", str_loan_approve_process, 0.25,
                   onClickAction: () => {_scaffoldKey.currentState?.openDrawer()}),
@@ -206,12 +221,11 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
       );
 
   buildAppBarBottomPart() => Container(
-      decoration: BoxDecoration(
-        color: MyColors.white,
-        // borderRadius: BorderRadius.only(
-        //     topLeft: Radius.circular(26.r), topRight: Radius.circular(26.r))
-      ),
-      child: buildTabRow());
+        decoration: BoxDecoration(
+          color: MyColors.white,
+        ),
+        child: buildTabRow(),
+      );
 
   buildAppBarTitleText(String title) => Text(
         title,
@@ -254,7 +268,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
               ),
             ),
             buildFirstPartAppBar(),
-            buildBottomPartAppBar()
+            // buildBottomPartAppBar()
           ],
         ),
       );
@@ -298,7 +312,17 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
       width: 95.w,
       height: 40.h, //38,
       child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) {
+                return StatefulBuilder(builder: (BuildContext context, StateSetter setModelState) {
+                  return Center(child: buildSortByWidget(setModelState));
+                });
+              },
+            );
+          },
           style: ElevatedButton.styleFrom(
             shadowColor: Colors.transparent,
             //foregroundColor: ThemeHelper.getInstance()!.colorScheme.onPrimary,
@@ -320,13 +344,235 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
     );
   }
 
+  Widget buildSortByWidget(StateSetter setModelState) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 20.w, right: 20.w),
+          child: Container(
+            padding: EdgeInsets.only(left: 20.w, right: 20.w),
+            decoration: BoxDecoration(
+              color: ThemeHelper.getInstance()!.cardColor,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(20),
+              ),
+            ),
+            child: Material(
+              color: ThemeHelper.getInstance()!.cardColor,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 25.h),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // const Spacer(),
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              str_SortBy,
+                              style: ThemeHelper.getInstance()
+                                  ?.textTheme
+                                  .headline2!
+                                  .copyWith(color: MyColors.pnbcolorPrimary),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          child: Padding(
+                              padding: EdgeInsets.only(right: 20.w),
+                              child: SvgPicture.asset(AppUtils.path(IMG_CLOSE_X), height: 10.h, width: 10.w)),
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ]),
+                  SizedBox(height: 10.h),
+                  const Divider(),
+                  sortByDialogContent(setModelState),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
+                    child: applySortButton(),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget sortByDialogContent(StateSetter setModelState) {
+    return SizedBox(
+      height: 0.4.sh,
+      child: ListView.builder(
+        // shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        itemCount: sortList.length,
+        itemBuilder: (context, index) {
+          return SoryByListCardUI(index, setModelState);
+        },
+      ),
+    );
+  }
+
+  Widget applySortButton() {
+    return SizedBox(
+      height: 55.h,
+      child: ElevatedButton(
+        onPressed: () {
+          sortListById();
+          setState(() {});
+          Navigator.pop(context);
+        },
+        style: ElevatedButton.styleFrom(
+          shadowColor: Colors.transparent,
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(6))),
+        ),
+        child: Center(
+          child: Text(
+            str_Apply,
+            style: ThemeHelper.getInstance()?.textTheme.button,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void sortListById() {
+    TGLog.d("Index--------${tabController.index}--$arrInvoiceList");
+
+    switch (selectedSortOption) {
+      case 1:
+        setState(() {
+          arrInvoiceList.sort((a, b) {
+            return AppUtils.convertDateFormat(a.invoiceDate, "dd-mm-yyyy", "yyyy-mm-dd")
+                .compareTo(AppUtils.convertDateFormat(b.invoiceDate, "dd-mm-yyyy", "yyyy-mm-dd"));
+          });
+        });
+        break;
+
+      case 0:
+        setState(() {
+          arrInvoiceList.sort((a, b) {
+            return AppUtils.convertDateFormat(b.invoiceDate, "dd-mm-yyyy", "yyyy-mm-dd")
+                .compareTo(AppUtils.convertDateFormat(a.invoiceDate, "dd-mm-yyyy", "yyyy-mm-dd"));
+          });
+        });
+        break;
+
+      case 2:
+        setState(() {
+          arrInvoiceList.sort((a, b) {
+            return a.buyerName.toString().toLowerCase().compareTo(b.buyerName.toString().toLowerCase());
+          });
+        });
+        break;
+
+      case 3:
+        setState(() {
+          arrInvoiceList.sort((a, b) {
+            return b.buyerName.toString().toLowerCase().compareTo(a.buyerName.toString().toLowerCase());
+          });
+        });
+        break;
+
+      case 4:
+        setState(() {
+          arrInvoiceList.sort((a, b) {
+            return (a.invoiceAmount ?? 0).compareTo(b.invoiceAmount ?? 0);
+          });
+        });
+        break;
+
+      case 5:
+        setState(() {
+          arrInvoiceList.sort((a, b) {
+            return (b.invoiceAmount ?? 0).compareTo(a.invoiceAmount ?? 0);
+          });
+          arrInvoiceList.reversed;
+        });
+        break;
+    }
+    switch (tabController.index) {
+      case 0:
+        outstanding_invoice = overdueInvoice;
+        break;
+      case 1:
+        overdueInvoice = arrInvoiceList;
+        break;
+      case 2:
+        repaidInvoice = arrInvoiceList;
+        break;
+      case 3:
+        disbursed_invoice = arrInvoiceList;
+        break;
+    }
+    setState(() {});
+  }
+
+  Widget SoryByListCardUI(int index, StateSetter setModelState) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 5.h, left: 20.w, right: 20.w),
+      child: GestureDetector(
+        onTap: () {
+          setModelState(() {
+            for (int i = 0; i < isSortByChecked.length; i++) {
+              isSortByChecked[i] = false;
+            }
+            isSortByChecked[index] = true;
+          });
+          setModelState(() {
+            selectedSortOption = index;
+          });
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              sortList[index],
+              style: ThemeHelper.getInstance()?.textTheme.headline5,
+            ),
+            Radio(
+              value: true,
+              onChanged: (value) {
+                setModelState(() {
+                  for (int i = 0; i < isSortByChecked.length; i++) {
+                    isSortByChecked[i] = false;
+                  }
+                  isSortByChecked[index] = value!;
+                });
+                setModelState(() {
+                  selectedSortOption = index;
+                });
+              },
+              activeColor: ThemeHelper.getInstance()?.primaryColor,
+              groupValue: isSortByChecked[index],
+              toggleable: true,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
   buildBottomPartAppBar() => Padding(
-      padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 26.h),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [searchBar(), filterInvoiceButton()],
-      ));
+        padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 26.h),
+        child: SizedBox(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.min,
+            children: [searchBar(), filterInvoiceButton()],
+          ),
+        ),
+      );
 
   Widget searchBar() {
     return SizedBox(
@@ -511,10 +757,12 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
           getAllLoanDetailByRefIdResMainobj = response?.getAllLoanDetailObj();
           obj = getAllLoanDetailByRefIdResMainobj?.data;
           outstanding_invoice = obj?.outstandingInvoice;
+          arrInvoiceList = obj?.outstandingInvoice ?? [];
           disbursed_invoice = obj?.disbursedInvoice;
           repaidInvoice = obj?.repaidInvoice;
           overdueInvoice = obj?.overdueInvoice;
           isListLoaded = true;
+          setIndexList();
         });
       }
     } else {

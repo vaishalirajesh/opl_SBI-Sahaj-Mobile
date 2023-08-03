@@ -20,6 +20,7 @@ import 'package:sbi_sahay_1_0/welcome/ntbwelcome/mobileui/getstarted.dart';
 class AutoLogin extends StatefulWidget {
   const AutoLogin({required this.str, Key? key}) : super(key: key);
   final Map<dynamic, dynamic> str;
+
   @override
   State<AutoLogin> createState() => AutoLoginState();
 }
@@ -49,7 +50,8 @@ class AutoLoginState extends State<AutoLogin> {
   @override
   void initState() {
     TGLog.d(widget.str);
-    String encryptedText = widget.str['encData'] ?? '';
+    String encryptedText = widget.str['encData'] ??
+        '1ba33f47c24e0240c4bde0d11c5da41c3ad1d8e36f457cfaaca26b0df1f9361bf22137a7dae3d497cbe7c6e67ebc1ce7771c86806b52392d74b0c85c7268368fdfdffeeb3dd65d9f34dd1dd20d56e1257a81c0eb4fc59ba46bb6322559039576918ae28317f29cf32218d7bbd992885d';
     TGLog.d("sso encrypted String : $encryptedText");
     decryptParameter(encryptedText);
   }
@@ -84,7 +86,9 @@ class AutoLoginState extends State<AutoLogin> {
   Future<void> decryptParameter(String encryptedText) async {
     await Future.delayed(const Duration(seconds: 5));
     String _key;
-    if (TGFlavor.baseUrl() == "https://sbiuat-gstsahay.instantmseloans.in") {
+    TGLog.d("Base URL---------${TGFlavor.baseUrl()}");
+    if (TGFlavor.baseUrl().contains("https://sbiuat-gstsahay.instantmseloans.in") ||
+        TGFlavor.baseUrl().contains("https://gsts.uat.sbi")) {
       _key = "GS+5@hayM0bi#UAT";
     } else {
       _key = "GS+5@hayM0bi#PRO";
@@ -92,6 +96,7 @@ class AutoLoginState extends State<AutoLogin> {
 
     if (encryptedText != null) {
       try {
+        TGLog.d("Key---------$_key");
         final key = enc.Key.fromUtf8(_key);
         final keyBytes = base64Encode(Uint8List.fromList(_key.codeUnits).sublist(0, 16));
         final encrypter = enc.Encrypter(enc.AES(key, mode: enc.AESMode.ecb));
