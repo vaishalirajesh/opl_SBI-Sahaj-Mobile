@@ -217,7 +217,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
         SizedBox(
           height: 24.h,
         ),
-        _buildRow(str_Business_Activity, _gstBasicDataResMain?.data?.lgnm ?? "-"),
+        _buildRow(str_Business_Activity, _gstBasicDataResMain?.data!.nba?[0] ?? "-"),
         SizedBox(
           height: 24.h,
         ),
