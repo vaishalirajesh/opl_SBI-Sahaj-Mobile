@@ -178,7 +178,7 @@ class _DisbursedCardState extends State<DisbursedCard> {
                       height: 5.h,
                     ),
                     Text(
-                      gstin ?? '',
+                      'Invoice: $invoiceNumber',
                       style: ThemeHelper.getInstance()!
                           .textTheme
                           .headline4!
@@ -303,8 +303,10 @@ class _DisbursedCardState extends State<DisbursedCard> {
           SizedBox(
             height: 10.h,
           ),
-          setRowColumValueOpenCard("Disbursed On", disbursedDate ?? '-', "Lender", bankName ?? '-'),
-          setRowColumValueOpenCard("Tenure", tenure ?? '-', "ROI", interestRate ?? '-'),
+          setRowColumValueOpenCard(
+              "Invoice Date", invoiceDate ?? '-', "Lender", AppUtils.getBankFullName(bankName: bankName ?? '')),
+          setRowColumValueOpenCard(
+              "Tenure", '$tenure ${tenure == '0' ? 'Day' : 'Days'}', "ROI", '$interestRate% p.a.' ?? '-'),
           setRowColumValueOpenCard(str_Due_Date, dueDate ?? '-', "Invoice Amount", invoiceAmount ?? '0'),
           setRowColumValueOpenCard(str_Amount_due, amountDue ?? '0', "Interest Amount", interestAmount ?? '0'),
           // setRowColumValueOpenCard(str_Late_payment_charges, "2%", str_Days_past_due, "10 days"),
@@ -377,132 +379,6 @@ class _DisbursedCardState extends State<DisbursedCard> {
     );
   }
 
-  Widget setLenderRoiDetailUi() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 14.w),
-      child: Container(
-        height: 42.h,
-        decoration:
-            BoxDecoration(color: MyColors.pnbSecondarycolor, borderRadius: BorderRadius.all(Radius.circular(8.r))),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SizedBox(
-              width: 100.h,
-              child: Row(
-                children: [
-                  Text(
-                    str_Lender + ' : ',
-                    style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 13.sp),
-                  ),
-                  Text(
-                    bankName ?? '',
-                    style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(
-                          fontSize: 13.sp,
-                          color: MyColors.pnbTextcolor,
-                        ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 7.0.h),
-              child: Container(
-                color: MyColors.pnbGreyColor.withOpacity(0.2),
-                width: 1.w,
-              ),
-            ),
-            SizedBox(
-              width: 100.h,
-              child: Row(
-                children: [
-                  Text(
-                    str_ROI,
-                    style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 13.sp),
-                  ),
-                  Text(
-                    interestRate ?? '',
-                    style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(
-                          fontSize: 13.sp,
-                          color: MyColors.pnbTextcolor,
-                        ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget setTransactionDetailListUI() {
-    return Column(children: [
-      setTransactionDetailUi(str_loan_id, loanId ?? '', str_utr_no, utrNo ?? ''),
-      dividerUI(0.w),
-      setTransactionDetailUi(str_Disbursed_on, disbursedOnDate ?? '', str_Loan_Amount, loanAmount ?? ''),
-      dividerUI(0.w),
-      setTransactionDetailUi(str_Invoice_date, invoiceDate ?? '', str_Invoice_amount, invoiceAmount ?? ""),
-      dividerUI(0.w),
-      setTransactionDetailUi(str_Tenure, tenure ?? '', str_Interest_amount, interestAmount ?? ''),
-      dividerUI(0.w),
-      setTransactionDetailUi(str_Late_payment_charges, latePaymentCharge ?? "", str_Days_past_due, dueDays ?? ''),
-      dividerUI(0.w),
-
-      // _buildRepeatRow(str_Late_payment_charges, str_l9, str_Days_past, str_10),
-      // Padding(
-      //   padding: EdgeInsets.symmetric(horizontal: 15.w),
-      //   child: Divider(
-      //     color: MyColors.pnbGreyColor.withOpacity(0.2),
-      //   ),
-      // ),
-    ]);
-  }
-
-  Widget setTransactionDetailUi(String title1, String value1, String title2, String value2) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title1,
-              style: ThemeHelper.getInstance()!
-                  .textTheme
-                  .headline3!
-                  .copyWith(color: MyColors.pnbTextcolor, fontSize: 12.sp),
-            ),
-            Text(
-              value1,
-              style: ThemeHelper.getInstance()!
-                  .textTheme
-                  .headline2!
-                  .copyWith(color: MyColors.pnbcolorPrimary, fontSize: 12.sp),
-            ),
-          ],
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(
-              title2,
-              style: ThemeHelper.getInstance()!
-                  .textTheme
-                  .headline3!
-                  .copyWith(color: MyColors.pnbTextcolor, fontSize: 12.sp),
-            ),
-            Text(value2,
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline2!
-                    .copyWith(color: MyColors.pnbcolorPrimary, fontSize: 12.sp)),
-          ],
-        ),
-      ],
-    );
-  }
-
   Widget dividerUI(double padding) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: padding),
@@ -530,13 +406,15 @@ class _DisbursedCardState extends State<DisbursedCard> {
     disbursedOnDate = createDueDate(disbursedInvoice?.fetchedDate ?? '');
     loanId = disbursedInvoice?.loanId ?? '';
     utrNo = disbursedInvoice?.utrNumber ?? '';
-    invoiceDate = disbursedInvoice?.invoiceDate ?? '';
+    invoiceDate = AppUtils.createInvoiceDate(disbursedInvoice?.invoiceDate ?? '');
     gstin = TGSession.getInstance().get(PREF_GSTIN);
-    dueDays = disbursedInvoice?.dueDays;
-    tenure = disbursedInvoice?.tenure.toString();
+    dueDays = dueDays = disbursedInvoice?.dueDays != null ? disbursedInvoice?.dueDays.toString() : '0';
+    tenure = disbursedInvoice?.tenure != null ? disbursedInvoice?.tenure.toString() : '0';
     latePaymentCharge = AppUtils.convertIndianCurrency(disbursedInvoice?.amountDue?.toString());
     invoiceAmount = AppUtils.convertIndianCurrency(disbursedInvoice?.invoiceAmount?.toString());
     loanAmount = AppUtils.convertIndianCurrency(disbursedInvoice?.loanAmount?.toString());
+    invoiceNumber = disbursedInvoice?.invoiceNumber;
+    disbursedDate = createDueDate(disbursedInvoice?.disbursedDate ?? '');
   }
 
   String createDueDate(String date) {

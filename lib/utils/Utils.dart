@@ -119,6 +119,26 @@ class AppUtils {
       return MyColors.pnbGreenColor;
     }
   }
+
+  static String createInvoiceDate(String date) {
+    if (date.isNotEmpty) {
+      var inputFormat = DateFormat('dd-MM-yyyy');
+      DateTime dt = inputFormat.parse(date);
+      String formattedDate = DateFormat('MM/dd/yyyy').format(dt);
+      return formattedDate;
+    } else {
+      return '';
+    }
+  }
+
+  static String getBankFullName({required String bankName}) {
+    switch (bankName) {
+      case "SBI":
+        return "State Bank of India";
+      default:
+        return "-";
+    }
+  }
 }
 
 class UpperCaseTextFormatter extends TextInputFormatter {

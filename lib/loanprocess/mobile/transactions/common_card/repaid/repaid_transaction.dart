@@ -54,6 +54,7 @@ class _RepaidCardState extends State<RepaidCard> {
   String? interestAmount;
   String? dueDays;
   String? amountDue;
+  String? paidOnDate;
 
   @override
   void initState() {
@@ -178,7 +179,7 @@ class _RepaidCardState extends State<RepaidCard> {
                       height: 5.h,
                     ),
                     Text(
-                      gstin ?? '',
+                      'Invoice: $invoiceNumber',
                       style: ThemeHelper.getInstance()!
                           .textTheme
                           .headline4!
@@ -223,7 +224,7 @@ class _RepaidCardState extends State<RepaidCard> {
                       height: 5.h,
                     ),
                     Text(
-                      dueDate == null || dueDate == '' ? '-' : dueDate!,
+                      paidOnDate ?? '-',
                       style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
                             fontSize: 14.sp,
                             color: MyColors.darkblack,
@@ -248,7 +249,7 @@ class _RepaidCardState extends State<RepaidCard> {
                         height: 5.h,
                       ),
                       Text(
-                        strRepaid,
+                        strFullyPaid,
                         style: ThemeHelper.getInstance()!.textTheme.headline4!.copyWith(
                               fontSize: 12.sp,
                               color: AppUtils.getBgColorByTransactionStatus(strRepaid),
@@ -274,14 +275,14 @@ class _RepaidCardState extends State<RepaidCard> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          str_Loan_Agreement,
+          'Loan Amount',
           style: ThemeHelper.getInstance()!.textTheme.overline!,
         ),
         SizedBox(
           height: 5.h,
         ),
         Text(
-          amountToPay ?? "",
+          loanAmount ?? "",
           style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
                 fontSize: 14.sp,
                 color: MyColors.darkblack,
@@ -303,10 +304,12 @@ class _RepaidCardState extends State<RepaidCard> {
           SizedBox(
             height: 10.h,
           ),
-          setRowColumValueOpenCard("Disbursed On", disbursedDate ?? '-', "Lender", bankName ?? '-'),
-          setRowColumValueOpenCard("Invoice Date", invoiceDate ?? '-', "ROI", interestRate ?? '-'),
+          setRowColumValueOpenCard(
+              "Disbursed On", disbursedDate ?? '-', "Lender", AppUtils.getBankFullName(bankName: bankName ?? '')),
+          setRowColumValueOpenCard("Invoice Date", invoiceDate ?? '-', "ROI", '$interestRate% p.a.' ?? '-'),
           setRowColumValueOpenCard("Loan Amount", loanAmount ?? '0', "Invoice Amount", invoiceAmount ?? '0'),
-          setRowColumValueOpenCard("Tenure", tenure ?? '-', "Interest Amount", interestAmount ?? '0'),
+          setRowColumValueOpenCard(
+              "Tenure", '$tenure ${tenure == '0' ? 'Day' : 'Days'}', "Interest Amount", interestAmount ?? '0'),
           setRowColumValueOpenCard(str_Due_Date, dueDate ?? '-', str_Amount_due, amountDue ?? '0'),
           widget.bottomWidget,
         ],
@@ -526,20 +529,22 @@ class _RepaidCardState extends State<RepaidCard> {
     disbursedOnDate = createDueDate(disbursedInvoice?.fetchedDate ?? '');
     loanId = disbursedInvoice?.loanId ?? '';
     utrNo = disbursedInvoice?.utrNumber ?? '';
-    invoiceDate = disbursedInvoice?.invoiceDate ?? '';
+    invoiceDate = AppUtils.createInvoiceDate(disbursedInvoice?.invoiceDate ?? '');
     gstin = TGSession.getInstance().get(PREF_GSTIN);
-    dueDays = disbursedInvoice?.dueDays;
-    tenure = disbursedInvoice?.tenure.toString();
+    dueDays = dueDays = disbursedInvoice?.dueDays != null ? disbursedInvoice?.dueDays.toString() : '0';
+    tenure = disbursedInvoice?.tenure != null ? disbursedInvoice?.tenure.toString() : '0';
     latePaymentCharge = AppUtils.convertIndianCurrency(disbursedInvoice?.amountDue?.toString());
     invoiceAmount = AppUtils.convertIndianCurrency(disbursedInvoice?.invoiceAmount?.toString());
     amountDue = AppUtils.convertIndianCurrency(disbursedInvoice?.amountDue?.toString());
     loanAmount = AppUtils.convertIndianCurrency(disbursedInvoice?.loanAmount?.toString());
+    invoiceNumber = disbursedInvoice?.invoiceNumber;
+    disbursedDate = createDueDate(disbursedInvoice?.disbursedDate ?? '');
+    paidOnDate = createDueDate(disbursedInvoice?.fetchedDate ?? '');
   }
 
   String createDueDate(String date) {
     if (date.isNotEmpty) {
       DateTime dt = DateTime.parse(date);
-
       String formattedDate = DateFormat('MM/dd/yyyy').format(dt);
       return formattedDate;
     } else {

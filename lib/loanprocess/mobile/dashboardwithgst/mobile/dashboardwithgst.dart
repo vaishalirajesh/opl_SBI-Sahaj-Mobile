@@ -1245,7 +1245,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
   }
 
   Future<void> getUserLoanDetails() async {
-    TGGetRequest tgGetRequest = GetLoanDetailByRefIdReq();
+    TGGetRequest tgGetRequest = GetLoanDetailByRefIdReq(gstin: gstin);
     ServiceManager.getInstance().getAllLoanDetailByRefId(
         request: tgGetRequest,
         onSuccess: (response) => _onSuccessGetAllLoanDetailByRefId(response),

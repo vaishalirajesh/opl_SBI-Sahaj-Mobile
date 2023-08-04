@@ -30,6 +30,7 @@ import 'package:gstmobileservices/util/jumpingdot_util.dart';
 import 'package:gstmobileservices/util/showcustomesnackbar.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
+import 'package:sbi_sahay_1_0/logout/logout.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/dashboardwithoutgst/mobile/dashboardwithoutgst.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/gst_consent_of_gst/gst_consent_of_gst.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/verify_email_otp/verify_email_otp.dart';
@@ -48,6 +49,7 @@ import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
 
 import '../../../utils/constants/constant.dart';
+import '../../../widgets/back_to_home_widget.dart';
 import '../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 
 class SignUpView extends StatelessWidget {
@@ -92,6 +94,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   bool hidePassword = true;
   bool hideMobile = true;
   bool isEmailAlreadyVerified = false;
+  String? gstin;
   String pattern =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 
@@ -618,7 +621,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
       if (_basicdetailsResponse?.data?.isNotEmpty == true) {
         if (_basicdetailsResponse?.data?[0].isOtpVerified == true) {
           if (_basicdetailsResponse?.data?[0]?.gstin?.isNotEmpty == true) {
-            var gstin = _basicdetailsResponse!.data![0].gstin!;
+            gstin = _basicdetailsResponse!.data![0].gstin;
             if (_basicdetailsResponse!.data![0].gstin!.length >= 12) {
               TGSharedPreferences.getInstance()
                   .set(PREF_BUSINESSNAME, _basicdetailsResponse?.data?[0].gstBasicDetails?.tradeNam);
@@ -702,7 +705,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   }
 
   Future<void> _getUserLoanDetails() async {
-    TGGetRequest tgGetRequest = GetLoanDetailByRefIdReq();
+    TGGetRequest tgGetRequest = GetLoanDetailByRefIdReq(gstin: gstin);
     ServiceManager.getInstance().getAllLoanDetailByRefId(
         request: tgGetRequest,
         onSuccess: (response) => _onSuccessGetAllLoanDetailByRefId(response),

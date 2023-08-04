@@ -321,7 +321,6 @@ class LoanReviewMainBody extends State<LoanReviewMains> {
 
   Future<void> saveRatingAPI() async {
     String? loanApplicationRefID = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
-
     SaveRatingRequest saveRatingRequest =
         SaveRatingRequest(loanApplicationRefId: loanApplicationRefID, rating: "4", comments: "HIGHLY_SATISFIED");
     var jsonReq = jsonEncode(saveRatingRequest.toJson());

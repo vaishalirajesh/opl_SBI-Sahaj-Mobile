@@ -408,6 +408,7 @@ const str_Gujarat = 'Gujarat';
 const str_Outstanding = 'Outstanding';
 const strOverdue = 'Overdue';
 const strRepaid = 'Repaid';
+const strFullyPaid = 'Fully Paid';
 const strDisbursed = 'Disbursed';
 const str_disbursement = 'Disbursement';
 const str_doc_kyc = 'Documentation & KYC';
@@ -461,7 +462,7 @@ const str_Deposit_Account = 'Deposit Account';
 const str_Total_Repayment = 'Total Repayment';
 
 const str_Loan_ID = 'Loan ID';
-const str_Due_date = 'Due date';
+const str_Due_date = 'Due Date';
 const str_Due_date_value = '09/08/2022';
 const str_s2 = 'Punjab National Bank';
 const str_s3 = 'Rs.30,000';
@@ -503,7 +504,7 @@ const str_l2 = '159357456852';
 
 const str_l3 = '09/08/2022';
 const str_Loan_Amount = 'Loan Amount';
-const str_Amount_due = 'Amount due';
+const str_Amount_due = 'Amount Due';
 const str_Amount_due_value = '₹ 51,600';
 const str_due_value = '₹ 51,600';
 const str_due_Date_value = '09/08/22';

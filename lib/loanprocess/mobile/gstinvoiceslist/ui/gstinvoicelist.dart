@@ -372,7 +372,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
                     "dd-MM-yyyy",
                     'd MMM'),
                 style: ThemeHelper.getInstance()!.textTheme.subtitle1?.copyWith(color: MyColors.lightGraySmallText)),
-            Text(" | ${_gstInvoceListResMain?.data?[index].ctin}" ?? "",
+            Text(" | ${_gstInvoceListResMain?.data?[index].invoiceData?.invNum}" ?? "",
                 style: ThemeHelper.getInstance()!.textTheme.subtitle1?.copyWith(color: MyColors.lightGraySmallText)),
           ],
         ),
@@ -566,8 +566,14 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
                         // const Spacer(),
                         GestureDetector(
                           child: Padding(
-                              padding: EdgeInsets.only(right: 10.w, top: 10.h, bottom: 10.h, left: 10.w),
-                              child: SvgPicture.asset(AppUtils.path(IMG_CLOSE_X), height: 10.h, width: 10.w)),
+                            padding: EdgeInsets.only(right: 10.w, top: 10.h, bottom: 10.h, left: 10.w),
+                            child: SvgPicture.asset(
+                              AppUtils.path(IMG_CLOSE_X),
+                              height: 10.h,
+                              width: 10.w,
+                              color: MyColors.pnbcolorPrimary,
+                            ),
+                          ),
                           onTap: () {
                             Navigator.pop(context);
                           },

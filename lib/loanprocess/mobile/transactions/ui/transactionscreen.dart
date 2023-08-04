@@ -11,6 +11,7 @@ import 'package:gstmobileservices/service/response/tg_response.dart';
 import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
+import 'package:gstmobileservices/util/data_format_utils.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/transactions/common_card/disbursed/disbursed_transaction.dart';
@@ -72,9 +73,9 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
     "Amount: Low to High",
     "Amount: High to Low"
   ];
-  List<bool> isSortByChecked = [false, false, false, false, false, false];
+  List<bool> isSortByChecked = [true, false, false, false, false, false];
   int selectedSortOption = 0;
-  List<SharedInvoice> arrInvoiceList = [];
+  List<SharedInvoice>? arrInvoiceList = [];
 
   @override
   void initState() {
@@ -82,28 +83,11 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
     tabController.index = TGSession.getInstance().get("TabIndex") ?? 0;
     getUserData();
     getLoansByReferenceId();
-    // tabController.addListener(() {
-    //   setIndexList();
-    //   TGLog.d("On tab chnage listner----inde: ${tabController.index}---");
-    // });
+    tabController.addListener(() {
+      setSelectedList();
+      TGLog.d("On tab chnage listner----inde: ${tabController.index}---");
+    });
     super.initState();
-  }
-
-  void setIndexList() {
-    switch (tabController.index) {
-      case 0:
-        arrInvoiceList = outstanding_invoice ?? [];
-        break;
-      case 1:
-        arrInvoiceList = overdueInvoice ?? [];
-        break;
-      case 2:
-        arrInvoiceList = repaidInvoice ?? [];
-        break;
-      case 3:
-        arrInvoiceList = disbursed_invoice ?? [];
-        break;
-    }
   }
 
   void getUserData() async {
@@ -363,7 +347,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(height: 25.h),
+                  SizedBox(height: 15.h),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -384,19 +368,24 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
                         ),
                         GestureDetector(
                           child: Padding(
-                              padding: EdgeInsets.only(right: 10.w),
-                              child: SvgPicture.asset(AppUtils.path(IMG_CLOSE_X), height: 10.h, width: 10.w)),
+                            padding: EdgeInsets.all(10.r),
+                            child: SvgPicture.asset(
+                              AppUtils.path(IMG_CLOSE_X),
+                              height: 10.h,
+                              width: 10.w,
+                              color: MyColors.pnbcolorPrimary,
+                            ),
+                          ),
                           onTap: () {
                             Navigator.pop(context);
                           },
                         ),
                       ]),
-                  SizedBox(height: 10.h),
                   const Divider(),
                   sortByDialogContent(setModelState),
                   Padding(
                     padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 30.h),
-                    child: applySortButton(),
+                    child: applySortButton(setModelState),
                   ),
                 ],
               ),
@@ -421,13 +410,13 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
     );
   }
 
-  Widget applySortButton() {
+  Widget applySortButton(StateSetter setModelState) {
     return SizedBox(
       height: 55.h,
       child: ElevatedButton(
         onPressed: () {
-          sortListById();
-          setState(() {});
+          _sortListById(selectedSortOption, setModelState);
+          setModelState(() {});
           Navigator.pop(context);
         },
         style: ElevatedButton.styleFrom(
@@ -444,64 +433,28 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
     );
   }
 
-  void sortListById() {
-    TGLog.d("Index--------${tabController.index}--$arrInvoiceList");
-
-    switch (selectedSortOption) {
-      case 1:
-        setState(() {
-          arrInvoiceList.sort((a, b) {
-            return AppUtils.convertDateFormat(a.invoiceDate, "dd-mm-yyyy", "yyyy-mm-dd")
-                .compareTo(AppUtils.convertDateFormat(b.invoiceDate, "dd-mm-yyyy", "yyyy-mm-dd"));
-          });
-        });
-        break;
-
-      case 0:
-        setState(() {
-          arrInvoiceList.sort((a, b) {
-            return AppUtils.convertDateFormat(b.invoiceDate, "dd-mm-yyyy", "yyyy-mm-dd")
-                .compareTo(AppUtils.convertDateFormat(a.invoiceDate, "dd-mm-yyyy", "yyyy-mm-dd"));
-          });
-        });
-        break;
-
-      case 2:
-        setState(() {
-          arrInvoiceList.sort((a, b) {
-            return a.buyerName.toString().toLowerCase().compareTo(b.buyerName.toString().toLowerCase());
-          });
-        });
-        break;
-
-      case 3:
-        setState(() {
-          arrInvoiceList.sort((a, b) {
-            return b.buyerName.toString().toLowerCase().compareTo(a.buyerName.toString().toLowerCase());
-          });
-        });
-        break;
-
-      case 4:
-        setState(() {
-          arrInvoiceList.sort((a, b) {
-            return (a.invoiceAmount ?? 0).compareTo(b.invoiceAmount ?? 0);
-          });
-        });
-        break;
-
-      case 5:
-        setState(() {
-          arrInvoiceList.sort((a, b) {
-            return (b.invoiceAmount ?? 0).compareTo(a.invoiceAmount ?? 0);
-          });
-          arrInvoiceList.reversed;
-        });
-        break;
-    }
+  void setSelectedList() {
     switch (tabController.index) {
       case 0:
-        outstanding_invoice = overdueInvoice;
+        arrInvoiceList = outstanding_invoice;
+        break;
+      case 1:
+        arrInvoiceList = overdueInvoice;
+        break;
+      case 2:
+        arrInvoiceList = repaidInvoice;
+        break;
+      case 3:
+        arrInvoiceList = disbursed_invoice;
+        break;
+    }
+    setState(() {});
+  }
+
+  void setOriginalList(StateSetter setModelState) {
+    switch (tabController.index) {
+      case 0:
+        outstanding_invoice = arrInvoiceList;
         break;
       case 1:
         overdueInvoice = arrInvoiceList;
@@ -513,8 +466,142 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
         disbursed_invoice = arrInvoiceList;
         break;
     }
+    tabController.index = tabController.index;
+    setModelState(() {});
     setState(() {});
   }
+
+  void _sortListById(int index, StateSetter setModelState) {
+    switch (index) {
+      case 0:
+        setModelState(() {
+          arrInvoiceList?.sort((a, b) {
+            return DataFormatUtils.convertDateFormat(a.invoiceDate, "dd-mm-yyyy", "yyyy-mm-dd").compareTo(
+              DataFormatUtils.convertDateFormat(b.invoiceDate, "dd-mm-yyyy", "yyyy-mm-dd"),
+            );
+          });
+        });
+        break;
+
+      case 1:
+        setModelState(() {
+          arrInvoiceList?.sort((a, b) {
+            return DataFormatUtils.convertDateFormat(b.invoiceDate, "dd-mm-yyyy", "yyyy-mm-dd").compareTo(
+              DataFormatUtils.convertDateFormat(a.invoiceDate, "dd-mm-yyyy", "yyyy-mm-dd"),
+            );
+          });
+        });
+        break;
+
+      case 2:
+        setModelState(() {
+          arrInvoiceList?.sort((a, b) {
+            return a.buyerName.toString().toLowerCase().compareTo(
+                  b.buyerName.toString().toLowerCase(),
+                );
+          });
+        });
+        break;
+
+      case 3:
+        setModelState(() {
+          arrInvoiceList?.sort((a, b) {
+            return b.buyerName.toString().toLowerCase().compareTo(a.buyerName.toString().toLowerCase());
+          });
+        });
+        break;
+
+      case 4:
+        setModelState(() {
+          arrInvoiceList?.sort((a, b) {
+            return a.invoiceAmount?.compareTo(b.invoiceAmount ?? 0) ?? 0;
+          });
+        });
+        break;
+
+      case 5:
+        setModelState(() {
+          arrInvoiceList?.sort((a, b) {
+            return b.invoiceAmount?.compareTo(a.invoiceAmount ?? 0) ?? 0;
+          });
+          arrInvoiceList?.reversed;
+        });
+        break;
+    }
+    setOriginalList(setModelState);
+  }
+
+  // void sortListById() {
+  //   TGLog.d("Index--------${tabController.index}--$arrInvoiceList");
+  //
+  //   switch (selectedSortOption) {
+  //     case 1:
+  //       setState(() {
+  //         arrInvoiceList?.sort((a, b) {
+  //           return AppUtils.convertDateFormat(a.invoiceDate, "dd-mm-yyyy", "yyyy-mm-dd")
+  //               .compareTo(AppUtils.convertDateFormat(b.invoiceDate, "dd-mm-yyyy", "yyyy-mm-dd"));
+  //         });
+  //       });
+  //       break;
+  //
+  //     case 0:
+  //       setState(() {
+  //         arrInvoiceList?.sort((a, b) {
+  //           return AppUtils.convertDateFormat(b.invoiceDate, "dd-mm-yyyy", "yyyy-mm-dd")
+  //               .compareTo(AppUtils.convertDateFormat(a.invoiceDate, "dd-mm-yyyy", "yyyy-mm-dd"));
+  //         });
+  //       });
+  //       break;
+  //
+  //     case 2:
+  //       setState(() {
+  //         arrInvoiceList?.sort((a, b) {
+  //           return a.buyerName.toString().toLowerCase().compareTo(b.buyerName.toString().toLowerCase());
+  //         });
+  //       });
+  //       break;
+  //
+  //     case 3:
+  //       setState(() {
+  //         arrInvoiceList?.sort((a, b) {
+  //           return b.buyerName.toString().toLowerCase().compareTo(a.buyerName.toString().toLowerCase());
+  //         });
+  //       });
+  //       break;
+  //
+  //     case 4:
+  //       setState(() {
+  //         arrInvoiceList?.sort((a, b) {
+  //           return (a.invoiceAmount ?? 0).compareTo(b.invoiceAmount ?? 0);
+  //         });
+  //       });
+  //       break;
+  //
+  //     case 5:
+  //       setState(() {
+  //         arrInvoiceList?.sort((a, b) {
+  //           return (b.invoiceAmount ?? 0).compareTo(a.invoiceAmount ?? 0);
+  //         });
+  //         arrInvoiceList?.reversed;
+  //       });
+  //       break;
+  //   }
+  //   switch (tabController.index) {
+  //     case 0:
+  //       outstanding_invoice = overdueInvoice;
+  //       break;
+  //     case 1:
+  //       overdueInvoice = arrInvoiceList;
+  //       break;
+  //     case 2:
+  //       repaidInvoice = arrInvoiceList;
+  //       break;
+  //     case 3:
+  //       disbursed_invoice = arrInvoiceList;
+  //       break;
+  //   }
+  //   setState(() {});
+  // }
 
   Widget SoryByListCardUI(int index, StateSetter setModelState) {
     return Padding(
@@ -616,18 +703,18 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
               if (tabController.index == 0) {
                 outstanding_invoice
                     ?.where((invoiceData) =>
-                        invoiceData.buyerName?.toLowerCase().contains(searchText.toString().toLowerCase()) == true ||
-                        invoiceData.loanId?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) ==
+                        invoiceData.buyerName?.toLowerCase().contains(searchValue.toString().toLowerCase()) == true ||
+                        invoiceData.loanId?.toString().toLowerCase().contains(searchValue.toString().toLowerCase()) ==
                             true ||
                         invoiceData.loanAmount
                                 ?.toString()
                                 .toLowerCase()
-                                .contains(searchText.toString().toLowerCase()) ==
+                                .contains(searchValue.toString().toLowerCase()) ==
                             true ||
                         invoiceData.invoiceAmount
                                 ?.toString()
                                 .toLowerCase()
-                                .contains(searchText.toString().toLowerCase()) ==
+                                .contains(searchValue.toString().toLowerCase()) ==
                             true)
                     .toList();
               } else if (tabController.index == 1) {
@@ -683,6 +770,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
                     .toList();
               }
             });
+            setState(() {});
           },
           inputFormatters: [
             FilteringTextInputFormatter.allow(RegExp("(?!^ +\$)^[a-zA-Z0-9 _]+\$"), replacementString: "")
@@ -760,12 +848,11 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
           getAllLoanDetailByRefIdResMainobj = response?.getAllLoanDetailObj();
           obj = getAllLoanDetailByRefIdResMainobj?.data;
           outstanding_invoice = obj?.outstandingInvoice;
-          arrInvoiceList = obj?.outstandingInvoice ?? [];
           disbursed_invoice = obj?.disbursedInvoice;
           repaidInvoice = obj?.repaidInvoice;
           overdueInvoice = obj?.overdueInvoice;
           isListLoaded = true;
-          setIndexList();
+          setSelectedList();
         });
       }
     } else {
@@ -886,7 +973,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
             "Raise dispute",
             style: ThemeHelper.getInstance()!.textTheme.headline6!.copyWith(
                   fontSize: 12.sp,
-                  color: MyColors.pnbcolorPrimary,
+                  color: MyColors.hyperlinkcolornew,
                   decoration: TextDecoration.underline,
                   fontFamily: MyFont.Roboto_Regular,
                 ),
@@ -896,7 +983,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
             "Request for deferment",
             style: ThemeHelper.getInstance()!.textTheme.headline6!.copyWith(
                   fontSize: 12.sp,
-                  color: MyColors.pnbcolorPrimary,
+                  color: MyColors.hyperlinkcolornew,
                   decoration: TextDecoration.underline,
                   fontFamily: MyFont.Roboto_Regular,
                 ),
@@ -905,7 +992,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
           "Contact support",
           style: ThemeHelper.getInstance()!.textTheme.headline6!.copyWith(
                 fontSize: 12.sp,
-                color: MyColors.pnbcolorPrimary,
+                color: MyColors.hyperlinkcolornew,
                 decoration: TextDecoration.underline,
                 fontFamily: MyFont.Roboto_Regular,
               ),
@@ -974,7 +1061,18 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
                   children: [
                     DisbursedCard(
                       sharedInvoice: disbursed_invoice?[index],
-                      bottomWidget: buildOutStandingBottomWidget(),
+                      bottomWidget: Padding(
+                        padding: EdgeInsets.only(bottom: 15.h),
+                        child: Text(
+                          "Contact support",
+                          style: ThemeHelper.getInstance()!.textTheme.headline6!.copyWith(
+                                fontSize: 12.sp,
+                                color: MyColors.hyperlinkcolornew,
+                                decoration: TextDecoration.underline,
+                                fontFamily: MyFont.Roboto_Regular,
+                              ),
+                        ),
+                      ),
                     ),
                     SizedBox(
                       height: 15.h,
