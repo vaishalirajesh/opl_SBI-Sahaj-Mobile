@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,12 +7,14 @@ import 'package:gstmobileservices/common/keys.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
 import 'package:gstmobileservices/model/requestmodel/get_yono_redirection_url.dart';
 import 'package:gstmobileservices/model/responsemodel/get_yono_redirection_url_response.dart';
+import 'package:gstmobileservices/service/request/tg_post_request.dart';
+import 'package:gstmobileservices/service/requtilization.dart';
 import 'package:gstmobileservices/service/response/tg_response.dart';
 import 'package:gstmobileservices/service/service_managers.dart';
+import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/erros_handle_util.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
-import 'package:gstmobileservices/util/tg_view.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusConstants.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -35,7 +39,7 @@ class _BackToHomeState extends State<BackToHome> {
       ),
       title: Text('Back to Home', style: ThemeHelper.getInstance()?.textTheme.headline3),
       onTap: () {
-        TGView.showSnackBar(context: context, message: "Coming soon");
+        onpPressGetURL();
       },
     );
   }
@@ -52,8 +56,10 @@ class _BackToHomeState extends State<BackToHome> {
 
   Future<void> getYonoRedirectionURL() async {
     GetYonoRedirectionURLRequest sBILogoutRequest = GetYonoRedirectionURLRequest();
+    var jsonReq = jsonEncode(sBILogoutRequest.toJson());
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_SBI_REDIRECT_YONO);
     ServiceManager.getInstance().getYonoRedirectionURL(
-        request: sBILogoutRequest,
+        request: tgPostRequest,
         onSuccess: (response) => _onSuccessSaveConsent(response),
         onError: (errorResponse) => _onErrorSaveConsent(errorResponse));
   }
