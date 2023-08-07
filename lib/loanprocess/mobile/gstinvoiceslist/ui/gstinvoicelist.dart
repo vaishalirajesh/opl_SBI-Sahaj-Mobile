@@ -79,7 +79,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
   String? loanApplicationID;
   List<GstInvoiceDataObj> foundUser = [];
   var sortList = [
-    "Invoice Date: Latest - Oldest",
+    "Invoice Date: Latest - Oldest (Default)",
     "Invoice Date: Oldest - Latest",
     "Buyer's Name: A - Z",
     "Buyer's Name: Z - A",

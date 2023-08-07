@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:sbi_sahay_1_0/loanprocess/mobile/profile/ui/contactsupport/contactlendersupport/ui/contact_support_sub.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/constants/imageconstant.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -235,75 +234,5 @@ class ContactSupportMainBody extends State<ContactSupportMains> {
           )),
     );
     ;
-  }
-
-  _buildOnlyContactLenderContainer() {
-    return GestureDetector(
-      onTap: () {},
-      child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-          child: Container(
-            decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    blurRadius: 3.0,
-                  )
-                ],
-                border: Border.all(color: ThemeHelper.getInstance()!.cardColor, width: 1),
-                color: ThemeHelper.getInstance()?.backgroundColor,
-                borderRadius: BorderRadius.all(Radius.circular(8.r))),
-            // width: 335.w,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.0.w),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  _buildTopDetilssContactLender(),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                ],
-              ),
-            ),
-          )),
-    );
-  }
-
-  _buildTopDetilssContactLender() {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ContactSupportSubScreen(),
-          ),
-        );
-      },
-      child: Padding(
-        padding: EdgeInsets.all(5.r),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-                child: Text(
-              "Contact Lender Support Team",
-              style: ThemeHelper.getInstance()!.textTheme.headline2?.copyWith(fontSize: 14.sp, color: MyColors.black),
-            )),
-            Spacer(),
-            SvgPicture.asset(
-              AppUtils.path(MOBILETDASHBOARDARROWFORWARD),
-              height: 12.h,
-              width: 6.w,
-            )
-          ],
-        ),
-      ),
-    );
   }
 }
