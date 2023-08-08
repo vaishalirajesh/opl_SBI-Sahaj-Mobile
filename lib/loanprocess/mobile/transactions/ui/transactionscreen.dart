@@ -129,15 +129,17 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
               children: [
                 buildBottomPartAppBar(),
                 Expanded(
-                  child: TabBarView(
-                    controller: tabController,
-                    children: [
-                      buildTabView(fetchTranstaion()),
-                      buildTabView(overDueTransaction()),
-                      buildTabView(repaidTransaction()),
-                      buildTabView(disbursedTransaction()),
-                    ],
-                  ),
+                  child: Builder(builder: (context) {
+                    return TabBarView(
+                      controller: tabController,
+                      children: [
+                        buildTabView(fetchTranstaion()),
+                        buildTabView(overDueTransaction()),
+                        buildTabView(repaidTransaction()),
+                        buildTabView(disbursedTransaction()),
+                      ],
+                    );
+                  }),
                 ),
               ],
             ),
@@ -417,6 +419,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
         onPressed: () {
           _sortListById(selectedSortOption, setModelState);
           setModelState(() {});
+          setState(() {});
           Navigator.pop(context);
         },
         style: ElevatedButton.styleFrom(
@@ -530,78 +533,6 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
     }
     setOriginalList(setModelState);
   }
-
-  // void sortListById() {
-  //   TGLog.d("Index--------${tabController.index}--$arrInvoiceList");
-  //
-  //   switch (selectedSortOption) {
-  //     case 1:
-  //       setState(() {
-  //         arrInvoiceList?.sort((a, b) {
-  //           return AppUtils.convertDateFormat(a.invoiceDate, "dd-mm-yyyy", "yyyy-mm-dd")
-  //               .compareTo(AppUtils.convertDateFormat(b.invoiceDate, "dd-mm-yyyy", "yyyy-mm-dd"));
-  //         });
-  //       });
-  //       break;
-  //
-  //     case 0:
-  //       setState(() {
-  //         arrInvoiceList?.sort((a, b) {
-  //           return AppUtils.convertDateFormat(b.invoiceDate, "dd-mm-yyyy", "yyyy-mm-dd")
-  //               .compareTo(AppUtils.convertDateFormat(a.invoiceDate, "dd-mm-yyyy", "yyyy-mm-dd"));
-  //         });
-  //       });
-  //       break;
-  //
-  //     case 2:
-  //       setState(() {
-  //         arrInvoiceList?.sort((a, b) {
-  //           return a.buyerName.toString().toLowerCase().compareTo(b.buyerName.toString().toLowerCase());
-  //         });
-  //       });
-  //       break;
-  //
-  //     case 3:
-  //       setState(() {
-  //         arrInvoiceList?.sort((a, b) {
-  //           return b.buyerName.toString().toLowerCase().compareTo(a.buyerName.toString().toLowerCase());
-  //         });
-  //       });
-  //       break;
-  //
-  //     case 4:
-  //       setState(() {
-  //         arrInvoiceList?.sort((a, b) {
-  //           return (a.invoiceAmount ?? 0).compareTo(b.invoiceAmount ?? 0);
-  //         });
-  //       });
-  //       break;
-  //
-  //     case 5:
-  //       setState(() {
-  //         arrInvoiceList?.sort((a, b) {
-  //           return (b.invoiceAmount ?? 0).compareTo(a.invoiceAmount ?? 0);
-  //         });
-  //         arrInvoiceList?.reversed;
-  //       });
-  //       break;
-  //   }
-  //   switch (tabController.index) {
-  //     case 0:
-  //       outstanding_invoice = overdueInvoice;
-  //       break;
-  //     case 1:
-  //       overdueInvoice = arrInvoiceList;
-  //       break;
-  //     case 2:
-  //       repaidInvoice = arrInvoiceList;
-  //       break;
-  //     case 3:
-  //       disbursed_invoice = arrInvoiceList;
-  //       break;
-  //   }
-  //   setState(() {});
-  // }
 
   Widget SoryByListCardUI(int index, StateSetter setModelState) {
     return Padding(
@@ -776,57 +707,6 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
             FilteringTextInputFormatter.allow(RegExp("(?!^ +\$)^[a-zA-Z0-9 _]+\$"), replacementString: "")
           ]),
     );
-  }
-
-  Widget sortBar(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.withOpacity(0.3)),
-          borderRadius: BorderRadius.all(Radius.circular(5.r))),
-      height: 45.h,
-      width: 88.w,
-      child: TextButton(
-        onPressed: () {
-          btnFilter(context);
-        },
-        child: FittedBox(
-          child: Row(
-            children: [
-              Text(
-                'Sort by',
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline1!
-                    .copyWith(fontSize: 16.sp, color: Colors.grey.withOpacity(0.3)),
-              ),
-              const Icon(Icons.arrow_drop_down)
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  btnFilter(BuildContext context) {
-    return showModalBottomSheet(
-        backgroundColor: ThemeHelper.getInstance()!.backgroundColor,
-        context: context,
-        builder: (BuildContext context) {
-          return SizedBox(
-            height: 200.h,
-            child: const RadioListBuilder(
-              num: 20,
-            ),
-          );
-        },
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(25),
-            topRight: Radius.circular(25),
-          ),
-        ),
-        clipBehavior: Clip.antiAlias,
-        isScrollControlled: true);
   }
 
   //Api call
@@ -1185,56 +1065,6 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
           ),
         ),
       ),
-    );
-  }
-}
-
-Widget transactionCardMainUI(SharedInvoice? invoiceData) {
-  return Container(
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.all(
-        Radius.circular(12.r),
-      ),
-    ),
-  );
-}
-
-class RadioListBuilder extends StatefulWidget {
-  final int num;
-
-  const RadioListBuilder({super.key, required this.num});
-
-  @override
-  RadioListBuilderState createState() {
-    return RadioListBuilderState();
-  }
-}
-
-class RadioListBuilderState extends State<RadioListBuilder> {
-  int value = 0;
-  var items = [
-    'Invoice Date:Latest-Oldest(Default)',
-    'Invoice Date:Oldest-Latest',
-    'Buyer\'s Name: A-Z',
-    'Buyer\'s Name: Z-A',
-    'Amount:Low to High',
-    'Amount:High to Low',
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        return RadioListTile(
-          value: index,
-          activeColor: MyColors.pnbcolorPrimary,
-          groupValue: value,
-          onChanged: (ind) => setState(() => value = ind!),
-          title: Text(items[index]),
-        );
-      },
-      itemCount: items.length,
     );
   }
 }
