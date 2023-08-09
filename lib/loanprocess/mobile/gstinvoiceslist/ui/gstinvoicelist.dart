@@ -544,7 +544,7 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(height: 15.h),
+                  // SizedBox(height: 15.h),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -564,9 +564,9 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
                           ),
                         ),
                         // const Spacer(),
-                        GestureDetector(
+                        InkWell(
                           child: Padding(
-                            padding: EdgeInsets.only(right: 10.w, top: 10.h, bottom: 10.h, left: 10.w),
+                            padding: EdgeInsets.only(right: 15.w, top: 25.h, bottom: 10.h, left: 20.w),
                             child: SvgPicture.asset(
                               AppUtils.path(IMG_CLOSE_X),
                               height: 10.h,
@@ -576,6 +576,8 @@ class GstInvoceListState extends State<GstInvoiceScreen> {
                           ),
                           onTap: () {
                             Navigator.pop(context);
+                            setState(() {});
+                            setModelState(() {});
                           },
                         ),
                       ]),
