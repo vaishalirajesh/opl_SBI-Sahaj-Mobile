@@ -185,7 +185,7 @@ class LoaderUtils {
                         height: 15.h,
                       ),
                       Text(
-                        'It seems no lender has reverted with offer for your shared GST invoices. Request you to start new loan process once new GST return is filed.',
+                        'Lender has not reverted with offer for your shared GST invoices. Request you to start new loan process once new GST return is filed',
                         style: ThemeHelper.getInstance()?.textTheme.bodyText2,
                         textAlign: TextAlign.center,
                       ),
