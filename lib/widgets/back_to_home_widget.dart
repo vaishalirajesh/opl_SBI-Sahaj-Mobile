@@ -67,7 +67,7 @@ class _BackToHomeState extends State<BackToHome> {
 
   _onSuccessSaveConsent(GetYonoRedirectionURLResponse yonoResponse) async {
     TGLog.d("getYonoRedirectionURL() : Success---$yonoResponse");
-    if (yonoResponse.getYonoRedirectionURLObj().status == RES_SUCCESS) {
+    if (yonoResponse.getYonoRedirectionURLObj().status == RES_DETAILS_FOUND) {
       await TGSharedPreferences.getInstance().remove(PREF_ACCESS_TOKEN_SBI);
       var uri = Uri.https('https://uatyb.sbi/yonobusiness/yonolanding.htm');
       Map<String, String> requestBody = <String, String>{
