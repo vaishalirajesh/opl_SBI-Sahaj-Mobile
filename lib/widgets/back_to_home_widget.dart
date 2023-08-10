@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gstmobileservices/common/keys.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
@@ -15,6 +14,8 @@ import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/erros_handle_util.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
+import 'package:gstmobileservices/util/tg_view.dart';
+import 'package:http/http.dart' as http;
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusConstants.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -64,23 +65,34 @@ class _BackToHomeState extends State<BackToHome> {
         onError: (errorResponse) => _onErrorSaveConsent(errorResponse));
   }
 
-  _onSuccessSaveConsent(GetYonoRedirectionURLResponse response) async {
-    TGLog.d("sbiLogout() : Success---$response");
-    Navigator.pop(context);
-    if (response.getYonoRedirectionURLObj().status == RES_SUCCESS) {
-      TGLog.d("sbiLogout ---${response.getYonoRedirectionURLObj().referenceId}");
+  _onSuccessSaveConsent(GetYonoRedirectionURLResponse yonoResponse) async {
+    TGLog.d("getYonoRedirectionURL() : Success---$yonoResponse");
+    if (yonoResponse.getYonoRedirectionURLObj().status == RES_SUCCESS) {
       await TGSharedPreferences.getInstance().remove(PREF_ACCESS_TOKEN_SBI);
-      SystemNavigator.pop(animated: true);
+      var uri = Uri.https('https://uatyb.sbi/yonobusiness/yonolanding.htm');
+      Map<String, String> requestBody = <String, String>{
+        'checksum': yonoResponse.getYonoRedirectionURLObj().data?.hashString ?? '',
+        'data': yonoResponse.getYonoRedirectionURLObj().data?.data ?? '',
+        'channelId': yonoResponse.getYonoRedirectionURLObj().data?.channelId ?? '',
+      };
+      var request = http.MultipartRequest('POST', uri)..fields.addAll(requestBody);
+      var response = await request.send();
+      if (response.statusCode == 200) {
+        TGLog.d('Uploaded!');
+      } else {
+        TGView.showSnackBar(context: context, message: "Something went wrong");
+      }
     } else {
-      LoaderUtils.handleErrorResponse(
-          context, response?.getYonoRedirectionURLObj().status, response?.getYonoRedirectionURLObj().message, null);
+      LoaderUtils.handleErrorResponse(context, yonoResponse?.getYonoRedirectionURLObj().status,
+          yonoResponse?.getYonoRedirectionURLObj().message, null);
     }
-    setState(() {});
   }
 
   _onErrorSaveConsent(TGResponse errorResponse) {
-    TGLog.d("sbiLogout() : Error");
+    TGLog.d("getYonoRedirectionURL() : Error");
     setState(() {});
     handleServiceFailError(context, errorResponse.error);
   }
+
+  Future<void> callYonoAPI() async {}
 }

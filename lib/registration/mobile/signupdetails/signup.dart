@@ -30,6 +30,7 @@ import 'package:gstmobileservices/util/jumpingdot_util.dart';
 import 'package:gstmobileservices/util/showcustomesnackbar.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
+import 'package:sbi_sahay_1_0/logout/logout.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/dashboardwithoutgst/mobile/dashboardwithoutgst.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/gst_consent_of_gst/gst_consent_of_gst.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/verify_email_otp/verify_email_otp.dart';
@@ -45,6 +46,7 @@ import 'package:sbi_sahay_1_0/utils/progressLoader.dart';
 import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 import 'package:sbi_sahay_1_0/welcome/ntbwelcome/mobileui/enablegstapintb.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
+import 'package:sbi_sahay_1_0/widgets/back_to_home_widget.dart';
 import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
 
 import '../../../utils/constants/constant.dart';
@@ -173,6 +175,21 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(
+              height: 20.h,
+            ),
+            Container(
+              color: Colors.black12,
+              child: const BackToHome(),
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            Container(
+              color: Colors.black12,
+              padding: EdgeInsets.all(10.h),
+              child: const LogoutButton(),
+            ),
             SizedBox(
               height: 20.h,
             ),
