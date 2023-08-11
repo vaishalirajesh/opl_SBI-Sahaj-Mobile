@@ -69,13 +69,18 @@ class _BackToHomeState extends State<BackToHome> {
     TGLog.d("getYonoRedirectionURL() : Success---$yonoResponse");
     if (yonoResponse.getYonoRedirectionURLObj().status == RES_DETAILS_FOUND) {
       await TGSharedPreferences.getInstance().remove(PREF_ACCESS_TOKEN_SBI);
-      var uri = Uri.https('https://uatyb.sbi/yonobusiness/yonolanding.htm');
+      var uri = Uri.parse('https://uatyb.sbi/yonobusiness/yonolanding.htm');
       Map<String, String> requestBody = <String, String>{
         'checksum': yonoResponse.getYonoRedirectionURLObj().data?.hashString ?? '',
         'data': yonoResponse.getYonoRedirectionURLObj().data?.data ?? '',
         'channelId': yonoResponse.getYonoRedirectionURLObj().data?.channelId ?? '',
       };
-      var request = http.MultipartRequest('POST', uri)..fields.addAll(requestBody);
+      Map<String, String> header = <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded',
+      };
+      var request = http.MultipartRequest('POST', uri)
+        ..fields.addAll(requestBody)
+        ..headers.addAll(header);
       var response = await request.send();
       if (response.statusCode == 200) {
         TGLog.d('Uploaded!');
