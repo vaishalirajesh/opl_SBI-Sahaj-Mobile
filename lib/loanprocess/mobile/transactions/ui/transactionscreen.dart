@@ -13,9 +13,9 @@ import 'package:gstmobileservices/singleton/tg_session.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/data_format_utils.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
+import 'package:intl/intl.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/transactions/common_card/disbursed/disbursed_transaction.dart';
-import 'package:sbi_sahay_1_0/loanprocess/mobile/transactions/common_card/outstanding/outstanding_transaction.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/transactions/common_card/overdue/overdue_transaction.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/transactions/common_card/repaid/repaid_transaction.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
@@ -77,6 +77,16 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
   int selectedSortOption = 0;
   List<SharedInvoice>? arrInvoiceList = [];
   bool isDataChnaged = false;
+  var isOutstandingCardHide = true;
+  String createDueDate(String date) {
+    if (date.isNotEmpty) {
+      DateTime dt = DateTime.parse(date);
+      String formattedDate = DateFormat('MM/dd/yyyy').format(dt);
+      return formattedDate;
+    } else {
+      return '-';
+    }
+  }
 
   @override
   void initState() {
@@ -763,9 +773,26 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
                         ? shimmerLoader()
                         : Column(
                             children: [
-                              OutstandingCard(
-                                sharedInvoice: outstanding_invoice?[index],
-                                bottomWidget: buildOutStandingBottomWidget(),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: MyColors.pnbPinkColor,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(12.r),
+                                  ),
+                                ),
+                                child: Column(
+                                  children: [
+                                    // setOutstandingCardUI(),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isOutstandingCardHide = !isOutstandingCardHide;
+                                        });
+                                      },
+                                      child: setOutstandingCardUI(index: index),
+                                    ) //showHideCardViewUI()),
+                                  ],
+                                ),
                               ),
                               SizedBox(
                                 height: 15.h,
@@ -774,6 +801,273 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
                           );
                   },
                 ),
+        )
+      ],
+    );
+  }
+
+  Widget setOutstandingCardUI({required int index}) {
+    return Container(
+      decoration: BoxDecoration(
+        color: MyColors.white,
+        border: Border.all(color: MyColors.pnbTextcolor.withOpacity(0.1)),
+        borderRadius: BorderRadius.all(
+          Radius.circular(12.r),
+        ),
+      ),
+      child: Column(
+        children: [
+          isOutstandingCardHide
+              ? Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.w),
+                  child: setOutStandingCardView(index: index),
+                )
+              : setOutStandingCardBottomView(index: index),
+          //isCardHide ? Container() : setOutStandingCardBottomView()
+        ],
+      ),
+    );
+  }
+
+  Widget setOutStandingCardView({required int index}) {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          SizedBox(
+            height: 20.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      outstanding_invoice?[index].buyerName ?? '',
+                      style: ThemeHelper.getInstance()!.textTheme.headline5!.copyWith(
+                            fontSize: 14.sp,
+                            color: MyColors.pnbcolorPrimary,
+                          ),
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    Text(
+                      'Invoice: ${outstanding_invoice?[index]?.invoiceNumber}',
+                      style: ThemeHelper.getInstance()!
+                          .textTheme
+                          .headline4!
+                          .copyWith(fontSize: 12.sp, color: MyColors.pnbTextcolor),
+                    )
+                  ],
+                ),
+              ),
+              SvgPicture.asset(
+                !isOutstandingCardHide ? AppUtils.path(IMG_UP_ARROW) : AppUtils.path(IMG_DOWN_ARROW),
+                height: 20.h,
+                width: 20.w,
+              ),
+              // setDueDetailUi()
+            ],
+          ),
+          SizedBox(
+            height: 5.h,
+          ),
+          dividerUI(0.w),
+          SizedBox(
+            height: 8.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 3,
+                child: setAmountDueUi(index: index),
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //..Title Never Change
+                    Text(
+                      str_Due_date,
+                      style: ThemeHelper.getInstance()!.textTheme.overline!,
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    Text(
+                      createDueDate(outstanding_invoice?[0]?.dueDate ?? ''),
+                      style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
+                            fontSize: 14.sp,
+                            color: MyColors.darkblack,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //..Title Never Change
+                      Text(
+                        '',
+                        style: ThemeHelper.getInstance()!.textTheme.overline!,
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Text(
+                        "Due in ${outstanding_invoice?[index]?.dueDays ?? '0'} ${int.parse(outstanding_invoice?[index]?.dueDays ?? "0") < 1 ? "Day" : "Days"}",
+                        style: ThemeHelper.getInstance()!.textTheme.headline4!.copyWith(
+                              fontSize: 12.sp,
+                              color: AppUtils.getBgColorByTransactionStatus(str_Outstanding),
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 15.h,
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget setOutStandingCardBottomView({required int index}) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15.w),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          setOutStandingCardView(index: index),
+          dividerUI(0.w),
+          SizedBox(
+            height: 10.h,
+          ),
+          setRowColumValueOpenCard("Disbursed On", createDueDate(outstanding_invoice?[0]?.disbursedDate ?? '') ?? '-',
+              "Lender", AppUtils.getBankFullName(bankName: outstanding_invoice?[0]?.bankName ?? '')),
+          setRowColumValueOpenCard(
+              "Invoice Date",
+              AppUtils.createInvoiceDate(outstanding_invoice?[0]?.invoiceDate ?? '') ?? '-',
+              "ROI",
+              '${outstanding_invoice?[0]?.interestRate.toString() ?? "" + " % p.a"}% p.a.' ?? '-'),
+          setRowColumValueOpenCard(
+              "Loan Amount",
+              AppUtils.convertIndianCurrency(outstanding_invoice?[0]?.loanAmount?.toString()) ?? '0',
+              "Invoice Amount",
+              AppUtils.convertIndianCurrency(outstanding_invoice?[0]?.invoiceAmount?.toString()) ?? '0'),
+          setRowColumValueOpenCard(
+              "Tenure",
+              '${outstanding_invoice?[0]?.tenure ?? '0'} ${outstanding_invoice?[0]?.tenure == '0' ? 'Day' : 'Days'}',
+              "Interest Amount",
+              AppUtils.convertIndianCurrency(outstanding_invoice?[0]?.interestAmount?.toString()) ?? '0'),
+          buildOutStandingBottomWidget(),
+        ],
+      ),
+    );
+  }
+
+  Widget setRowColumValueOpenCard(String title, String value, String title2, String value2) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                // width: 66.w,
+                child: Text(
+                  title,
+                  style: ThemeHelper.getInstance()!.textTheme.overline!,
+                ),
+              ),
+              Text(
+                value,
+                style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
+                      fontSize: 14.sp,
+                      color: MyColors.darkblack,
+                    ),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+            ],
+          ),
+        ),
+        SizedBox(width: 40.w),
+        Expanded(
+          flex: 1,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title2, style: ThemeHelper.getInstance()!.textTheme.overline!),
+              // SizedBox(
+              //   height: 5.h,
+              // ),
+              Text(
+                value2,
+                style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
+                      fontSize: 14.sp,
+                      color: MyColors.darkblack,
+                    ),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget dividerUI(double padding) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: padding),
+      child: Divider(
+        color: MyColors.pnbGreyColor.withOpacity(0.2),
+      ),
+    );
+  }
+
+  Widget setAmountDueUi({required int index}) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          str_Amount_due,
+          style: ThemeHelper.getInstance()!.textTheme.overline!,
+        ),
+        SizedBox(
+          height: 5.h,
+        ),
+        Text(
+          AppUtils.convertIndianCurrency(outstanding_invoice?[index]?.amountDue?.toString()),
+          style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
+                fontSize: 14.sp,
+                color: MyColors.darkblack,
+              ),
         )
       ],
     );
@@ -989,6 +1283,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
                     return !isListLoaded
                         ? shimmerLoader()
                         : Column(
+                            // buildOverDueBottomWidget(),
                             children: [
                               OverDueCard(
                                 sharedInvoice: overdueInvoice?[index],
