@@ -76,6 +76,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
   List<bool> isSortByChecked = [true, false, false, false, false, false];
   int selectedSortOption = 0;
   List<SharedInvoice>? arrInvoiceList = [];
+  bool isDataChnaged = false;
 
   @override
   void initState() {
@@ -123,27 +124,17 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
           ),
           // backgroundColor: ThemeHelper.getInstance()?.colorScheme.primary,
           appBar: buildAppBar(),
-          body: SizedBox(
-            height: 1.sh,
-            child: Column(
+          body: Builder(builder: (context) {
+            return TabBarView(
+              controller: tabController,
               children: [
-                buildBottomPartAppBar(),
-                Expanded(
-                  child: Builder(builder: (context) {
-                    return TabBarView(
-                      controller: tabController,
-                      children: [
-                        buildTabView(fetchTranstaion()),
-                        buildTabView(overDueTransaction()),
-                        buildTabView(repaidTransaction()),
-                        buildTabView(disbursedTransaction()),
-                      ],
-                    );
-                  }),
-                ),
+                buildTabView(fetchTranstaion()),
+                buildTabView(overDueTransaction()),
+                buildTabView(repaidTransaction()),
+                buildTabView(disbursedTransaction()),
               ],
-            ),
-          ),
+            );
+          }),
         ),
       ),
     );
@@ -294,39 +285,34 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
       );
 
   Widget filterInvoiceButton() {
-    return SizedBox(
-      width: 95.w,
-      height: 40.h, //38,
-      child: ElevatedButton(
-          onPressed: () {
-            showDialog(
-              barrierDismissible: false,
-              context: context,
-              builder: (BuildContext context) {
-                return StatefulBuilder(builder: (BuildContext context, StateSetter setModelState) {
-                  return Center(child: buildSortByWidget(setModelState));
-                });
-              },
-            );
-          },
-          style: ElevatedButton.styleFrom(
-            shadowColor: Colors.transparent,
-            //foregroundColor: ThemeHelper.getInstance()!.colorScheme.onPrimary,
-            backgroundColor: ThemeHelper.getInstance()!.backgroundColor,
-            shape: const CircleBorder(),
-          ),
-          child: Row(
-            children: [
-              SvgPicture.asset(AppUtils.path(IMG_FILTER_INVOICE), height: 15.h, width: 15.w),
-              SizedBox(
-                width: 8.w,
-              ),
-              Text(
-                'Sort',
-                style: ThemeHelper.getInstance()?.textTheme.headline6,
-              )
-            ],
-          )),
+    return Padding(
+      padding: EdgeInsets.all(12.h),
+      child: InkWell(
+        onTap: () {
+          showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) {
+              return StatefulBuilder(builder: (BuildContext context, StateSetter setModelState) {
+                return Center(child: buildSortByWidget(setModelState));
+              });
+            },
+          );
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            SvgPicture.asset(AppUtils.path(IMG_FILTER_INVOICE), height: 15.h, width: 15.w),
+            SizedBox(
+              width: 8.w,
+            ),
+            Text(
+              'Sort',
+              style: ThemeHelper.getInstance()?.textTheme.headline6,
+            )
+          ],
+        ),
+      ),
     );
   }
 
@@ -349,7 +335,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(height: 15.h),
+                  SizedBox(height: 10.h),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -368,9 +354,9 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
                             ),
                           ),
                         ),
-                        GestureDetector(
+                        InkWell(
                           child: Padding(
-                            padding: EdgeInsets.all(10.r),
+                            padding: EdgeInsets.only(right: 15.w, top: 15.h, bottom: 10.h, left: 20.w),
                             child: SvgPicture.asset(
                               AppUtils.path(IMG_CLOSE_X),
                               height: 10.h,
@@ -418,9 +404,11 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
       child: ElevatedButton(
         onPressed: () {
           _sortListById(selectedSortOption, setModelState);
-          setModelState(() {});
-          setState(() {});
+          setOriginalList(setModelState);
+          isDataChnaged = !isDataChnaged;
           Navigator.pop(context);
+          setState(() {});
+          setModelState(() {});
         },
         style: ElevatedButton.styleFrom(
           shadowColor: Colors.transparent,
@@ -531,7 +519,6 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
         });
         break;
     }
-    setOriginalList(setModelState);
   }
 
   Widget SoryByListCardUI(int index, StateSetter setModelState) {
@@ -584,20 +571,19 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
   }
 
   buildBottomPartAppBar() => Padding(
-        padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 26.h),
+        padding: EdgeInsets.only(bottom: 20.h),
         child: SizedBox(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             mainAxisSize: MainAxisSize.min,
-            children: [searchBar(), filterInvoiceButton()],
+            children: [Expanded(child: searchBar()), filterInvoiceButton()],
           ),
         ),
       );
 
   Widget searchBar() {
     return SizedBox(
-      width: 250.w,
       height: 45.h,
       child: TextFormField(
           autofocus: false,
@@ -752,39 +738,45 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
   }
 
   Widget fetchTranstaion() {
-    if (outstanding_invoice?.isEmpty == true) {
-      return Center(
-        child: Text(
-          "No Data Found!",
-          style: ThemeHelper.getInstance()
-              ?.textTheme
-              .headline4
-              ?.copyWith(fontSize: 16.sp, fontFamily: MyFont.Nunito_Sans_Semi_bold),
-          textAlign: TextAlign.center,
-        ),
-      );
-    } else {
-      return ListView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.vertical,
-        itemCount: !isListLoaded ? 3 : outstanding_invoice?.length ?? 0,
-        itemBuilder: (context, index) {
-          return !isListLoaded
-              ? shimmerLoader()
-              : Column(
-                  children: [
-                    OutstandingCard(
-                      sharedInvoice: outstanding_invoice?[index],
-                      bottomWidget: buildOutStandingBottomWidget(),
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    )
-                  ],
-                );
-        },
-      );
-    }
+    return Column(
+      children: [
+        buildBottomPartAppBar(),
+        Text(isDataChnaged ? "Hello" : "Data chnaged"),
+        Expanded(
+          child: outstanding_invoice?.isEmpty == true
+              ? Center(
+                  child: Text(
+                    "No Data Found!",
+                    style: ThemeHelper.getInstance()
+                        ?.textTheme
+                        .headline4
+                        ?.copyWith(fontSize: 16.sp, fontFamily: MyFont.Nunito_Sans_Semi_bold),
+                    textAlign: TextAlign.center,
+                  ),
+                )
+              : ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: !isListLoaded ? 3 : outstanding_invoice?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    return !isListLoaded
+                        ? shimmerLoader()
+                        : Column(
+                            children: [
+                              OutstandingCard(
+                                sharedInvoice: outstanding_invoice?[index],
+                                bottomWidget: buildOutStandingBottomWidget(),
+                              ),
+                              SizedBox(
+                                height: 15.h,
+                              )
+                            ],
+                          );
+                  },
+                ),
+        )
+      ],
+    );
   }
 
   Widget buildOutStandingBottomWidget() {
@@ -882,126 +874,141 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
   }
 
   Widget repaidTransaction() {
-    if (repaidInvoice?.isEmpty == true) {
-      return Center(
-        child: Text(
-          "No Data Found!",
-          style: ThemeHelper.getInstance()
-              ?.textTheme
-              .headline4
-              ?.copyWith(fontSize: 16.sp, fontFamily: MyFont.Nunito_Sans_Semi_bold),
-          textAlign: TextAlign.center,
+    return Column(
+      children: [
+        buildBottomPartAppBar(),
+        Expanded(
+          child: repaidInvoice?.isEmpty == true
+              ? Center(
+                  child: Text(
+                    "No Data Found!",
+                    style: ThemeHelper.getInstance()
+                        ?.textTheme
+                        .headline4
+                        ?.copyWith(fontSize: 16.sp, fontFamily: MyFont.Nunito_Sans_Semi_bold),
+                    textAlign: TextAlign.center,
+                  ),
+                )
+              : ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: !isListLoaded ? 3 : repaidInvoice?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    return !isListLoaded
+                        ? shimmerLoader()
+                        : Column(
+                            children: [
+                              RepaidCard(
+                                sharedInvoice: repaidInvoice?[index],
+                                bottomWidget: buildRepaidBottomWidget(),
+                              ),
+                              SizedBox(
+                                height: 15.h,
+                              )
+                            ],
+                          );
+                  },
+                ),
         ),
-      );
-    } else {
-      return ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: !isListLoaded ? 3 : repaidInvoice?.length ?? 0,
-        itemBuilder: (context, index) {
-          return !isListLoaded
-              ? shimmerLoader()
-              : Column(
-                  children: [
-                    RepaidCard(
-                      sharedInvoice: repaidInvoice?[index],
-                      bottomWidget: buildRepaidBottomWidget(),
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    )
-                  ],
-                );
-        },
-      );
-    }
+      ],
+    );
   }
 
   Widget disbursedTransaction() {
-    if (disbursed_invoice?.isEmpty == true) {
-      return Center(
-        child: Text(
-          "No Data Found!",
-          style: ThemeHelper.getInstance()
-              ?.textTheme
-              .headline4
-              ?.copyWith(fontSize: 16.sp, fontFamily: MyFont.Nunito_Sans_Semi_bold),
-          textAlign: TextAlign.center,
-        ),
-      );
-    } else {
-      return ListView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.vertical,
-        itemCount: !isListLoaded ? 3 : disbursed_invoice?.length ?? 0,
-        itemBuilder: (context, index) {
-          return !isListLoaded
-              ? shimmerLoader()
-              : Column(
-                  children: [
-                    DisbursedCard(
-                      sharedInvoice: disbursed_invoice?[index],
-                      bottomWidget: Padding(
-                        padding: EdgeInsets.only(bottom: 15.h),
-                        child: Text(
-                          "Contact support",
-                          style: ThemeHelper.getInstance()!.textTheme.headline6!.copyWith(
-                                fontSize: 12.sp,
-                                color: MyColors.hyperlinkcolornew,
-                                decoration: TextDecoration.underline,
-                                fontFamily: MyFont.Roboto_Regular,
+    return Column(
+      children: [
+        buildBottomPartAppBar(),
+        Expanded(
+          child: disbursed_invoice?.isEmpty == true
+              ? Center(
+                  child: Text(
+                    "No Data Found!",
+                    style: ThemeHelper.getInstance()
+                        ?.textTheme
+                        .headline4
+                        ?.copyWith(fontSize: 16.sp, fontFamily: MyFont.Nunito_Sans_Semi_bold),
+                    textAlign: TextAlign.center,
+                  ),
+                )
+              : ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: !isListLoaded ? 3 : disbursed_invoice?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    return !isListLoaded
+                        ? shimmerLoader()
+                        : Column(
+                            children: [
+                              DisbursedCard(
+                                sharedInvoice: disbursed_invoice?[index],
+                                bottomWidget: Padding(
+                                  padding: EdgeInsets.only(bottom: 15.h),
+                                  child: Text(
+                                    "Contact support",
+                                    style: ThemeHelper.getInstance()!.textTheme.headline6!.copyWith(
+                                          fontSize: 12.sp,
+                                          color: MyColors.hyperlinkcolornew,
+                                          decoration: TextDecoration.underline,
+                                          fontFamily: MyFont.Roboto_Regular,
+                                        ),
+                                  ),
+                                ),
                               ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    )
-                  ],
-                );
-        },
-      );
-    }
+                              SizedBox(
+                                height: 15.h,
+                              )
+                            ],
+                          );
+                  },
+                ),
+        ),
+      ],
+    );
   }
 
   Widget overDueTransaction() {
-    if (overdueInvoice?.isEmpty == true) {
-      return Center(
-          child: Text(
-        "No Data Found!",
-        style: ThemeHelper.getInstance()
-            ?.textTheme
-            .headline4
-            ?.copyWith(fontSize: 16.sp, fontFamily: MyFont.Nunito_Sans_Semi_bold),
-        textAlign: TextAlign.center,
-      ));
-    } else {
-      return ListView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.vertical,
-        itemCount: !isListLoaded ? 3 : overdueInvoice?.length ?? 0,
-        itemBuilder: (context, index) {
-          return !isListLoaded
-              ? shimmerLoader()
-              : Column(
-                  children: [
-                    OverDueCard(
-                      sharedInvoice: overdueInvoice?[index],
-                      bottomWidget: buildOverDueBottomWidget(),
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    )
-                  ],
-                );
-        },
-      );
-    }
+    return Column(
+      children: [
+        buildBottomPartAppBar(),
+        Expanded(
+          child: overdueInvoice?.isEmpty == true
+              ? Center(
+                  child: Text(
+                  "No Data Found!",
+                  style: ThemeHelper.getInstance()
+                      ?.textTheme
+                      .headline4
+                      ?.copyWith(fontSize: 16.sp, fontFamily: MyFont.Nunito_Sans_Semi_bold),
+                  textAlign: TextAlign.center,
+                ))
+              : ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: !isListLoaded ? 3 : overdueInvoice?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    return !isListLoaded
+                        ? shimmerLoader()
+                        : Column(
+                            children: [
+                              OverDueCard(
+                                sharedInvoice: overdueInvoice?[index],
+                                bottomWidget: buildOverDueBottomWidget(),
+                              ),
+                              SizedBox(
+                                height: 15.h,
+                              )
+                            ],
+                          );
+                  },
+                ),
+        ),
+      ],
+    );
   }
 
   Widget shimmerLoader() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
+      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
       child: Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
@@ -1042,7 +1049,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
               ),
               Divider(
                 thickness: 1,
-                color: MyColors.pnbWelcomeDivider,
+                color: MyColors.pnbCheckBoxcolor,
               ),
               SizedBox(
                 height: 10.h,
