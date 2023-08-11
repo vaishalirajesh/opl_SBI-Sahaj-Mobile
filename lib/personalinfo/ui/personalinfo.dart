@@ -185,9 +185,7 @@ class ProfileDataState extends State<ProfileData> {
           children: [
             buildRow("GST Username", businessName),
             buildRow("GSTIN", gstinNumber),
-            buildRow("Father’s Name", "-"),
             buildRow("Phone Number", mobileNumber, isShowIcon: true),
-            buildRow("Application", "-"),
           ],
         ),
       ),
