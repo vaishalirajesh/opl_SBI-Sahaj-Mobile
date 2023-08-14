@@ -41,7 +41,8 @@ dependencies:
     git:
       url: https://github.com/capitawrld/gstsahaymobileappservice.git
       ref: main
-
+  http_interceptor: ^1.0.2
+  dio: ^5.3.2
   #Encryption Dependency
   flutter_svg: ^1.1.5
   numeric_keyboard: ^1.1.0

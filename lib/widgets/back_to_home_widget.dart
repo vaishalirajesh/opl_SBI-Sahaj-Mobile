@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gstmobileservices/common/keys.dart';
@@ -15,7 +16,6 @@ import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/erros_handle_util.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:gstmobileservices/util/tg_view.dart';
-import 'package:http/http.dart' as http;
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusConstants.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
@@ -69,20 +69,16 @@ class _BackToHomeState extends State<BackToHome> {
     TGLog.d("getYonoRedirectionURL() : Success---$yonoResponse");
     if (yonoResponse.getYonoRedirectionURLObj().status == RES_DETAILS_FOUND) {
       await TGSharedPreferences.getInstance().remove(PREF_ACCESS_TOKEN_SBI);
-      var uri = Uri.parse('https://uatyb.sbi/yonobusiness/yonolanding.htm');
+      final dio = Dio();
       Map<String, String> requestBody = <String, String>{
         'checksum': yonoResponse.getYonoRedirectionURLObj().data?.hashString ?? '',
         'data': yonoResponse.getYonoRedirectionURLObj().data?.data ?? '',
         'channelId': yonoResponse.getYonoRedirectionURLObj().data?.channelId ?? '',
       };
-      Map<String, String> header = <String, String>{
-        'Content-Type': 'application/x-www-form-urlencoded',
-      };
-      var request = http.MultipartRequest('POST', uri)
-        ..fields.addAll(requestBody)
-        ..headers.addAll(header);
-      var response = await request.send();
-      if (response.statusCode == 200) {
+      dio.options.contentType = Headers.formUrlEncodedContentType;
+      final rs = await dio.post("https://uatyb.sbi/yonobusiness/yonolanding.htm",
+          options: Options(contentType: Headers.formUrlEncodedContentType), data: FormData.fromMap(requestBody));
+      if (rs.statusCode == 200) {
         TGLog.d('Uploaded!');
       } else {
         TGView.showSnackBar(context: context, message: "Something went wrong");

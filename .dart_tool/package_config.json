@@ -3,15 +3,15 @@
   "packages": [
     {
       "name": "_fe_analyzer_shared",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-61.0.0",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-63.0.0",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "3.0"
     },
     {
       "name": "analyzer",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/analyzer-5.13.0",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/analyzer-6.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "archive",
@@ -27,9 +27,9 @@
     },
     {
       "name": "asn1lib",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/asn1lib-1.4.1",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/asn1lib-1.5.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
     },
     {
       "name": "async",
@@ -51,9 +51,9 @@
     },
     {
       "name": "build",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/build-2.4.0",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/build-2.4.1",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.19"
     },
     {
       "name": "build_config",
@@ -129,13 +129,19 @@
     },
     {
       "name": "dart_style",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/dart_style-2.3.1",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/dart_style-2.3.2",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
     {
       "name": "dbus",
       "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/dbus-0.7.8",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
+      "name": "dio",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/dio-5.3.2",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
@@ -153,9 +159,9 @@
     },
     {
       "name": "ffi",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/ffi-2.0.2",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/ffi-2.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "3.0"
     },
     {
       "name": "file",
@@ -177,9 +183,9 @@
     },
     {
       "name": "flutter_lints",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/flutter_lints-2.0.1",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/flutter_lints-2.0.2",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "flutter_screenutil",
@@ -231,7 +237,7 @@
     },
     {
       "name": "gstmobileservices",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/git/gstsahaymobileappservice-c2d5df41caaf7157c531619870fd3cd5d00f47f2/",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/git/gstsahaymobileappservice-a6d2acb5a19dfab0c8c1c4526018044844cf6b4b/",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -246,6 +252,12 @@
       "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/http-0.13.6",
       "packageUri": "lib/",
       "languageVersion": "2.19"
+    },
+    {
+      "name": "http_interceptor",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/http_interceptor-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "http_parser",
@@ -279,15 +291,15 @@
     },
     {
       "name": "json_serializable",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/json_serializable-6.6.2",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/json_serializable-6.7.1",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "lints",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/lints-2.0.1",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/lints-2.1.1",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "3.0"
     },
     {
       "name": "loading_animation_widget",
@@ -369,31 +381,31 @@
     },
     {
       "name": "path_provider_linux",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/path_provider_linux-2.1.11",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "path_provider_platform_interface",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/path_provider_platform_interface-2.0.6",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/path_provider_platform_interface-2.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.18"
     },
     {
       "name": "path_provider_windows",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/path_provider_windows-2.1.7",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/path_provider_windows-2.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "petitparser",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/petitparser-5.1.0",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/petitparser-5.4.0",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.19"
     },
     {
       "name": "pinput",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/pinput-2.2.31",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/pinput-3.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
@@ -405,9 +417,9 @@
     },
     {
       "name": "plugin_platform_interface",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.4",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.5",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "pointer_interceptor",
@@ -418,12 +430,6 @@
     {
       "name": "pointycastle",
       "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/pointycastle-3.7.3",
-      "packageUri": "lib/",
-      "languageVersion": "2.14"
-    },
-    {
-      "name": "process",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/process-4.2.4",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -459,45 +465,45 @@
     },
     {
       "name": "shared_preferences",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/shared_preferences-2.1.2",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/shared_preferences-2.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "shared_preferences_android",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/shared_preferences_android-2.1.4",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/shared_preferences_android-2.2.0",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "shared_preferences_foundation",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.2.2",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.3.2",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "shared_preferences_linux",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/shared_preferences_linux-2.2.0",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/shared_preferences_linux-2.3.0",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "shared_preferences_platform_interface",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/shared_preferences_platform_interface-2.2.0",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/shared_preferences_platform_interface-2.3.0",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "shared_preferences_web",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/shared_preferences_web-2.1.0",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/shared_preferences_web-2.2.0",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "shared_preferences_windows",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/shared_preferences_windows-2.2.0",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/shared_preferences_windows-2.3.0",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "shimmer",
@@ -513,21 +519,21 @@
     },
     {
       "name": "smart_auth",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/smart_auth-1.0.8",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/smart_auth-1.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
     {
       "name": "source_gen",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/source_gen-1.3.2",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/source_gen-1.4.0",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "3.0"
     },
     {
       "name": "source_helper",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/source_helper-1.3.3",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/source_helper-1.3.4",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.19"
     },
     {
       "name": "source_span",
@@ -591,9 +597,9 @@
     },
     {
       "name": "universal_io",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/universal_io-2.2.0",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/universal_io-2.2.2",
       "packageUri": "lib/",
-      "languageVersion": "2.15"
+      "languageVersion": "2.17"
     },
     {
       "name": "universal_platform",
@@ -603,13 +609,13 @@
     },
     {
       "name": "url_launcher",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/url_launcher-6.1.11",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/url_launcher-6.1.12",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "3.0"
     },
     {
       "name": "url_launcher_android",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.36",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.38",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -627,9 +633,9 @@
     },
     {
       "name": "url_launcher_macos",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/url_launcher_macos-3.0.5",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/url_launcher_macos-3.0.6",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "url_launcher_platform_interface",
@@ -639,15 +645,15 @@
     },
     {
       "name": "url_launcher_web",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/url_launcher_web-2.0.17",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/url_launcher_web-2.0.18",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "url_launcher_windows",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/url_launcher_windows-3.0.6",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/url_launcher_windows-3.0.7",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "url_strategy",
@@ -669,9 +675,9 @@
     },
     {
       "name": "watcher",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/watcher-1.0.2",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/watcher-1.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "3.0"
     },
     {
       "name": "web_smooth_scroll",
@@ -717,21 +723,21 @@
     },
     {
       "name": "win32",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/win32-4.1.4",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/win32-5.0.6",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "3.0"
     },
     {
       "name": "xdg_directories",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/xdg_directories-1.0.0",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/xdg_directories-1.0.2",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "xml",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/xml-6.2.2",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/xml-6.3.0",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.19"
     },
     {
       "name": "yaml",
@@ -746,7 +752,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-08-10T07:11:08.620112Z",
+  "generated": "2023-08-14T05:03:47.438012Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }

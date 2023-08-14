@@ -754,11 +754,15 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             (route) => false);
       }
     } else {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => GstConsent(),
+          ),
+          (route) => false);
       setState(() {
         isLoaderStart = false;
       });
-      LoaderUtils.handleErrorResponse(
-          context, response?.getAllLoanDetailObj().status, response?.getAllLoanDetailObj().message, null);
     }
   }
 
