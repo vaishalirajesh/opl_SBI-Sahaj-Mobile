@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gstmobileservices/common/keys.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
 import 'package:gstmobileservices/model/requestmodel/get_yono_redirection_url.dart';
 import 'package:gstmobileservices/model/responsemodel/get_yono_redirection_url_response.dart';
@@ -12,15 +11,12 @@ import 'package:gstmobileservices/service/requtilization.dart';
 import 'package:gstmobileservices/service/response/tg_response.dart';
 import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/service/uris.dart';
-import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
 import 'package:gstmobileservices/util/erros_handle_util.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
-import 'package:gstmobileservices/util/tg_view.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusConstants.dart';
 import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/utils/internetcheckdialog.dart';
-import 'package:sbi_sahay_1_0/utils/progressLoader.dart';
 
 class BackToHome extends StatefulWidget {
   const BackToHome({Key? key}) : super(key: key);
@@ -68,24 +64,28 @@ class _BackToHomeState extends State<BackToHome> {
   _onSuccessSaveConsent(GetYonoRedirectionURLResponse yonoResponse) async {
     TGLog.d("getYonoRedirectionURL() : Success---$yonoResponse");
     if (yonoResponse.getYonoRedirectionURLObj().status == RES_DETAILS_FOUND) {
-      await TGSharedPreferences.getInstance().remove(PREF_ACCESS_TOKEN_SBI);
-      final dio = Dio();
       Map<String, String> requestBody = <String, String>{
         'checksum': yonoResponse.getYonoRedirectionURLObj().data?.hashString ?? '',
         'data': yonoResponse.getYonoRedirectionURLObj().data?.data ?? '',
         'channelId': yonoResponse.getYonoRedirectionURLObj().data?.channelId ?? '',
       };
-      dio.options.contentType = Headers.formUrlEncodedContentType;
-      final rs = await dio.post("https://uatyb.sbi/yonobusiness/yonolanding.htm",
-          options: Options(contentType: Headers.formUrlEncodedContentType), data: FormData.fromMap(requestBody));
-      if (rs.statusCode == 200) {
-        TGLog.d('Uploaded!');
-      } else {
-        TGView.showSnackBar(context: context, message: "Something went wrong");
-      }
+      Map<String, String> headers = {
+        "Access-Control-Allow-Origin": "https://gsts.uat.sbi/*",
+        "Access-Control-Allow-Methods": "POST",
+        "Access-Control-Allow-Headers": "Origin"
+      };
+      final dio = Dio();
+      const path = 'https://uatyb.sbi/yonobusiness/yonolanding.htm';
+      final response = await dio.post(path,
+          options: Options(contentType: Headers.formUrlEncodedContentType, headers: headers),
+          data: FormData.fromMap(requestBody));
+      TGLog.d(response.extra.toString());
+      TGLog.d(response.requestOptions.headers);
+      print(response.data); // {message: Success!}
     } else {
-      LoaderUtils.handleErrorResponse(context, yonoResponse?.getYonoRedirectionURLObj().status,
-          yonoResponse?.getYonoRedirectionURLObj().message, null);
+      if (context.mounted) {
+        showSnackBarForintenetConnection(context, getYonoRedirectionURL);
+      }
     }
   }
 

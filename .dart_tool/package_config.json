@@ -254,10 +254,10 @@
       "languageVersion": "2.19"
     },
     {
-      "name": "http_interceptor",
-      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/http_interceptor-1.0.2",
+      "name": "http_mock_adapter",
+      "rootUri": "file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/http_mock_adapter-0.4.4",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.15"
     },
     {
       "name": "http_parser",
@@ -752,7 +752,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-08-14T05:03:47.438012Z",
+  "generated": "2023-08-14T10:21:26.329392Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }

@@ -757,7 +757,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => GstConsent(),
+            builder: (BuildContext context) => DashboardWithoutGST(),
           ),
           (route) => false);
       setState(() {

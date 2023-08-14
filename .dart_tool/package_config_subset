@@ -154,10 +154,10 @@ http
 2.19
 file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/http-0.13.6/
 file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/http-0.13.6/lib/
-http_interceptor
-2.12
-file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/http_interceptor-1.0.2/
-file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/http_interceptor-1.0.2/lib/
+http_mock_adapter
+2.15
+file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/http_mock_adapter-0.4.4/
+file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/http_mock_adapter-0.4.4/lib/
 http_parser
 2.12
 file:///Users/vaishalipatel/.pub-cache/hosted/pub.dev/http_parser-4.0.2/

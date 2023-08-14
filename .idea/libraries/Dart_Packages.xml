@@ -296,10 +296,10 @@
             </list>
           </value>
         </entry>
-        <entry key="http_interceptor">
+        <entry key="http_mock_adapter">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/http_interceptor-1.0.2/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/http_mock_adapter-0.4.4/lib" />
             </list>
           </value>
         </entry>
@@ -912,7 +912,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/glob-2.1.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/html-0.15.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http-0.13.6/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http_interceptor-1.0.2/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http_mock_adapter-0.4.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http_parser-4.0.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/internet_connection_checker_plus-1.0.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/intl-0.17.0/lib" />
