@@ -1405,9 +1405,6 @@ class KfsScreenBody extends State<KfsScreens> {
       getLoanAppStatusAfterSelectLoanOffer();
     } else {
       showSnackBarForintenetConnection(context, getLoanAppStatusAfterSelectLoanOffer);
-      // setState(() {
-      //   isDataLoaded = false;
-      // });
     }
   }
 

@@ -30,7 +30,7 @@ class _LogoutButtonState extends State<LogoutButton> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        TGLog.d('Hello Logout');
+        TGLog.d('On Logout');
         _showFirstWaring(context);
       },
       child: Padding(

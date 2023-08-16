@@ -677,6 +677,8 @@ const str_try_again = 'Try Again';
 const str_sorry = 'Sorry!';
 const no_data_found = 'No user detail found';
 const consent_fail = 'Seems You have not linked the Current A/c. Kindly provide your consent to fetch bank data.';
+const unlinked_account_aggregator_msg =
+    'No current account linked from Account Aggregator. Please link SBI current account to Procced.';
 const aa_error_txt =
     'Seems You have Linked a Wrong Current A/c. Link Your Correct Current A/c or Retry with another Account Aggregator.';
 

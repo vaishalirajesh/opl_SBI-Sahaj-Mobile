@@ -28,7 +28,6 @@ import '../../../utils/constants/prefrenceconstants.dart';
 import '../../../utils/constants/statusConstants.dart';
 import '../../../utils/internetcheckdialog.dart';
 import '../../../utils/progressLoader.dart';
-import '../utils/constants/route_handler.dart';
 
 class AaCompletedPage extends StatefulWidget {
   const AaCompletedPage({required this.str, Key? key}) : super(key: key);
@@ -126,9 +125,6 @@ class _AaCompletedState extends State<AaCompletedPage> {
           _callConsentStatusReq();
         });
       }
-    } else if (response?.getRedirectionalUrlResObj().status == CONSENT_REJECTION) {
-      consentStatus = CONSENT_REJECTION;
-      _callConsentStatusReq();
     } else if (response?.getRedirectionalUrlResObj().status == UNKNOWN) {
       Navigator.pushAndRemoveUntil(
         context,
@@ -176,15 +172,8 @@ class _AaCompletedState extends State<AaCompletedPage> {
     if (response?.getConsentStatusResObj().status == RES_SUCCESS) {
       if (consentStatus == RES_SUCCESS) {
         _loanAppStatusAfterConsentStatus();
-      } else if (consentStatus == CONSENT_REJECTION) {
-        LoaderUtils.handleErrorResponse(context, consentStatus, response?.getConsentStatusResObj().message, null);
       } else {
-        navigationHandler(
-          bankName: TGFlavor.param("bankName"),
-          currentScreen: StringAssets.aaCompleted,
-          context: context,
-          isCommon: false,
-        );
+        LoaderUtils.handleErrorResponse(context, consentStatus, response?.getConsentStatusResObj().message, null);
       }
     } else if (response?.getConsentStatusResObj().status == UNKNOWN) {
       Navigator.pushAndRemoveUntil(

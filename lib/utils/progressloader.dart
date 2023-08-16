@@ -316,6 +316,14 @@ class LoaderUtils {
         ),
         (route) => false, //if you want to disable back feature set to false
       );
+    } else if (status == LOCALCONST.UNLINK_ACCOUNT_AGGREGATOR) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => const AAErrorScreen(msg: unlinked_account_aggregator_msg),
+        ),
+        (route) => false, //if you want to disable back feature set to false
+      );
     } else if (status == LOCALCONST.RES_RESTRICT_LOGIN) {
       TGSession.getInstance().set(SESSION_ERROR_MSG, message);
       Navigator.pushAndRemoveUntil(
