@@ -12,6 +12,7 @@ import 'package:gstmobileservices/service/response/tg_response.dart';
 import 'package:gstmobileservices/service/service_managers.dart';
 import 'package:gstmobileservices/service/uris.dart';
 import 'package:gstmobileservices/util/erros_handle_util.dart';
+import 'package:gstmobileservices/util/showcustomesnackbar.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusConstants.dart';
@@ -26,6 +27,8 @@ class BackToHome extends StatefulWidget {
 }
 
 class _BackToHomeState extends State<BackToHome> {
+  GetYonoRedirectionURLResponse redirectionResponse = GetYonoRedirectionURLResponse();
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -61,30 +64,16 @@ class _BackToHomeState extends State<BackToHome> {
         onError: (errorResponse) => _onErrorSaveConsent(errorResponse));
   }
 
-  _onSuccessSaveConsent(GetYonoRedirectionURLResponse yonoResponse) async {
+  Future<void> _onSuccessSaveConsent(GetYonoRedirectionURLResponse yonoResponse) async {
     TGLog.d("getYonoRedirectionURL() : Success---$yonoResponse");
+    redirectionResponse = yonoResponse;
     if (yonoResponse.getYonoRedirectionURLObj().status == RES_DETAILS_FOUND) {
-      Map<String, String> requestBody = <String, String>{
-        'checksum': yonoResponse.getYonoRedirectionURLObj().data?.hashString ?? '',
-        'data': yonoResponse.getYonoRedirectionURLObj().data?.data ?? '',
-        'channelId': yonoResponse.getYonoRedirectionURLObj().data?.channelId ?? '',
-      };
-      Map<String, String> headers = {
-        "Access-Control-Allow-Origin": "https://gsts.uat.sbi/*",
-        "Access-Control-Allow-Methods": "POST",
-        "Access-Control-Allow-Headers": "Origin"
-      };
-      final dio = Dio();
-      const path = 'https://uatyb.sbi/yonobusiness/yonolanding.htm';
-      final response = await dio.post(path,
-          options: Options(contentType: Headers.formUrlEncodedContentType, headers: headers),
-          data: FormData.fromMap(requestBody));
-      TGLog.d(response.extra.toString());
-      TGLog.d(response.requestOptions.headers);
-      print(response.data); // {message: Success!}
-    } else {
-      if (context.mounted) {
-        showSnackBarForintenetConnection(context, getYonoRedirectionURL);
+      if (await TGNetUtil.isInternetAvailable()) {
+        callYonoAPI(yonoResponse);
+      } else {
+        if (context.mounted) {
+          showSnackBarForIntenetConnectionWithArgs(context, callYonoAPI);
+        }
       }
     }
   }
@@ -95,5 +84,66 @@ class _BackToHomeState extends State<BackToHome> {
     handleServiceFailError(context, errorResponse.error);
   }
 
-  Future<void> callYonoAPI() async {}
+  Future<void> callYonoAPI(GetYonoRedirectionURLResponse yonoResponse) async {
+    Map<String, String> requestBody = <String, String>{
+      'checksum': yonoResponse.getYonoRedirectionURLObj().data?.hashString ?? '',
+      'data': yonoResponse.getYonoRedirectionURLObj().data?.data ?? '',
+      'channelId': yonoResponse.getYonoRedirectionURLObj().data?.channelId ?? '',
+    };
+    Map<String, String> headers = {
+      "Access-Control-Allow-Origin": "https://gsts.uat.sbi/*",
+      "Access-Control-Allow-Methods": "POST",
+      "Access-Control-Allow-Headers": "Origin",
+    };
+    final dio = Dio();
+    const path = 'https://uatyb.sbi/yonobusiness/yonolanding.htm';
+    final response = await dio.post(path,
+        options: Options(
+          headers: headers,
+          contentType: Headers.formUrlEncodedContentType,
+        ),
+        data: jsonEncode(requestBody));
+    TGLog.d(response.extra.toString());
+    TGLog.d(response.requestOptions.headers);
+    print(response.data);
+  }
+
+  void showSnackBarForIntenetConnectionWithArgs(
+      BuildContext context, Future<void> Function(GetYonoRedirectionURLResponse yonoResponse) apicall) async {
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("Retry"),
+      onPressed: () async {
+        if (await TGNetUtil.isInternetAvailable()) {
+          showSnackBar(context, "You are online now");
+          Navigator.of(context).pop(false);
+          apicall(redirectionResponse);
+        } else {
+          showSnackBar(context, "You are offline");
+        }
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Connectivity"),
+      content: Text("You are Offline.Please Turn on internet"),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return WillPopScope(
+            child: alert,
+            onWillPop: () async {
+              return false;
+            });
+      },
+    );
+  }
 }
