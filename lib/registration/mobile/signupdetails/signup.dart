@@ -684,6 +684,19 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
     } else if (_basicdetailsResponse?.status == RES_DETAILS_NOT_FOUND) {
       bool? isAPIAccess = await TGSharedPreferences.getInstance().get(CONSENT_TYPE_GST_API_ACCESS);
       if (isAPIAccess == false || isAPIAccess == null) {
+        TGSharedPreferences.getInstance().remove(PREF_AAID);
+        TGSharedPreferences.getInstance().remove(PREF_AACODE);
+        TGSharedPreferences.getInstance().remove(PREF_LOANAPPREFID);
+        TGSharedPreferences.getInstance().remove(PREF_LOANOFFER);
+        TGSharedPreferences.getInstance().remove(GET_ALLLIST);
+        TGSharedPreferences.getInstance().remove(PREF_AAURL);
+        TGSharedPreferences.getInstance().remove(PREF_AACALLBACKURL);
+        TGSharedPreferences.getInstance().remove(PREF_CONSENTTYPE);
+        TGSharedPreferences.getInstance().remove(PREF_CONSENT_AAID);
+        TGSharedPreferences.getInstance().remove(PREF_OFFERID);
+        TGSharedPreferences.getInstance().remove(PREF_LOANAPPID);
+        TGSharedPreferences.getInstance().remove(PREF_REPAYMENTPLANID);
+        TGSharedPreferences.getInstance().remove(PREF_CURRENT_STAGE);
         if (mounted) {
           Navigator.pushAndRemoveUntil(
               context,
