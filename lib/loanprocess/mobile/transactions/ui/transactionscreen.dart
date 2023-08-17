@@ -73,10 +73,10 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
   List<bool> isSortByChecked = [true, false, false, false, false, false];
   int selectedSortOption = 0;
   List<SharedInvoice>? arrInvoiceList = [];
-  var isOutstandingCardHide = true;
-  var isOverDueCardHide = true;
-  var isDisbursedCardHide = true;
-  var isRepaidCardHide = true;
+  List<bool> isOutstandingCardHide = [];
+  List<bool> isOverDueCardHide = [];
+  List<bool> isDisbursedCardHide = [];
+  List<bool> isRepaidCardHide = [];
 
   String createDueDate(String date) {
     if (date.isNotEmpty) {
@@ -726,6 +726,10 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
           disbursed_invoice = obj?.disbursedInvoice;
           repaidInvoice = obj?.repaidInvoice;
           overdueInvoice = obj?.overdueInvoice;
+          isOverDueCardHide = obj?.overdueInvoice?.map<bool>((v) => true).toList() ?? [];
+          isOutstandingCardHide = obj?.outstandingInvoice?.map<bool>((v) => true).toList() ?? [];
+          isDisbursedCardHide = obj?.disbursedInvoice?.map<bool>((v) => true).toList() ?? [];
+          isRepaidCardHide = obj?.repaidInvoice?.map<bool>((v) => true).toList() ?? [];
           isListLoaded = true;
           setSelectedList();
         });
@@ -784,7 +788,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
                                     GestureDetector(
                                       onTap: () {
                                         setState(() {
-                                          isOutstandingCardHide = !isOutstandingCardHide;
+                                          isOutstandingCardHide[index] = !isOutstandingCardHide[index];
                                         });
                                       },
                                       child: setOutstandingCardUI(index: index),
@@ -815,7 +819,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
       ),
       child: Column(
         children: [
-          isOutstandingCardHide
+          isOutstandingCardHide[index]
               ? Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: setOutStandingCardView(index: index),
@@ -864,7 +868,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
                 ),
               ),
               SvgPicture.asset(
-                !isOutstandingCardHide ? AppUtils.path(IMG_UP_ARROW) : AppUtils.path(IMG_DOWN_ARROW),
+                !isOutstandingCardHide[index] ? AppUtils.path(IMG_UP_ARROW) : AppUtils.path(IMG_DOWN_ARROW),
                 height: 20.h,
                 width: 20.w,
               ),
@@ -1204,7 +1208,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
                                     GestureDetector(
                                       onTap: () {
                                         setState(() {
-                                          isRepaidCardHide = !isRepaidCardHide;
+                                          isRepaidCardHide[index] = !isRepaidCardHide[index];
                                         });
                                       },
                                       child: setRepaidCardUI(index: index),
@@ -1235,7 +1239,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
       ),
       child: Column(
         children: [
-          isRepaidCardHide
+          isRepaidCardHide[index]
               ? Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: setRepaidCardView(index: index),
@@ -1284,7 +1288,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
                 ),
               ),
               SvgPicture.asset(
-                !isRepaidCardHide ? AppUtils.path(IMG_UP_ARROW) : AppUtils.path(IMG_DOWN_ARROW),
+                !isRepaidCardHide[index] ? AppUtils.path(IMG_UP_ARROW) : AppUtils.path(IMG_DOWN_ARROW),
                 height: 20.h,
                 width: 20.w,
               ),
@@ -1458,7 +1462,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
                                 GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      isDisbursedCardHide = !isDisbursedCardHide;
+                                      isDisbursedCardHide[index] = !isDisbursedCardHide[index];
                                     });
                                   },
                                   child: setDisbursedCardUI(index: index),
@@ -1484,7 +1488,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
       ),
       child: Column(
         children: [
-          isDisbursedCardHide
+          isDisbursedCardHide[index]
               ? Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: setDisbursedCardView(index: index),
@@ -1533,7 +1537,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
                 ),
               ),
               SvgPicture.asset(
-                !isDisbursedCardHide ? AppUtils.path(IMG_UP_ARROW) : AppUtils.path(IMG_DOWN_ARROW),
+                !isDisbursedCardHide[index] ? AppUtils.path(IMG_UP_ARROW) : AppUtils.path(IMG_DOWN_ARROW),
                 height: 20.h,
                 width: 20.w,
               ),
@@ -1720,7 +1724,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
                                     GestureDetector(
                                       onTap: () {
                                         setState(() {
-                                          isOverDueCardHide = !isOverDueCardHide;
+                                          isOverDueCardHide[index] = !isOverDueCardHide[index];
                                         });
                                       },
                                       child: setOverDueCardUI(index: index),
@@ -1752,7 +1756,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
       ),
       child: Column(
         children: [
-          isOverDueCardHide
+          isOverDueCardHide[index]
               ? Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: setOverDueCardView(index: index),
@@ -1801,7 +1805,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
                 ),
               ),
               SvgPicture.asset(
-                !isOverDueCardHide ? AppUtils.path(IMG_UP_ARROW) : AppUtils.path(IMG_DOWN_ARROW),
+                !isOverDueCardHide[index] ? AppUtils.path(IMG_UP_ARROW) : AppUtils.path(IMG_DOWN_ARROW),
                 height: 20.h,
                 width: 20.w,
               ),
