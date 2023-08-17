@@ -1255,7 +1255,6 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
 
   _onSuccessGetAllLoanDetailByRefId(GetAllLoanDetailByRefIdResponse? response) async {
     TGLog.d("RegisterResponse : onSuccess()--${response?.getAllLoanDetailObj()}");
-
     if (response?.getAllLoanDetailObj().status == RES_DETAILS_FOUND) {
       _getAllLoanDetailRes = response?.getAllLoanDetailObj();
       if (_getAllLoanDetailRes?.data?.isNotEmpty == true) {
@@ -1276,6 +1275,10 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
       } else {
         showSnackBarForintenetConnection(context, getRecentTransactionDetail);
       }
+    } else if (response?.getAllLoanDetailObj().status == RES_DETAILS_NOT_FOUND) {
+      setState(() {
+        isLoadData = true;
+      });
     } else {
       setState(() {
         isLoadData = true;
@@ -1311,6 +1314,10 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
         } else {
           isRecentTransactionEmpty = true;
         }
+        isLoadData = true;
+      });
+    } else if (response?.getRecentTransactionResObj().status == RES_DETAILS_NOT_FOUND) {
+      setState(() {
         isLoadData = true;
       });
     } else {
