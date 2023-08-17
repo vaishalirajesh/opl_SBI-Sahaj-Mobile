@@ -286,17 +286,12 @@ class VerifyGstOtpScreenState extends State<VerifyGstOtpScreen> {
         isClearOtp = false;
         isLoader = false;
       });
-    } else if (_gstOtpResponse?.status == RES_GST_APIDENIED || _gstOtpResponse?.status == UNKNOWN) {
-      TGView.showSnackBar(context: context, message: response?.getOtpReponseObj()?.message ?? "");
-      setState(() {
-        isClearOtp = false;
-        isLoader = false;
-      });
     } else {
       LoaderUtils.handleErrorResponse(
           context, response?.getOtpReponseObj().status, response?.getOtpReponseObj().message, null);
       setState(() {
-        HideLaoder();
+        isClearOtp = false;
+        isLoader = false;
       });
     }
 

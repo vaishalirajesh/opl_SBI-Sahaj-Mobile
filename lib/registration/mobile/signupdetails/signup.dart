@@ -30,6 +30,7 @@ import 'package:gstmobileservices/util/jumpingdot_util.dart';
 import 'package:gstmobileservices/util/showcustomesnackbar.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
+import 'package:sbi_sahay_1_0/registration/mobile/confirm_details/confirm_details.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/dashboardwithoutgst/mobile/dashboardwithoutgst.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/gst_consent_of_gst/gst_consent_of_gst.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/verify_email_otp/verify_email_otp.dart';
@@ -651,7 +652,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) => GstConsent(),
+                builder: (BuildContext context) => GstBasicDetails(),
               ),
               (route) => false);
         }
@@ -736,6 +737,13 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             ),
             (route) => false);
       }
+    } else if (_getAllLoanDetailRes?.status == RES_DETAILS_NOT_FOUND) {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => DashboardWithoutGST(),
+          ),
+          (route) => false);
     } else {
       setState(() {
         isLoaderStart = false;
