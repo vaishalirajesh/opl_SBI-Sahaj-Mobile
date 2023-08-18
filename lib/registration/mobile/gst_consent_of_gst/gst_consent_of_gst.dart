@@ -349,7 +349,6 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
     TGLog.d("SaveConsent() : Error");
     setState(() {
       _modalBottomSheetMenu();
-      isLoaderStart = false;
       handleServiceFailError(context, errorResponse.error);
     });
   }
@@ -432,13 +431,19 @@ class _GstConsentScreenState extends State<GstConsentScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: ElevatedButton(
-                  onPressed: onPressConsentButton,
+                  onPressed: onPressOk,
                   child: const Text(str_ok),
                 ),
               ),
             ],
           )),
     );
+  }
+
+  void onPressOk() {
+    isLoaderStart = false;
+    setState(() {});
+    Navigator.pop(context);
   }
 
   void onPressConsentButton() async {

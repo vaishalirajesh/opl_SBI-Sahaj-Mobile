@@ -785,7 +785,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
       userBasicDetailResponseMain = response.getBasicDetailObj();
       strEmail = userBasicDetailResponseMain?.data?.email ?? '';
       originalEmail = userBasicDetailResponseMain?.data?.email ?? '';
-      RegExp regex = new RegExp(pattern);
+      RegExp regex = RegExp(pattern);
       isValidEmail = regex.hasMatch(userBasicDetailResponseMain?.data?.email ?? '');
       strUserName = userBasicDetailResponseMain?.data?.firtName ?? 'TestUser';
       selectedGender = userBasicDetailResponseMain?.data?.gender ?? 'Male';
@@ -799,7 +799,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
       setState(() {});
     } else {
       LoaderUtils.handleErrorResponse(
-          context, response?.getBasicDetailObj().status, response?.getBasicDetailObj().message, null);
+          context, response.getBasicDetailObj().status, response.getBasicDetailObj().message, null);
     }
     isUserDataLoaded = true;
     setState(() {});
@@ -840,7 +840,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
       TGSession.getInstance().set(SESSION_OTPSESSIONKEY, getOtpResponse?.data);
       showSnackBar(context, "OTP send to your register email address");
     } else {
-      showSnackBar(context, getOtpResponse?.message ?? 'Error in get otp');
+      LoaderUtils.handleErrorResponse(
+          context, response.getOtpReponseObj().status, response.getOtpReponseObj().message, null);
     }
   }
 

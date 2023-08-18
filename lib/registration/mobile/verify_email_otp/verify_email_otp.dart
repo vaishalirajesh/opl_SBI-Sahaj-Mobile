@@ -20,7 +20,6 @@ import 'package:gstmobileservices/util/erros_handle_util.dart';
 import 'package:gstmobileservices/util/jumpingdot_util.dart';
 import 'package:gstmobileservices/util/showcustomesnackbar.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
-import 'package:gstmobileservices/util/tg_view.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:sbi_sahay_1_0/utils/Utils.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
@@ -344,7 +343,8 @@ class OTPVerifyEmailScreenState extends State<OTPVerifyEmailScreen> {
       isVerifyOTPLoaderStart = false;
       isClearOtp = true;
       setState(() {});
-      TGView.showSnackBar(context: context, message: response?.getOtpReponseObj().message ?? "");
+      LoaderUtils.handleErrorResponse(
+          context, response.getOtpReponseObj().status, response.getOtpReponseObj().message, null);
     }
   }
 

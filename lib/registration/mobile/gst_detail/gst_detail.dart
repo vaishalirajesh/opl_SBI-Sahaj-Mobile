@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
-import 'package:gstmobileservices/model/models/fetch_gst_data_res_main.dart';
 import 'package:gstmobileservices/model/models/get_gst_otp_res_main.dart';
 import 'package:gstmobileservices/model/requestmodel/get_gst_otp_request.dart';
 import 'package:gstmobileservices/model/responsemodel/get_gst_otp_response.dart';
@@ -39,11 +38,13 @@ import '../../../widgets/otp_textfield_widget.dart';
 import '../confirm_details/confirm_details.dart';
 
 class GstDetailMain extends StatelessWidget {
+  const GstDetailMain({super.key});
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return SafeArea(child: GstDetailScreen());
+        return const SafeArea(child: GstDetailScreen());
       },
     );
   }
@@ -58,42 +59,26 @@ class GstDetailScreen extends StatefulWidget {
 
 class _GstDetailScreenState extends State<GstDetailScreen> {
   GstOtpResponseMain? _gstOtpResponse;
-  GstOtpResponseMain? _verifyOtpResponse;
-
   TextEditingController gstUsernameController = TextEditingController();
   TextEditingController gstinNoController = TextEditingController();
-
   TextEditingController gstinOTPController = TextEditingController();
-
   bool isgstopshown = false;
-
   bool ispopupshow = false;
-
   bool isLoader = false;
   bool flag = false;
   bool isValidGSTUserName = false;
   bool isValidGSTINNumber = false;
-
-  String otp = '';
   bool isValidOTP = false;
-
   String firstletter = "";
   String secondletter = "";
   String thirdletter = "";
   String forthletter = "";
   String fifthletter = "";
   String sixthletter = "";
+  String otp = '';
   final List<FocusNode?> _focusNodes = List<FocusNode?>.filled(6, null, growable: false);
 
-  FetchGstDataResMain? _fetchGstDataResMain;
-
   bool isClearOtp = false;
-
-  @override
-  void initState() {
-    // pinController = TextEditingController(text: '');
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -186,18 +171,13 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
                 labelStyle: TextStyle(color: MyColors.lightGraySmallText),
                 labelText: str_GST_User_Name,
                 enabledBorder: UnderlineInputBorder(
-                  // borderRadius: BorderRadius.all(Radius.circular(6.r)),
                   borderSide: BorderSide(width: 1, color: ThemeHelper.getInstance()!.colorScheme.onSurface),
                 ),
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: ThemeHelper.getInstance()!.colorScheme.onSurface, width: 1.0),
-                  // borderRadius: BorderRadius.circular(6.0.r),
                 ),
-                // focusColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
-                // fillColor: ThemeHelper.getInstance()!.colorScheme.onSurface,
                 border: UnderlineInputBorder(
                   borderSide: BorderSide(width: 1, color: ThemeHelper.getInstance()!.colorScheme.onSurface),
-                  //borderRadius: BorderRadius.all(Radius.circular(6.r))
                 ),
                 counterText: '',
                 contentPadding: EdgeInsets.only(top: 5.h),
@@ -238,19 +218,15 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
           decoration: InputDecoration(
               labelStyle: TextStyle(color: MyColors.lightGraySmallText),
               labelText: str_15_Digit_GSTIN,
-              // hintText: str_15_Digit_GSTIN,
               contentPadding: EdgeInsets.only(top: 5.h),
               enabledBorder: UnderlineInputBorder(
-                //borderRadius: BorderRadius.all(Radius.circular(6.r)),
                 borderSide: BorderSide(width: 1, color: ThemeHelper.getInstance()!.colorScheme.onSurface),
               ),
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: ThemeHelper.getInstance()!.colorScheme.onSurface, width: 1.0),
-                //borderRadius: BorderRadius.circular(6.0.r),
               ),
               border: UnderlineInputBorder(
                 borderSide: BorderSide(width: 1, color: ThemeHelper.getInstance()!.colorScheme.onSurface),
-                //borderRadius: BorderRadius.all(Radius.circular(6.r))
               ),
               counterText: ''),
           keyboardType: TextInputType.text,
@@ -420,7 +396,6 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
   }
 
   void CheckValidGSTUserName() {
-    //final alphanumeric = RegExp(r'^.*[!&^%$#@*()/]+.*$');
     setState(() {
       if (gstUsernameController.text.isNotEmpty) {
         isValidGSTUserName = true;
@@ -468,7 +443,9 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
 
   void onPressNextButton() async {
     if (gstinNoController.text.isNotEmpty && gstUsernameController.text.isNotEmpty && isValidGSTINNumber) {
-      _isShowLoader();
+      setState(() {
+        isLoader = true;
+      });
       TGSharedPreferences.getInstance().set(PREF_GSTIN, gstinNoController.text);
       TGSharedPreferences.getInstance().set(PREF_PANNO, gstinNoController.text.substring(2, 12));
       if (await TGNetUtil.isInternetAvailable()) {
@@ -484,16 +461,11 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
   Future<void> getGstOtp() async {
     TGSession.getInstance().set("otp_gstin", gstinNoController.text);
     TGSession.getInstance().set("otp_GSTINUserName", gstUsernameController.text); //"";
-
     GstOtpRequest gstOtpRequest =
         GstOtpRequest(id: gstinNoController.text, userName: gstUsernameController.text, requestType: 'OTPREQUEST');
-
     var jsonReq = jsonEncode(gstOtpRequest.toJson());
-
     TGLog.d("GST OTP Request : $jsonReq");
-
     TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GET_GSTOTP);
-
     ServiceManager.getInstance().getGstOtp(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessGetGstOTP(response),
@@ -503,7 +475,6 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
   _onSuccessGetGstOTP(GstOtpRespose? response) {
     TGLog.d("RegisterResponse : onSuccess()");
     _gstOtpResponse = response?.getOtpReponseObj();
-
     if (_gstOtpResponse?.status == RES_SUCCESS) {
       TGSession.getInstance().set(SESSION_OTPSESSIONKEY, _gstOtpResponse?.data?.sessionKey);
       setState(() {
@@ -530,18 +501,6 @@ class _GstDetailScreenState extends State<GstDetailScreen> {
     setState(() {
       isLoader = false;
       handleServiceFailError(context, errorResponse.error);
-    });
-  }
-
-  void _isShowLoader() {
-    setState(() {
-      isLoader = true;
-    });
-  }
-
-  void _hideLaoder() {
-    setState(() {
-      isLoader = false;
     });
   }
 }

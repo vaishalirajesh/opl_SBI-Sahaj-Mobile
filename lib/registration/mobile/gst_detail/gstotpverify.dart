@@ -10,15 +10,10 @@ import 'package:gstmobileservices/model/models/get_gst_basic_details_res_main.da
 import 'package:gstmobileservices/model/models/get_loandetail_by_refid_res_main.dart';
 import 'package:gstmobileservices/model/models/get_otp_main.dart';
 import 'package:gstmobileservices/model/models/verify_otp_response_main.dart';
-import 'package:gstmobileservices/model/requestmodel/get_all_loan_detail_by_refid_request.dart';
-import 'package:gstmobileservices/model/requestmodel/get_gst_basic_details_request.dart';
 import 'package:gstmobileservices/model/requestmodel/get_otp_request.dart';
 import 'package:gstmobileservices/model/requestmodel/verify_gst_otp_request.dart';
-import 'package:gstmobileservices/model/responsemodel/get_all_loan_detail_by_refid_response.dart';
-import 'package:gstmobileservices/model/responsemodel/get_gst_basic_details_response.dart';
 import 'package:gstmobileservices/model/responsemodel/get_otp_response.dart';
 import 'package:gstmobileservices/model/responsemodel/verify_otp_response.dart';
-import 'package:gstmobileservices/service/request/tg_get_request.dart';
 import 'package:gstmobileservices/service/request/tg_post_request.dart';
 import 'package:gstmobileservices/service/requtilization.dart';
 import 'package:gstmobileservices/service/response/tg_response.dart';
@@ -31,10 +26,8 @@ import 'package:gstmobileservices/util/jumpingdot_util.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:pinput/pinput.dart';
-import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/confirm_details/confirm_details.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/gst_api_steps/gst_api_steps.dart';
-import 'package:sbi_sahay_1_0/routes.dart';
 import 'package:sbi_sahay_1_0/utils/colorutils/mycolors.dart';
 import 'package:sbi_sahay_1_0/utils/constants/prefrenceconstants.dart';
 import 'package:sbi_sahay_1_0/utils/constants/statusConstants.dart';
@@ -207,33 +200,25 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
                     SizedBox(
                       height: 16.h,
                     ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     Text(
-                    //       str_Didnt_received_OTP_yet,
-                    //       style: ThemeHelper.getInstance()!
-                    //           .textTheme
-                    //           .bodyText1!
-                    //           .copyWith(
-                    //               fontSize: 14.sp, color: MyColors.pnbGreyColor),
-                    //     ),
-                    //   ],
-                    // ),
                     SizedBox(
                       height: 10.h,
                     ),
                     GestureDetector(
                       onTap: isVerifyOTPLoaderStart || isGetOTPLoaderStart
                           ? null
-                          : () {
-                              // Navigator.pop(context);
+                          : () async {
                               setState(() {
                                 otp = '';
                                 isClearOtp = true;
                                 isGetOTPLoaderStart = true;
                               });
-                              getLoginOtp();
+                              if (await TGNetUtil.isInternetAvailable()) {
+                                getLoginOtp();
+                              } else {
+                                if (context.mounted) {
+                                  showSnackBarForintenetConnection(context, getLoginOtp);
+                                }
+                              }
                             },
                       child: Padding(
                         padding: EdgeInsets.only(right: 20.w, top: 10.h, bottom: 10.h, left: 10.w),
@@ -508,30 +493,21 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
   }
 
   void onPressVerifyButton() async {
-    setState(() {
-      if (isValidOTP) {
-        isVerifyOTPLoaderStart = true;
-      }
-    });
     if (isValidOTP) {
+      setState(() {
+        isVerifyOTPLoaderStart = true;
+      });
       if (await TGNetUtil.isInternetAvailable()) {
         verifyLoginOtp();
       } else {
         if (context.mounted) {
-          showSnackBarForintenetConnection(
-            context,
-            verifyLoginOtp,
-          );
+          showSnackBarForintenetConnection(context, verifyLoginOtp);
         }
       }
     }
   }
 
   Future<void> verifyLoginOtp() async {
-    setState(() {
-      isVerifyOTPLoaderStart = true;
-    });
-
     String otpSessionKey = TGSession.getInstance().get(SESSION_OTPSESSIONKEY);
     String strGSTIN = TGSession.getInstance().get("otp_gstin");
     VerifyGstOtpRequest verifyGstOtpRequest =
@@ -551,9 +527,7 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
 
   _onSuccessVerifyOtp(VerifyOtpResponse? response) {
     TGLog.d("VerifyOTP  GST OTP : onSuccess()");
-    isGetOTPLoaderStart = false;
     verifyOtpResponse = response?.getOtpReponseObj();
-
     if (verifyOtpResponse?.status == RES_SUCCESS) {
       TGSharedPreferences.getInstance().set(PREF_ACCESS_TOKEN, verifyOtpResponse?.data?.accessToken);
       setAccessTokenInRequestHeader();
@@ -564,12 +538,6 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
           builder: (context) => GstBasicDetails(),
         ),
       );
-    } else if (verifyOtpResponse?.status == RES_GST_APIDENIED) {
-      setState(() {
-        isVerifyOTPLoaderStart = false;
-      });
-      TGSharedPreferences.getInstance().set(PREF_ENABLE_POPUP, true);
-      showDialog(context: context, builder: (_) => PopUpViewForEnableApi());
     } else {
       setState(() {
         isVerifyOTPLoaderStart = false;
@@ -581,124 +549,7 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
 
   _onErrorVerifyOtp(TGResponse? response) {
     TGLog.d("Verify GST OTP : onError()");
-    // Navigator.pop(context);
     handleServiceFailError(context, response?.error);
-    setState(() {
-      isVerifyOTPLoaderStart = false;
-    });
-  }
-
-  Future<void> getGstBasicDetails() async {
-    await Future.delayed(const Duration(seconds: 2));
-    TGGetRequest tgGetRequest = GetGstBasicDetailsRequest();
-    ServiceManager.getInstance().getGstBasicDetails(
-        request: tgGetRequest,
-        onSuccess: (response) => _onSuccessGetGstBasicDetails(response),
-        onError: (error) => _onErrorGetGstBasicDetails(error));
-  }
-
-  _onSuccessGetGstBasicDetails(GetGstBasicDetailsResponse? response) {
-    TGLog.d("GetGstBasicDetailsResponse : onSuccess()");
-    setState(() {
-      isVerifyOTPLoaderStart = false;
-      _basicdetailsResponse = response?.getGstBasicDetailsRes();
-    });
-
-    if (_basicdetailsResponse?.status == RES_DETAILS_FOUND) {
-      if (_basicdetailsResponse?.data?.isNotEmpty == true) {
-        if (_basicdetailsResponse?.data?[0].isOtpVerified == true) {
-          if (_basicdetailsResponse?.data?[0]?.gstin?.isNotEmpty == true) {
-            gstin = _basicdetailsResponse!.data![0].gstin!;
-            if (_basicdetailsResponse!.data![0].gstin!.length >= 12) {
-              TGSharedPreferences.getInstance()
-                  .set(PREF_BUSINESSNAME, _basicdetailsResponse?.data?[0].gstBasicDetails?.tradeNam);
-              TGSharedPreferences.getInstance().set(PREF_GSTIN, _basicdetailsResponse?.data?[0].gstin);
-              TGSharedPreferences.getInstance().set(PREF_USERNAME, _basicdetailsResponse?.data?[0].username.toString());
-              TGSharedPreferences.getInstance()
-                  .set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin?.substring(2, 12));
-            } else {
-              TGSharedPreferences.getInstance().set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin);
-            }
-          }
-          TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
-          TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => const DashboardWithGST(),
-              ),
-              (route) => false);
-        } else {
-          Navigator.pushReplacementNamed(context, MyRoutes.confirmGSTDetailRoutes);
-        }
-      } else {
-        getUserLoanDetails();
-      }
-    } else if (_basicdetailsResponse?.status == RES_DETAILS_NOT_FOUND) {
-      setState(() {
-        isVerifyOTPLoaderStart = false;
-      });
-      Navigator.pushReplacementNamed(context, MyRoutes.confirmGSTDetailRoutes);
-    } else {
-      setState(() {
-        isVerifyOTPLoaderStart = false;
-      });
-      LoaderUtils.handleErrorResponse(
-          context, response?.getGstBasicDetailsRes().status, response?.getGstBasicDetailsRes().message, null);
-    }
-  }
-
-  _onErrorGetGstBasicDetails(TGResponse errorResponse) {
-    setState(() {
-      isVerifyOTPLoaderStart = false;
-    });
-    TGLog.d("GetGstBasicDetailsResponse : onError()");
-    handleServiceFailError(context, errorResponse.error);
-  }
-
-  Future<void> getUserLoanDetails() async {
-    TGGetRequest tgGetRequest = GetLoanDetailByRefIdReq();
-    ServiceManager.getInstance().getAllLoanDetailByRefId(
-        request: tgGetRequest,
-        onSuccess: (response) => _onSuccessGetAllLoanDetailByRefId(response),
-        onError: (error) => _onErrorGetAllLoanDetailByRefId(error));
-  }
-
-  _onSuccessGetAllLoanDetailByRefId(GetAllLoanDetailByRefIdResponse? response) {
-    TGLog.d("UserLoanDetailsResponse : onSuccess()");
-    setState(() {
-      isVerifyOTPLoaderStart = false;
-    });
-    _getAllLoanDetailRes = response?.getAllLoanDetailObj();
-
-    if (_getAllLoanDetailRes?.status == RES_SUCCESS) {
-      if (_getAllLoanDetailRes?.data?.isEmpty == true) {
-        Navigator.pushReplacementNamed(context, MyRoutes.confirmGSTDetailRoutes);
-      } else {
-        TGSharedPreferences.getInstance().set(PREF_GSTIN, _getAllLoanDetailRes?.data?[0].gstin);
-        TGSharedPreferences.getInstance().set(PREF_PANNO, _getAllLoanDetailRes?.data?[0].gstin?.substring(2, 12));
-        TGSharedPreferences.getInstance().set(PREF_ISGST_CONSENT, true);
-        TGSharedPreferences.getInstance().set(PREF_ISGSTDETAILDONE, true);
-
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => const DashboardWithGST(),
-            ),
-            (route) => false);
-      }
-    } else {
-      setState(() {
-        isVerifyOTPLoaderStart = false;
-      });
-      LoaderUtils.handleErrorResponse(
-          context, response?.getAllLoanDetailObj().status, response?.getAllLoanDetailObj().message, null);
-    }
-  }
-
-  _onErrorGetAllLoanDetailByRefId(TGResponse errorResponse) {
-    TGLog.d("UserLoanDetailsResponse : onError()");
-    handleServiceFailError(context, errorResponse.error);
     setState(() {
       isVerifyOTPLoaderStart = false;
     });
@@ -707,14 +558,10 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
   Future<void> getLoginOtp() async {
     String uuid = Uuid().v1().replaceAll("-", "").substring(0, 16);
     CredBlock credBlock = CredBlock(appToken: uuid, otp: "", otpSessionKey: "", status: "");
-
     RequestAuthUser requestAuthUser = RequestAuthUser(mobile: strMobile, credBlock: credBlock, deviceId: uuid);
     var jsonReq = jsonEncode(requestAuthUser.toJson());
-
     TGLog.d("Get GST OTP Request : $jsonReq");
-
     TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GETOTP);
-
     ServiceManager.getInstance().getotp(
         request: tgPostRequest,
         onSuccess: (response) => _onSuccessGetOTP(response),
@@ -723,18 +570,25 @@ class OtpVerifyGSTScreenState extends State<OtpVerifyGSTScreen> {
 
   _onSuccessGetOTP(GetotpResponse? response) {
     TGLog.d("Get GST OTP : onSuccess()");
-
-    showSnackBar();
-    setState(() {
-      getOtpRes = response?.getOtpReponseObj();
-      isGetOTPLoaderStart = false;
-      isClearOtp = false;
-    });
+    if (response?.getOtpReponseObj().status == RES_SUCCESS) {
+      showSnackBar();
+      setState(() {
+        getOtpRes = response?.getOtpReponseObj();
+        isGetOTPLoaderStart = false;
+        isClearOtp = false;
+      });
+    } else {
+      LoaderUtils.handleErrorResponse(
+          context, response?.getOtpReponseObj().status, response?.getOtpReponseObj().message, null);
+      setState(() {
+        isGetOTPLoaderStart = false;
+      });
+    }
   }
 
   _onErrorGetOTP(TGResponse errorResponse) {
     TGLog.d("Get GST OTP : onError()");
-    handleServiceFailError(context, errorResponse?.error);
+    handleServiceFailError(context, errorResponse.error);
     isGetOTPLoaderStart = false;
   }
 

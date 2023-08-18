@@ -150,13 +150,6 @@ class _GetStartedState extends State<GetStarted> {
   }
 
   void showMobileDialog() {
-    // Navigator.pushAndRemoveUntil(
-    //     context,
-    //     MaterialPageRoute(
-    //       builder: (BuildContext context) => const OfferExpireDialog(),
-    //     ),
-    //     (route) => false);
-    // return;
     isShowDialog = true;
     setState(() {});
   }
@@ -274,7 +267,7 @@ class _GetStartedState extends State<GetStarted> {
   Future<void> _autoLoginRequest() async {
     String? actulssMobielMumber = await TGSession.getInstance().get(SESSION_SSOMOBILE) ?? '';
     if (actulssMobielMumber!.isNotEmpty) {
-      ssomobileNumber = actulssMobielMumber!.substring(actulssMobielMumber.length - 10);
+      ssomobileNumber = actulssMobielMumber.substring(actulssMobielMumber.length - 10);
     }
     String? ssoemail = await TGSession.getInstance().get(SESSION_SSOEMAIL) ?? '';
     String? ssoaddress = await TGSession.getInstance().get(SESSION_SSOADDRESS) ?? '';
@@ -305,8 +298,8 @@ class _GetStartedState extends State<GetStarted> {
   _onSuccessAutoLogin(VerifyOtpResponse response) async {
     TGLog.d("AutoLoginResponse : onSuccess()");
 
-    if (response?.getOtpReponseObj()?.status == RES_SUCCESS) {
-      Utils.setAccessToken(TGFlavor.param("bankName"), response?.getOtpReponseObj().data?.accessToken);
+    if (response.getOtpReponseObj().status == RES_SUCCESS) {
+      Utils.setAccessToken(TGFlavor.param("bankName"), response.getOtpReponseObj().data?.accessToken);
       TGSharedPreferences.getInstance().set(PREF_MOBILE, ssomobileNumber.isNotEmpty ? ssomobileNumber : strMobile);
       setAccessTokenInRequestHeader();
       TGLog.d('Bank name--${TGFlavor.param("bankName")}');
@@ -321,7 +314,7 @@ class _GetStartedState extends State<GetStarted> {
         isLoaderStart = false;
       });
       LoaderUtils.handleErrorResponse(
-          context, response?.getOtpReponseObj().status ?? 0, response?.getOtpReponseObj()?.message ?? "", null);
+          context, response.getOtpReponseObj().status ?? 0, response.getOtpReponseObj().message ?? "", null);
     }
   }
 

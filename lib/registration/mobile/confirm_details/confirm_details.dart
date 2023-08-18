@@ -451,9 +451,7 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
 
   _onSuccessFetchGstDataStatus(FetchGstDataStatusResponse? response) async {
     TGLog.d("FetchGstDataStatus : onSuccess()");
-
     _fetchGstDataResMain = response?.getFetchGstDataObj();
-
     if (_fetchGstDataResMain?.status == RES_DETAILS_FOUND) {
       if (_fetchGstDataResMain?.data?.status == "PROCEED") {
         if (await TGNetUtil.isInternetAvailable()) {
@@ -489,7 +487,6 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
 
   Future<void> getGSTBasicsDetails() async {
     String gstin = await TGSharedPreferences.getInstance().get(PREF_GSTIN);
-
     GstBasicDataRequest getGstBasicDataRequest = GstBasicDataRequest(id: gstin);
     var jsonReq = jsonEncode(getGstBasicDataRequest.toJson());
     TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GST_BASIC_DATA);
@@ -511,9 +508,6 @@ class _GstBasicDetailsScreenState extends State<GstBasicDetailsScreen> {
         TGSharedPreferences.getInstance().set(PREF_USERSTATE, _gstBasicDataResMain?.data?.stcd.toString());
         setState(() {});
       });
-    } else if (response?.getFetchGstDataObj().status == RES_DETAILS_NOT_FOUND) {
-      LoaderUtils.handleErrorResponse(
-          context, response?.getFetchGstDataObj().status, response?.getFetchGstDataObj().message, null);
     } else {
       LoaderUtils.handleErrorResponse(
           context, response?.getFetchGstDataObj().status, response?.getFetchGstDataObj().message, null);

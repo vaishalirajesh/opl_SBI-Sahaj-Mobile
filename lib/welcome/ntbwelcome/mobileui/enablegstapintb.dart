@@ -425,7 +425,6 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
       });
       TGView.showSnackBar(context: context, message: response.saveConsentMainObj().message ?? "");
     } else {
-      // isButtonChecked.value = false;
       LoaderUtils.handleErrorResponse(
           context, response.saveConsentMainObj().status, response.saveConsentMainObj().message, null);
       setState(() {
@@ -470,11 +469,6 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
           builder: (context) => const StartRegistrationNtb(),
         ),
       );
-    } else if (response.saveConsentMainObj().status == RES_UNAUTHORISED) {
-      setState(() {
-        isLoaderStart = false;
-      });
-      TGView.showSnackBar(context: context, message: response.saveConsentMainObj().message ?? "");
     } else {
       LoaderUtils.handleErrorResponse(
           context, response.saveConsentMainObj().status, response.saveConsentMainObj().message, null);
@@ -485,7 +479,6 @@ class _EnableGstApiScreenState extends State<EnableGstApiScreen> {
   }
 
   _onErrorSaveConsent2(TGResponse errorResponse) {
-    isCheckFirst = false;
     setState(() {
       isLoaderStart = false;
     });
