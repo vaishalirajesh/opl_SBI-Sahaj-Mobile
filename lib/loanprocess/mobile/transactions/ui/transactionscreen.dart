@@ -73,10 +73,12 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
   List<bool> isSortByChecked = [true, false, false, false, false, false];
   int selectedSortOption = 0;
   List<SharedInvoice>? arrInvoiceList = [];
+  List<SharedInvoice>? serachList = [];
   List<bool> isOutstandingCardHide = [];
   List<bool> isOverDueCardHide = [];
   List<bool> isDisbursedCardHide = [];
   List<bool> isRepaidCardHide = [];
+  bool isUpdate = true;
 
   String createDueDate(String date) {
     if (date.isNotEmpty) {
@@ -95,8 +97,15 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
     getUserData();
     getLoansByReferenceId();
     tabController.addListener(() {
-      setSelectedList();
-      TGLog.d("On tab chnage listner----inde: ${tabController.index}---");
+      /// Take this temp var because
+      /// we are managing two tab with one controller
+      /// so prevent data from update two times we have added this condition
+      if (isUpdate) {
+        setSelectedList();
+        setState(() {});
+        TGLog.d("On tab chnage listner----inde: ${tabController.index}---");
+      }
+      isUpdate = !isUpdate;
     });
     super.initState();
   }
@@ -414,7 +423,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
       child: ElevatedButton(
         onPressed: () {
           _sortListById(selectedSortOption, setModelState);
-          setOriginalList(setModelState);
+          setOriginalList(index: tabController.index);
           Navigator.pop(context);
           setState(() {});
           setModelState(() {});
@@ -434,25 +443,29 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
   }
 
   void setSelectedList() {
-    switch (tabController.index) {
-      case 0:
-        arrInvoiceList = outstanding_invoice;
-        break;
-      case 1:
-        arrInvoiceList = overdueInvoice;
-        break;
-      case 2:
-        arrInvoiceList = repaidInvoice;
-        break;
-      case 3:
-        arrInvoiceList = disbursed_invoice;
-        break;
+    if (searchTextController.text.isEmpty) {
+      switch (tabController.index) {
+        case 0:
+          arrInvoiceList = outstanding_invoice;
+          break;
+        case 1:
+          arrInvoiceList = overdueInvoice;
+          break;
+        case 2:
+          arrInvoiceList = repaidInvoice;
+          break;
+        case 3:
+          arrInvoiceList = disbursed_invoice;
+          break;
+      }
+    } else {
+      setOriginalList(index: tabController.previousIndex);
     }
     setState(() {});
   }
 
-  void setOriginalList(StateSetter setModelState) {
-    switch (tabController.index) {
+  void setOriginalList({required int index}) {
+    switch (index) {
       case 0:
         outstanding_invoice = arrInvoiceList;
         break;
@@ -466,8 +479,8 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
         disbursed_invoice = arrInvoiceList;
         break;
     }
-    tabController.index = tabController.index;
-    setModelState(() {});
+    searchText = '';
+    searchTextController.text = '';
     setState(() {});
   }
 
@@ -606,9 +619,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
                 color: Colors.grey,
                 size: 15.h,
               ),
-              onTap: () {
-                Navigator.pop(context);
-              },
+              onTap: () {},
             ),
             focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey.withOpacity(0.3)),
@@ -623,85 +634,62 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
             hintText: 'Search',
             hintStyle: ThemeHelper.getInstance()?.textTheme.headline4?.copyWith(fontFamily: MyFont.Nunito_Sans_Regular),
           ),
-          onChanged: (searchValue) {
-            setState(() {
-              searchText = searchValue;
-              if (tabController.index == 0) {
-                outstanding_invoice
-                    ?.where((invoiceData) =>
-                        invoiceData.buyerName?.toLowerCase().contains(searchValue.toString().toLowerCase()) == true ||
-                        invoiceData.loanId?.toString().toLowerCase().contains(searchValue.toString().toLowerCase()) ==
-                            true ||
-                        invoiceData.loanAmount
-                                ?.toString()
-                                .toLowerCase()
-                                .contains(searchValue.toString().toLowerCase()) ==
-                            true ||
-                        invoiceData.invoiceAmount
-                                ?.toString()
-                                .toLowerCase()
-                                .contains(searchValue.toString().toLowerCase()) ==
-                            true)
-                    .toList();
-              } else if (tabController.index == 1) {
-                overdueInvoice
-                    ?.where((invoiceData) =>
-                        invoiceData.buyerName?.toLowerCase().contains(searchText.toString().toLowerCase()) == true ||
-                        invoiceData.loanId?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) ==
-                            true ||
-                        invoiceData.loanAmount
-                                ?.toString()
-                                .toLowerCase()
-                                .contains(searchText.toString().toLowerCase()) ==
-                            true ||
-                        invoiceData.invoiceAmount
-                                ?.toString()
-                                .toLowerCase()
-                                .contains(searchText.toString().toLowerCase()) ==
-                            true)
-                    .toList();
-              } else if (tabController.index == 2) {
-                repaidInvoice
-                    ?.where((invoiceData) =>
-                        invoiceData.buyerName?.toLowerCase().contains(searchText.toString().toLowerCase()) == true ||
-                        invoiceData.loanId?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) ==
-                            true ||
-                        invoiceData.loanAmount
-                                ?.toString()
-                                .toLowerCase()
-                                .contains(searchText.toString().toLowerCase()) ==
-                            true ||
-                        invoiceData.invoiceAmount
-                                ?.toString()
-                                .toLowerCase()
-                                .contains(searchText.toString().toLowerCase()) ==
-                            true)
-                    .toList();
-              } else if (tabController.index == 3) {
-                disbursed_invoice
-                    ?.where((invoiceData) =>
-                        invoiceData.buyerName?.toLowerCase().contains(searchText.toString().toLowerCase()) == true ||
-                        invoiceData.loanId?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) ==
-                            true ||
-                        invoiceData.loanAmount
-                                ?.toString()
-                                .toLowerCase()
-                                .contains(searchText.toString().toLowerCase()) ==
-                            true ||
-                        invoiceData.invoiceAmount
-                                ?.toString()
-                                .toLowerCase()
-                                .contains(searchText.toString().toLowerCase()) ==
-                            true)
-                    .toList();
-              }
-            });
-            setState(() {});
-          },
+          onChanged: onChangeSearchText,
           inputFormatters: [
             FilteringTextInputFormatter.allow(RegExp("(?!^ +\$)^[a-zA-Z0-9 _]+\$"), replacementString: "")
           ]),
     );
+  }
+
+  void onChangeSearchText(String searchValue) {
+    setState(() {
+      searchText = searchValue;
+      if (tabController.index == 0) {
+        serachList = arrInvoiceList
+            ?.where((invoiceData) =>
+                invoiceData.buyerName?.toLowerCase().contains(searchText.toString().toLowerCase()) == true ||
+                invoiceData.loanId?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) == true ||
+                invoiceData.loanAmount?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) ==
+                    true ||
+                invoiceData.invoiceAmount?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) ==
+                    true)
+            .toList();
+        outstanding_invoice = serachList;
+      } else if (tabController.index == 1) {
+        serachList = arrInvoiceList
+            ?.where((invoiceData) =>
+                invoiceData.buyerName?.toLowerCase().contains(searchText.toString().toLowerCase()) == true ||
+                invoiceData.loanId?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) == true ||
+                invoiceData.loanAmount?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) ==
+                    true ||
+                invoiceData.invoiceAmount?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) ==
+                    true)
+            .toList();
+        overdueInvoice = serachList;
+      } else if (tabController.index == 2) {
+        serachList = arrInvoiceList
+            ?.where((invoiceData) =>
+                invoiceData.buyerName?.toLowerCase().contains(searchText.toString().toLowerCase()) == true ||
+                invoiceData.loanId?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) == true ||
+                invoiceData.loanAmount?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) ==
+                    true ||
+                invoiceData.invoiceAmount?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) ==
+                    true)
+            .toList();
+        repaidInvoice = serachList;
+      } else if (tabController.index == 3) {
+        serachList = arrInvoiceList
+            ?.where((invoiceData) =>
+                invoiceData.buyerName?.toLowerCase().contains(searchText.toString().toLowerCase()) == true ||
+                invoiceData.loanId?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) == true ||
+                invoiceData.loanAmount?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) ==
+                    true ||
+                invoiceData.invoiceAmount?.toString().toLowerCase().contains(searchText.toString().toLowerCase()) ==
+                    true)
+            .toList();
+        disbursed_invoice = serachList;
+      }
+    });
   }
 
   //Api call
@@ -1898,7 +1886,7 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
           height: 5.h,
         ),
         Text(
-          AppUtils.convertIndianCurrency(outstanding_invoice?[index]?.amountDue?.toString()),
+          AppUtils.convertIndianCurrency(overdueInvoice?[index]?.amountDue?.toString()),
           style: ThemeHelper.getInstance()!.textTheme.overline!.copyWith(
                 fontSize: 14.sp,
                 color: MyColors.darkblack,
@@ -2016,5 +2004,12 @@ class _TranscationTabBarState extends State<TranscationTabBar> with SingleTicker
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    searchTextController.dispose();
+    tabController.dispose();
+    super.dispose();
   }
 }
