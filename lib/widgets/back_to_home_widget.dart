@@ -90,16 +90,11 @@ class _BackToHomeState extends State<BackToHome> {
       'data': yonoResponse.getYonoRedirectionURLObj().data?.data ?? '',
       'channelId': yonoResponse.getYonoRedirectionURLObj().data?.channelId ?? '',
     };
-    Map<String, String> headers = {
-      "Access-Control-Allow-Origin": "https://gsts.uat.sbi/*",
-      "Access-Control-Allow-Methods": "POST",
-      "Access-Control-Allow-Headers": "Origin",
-    };
+
     final dio = Dio();
     const path = 'https://uatyb.sbi/yonobusiness/yonolanding.htm';
     final response = await dio.post(path,
         options: Options(
-          headers: headers,
           contentType: Headers.formUrlEncodedContentType,
         ),
         data: jsonEncode(requestBody));
