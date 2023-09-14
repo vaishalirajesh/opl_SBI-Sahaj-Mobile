@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -28,6 +29,7 @@ import 'package:sbi_sahay_1_0/utils/strings/strings.dart';
 import 'package:sbi_sahay_1_0/widgets/titlebarmobile/titlebarwithoutstep.dart';
 
 import '../../../../loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
+import '../../../../utils/colorutils/hexcolor.dart';
 import '../../../../utils/colorutils/mycolors.dart';
 import '../../../../utils/constants/prefrenceconstants.dart';
 import '../../../../utils/constants/statusConstants.dart';
@@ -36,6 +38,7 @@ import '../../../../utils/internetcheckdialog.dart';
 import '../../../../utils/jumpingdott.dart';
 import '../../../../utils/movestageutils.dart';
 import '../../../../utils/progressLoader.dart';
+import '../../../../widgets/app_button.dart';
 
 class ReviewDisbursedAccMain extends StatelessWidget {
   @override
@@ -53,12 +56,16 @@ class ReviewDisbursedAccMains extends StatefulWidget {
 
 class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
   GetDisbursedAccResMain? _getDisbursedAccRes;
-  GetDisbursedAccObj? selectedAcc;
   GetLoanStatusResMain? _getLoanStatusRes;
   ShareGstInvoiceResMain? _setDisbursedAccRes;
   bool isListLoaded = false;
   bool isValidAccount = false;
   TextEditingController accountNumber = TextEditingController();
+
+  var accountcontroller = TextEditingController();
+  bool isSettingAccount = false;
+
+  bool isValidAccountNumber = false;
 
   //bool isLoaderStart = false;
 
@@ -104,195 +111,241 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
                   (route) => false, //if you want to disable back feature set to false
                 )
               }),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 20.w),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                str_review_loan_deposite_acc,
-                style: ThemeHelper.getInstance()
-                    ?.textTheme
-                    .headline6
-                    ?.copyWith(fontSize: 20.sp, color: MyColors.darkblack),
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    str_ol,
-                    style: ThemeHelper.getInstance()?.textTheme.headline3,
-                  ),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Flexible(
-                      child: Text(
-                    str_review_acc_txt_one,
-                    style: ThemeHelper.getInstance()?.textTheme.headline3,
-                    maxLines: 5,
-                  )),
-                ],
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    str_ol,
-                    style: ThemeHelper.getInstance()?.textTheme.headline3,
-                  ),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Flexible(
-                      child: Text(
-                    str_review_acc_txt_two,
-                    style: ThemeHelper.getInstance()?.textTheme.headline3,
-                  )),
-                ],
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-
-              isListLoaded
-                  ? loanDepositeAccList(context)
-                  : JumpingDots(
-                      color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
-                      radius: 10,
-                    )
-              //Container()
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget loanDepositeAccList(BuildContext context) {
-    return ListView.builder(
-      padding: EdgeInsets.zero,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      scrollDirection: Axis.vertical,
-      itemCount: _getDisbursedAccRes?.data?.length,
-      itemBuilder: (context, index) {
-        return Padding(
-          /* key: ValueKey(_getDisbursedAccRes?.data?[index].data?.accountNumber),*/
-          padding: EdgeInsets.only(bottom: 20.h),
-          child: loandepositAccountCard(context, index),
-        );
-      },
-    );
-  }
-
-  Widget loandepositAccountCard(BuildContext context, int index) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.all(Radius.circular(12.r))),
-      shadowColor: ThemeHelper.getInstance()?.shadowColor,
-      elevation: 2,
-      child: Column(
+      body: Column(
         children: [
-          SizedBox(height: 15.h),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.h),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+          Container(
+            height: 70,
+            width: 1.sw,
+            color: MyColors.lightSKYColor,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                    height: 40.h,
-                    width: 40.w,
-                    decoration:
-                        BoxDecoration(shape: BoxShape.circle, color: ThemeHelper.getInstance()?.backgroundColor),
-                    child: Center(
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 20,
+                    ),
+                    CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
                         child: SvgPicture.asset(
-                      AppUtils.path(SMALLBANKLOGO),
-                      height: 15.h,
-                      width: 15.h,
-                    ))),
-                SizedBox(
-                  width: 15.w,
-                ),
-                Expanded(
-                  child: Text(
-                    _getDisbursedAccRes?.data?[index].data?.fipName ?? "",
-                    style: ThemeHelper.getInstance()?.textTheme.bodyText2?.copyWith(
-                        color: ThemeHelper.getInstance()?.indicatorColor, fontFamily: MyFont.Nunito_Sans_Bold),
-                    maxLines: 3,
-                    overflow: TextOverflow.visible,
+                          AppUtils.path(SBILOGOWITHTEXT),
+                          height: 25,
+                          width: 25,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Text(
+                      "State Bank of India",
+                      style: TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.w600),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+          SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 20.w),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    str_review_loan_deposite_acc,
+                    style: ThemeHelper.getInstance()?.textTheme.headline6?.copyWith(fontSize: 20.sp, color: MyColors.darkblack),
                   ),
-                )
-              ],
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SvgPicture.asset(AppUtils.path(GREENCONFORMTICK), height: 20, width: 20),
+                      SizedBox(
+                        width: 5.w,
+                      ),
+                      Flexible(
+                          child: Text(
+                        str_review_acc_txt_one,
+                        style: ThemeHelper.getInstance()?.textTheme.headline3!.copyWith(color: MyColors.darkblack),
+                        maxLines: 5,
+                      )),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SvgPicture.asset(AppUtils.path(GREENCONFORMTICK), height: 20, width: 20),
+                      SizedBox(
+                        width: 5.w,
+                      ),
+                      Flexible(
+                          child: Text(
+                        str_review_acc_txt_two,
+                        style: ThemeHelper.getInstance()?.textTheme.headline3!.copyWith(color: MyColors.darkblack),
+                      )),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      'Account',
+                      style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  isListLoaded
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            loandepositAccountCard(context),
+                          ],
+                        )
+                      : JumpingDots(
+                          color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
+                          radius: 10,
+                        ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Enter Account Number',
+                          style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+                        ),
+                        SizedBox(width: 10),
+                        TextFormField(
+                          cursorColor: Colors.grey,
+                          controller: accountcontroller,
+                          decoration: InputDecoration(
+                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
+                              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor))),
+                          keyboardType: TextInputType.text,
+                          maxLines: 1,
+                          style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 15.sp),
+                          onChanged: (content) {
+                            if (selected.data!.accountNumber!.lastChars(4) == content.lastChars(4)) {
+                              isValidAccountNumber = true;
+                              setState(() {});
+                            } else {
+                              isValidAccountNumber = false;
+                              setState(() {});
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+                  //Container()
+                ],
+              ),
             ),
           ),
-          SizedBox(
-            height: 10.h,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.h),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              /*crossAxisAlignment: CrossAxisAlignment.start,*/
-              children: [
-                Text(str_ac_no,
-                    style: ThemeHelper.getInstance()
-                        ?.textTheme
-                        .bodyText2
-                        ?.copyWith(color: MyColors.pnbCardMediumTextColor)),
-                Text(
-                  _getDisbursedAccRes?.data?[index].data?.maskedAccountNumber ?? "",
-                  style: ThemeHelper.getInstance()
-                      ?.textTheme
-                      .bodyText2
-                      ?.copyWith(color: MyColors.black, fontFamily: MyFont.Nunito_Sans_Bold),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.h),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(str_ifsc,
-                    style: ThemeHelper.getInstance()
-                        ?.textTheme
-                        .bodyText2
-                        ?.copyWith(color: MyColors.pnbCardMediumTextColor)),
-                Text(
-                  _getDisbursedAccRes?.data?[index].data?.accountIFSC ?? "",
-                  style: ThemeHelper.getInstance()
-                      ?.textTheme
-                      .bodyText2
-                      ?.copyWith(color: MyColors.black, fontFamily: MyFont.Nunito_Sans_Bold),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-          SizedBox(
-            height: 33.h,
-            child: proccedButton(context, index),
-          )
         ],
       ),
+      bottomNavigationBar: Container(height: 70, width: 1.sh - 100, child: buildBtnNextAcc(context)),
+    );
+  }
+
+  Widget buildBtnNextAcc(BuildContext context) {
+    return isSettingAccount
+        ? JumpingDots(
+            color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary,
+            radius: 10,
+          )
+        : Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+            child: AppButton(
+              onPress: () {
+                setDisbursedAcc();
+              },
+              title: str_proceed,
+              isButtonEnable: isValidAccountNumber,
+            ),
+          );
+  }
+
+  GetDisbursedAccObj selected = GetDisbursedAccObj();
+
+  Widget loandepositAccountCard(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey),
+        color: HexColor("#F1EBFA"),
+      ),
+      child: (isListLoaded)
+          ? DropdownButtonHideUnderline(
+              child: DropdownButton2<GetDisbursedAccObj>(
+                isExpanded: false,
+                value: selected,
+                items: _getDisbursedAccRes!.data!
+                    .map((GetDisbursedAccObj item) => DropdownMenuItem<GetDisbursedAccObj>(
+                          value: item,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Current A/C",
+                                    style: TextStyle(fontSize: 12, color: MyColors.darkblack),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    item?.data?.accountIFSC ?? "",
+                                    style: ThemeHelper.getInstance()?.textTheme.bodyText1?.copyWith(fontSize: 12, color: MyColors.darkblack),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                width: 100,
+                              ),
+                              Text(
+                                item?.data?.accountNumber ?? "",
+                                style: ThemeHelper.getInstance()?.textTheme.bodyText1?.copyWith(fontSize: 12, color: MyColors.darkblack),
+                              ),
+                            ],
+                          ),
+                        ))
+                    .toList(),
+                onChanged: (c) {
+                  selected = c!;
+                  setState(() {});
+                },
+                menuItemStyleData: MenuItemStyleData(
+                  height: 50,
+                ),
+              ),
+            )
+          : Container(),
     );
   }
 
@@ -312,7 +365,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
     return ElevatedButton(
         style: raisedButtonStyle,
         onPressed: () async {
-          selectedAcc = _getDisbursedAccRes?.data?[index];
+          selected = _getDisbursedAccRes!.data![index]!;
           WidgetsBinding.instance.addPostFrameCallback((_) async {
             LoaderUtils.showLoaderwithmsg(context, msg: "Please wait while we set the disbursement account detail");
           });
@@ -325,107 +378,15 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
         child: Center(
           child: Text(
             str_proceed,
-            style: ThemeHelper.getInstance()
-                ?.textTheme
-                .button
-                ?.copyWith(fontFamily: MyFont.Nunito_Sans_Regular, fontSize: 14.sp),
+            style: ThemeHelper.getInstance()?.textTheme.button?.copyWith(fontFamily: MyFont.Nunito_Sans_Regular, fontSize: 14.sp),
             textAlign: TextAlign.center,
           ),
         ));
   }
 
-  // void showAddAccDialog()
-  // {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return StatefulBuilder(
-  //           builder: (BuildContext context, StateSetter setModelState) {
-  //             return AlertDialog(
-  //               insetPadding: EdgeInsets.zero,
-  //               shape: RoundedRectangleBorder(
-  //                   borderRadius: BorderRadius.all(Radius.circular(30.0.r))),
-  //               content: addAccountNumberUI(setModelState),
-  //             );});
-  //     },
-  //   );
-  //
-  // }
-  // Widget addAccountNumberUI(StateSetter setModelState)
-  // {
-  //   return SizedBox(
-  //     height: 250.h,
-  //     width: 300.w,
-  //     child: Padding(
-  //         padding: EdgeInsets.symmetric(vertical: 15.h,horizontal: 10.w),
-  //         child: Column(
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: [
-  //             Text('Loan Deposit A/c',style: ThemeHelper.getInstance()?.textTheme.headline1,textAlign: TextAlign.start,),
-  //             SizedBox(height: 15.h,),
-  //             TextFormField(
-  //             controller: accountNumber,
-  //             onChanged: (content) {
-  //               isValidAccNo(setModelState);
-  //             },
-  //             decoration: const InputDecoration(
-  //                 border: OutlineInputBorder(
-  //                     borderRadius: BorderRadius.all(Radius.circular(12))),
-  //                 counterText: '',hintText: 'Enter Your Loan Deposit A/c number'),
-  //             keyboardType: TextInputType.number,
-  //             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-  //             maxLines: 1,
-  //             validator: (value) {
-  //               if (!isValidAccount) {
-  //
-  //               }
-  //               return null;
-  //             }),
-  //
-  //
-  //             SizedBox(height: 15.h,),
-  //         SizedBox(
-  //         width: MediaQuery
-  //         .of(context)
-  //         .size
-  //         .width,
-  //     height: 50.h,
-  //     child:isLoaderStart ? JumpingDots(color: ThemeHelper.getInstance()?.primaryColor ?? MyColors.pnbcolorPrimary, radius: 10,) : ElevatedButton(
-  //         style: isValidAccount
-  //             ? ThemeHelper.getInstance()!.elevatedButtonTheme.style
-  //             : ThemeHelper.setPinkDisableButtonBig(),
-  //         onPressed: () {
-  //           if(isValidAccount)
-  //           {
-  //             Navigator.pop(context);
-  //             accountNumber.text = '';
-  //             setState(() {
-  //               isLoaderStart = true;
-  //               setDisbursedAcc();
-  //             });
-  //           }
-  //           else
-  //           {
-  //             Navigator.pop(context);
-  //             accountNumber.text = '';
-  //             TGView.showSnackBar(context: context, message: "Please enter valid account number");
-  //           }
-  //         },
-  //         child: Center(child: Text(str_agree, style: ThemeHelper
-  //             .getInstance()
-  //             ?.textTheme
-  //             .button,),)),
-  //   )
-  //           ],
-  //         ),
-  //     ),
-  //   );
-  // }
-
   void isValidAccNo(StateSetter setModelState) {
-    if (accountNumber.text.isNotEmpty && selectedAcc?.data?.accountNumber?.isNotEmpty == true) {
-      if (accountNumber.text.substring(accountNumber.text.length - 4) ==
-          selectedAcc?.data?.accountNumber?.substring(selectedAcc!.data!.accountNumber!.length - 4)) {
+    if (accountNumber.text.isNotEmpty && selected?.data?.accountNumber?.isNotEmpty == true) {
+      if (accountNumber.text.substring(accountNumber.text.length - 4) == selected?.data?.accountNumber?.substring(selected!.data!.accountNumber!.length - 4)) {
         setModelState(() {
           isValidAccount = true;
         });
@@ -465,10 +426,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
     );
     var jsonReq = jsonEncode(getDisbursedAccRequest.toJson());
     TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GET_DISBURSED_ACC_LIST);
-    ServiceManager.getInstance().getLoanDisbursedAcc(
-        request: tgPostRequest,
-        onSuccess: (response) => _onSuccessGetDisbursedAcc(response),
-        onError: (error) => _onErrorGetDisbursedAcc(error));
+    ServiceManager.getInstance().getLoanDisbursedAcc(request: tgPostRequest, onSuccess: (response) => _onSuccessGetDisbursedAcc(response), onError: (error) => _onErrorGetDisbursedAcc(error));
   }
 
   _onSuccessGetDisbursedAcc(GetDisbursedAccResponse? response) {
@@ -478,6 +436,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
         var jsonString = jsonEncode(response?.getDisbursedAccResObj());
         TGLog.d(jsonString);
         _getDisbursedAccRes = response?.getDisbursedAccResObj();
+        selected = _getDisbursedAccRes!.data!.first;
         isListLoaded = true;
       });
     } else if (response?.getDisbursedAccResObj()?.status == RES_DETAILS_NOT_FOUND) {
@@ -485,8 +444,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
         getDisbursedAccListApi();
       });
     } else {
-      LoaderUtils.handleErrorResponse(
-          context, response?.getDisbursedAccResObj()?.status, response?.getDisbursedAccResObj()?.message, null);
+      LoaderUtils.handleErrorResponse(context, response?.getDisbursedAccResObj()?.status, response?.getDisbursedAccResObj()?.message, null);
     }
   }
 
@@ -496,37 +454,31 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
   }
 
   Future<void> setDisbursedAcc() async {
+    isSettingAccount = true;
     String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     String offerId = await TGSharedPreferences.getInstance().get(PREF_OFFERID);
     String loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
-    SetDisbursedAccRequest setDisbursedAccRequest = SetDisbursedAccRequest(
-        loanApplicationRefId: loanAppRefId,
-        offerId: offerId,
-        loanApplicationId: loanAppId,
-        accountNumber: selectedAcc?.data?.accountNumber,
-        accountId: selectedAcc?.id);
+    SetDisbursedAccRequest setDisbursedAccRequest = SetDisbursedAccRequest(loanApplicationRefId: loanAppRefId, offerId: offerId, loanApplicationId: loanAppId, accountNumber: selected?.data?.accountNumber, accountId: selected?.id);
     var jsonReq = jsonEncode(setDisbursedAccRequest.toJson());
     TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_SET_DISBURSED_ACC);
-    ServiceManager.getInstance().setLoanDisbursedAcc(
-        request: tgPostRequest,
-        onSuccess: (response) => _onSuccessSetDisbursedAcc(response),
-        onError: (error) => _onErrorSetDisbursedAcc(error));
+    ServiceManager.getInstance().setLoanDisbursedAcc(request: tgPostRequest, onSuccess: (response) => _onSuccessSetDisbursedAcc(response), onError: (error) => _onErrorSetDisbursedAcc(error));
   }
 
   _onSuccessSetDisbursedAcc(SetDisbursedAccResponse? response) {
     TGLog.d("SetDisbursementResponse : onSuccess()");
-
     if (response?.getSetDisbAccObj()?.status == RES_SUCCESS) {
       _setDisbursedAccRes = response?.getSetDisbAccObj();
       getLoanAppStatusAfterSetDisbAccApiCall();
     } else {
       Navigator.pop(context);
-      LoaderUtils.handleErrorResponse(
-          context, response?.getSetDisbAccObj().status, response?.getSetDisbAccObj().message, null);
+      LoaderUtils.handleErrorResponse(context, response?.getSetDisbAccObj().status, response?.getSetDisbAccObj().message, null);
     }
   }
 
   _onErrorSetDisbursedAcc(TGResponse errorResponse) {
+    setState(() {
+      isSettingAccount = false;
+    });
     TGLog.d("SetDisbursementResponse : onError()");
     Navigator.pop(context);
     handleServiceFailError(context, errorResponse.error);
@@ -537,10 +489,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
     GetLoanStatusRequest getLoanStatusRequest = GetLoanStatusRequest(loanApplicationRefId: loanAppRefId);
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
     TGPostRequest tgPostRequest = await getPayLoad(jsonReq, AppUtils.getManageLoanAppStatusParam('5'));
-    ServiceManager.getInstance().getLoanAppStatus(
-        request: tgPostRequest,
-        onSuccess: (response) => _onSuccessGetLoanAppStatus(response),
-        onError: (error) => _onErrorGetLoanAppStatus(error));
+    ServiceManager.getInstance().getLoanAppStatus(request: tgPostRequest, onSuccess: (response) => _onSuccessGetLoanAppStatus(response), onError: (error) => _onErrorGetLoanAppStatus(error));
   }
 
   _onSuccessGetLoanAppStatus(GetLoanStatusResponse? response) {
@@ -559,8 +508,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
       }
     } else {
       Navigator.pop(context);
-      LoaderUtils.handleErrorResponse(context, response?.getLoanStatusResObj().status,
-          response?.getLoanStatusResObj().message, response?.getLoanStatusResObj().data?.stageStatus);
+      LoaderUtils.handleErrorResponse(context, response?.getLoanStatusResObj().status, response?.getLoanStatusResObj().message, response?.getLoanStatusResObj().data?.stageStatus);
     }
   }
 
@@ -577,4 +525,8 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
       showSnackBarForintenetConnection(context, getLoanAppStatusAfterSetDisburseAcc);
     }
   }
+}
+
+extension E on String {
+  String lastChars(int n) => substring(length - n);
 }

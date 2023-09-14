@@ -10,20 +10,16 @@ const str_gst_data_consent_long_sentence =
 
 //welcome screen
 const str_welcome_pnb = 'Welcome to Punjab National Bank';
-const str_keep_data_ready =
-    'Please keep the following data ready before starting the journey under PNB GST Sahay Scheme.';
+const str_keep_data_ready = 'Please keep the following data ready before starting the journey under PNB GST Sahay Scheme.';
 const str_gst_login_detail = 'GST login details';
 const str_cur_acc_with_pnb = 'Operative Current Account no. with PNB';
 const str_mobile_with_otp = 'Mobile number on which OTP will be received';
 const str_email_updated_kyc = 'E-Mail ID & KYC should be updated in the current account';
 const str_undertaking = 'Undertaking';
-const str_undertaking_text1 =
-    'My application is subject to eligibility criterion as per the Bank’s guidelines under PNB GST Sahay scheme.';
-const str_undertaking_text2 =
-    'I provide my consent to fetch my GST Return data, Account statement and other KYC details from the available sources.';
+const str_undertaking_text1 = 'My application is subject to eligibility criterion as per the Bank’s guidelines under PNB GST Sahay scheme.';
+const str_undertaking_text2 = 'I provide my consent to fetch my GST Return data, Account statement and other KYC details from the available sources.';
 const str_undertaking_text3 = 'I also provide consent for fetching the GST details of my Buyer.';
-const str_undertaking_text4 =
-    'I provide my consent for using my KYC details and other details for Drawing my CIR from any of the CIC.';
+const str_undertaking_text4 = 'I provide my consent for using my KYC details and other details for Drawing my CIR from any of the CIC.';
 const str_continue = 'Continue';
 
 //Loan Steps
@@ -44,8 +40,7 @@ const str_resend_otp = 'Resend OTP';
 
 //InfoShare Screen
 const str_info_share = 'Information shared !';
-const str_info_share_txt =
-    'Information sharing to get loan offers from lender is completed. Initiate loan process with lender now.';
+const str_info_share_txt = 'Information sharing to get loan offers from lender is completed. Initiate loan process with lender now.';
 const str_get_loan_offers = 'Get Loan Offers';
 
 //Loan Offer Loader
@@ -96,8 +91,7 @@ const str_net_disb_amt = 'Net Disbursement Amount';
 const str_total_repay_amt = 'Total Repayment Amount';
 const str_total_repay_amt_tooltip = "Sum of loan amount, interest \namount and other upfront charges";
 const str_anum_per_rate = 'Annual Percentage Rate';
-const str_per_rate_tooltip =
-    "Effective annualized interest rate \nafter considering the interest and \nother upfront charges";
+const str_per_rate_tooltip = "Effective annualized interest rate \nafter considering the interest and \nother upfront charges";
 const str_no_of_installment = 'No. Of Installments';
 const str_penal_charge = 'Penal Charge';
 const str_loan_tenure = 'Loan Tenure';
@@ -110,17 +104,15 @@ const str_insurance_charges = 'Insurance Charges';
 const str_others = 'Others';
 const str_other_disclouser = 'Other Disclosures';
 const str_cooling_period = 'Cooling Off Period';
-const str_cooling_period_tooltip =
-    "Cooling off/look-up period during which \nborrower can exit digital loans by paying \nprincipal + proportionate Annual Percentage \nRate without any prepayment penalty";
+const str_cooling_period_tooltip = "Cooling off/look-up period during which \nborrower can exit digital loans by paying \nprincipal + proportionate Annual Percentage \nRate without any prepayment penalty";
 const str_lsp_detail = 'Details of LSP acting as recovery agent';
 const str_lsp_detail_tooltip = 'Authorized to approach the borrower';
 const str_grievance_contact = 'Contact details for Nodal Grievance Redressal Officer';
 
 //Review Loan Deposite Acc
 const str_review_loan_deposite_acc = 'Review Loan Deposit A/c';
-const str_review_acc_txt_one = 'The loan would be disbursed in this account. kindly proceed for documentation.';
-const str_review_acc_txt_two =
-    'Please note the same account will be used for standing instruction to auto-debit repayment.';
+const str_review_acc_txt_one = 'Enter the complete current account number, which was fetched through Account Aggregator. The loan would be disbursed in this account.';
+const str_review_acc_txt_two = 'Please note the same account will be used for creating E-Mandate to auto-debit repayment.';
 const str_ac_no = 'A/c No';
 const str_ifsc = 'IFSC';
 const str_proceed = 'Proceed';
@@ -144,20 +136,17 @@ const str_doc_process_complete = ' on completing your documentation process. You
 const str_proceed_to_disb = 'Proceed for Disbursement';
 const str_the_loan_amt = 'The loan amount of ';
 const str_disb_amt = ' will be disbursed in the below mentioned bank account.​';
-const str_disb_check_txt =
-    'I request lender, to disburse the above-mentioned loan amount to my above-mentioned bank account.';
+const str_disb_check_txt = 'I request lender, to disburse the above-mentioned loan amount to my above-mentioned bank account.';
 const str_req_for_disb = 'Request for disbursement';
 
 //Loan Review
-const str_loan_disbursed_txt =
-    'Your disbursement request has been submitted successfully. The disbursement through NEFT process could take around 30-60 minutes. In the meanwhile you can go and finance other invoice.';
+const str_loan_disbursed_txt = 'Your disbursement request has been submitted successfully. The disbursement through NEFT process could take around 30-60 minutes. In the meanwhile you can go and finance other invoice.';
 const str_overall_experiance = 'How was your overall experience with PNB GST Sahay Mobile Application ?';
 const str_submit = 'Submit';
 const str_back_home = "Back to Home";
 
 //..popup
-const str_You_cannot_procced_further_as_bureau_data_is_adverse =
-    'You cannot procced further as\nbureau data is adverse.';
+const str_You_cannot_procced_further_as_bureau_data_is_adverse = 'You cannot procced further as\nbureau data is adverse.';
 //..Give Conntest
 const str_Allow_Lenders_to_fetch_CIC_data = 'Allow Lenders to fetch CIC data';
 const str_Credit_Information_Company_Consent = 'Credit Information Company Consent';
@@ -171,8 +160,7 @@ const str_i_login_check_part1 = 'I accept the ';
 const str_i_login_checkpart2 = 'Privacy policy, Terms & conditions ';
 const str_i_login_checkpart3 = 'and ';
 const str_i_login_checkpart4 = 'Disclaimers';
-const str_i_login_check2 =
-    'I agree to participate in the testing of SIDBI GST-Sahay in the Third Cohort under Regulatory Sandbox of RBI on the theme of ‘MSME Lending’';
+const str_i_login_check2 = 'I agree to participate in the testing of SIDBI GST-Sahay in the Third Cohort under Regulatory Sandbox of RBI on the theme of ‘MSME Lending’';
 const str_give_consent = 'Give Consent';
 const str_Confirm = 'Confirm';
 const str_Proceed = 'Proceed';
@@ -182,8 +170,7 @@ const str_Checkit_out = 'Check it out';
 //..gst details
 const str_Enter_GST_Details = 'Enter GST Details';
 const str_Enter_your_mobile_Details = 'Enter your mobile number';
-const str_Kindly_enter_your_GST_Username_GSTIN_to_link_with_Sahay_GST_Account =
-    'Kindly enter your GST Username & GSTIN to link with Sahaj​';
+const str_Kindly_enter_your_GST_Username_GSTIN_to_link_with_Sahay_GST_Account = 'Kindly enter your GST Username & GSTIN to link with Sahaj​';
 const str_we_will_send_you_otp_for_confirmation = 'We will send you OTP for confirmation';
 const str_GST_User_Name = 'GST Username';
 const str_Mobile_number = 'Enter your mobile number';
@@ -248,15 +235,12 @@ const str_congratulation_sen = 'You will now proceed to NeSL\'s Digital\nDocumen
 const str_Practise_the_art_of_patience = 'Practise the art of patience';
 const str_while_we_process_your_loan = 'Please wait while we process your loan...';
 const str_loan_disbursed_process = 'Loan Disbursement Details';
-const str_congratulation_txt =
-    "The loan disbursement has been initiated by the lender through NEFT. Please note that NEFT is processed in half-hourly intervals.";
+const str_congratulation_txt = "The loan disbursement has been initiated by the lender through NEFT. Please note that NEFT is processed in half-hourly intervals.";
 //Faqs
 const str_faq_one = "What is Sahay App?";
-const str_faq_ans_one =
-    'The SIDBI GST Sahay app is a financing opportunity being made available to sole proprietors registered with GST. Loans against invoices are available completely digitally and in less than 30 minutes.';
+const str_faq_ans_one = 'The SIDBI GST Sahay app is a financing opportunity being made available to sole proprietors registered with GST. Loans against invoices are available completely digitally and in less than 30 minutes.';
 const str_faq_two = 'Who can apply?';
-const str_faq_ans_two =
-    'Currently borrowers who falls under the following criteria are eligible for financing of GST invoices:\n '
+const str_faq_ans_two = 'Currently borrowers who falls under the following criteria are eligible for financing of GST invoices:\n '
     '\u2022 Borrower is a sole proprietor \n '
     '\u2022 Borrower is a regular GST taxpayer and not falling under presumptive GST scheme and having enabled GST API access \n '
     '\u2022 The borrower who has a current bank account with the banks under Account aggregator network. [List of the banks present in AA Network has been listed below. \n '
@@ -362,13 +346,11 @@ const str_step1_gstWithout = 'Share Bank Statement';
 const str_step1_gstWithout_disc = 'Authorise Account Aggregator (AA) to fetch your Bank details';
 
 const str_step2_gstWithout = 'Accept Loan Offer';
-const str_step2_gstWithout_disc =
-    'Get loan offers against your eligible invoices. Accept a loan offer from the choice of lenders';
+const str_step2_gstWithout_disc = 'Get loan offers against your eligible invoices. Accept a loan offer from the choice of lenders';
 
 const str_step3_gstWithout = 'Sign Documents Digitally';
 const esignin_error = 'Error occurred while processing e-sign document';
-const str_step3_gstWithout_disc =
-    'E-sign loan agreement and register​E-mandate to auto-debit your account for repayment';
+const str_step3_gstWithout_disc = 'E-sign loan agreement and register​E-mandate to auto-debit your account for repayment';
 
 const str_step4_gstWithout = 'Get Disbursement';
 const str_step4_gstWithout_disc = 'Request for disbursement and receive the loan amount in your bank account';
@@ -382,8 +364,7 @@ const str_GST_Invoices_for_loan_offers = "GST Invoices for loan offers";
 const str_Search = "Search";
 const str_Sort = "  Sort by";
 const str_select_any_inovice = "Invoices";
-const str_All_the_invoicesgenerated =
-    "All the invoices generated during the last 2 months would be eligible for financing";
+const str_All_the_invoicesgenerated = "All the invoices generated during the last 2 months would be eligible for financing";
 const str_invoice_disc = "during the last 2 months would be eligible for financing";
 const str_share_invoice = 'Sharing Eligible Invoices';
 
@@ -471,10 +452,8 @@ const str_s5 = 'Rs. 30,740';
 const str_s6 = '12 Apr\'21 (90 days)';
 const str_s7 = 'LON2345678434';
 const str_Congratulations_with_extre = 'Congratulations';
-const str_Congratulations_des =
-    'The loan disbursement has been initiated by the lender through NEFT. Please note that NEFT is processed in half-hourly intervals.';
-const str_const_long_sentence =
-    'The loan disbursement has been initiated by the Lender\nthrough NEFT. Please note that NEFT is processed in\nhalf-hourly intervals.';
+const str_Congratulations_des = 'The loan disbursement has been initiated by the lender through NEFT. Please note that NEFT is processed in half-hourly intervals.';
+const str_const_long_sentence = 'The loan disbursement has been initiated by the Lender\nthrough NEFT. Please note that NEFT is processed in\nhalf-hourly intervals.';
 
 //..Important mail
 const str_Important_with_excl = 'Important!';
@@ -595,8 +574,7 @@ const str_header_discr = "You would now be required to share your bank statement
 const str_acount_aggregator = "Account Aggregator";
 const str_a_new_way_toshare_bank = "A new way to share bank account statements digitally";
 
-const str_before_proceeding_discr =
-    "Before proceeding check whether your Current A/c Bank is within the list of Banks associated with Account Aggregator";
+const str_before_proceeding_discr = "Before proceeding check whether your Current A/c Bank is within the list of Banks associated with Account Aggregator";
 
 const str_visit = "Visit ";
 const str_sahmati = "Sahamti";
@@ -650,8 +628,7 @@ const strVerifyTitle = 'Verifying to...\nAccount Aggregator...';
 const strEmptyString = '';
 const strWhatisSahayApp = 'What is Sahay App?';
 const strPushnotifications = 'Push notifications';
-const strLongSenterPushNotification =
-    'Choose the notification you want to get in your app. Bear in mind that we\'ll still send you notifications for security reasons or if we need to contact you about your account.';
+const strLongSenterPushNotification = 'Choose the notification you want to get in your app. Bear in mind that we\'ll still send you notifications for security reasons or if we need to contact you about your account.';
 const strWellnotifyyouwhenyou = 'We\'ll notify you when you...';
 const strPushNotification = 'Push Notification';
 const strGSTUserName = 'GST User Name';
@@ -677,18 +654,13 @@ const str_try_again = 'Try Again';
 const str_sorry = 'Sorry!';
 const no_data_found = 'No user detail found';
 const consent_fail = 'Seems You have not linked the Current A/c. Kindly provide your consent to fetch bank data.';
-const unlinked_account_aggregator_msg =
-    'No current account linked from Account Aggregator. Please link SBI current account to Procced.';
-const aa_error_txt =
-    'Seems You have Linked a Wrong Current A/c. Link Your Correct Current A/c or Retry with another Account Aggregator.';
+const unlinked_account_aggregator_msg = 'No current account linked from Account Aggregator. Please link SBI current account to Procced.';
+const aa_error_txt = 'Seems You have Linked a Wrong Current A/c. Link Your Correct Current A/c or Retry with another Account Aggregator.';
 
 //GSt API Enable Steps
 const str_enable_gst_api = 'How to Enable API Access in Your GST Account?';
-const str_gst_api_step1 =
-    'Visit www.gst.gov.in, click on the "login" button and insert your credential to log in to your GST account.';
+const str_gst_api_step1 = 'Visit www.gst.gov.in, click on the "login" button and insert your credential to log in to your GST account.';
 const str_gst_api_step2 = 'After logging in, click on the "View Profile" link located on the right side.';
 const str_gst_api_step3 = 'Under Quick links, click on the "Manage API Access" link.';
-const str_gst_api_step4 =
-    'Click on the "Yes" button next to the "Enable API Request", select "Duration" from the dropdown provided and click on "Confirm" button.';
-const str_gst_api_step5 =
-    'Insert your GST Number and Username, you will receive OTP on the mobile number registered with GST Account.';
+const str_gst_api_step4 = 'Click on the "Yes" button next to the "Enable API Request", select "Duration" from the dropdown provided and click on "Confirm" button.';
+const str_gst_api_step5 = 'Insert your GST Number and Username, you will receive OTP on the mobile number registered with GST Account.';

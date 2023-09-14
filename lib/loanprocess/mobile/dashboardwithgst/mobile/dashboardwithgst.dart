@@ -154,8 +154,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
               child: Scaffold(
                 key: _scaffoldKey,
                 drawer: MyDrawer(userName: name, screenName: "Dashbaord"),
-                appBar: getAppBarMainDashboard("2", str_loan_approve_process, 0.50,
-                    onClickAction: () => {_scaffoldKey.currentState?.openDrawer()}),
+                appBar: getAppBarMainDashboard("2", str_loan_approve_process, 0.50, onClickAction: () => {_scaffoldKey.currentState?.openDrawer()}),
                 body: MainContainerView(),
               ),
             ),
@@ -194,10 +193,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
               AppUtils.path(activeChecker(currentIndex) ? activePath : inActivePath),
             ),
           ),
-          Text(title,
-              style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(
-                  fontSize: 12.sp,
-                  color: activeChecker(currentIndex) ? MyColors.pnbcolorPrimary : MyColors.pnbGreyColor)),
+          Text(title, style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 12.sp, color: activeChecker(currentIndex) ? MyColors.pnbcolorPrimary : MyColors.pnbGreyColor)),
         ],
       ),
     );
@@ -287,10 +283,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                   padding: EdgeInsets.all(5.r),
                   child: Text(
                     str_seeAll,
-                    style: ThemeHelper.getInstance()!
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: MyColors.hyperlinkcolornew, fontFamily: MyFont.Roboto_Medium),
+                    style: ThemeHelper.getInstance()!.textTheme.subtitle1!.copyWith(color: MyColorsSBI.sbicolorPrimary, fontFamily: MyFont.Roboto_Medium),
                   ),
                 ),
               )
@@ -344,9 +337,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                     //SizedBox(height: 20.h),
                     Text(name, style: ThemeHelper.getInstance()?.textTheme.headline2?.copyWith(fontSize: 16.sp)),
                     SizedBox(height: 5.h),
-                    Text('PAN: $pan',
-                        style: ThemeHelper.getInstance()!.textTheme.headline5!.copyWith(
-                            fontSize: 12.sp, color: MyColors.lightGraySmallText, fontFamily: MyFont.Roboto_Regular)),
+                    Text('PAN: $pan', style: ThemeHelper.getInstance()!.textTheme.headline5!.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText, fontFamily: MyFont.Roboto_Regular)),
                   ],
                 ),
               ),
@@ -411,37 +402,16 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
       children: [
         SizedBox(height: 12.h),
         Row(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
-          _buildCard(
-              0,
-              str_Outstanding,
-              MOBILETDASHBOARDWITHGSTOUTSTANDING,
-              _basicdetailsResponse?.data?[0].loanDetails?.outstanding?.count ?? "0",
-              AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.outstanding?.amount)),
+          _buildCard(0, str_Outstanding, MOBILETDASHBOARDWITHGSTOUTSTANDING, _basicdetailsResponse?.data?[0].loanDetails?.outstanding?.count ?? "0", AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.outstanding?.amount)),
           const Spacer(),
-          _buildCard(
-              1,
-              strOverdue,
-              MOBILETDASHBOARDWITHGSTOVERDUE,
-              _basicdetailsResponse?.data?[0].loanDetails?.overdue?.count ?? "0",
-              AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.overdue?.amount)),
+          _buildCard(1, strOverdue, MOBILETDASHBOARDWITHGSTOVERDUE, _basicdetailsResponse?.data?[0].loanDetails?.overdue?.count ?? "0", AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.overdue?.amount)),
         ]),
         Padding(
           padding: EdgeInsets.only(top: 10.h, bottom: 12.h),
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
-            _buildCard(
-                2,
-                strRepaid,
-                IMG_kfs_coin_stack,
-                _basicdetailsResponse?.data?[0].loanDetails?.repaid?.count ?? "0",
-                AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.repaid?.amount)),
+          child: Row(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+            _buildCard(2, strRepaid, IMG_kfs_coin_stack, _basicdetailsResponse?.data?[0].loanDetails?.repaid?.count ?? "0", AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.repaid?.amount)),
             const Spacer(),
-            _buildCard(
-                3,
-                strDisbursed,
-                MOBILEHANDWITHMONEY,
-                _basicdetailsResponse?.data?[0].loanDetails?.disbursed?.count ?? "0",
-                AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.disbursed?.amount))
+            _buildCard(3, strDisbursed, MOBILEHANDWITHMONEY, _basicdetailsResponse?.data?[0].loanDetails?.disbursed?.count ?? "0", AppUtils.convertIndianCurrency(_basicdetailsResponse?.data?[0].loanDetails?.disbursed?.amount))
           ]),
         ),
       ],
@@ -455,9 +425,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
           '$title',
           style: ThemeHelper.getInstance()!.textTheme.bodyText2,
         ),
-        Text(value,
-            style: TextStyle(
-                color: ThemeHelper.getInstance()!.indicatorColor, fontSize: 13.sp, fontFamily: MyFont.Nunito_Sans_Bold))
+        Text(value, style: TextStyle(color: ThemeHelper.getInstance()!.indicatorColor, fontSize: 13.sp, fontFamily: MyFont.Nunito_Sans_Bold))
       ],
     );
   }
@@ -591,8 +559,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("$title(${pendingLoan?.length.toString() ?? "0"})",
-                          style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 13.sp)),
+                      Text("$title(${pendingLoan?.length.toString() ?? "0"})", style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 13.sp)),
                       SizedBox(
                         height: 3.h,
                       ),
@@ -752,16 +719,12 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
 
   buildCompanyText(String text) => Text(
         text,
-        style: ThemeHelper.getInstance()!
-            .textTheme
-            .headline3!
-            .copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+        style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
       );
 
   buildInvoiceText(String text) => Text(
         text,
-        style:
-            ThemeHelper.getInstance()!.textTheme.headline2!.copyWith(fontSize: 14.sp, color: MyColors.pnbcolorPrimary),
+        style: ThemeHelper.getInstance()!.textTheme.headline2!.copyWith(fontSize: 14.sp, color: MyColors.pnbcolorPrimary),
       );
 
   _buildCheckStatusButton(LoanDetailData? data) {
@@ -796,12 +759,8 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
       child: Padding(
         padding: EdgeInsets.only(top: 13.h, bottom: 10.h),
         child: Row(children: [
-          _buildContainer(currentStage == str_loan_approve_process ||
-              currentStage == str_doc_kyc ||
-              currentStage == str_disbursement),
-          _buildContainer(currentStage == str_loan_approve_process ||
-              currentStage == str_doc_kyc ||
-              currentStage == str_disbursement),
+          _buildContainer(currentStage == str_loan_approve_process || currentStage == str_doc_kyc || currentStage == str_disbursement),
+          _buildContainer(currentStage == str_loan_approve_process || currentStage == str_doc_kyc || currentStage == str_disbursement),
           _buildContainer(currentStage == str_doc_kyc || currentStage == str_disbursement),
           _buildContainer(currentStage == str_disbursement),
         ]),
@@ -813,9 +772,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
     return Padding(
       padding: EdgeInsets.only(left: flag ? 3.w : 0.w),
       child: Container(
-        decoration: BoxDecoration(
-            color: flag ? MyColors.pnbGreenColor : MyColors.pnbPinkColor,
-            borderRadius: BorderRadius.all(Radius.circular(6.r))),
+        decoration: BoxDecoration(color: flag ? MyColors.pnbGreenColor : MyColors.pnbPinkColor, borderRadius: BorderRadius.all(Radius.circular(6.r))),
         width: 65.w,
         height: 3.h,
       ),
@@ -825,10 +782,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
   _buildBottomPartInsideCard(LoanDetailData? data) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        _buildBottomCardPartWidget(str_Lender, strSBI, true),
-        _buildBottomCardPartWidget(str_Loan_amount, AppUtils.convertIndianCurrency(data?.invoiceAmount), false)
-      ],
+      children: [_buildBottomCardPartWidget(str_Lender, strSBI, true), _buildBottomCardPartWidget(str_Loan_amount, AppUtils.convertIndianCurrency(data?.invoiceAmount), false)],
     );
   }
 
@@ -836,11 +790,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
     return Column(
       crossAxisAlignment: flag ? CrossAxisAlignment.start : CrossAxisAlignment.end,
       children: [
-        Text(title,
-            style: ThemeHelper.getInstance()!
-                .textTheme
-                .headline3!
-                .copyWith(fontSize: 10.sp, color: MyColors.pnbGreyColor)),
+        Text(title, style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(fontSize: 10.sp, color: MyColors.pnbGreyColor)),
         Text(
           subTitle,
           style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(
@@ -881,8 +831,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("$title(${ongoingLoan?.length.toString() ?? "0"})",
-                          style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 13.sp)),
+                      Text("$title(${ongoingLoan?.length.toString() ?? "0"})", style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(fontSize: 13.sp)),
                       SizedBox(
                         height: 3.h,
                       ),
@@ -955,10 +904,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                   GestureDetector(
                     onTap: () {
                       if (isOngoingJounery == true) {
-                        DialogUtils.showCustomDialog(context,
-                            title:
-                                "Other eligible invoices cannot be financed due to an ongoing application is already there.",
-                            okBtnText: "OK");
+                        DialogUtils.showCustomDialog(context, title: "Other eligible invoices cannot be financed due to an ongoing application is already there.", okBtnText: "OK");
                       } else {
                         TGSharedPreferences.getInstance().remove(PREF_AAID);
                         TGSharedPreferences.getInstance().remove(PREF_AACODE);
@@ -992,11 +938,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
                         color: ThemeHelper.getInstance()!.primaryColor,
                       ),
                       child: Center(
-                        child: Text("Finance Another Invoice",
-                            style: ThemeHelper.getInstance()!
-                                .textTheme
-                                .headline2!
-                                .copyWith(fontSize: 14.sp, color: Colors.white)),
+                        child: Text("Finance Another Invoice", style: ThemeHelper.getInstance()!.textTheme.headline2!.copyWith(fontSize: 14.sp, color: Colors.white)),
                       ),
                     ),
                   )
@@ -1041,13 +983,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
             String invoiceAmount = translist?[index]?.disbursement_amt ?? '44000';
             return Column(children: [
               _buildListCard(
-                  day: AppUtils.convertDateFormat(createdDate, "dd-MM-yyyy", 'dd MMM, yyyy'),
-                  month: "Aug",
-                  background: setBackgroundColor(index),
-                  companyName: tradename,
-                  subtext: AppUtils.getCamelCase(status),
-                  price: invoiceAmount,
-                  top: 5.h),
+                  day: AppUtils.convertDateFormat(createdDate, "dd-MM-yyyy", 'dd MMM, yyyy'), month: "Aug", background: setBackgroundColor(index), companyName: tradename, subtext: AppUtils.getCamelCase(status), price: invoiceAmount, top: 5.h),
               Padding(
                 padding: EdgeInsets.only(left: 10.w, right: 10.w),
                 child: const Divider(),
@@ -1058,23 +994,8 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
     //}
 
     return [
-      _buildListCard(
-          day: str_19,
-          month: str_Aug,
-          background: MyColors.pnbYellowColor,
-          companyName: str_Flipcart_Pvt_Ltd,
-          subtext: strRepaid,
-          price: str_42640,
-          top: 21.h),
-      _buildListCard(
-          day: str_09,
-          month: str_Aug,
-          background: MyColors.pnbPinkColor,
-          companyName: str_Flipcart_Pvt_Ltd,
-          subtext: strDisbursed,
-          price: str_42640,
-          top: 10.h,
-          bottom: 10.h),
+      _buildListCard(day: str_19, month: str_Aug, background: MyColors.pnbYellowColor, companyName: str_Flipcart_Pvt_Ltd, subtext: strRepaid, price: str_42640, top: 21.h),
+      _buildListCard(day: str_09, month: str_Aug, background: MyColors.pnbPinkColor, companyName: str_Flipcart_Pvt_Ltd, subtext: strDisbursed, price: str_42640, top: 10.h, bottom: 10.h),
       _buildListCard(
         day: str_19,
         month: str_Aug,
@@ -1121,18 +1042,9 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
     }
   }
 
-  Color setColor(String type) =>
-      type == strDisbursed ? MyColors.pnbGreenColor : MyColors.pnbGreenColor; //MyColors.pnbRedColor;
+  Color setColor(String type) => type == strDisbursed ? MyColors.pnbGreenColor : MyColors.pnbGreenColor; //MyColors.pnbRedColor;
 
-  _buildListCard(
-      {required String day,
-      required String month,
-      required Color background,
-      required String companyName,
-      required String subtext,
-      required String price,
-      double top: 0,
-      double bottom: 5}) {
+  _buildListCard({required String day, required String month, required Color background, required String companyName, required String subtext, required String price, double top: 0, double bottom: 5}) {
     return Padding(
       padding: EdgeInsets.only(left: 10.0.w, right: 10.w, bottom: bottom, top: top),
       child: Row(
@@ -1143,11 +1055,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(companyName,
-                    style: ThemeHelper.getInstance()!
-                        .textTheme
-                        .headline1!
-                        .copyWith(color: MyColors.black, fontSize: 14.sp, fontFamily: MyFont.Roboto_Regular)),
+                Text(companyName, style: ThemeHelper.getInstance()!.textTheme.headline1!.copyWith(color: MyColors.black, fontSize: 14.sp, fontFamily: MyFont.Roboto_Regular)),
                 SizedBox(
                   height: 2.h,
                 ),
@@ -1165,8 +1073,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
               ),
               Text(
                 subtext,
-                style:
-                    ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(color: setColor(subtext), fontSize: 11.sp),
+                style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(color: setColor(subtext), fontSize: 11.sp),
               )
             ],
           ),
@@ -1176,11 +1083,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
   }
 
   String getCurrentStage(String stage) {
-    if (stage == STAGE_INITIATED ||
-        stage == STAGE_SHARE_INVOICE ||
-        stage == STAGE_CONSENT ||
-        stage == STAGE_LOAN_OFFER ||
-        stage == STAGE_LIST_OFFER) {
+    if (stage == STAGE_INITIATED || stage == STAGE_SHARE_INVOICE || stage == STAGE_CONSENT || stage == STAGE_LOAN_OFFER || stage == STAGE_LIST_OFFER) {
       return str_loan_approve_process;
     } else if (stage == STAGE_SET_DISBURSEMENT_ACC ||
         stage == STAGE_SIGN_AGGREEMENT ||
@@ -1201,10 +1104,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
   Future<void> getGstBasicDetails() async {
     TGGetRequest tgGetRequest = GetGstBasicDetailsRequest();
     TGLog.d("GST basic deatil request-------${tgGetRequest.toString()}");
-    ServiceManager.getInstance().getGstBasicDetails(
-        request: tgGetRequest,
-        onSuccess: (response) => _onSuccessGetGstBasicDetails(response),
-        onError: (error) => _onErrorGetGstBasicDetails(error));
+    ServiceManager.getInstance().getGstBasicDetails(request: tgGetRequest, onSuccess: (response) => _onSuccessGetGstBasicDetails(response), onError: (error) => _onErrorGetGstBasicDetails(error));
   }
 
   _onSuccessGetGstBasicDetails(GetGstBasicDetailsResponse? response) async {
@@ -1213,15 +1113,15 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
       _basicdetailsResponse = response?.getGstBasicDetailsRes();
     });
     if (_basicdetailsResponse?.status == RES_DETAILS_FOUND) {
-      TGSharedPreferences.getInstance()
-          .set(PREF_BUSINESSNAME, _basicdetailsResponse?.data?[0].gstBasicDetails?.tradeNam);
+      TGSharedPreferences.getInstance().set(PREF_BUSINESSNAME, _basicdetailsResponse?.data?[0].gstBasicDetails?.tradeNam);
       TGSharedPreferences.getInstance().set(PREF_GSTIN, _basicdetailsResponse?.data?[0].gstin);
       TGSession.getInstance().set(PREF_GSTIN, _basicdetailsResponse?.data?[0].gstin);
-      TGSharedPreferences.getInstance()
-          .set(PREF_USERNAME, _basicdetailsResponse?.data?[0].gstBasicDetails?.lgnm.toString());
+      TGSharedPreferences.getInstance().set(PREF_USERNAME, _basicdetailsResponse?.data?[0].gstBasicDetails?.lgnm.toString());
       TGSharedPreferences.getInstance().set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin?.substring(2, 12));
-      TGSharedPreferences.getInstance()
-          .set(PREF_USERSTATE, _basicdetailsResponse?.data?[0].gstBasicDetails?.stcd.toString());
+      TGSharedPreferences.getInstance().set(PREF_USERSTATE, _basicdetailsResponse?.data?[0].gstBasicDetails?.pradr?.addr?.stcd.toString() ?? "");
+      setState(() {
+        state = _basicdetailsResponse?.data?[0].gstBasicDetails?.pradr?.addr?.stcd ?? "";
+      });
       setUserData();
       if (await TGNetUtil.isInternetAvailable()) {
         getUserLoanDetails();
@@ -1232,8 +1132,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
       setState(() {
         isLoadData = true;
       });
-      LoaderUtils.handleErrorResponse(
-          context, response?.getGstBasicDetailsRes().status, response?.getGstBasicDetailsRes().message, null);
+      LoaderUtils.handleErrorResponse(context, response?.getGstBasicDetailsRes().status, response?.getGstBasicDetailsRes().message, null);
     }
   }
 
@@ -1247,10 +1146,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
   Future<void> getUserLoanDetails() async {
     TGGetRequest tgGetRequest = GetLoanDetailByRefIdReq(gstin: gstin);
     TGLog.d("get all laon deat${tgGetRequest.toString()}");
-    ServiceManager.getInstance().getAllLoanDetailByRefId(
-        request: tgGetRequest,
-        onSuccess: (response) => _onSuccessGetAllLoanDetailByRefId(response),
-        onError: (error) => _onErrorGetAllLoanDetailByRefId(error));
+    ServiceManager.getInstance().getAllLoanDetailByRefId(request: tgGetRequest, onSuccess: (response) => _onSuccessGetAllLoanDetailByRefId(response), onError: (error) => _onErrorGetAllLoanDetailByRefId(error));
   }
 
   _onSuccessGetAllLoanDetailByRefId(GetAllLoanDetailByRefIdResponse? response) async {
@@ -1261,11 +1157,9 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
         if (_getAllLoanDetailRes?.data?[0].currentApplicationStage != STAGE_DISBURSEMENT_STATUS) {
           isOngoingJounery = true;
         }
-        pendingLoan =
-            _getAllLoanDetailRes?.data?.where((i) => i.currentApplicationStage == STAGE_DISBURSEMENT_STATUS).toList();
+        pendingLoan = _getAllLoanDetailRes?.data?.where((i) => i.currentApplicationStage == STAGE_DISBURSEMENT_STATUS).toList();
 
-        ongoingLoan =
-            _getAllLoanDetailRes?.data?.where((i) => i.currentApplicationStage != STAGE_DISBURSEMENT_STATUS).toList();
+        ongoingLoan = _getAllLoanDetailRes?.data?.where((i) => i.currentApplicationStage != STAGE_DISBURSEMENT_STATUS).toList();
       } else {
         isOngoingJounery = false;
       }
@@ -1283,8 +1177,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
       setState(() {
         isLoadData = true;
       });
-      LoaderUtils.handleErrorResponse(
-          context, response?.getAllLoanDetailObj().status, response?.getAllLoanDetailObj().message, null);
+      LoaderUtils.handleErrorResponse(context, response?.getAllLoanDetailObj().status, response?.getAllLoanDetailObj().message, null);
     }
   }
 
@@ -1297,10 +1190,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
 
   Future<void> getRecentTransactionDetail() async {
     TGGetRequest tgGetRequest = GetRecentTransactionRequest();
-    ServiceManager.getInstance().getRecentTransaction(
-        request: tgGetRequest,
-        onSuccess: (response) => _onSuccessGetRecentTransaction(response),
-        onError: (error) => _onErrorGetRecentTransaction(error));
+    ServiceManager.getInstance().getRecentTransaction(request: tgGetRequest, onSuccess: (response) => _onSuccessGetRecentTransaction(response), onError: (error) => _onErrorGetRecentTransaction(error));
   }
 
   _onSuccessGetRecentTransaction(GetRecentTransactiobResponse? response) {
@@ -1324,8 +1214,7 @@ class _DashboardWithGstState extends State<DashboardWithGst> with SingleTickerPr
       setState(() {
         isLoadData = true;
       });
-      LoaderUtils.handleErrorResponse(
-          context, response?.getRecentTransactionResObj().status, response?.getRecentTransactionResObj().message, null);
+      LoaderUtils.handleErrorResponse(context, response?.getRecentTransactionResObj().status, response?.getRecentTransactionResObj().message, null);
     }
   }
 
@@ -1412,10 +1301,7 @@ class MyDrawer extends StatelessWidget {
             child: DrawerHeader(
               decoration: BoxDecoration(
                   //  color: Colors.blue,
-                  gradient: LinearGradient(
-                      colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight)),
+                  gradient: LinearGradient(colors: [MyColors.lightRedGradient, MyColors.lightBlueGradient], begin: Alignment.centerLeft, end: Alignment.centerRight)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -1426,8 +1312,7 @@ class MyDrawer extends StatelessWidget {
                     width: 35.w,
                   ),
                   SizedBox(width: 15.w),
-                  Text(userName,
-                      style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(color: MyColors.white)),
+                  Text(userName, style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(color: MyColors.white)),
                   const Spacer(),
                   GestureDetector(
                     onTap: () {
@@ -1460,8 +1345,7 @@ class MyDrawer extends StatelessWidget {
                 Scaffold.of(context).closeDrawer();
               } else {
                 Navigator.of(context).pop();
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (BuildContext context) => const DashboardWithGST()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => const DashboardWithGST()));
               }
             },
           ),
@@ -1479,8 +1363,7 @@ class MyDrawer extends StatelessWidget {
               } else {
                 TGSession.getInstance().set("TabIndex", 0);
                 Navigator.of(context).pop();
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (BuildContext context) => const TransactionsMain()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => const TransactionsMain()));
               }
             },
           ),
@@ -1497,8 +1380,7 @@ class MyDrawer extends StatelessWidget {
                 Scaffold.of(context).closeDrawer();
               } else {
                 Navigator.of(context).pop();
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (BuildContext context) => const NewProfileView()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => const NewProfileView()));
               }
             },
           ),

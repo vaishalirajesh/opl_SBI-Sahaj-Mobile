@@ -13,10 +13,12 @@ import 'package:gstmobileservices/model/requestmodel/get_all_loan_detail_by_refi
 import 'package:gstmobileservices/model/requestmodel/get_email_otp_request.dart';
 import 'package:gstmobileservices/model/requestmodel/get_gst_basic_details_request.dart';
 import 'package:gstmobileservices/model/requestmodel/get_user_basic_detail_request.dart';
+import 'package:gstmobileservices/model/requestmodel/update_user_basic_deatil_request.dart';
 import 'package:gstmobileservices/model/responsemodel/get_all_loan_detail_by_refid_response.dart';
 import 'package:gstmobileservices/model/responsemodel/get_email_otp_response.dart';
 import 'package:gstmobileservices/model/responsemodel/get_gst_basic_details_response.dart';
 import 'package:gstmobileservices/model/responsemodel/get_user_basic_detail_response.dart';
+import 'package:gstmobileservices/model/responsemodel/update_user_basic_deatil_response.dart';
 import 'package:gstmobileservices/service/request/tg_get_request.dart';
 import 'package:gstmobileservices/service/request/tg_post_request.dart';
 import 'package:gstmobileservices/service/requtilization.dart';
@@ -29,6 +31,7 @@ import 'package:gstmobileservices/util/erros_handle_util.dart';
 import 'package:gstmobileservices/util/jumpingdot_util.dart';
 import 'package:gstmobileservices/util/showcustomesnackbar.dart';
 import 'package:gstmobileservices/util/tg_net_util.dart';
+import 'package:intl/intl.dart';
 import 'package:sbi_sahay_1_0/loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/confirm_details/confirm_details.dart';
 import 'package:sbi_sahay_1_0/registration/mobile/dashboardwithoutgst/mobile/dashboardwithoutgst.dart';
@@ -48,6 +51,7 @@ import 'package:sbi_sahay_1_0/welcome/ntbwelcome/mobileui/enablegstapintb.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 import 'package:sbi_sahay_1_0/widgets/info_loader.dart';
 
+import '../../../utils/colorutils/hexcolor.dart';
 import '../../../utils/constants/constant.dart';
 import '../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
 
@@ -94,8 +98,16 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   bool hideMobile = true;
   bool isEmailAlreadyVerified = false;
   String? gstin;
-  String pattern =
-      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+  String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+  var branchcontroller = TextEditingController();
+
+  var firstNameController = TextEditingController();
+
+  var lastNameController = TextEditingController();
+
+  var pincodeController = TextEditingController();
+
+  var cityController = TextEditingController();
 
   @override
   void initState() {
@@ -186,32 +198,23 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             ),
             Text(
               'First Name',
-              style: ThemeHelper.getInstance()
-                  ?.textTheme
-                  .headline3
-                  ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+              style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
             ),
-            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.firtName ?? '', label: ""),
+            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.firtName ?? '', label: "", controller: firstNameController),
             SizedBox(
               height: 20.h,
             ),
             Text(
               'Last Name',
-              style: ThemeHelper.getInstance()
-                  ?.textTheme
-                  .headline3
-                  ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+              style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
             ),
-            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.lastName ?? '', label: ""),
+            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.lastName ?? '', label: "", controller: lastNameController),
             SizedBox(
               height: 20.h,
             ),
             Text(
               'Gender',
-              style: ThemeHelper.getInstance()
-                  ?.textTheme
-                  .headline3
-                  ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+              style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
             ),
             SizedBox(
               height: 35.h,
@@ -221,11 +224,16 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               height: 20.h,
             ),
             Text(
+              'Date Of Birth',
+              style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+            ),
+            SizedBox(height: 35.h, child: DobWidget()),
+            SizedBox(
+              height: 20.h,
+            ),
+            Text(
               'Contact Number',
-              style: ThemeHelper.getInstance()
-                  ?.textTheme
-                  .headline3
-                  ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+              style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
             ),
             SizedBox(
               height: 35.h,
@@ -236,10 +244,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             ),
             Text(
               'Email ID',
-              style: ThemeHelper.getInstance()
-                  ?.textTheme
-                  .headline3
-                  ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+              style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
             ),
             SizedBox(
               height: 35.h,
@@ -291,34 +296,28 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             ),
             Text(
               'PIN Code of Current Residential Address',
-              style: ThemeHelper.getInstance()
-                  ?.textTheme
-                  .headline3
-                  ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+              style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
             ),
-            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.pinCode ?? '', label: ""),
+            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.pinCode ?? '', label: "", controller: pincodeController),
             SizedBox(
               height: 20.h,
             ),
             Text(
               'City',
-              style: ThemeHelper.getInstance()
-                  ?.textTheme
-                  .headline3
-                  ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+              style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
             ),
-            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.city ?? '', label: ""),
+            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.city ?? '', label: "", controller: cityController),
             SizedBox(
               height: 20.h,
             ),
             Text(
               'Your Preferred Branch',
-              style: ThemeHelper.getInstance()
-                  ?.textTheme
-                  .headline3
-                  ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+              style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(
+                    fontSize: 12.sp,
+                    color: MyColors.lightGraySmallText,
+                  ),
             ),
-            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.branch ?? '', label: ""),
+            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.branch ?? '', label: "", controller: branchcontroller),
             SizedBox(
               height: 20.h,
             ),
@@ -328,21 +327,18 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
     );
   }
 
-  Widget TextFieldUI({required String label, String initialValue = ""}) {
+  Widget TextFieldUI({required String? initialValue, required String label, required TextEditingController controller}) {
     return SizedBox(
       height: 35.h,
       child: TextFormField(
           onChanged: (content) {},
-          enabled: false,
-          initialValue: initialValue,
+          enabled: (initialValue == null || initialValue.isEmpty) ? true : false,
           cursorColor: Colors.grey,
+          controller: controller,
           decoration: InputDecoration(
               labelText: label,
               floatingLabelBehavior: FloatingLabelBehavior.never,
-              labelStyle: ThemeHelper.getInstance()
-                  ?.textTheme
-                  .headline3
-                  ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+              labelStyle: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
               enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
               focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor))),
           keyboardType: TextInputType.text,
@@ -380,7 +376,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
     if (isCheck && isEmailVerified) {
       isLoaderStart = true;
       setState(() {});
-      getGstBasicDetail();
+      updateUserBasicDetail();
     }
   }
 
@@ -393,46 +389,35 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
       },
       child: Padding(
           padding: EdgeInsets.only(top: 21.0.h),
-          child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 20.w,
-                  height: 20.h,
-                  child: Theme(
-                    data: ThemeData(useMaterial3: true),
-                    child: Checkbox(
-                      checkColor: ThemeHelper.getInstance()!.backgroundColor,
-                      activeColor: ThemeHelper.getInstance()!.primaryColor,
-                      value: isCheck,
-                      onChanged: (bool) {
-                        setState(() {
-                          isCheck = bool!;
-                        });
-                      },
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(2.r))),
-                      side: BorderSide(
-                          width: 1,
-                          color: isCheck
-                              ? ThemeHelper.getInstance()!.primaryColor
-                              : ThemeHelper.getInstance()!.primaryColor),
-                    ),
-                  ),
+          child: Row(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+            SizedBox(
+              width: 20.w,
+              height: 20.h,
+              child: Theme(
+                data: ThemeData(useMaterial3: true),
+                child: Checkbox(
+                  checkColor: ThemeHelper.getInstance()!.backgroundColor,
+                  activeColor: ThemeHelper.getInstance()!.primaryColor,
+                  value: isCheck,
+                  onChanged: (bool) {
+                    setState(() {
+                      isCheck = bool!;
+                    });
+                  },
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(2.r))),
+                  side: BorderSide(width: 1, color: isCheck ? ThemeHelper.getInstance()!.primaryColor : ThemeHelper.getInstance()!.primaryColor),
                 ),
-                SizedBox(width: 10.w),
-                Expanded(
-                  child: Text(
-                    "I hereby authorize State Bank of India and/or its representatives to call me, SMS me with reference to my loan application. This consent will supersede any registration for any Do Not Call (DNC) / National Do Not Call (NDNC).",
-                    style: ThemeHelper.getInstance()
-                        ?.textTheme
-                        .headline3
-                        ?.copyWith(fontSize: 14.sp, color: MyColors.lightBlackText),
-                    maxLines: 5,
-                  ),
-                ),
-              ])),
+              ),
+            ),
+            SizedBox(width: 10.w),
+            Expanded(
+              child: Text(
+                "I hereby authorize State Bank of India and/or its representatives to call me, SMS me with reference to my loan application. This consent will supersede any registration for any Do Not Call (DNC) / National Do Not Call (NDNC).",
+                style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 14.sp, color: MyColors.lightBlackText),
+                maxLines: 5,
+              ),
+            ),
+          ])),
     );
   }
 
@@ -479,8 +464,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   Widget buildEmailWidget() {
     return TextFormField(
         onChanged: (content) {
-          String pattern =
-              r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+          String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
           RegExp regex = RegExp(pattern);
           isValidEmail = regex.hasMatch(content);
           TGLog.d("Is Valid emial---------$isValidEmail");
@@ -500,10 +484,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         cursorColor: Colors.grey,
         decoration: InputDecoration(
           labelText: "",
-          labelStyle: ThemeHelper.getInstance()
-              ?.textTheme
-              .headline3
-              ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+          labelStyle: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
           enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
           focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
           // suffixIcon: IconButton(
@@ -552,10 +533,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         decoration: InputDecoration(
           labelText: "",
           floatingLabelBehavior: FloatingLabelBehavior.never,
-          labelStyle: ThemeHelper.getInstance()
-              ?.textTheme
-              .headline3
-              ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+          labelStyle: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
           enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
           focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
           suffixIcon: IconButton(
@@ -605,10 +583,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   Future<void> _getGstBasicDetails() async {
     await Future.delayed(const Duration(seconds: 2));
     TGGetRequest tgGetRequest = GetGstBasicDetailsRequest();
-    ServiceManager.getInstance().getGstBasicDetails(
-        request: tgGetRequest,
-        onSuccess: (response) => _onSuccessGetGstBasicDetails(response),
-        onError: (error) => _onErrorGetGstBasicDetails(error));
+    ServiceManager.getInstance().getGstBasicDetails(request: tgGetRequest, onSuccess: (response) => _onSuccessGetGstBasicDetails(response), onError: (error) => _onErrorGetGstBasicDetails(error));
   }
 
   _onSuccessGetGstBasicDetails(GetGstBasicDetailsResponse? response) async {
@@ -622,12 +597,10 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
           if (_basicdetailsResponse?.data?[0]?.gstin?.isNotEmpty == true) {
             gstin = _basicdetailsResponse!.data![0].gstin;
             if (_basicdetailsResponse!.data![0].gstin!.length >= 12) {
-              TGSharedPreferences.getInstance()
-                  .set(PREF_BUSINESSNAME, _basicdetailsResponse?.data?[0].gstBasicDetails?.tradeNam);
+              TGSharedPreferences.getInstance().set(PREF_BUSINESSNAME, _basicdetailsResponse?.data?[0].gstBasicDetails?.tradeNam);
               TGSharedPreferences.getInstance().set(PREF_GSTIN, _basicdetailsResponse?.data?[0].gstin);
               TGSharedPreferences.getInstance().set(PREF_USERNAME, _basicdetailsResponse?.data?[0].username.toString());
-              TGSharedPreferences.getInstance()
-                  .set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin?.substring(2, 12));
+              TGSharedPreferences.getInstance().set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin?.substring(2, 12));
             } else {
               TGSharedPreferences.getInstance().set(PREF_PANNO, _basicdetailsResponse?.data?[0].gstin);
             }
@@ -690,8 +663,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
       setState(() {
         isLoaderStart = false;
       });
-      LoaderUtils.handleErrorResponse(
-          context, response?.getGstBasicDetailsRes().status, response?.getGstBasicDetailsRes().message, null);
+      LoaderUtils.handleErrorResponse(context, response?.getGstBasicDetailsRes().status, response?.getGstBasicDetailsRes().message, null);
     }
   }
 
@@ -705,10 +677,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
 
   Future<void> _getUserLoanDetails() async {
     TGGetRequest tgGetRequest = GetLoanDetailByRefIdReq(gstin: gstin);
-    ServiceManager.getInstance().getAllLoanDetailByRefId(
-        request: tgGetRequest,
-        onSuccess: (response) => _onSuccessGetAllLoanDetailByRefId(response),
-        onError: (error) => _onErrorGetAllLoanDetailByRefId(error));
+    ServiceManager.getInstance().getAllLoanDetailByRefId(request: tgGetRequest, onSuccess: (response) => _onSuccessGetAllLoanDetailByRefId(response), onError: (error) => _onErrorGetAllLoanDetailByRefId(error));
   }
 
   _onSuccessGetAllLoanDetailByRefId(GetAllLoanDetailByRefIdResponse? response) {
@@ -748,8 +717,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
       setState(() {
         isLoaderStart = false;
       });
-      LoaderUtils.handleErrorResponse(
-          context, response?.getAllLoanDetailObj().status, response?.getAllLoanDetailObj().message, null);
+      LoaderUtils.handleErrorResponse(context, response?.getAllLoanDetailObj().status, response?.getAllLoanDetailObj().message, null);
     }
   }
 
@@ -773,10 +741,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
 
   Future<void> getUserBasicDetail() async {
     GetUserBasicDetailRequest getUserBasicDetailRequest = GetUserBasicDetailRequest();
-    ServiceManager.getInstance().getUserBasicDetail(
-        request: getUserBasicDetailRequest,
-        onSuccess: (response) => _onSuccessGetBasicDetailConsent(response),
-        onError: (errorResponse) => _onErrorgetUserBasicDetailConsent(errorResponse));
+    ServiceManager.getInstance().getUserBasicDetail(request: getUserBasicDetailRequest, onSuccess: (response) => _onSuccessGetBasicDetailConsent(response), onError: (errorResponse) => _onErrorgetUserBasicDetailConsent(errorResponse));
   }
 
   _onSuccessGetBasicDetailConsent(GetBasicDetailResponse response) {
@@ -788,18 +753,45 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
       RegExp regex = RegExp(pattern);
       isValidEmail = regex.hasMatch(userBasicDetailResponseMain?.data?.email ?? '');
       strUserName = userBasicDetailResponseMain?.data?.firtName ?? 'TestUser';
-      selectedGender = userBasicDetailResponseMain?.data?.gender ?? 'Male';
+      if (userBasicDetailResponseMain?.data?.gender != null) {
+        if (userBasicDetailResponseMain?.data?.gender?.toLowerCase() == "m" || userBasicDetailResponseMain?.data?.gender?.toLowerCase() == "male") {
+          selectedGender = "Male";
+        } else {
+          selectedGender = "Female";
+        }
+      } else {
+        selectedGender = "Male";
+      }
       if (userBasicDetailResponseMain?.data?.emailVerified == 1) {
         isEmailVerified = true;
         isEmailAlreadyVerified = true;
       }
+      firstNameController.text = userBasicDetailResponseMain?.data?.firtName ?? "";
+      lastNameController.text = userBasicDetailResponseMain?.data?.lastName ?? "";
+      pincodeController.text = userBasicDetailResponseMain?.data?.pinCode ?? "";
+      cityController.text = userBasicDetailResponseMain?.data?.city ?? "";
+      branchcontroller.text = userBasicDetailResponseMain?.data?.branch ?? "";
+
       TGSession.getInstance().set(SESSION_EMAIL, userBasicDetailResponseMain?.data?.email ?? '');
       TGSession.getInstance().set(SESSION_MOBILENUMBER, userBasicDetailResponseMain?.data?.email ?? strMobile);
       TGSession.getInstance().set(SESSION_USERNAME, userBasicDetailResponseMain?.data?.userName ?? 'TestUser');
       setState(() {});
+
+      setState(() {});
+      if (userBasicDetailResponseMain?.data?.dob?.isNotEmpty == true) {
+        var dateString = userBasicDetailResponseMain!.data!.dob;
+        DateFormat format = new DateFormat("dd-MM-yyyy");
+        var formattedDate = format.parse(dateString!);
+        String month = getmonth(formattedDate.month);
+        if (month.isNotEmpty && month.length > 4) {
+          month = month.substring(0, 3);
+        }
+        dobController.text = '${formattedDate.day} ${month} ${formattedDate.year}';
+        dob = '${formattedDate.day}-${formattedDate.month}-${formattedDate.year}';
+        setState(() {});
+      }
     } else {
-      LoaderUtils.handleErrorResponse(
-          context, response.getBasicDetailObj().status, response.getBasicDetailObj().message, null);
+      LoaderUtils.handleErrorResponse(context, response.getBasicDetailObj().status, response.getBasicDetailObj().message, null);
     }
     isUserDataLoaded = true;
     setState(() {});
@@ -827,10 +819,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
     var jsonReq = jsonEncode(getEmailOTP.toJson());
     TGLog.d("GST OTP Request : $jsonReq");
     TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_SBI_GET_EMAIL_OTP);
-    ServiceManager.getInstance().getEmailOtp(
-        request: tgPostRequest,
-        onSuccess: (response) => _onSuccessGetOTP(response),
-        onError: (errorResponse) => _onErrorGetOTP(errorResponse));
+    ServiceManager.getInstance().getEmailOtp(request: tgPostRequest, onSuccess: (response) => _onSuccessGetOTP(response), onError: (errorResponse) => _onErrorGetOTP(errorResponse));
   }
 
   _onSuccessGetOTP(GetEmailOtpRespose response) {
@@ -840,14 +829,142 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
       TGSession.getInstance().set(SESSION_OTPSESSIONKEY, getOtpResponse?.data);
       showSnackBar(context, "OTP send to your register email address");
     } else {
-      LoaderUtils.handleErrorResponse(
-          context, response.getOtpReponseObj().status, response.getOtpReponseObj().message, null);
+      LoaderUtils.handleErrorResponse(context, response.getOtpReponseObj().status, response.getOtpReponseObj().message, null);
     }
   }
 
   _onErrorGetOTP(TGResponse errorResponse) {
     TGLog.d("SaveConsent() : Error");
     handleServiceFailError(context, errorResponse.error);
+  }
+
+  TextEditingController dobController = TextEditingController(text: '');
+  String dob = '';
+  DateTime date = DateTime.now();
+
+  Future<void> updateUserBasicDetail() async {
+    UpdateUserDetailRequest updateUserDetailRequest = UpdateUserDetailRequest(
+      firstName: firstNameController.text,
+      lastName: lastNameController.text,
+      mobile: await TGSharedPreferences.getInstance().get(PREF_MOBILE),
+      userName: await TGSharedPreferences.getInstance().get(PREF_MOBILE),
+      dob: dob,
+      email: strEmail,
+      pinCode: pincodeController.text,
+      city: cityController.text,
+      branch: branchcontroller.text,
+      gender: selectedGender,
+    );
+    var jsonReq = jsonEncode(updateUserDetailRequest.toJson());
+    TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_SBI_UPDATE_USER_BASIC_DETAIL);
+    TGLog.d("Update user detail request--$jsonReq-");
+    ServiceManager.getInstance().updateUserBasicDetail(request: tgPostRequest, onSuccess: (response) => _onSuccessUpdateBasicDetails(response), onError: (errorResponse) => _onErrorUpdateBasicDetails(errorResponse));
+  }
+
+  _onSuccessUpdateBasicDetails(UpdateUserBasicDetailResponse response) async {
+    TGLog.d("updateUserBasicDetail() : Success---$response");
+    if (response.updateBasicDetailResponse().status == RES_SUCCESS) {
+      _getGstBasicDetails();
+    } else {
+      LoaderUtils.handleErrorResponse(context, response.updateBasicDetailResponse().status, response.updateBasicDetailResponse().message, null);
+    }
+    setState(() {});
+  }
+
+  _onErrorUpdateBasicDetails(TGResponse errorResponse) {
+    TGLog.d("updateUserBasicDetail() : Error");
+    setState(() {});
+    handleServiceFailError(context, errorResponse.error);
+  }
+
+  Future _selectDate() async {
+    DateTime currentDate = DateTime.now();
+    int firstDateYear = currentDate.year - 18;
+    DateTime? picked = await showDatePicker(
+        builder: (context, child) {
+          return Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: ColorScheme.light(
+                primary: MyColorsSBI.sbicolorPrimary, // header background color
+                onPrimary: Colors.white, // header text color
+                onSurface: MyColorsSBI.pnbDarkGreyTextColor, // body text color
+              ),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.red, // button text color
+                ),
+              ),
+            ),
+            child: child!,
+          );
+        },
+        context: context,
+        initialDate: DateTime(firstDateYear, currentDate.month, currentDate.day - 1),
+        firstDate: DateTime(1923),
+        lastDate: DateTime(firstDateYear, currentDate.month, currentDate.day - 1),
+        initialEntryMode: DatePickerEntryMode.calendarOnly,
+        initialDatePickerMode: DatePickerMode.day,
+        currentDate: DateTime.now());
+    if (picked != null) {
+      date = picked;
+      String month = getmonth(date.month);
+      if (month.isNotEmpty && month.length > 4) {
+        month = month.substring(0, 3);
+      }
+      dobController.text = '${date.day} ${month} ${date.year}';
+      dob = '${date.day}-${date.month}-${date.year}';
+      setState(() {});
+    }
+  }
+
+  String getmonth(int month) {
+    List<String> months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    return months[month - 1];
+  }
+
+  Widget DobWidget() {
+    return SizedBox(
+      height: 35.h,
+      child: TextFormField(
+          enabled: userBasicDetailResponseMain?.data?.dob?.isNotEmpty == true ? false : true,
+          controller: dobController,
+          onChanged: (content) {
+            setState(() {});
+          },
+          onTap: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+            _selectDate(); //
+          },
+          cursorColor: HexColor('#747474'),
+          decoration: InputDecoration(
+            floatingLabelBehavior: FloatingLabelBehavior.auto,
+            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: HexColor('#CECECE'))),
+            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: HexColor('#CECECE'))),
+            counterText: '',
+            suffixIcon: IconButton(
+              icon: Icon(
+                Icons.calendar_month_rounded,
+                color: MyColorsSBI.sbicolorPrimary,
+              ),
+              color: MyColors.pnbSecondarycolor,
+              onPressed: () {
+                FocusScope.of(context).requestFocus(FocusNode());
+                _selectDate();
+              },
+            ),
+          ),
+          keyboardType: TextInputType.datetime,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          maxLines: 1,
+          maxLength: 10,
+          style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 15.sp),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return "";
+            }
+            return null;
+          }),
+    );
   }
 }
 
@@ -883,10 +1000,7 @@ class EmailIdWidgetState extends State<EmailIdWidget> {
         cursorColor: Colors.grey,
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: ThemeHelper.getInstance()
-              ?.textTheme
-              .headline3
-              ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+          labelStyle: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
           enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
           focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
           suffixIcon: IconButton(
@@ -927,8 +1041,7 @@ class ContactNumberWidget extends StatefulWidget {
   String username;
   bool hideMobile;
 
-  ContactNumberWidget({Key? key, required this.label, required this.username, required this.hideMobile})
-      : super(key: key);
+  ContactNumberWidget({Key? key, required this.label, required this.username, required this.hideMobile}) : super(key: key);
 
   @override
   ContactNumberWidgetState createState() => ContactNumberWidgetState();
@@ -951,10 +1064,7 @@ class ContactNumberWidgetState extends State<ContactNumberWidget> {
         style: ThemeHelper.getInstance()?.textTheme.headline3,
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: ThemeHelper.getInstance()
-              ?.textTheme
-              .headline3
-              ?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+          labelStyle: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
           enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
           focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
           suffixIcon: IconButton(

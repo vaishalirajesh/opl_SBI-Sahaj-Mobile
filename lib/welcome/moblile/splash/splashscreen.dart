@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gstmobileservices/common/app_init.dart';
 import 'package:gstmobileservices/common/keys.dart';
 import 'package:gstmobileservices/common/tg_log.dart';
 import 'package:gstmobileservices/singleton/tg_shared_preferences.dart';
+import 'package:sbi_sahay_1_0/registration/mobile/welcome/welcome_screen.dart';
 
 import '../../../utils/Utils.dart';
 import '../../../utils/constants/imageconstant.dart';
@@ -101,6 +101,11 @@ class SplashState extends State<SplashScreen> {
     await initService();
     await TGSharedPreferences.getInstance().remove(PREF_ACCESS_TOKEN_SBI);
     await Future.delayed(Duration(seconds: 5));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => WelcomePage(),
+        ));
     TGLog.d("_init: End");
   }
 
