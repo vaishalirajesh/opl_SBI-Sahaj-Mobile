@@ -13,28 +13,16 @@ import '../../utils/helpers/themhelper.dart';
 Widget TitleBarView(BuildContext context) {
   return Padding(
     padding: EdgeInsets.symmetric(
-        vertical: MyDimension.setHeight(
-            context: context, largerScreen: 0.022, mediumlargeScreen: 0.022, tabletScreen: 0.022, mobileScreen: 0.022),
-        horizontal: MyDimension.setWidthScale(
-            context: context, largerScreen: 0.051, mediumlargeScreen: 0.051, tabletScreen: 0.051, mobileScreen: 0.051)),
+        vertical: MyDimension.setHeight(context: context, largerScreen: 0.022, mediumlargeScreen: 0.022, tabletScreen: 0.022, mobileScreen: 0.022),
+        horizontal: MyDimension.setWidthScale(context: context, largerScreen: 0.051, mediumlargeScreen: 0.051, tabletScreen: 0.051, mobileScreen: 0.051)),
     child: Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
             child: SvgPicture.asset(MOBILEBACKBTN,
-                height: MyDimension.setHeight(
-                    context: context,
-                    largerScreen: 0.016,
-                    mediumlargeScreen: 0.016,
-                    tabletScreen: 0.016,
-                    mobileScreen: 0.016),
-                width: MyDimension.setHeight(
-                    context: context,
-                    largerScreen: 0.036,
-                    mediumlargeScreen: 0.036,
-                    tabletScreen: 0.036,
-                    mobileScreen: 0.036)),
+                height: MyDimension.setHeight(context: context, largerScreen: 0.016, mediumlargeScreen: 0.016, tabletScreen: 0.016, mobileScreen: 0.016),
+                width: MyDimension.setHeight(context: context, largerScreen: 0.036, mediumlargeScreen: 0.036, tabletScreen: 0.036, mobileScreen: 0.036)),
             onTap: () {
               Navigator.pop(context);
             },
@@ -42,51 +30,19 @@ Widget TitleBarView(BuildContext context) {
           Row(
             children: [
               Padding(
-                padding: EdgeInsets.only(
-                    right: MyDimension.setWidthScale(
-                        context: context,
-                        largerScreen: 0.010,
-                        mediumlargeScreen: 0.010,
-                        tabletScreen: 0.010,
-                        mobileScreen: 0.010)),
+                padding: EdgeInsets.only(right: MyDimension.setWidthScale(context: context, largerScreen: 0.010, mediumlargeScreen: 0.010, tabletScreen: 0.010, mobileScreen: 0.010)),
                 child: SvgPicture.asset(
                   SMALLBANKLOGO,
-                  height: MyDimension.setHeight(
-                      context: context,
-                      largerScreen: 0.028,
-                      mediumlargeScreen: 0.028,
-                      tabletScreen: 0.028,
-                      mobileScreen: 0.028),
-                  width: MyDimension.setHeight(
-                      context: context,
-                      largerScreen: 0.028,
-                      mediumlargeScreen: 0.028,
-                      tabletScreen: 0.028,
-                      mobileScreen: 0.028),
+                  height: MyDimension.setHeight(context: context, largerScreen: 0.028, mediumlargeScreen: 0.028, tabletScreen: 0.028, mobileScreen: 0.028),
+                  width: MyDimension.setHeight(context: context, largerScreen: 0.028, mediumlargeScreen: 0.028, tabletScreen: 0.028, mobileScreen: 0.028),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(
-                    left: MyDimension.setWidthScale(
-                        context: context,
-                        largerScreen: 0.010,
-                        mediumlargeScreen: 0.010,
-                        tabletScreen: 0.010,
-                        mobileScreen: 0.010)),
+                padding: EdgeInsets.only(left: MyDimension.setWidthScale(context: context, largerScreen: 0.010, mediumlargeScreen: 0.010, tabletScreen: 0.010, mobileScreen: 0.010)),
                 child: SvgPicture.asset(
                   MOBILESAHAYLOGO,
-                  height: MyDimension.setHeight(
-                      context: context,
-                      largerScreen: 0.028,
-                      mediumlargeScreen: 0.028,
-                      tabletScreen: 0.028,
-                      mobileScreen: 0.028),
-                  width: MyDimension.setHeight(
-                      context: context,
-                      largerScreen: 0.028,
-                      mediumlargeScreen: 0.028,
-                      tabletScreen: 0.028,
-                      mobileScreen: 0.028),
+                  height: MyDimension.setHeight(context: context, largerScreen: 0.028, mediumlargeScreen: 0.028, tabletScreen: 0.028, mobileScreen: 0.028),
+                  width: MyDimension.setHeight(context: context, largerScreen: 0.028, mediumlargeScreen: 0.028, tabletScreen: 0.028, mobileScreen: 0.028),
                 ),
               ),
             ],
@@ -234,18 +190,12 @@ AppBar getAppBarWithStep(String step, String appBarTitle, double progress, {requ
     automaticallyImplyLeading: false,
     bottom: PreferredSize(
       preferredSize: Size(MyDimension.width, 3.h),
-      child: LinearProgressIndicator(
-          value: progress,
-          semanticsLabel: '',
-          minHeight: 3.h,
-          color: ThemeHelper.getInstance()?.colorScheme.primary,
-          backgroundColor: Colors.transparent),
+      child: LinearProgressIndicator(value: progress, semanticsLabel: '', minHeight: 3.h, color: ThemeHelper.getInstance()?.colorScheme.primary, backgroundColor: Colors.transparent),
     ),
   );
 }
 
-AppBar getAppBarWithStepDone(String step, String appBarTitle, double progress,
-    {required Function onClickAction, bool isRegistrationScreen = false}) {
+AppBar getAppBarWithStepDone(String step, String appBarTitle, double progress, {required Function onClickAction, bool isRegistrationScreen = false}) {
   return AppBar(
     title: Builder(builder: (context) {
       return Column(
@@ -309,18 +259,14 @@ AppBar getAppBarWithStepDone(String step, String appBarTitle, double progress,
     automaticallyImplyLeading: false,
     bottom: PreferredSize(
       preferredSize: Size(MyDimension.width, 3.h),
-      child: LinearProgressIndicator(
-          value: progress,
-          semanticsLabel: '',
-          minHeight: 3.h,
-          color: ThemeHelper.getInstance()?.colorScheme.primary,
-          backgroundColor: Colors.transparent),
+      child: LinearProgressIndicator(value: progress, semanticsLabel: '', minHeight: 3.h, color: ThemeHelper.getInstance()?.colorScheme.primary, backgroundColor: Colors.transparent),
     ),
   );
 }
 
 AppBar getAppBarMainDashboard(String step, String appBarTitle, double progress, {required Function onClickAction}) {
   return AppBar(
+    backgroundColor: Colors.white,
     title: Column(
       children: [
         Padding(
@@ -384,8 +330,7 @@ AppBar getAppBarMainDashboard(String step, String appBarTitle, double progress, 
   );
 }
 
-AppBar getAppBarMainDashboardWithBackButton(String step, String appBarTitle, double progress,
-    {required Function onClickAction, required Function onMenuClick}) {
+AppBar getAppBarMainDashboardWithBackButton(String step, String appBarTitle, double progress, {required Function onClickAction, required Function onMenuClick}) {
   return AppBar(
     title: Column(
       children: [

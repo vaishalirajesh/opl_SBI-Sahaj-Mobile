@@ -1,6 +1,6 @@
 import 'dart:convert';
+import 'dart:html' as html;
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -31,6 +31,7 @@ import 'package:sbi_sahay_1_0/utils/helpers/themhelper.dart';
 import 'package:sbi_sahay_1_0/utils/progressLoader.dart';
 import 'package:sbi_sahay_1_0/widgets/app_button.dart';
 import 'package:sbi_sahay_1_0/widgets/app_drawer.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webviewx/webviewx.dart';
 
 import '../../../../loanprocess/mobile/dashboardwithgst/mobile/dashboardwithgst.dart';
@@ -38,15 +39,14 @@ import '../../../../loanprocess/mobile/emailafterloanagreement/mobile/email_sent
 import '../../../../utils/colorutils/mycolors.dart';
 import '../../../../utils/constants/imageconstant.dart';
 import '../../../../utils/constants/prefrenceconstants.dart';
+import '../../../../utils/constants/stageconstants.dart';
 import '../../../../utils/constants/statusConstants.dart';
 import '../../../../utils/dimenutils/dimensutils.dart';
 import '../../../../utils/internetcheckdialog.dart';
 import '../../../../utils/jumpingdott.dart';
+import '../../../../utils/movestageutils.dart';
 import '../../../../utils/strings/strings.dart';
 import '../../../../widgets/titlebarmobile/titlebarwithoutstep.dart';
-import '../ui/launchURL/ddelaunchurlmain.dart'
-    if (dart.library.html) '../ui/launchURL/ddelaunchweb.dart'
-    if (dart.library.io) '../ui/launchURL/ddelaunchmobile.dart';
 
 class LoanAgreementMain extends StatelessWidget {
   @override
@@ -148,10 +148,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
               ),
               Text(
                 "Before we proceed for Digital Document Execution, please keep these handy:",
-                style: ThemeHelper.getInstance()
-                    ?.textTheme
-                    .headline4
-                    ?.copyWith(color: ThemeHelper.getInstance()?.indicatorColor),
+                style: ThemeHelper.getInstance()?.textTheme.headline4?.copyWith(color: ThemeHelper.getInstance()?.indicatorColor),
               ),
               SizedBox(
                 height: 18.h,
@@ -201,10 +198,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
             Expanded(
               child: Text(
                 " $text",
-                style: ThemeHelper.getInstance()!
-                    .textTheme
-                    .headline3!
-                    .copyWith(color: MyColors.lightBlackText, fontSize: 14.sp),
+                style: ThemeHelper.getInstance()!.textTheme.headline3!.copyWith(color: MyColors.lightBlackText, fontSize: 14.sp),
                 maxLines: 2,
               ),
             ),
@@ -238,8 +232,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
             Container(
                 height: 30.h,
                 width: 30.w,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: ThemeHelper.getInstance()?.colorScheme.secondaryContainer),
+                decoration: BoxDecoration(shape: BoxShape.circle, color: ThemeHelper.getInstance()?.colorScheme.secondaryContainer),
                 child: Center(
                     child: SvgPicture.asset(
                   AppUtils.path(SMALLBANKLOGO),
@@ -255,17 +248,13 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
               children: [
                 Text(
                   'State Bank of India',
-                  style: ThemeHelper.getInstance()?.textTheme.headline5?.copyWith(
-                      color: ThemeHelper.getInstance()?.indicatorColor,
-                      fontFamily: MyFont.Nunito_Sans_Bold,
-                      fontSize: 13.sp),
+                  style: ThemeHelper.getInstance()?.textTheme.headline5?.copyWith(color: ThemeHelper.getInstance()?.indicatorColor, fontFamily: MyFont.Nunito_Sans_Bold, fontSize: 13.sp),
                   maxLines: 3,
                 ),
                 Text(
                   "Account No XXXXXX7564",
                   // '$str_ac_no: ${_getLoanAgreementRes?.data?.accountDetailsDataModel?.accountNumber ?? "-"}',
-                  style: ThemeHelper.getInstance()?.textTheme.bodyText1?.copyWith(
-                      color: MyColors.PnbGrayTextColor, fontSize: 13.sp, fontFamily: MyFont.Nunito_Sans_Regular),
+                  style: ThemeHelper.getInstance()?.textTheme.bodyText1?.copyWith(color: MyColors.PnbGrayTextColor, fontSize: 13.sp, fontFamily: MyFont.Nunito_Sans_Regular),
                   maxLines: 3,
                 ),
               ],
@@ -317,15 +306,13 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
       child: Container(
         // height: MediaQuery.of(context).size.height * 0.50,
         width: MediaQuery.of(context).size.width,
-        decoration:
-            const BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(5.0))),
+        decoration: const BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(5.0))),
         child: WebViewX(
           javascriptMode: JavascriptMode.unrestricted,
           ignoreAllGestures: isShowDialog,
           key: const ValueKey('webviewx'),
           initialContent: utf8.decode(base64Decode(_getLoanAgreementRes?.data?.loanAgreementModel?.data ?? "")),
-          initialSourceType:
-              _getLoanAgreementRes?.data?.loanAgreementModel?.type == "HTML" ? SourceType.html : SourceType.url,
+          initialSourceType: _getLoanAgreementRes?.data?.loanAgreementModel?.type == "HTML" ? SourceType.html : SourceType.url,
           jsContent: const {
             EmbeddedJsContent(
                 webJs: "window.addEventListener('scroll', () => {"
@@ -406,8 +393,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
     late WebViewXController webviewController;
 
     return Container(
-        decoration:
-            const BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(5.0))),
+        decoration: const BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(5.0))),
         child: WebViewX(
           key: const ValueKey('webviewx'),
           initialContent: utf8.decode(base64Decode(_getLoanStatusRes?.data?.agreementRedirectionData ?? "")),
@@ -425,10 +411,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
           },
           onPageFinished: (src) => {
             debugPrint('The page has finished loading: $src\n'),
-            if (src.contains("Signed%20Successfully"))
-              {loanAggStatusApi(), TGLog.d("ON Loan agrreemnet successs-------")}
-            else
-              {TGLog.d("ON Loan agrreemnet error-------")}
+            if (src.contains("Signed%20Successfully")) {loanAggStatusApi(), TGLog.d("ON Loan agrreemnet successs-------")} else {TGLog.d("ON Loan agrreemnet error-------")}
           },
           onWebResourceError: (error) {
             setState(() {
@@ -442,8 +425,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
             ),
             EmbeddedJsContent(
               webJs: "function testPlatformSpecificMethod(msg) { TestDartCallback('Web callback says: ' + msg) }",
-              mobileJs:
-                  "function testPlatformSpecificMethod(msg) { TestDartCallback.postMessage('Mobile callback says: ' + msg) }",
+              mobileJs: "function testPlatformSpecificMethod(msg) { TestDartCallback.postMessage('Mobile callback says: ' + msg) }",
             ),
           },
           dartCallBacks: {
@@ -475,10 +457,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
     );
     var jsonReq = jsonEncode(getLoanAgreementRequest.toJson());
     TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_GET_LOAN_AGREEMENT);
-    ServiceManager.getInstance().getLoanAgreement(
-        request: tgPostRequest,
-        onSuccess: (response) => _onSuccessGetLoanAgreement(response),
-        onError: (error) => _onErrorGetLoanAgreement(error));
+    ServiceManager.getInstance().getLoanAgreement(request: tgPostRequest, onSuccess: (response) => _onSuccessGetLoanAgreement(response), onError: (error) => _onErrorGetLoanAgreement(error));
   }
 
   _onSuccessGetLoanAgreement(GetLoanAgreementResponse? response) {
@@ -497,8 +476,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
       setState(() {
         isAgreementLoaded = true;
       });
-      LoaderUtils.handleErrorResponse(
-          context, response?.getLoanAgreementResObj().status, response?.getLoanAgreementResObj().message, null);
+      LoaderUtils.handleErrorResponse(context, response?.getLoanAgreementResObj().status, response?.getLoanAgreementResObj().message, null);
     }
   }
 
@@ -520,10 +498,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
     );
     var jsonReq = jsonEncode(postLoanAgreementRequest.toJson());
     TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_LOAN_AGREEMENT_REQUEST);
-    ServiceManager.getInstance().postLoanAgreement(
-        request: tgPostRequest,
-        onSuccess: (response) => _onSuccessPostLoanAgreement(response),
-        onError: (error) => _onErrorPostLoanAgreement(error));
+    ServiceManager.getInstance().postLoanAgreement(request: tgPostRequest, onSuccess: (response) => _onSuccessPostLoanAgreement(response), onError: (error) => _onErrorPostLoanAgreement(error));
   }
 
   _onSuccessPostLoanAgreement(PostLoanAgreementResponse? response) {
@@ -535,8 +510,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
       setState(() {
         isAgreeLoaderStart = false;
       });
-      LoaderUtils.handleErrorResponse(context, response?.getPostLoanAgreementResObj()?.status,
-          response?.getPostLoanAgreementResObj()?.message ?? "", null);
+      LoaderUtils.handleErrorResponse(context, response?.getPostLoanAgreementResObj()?.status, response?.getPostLoanAgreementResObj()?.message ?? "", null);
     }
   }
 
@@ -560,28 +534,38 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
   Future<void> getLoanAppStatusAfterPostLoanAgreeReq() async {
     String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     String loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
-    GetLoanStatusRequest getLoanStatusRequest =
-        GetLoanStatusRequest(loanApplicationRefId: loanAppRefId, loanApplicationId: loanAppId);
+    GetLoanStatusRequest getLoanStatusRequest = GetLoanStatusRequest(loanApplicationRefId: loanAppRefId, loanApplicationId: loanAppId);
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
     TGPostRequest tgPostRequest = await getPayLoad(jsonReq, AppUtils.getManageLoanAppStatusParam('6'));
-    ServiceManager.getInstance().getLoanAppStatus(
-        request: tgPostRequest,
-        onSuccess: (response) => _onSuccessGetLoanAppStatus(response),
-        onError: (error) => _onErrorGetLoanAppStatus(error));
+    ServiceManager.getInstance().getLoanAppStatus(request: tgPostRequest, onSuccess: (response) => _onSuccessGetLoanAppStatus(response), onError: (error) => _onErrorGetLoanAppStatus(error));
   }
 
   _onSuccessGetLoanAppStatus(GetLoanStatusResponse? response) async {
     TGLog.d("LoanAppStatusResponsePostLoanAgreeReq : onSuccess()");
     _getLoanStatusRes = response?.getLoanStatusResObj();
     if (_getLoanStatusRes?.data?.stageStatus == "PROCEED") {
-      TGLog.d("Type :${_getLoanStatusRes!.data!.agreementType}");
-      String url = utf8.decode(base64Decode(_getLoanStatusRes?.data?.agreementRedirectionData ?? ""));
-      launchdde(url);
-      // this for internal app webview
-      if (!kIsWeb) {
+      if (_getLoanStatusRes?.data?.currentStage == STAGE_SIGN_AGGREEMENT || _getLoanStatusRes?.data?.currentStage == STAGE_SIGN_AGGREEMENT_STATUS) {
+        setState(() {
+          isAgreeLoaderStart = false;
+        });
+
+        String url = utf8.decode(base64Decode(_getLoanStatusRes?.data?.agreementRedirectionData ?? ""));
+        bool _validURL = Uri.parse(url).isAbsolute;
+        if (!_validURL) {
+          List<String> file_contents = [url];
+          html.Blob blob = html.Blob(file_contents, 'text/html');
+          url = html.Url.createObjectUrlFromBlob(blob);
+        }
+        await launchUrl(
+          Uri.parse(url),
+          mode: LaunchMode.externalApplication,
+          webOnlyWindowName: '_self',
+        );
         setState(() {
           isWebview = true;
         });
+      } else {
+        MoveStage.navigateNextStage(context, _getLoanStatusRes!.data!.currentStage!);
       }
     } else if (_getLoanStatusRes?.data?.stageStatus == "HOLD") {
       Future.delayed(const Duration(seconds: 10), () {
@@ -591,8 +575,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
       setState(() {
         isAgreeLoaderStart = false;
       });
-      LoaderUtils.handleErrorResponse(context, response?.getLoanStatusResObj().status,
-          response?.getLoanStatusResObj().message, response?.getLoanStatusResObj().data?.stageStatus);
+      LoaderUtils.handleErrorResponse(context, response?.getLoanStatusResObj().status, response?.getLoanStatusResObj().message, null);
     }
   }
 
@@ -608,14 +591,10 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
   Future<void> getLoanAppStatusAfterLoanAgreeWebview() async {
     String loanAppRefId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPREFID);
     String loanAppId = await TGSharedPreferences.getInstance().get(PREF_LOANAPPID);
-    GetLoanStatusRequest getLoanStatusRequest =
-        GetLoanStatusRequest(loanApplicationRefId: loanAppRefId, loanApplicationId: loanAppId);
+    GetLoanStatusRequest getLoanStatusRequest = GetLoanStatusRequest(loanApplicationRefId: loanAppRefId, loanApplicationId: loanAppId);
     var jsonReq = jsonEncode(getLoanStatusRequest.toJson());
     TGPostRequest tgPostRequest = await getPayLoad(jsonReq, AppUtils.getManageLoanAppStatusParam('6'));
-    ServiceManager.getInstance().getLoanAppStatus(
-        request: tgPostRequest,
-        onSuccess: (response) => _onSuccessGetLoanAppStatus1(response),
-        onError: (error) => _onErrorGetLoanAppStatus1(error));
+    ServiceManager.getInstance().getLoanAppStatus(request: tgPostRequest, onSuccess: (response) => _onSuccessGetLoanAppStatus1(response), onError: (error) => _onErrorGetLoanAppStatus1(error));
   }
 
   _onSuccessGetLoanAppStatus1(GetLoanStatusResponse? response) {
@@ -634,8 +613,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
         loanAppStatusAfterPostAgg();
       });
     } else {
-      LoaderUtils.handleErrorResponse(context, response?.getLoanStatusResObj().status,
-          response?.getLoanStatusResObj().message, response?.getLoanStatusResObj().data?.stageStatus);
+      LoaderUtils.handleErrorResponse(context, response?.getLoanStatusResObj().status, response?.getLoanStatusResObj().message, response?.getLoanStatusResObj().data?.stageStatus);
     }
   }
 
@@ -656,10 +634,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
     );
     var jsonReq = jsonEncode(postLoanAgreementStatusReq.toJson());
     TGPostRequest tgPostRequest = await getPayLoad(jsonReq, URI_POST_LOAN_AGREEMENT_STATUS);
-    ServiceManager.getInstance().postLoanAgreementStatus(
-        request: tgPostRequest,
-        onSuccess: (response) => _onSuccessLoanAgreementStatus(response),
-        onError: (error) => _onErrorLoanAgreementStatus(error));
+    ServiceManager.getInstance().postLoanAgreementStatus(request: tgPostRequest, onSuccess: (response) => _onSuccessLoanAgreementStatus(response), onError: (error) => _onErrorLoanAgreementStatus(error));
   }
 
   _onSuccessLoanAgreementStatus(LoanAgreementStatusResponse? response) {
@@ -667,8 +642,7 @@ class LoanAgreementMainBody extends State<LoanAgreementMains> {
     if (response?.getLoanAgreementResObj()?.status == RES_SUCCESS) {
       loanAggStatusAfterWebviewApi();
     } else {
-      LoaderUtils.handleErrorResponse(
-          context, response?.getLoanAgreementResObj().status, response?.getLoanAgreementResObj().message, null);
+      LoaderUtils.handleErrorResponse(context, response?.getLoanAgreementResObj().status, response?.getLoanAgreementResObj().message, null);
     }
   }
 

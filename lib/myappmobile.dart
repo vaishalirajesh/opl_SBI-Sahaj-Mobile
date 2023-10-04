@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gstmobileservices/common/app_constants.dart';
@@ -221,7 +223,13 @@ class RouteGenerator {
     return MaterialPageRoute(
       builder: (context) {
         if (route == MyRoutes.ddeResponse) {
-          return ESignCompletedMain();
+          if (queryParameters!.isNotEmpty) {
+            String decryptedresponse = utf8.decode(queryParameters!.values.first.toString().codeUnits);
+            print(utf8.decode(base64.decode(decryptedresponse)));
+            return ESignCompleted(queryParams: json.decode(utf8.decode(base64.decode(decryptedresponse))));
+          } else {
+            return ESignCompleted(queryParams: {});
+          }
         } else if (route == MyRoutes.AAWebViewCallBack) {
           return AaCompletedPage(str: queryParameters!);
         } else if (route == MyRoutes.autologin) {

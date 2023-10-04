@@ -67,6 +67,10 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
 
   bool isValidAccountNumber = false;
 
+  var ISFCCodeController = TextEditingController();
+
+  bool isValidISFCCode = false;
+
   //bool isLoaderStart = false;
 
   @override
@@ -226,7 +230,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
                     height: 30,
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -257,6 +261,20 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
                         ),
                       ],
                     ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Enter ISFC Code',
+                          style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
+                        ),
+                        SizedBox(width: 10),
+                        EnterISFCCode(context),
+                      ],
+                    ),
                   )
                   //Container()
                 ],
@@ -279,10 +297,11 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
             child: AppButton(
               onPress: () {
+                LoaderUtils.showLoaderwithmsg(context, msg: "Processing");
                 setDisbursedAcc();
               },
               title: str_proceed,
-              isButtonEnable: isValidAccountNumber,
+              isButtonEnable: isValidAccountNumber && isValidISFCCode,
             ),
           );
   }
@@ -524,6 +543,30 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
     } else {
       showSnackBarForintenetConnection(context, getLoanAppStatusAfterSetDisburseAcc);
     }
+  }
+
+  Widget EnterISFCCode(BuildContext context) {
+    return Container(
+        height: 70,
+        child: TextFormField(
+          controller: ISFCCodeController,
+          onChanged: (content) {
+            if (selected.data!.accountIFSC!.lastChars(4) == content.lastChars(4)) {
+              isValidISFCCode = true;
+              setState(() {});
+            } else {
+              isValidISFCCode = false;
+              setState(() {});
+            }
+          },
+          decoration: InputDecoration(
+              floatingLabelBehavior: FloatingLabelBehavior.never,
+              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor)),
+              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: MyColors.lightGreyDividerColor))),
+          keyboardType: TextInputType.text,
+          maxLines: 1,
+          style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 15.sp),
+        ));
   }
 }
 

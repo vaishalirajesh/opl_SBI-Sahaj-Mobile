@@ -101,7 +101,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
   var branchcontroller = TextEditingController();
 
-  var firstNameController = TextEditingController();
+  var entityController = TextEditingController();
 
   var lastNameController = TextEditingController();
 
@@ -197,18 +197,10 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               height: 20.h,
             ),
             Text(
-              'First Name',
+              'Entity Name',
               style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
             ),
-            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.firtName ?? '', label: "", controller: firstNameController),
-            SizedBox(
-              height: 20.h,
-            ),
-            Text(
-              'Last Name',
-              style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
-            ),
-            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.lastName ?? '', label: "", controller: lastNameController),
+            TextFieldUI(initialValue: userBasicDetailResponseMain?.data?.firtName ?? '', label: "", controller: entityController),
             SizedBox(
               height: 20.h,
             ),
@@ -766,7 +758,13 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         isEmailVerified = true;
         isEmailAlreadyVerified = true;
       }
-      firstNameController.text = userBasicDetailResponseMain?.data?.firtName ?? "";
+      String entity = userBasicDetailResponseMain?.data?.entityName ?? '';
+      if (entity.isEmpty) {
+        entityController.text = userBasicDetailResponseMain?.data?.firtName ?? "";
+      } else {
+        entityController.text = userBasicDetailResponseMain?.data?.entityName ?? "";
+      }
+
       lastNameController.text = userBasicDetailResponseMain?.data?.lastName ?? "";
       pincodeController.text = userBasicDetailResponseMain?.data?.pinCode ?? "";
       cityController.text = userBasicDetailResponseMain?.data?.city ?? "";
@@ -844,7 +842,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
 
   Future<void> updateUserBasicDetail() async {
     UpdateUserDetailRequest updateUserDetailRequest = UpdateUserDetailRequest(
-      firstName: firstNameController.text,
+      firstName: entityController.text,
       lastName: lastNameController.text,
       mobile: await TGSharedPreferences.getInstance().get(PREF_MOBILE),
       userName: await TGSharedPreferences.getInstance().get(PREF_MOBILE),
