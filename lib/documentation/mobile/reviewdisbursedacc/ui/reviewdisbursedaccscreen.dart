@@ -268,7 +268,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Enter ISFC Code',
+                          'IFSC',
                           style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
                         ),
                         SizedBox(width: 10),

@@ -119,7 +119,7 @@ const str_proceed = 'Proceed';
 
 //loan deposite
 const str_enter_acc_no = 'Enter Current A/c No';
-const str_IFSC_Code = 'IFSC Code';
+const str_IFSC_Code = 'IFSC';
 
 //Loan Agreement
 const str_loan_agreement = 'Loan Agreement';
