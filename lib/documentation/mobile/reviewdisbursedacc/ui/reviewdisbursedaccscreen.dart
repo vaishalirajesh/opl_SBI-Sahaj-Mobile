@@ -110,19 +110,20 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
     return Scaffold(
       key: _scaffoldKey,
       drawer: const AppDrawer(),
-      appBar: getAppBarMainDashboardWithBackButton('3', str_documentation, 0.75,
-          onClickAction: () => {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => DashboardWithGST(),
-                  ),
-                  (route) => false, //if you want to disable back feature set to false
-                )
-              },
-          onMenuClick: () {
-            _scaffoldKey.currentState?.openDrawer();
-          }),
+      appBar: getAppBarWithStepDone(
+        '3',
+        str_documentation,
+        0.75,
+        onClickAction: () => {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => DashboardWithGST(),
+            ),
+            (route) => false, //if you want to disable back feature set to false
+          )
+        },
+      ),
       body: Column(
         children: [
           Container(
