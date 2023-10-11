@@ -39,6 +39,7 @@ import '../../../../utils/jumpingdott.dart';
 import '../../../../utils/movestageutils.dart';
 import '../../../../utils/progressLoader.dart';
 import '../../../../widgets/app_button.dart';
+import '../../../../widgets/app_drawer.dart';
 
 class ReviewDisbursedAccMain extends StatelessWidget {
   @override
@@ -103,9 +104,13 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
         child: bodyScaffold(context));
   }
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   Widget bodyScaffold(BuildContext context) {
     return Scaffold(
-      appBar: getAppBarWithStep('3', str_documentation, 0.75,
+      key: _scaffoldKey,
+      drawer: const AppDrawer(),
+      appBar: getAppBarMainDashboardWithBackButton('3', str_documentation, 0.75,
           onClickAction: () => {
                 Navigator.pushAndRemoveUntil(
                   context,
@@ -114,7 +119,10 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
                   ),
                   (route) => false, //if you want to disable back feature set to false
                 )
-              }),
+              },
+          onMenuClick: () {
+            _scaffoldKey.currentState?.openDrawer();
+          }),
       body: Column(
         children: [
           Container(
@@ -235,7 +243,7 @@ class ReviewDisbursedAccMainBody extends State<ReviewDisbursedAccMains> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Enter Account Number',
+                          'Enter Current Account Number',
                           style: ThemeHelper.getInstance()?.textTheme.headline3?.copyWith(fontSize: 12.sp, color: MyColors.lightGraySmallText),
                         ),
                         SizedBox(width: 10),

@@ -110,7 +110,7 @@ const str_lsp_detail_tooltip = 'Authorized to approach the borrower';
 const str_grievance_contact = 'Contact details for Nodal Grievance Redressal Officer';
 
 //Review Loan Deposite Acc
-const str_review_loan_deposite_acc = 'Review Loan Deposit A/c';
+const str_review_loan_deposite_acc = 'Select Loan Deposit A/c';
 const str_review_acc_txt_one = 'Enter the complete current account number, which was fetched through Account Aggregator. The loan would be disbursed in this account.';
 const str_review_acc_txt_two = 'Please note the same account will be used for creating E-Mandate to auto-debit repayment.';
 const str_ac_no = 'A/c No';
